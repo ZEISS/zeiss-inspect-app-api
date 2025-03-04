@@ -34,7 +34,7 @@ jobs:
           echo "Reviewers: ${CURR_REVIEWERS}"
           echo "curr_reviewers=${CURR_REVIEWERS}" >> $GITHUB_OUTPUT
       - name: Create Pull Request
-        uses: devops-infra/action-pull-request@v0.5.5
+        uses: devops-infra/action-pull-request@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           #source_branch: apidoc-update-main
