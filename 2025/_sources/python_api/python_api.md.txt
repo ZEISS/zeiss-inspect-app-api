@@ -35,11 +35,11 @@ This class represents a single add-on. Properties of that add-on can be queried 
 
 ```{py:function} gom.api.addons.AddOn.exists(path: str): bool
 
-Check if the given file or directory exists in an add-on
+Check if the given file exists in an add-on
 :API version: 1
 :param path: File path as retrieved by 'gom.api.addons.AddOn.get_file_list ()'
 :type path: str
-:return: 'true' if a file or directory with that name exists in the add-on
+:return: 'true' if a file with that name exists in the add-on
 :rtype: bool
 ```
 
@@ -81,8 +81,10 @@ Return the list of files contained in the add-on
 :rtype: list
 ```
 
-This function returns the list of files and directories in an add-on. These path names can
-be used to read or write/modify add-on content.
+This function returns the list of files in an add-on. These path names can be used to
+read or write/modify add-on content. This is subject to the permission system, so the
+content of protected add-ons cannot be read at all and just the add-on a script originates
+from can be modified via this API.
 
 Please note that the list of files can only be obtained for add-ons which are currently not
 in edit mode ! An add-on in edit mode is unzipped and the `get_file ()` function will return
@@ -93,16 +95,19 @@ the standard file tools instead.
 
 ```
 for addon in gom.api.addons.get_installed_addons():
-  # Edited add-ons are file system based and must be accessed via file system functions
-  if addon.is_edited():
-    for root, dirs, files in os.walk(addon.get_file ()):
-      for file in files:
-        print(os.path.join(root, file))
+  # Protected add-ins cannot be read at all
+  if not addon.is_protected():
 
-  # Finished add-ons can be accessed via this function
-  else:
-    for file in addon.get_file_list():
-      print (file)
+    # Edit add-ons are file system based and must be accessed via file system functions
+    if addon.is_edited():
+      for root, dirs, files in os.walk(addon.get_file ()):
+        for file in files:
+          print(os.path.join(root, file))
+
+    # Finished add-ons can be accessed via this function
+    else:
+      for file in addon.get_file_list():
+        print (file)
 ```
 
 #### gom.api.addons.AddOn.get_id
@@ -317,71 +322,6 @@ installed in the running instance.
 for a in gom.api.addons.get_installed_addons ():
   print (a.get_id (), a.get_name ())
 ```
-
-## gom.api.dialog
-
-API for handling dialogs
-
-This API is used to create and execute script based dialogs. The dialogs are defined in a
-JSON based description format and can be executed server side in the native UI style.
-
-### gom.api.dialog.create
-
-```{py:function} gom.api.dialog.create(context: Any, url: str): Any
-
-Create modal dialog, but do not execute it yet
-:param context: Script execution context
-:type context: Any
-:param url: URL of the dialog definition (*.gdlg file)
-:type url: str
-:return: Dialog handle which can be used to set up the dialog before executing it
-:rtype: Any
-```
-
-This function creates a dialog. The dialog is passed in an abstract JSON description defining its layout.
-The dialog is created but not executed yet. The dialog can be executed later by calling the 'gom.api.dialog.show'
-function. The purpose of this function is to create a dialog in advance and allow the user setting it up before
-
-This function is part of the scripted contribution framework. It can be used in the scripts
-'dialog' functions to pop up user input dialogs, e.g. for creation commands. Passing of the
-contributions script context is mandatory for the function to work.
-
-### gom.api.dialog.execute
-
-```{py:function} gom.api.dialog.execute(context: Any, url: str): Any
-
-Create and execute a modal dialog
-:param context: Script execution context
-:type context: Any
-:param url: URL of the dialog definition (*.gdlg file)
-:type url: str
-:return: Dialog input field value map. The dictionary contains one entry per dialog widget with that widgets current value.
-:rtype: Any
-```
-
-This function creates and executes a dialog. The dialog is passed in an abstract JSON
-description and will be executed modal. The script will pause until the dialog is either
-confirmed or cancelled.
-
-This function is part of the scripted contribution framework. It can be used in the scripts
-'dialog' functions to pop up user input dialogs, e.g. for creation commands. Passing of the
-contributions script context is mandatory for the function to work.
-
-### gom.api.dialog.show
-
-```{py:function} gom.api.dialog.show(context: Any, dialog: Any): Any
-
-Show previously created and configured dialog
-:param context: Script execution context
-:type context: Any
-:param dialog: Handle of the previously created dialog
-:type dialog: Any
-:return: Dialog input field value map. The dictionary contains one entry per dialog widget with that widgets current value.
-:rtype: Any
-```
-
-This function shows and executes previously created an configured dialog. The combination of
-'create' and 'show' in effect is the same as calling 'execute' directly.
 
 ## gom.api.imaging
 
