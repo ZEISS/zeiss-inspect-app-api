@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Add-On Documentation'
+project = 'App Development Documentation'
 copyright = '2025, Carl Zeiss GOM Metrology GmbH'
 author = 'Carl Zeiss GOM Metrology GmbH'
 
@@ -35,7 +35,7 @@ suppress_warnings  = ['myst.header']
 
 # -- Options for sitemap -----------------------------------------------------
 # https://sphinx-sitemap.readthedocs.io/en/latest/getting-started.html
-html_baseurl = 'https://zeissiqs.github.io/zeiss-inspect-addon-api/2023/'
+html_baseurl = 'https://zeiss.github.io/zeiss-inspect-app-api/2023/'
 sitemap_url_scheme = "{link}"
 
 # -- Options for HTML output -------------------------------------------------
