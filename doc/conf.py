@@ -43,7 +43,6 @@ sitemap_url_scheme = "{link}"
 # Do not show "View page source" link on every page
 html_show_sourcelink = False
 
-#html_theme = 'alabaster'
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {
   # Toc options
