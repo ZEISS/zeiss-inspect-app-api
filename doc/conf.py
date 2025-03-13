@@ -35,7 +35,7 @@ suppress_warnings  = ['myst.header']
 
 # -- Options for sitemap -----------------------------------------------------
 # https://sphinx-sitemap.readthedocs.io/en/latest/getting-started.html
-html_baseurl = 'https://zeissiqs.github.io/zeiss-inspect-addon-api/main/'
+html_baseurl = 'https://zeiss.github.io/zeiss-inspect-app-api/main/'
 sitemap_url_scheme = "{link}"
 
 # -- Options for HTML output -------------------------------------------------
@@ -43,7 +43,6 @@ sitemap_url_scheme = "{link}"
 # Do not show "View page source" link on every page
 html_show_sourcelink = False
 
-#html_theme = 'alabaster'
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {
   # Toc options
