@@ -1196,7 +1196,7 @@ elements. Please see the scripted element documentation for details about the un
 
 API for handling scripted elements
 
-This API defines various functions for handling scripted elements (actuals, checks, nominal, diagrams, ...)
+This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, ...)
 It is used mostly internal by the scripted element framework.
 
 ### gom.api.scriptedelements.get_inspection_definition
@@ -1204,13 +1204,43 @@ It is used mostly internal by the scripted element framework.
 ```{py:function} gom.api.scriptedelements.get_inspection_definition(typename: str): Any
 
 Return information about the given scripted element type
-:param type_name: Type name of the check to query
-:return: Dictionary with relevant type information or and empty dictionary if the type is unknown
+:param type_name: Type name of the inspection to query
+:return: Dictionary with relevant type information or an empty dictionary if the type is unknown
 :rtype: Any
 ```
 
 This function queries in internal 'scalar registry' database for information about the
-check with the given type.
+inspection with the given type.
+
+### gom.api.scriptedelements.get_unit_definition
+
+```{py:function} gom.api.scriptedelements.get_unit_definition(typename: str): Any
+
+Return information about the given unit type
+:param name: Name of the unit type
+:return: Dictionary with relevant type information or an empty dictionary if the name does not refer to a unit class
+:rtype: Any
+```
+
+
+## gom.api.selection
+
+API for handling explorer selection
+
+This API defines functions for accessing and manipulating the current selection in the explorer.
+
+### gom.api.selection.get_selected_elements
+
+```{py:function} gom.api.selection.get_selected_elements(): Any
+
+Returns the list of currently selected elements in the explorer
+:return: List of selected elements
+:rtype: Any
+```
+
+This function returns the resolved list of single elements which are currently selected in the explorer. The
+selection mechanism as such is more complicated and selection of categories, groups, tags etc. is also possible.
+So the function is covering the very basic per element selection only.
 
 ## gom.api.services
 
@@ -1515,6 +1545,10 @@ gom.api.settings.set ('dialog.height', 480)
 
 API with testing and verification functions
 
+```{caution}
+This API is for internal debugging purposes ! Its content format may change arbitrarily !
+```
+
 This API provides various functions which can be of use when testing and developing
 API features.
 
@@ -1569,6 +1603,29 @@ be passed around the API.
 obj = gom.api.testing.generate_test_object('test1')
 ```
 
+### gom.api.testing.get_env
+
+```{py:function} gom.api.testing.get_env(name: str): str
+
+Return main process environment variable value
+:API version: 1
+:param name: Name of the environment variable to read
+:type name: str
+:return: Environment variable value
+:rtype: str
+```
+
+Return the value of the environment variable with the given name. If the variable does not
+exist, an empty string is returned. The function is used for testing of the environment variable
+sharing properties between ZEISS INSPECT and its python processes. Please use the native python
+functions for environment variable access instead.
+
+**Example:**
+
+```
+value = gom.api.testing.get_env('MY_ENVIRONMENT_VARIABLE')
+```
+
 ### gom.api.testing.reflect
 
 ```{py:function} gom.api.testing.reflect(content: Any): Any
@@ -1588,5 +1645,28 @@ back and forth will be performed.
 
 ```
 result = gom.api.testing.reflect ({'a': [1, 2, 3], 'b':('foo', 'bar')})
+```
+
+### gom.api.testing.set_env
+
+```{py:function} gom.api.testing.set_env(name: str, value: str): str
+
+Set main process environment variable value
+:API version: 1
+:param name: Name of the environment variable to set
+:type name: str
+:param value: New value of the environment variable
+:type value: str
+```
+
+Set the value of the environment variable with the given name. The function is used for
+testing of the environment variable sharing properties between ZEISS INSPECT and its
+python processes. Please use the native python functions for environment variable
+manipulation instead.
+
+**Example:**
+
+```
+gom.api.testing.set_env('MY_ENVIRONMENT_VARIABLE', 'some_value')
 ```
 
