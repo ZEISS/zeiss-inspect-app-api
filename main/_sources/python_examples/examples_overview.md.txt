@@ -389,6 +389,8 @@ myst:
 :Description:
     App template for running unit testing and generating a test coverage report
 
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/testing_apps/testing_apps.html)
 :Tags:
     <a href="#id38">![Static Badge](https://img.shields.io/badge/testing-blue)</a> 
 
