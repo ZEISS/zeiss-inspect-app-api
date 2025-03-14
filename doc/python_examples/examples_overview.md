@@ -43,7 +43,7 @@ myst:
     [zeiss_part_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/howtos/python_api_introduction/python_api_introduction.html#access-element-properties)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/python_api_introduction/python_api_introduction.html#access-element-properties)
 :Tags:
     <a href="#id10">![Static Badge](https://img.shields.io/badge/element--properties-blue)</a> <a href="#id9">![Static Badge](https://img.shields.io/badge/element--data-blue)</a> 
 
@@ -64,7 +64,7 @@ myst:
     [zeiss_part_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
 :Tags:
     <a href="#id24">![Static Badge](https://img.shields.io/badge/reference--points-blue)</a> <a href="#id18">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#id16">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
 
@@ -85,7 +85,7 @@ myst:
     [volume_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
 :Tags:
     <a href="#id9">![Static Badge](https://img.shields.io/badge/element--data-blue)</a> 
 
@@ -107,7 +107,7 @@ myst:
     This basic example shows how to use the dropdown widget and how to define items at script runtime.
 
 :References:
-    [HowTo](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/howtos/python_api_introduction/user_defined_dialogs.html#selection-list-widget)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/python_api_introduction/user_defined_dialogs.html#selection-list-widget)
 :Tags:
     <a href="#id6">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> <a href="#id32">![Static Badge](https://img.shields.io/badge/selection--list--widget-blue)</a> 
 
@@ -128,7 +128,7 @@ myst:
     [zeiss_part_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/howtos/python_api_introduction/user_defined_dialogs.html#selection-element-widget)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/python_api_introduction/user_defined_dialogs.html#selection-element-widget)
 :Tags:
     <a href="#id6">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> <a href="#id31">![Static Badge](https://img.shields.io/badge/selection--element--widget-blue)</a> 
 
@@ -146,7 +146,7 @@ myst:
     This basic example demonstrates how to use an event handler on a script dialog to set the unit to multiple widgets.
 
 :References:
-    [HowTo](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/howtos/python_api_introduction/user_defined_dialogs.html#unit-widget)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/python_api_introduction/user_defined_dialogs.html#unit-widget)
 :Tags:
     <a href="#id6">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> <a href="#id39">![Static Badge](https://img.shields.io/badge/unit--widget-blue)</a> 
 
@@ -164,7 +164,7 @@ myst:
     This example shows how to use a dialog event handler to turn on/off widget visibilities.
 
 :References:
-    [HowTo](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/howtos/python_api_introduction/user_defined_dialogs.html)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/python_api_introduction/user_defined_dialogs.html)
 :Tags:
     <a href="#id6">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> <a href="#id44">![Static Badge](https://img.shields.io/badge/widget--properties-blue)</a> 
 
@@ -306,7 +306,7 @@ myst:
     [zeiss_part_test_measurement](#example-projects)
 
 :References:
-    [API](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/python_api/python_api.html#gom-api-imaging)
+    [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/python_api.html#gom-api-imaging)
 :Tags:
     <a href="#id16">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> <a href="#id24">![Static Badge](https://img.shields.io/badge/reference--points-blue)</a> 
 
@@ -372,7 +372,7 @@ myst:
     Example App demonstrating usage of the settings API
 
 :References:
-    [API](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/python_api/python_api.html#gom-api-settings)
+    [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/python_api.html#gom-api-settings)
 :Tags:
     <a href="#id34">![Static Badge](https://img.shields.io/badge/settings-blue)</a> 
 
@@ -389,6 +389,8 @@ myst:
 :Description:
     App template for running unit testing and generating a test coverage report
 
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/testing_apps/testing_apps.html)
 :Tags:
     <a href="#id38">![Static Badge](https://img.shields.io/badge/testing-blue)</a> 
 
@@ -466,7 +468,7 @@ myst:
     Accessing an image as an App based resources
 
 :References:
-    [API](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/python_api/resource_api.html)
+    [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/resource_api.html)
 :Tags:
     <a href="#id25">![Static Badge](https://img.shields.io/badge/resources-blue)</a> <a href="#id14">![Static Badge](https://img.shields.io/badge/image--widget-blue)</a> 
 
@@ -484,7 +486,7 @@ myst:
     A simple example showing the usage of script resources.
 
 :References:
-    [HowTo](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/howtos/python_api_introduction/using_script_resources.html), [API](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/python_api/resource_api.html)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/python_api_introduction/using_script_resources.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/resource_api.html)
 :Tags:
     <a href="#id25">![Static Badge](https://img.shields.io/badge/resources-blue)</a> 
 
@@ -868,7 +870,7 @@ myst:
     Display geolocation using a scripted diagram
 
 :References:
-    [HowTo](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/howtos/using_scripted_diagrams/using_scripted_diagrams.html)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/using_scripted_diagrams/using_scripted_diagrams.html)
 :Tags:
     <a href="#id34">![Static Badge](https://img.shields.io/badge/settings-blue)</a> <a href="#id29">![Static Badge](https://img.shields.io/badge/scripted--diagrams-blue)</a> 
 
@@ -886,7 +888,7 @@ myst:
     Scripted diagram basics
 
 :References:
-    [HowTo](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/howtos/using_scripted_diagrams/using_scripted_diagrams.html)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/using_scripted_diagrams/using_scripted_diagrams.html)
 :Tags:
     <a href="#id34">![Static Badge](https://img.shields.io/badge/settings-blue)</a> <a href="#id29">![Static Badge](https://img.shields.io/badge/scripted--diagrams-blue)</a> 
 
@@ -1180,4 +1182,3 @@ myst:
 
 * [ZEISS IQS GitHub &mdash; App Development Documentation](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/index.html)
 * [ZEISS Quality Software Store](https://software-store.zeiss.com)
-
