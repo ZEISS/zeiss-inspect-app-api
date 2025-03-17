@@ -86,7 +86,7 @@ The context contains the following members:
 | <pre>.result[stage]</pre>             | Directly set preview                               | see below                                                      |
 | <pre>.is_new_element</pre>            | Flag if element creation                           | True on (edit) creation, false on recalc                       |
 | <pre>.name</pre>                      | Name of created element                            | Read/write attribute<br>Ignored on recalc and script execution |
-| <pre>.error[stage]</pre>              | Used to assign an error text                       | Will set the element to not computed\in the given stage        |
+| <pre>.error[stage]</pre>              | Used to assign an error text                       | Will set the element to not computed<br>in the given stage     |
 | <pre>.edit_element</pre>              | Reference to edited element                        | Only available during element editing                          |
 | <pre>.recalc_element</pre>            | Reference to element being computed                | Only available during non-interactive calculation              |
 | <pre>.progress_stages_computing</pre> | Number of stages which have started to compute     | Used to display progress information                           |
