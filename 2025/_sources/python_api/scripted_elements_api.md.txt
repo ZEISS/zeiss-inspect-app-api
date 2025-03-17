@@ -23,18 +23,18 @@ def dialog(context, params):
 
 The context contains the following members:
 
-| Name                       | Role                                               | Remarks                                                        |
-| -------------------------- | -------------------------------------------------- | -------------------------------------------------------------- |
-| <pre>.data</pre>           | UDE data storage access                            | see "calculate" Function                                       |
-| <pre>.stages</pre>         | Current stage                                      | List containing stage index of current stage                   |
-| <pre>.total_stages</pre>   |	Number of stages                                  | Valid stage indices are 0 to total_stages - 1                  |
-| <pre>.calc</pre>           | Function to calculate preview                      | See below                                                      |
-| <pre>.result</pre>         | Directly set preview                               | see "calculate" Function                                       |
-| <pre>.is_new_element</pre> | Flag if element creation                           | True on (edit) creation, false on recalc                       |
-| <pre>.name</pre>           | Name of created element                            | Read/write attribute<br>Ignored on recalc and script execution |
-| <pre>.error</pre>          | Last error text from preview calculation           | Empty if no error occurred                                     |
-| <pre>.edit_element</pre>   | Reference to edited element                        | Only available during element editing                          |
-| <pre>.recalc_element</pre> | Reference to element used in project recalculation |                                                                |
+| Name                       | Role                                                  | Remarks                                                        |
+| -------------------------- | ----------------------------------------------------- | -------------------------------------------------------------- |
+| <pre>.data</pre>           | UDE data storage access                               | see "calculate" Function                                       |
+| <pre>.stages</pre>         | Current stage                                         | List containing stage index of current stage                   |
+| <pre>.total_stages</pre>   |	Number of stages                                     | Valid stage indices are 0 to total_stages - 1                  |
+| <pre>.calc</pre>           | Function to calculate preview                         | See below                                                      |
+| <pre>.result</pre>         | Directly set preview                                  | see "calculate" Function                                       |
+| <pre>.is_new_element</pre> | Flag if element creation                              | True on (edit) creation, false on recalc                       |
+| <pre>.name</pre>           | Name of created element                               | Read/write attribute<br>Ignored on recalc and script execution |
+| <pre>.error</pre>          | Last error text from preview calculation              | Empty if no error occurred                                     |
+| <pre>.edit_element</pre>   | Reference to edited element                           | Only available during element editing                          |
+| <pre>.recalc_element</pre> | Reference to element used in<br>project recalculation |                                                                |
 
 #### Parameter `params`
 
