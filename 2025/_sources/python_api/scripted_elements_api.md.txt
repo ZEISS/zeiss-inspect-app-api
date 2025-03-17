@@ -1,3 +1,9 @@
+<style>
+    .row-odd.td.pre {
+        background-color: #ffffff;
+    }
+</style>
+
 # Scripted elements API
 
 This reference describes functions and data structures necessary for the implementation of "scripted elements".
