@@ -1,5 +1,5 @@
 <style>
-    .row-odd.td.pre {
+    tr.row-odd pre {
         background-color: #ffffff;
     }
 </style>
