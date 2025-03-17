@@ -1,3 +1,9 @@
+<style>
+    tr.row-odd pre {
+        background-color: #ffffff;
+    }
+</style>
+
 # Scripted elements API
 
 This reference describes functions and data structures necessary for the implementation of "scripted elements".
@@ -23,18 +29,18 @@ def dialog(context, params):
 
 The context contains the following members:
 
-| Name                       | Role                                               | Remarks                                                        |
-| -------------------------- | -------------------------------------------------- | -------------------------------------------------------------- |
-| <pre>.data</pre>           | UDE data storage access                            | see "calculate" Function                                       |
-| <pre>.stages</pre>         | Current stage                                      | List containing stage index of current stage                   |
-| <pre>.total_stages</pre>   |	Number of stages                                  | Valid stage indices are 0 to total_stages - 1                  |
-| <pre>.calc</pre>           | Function to calculate preview                      | See below                                                      |
-| <pre>.result</pre>         | Directly set preview                               | see "calculate" Function                                       |
-| <pre>.is_new_element</pre> | Flag if element creation                           | True on (edit) creation, false on recalc                       |
-| <pre>.name</pre>           | Name of created element                            | Read/write attribute<br>Ignored on recalc and script execution |
-| <pre>.error</pre>          | Last error text from preview calculation           | Empty if no error occurred                                     |
-| <pre>.edit_element</pre>   | Reference to edited element                        | Only available during element editing                          |
-| <pre>.recalc_element</pre> | Reference to element used in project recalculation |                                                                |
+| Name                       | Role                                                  | Remarks                                                        |
+| -------------------------- | ----------------------------------------------------- | -------------------------------------------------------------- |
+| <pre>.data</pre>           | UDE data storage access                               | see "calculate" Function                                       |
+| <pre>.stages</pre>         | Current stage                                         | List containing stage index of current stage                   |
+| <pre>.total_stages</pre>   |	Number of stages                                     | Valid stage indices are 0 to total_stages - 1                  |
+| <pre>.calc</pre>           | Function to calculate preview                         | See below                                                      |
+| <pre>.result</pre>         | Directly set preview                                  | see "calculate" Function                                       |
+| <pre>.is_new_element</pre> | Flag if element creation                              | True on (edit) creation, false on recalc                       |
+| <pre>.name</pre>           | Name of created element                               | Read/write attribute<br>Ignored on recalc and script execution |
+| <pre>.error</pre>          | Last error text from preview calculation              | Empty if no error occurred                                     |
+| <pre>.edit_element</pre>   | Reference to edited element                           | Only available during element editing                          |
+| <pre>.recalc_element</pre> | Reference to element used in<br>project recalculation |                                                                |
 
 #### Parameter `params`
 
@@ -86,7 +92,7 @@ The context contains the following members:
 | <pre>.result[stage]</pre>             | Directly set preview                               | see below                                                      |
 | <pre>.is_new_element</pre>            | Flag if element creation                           | True on (edit) creation, false on recalc                       |
 | <pre>.name</pre>                      | Name of created element                            | Read/write attribute<br>Ignored on recalc and script execution |
-| <pre>.error[stage]</pre>              | Used to assign an error text                       | Will set the element to not computed in the given stage        |
+| <pre>.error[stage]</pre>              | Used to assign an error text                       | Sets element to not computed in the given stage                |
 | <pre>.edit_element</pre>              | Reference to edited element                        | Only available during element editing                          |
 | <pre>.recalc_element</pre>            | Reference to element being computed                | Only available during non-interactive calculation              |
 | <pre>.progress_stages_computing</pre> | Number of stages which have started to compute     | Used to display progress information                           |
@@ -435,4 +441,3 @@ result = { "deviation_values" : np.array(dtype=np.float32), "reference" : gom.Re
 ```{code-block} python
 result = { "actual_values" : double, 'nominal_values': double, "reference" : gom.Reference}
 ```
-
