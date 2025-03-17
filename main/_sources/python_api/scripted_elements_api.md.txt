@@ -40,7 +40,7 @@ The context contains the following members:
 | <pre>.name</pre>           | Name of created element                               | Read/write attribute<br>Ignored on recalc and script execution |
 | <pre>.error</pre>          | Last error text from preview calculation              | Empty if no error occurred                                     |
 | <pre>.edit_element</pre>   | Reference to edited element                           | Only available during element editing                          |
-| <pre>.recalc_element</pre> | Reference to element used in<br>project recalculation |                                                                |
+| <pre>.recalc_element</pre> | Reference to element used in project<br>recalculation |                                                                |
 
 #### Parameter `params`
 
