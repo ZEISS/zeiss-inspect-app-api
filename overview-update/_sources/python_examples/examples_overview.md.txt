@@ -364,7 +364,7 @@ myst:
 
 <section id="settingsapi">
 <div id="settingsapi" class="example-block-even">
-<h3>SettingsAPI — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/SettingsAPI/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/settings-a-p-i">download</a>
+<h3>SettingsApi — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/SettingsAPI/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/settings-api">download</a>
 <a class="headerlink" href="#settingsapi" title="Link to this heading"></a></h3>
 
 
@@ -1115,7 +1115,7 @@ myst:
 
 * <a href="#osmmapdiagram">OSMMapDiagram</a>
 * <a href="#scripteddiagrambasics">ScriptedDiagramBasics</a>
-* <a href="#settingsapi">SettingsAPI</a>
+* <a href="#settingsapi">SettingsApi</a>
 
 
 ### <a name="sql-database"></a>![Static Badge](https://img.shields.io/badge/sql--database-blue)
