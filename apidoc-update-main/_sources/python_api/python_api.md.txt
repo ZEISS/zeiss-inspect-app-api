@@ -2566,8 +2566,7 @@ value = gom.api.testing.get_env('MY_ENVIRONMENT_VARIABLE')
 
 Send value to the API and return an echo
 :API version: 1
-:param content: The value to be reflected
-:type content: Any
+:param value: The value to be reflected
 :return: Reflected value
 :rtype: Any
 ```
