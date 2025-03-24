@@ -191,8 +191,8 @@ Most elements of the script `.metainfo` file are available via the 'Edit Propert
 
 ### Examples
 
-* Basic script: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/2025/AppExamples/data_interfaces/CheckResultsDataArray/scripts/check_results_data_array.metainfo">AppExamples/data_interfaces/CheckResultsDataArray/scripts/check_results_data_array.metainfo</a>
-* Scripted actual element: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/2025/AppExamples/scripted_actuals/ScriptedActualPoint/scripts/OffsetPointSimple.metainfo">AppExamples/scripted_actuals/ScriptedActualPoint/scripts/OffsetPointSimple.metainfo</a>
+* Basic script: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/CheckResultsDataArray/scripts/check_results_data_array.metainfo">AppExamples/data_interfaces/CheckResultsDataArray/scripts/check_results_data_array.metainfo</a>
+* Scripted actual element: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_actuals/ScriptedActualPoint/scripts/OffsetPointSimple.metainfo">AppExamples/scripted_actuals/ScriptedActualPoint/scripts/OffsetPointSimple.metainfo</a>
 * Scripted check: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_checks/ScriptedCurveCheck/scripts/ScriptedCurveCheck.metainfo">AppExamples/scripted_checks/ScriptedCurveCheck/scripts/ScriptedCurveCheck.metainfo</a>
 
 ### JSON elements
