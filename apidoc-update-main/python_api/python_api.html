@@ -900,12 +900,12 @@ contributions script context is mandatory for the function to work.</p>
 <section id="gom-api-extensions">
 <h2>gom.api.extensions<a class="headerlink" href="#gom-api-extensions" title="Link to this heading"></a></h2>
 <p>API for script based functionality extensions</p>
-<p>This API enables to user to define various element classes which can be used to extend the functionality of
+<p>This API enables the user to define various element classes which can be used to extend the functionality of
 ZEISS INSPECT.</p>
 <section id="gom-api-extensions-scriptedelement">
 <h3>gom.api.extensions.ScriptedElement<a class="headerlink" href="#gom-api-extensions-scriptedelement" title="Link to this heading"></a></h3>
-<p>This class is used to defined a scripted element. A scripted element is a user defined
-element type where configuration and computation are happening entirely in a python script
+<p>This class is used to define a scripted element. A scripted element is a user defined
+element type where configuration and computation are happening entirely in a Python script,
 so user defined behavior and visualization can be implemented.</p>
 <p><strong>Element id</strong></p>
 <p>Every element must have a unique id. It is left to the implementor to avoid inter app conflicts here. The
@@ -913,7 +913,7 @@ id can be hierarchical like <code class="docutils literal notranslate"><span cla
 grouping dots and underscores.</p>
 <p><strong>Element category</strong></p>
 <p>The category of an element type is used to find the application side counterpart which cares for the
-functionality implementation. For example, <code class="docutils literal notranslate"><span class="pre">scriptedelement.actual</span></code> link that element type the application
+functionality implementation. For example, <code class="docutils literal notranslate"><span class="pre">scriptedelement.actual</span></code> links that element type the application
 counterpart which cares for scripted actual elements and handles its creation, editing, administration, …</p>
 <p><strong>Working with stages</strong></p>
 <p>Each scripted element must be computed for one or more stages. In the case of a preview or
@@ -924,13 +924,13 @@ simple for beginners, the scripted elements are using two computation functions:
 <li><p><code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code>:       Computes the result for one single stage only. If nothing else is implemented,
 this function will be called for each stage one by one and return the computed
 value for that stage only. The stage for which the computation is performed is
-passed via the functions script context, but does usually not matter as all input
-values are already associates with that single stage.</p></li>
+passed via the function’s script context, but does usually not matter as all input
+values are already associated with that single stage.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">compute_stages</span> <span class="pre">()</span></code>: Computes the results for many (all) stages at once. The value parameters are
-vectors of the same size always, one entry per stage. This is the case even if
+always vectors of the same size, one entry per stage. This is the case even if
 there is just one stage in the project. The result is expected to be a result
 vector of the same size as these stage vectors. The script context passed to that
-function will contain a list of stages of equal size matching the values stage
+function will contain a list of stages of equal size matching the value’s stage
 ordering.</p></li>
 </ul>
 <p>So for a project with stages, it is usually sufficient to just implement <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code>. For increased
@@ -938,7 +938,7 @@ performance or parallelization, <code class="docutils literal notranslate"><span
 <p><strong>Stage indexing</strong></p>
 <p>Stages are represented by an integer index. No item reference or other resolvable types like
 <code class="docutils literal notranslate"><span class="pre">gom.script.project[...].stages['Stage</span> <span class="pre">#1']</span></code> are used because it is assumed that reaching over stage borders into
-other stages data domain will lead to incorrect or missing dependencies. Instead, if vectorized data or data tensors
+other stages’ data domain will lead to incorrect or missing dependencies. Instead, if vectorized data or data tensors
 are fetched, the stage sorting within that object will match that stages vector in the context. In the best case, the
 stage vector is just a consecutive range of numbers <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">...)</span></code> which match the index in a staged tensor.
 Nevertheless, the vector can be number entirely different depending on active/inactive stages, stage sorting, …</p>
@@ -1081,6 +1081,7 @@ back into the dialog arguments. See function <code class="docutils literal notra
 associated dialog function are passed as <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> parameters - one value as one specific
 parameter named as the associated input widget.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>           the stage this computation call refers to.
+           in the dialog definition.
 </pre></div>
 </div>
 </section>
@@ -1103,6 +1104,7 @@ parameter named as the associated input widget.</p>
 associated dialog function are passed as <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> parameters - one value as one specific
 parameter named as the associated input widget.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>           the stage this computation call refers to.
+           in the dialog definition.
 </pre></div>
 </div>
 </section>
@@ -1168,11 +1170,11 @@ configure the element and to provide input values for the computation.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">version</span></code>: Version of the dialog structure. This is used to allow for future changes in the dialog
 structure without breaking existing scripts</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>:    Human readable name of the element which is created or edited</p></li>
-<li><p>‘ values’: A map of widget names and their initial values. The widget names are the keys and the values
+<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code>:  A map of widget names and their initial values. The widget names are the keys and the values
 are the initial or edited values for the widgets. This map is always present, but can be empty
-for newly created elements. The element names are matching these in the user defined dialog, so
+for newly created elements. The element names are matching those in the user defined dialog, so
 the values can be set accordingly. As a default, use the function <code class="docutils literal notranslate"><span class="pre">initialize_dialog</span> <span class="pre">(args)</span></code> to
-s  etup all widgets from the args values.</p></li>
+setup all widgets from the args values.</p></li>
 </ul>
 <p>The helper functions <code class="docutils literal notranslate"><span class="pre">initialize_dialog</span> <span class="pre">()</span></code> and <code class="docutils literal notranslate"><span class="pre">apply_dialog</span> <span class="pre">()</span></code> can be used to initialize the dialog directly.
 and read back the generated values. So a typical dialog function will look like this:</p>
@@ -1212,7 +1214,7 @@ creation, initialization and return the dialog values in the correct format in a
 </dl>
 </dd></dl>
 
-<p>Contribution event handling function. This function is called when the contribitions UI state changes.
+<p>Contribution event handling function. This function is called when the contributions UI state changes.
 The function can then react to that event and update the UI state accordingly.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    will then trigger a call to the `compute ()` function and use its result for a preview update.
     In the case of `False`, no recomputation is triggered and the preview remains unchanged.
@@ -1253,7 +1255,7 @@ and will convert the event parameter accordingly</p>
 
 <p>Initializes the dialog from the given arguments. This function is used to setup the dialog
 widgets from the given arguments. The arguments are a map of widget names and their values.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    Otherwise, the services log will show a warning about the missing values.
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    Otherwise, the service&#39;s log will show a warning about the missing values.
 </pre></div>
 </div>
 </section>
@@ -1264,7 +1266,7 @@ widgets from the given arguments. The arguments are a map of widget names and th
 <span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.is_visible(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘True’ if the element is visible in the menus.</p>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the element is visible in the menus.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -1301,11 +1303,11 @@ resulting values are then returned in the expected return format.</p>
 <h3>gom.api.extensions.actuals<a class="headerlink" href="#gom-api-extensions-actuals" title="Link to this heading"></a></h3>
 <p>Scripted actual elements</p>
 <p>The classes in this module are used to define scripted actual elements. These elements are used to generate
-actuals in the ZEISS INSPECT software and will enabled to user to create script defined element types.</p>
+actuals in the ZEISS INSPECT software and will enable the user to create script defined element types.</p>
 <section id="gom-api-extensions-actuals-circle">
 <h4>gom.api.extensions.actuals.Circle<a class="headerlink" href="#gom-api-extensions-actuals-circle" title="Link to this heading"></a></h4>
 <p>Scripted actual circle element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;center&quot;</span>   <span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Centerpoint</span> <span class="n">of</span> <span class="n">the</span> <span class="n">circle</span>
     <span class="s2">&quot;direction&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Direction</span><span class="o">/</span><span class="n">normal</span> <span class="n">of</span> <span class="n">the</span> <span class="n">circle</span>
@@ -1317,12 +1319,12 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-actuals-cone">
 <h4>gom.api.extensions.actuals.Cone<a class="headerlink" href="#gom-api-extensions-actuals-cone" title="Link to this heading"></a></h4>
 <p>Scripted actual cone element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;point1&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">First</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cone</span>
-    <span class="s2">&quot;radius1&quot;</span><span class="p">:</span> <span class="n">r1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                     <span class="o">//</span> <span class="n">Radius</span> <span class="n">of</span> <span class="n">the</span> <span class="n">first</span> <span class="n">point</span>
-    <span class="s2">&quot;point2&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Second</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cone</span>
-    <span class="s2">&quot;radius2&quot;</span><span class="p">:</span> <span class="n">r2</span><span class="p">:</span> <span class="nb">float</span>                      <span class="o">//</span> <span class="n">Radius</span> <span class="n">of</span> <span class="n">the</span> <span class="n">second</span> <span class="n">point</span>
+    <span class="s2">&quot;point1&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">First</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cone</span> <span class="p">(</span><span class="n">circle</span> <span class="n">center</span><span class="p">)</span>
+    <span class="s2">&quot;radius1&quot;</span><span class="p">:</span> <span class="n">r1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                     <span class="o">//</span> <span class="n">Radius</span> <span class="n">of</span> <span class="n">the</span> <span class="n">first</span> <span class="n">circle</span>
+    <span class="s2">&quot;point2&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Second</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cone</span> <span class="p">(</span><span class="n">circle</span> <span class="n">center</span><span class="p">)</span>
+    <span class="s2">&quot;radius2&quot;</span><span class="p">:</span> <span class="n">r2</span><span class="p">:</span> <span class="nb">float</span>                      <span class="o">//</span> <span class="n">Radius</span> <span class="n">of</span> <span class="n">the</span> <span class="n">second</span> <span class="n">circle</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1330,7 +1332,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-actuals-curve">
 <h4>gom.api.extensions.actuals.Curve<a class="headerlink" href="#gom-api-extensions-actuals-curve" title="Link to this heading"></a></h4>
 <p>Scripted actual curve element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;plane&quot;</span><span class="p">:</span> <span class="n">p</span><span class="p">:</span> <span class="n">Plane</span> <span class="o">//</span> <span class="n">Plane</span> <span class="n">of</span> <span class="n">the</span> <span class="n">curve</span> <span class="p">(</span><span class="n">optional</span><span class="p">)</span>
     <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">Curve</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">curves</span>
@@ -1348,7 +1350,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-actuals-cylinder">
 <h4>gom.api.extensions.actuals.Cylinder<a class="headerlink" href="#gom-api-extensions-actuals-cylinder" title="Link to this heading"></a></h4>
 <p>Scripted actual cylinder element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;point&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span>     <span class="o">//</span> <span class="n">Base</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cylinder</span>
     <span class="s2">&quot;direction&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Direction</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cylinder</span>
@@ -1360,7 +1362,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-actuals-distance">
 <h4>gom.api.extensions.actuals.Distance<a class="headerlink" href="#gom-api-extensions-actuals-distance" title="Link to this heading"></a></h4>
 <p>Scripted actual distance element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;point1&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">First</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">distance</span>
     <span class="s2">&quot;point2&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span>  <span class="o">//</span> <span class="n">Second</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">distance</span>
@@ -1371,17 +1373,17 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-actuals-plane">
 <h4>gom.api.extensions.actuals.Plane<a class="headerlink" href="#gom-api-extensions-actuals-plane" title="Link to this heading"></a></h4>
 <p>Scripted actual plane element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;normal&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Normal</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
-    <span class="s2">&quot;distance&quot;</span><span class="p">:</span> <span class="n">d</span><span class="p">:</span> <span class="nb">float</span>                       <span class="o">//</span> <span class="n">Distance</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
+    <span class="s2">&quot;distance&quot;</span><span class="p">:</span> <span class="n">d</span><span class="p">:</span> <span class="nb">float</span>                      <span class="o">//</span> <span class="n">Distance</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>or</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="n">plane</span><span class="p">:</span> <span class="n">Plane</span><span class="p">,</span> <span class="o">//</span> <span class="n">Source</span> <span class="n">plane</span> <span class="n">point</span> <span class="n">of</span> <span class="n">this</span> <span class="n">plane</span>
-    <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">//</span> <span class="n">Offset</span> <span class="n">relativ</span> <span class="n">to</span> <span class="n">the</span> <span class="n">source</span> <span class="n">place</span>
+    <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">//</span> <span class="n">Offset</span> <span class="n">relative</span> <span class="n">to</span> <span class="n">the</span> <span class="n">source</span> <span class="n">plane</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1395,7 +1397,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-actuals-point">
 <h4>gom.api.extensions.actuals.Point<a class="headerlink" href="#gom-api-extensions-actuals-point" title="Link to this heading"></a></h4>
 <p>Scripted actual point element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">//</span> <span class="n">The</span> <span class="n">point</span> <span class="ow">in</span> <span class="mi">3</span><span class="n">D</span> <span class="n">space</span><span class="o">.</span>
 <span class="p">}</span>
@@ -1405,10 +1407,10 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-actuals-pointcloud">
 <h4>gom.api.extensions.actuals.PointCloud<a class="headerlink" href="#gom-api-extensions-actuals-pointcloud" title="Link to this heading"></a></h4>
 <p>Scripted actual point cloud element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;points&quot;</span><span class="p">:</span>  <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">points</span>
-    <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>  <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">points</span>
+    <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>  <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">point</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1438,7 +1440,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-actuals-section">
 <h4>gom.api.extensions.actuals.Section<a class="headerlink" href="#gom-api-extensions-actuals-section" title="Link to this heading"></a></h4>
 <p>Scripted actual section element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">Curve</span><span class="p">],</span>
     <span class="s2">&quot;plane&quot;</span><span class="p">:</span> <span class="n">Plane</span><span class="p">,</span>
@@ -1450,7 +1452,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <p>The format of the <code class="docutils literal notranslate"><span class="pre">Curve</span></code> object is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;points&quot;</span><span class="p">:</span>  <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">points</span>
-    <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">points</span>
+    <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">point</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1459,10 +1461,10 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-actuals-surface">
 <h4>gom.api.extensions.actuals.Surface<a class="headerlink" href="#gom-api-extensions-actuals-surface" title="Link to this heading"></a></h4>
 <p>Scripted actual surface element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;vertices&quot;</span><span class="p">:</span>  <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">vertices</span>
-    <span class="s2">&quot;triangles&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">i1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">i2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">i3</span><span class="p">:</span> <span class="nb">int</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>     <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">triangles</span> <span class="p">(</span><span class="n">vertices</span> <span class="n">indices</span><span class="p">)</span>
+    <span class="s2">&quot;triangles&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">i1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">i2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">i3</span><span class="p">:</span> <span class="nb">int</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>     <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">triangles</span> <span class="p">(</span><span class="n">vertices</span><span class="s1">&#39; indices)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1470,7 +1472,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-actuals-surfacecurve">
 <h4>gom.api.extensions.actuals.SurfaceCurve<a class="headerlink" href="#gom-api-extensions-actuals-surfacecurve" title="Link to this heading"></a></h4>
 <p>Scripted actual surface curve element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">Curve</span><span class="p">]</span>
 <span class="p">}</span>
@@ -1479,7 +1481,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <p>The format of the <code class="docutils literal notranslate"><span class="pre">Curve</span></code> object is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;points&quot;</span><span class="p">:</span>  <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">points</span>
-    <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">points</span>
+    <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">point</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1491,7 +1493,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-actuals-valueelement">
 <h4>gom.api.extensions.actuals.ValueElement<a class="headerlink" href="#gom-api-extensions-actuals-valueelement" title="Link to this heading"></a></h4>
 <p>Scripted actual value element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">v</span><span class="p">:</span> <span class="nb">float</span> <span class="o">//</span> <span class="n">Value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">element</span>
 <span class="p">}</span>
@@ -1501,7 +1503,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-actuals-volume">
 <h4>gom.api.extensions.actuals.Volume<a class="headerlink" href="#gom-api-extensions-actuals-volume" title="Link to this heading"></a></h4>
 <p>Scripted actual volume element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;voxel_data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="o">//</span> <span class="n">Voxels</span> <span class="n">of</span> <span class="n">the</span> <span class="n">volume</span>
     <span class="s1">&#39;transformation&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span>                  <span class="o">//</span> <span class="n">Transformation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">volume</span>
@@ -1538,7 +1540,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;actual_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">Deviations</span>
-    <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="n">double</span><span class="p">,</span>                         <span class="o">//</span> <span class="n">Nominal</span> <span class="n">value</span>
+    <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                          <span class="o">//</span> <span class="n">Nominal</span> <span class="n">value</span>
     <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Item</span>                 <span class="o">//</span> <span class="n">Inspected</span> <span class="n">element</span>
 <span class="p">}</span>
 </pre></div>
@@ -1547,7 +1549,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-inspections-scalar">
 <h4>gom.api.extensions.inspections.Scalar<a class="headerlink" href="#gom-api-extensions-inspections-scalar" title="Link to this heading"></a></h4>
 <p>Scripted scalar inspection</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>           <span class="o">//</span> <span class="n">Nominal</span> <span class="n">value</span>
     <span class="s2">&quot;actual&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>            <span class="o">//</span> <span class="n">Actual</span> <span class="n">value</span>
@@ -1558,7 +1560,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 </section>
 <section id="gom-api-extensions-inspections-scriptedinspection">
 <h4>gom.api.extensions.inspections.ScriptedInspection<a class="headerlink" href="#gom-api-extensions-inspections-scriptedinspection" title="Link to this heading"></a></h4>
-<p>This class is the base class for all scriped inspections</p>
+<p>This class is the base class for all scripted inspections</p>
 <section id="gom-api-extensions-inspections-scriptedinspection-init">
 <h5>gom.api.extensions.inspections.ScriptedInspection.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-inspections-scriptedinspection-init" title="Link to this heading"></a></h5>
 <dl class="py function">
@@ -1569,7 +1571,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<em>str</em>) – Scripted actual id string</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – Human readable name, will appear in menus</p></li>
-<li><p><strong>element_type</strong> (<em>str</em>) – Type of the generated element (point, line, …)</p></li>
+<li><p><strong>element_type</strong> (<em>str</em>) – Type of the generated element (inspection.scalar, inspection.surface, …)</p></li>
 <li><p><strong>type_name</strong> – Scripted inspection type name. Must be a globally unique name.</p></li>
 <li><p><strong>unit</strong> (<em>str</em>) – Unit of the inspection value</p></li>
 <li><p><strong>abbreviation</strong> (<em>str</em>) – Abbreviation of the inspection type</p></li>
@@ -1584,10 +1586,10 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-inspections-surface">
 <h4>gom.api.extensions.inspections.Surface<a class="headerlink" href="#gom-api-extensions-inspections-surface" title="Link to this heading"></a></h4>
 <p>Scripted surface inspection</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;deviation_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">Deviations</span>
-    <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="n">double</span><span class="p">,</span>                            <span class="o">//</span> <span class="n">Nominal</span> <span class="n">value</span>
+    <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                             <span class="o">//</span> <span class="n">Nominal</span> <span class="n">value</span>
     <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Item</span>                    <span class="o">//</span> <span class="n">Inspected</span> <span class="n">element</span>
 <span class="p">}</span>
 </pre></div>
@@ -1599,7 +1601,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-nominals-circle">
 <h4>gom.api.extensions.nominals.Circle<a class="headerlink" href="#gom-api-extensions-nominals-circle" title="Link to this heading"></a></h4>
 <p>Scripted nominal circle element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;center&quot;</span>   <span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Centerpoint</span> <span class="n">of</span> <span class="n">the</span> <span class="n">circle</span>
     <span class="s2">&quot;direction&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Direction</span><span class="o">/</span><span class="n">normal</span> <span class="n">of</span> <span class="n">the</span> <span class="n">circle</span>
@@ -1611,12 +1613,12 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-nominals-cone">
 <h4>gom.api.extensions.nominals.Cone<a class="headerlink" href="#gom-api-extensions-nominals-cone" title="Link to this heading"></a></h4>
 <p>Scripted nominal cone element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;point1&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">First</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cone</span>
-    <span class="s2">&quot;radius1&quot;</span><span class="p">:</span> <span class="n">r1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                     <span class="o">//</span> <span class="n">Radius</span> <span class="n">of</span> <span class="n">the</span> <span class="n">first</span> <span class="n">point</span>
-    <span class="s2">&quot;point2&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Second</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cone</span>
-    <span class="s2">&quot;radius2&quot;</span><span class="p">:</span> <span class="n">r2</span><span class="p">:</span> <span class="nb">float</span>                      <span class="o">//</span> <span class="n">Radius</span> <span class="n">of</span> <span class="n">the</span> <span class="n">second</span> <span class="n">point</span>
+    <span class="s2">&quot;point1&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">First</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cone</span> <span class="p">(</span><span class="n">circle</span> <span class="n">center</span><span class="p">)</span>
+    <span class="s2">&quot;radius1&quot;</span><span class="p">:</span> <span class="n">r1</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                     <span class="o">//</span> <span class="n">Radius</span> <span class="n">of</span> <span class="n">the</span> <span class="n">first</span> <span class="n">circle</span>
+    <span class="s2">&quot;point2&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Second</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cone</span> <span class="p">(</span><span class="n">circle</span> <span class="n">center</span><span class="p">)</span>
+    <span class="s2">&quot;radius2&quot;</span><span class="p">:</span> <span class="n">r2</span><span class="p">:</span> <span class="nb">float</span>                      <span class="o">//</span> <span class="n">Radius</span> <span class="n">of</span> <span class="n">the</span> <span class="n">second</span> <span class="n">circle</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1624,7 +1626,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-nominals-curve">
 <h4>gom.api.extensions.nominals.Curve<a class="headerlink" href="#gom-api-extensions-nominals-curve" title="Link to this heading"></a></h4>
 <p>Scripted nominal curve element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;plane&quot;</span><span class="p">:</span> <span class="n">p</span><span class="p">:</span> <span class="n">Plane</span> <span class="o">//</span> <span class="n">Plane</span> <span class="n">of</span> <span class="n">the</span> <span class="n">curve</span> <span class="p">(</span><span class="n">optional</span><span class="p">)</span>
     <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">Curve</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">curves</span>
@@ -1642,7 +1644,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-nominals-cylinder">
 <h4>gom.api.extensions.nominals.Cylinder<a class="headerlink" href="#gom-api-extensions-nominals-cylinder" title="Link to this heading"></a></h4>
 <p>Scripted nominal cylinder element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;point&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span>     <span class="o">//</span> <span class="n">Base</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cylinder</span>
     <span class="s2">&quot;direction&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Direction</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cylinder</span>
@@ -1654,7 +1656,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-nominals-distance">
 <h4>gom.api.extensions.nominals.Distance<a class="headerlink" href="#gom-api-extensions-nominals-distance" title="Link to this heading"></a></h4>
 <p>Scripted nominal distance element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;point1&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">First</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">distance</span>
     <span class="s2">&quot;point2&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span>  <span class="o">//</span> <span class="n">Second</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">distance</span>
@@ -1665,17 +1667,17 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-nominals-plane">
 <h4>gom.api.extensions.nominals.Plane<a class="headerlink" href="#gom-api-extensions-nominals-plane" title="Link to this heading"></a></h4>
 <p>Scripted nominal plane element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;normal&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Normal</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
-    <span class="s2">&quot;distance&quot;</span><span class="p">:</span> <span class="n">d</span><span class="p">:</span> <span class="nb">float</span>                       <span class="o">//</span> <span class="n">Distance</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
+    <span class="s2">&quot;distance&quot;</span><span class="p">:</span> <span class="n">d</span><span class="p">:</span> <span class="nb">float</span>                      <span class="o">//</span> <span class="n">Distance</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>or</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="n">plane</span><span class="p">:</span> <span class="n">Plane</span><span class="p">,</span> <span class="o">//</span> <span class="n">Source</span> <span class="n">plane</span> <span class="n">point</span> <span class="n">of</span> <span class="n">this</span> <span class="n">plane</span>
-    <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">//</span> <span class="n">Offset</span> <span class="n">relativ</span> <span class="n">to</span> <span class="n">the</span> <span class="n">source</span> <span class="n">place</span>
+    <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">//</span> <span class="n">Offset</span> <span class="n">relative</span> <span class="n">to</span> <span class="n">the</span> <span class="n">source</span> <span class="n">place</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1689,7 +1691,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-nominals-point">
 <h4>gom.api.extensions.nominals.Point<a class="headerlink" href="#gom-api-extensions-nominals-point" title="Link to this heading"></a></h4>
 <p>Scripted nominal point element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">//</span> <span class="n">The</span> <span class="n">point</span> <span class="ow">in</span> <span class="mi">3</span><span class="n">D</span> <span class="n">space</span><span class="o">.</span>
 <span class="p">}</span>
@@ -1699,10 +1701,10 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-nominals-pointcloud">
 <h4>gom.api.extensions.nominals.PointCloud<a class="headerlink" href="#gom-api-extensions-nominals-pointcloud" title="Link to this heading"></a></h4>
 <p>Scripted nominal point cloud element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;points&quot;</span><span class="p">:</span>  <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">points</span>
-    <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>  <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">points</span>
+    <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>  <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">point</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1732,7 +1734,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-nominals-section">
 <h4>gom.api.extensions.nominals.Section<a class="headerlink" href="#gom-api-extensions-nominals-section" title="Link to this heading"></a></h4>
 <p>Scripted nominal section element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">Curve</span><span class="p">],</span>
     <span class="s2">&quot;plane&quot;</span><span class="p">:</span> <span class="n">Plane</span><span class="p">,</span>
@@ -1744,7 +1746,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <p>The format of the <code class="docutils literal notranslate"><span class="pre">Curve</span></code> object is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;points&quot;</span><span class="p">:</span>  <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">points</span>
-    <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">points</span>
+    <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">point</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1753,7 +1755,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-nominals-surface">
 <h4>gom.api.extensions.nominals.Surface<a class="headerlink" href="#gom-api-extensions-nominals-surface" title="Link to this heading"></a></h4>
 <p>Scripted nominal surface element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;vertices&quot;</span><span class="p">:</span>  <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">vertices</span>
     <span class="s2">&quot;triangles&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">i1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">i2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">i3</span><span class="p">:</span> <span class="nb">int</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>     <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">triangles</span> <span class="p">(</span><span class="n">vertices</span> <span class="n">indices</span><span class="p">)</span>
@@ -1764,7 +1766,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-nominals-surfacecurve">
 <h4>gom.api.extensions.nominals.SurfaceCurve<a class="headerlink" href="#gom-api-extensions-nominals-surfacecurve" title="Link to this heading"></a></h4>
 <p>Scripted nominal surface curve element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">Curve</span><span class="p">]</span>
 <span class="p">}</span>
@@ -1773,7 +1775,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <p>The format of the <code class="docutils literal notranslate"><span class="pre">Curve</span></code> object is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;points&quot;</span><span class="p">:</span>  <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">points</span>
-    <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">points</span>
+    <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">point</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1781,7 +1783,7 @@ actuals in the ZEISS INSPECT software and will enabled to user to create script 
 <section id="gom-api-extensions-nominals-valueelement">
 <h4>gom.api.extensions.nominals.ValueElement<a class="headerlink" href="#gom-api-extensions-nominals-valueelement" title="Link to this heading"></a></h4>
 <p>Scripted nominal value element</p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">v</span><span class="p">:</span> <span class="nb">float</span> <span class="o">//</span> <span class="n">Value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">element</span>
 <span class="p">}</span>
@@ -3633,7 +3635,7 @@ manipulation instead.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f8708e52a50>
+  <jinja2.runtime.BlockReference object at 0x7f824e236ac0>
 
 
 </footer>
