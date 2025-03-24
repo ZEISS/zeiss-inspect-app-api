@@ -123,7 +123,7 @@ scripts/
 
 ## `metainfo.json` documentation
 
-Example: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/2025/AppExamples/data_interfaces/CheckResultsDataArray/metainfo.json">AppExamples/data_interfaces/CheckResultsDataArray/metainfo.json</a>
+Example: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/CheckResultsDataArray/metainfo.json">AppExamples/data_interfaces/CheckResultsDataArray/metainfo.json</a>
 
 ### Mandatory elements
 
