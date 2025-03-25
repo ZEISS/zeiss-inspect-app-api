@@ -388,14 +388,14 @@ This function shows and executes previously created an configured dialog. The co
 API for script based functionality extensions
 
  
-This API enables to user to define various element classes which can be used to extend the functionality of
+This API enables the user to define various element classes which can be used to extend the functionality of
 ZEISS INSPECT.
 
 ### gom.api.extensions.ScriptedElement
 
 
-This class is used to defined a scripted element. A scripted element is a user defined
-element type where configuration and computation are happening entirely in a python script
+This class is used to define a scripted element. A scripted element is a user defined
+element type where configuration and computation are happening entirely in a Python script,
 so user defined behavior and visualization can be implemented.
 
 **Element id**
@@ -407,7 +407,7 @@ grouping dots and underscores.
 **Element category**
 
 The category of an element type is used to find the application side counterpart which cares for the
-functionality implementation. For example, `scriptedelement.actual` link that element type the application
+functionality implementation. For example, `scriptedelement.actual` links that element type the application
 counterpart which cares for scripted actual elements and handles its creation, editing, administration, ...
 
 **Working with stages**
@@ -420,14 +420,14 @@ simple for beginners, the scripted elements are using two computation functions:
 - `compute ()`:       Computes the result for one single stage only. If nothing else is implemented,
                       this function will be called for each stage one by one and return the computed
                       value for that stage only. The stage for which the computation is performed is
-                      passed via the functions script context, but does usually not matter as all input
-                      values are already associates with that single stage.
+                      passed via the function's script context, but does usually not matter as all input
+                      values are already associated with that single stage.
 - `compute_stages ()`: Computes the results for many (all) stages at once. The value parameters are
-                       vectors of the same size always, one entry per stage. This is the case even if
+                       always vectors of the same size, one entry per stage. This is the case even if
                        there is just one stage in the project. The result is expected to be a result
                        vector of the same size as these stage vectors. The script context passed to that
-                       function will contain a list of stages of equal size matching the values stage
-                      ordering.
+                       function will contain a list of stages of equal size matching the value's stage
+                       ordering.
 
 So for a project with stages, it is usually sufficient to just implement `compute ()`. For increased
 performance or parallelization, `compute_stages ()` can then be implemented as a second step.
@@ -436,7 +436,7 @@ performance or parallelization, `compute_stages ()` can then be implemented as a
 
 Stages are represented by an integer index. No item reference or other resolvable types like
 `gom.script.project[...].stages['Stage #1']` are used because it is assumed that reaching over stage borders into
-other stages data domain will lead to incorrect or missing dependencies. Instead, if vectorized data or data tensors
+other stages' data domain will lead to incorrect or missing dependencies. Instead, if vectorized data or data tensors
 are fetched, the stage sorting within that object will match that stages vector in the context. In the best case, the
 stage vector is just a consecutive range of numbers `(0, 1, 2, 3, ...)` which match the index in a staged tensor.
 Nevertheless, the vector can be number entirely different depending on active/inactive stages, stage sorting, ...
@@ -547,6 +547,7 @@ associated dialog function are passed as `kwargs` parameters - one value as one 
 parameter named as the associated input widget.
 
                the stage this computation call refers to.
+               in the dialog definition.
 
 #### gom.api.extensions.ScriptedElement.compute_stage
 
@@ -563,6 +564,7 @@ associated dialog function are passed as `kwargs` parameters - one value as one 
 parameter named as the associated input widget.
 
                the stage this computation call refers to.
+               in the dialog definition.
 
 #### gom.api.extensions.ScriptedElement.compute_stages
 
@@ -614,11 +616,11 @@ The dialog arguments are passed as a JSON like map structure. The format is as f
 - `version`: Version of the dialog structure. This is used to allow for future changes in the dialog
              structure without breaking existing scripts
 - `name`:    Human readable name of the element which is created or edited
-- ' values': A map of widget names and their initial values. The widget names are the keys and the values
+- `values`:  A map of widget names and their initial values. The widget names are the keys and the values
              are the initial or edited values for the widgets. This map is always present, but can be empty
-             for newly created elements. The element names are matching these in the user defined dialog, so
+             for newly created elements. The element names are matching those in the user defined dialog, so
              the values can be set accordingly. As a default, use the function `initialize_dialog (args)` to
-           s  etup all widgets from the args values.
+             setup all widgets from the args values.
 
 The helper functions `initialize_dialog ()` and `apply_dialog ()` can be used to initialize the dialog directly.
 and read back the generated values. So a typical dialog function will look like this:
@@ -652,7 +654,7 @@ def dialog (self, context, args):
 :rtype: None
 ```
 
-Contribution event handling function. This function is called when the contribitions UI state changes.
+Contribution event handling function. This function is called when the contributions UI state changes.
 The function can then react to that event and update the UI state accordingly. 
 
         will then trigger a call to the `compute ()` function and use its result for a preview update.
@@ -683,13 +685,13 @@ and will convert the event parameter accordingly
 Initializes the dialog from the given arguments. This function is used to setup the dialog
 widgets from the given arguments. The arguments are a map of widget names and their values.
 
-        Otherwise, the services log will show a warning about the missing values.
+        Otherwise, the service's log will show a warning about the missing values.
 
 #### gom.api.extensions.ScriptedElement.is_visible
 
 ```{py:function} gom.api.extensions.ScriptedElement.is_visible(self: Any, context: Any): None
 
-:return: 'True' if the element is visible in the menus.
+:return: `True` if the element is visible in the menus.
 :rtype: None
 ```
 
@@ -720,14 +722,14 @@ Scripted actual elements
 
  
 The classes in this module are used to define scripted actual elements. These elements are used to generate
-actuals in the ZEISS INSPECT software and will enabled to user to create script defined element types.
+actuals in the ZEISS INSPECT software and will enable the user to create script defined element types.
 
 #### gom.api.extensions.actuals.Circle
 
 
 Scripted actual circle element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -742,14 +744,14 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted actual cone element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
-    "point1": (x: float, y: float, z: float), // First point of the cone
-    "radius1": r1: float,                     // Radius of the first point
-    "point2": (x: float, y: float, z: float), // Second point of the cone
-    "radius2": r2: float                      // Radius of the second point
+    "point1": (x: float, y: float, z: float), // First point of the cone (circle center)
+    "radius1": r1: float,                     // Radius of the first circle
+    "point2": (x: float, y: float, z: float), // Second point of the cone (circle center)
+    "radius2": r2: float                      // Radius of the second circle
 }
 ```
 
@@ -758,7 +760,7 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted actual curve element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -782,7 +784,7 @@ See the `Plane` element for the formats of the plane object.
 
 Scripted actual cylinder element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -797,7 +799,7 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted actual distance element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -811,12 +813,12 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted actual plane element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
     "normal": (x: float, y: float, z: float), // Normal of the plane
-    "distance": d: float                       // Distance of the plane
+    "distance": d: float                      // Distance of the plane
 }
 ```
 
@@ -825,7 +827,7 @@ or
 ```
 {
     "target": plane: Plane, // Source plane point of this plane
-    "offset": offset: float // Offset relativ to the source place
+    "offset": offset: float // Offset relative to the source plane
 }
 ```
 
@@ -842,7 +844,7 @@ or
 
 Scripted actual point element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -855,12 +857,12 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted actual point cloud element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
     "points":  [(x: float, y: float, z: float), ...], // List of points
-    "normals": [(x: float, y: float, z: float), ...]  // List of normals for each points
+    "normals": [(x: float, y: float, z: float), ...]  // List of normals for each point
 }
 ```
 
@@ -888,7 +890,7 @@ Constructor
 
 Scripted actual section element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -904,7 +906,7 @@ The format of the `Curve` object is:
 ```
 {
     "points":  [(x: float, y: float, z: float), ...] // List of points
-    "normals": [(x: float, y: float, z: float), ...] // List of normals for each points
+    "normals": [(x: float, y: float, z: float), ...] // List of normals for each point
 }
 ```
 
@@ -915,12 +917,12 @@ See the `Plane`, `Cone` and `Cylinder` element for the formats of the plane, con
 
 Scripted actual surface element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
     "vertices":  [(x: float, y: float, z: float), ...], // List of vertices
-    "triangles": [(i1: int, i2: int, i3: int), ...]     // List of triangles (vertices indices)
+    "triangles": [(i1: int, i2: int, i3: int), ...]     // List of triangles (vertices' indices)
 }
 ```
 
@@ -929,7 +931,7 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted actual surface curve element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -942,7 +944,7 @@ The format of the `Curve` object is:
 ```
 {
     "points":  [(x: float, y: float, z: float), ...] // List of points
-    "normals": [(x: float, y: float, z: float), ...] // List of normals for each points
+    "normals": [(x: float, y: float, z: float), ...] // List of normals for each point
 }
 ```
 
@@ -956,7 +958,7 @@ Scripted actual surface defects element
 
 Scripted actual value element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -969,7 +971,7 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted actual volume element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -1017,7 +1019,7 @@ The expected parameters from the elements `compute ()` function is a map with th
 ```
 {
     "actual_values": [v: float, v: float, ...] // Deviations
-    "nominal": double,                         // Nominal value
+    "nominal": float,                          // Nominal value
     "target_element": gom.Item                 // Inspected element
 }
 ```
@@ -1027,7 +1029,7 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted scalar inspection
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -1040,7 +1042,7 @@ The expected parameters from the elements `compute ()` function is a map with th
 #### gom.api.extensions.inspections.ScriptedInspection
 
 
-This class is the base class for all scriped inspections
+This class is the base class for all scripted inspections
 
 ##### gom.api.extensions.inspections.ScriptedInspection.__init__
 
@@ -1050,7 +1052,7 @@ This class is the base class for all scriped inspections
 :type id: str
 :param description: Human readable name, will appear in menus
 :type description: str
-:param element_type: Type of the generated element (point, line, ...)
+:param element_type: Type of the generated element (inspection.scalar, inspection.surface, ...)
 :type element_type: str
 :param type_name: Scripted inspection type name. Must be a globally unique name.
 :param unit: Unit of the inspection value
@@ -1066,12 +1068,12 @@ Constructor
 
 Scripted surface inspection
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
     "deviation_values": [v: float, v: float, ...] // Deviations
-    "nominal": double,                            // Nominal value
+    "nominal": float,                             // Nominal value
     "target_element": gom.Item                    // Inspected element
 }
 ```
@@ -1085,7 +1087,7 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted nominal circle element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -1100,14 +1102,14 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted nominal cone element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
-    "point1": (x: float, y: float, z: float), // First point of the cone
-    "radius1": r1: float,                     // Radius of the first point
-    "point2": (x: float, y: float, z: float), // Second point of the cone
-    "radius2": r2: float                      // Radius of the second point
+    "point1": (x: float, y: float, z: float), // First point of the cone (circle center)
+    "radius1": r1: float,                     // Radius of the first circle
+    "point2": (x: float, y: float, z: float), // Second point of the cone (circle center)
+    "radius2": r2: float                      // Radius of the second circle
 }
 ```
 
@@ -1116,7 +1118,7 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted nominal curve element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -1140,7 +1142,7 @@ See the `Plane` element for the formats of the plane object.
 
 Scripted nominal cylinder element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -1155,7 +1157,7 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted nominal distance element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -1169,12 +1171,12 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted nominal plane element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
     "normal": (x: float, y: float, z: float), // Normal of the plane
-    "distance": d: float                       // Distance of the plane
+    "distance": d: float                      // Distance of the plane
 }
 ```
 
@@ -1183,7 +1185,7 @@ or
 ```
 {
     "target": plane: Plane, // Source plane point of this plane
-    "offset": offset: float // Offset relativ to the source place
+    "offset": offset: float // Offset relative to the source place
 }
 ```
 
@@ -1200,7 +1202,7 @@ or
 
 Scripted nominal point element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -1213,12 +1215,12 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted nominal point cloud element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
     "points":  [(x: float, y: float, z: float), ...], // List of points
-    "normals": [(x: float, y: float, z: float), ...]  // List of normals for each points
+    "normals": [(x: float, y: float, z: float), ...]  // List of normals for each point
 }
 ```
 
@@ -1246,7 +1248,7 @@ Constructor
 
 Scripted nominal section element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -1262,7 +1264,7 @@ The format of the `Curve` object is:
 ```
 {
     "points":  [(x: float, y: float, z: float), ...] // List of points
-    "normals": [(x: float, y: float, z: float), ...] // List of normals for each points
+    "normals": [(x: float, y: float, z: float), ...] // List of normals for each point
 }
 ```
 
@@ -1273,7 +1275,7 @@ See the `Plane`, `Cone` and `Cylinder` element for the formats of the plane, con
 
 Scripted nominal surface element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -1287,7 +1289,7 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted nominal surface curve element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
@@ -1300,7 +1302,7 @@ The format of the `Curve` object is:
 ```
 {
     "points":  [(x: float, y: float, z: float), ...] // List of points
-    "normals": [(x: float, y: float, z: float), ...] // List of normals for each points
+    "normals": [(x: float, y: float, z: float), ...] // List of normals for each point
 }
 ```
 
@@ -1309,7 +1311,7 @@ The format of the `Curve` object is:
 
 Scripted nominal value element
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
