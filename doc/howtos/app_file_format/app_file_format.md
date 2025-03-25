@@ -183,6 +183,74 @@ Example: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/
 - **references**: `[String]` &ndash; Reference links used for <a href="../../python_examples/examples_overview.html">ZEISS INSPECT App Examples Overview</a>
 - **tags**: `[String]` &ndash; Tags used for <a href="../../python_examples/examples_overview.html">ZEISS INSPECT App Examples Overview</a>
 
+## Python script `<name>.metainfo` documentation
+
+Most elements of the script `.metainfo` file are available via the 'Edit Properties...' dialog in the App editor.
+
+![Edit script properties dialog](assets/edit_script_properties.png)
+
+### Examples
+
+* Basic script: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/CheckResultsDataArray/scripts/check_results_data_array.metainfo">AppExamples/data_interfaces/CheckResultsDataArray/scripts/check_results_data_array.metainfo</a>
+* Scripted actual element: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_actuals/ScriptedActualPoint/scripts/OffsetPointSimple.metainfo">AppExamples/scripted_actuals/ScriptedActualPoint/scripts/OffsetPointSimple.metainfo</a>
+* Scripted check: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_checks/ScriptedCurveCheck/scripts/ScriptedCurveCheck.metainfo">AppExamples/scripted_checks/ScriptedCurveCheck/scripts/ScriptedCurveCheck.metainfo</a>
+
+### JSON elements
+
+- **display_name**: `String` &ndash; Script's name shown in menu\
+<br>&ndash; or &ndash;
+- **display_name**: `Object` &ndash; Script's name and translation information ![New in Version 2025](https://img.shields.io/badge/New-Version_2025-orange)
+    - **id**: `String` &ndash; Translation element ID
+    - **text**: `String` &ndash; Name shown in menu if not replaced by translated name
+    - **translate**: `Boolean` &ndash; Name is translated if `true`
+- **icon**: `String` &ndash; Script's icon shown in menu (uuencoded). Default icon is used if empty.
+- **iinspect_condition**: `String` &ndash; Condition for enabling I-Inspect entry, e.g. `true` or `type == 'section'`
+- **folded_blocks**: `[Integer]` &ndash; Line numbers (zero-based) of folded code blocks in the App Editor
+
+- **main_menu_path**: `Object` &ndash; Script's position in ZEISS INSPECT menu
+    - **anchor**: `Object` &ndash; Anchor element of script's menu structure
+        - **item**: `String` &ndash; Anchor element item name; empty if no anchor element is used
+        - **submenu**: `[String]` &ndash; Submenu hierarchy
+        - **type**: `String `&ndash; Anchor element type
+            - `command`
+            - `submenu`
+    - **script**: `String` &ndash; Python script path; `<prefix><path><script>`\
+    `<prefix>`: `userscript.` (normal script) or `ude.` (user defined element, i.e. scripted element or scripted check)\
+    `<path>`: Path relative to Apps' `scripts/` folder (double underscore is used as path separator)\
+    `<script>`: Script file name without extension `.py`
+    - **submenu**: `[String]` &ndash; Script's submenu created at anchor element
+
+- **multicreation_script**: `Boolean` &ndash; Reserved for ZEISS internal use. Default: `false`.
+
+- **script_element_type**: `String` &ndash; <a href="../scripted_elements/scripted_actuals.html">Scripted actual element</a> type
+    - `none`
+    - `circle`
+    - `cone`
+    - `curve`
+    - `cylinder`
+    - `distance`
+    - `point`
+    - `point_cloud`
+    - `section`
+    - `surface`
+    - `surface_curve`
+    - `volume`
+    - `volume_defects`
+    - `volume_region`
+    - `volume_section`
+
+- **script_check_type**: `String`  &ndash; <a href="../scripted_elements/scripted_checks.html">Scripted checks</a> type
+    - `scalar`
+    - `scalar_curve`
+    - `scalar_surface`
+
+- **show_in_iinspect**: `Boolean` &ndash; Show script in I-Inspect if `true`
+
+- **show_in_menu**: `Boolean` &ndash; Show script in menu Apps ► Execute Script if `true`;\
+  the menu hierarchy is created from the script's path within the App's `scripts/` folder
+
+- **uuid**: `String` &ndash; Script's UUID
+
 ## FAQ
 
 ### Structure
