@@ -71,6 +71,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#additional-information">Additional information</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#python-script-name-metainfo-documentation">Python script <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;.metainfo</span></code> documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#json-elements">JSON elements</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#faq">FAQ</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">Structure</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#why-is-there-a-folder-for-every-single-element">Why is there a folder for every single element?</a></li>
@@ -472,6 +477,88 @@
 </ul>
 </section>
 </section>
+<section id="python-script-name-metainfo-documentation">
+<h2>Python script <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;.metainfo</span></code> documentation<a class="headerlink" href="#python-script-name-metainfo-documentation" title="Link to this heading"></a></h2>
+<p>Most elements of the script <code class="docutils literal notranslate"><span class="pre">.metainfo</span></code> file are available via the ‘Edit Properties…’ dialog in the App editor.</p>
+<p><img alt="Edit script properties dialog" src="../../_images/edit_script_properties.png" /></p>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Basic script: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/CheckResultsDataArray/scripts/check_results_data_array.metainfo">AppExamples/data_interfaces/CheckResultsDataArray/scripts/check_results_data_array.metainfo</a></p></li>
+<li><p>Scripted actual element: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_actuals/ScriptedActualPoint/scripts/OffsetPointSimple.metainfo">AppExamples/scripted_actuals/ScriptedActualPoint/scripts/OffsetPointSimple.metainfo</a></p></li>
+<li><p>Scripted check: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_checks/ScriptedCurveCheck/scripts/ScriptedCurveCheck.metainfo">AppExamples/scripted_checks/ScriptedCurveCheck/scripts/ScriptedCurveCheck.metainfo</a></p></li>
+</ul>
+</section>
+<section id="json-elements">
+<h3>JSON elements<a class="headerlink" href="#json-elements" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>display_name</strong>: <code class="docutils literal notranslate"><span class="pre">String</span></code> – Script’s name shown in menu<br />
+<br>– or –</p></li>
+<li><p><strong>display_name</strong>: <code class="docutils literal notranslate"><span class="pre">Object</span></code> – Script’s name and translation information <img alt="New in Version 2025" src="https://img.shields.io/badge/New-Version_2025-orange" /></p>
+<ul>
+<li><p><strong>id</strong>: <code class="docutils literal notranslate"><span class="pre">String</span></code> – Translation element ID</p></li>
+<li><p><strong>text</strong>: <code class="docutils literal notranslate"><span class="pre">String</span></code> – Name shown in menu if not replaced by translated name</p></li>
+<li><p><strong>translate</strong>: <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> – Name is translated if <code class="docutils literal notranslate"><span class="pre">true</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>icon</strong>: <code class="docutils literal notranslate"><span class="pre">String</span></code> – Script’s icon shown in menu (uuencoded). Default icon is used if empty.</p></li>
+<li><p><strong>iinspect_condition</strong>: <code class="docutils literal notranslate"><span class="pre">String</span></code> – Condition for enabling I-Inspect entry, e.g. <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">type</span> <span class="pre">==</span> <span class="pre">'section'</span></code></p></li>
+<li><p><strong>folded_blocks</strong>: <code class="docutils literal notranslate"><span class="pre">[Integer]</span></code> – Line numbers (zero-based) of folded code blocks in the App Editor</p></li>
+<li><p><strong>main_menu_path</strong>: <code class="docutils literal notranslate"><span class="pre">Object</span></code> – Script’s position in ZEISS INSPECT menu</p>
+<ul>
+<li><p><strong>anchor</strong>: <code class="docutils literal notranslate"><span class="pre">Object</span></code> – Anchor element of script’s menu structure</p>
+<ul>
+<li><p><strong>item</strong>: <code class="docutils literal notranslate"><span class="pre">String</span></code> – Anchor element item name; empty if no anchor element is used</p></li>
+<li><p><strong>submenu</strong>: <code class="docutils literal notranslate"><span class="pre">[String]</span></code> – Submenu hierarchy</p></li>
+<li><p><strong>type</strong>: <code class="docutils literal notranslate"><span class="pre">String</span> </code>– Anchor element type</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">command</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">submenu</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>script</strong>: <code class="docutils literal notranslate"><span class="pre">String</span></code> – Python script path; <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;&lt;path&gt;&lt;script&gt;</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;</span></code>: <code class="docutils literal notranslate"><span class="pre">userscript.</span></code> (normal script) or <code class="docutils literal notranslate"><span class="pre">ude.</span></code> (user defined element, i.e. scripted element or scripted check)<br />
+<code class="docutils literal notranslate"><span class="pre">&lt;path&gt;</span></code>: Path relative to Apps’ <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> folder (double underscore is used as path separator)<br />
+<code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code>: Script file name without extension <code class="docutils literal notranslate"><span class="pre">.py</span></code></p></li>
+<li><p><strong>submenu</strong>: <code class="docutils literal notranslate"><span class="pre">[String]</span></code> – Script’s submenu created at anchor element</p></li>
+</ul>
+</li>
+<li><p><strong>multicreation_script</strong>: <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> – Reserved for ZEISS internal use. Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><strong>script_element_type</strong>: <code class="docutils literal notranslate"><span class="pre">String</span></code> – <a href="../scripted_elements/scripted_actuals.html">Scripted actual element</a> type</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">none</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">circle</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cone</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">curve</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cylinder</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">distance</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">point</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">point_cloud</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">section</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">surface</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">surface_curve</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">volume</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">volume_defects</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">volume_region</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">volume_section</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>script_check_type</strong>: <code class="docutils literal notranslate"><span class="pre">String</span></code>  – <a href="../scripted_elements/scripted_checks.html">Scripted checks</a> type</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">scalar</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scalar_curve</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scalar_surface</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>show_in_iinspect</strong>: <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> – Show script in I-Inspect if <code class="docutils literal notranslate"><span class="pre">true</span></code></p></li>
+<li><p><strong>show_in_menu</strong>: <code class="docutils literal notranslate"><span class="pre">Boolean</span></code> – Show script in menu Apps ► Execute Script if <code class="docutils literal notranslate"><span class="pre">true</span></code>;<br />
+the menu hierarchy is created from the script’s path within the App’s <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> folder</p></li>
+<li><p><strong>uuid</strong>: <code class="docutils literal notranslate"><span class="pre">String</span></code> – Script’s UUID</p></li>
+</ul>
+</section>
+</section>
 <section id="faq">
 <h2>FAQ<a class="headerlink" href="#faq" title="Link to this heading"></a></h2>
 <section id="id1">
@@ -509,7 +596,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f384bd55bf0>
+  <jinja2.runtime.BlockReference object at 0x7f7c69ba5260>
 
 
 </footer>
