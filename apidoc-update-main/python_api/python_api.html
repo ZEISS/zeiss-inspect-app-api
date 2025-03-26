@@ -188,6 +188,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-nominals-valueelement">gom.api.extensions.nominals.ValueElement</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-views">gom.api.extensions.views</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-views-scriptedview">gom.api.extensions.views.ScriptedView</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-imaging">gom.api.imaging</a><ul>
@@ -1789,6 +1793,81 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <span class="p">}</span>
 </pre></div>
 </div>
+</section>
+</section>
+<section id="gom-api-extensions-views">
+<h3>gom.api.extensions.views<a class="headerlink" href="#gom-api-extensions-views" title="Link to this heading"></a></h3>
+<p>Scripted views</p>
+<p>The classes in this module enable the user to define scripted views. A scripted view implements a model/view
+pair, where a python script fetches data from the ZEISS INSPECT application (model part) and a JavaScript
+renderer visualizes it in a custom way (view part) inside of a native ZEISS INSPECT view.</p>
+<section id="gom-api-extensions-views-scriptedview">
+<h4>gom.api.extensions.views.ScriptedView<a class="headerlink" href="#gom-api-extensions-views-scriptedview" title="Link to this heading"></a></h4>
+<p>This class is the base class for all scripted views</p>
+<p>A scripted view is a view that is embedded into the native ZEIS INSPECT application, but
+its content is rendered by a JavaScript renderer fetches its data from a python script. Both
+these parts form a model/view pair where the model (the python script) fetches and processes
+the data from the ZEISS INSPECT application, while the view (the JavaScript renderer) visualizes
+it in a custom way.</p>
+<p>The purpose of the <code class="docutils literal notranslate"><span class="pre">ScriptedView</span></code> class now on the one hand is to provide the model, on the other
+hand to bring both parts together.</p>
+<p><em>Identification</em></p>
+<p>A scripted view is identified by its <code class="docutils literal notranslate"><span class="pre">id</span></code> string. This string must be globally unique, as the scripted
+view code can be part of an app, which shared its id space with other apps installed on the same system.
+It is advised to use a reverse domain name notation for the id, e.g. <code class="docutils literal notranslate"><span class="pre">com.mycompany.myapp.myview</span></code>.</p>
+<p><em>Implementation</em></p>
+<p>A very simple example for a scripted view API contribution can look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.views</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
+
+\<span class="n">apicontribution</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyScriptedView</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">ScriptedView</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;com.zeiss.testing.scriptedview&#39;</span><span class="p">,</span>
+                         <span class="n">description</span><span class="o">=</span><span class="s1">&#39;My Scripted View&#39;</span><span class="p">,</span>
+                         <span class="n">functions</span><span class="o">=</span><span class="p">[</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span>
+                         <span class="p">],</span>
+                        <span class="n">renderer</span><span class="o">=</span><span class="s1">&#39;renderers/MyRenderer.js&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Hello World&#39;</span>
+        <span class="p">}</span>
+
+<span class="n">gom</span><span class="o">.</span><span class="n">run_api</span> <span class="p">())</span>    
+</pre></div>
+</div>
+<p>Here, the scripted view</p>
+<ul class="simple">
+<li><p>has the id <code class="docutils literal notranslate"><span class="pre">com.zeiss.testing.scriptedview</span></code></p></li>
+<li><p>is named <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Scripted</span> <span class="pre">View</span></code> in menus etc.</p></li>
+<li><p>exposes the class function <code class="docutils literal notranslate"><span class="pre">get_data</span></code> as a callable function to the JavaScript renderer</p></li>
+<li><p>uses the renderer script <code class="docutils literal notranslate"><span class="pre">renderers/MyRenderer.js</span></code> to visualize the data.</p></li>
+</ul>
+<p>So the JavaScript renderer can call the <code class="docutils literal notranslate"><span class="pre">get_data</span></code> function to get the data to visualize in a custom way.</p>
+<section id="gom-api-extensions-views-scriptedview-init">
+<h5>gom.api.extensions.views.ScriptedView.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-views-scriptedview-init" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.ScriptedView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">renderer:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – Globally unique scripted view id string</p></li>
+<li><p><strong>description</strong> (<em>str</em>) – Human readable name, will appear in menus etc.</p></li>
+<li><p><strong>functions</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – List of functions that can be called by the JavaScript renderer</p></li>
+<li><p><strong>renderer</strong> (<em>str</em>) – Path to the JavaScript renderer script</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Constructor</p>
+</section>
 </section>
 </section>
 </section>
@@ -3635,7 +3714,7 @@ manipulation instead.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f824e236ac0>
+  <jinja2.runtime.BlockReference object at 0x7f2bbdd4baf0>
 
 
 </footer>
