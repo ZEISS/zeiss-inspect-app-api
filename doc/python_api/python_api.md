@@ -1319,6 +1319,87 @@ The expected parameters from the element's `compute ()` function is a map with t
 }
 ```
 
+### gom.api.extensions.views
+
+Scripted views
+
+The classes in this module enable the user to define scripted views. A scripted view implements a model/view
+pair, where a python script fetches data from the ZEISS INSPECT application (model part) and a JavaScript 
+renderer visualizes it in a custom way (view part) inside of a native ZEISS INSPECT view.
+
+#### gom.api.extensions.views.ScriptedView
+
+This class is the base class for all scripted views
+
+A scripted view is a view that is embedded into the native ZEIS INSPECT application, but
+its content is rendered by a JavaScript renderer fetches its data from a python script. Both
+these parts form a model/view pair where the model (the python script) fetches and processes
+the data from the ZEISS INSPECT application, while the view (the JavaScript renderer) visualizes
+it in a custom way.
+
+The purpose of the `ScriptedView` class now on the one hand is to provide the model, on the other
+hand to bring both parts together.
+
+*Identification*
+
+A scripted view is identified by its `id` string. This string must be globally unique, as the scripted
+view code can be part of an app, which shared its id space with other apps installed on the same system.
+It is advised to use a reverse domain name notation for the id, e.g. `com.mycompany.myapp.myview`.
+
+*Implementation*
+
+A very simple example for a scripted view API contribution can look like this:
+
+```
+import gom
+import gom.api.extensions.views
+
+from gom import apicontribution
+
+\apicontribution
+class MyScriptedView (gom.api.extensions.views.ScriptedView):
+
+    def __init__(self):
+        super().__init__(id='com.zeiss.testing.scriptedview',
+                         description='My Scripted View',
+                         functions=[
+                             self.get_data
+                         ],
+                        renderer='renderers/MyRenderer.js')
+
+    def get_data(self):
+        return {
+            'text': 'Hello World'
+        }
+
+gom.run_api ())    
+```
+
+Here, the scripted view
+
+- has the id `com.zeiss.testing.scriptedview`
+- is named `My Scripted View` in menus etc.
+- exposes the class function `get_data` as a callable function to the JavaScript renderer
+- uses the renderer script `renderers/MyRenderer.js` to visualize the data.
+
+So the JavaScript renderer can call the `get_data` function to get the data to visualize in a custom way.
+
+##### gom.api.extensions.views.ScriptedView.__init__
+
+```{py:function} gom.api.extensions.views.ScriptedView.__init__(self: Any, id: str, description: str, functions: List[Any], renderer: str): None
+
+:param id: Globally unique scripted view id string
+:type id: str
+:param description: Human readable name, will appear in menus etc.
+:type description: str
+:param functions: List of functions that can be called by the JavaScript renderer
+:type functions: List[Any]
+:param renderer: Path to the JavaScript renderer script
+:type renderer: str
+```
+
+Constructor
+
 ## gom.api.imaging
 
 Image point/pixel related functions
@@ -1482,6 +1563,46 @@ API for accessing python script interpreter properties
 
 This API can access properties and states of the python script interpreters. It is used
 mainly for internal debugging and introspection scenarios.
+
+### gom.api.interpreter.__enter_multi_element_creation_scope__
+
+```{py:function} gom.api.interpreter.__enter_multi_element_creation_scope__(): None
+
+Mark the start of a multi element creation block
+```
+
+```{warning}
+Do not use these internal functions directly ! Use the `with` statement format as described in the
+documentation below instead for an exception safe syntax.
+```
+
+This internal function can be used to disable the signal generation which usually triggers a full ZEISS INSPECT
+synchronization after each element creation. This is useful when creating multiple elements in a row to avoid
+unnecessary overhead. The block has to be closed with the '__exit_multi_creation_block__' function, which is done
+automatically if the corresponding `with` statement syntax as explained in the example below is used. Please be aware
+that disabling full synchronization points can lead to side effects - use this feature with case and well considered
+!
+
+**Example**
+
+```
+with gom.api.tools.MultiElementCreationScope ():
+    for _ in range (1000):
+        gom.script.sys.create_some_simple_point (...)
+
+# Synchronization signal is emitted here. Application is sync'ed and valid afterwards again.
+
+gom.script.sys.continue_with_some_other_stuff (...)
+```
+
+### gom.api.interpreter.__exit_multi_element_creation_scope__
+
+```{py:function} gom.api.interpreter.__exit_multi_element_creation_scope__(): None
+
+Mark the end of a multi element creation block
+```
+
+See `gom.api.interpreter.__enter_multi_element_creation_scope__` for details.
 
 ### gom.api.interpreter.get_info
 
@@ -2603,5 +2724,42 @@ manipulation instead.
 
 ```
 gom.api.testing.set_env('MY_ENVIRONMENT_VARIABLE', 'some_value')
+```
+
+## gom.api.tools
+
+API providing a general set of scripting tools
+
+This API contains a collection of tools that are useful for scripting purposes.
+
+### gom.api.tools.MultiElementCreationScope
+
+Context manager for creating multiple elements in a single step
+
+This class can be used in a `with` statement to prohibid the full application synchronization step
+between commands. Usually, the ZEISS INSPECT software synchronizes the application after each
+command being executed. This can be very time consuming, if a large number of elements are created
+in a single step. By using this scope, the synchronization is only done once after all elements
+have been created, as soon as this scope is left.
+
+```{caution}
+Disabling the full application synchronization can lead to various side effects, so use this with caution !
+Also, the UI update will be locked during the time the scope is active. So the user will not see any changes 
+in the UI until the scope is left again.
+```
+
+**Example**
+
+```
+import gom.api.tools
+
+with gom.api.tools.MultiElementCreationScope():
+    for _ in range(10000):
+        # Will not lead to a full application synchronization
+        gom.script.inspection.create_some_simple_point(...)
+
+# Full application synchronization is done here, we are safe again
+
+gom.script.inspection.create_some_complex_element_based_on_these_points (...)
 ```
 
