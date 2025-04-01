@@ -250,7 +250,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-progress">gom.api.progress</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-progress-progressbar">gom.api.progress.ProgressBar</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-progress-progressbar-finish-progress">gom.api.progress.ProgressBar.finish_progress</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-progress-progressbar-set-message">gom.api.progress.ProgressBar.set_message</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-progress-progressbar-set-progress">gom.api.progress.ProgressBar.set_progress</a></li>
@@ -310,7 +310,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-settings">gom.api.settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#types">Types</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#file-selector">File selector</a></li>
 </ul>
@@ -1805,39 +1805,43 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <h3>gom.api.extensions.views<a class="headerlink" href="#gom-api-extensions-views" title="Link to this heading"></a></h3>
 <p>Scripted views</p>
 <p>The classes in this module enable the user to define scripted views. A scripted view implements a model/view
-pair, where a python script fetches data from the ZEISS INSPECT application (model part) and a JavaScript
-renderer visualizes it in a custom way (view part) inside of a native ZEISS INSPECT view.</p>
+pair, where a Python script fetches data from the ZEISS INSPECT application (model part) and a JavaScript
+renderer visualizes it in a custom way (view part) inside of a native ZEISS INSPECT view. Also, events can be
+emitted from the JavaScript renderer and processed by the Python script.</p>
 <section id="gom-api-extensions-views-scriptedview">
 <h4>gom.api.extensions.views.ScriptedView<a class="headerlink" href="#gom-api-extensions-views-scriptedview" title="Link to this heading"></a></h4>
 <p>This class is the base class for all scripted views</p>
-<p>A scripted view is a view that is embedded into the native ZEIS INSPECT application, but
-its content is rendered by a JavaScript renderer fetches its data from a python script. Both
+<p>A scripted view is a view that is embedded into the native ZEISS INSPECT application, but
+its content is rendered by a JavaScript renderer fetching its data from a Python service. Both
 these parts form a model/view pair where the model (the python script) fetches and processes
 the data from the ZEISS INSPECT application, while the view (the JavaScript renderer) visualizes
 it in a custom way.</p>
 <p>The purpose of the <code class="docutils literal notranslate"><span class="pre">ScriptedView</span></code> class now on the one hand is to provide the model, on the other
 hand to bring both parts together.</p>
-<p><em>Identification</em></p>
+<p><strong>Identification</strong></p>
 <p>A scripted view is identified by its <code class="docutils literal notranslate"><span class="pre">id</span></code> string. This string must be globally unique, as the scripted
 view code can be part of an app, which shared its id space with other apps installed on the same system.
 It is advised to use a reverse domain name notation for the id, e.g. <code class="docutils literal notranslate"><span class="pre">com.mycompany.myapp.myview</span></code>.</p>
-<p><em>Implementation</em></p>
+<p><strong>Implementation</strong></p>
 <p>A very simple example for a scripted view API contribution can look like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Example of a simple scripted view definition</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.views</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
 
-\<span class="n">apicontribution</span>
+<span class="nd">@apicontribution</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MyScriptedView</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">ScriptedView</span><span class="p">):</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;com.zeiss.testing.scriptedview&#39;</span><span class="p">,</span>
                          <span class="n">description</span><span class="o">=</span><span class="s1">&#39;My Scripted View&#39;</span><span class="p">,</span>
+                         <span class="n">renderer</span><span class="o">=</span><span class="s1">&#39;renderers/MyRenderer.js&#39;</span><span class="p">,</span>
                          <span class="n">functions</span><span class="o">=</span><span class="p">[</span>
                              <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span>
                          <span class="p">],</span>
-                        <span class="n">renderer</span><span class="o">=</span><span class="s1">&#39;renderers/MyRenderer.js&#39;</span><span class="p">)</span>
+                         <span class="n">bundle</span><span class="o">=</span><span class="s1">&#39;npms/MyScriptedView.js&#39;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
@@ -1847,6 +1851,7 @@ It is advised to use a reverse domain name notation for the id, e.g. <code class
 <span class="n">gom</span><span class="o">.</span><span class="n">run_api</span> <span class="p">())</span>    
 </pre></div>
 </div>
+</div>
 <p>Here, the scripted view</p>
 <ul class="simple">
 <li><p>has the id <code class="docutils literal notranslate"><span class="pre">com.zeiss.testing.scriptedview</span></code></p></li>
@@ -1854,25 +1859,149 @@ It is advised to use a reverse domain name notation for the id, e.g. <code class
 <li><p>exposes the class function <code class="docutils literal notranslate"><span class="pre">get_data</span></code> as a callable function to the JavaScript renderer</p></li>
 <li><p>uses the renderer script <code class="docutils literal notranslate"><span class="pre">renderers/MyRenderer.js</span></code> to visualize the data.</p></li>
 </ul>
-<p>So the JavaScript renderer can call the <code class="docutils literal notranslate"><span class="pre">get_data</span></code> function to get the data to visualize in a custom way.</p>
+<p>The JavaScript renderer can call the <code class="docutils literal notranslate"><span class="pre">get_data</span></code> function to get the data to visualize in a custom way
+via the <code class="docutils literal notranslate"><span class="pre">gom.bridge</span></code> object:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Accessing data via the scripting bridge from Python</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">renderer</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">gom</span><span class="p">.</span><span class="nx">bridge</span><span class="p">.</span><span class="nx">get_data</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">text</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Event handling</strong></p>
+<p>The JavaScript renderer can emit events which can then be processed by the python side. There are a few system
+events, but the renderer itself can produce custom events. The <code class="docutils literal notranslate"><span class="pre">event</span></code> instance method is called by the JavaScript
+renderer in effect in case of en event. It can be overwritten in custom scripted view implementations:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Example of a scripted view with event handling</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="nd">@apicontribution</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyScriptedView</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">ScriptedView</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">Event</span><span class="o">.</span><span class="n">INITIALIZED</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;View initialized&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>On the JavaScript side, the event can be emitted like this:</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Emitting events from the JavaScript renderer</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">renderer</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">gom</span><span class="p">.</span><span class="nx">bridge</span><span class="p">.</span><span class="nx">__events__</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;view::initialized&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Using 3rd party modules</strong></p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Please be aware of the necessary FOSS and copyright issues when using 3rd party modules in your apps !</p>
+</div>
+<p>JavaScript strongly related to 3rd party modules, for example from node.js. The <code class="docutils literal notranslate"><span class="pre">bundle</span></code> property
+allows to specify a NPM bundle that is used by the JavaScript renderer. The bundle must be present
+as a single file in the <code class="docutils literal notranslate"><span class="pre">npms</span></code> folder of the app. The JavaScript renderer can use this bundle to load 3rd party
+modules. If present, that bundle will be inserted into the JavaScript engine before the renderer process is
+started.</p>
+<p>JavaScript bundles can be creates in various ways, for example via a webpack build. Without going too much into
+detail about the node.js/npm foundations, the following example shows how to create a simple ‘react’ module bundle
+using node.js and webpack.</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Example of a package.json file for bundle creation</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;app-module-bundle&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;App module bundle&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;private&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;build&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webpack --mode production&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;react&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^18.2.0&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;react-dom&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^18.2.0&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;react-scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^5.0.1&quot;</span><span class="w">            </span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;webpack&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^5.88.2&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;webpack-cli&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^5.1.4&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Then, a <code class="docutils literal notranslate"><span class="pre">webpack.config.js</span></code> like the following has to be added:</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Example of a webpack.config.js file for bundle creation</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;production&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">entry</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./src/index.js&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">output</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">__dirname</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;/dist&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bundle.js&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">library</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&quot;&quot;&quot; + project_title.replace(&#39;</span><span class="w"> </span><span class="s1">&#39;, &#39;&#39;) + &quot;&quot;&quot;Bundle&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;umd&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="k">export</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;default&#39;</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">globalObject</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;this&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="c1">// We want to bundle all modules together</span>
+<span class="w">    </span><span class="nx">optimization</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">minimize</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span><span class="w">    </span>
+</pre></div>
+</div>
+</div>
+<p>Please refer to the <code class="docutils literal notranslate"><span class="pre">node.js</span></code> and <code class="docutils literal notranslate"><span class="pre">webpack</span></code> documentation for more details on how to create a bundle. Additionally,
+have a look into the app examples for a more detailed example as a starting point for your own scripted views.</p>
+<section id="gom-api-extensions-views-scriptedview-event">
+<h5>gom.api.extensions.views.ScriptedView.Event<a class="headerlink" href="#gom-api-extensions-views-scriptedview-event" title="Link to this heading"></a></h5>
+<p>Event types passed to the <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">()</span></code> function</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">INITIALIZED</span></code>: Sent when the view has been initialized</p></li>
+</ul>
+</section>
 <section id="gom-api-extensions-views-scriptedview-init">
 <h5>gom.api.extensions.views.ScriptedView.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-views-scriptedview-init" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.views.ScriptedView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">renderer:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.ScriptedView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">renderer:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">bundle:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<em>str</em>) – Globally unique scripted view id string</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – Human readable name, will appear in menus etc.</p></li>
-<li><p><strong>functions</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – List of functions that can be called by the JavaScript renderer</p></li>
 <li><p><strong>renderer</strong> (<em>str</em>) – Path to the JavaScript renderer script</p></li>
+<li><p><strong>functions</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – List of functions that can be called by the JavaScript renderer</p></li>
+<li><p><strong>properties</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Additional properties</p></li>
+<li><p><strong>bundle</strong> (<em>str</em>) – Packages NPM bundle this scripted view related on</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <p>Constructor</p>
+</section>
+<section id="id2">
+<h5>gom.api.extensions.views.ScriptedView.event<a class="headerlink" href="#id2" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.ScriptedView.event(self:</span> <span class="pre">Any,</span> <span class="pre">event:</span> <span class="pre">str,</span> <span class="pre">args:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><p>Event handler</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>str</em>) – Event name</p></li>
+<li><p><strong>args</strong> (<em>Any</em>) – Event arguments</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This method is called by the JavaScript renderer when an event is triggered.</p>
 </section>
 </section>
 </section>
@@ -2606,8 +2735,8 @@ testing purposes.</p>
 <h3>gom.api.progress.ProgressBar<a class="headerlink" href="#gom-api-progress-progressbar" title="Link to this heading"></a></h3>
 <p>Class representing the ProgressBar</p>
 <p>This class is meant to be used with the Python ‘with’ statement</p>
-<section id="id2">
-<h4>Example<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
+<section id="id3">
+<h4>Example<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.progress</span>
 
 <span class="k">with</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">ProgressBar</span><span class="p">()</span> <span class="k">as</span> <span class="n">bar</span><span class="p">:</span>
@@ -3391,8 +3520,8 @@ via the applications preferences dialog.</p>
 defined the available keys, the entry types and the entry properties. If the entry type can be
 represented by some widget, the setting entry will also be present in the applications ‘preferences’
 dialog and can be adapted interactively there.</p>
-<section id="id3">
-<h3>Example<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<section id="id4">
+<h3>Example<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Settings API example&quot;</span><span class="p">,</span>
   <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Example add-on demonstrating usage of the settings API&quot;</span><span class="p">,</span>
@@ -3793,7 +3922,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fe3fcdbd400>
+  <jinja2.runtime.BlockReference object at 0x7f0f04c1d160>
 
 
 </footer>
