@@ -360,16 +360,11 @@ result = { 'voxel_data' : np.array (), 'transformation' : (gom.Mat4x4 | gom.Vec3
 
 ### Volume Segmentation
 
-:Element Type: Attach material labels to volume element
-:Result: Creates a new volume element copy with attached material labels.<p>First parameter is a numpy array of type UINT8 of the size of the volume. The values are the material index per voxel. Background has Index 0.<p>The second parameter is a list of floating point grey values that are the representative grey values of the background and the materials.<p>The third parameter is a reference to the volume element, to which material labels should be attached.
 :Element Type: Create new volume segmentation element 
 :Result: Creates a new volume segmentation element.<p>First parameter is a numpy array of type UINT8 of the size of the volume. The values are the segmentation index per voxel. Background has Index 0.<p>The second parameter is the number of segments including the background.<p>The third parameter is a reference to the linked volume element, to which the segmentation labels belong.
 
 ```{code-block} python
 result = {
-  'material_labels_draft' : np.array (),
-  'material_grey_values_draft' : [background, material 1, ...],
-  'volume_reference_draft' : Reference
   'segmentation_labels' : np.array (),
   'number_of_segments' : int, # range: 2..8
   'volume_element' : Reference
