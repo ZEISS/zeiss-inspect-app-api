@@ -121,7 +121,7 @@ App short / long descriptions can only be rendered as plain text without formatt
 See [markdown guide](https://www.markdownguide.org/basic-syntax/) for a brief description of the markdown format.
 ```
 
-See [ZEISS Quality Software Store &mdash; FileSelectionAndFiltering](https://software-store.zeiss.com/products/apps/FileSelectionAndFiltering) for example.
+See [ZEISS Quality Software Store &mdash; FileSelectionAndFiltering](https://software-store.zeiss.com/products/apps/file-selection-and-filtering) for example.
 
 ![ZEISS INSPECT App editor with Markdown viewer](assets/markdown_editor_viewer.png)
 A markdown editor/viewer is integrated in the ZEISS INSPECT App editor.
@@ -144,7 +144,7 @@ You can create a link to a website providing App documentation by adding a JSON 
 
 {
     ...
-    "documentation": "https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/index.html",
+    "documentation": "https://zeiss.github.io/zeiss-inspect-app-api/2025/index.html",
     ...
 }
 ```
