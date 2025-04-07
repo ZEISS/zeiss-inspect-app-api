@@ -298,15 +298,15 @@ result = {'default' : {'point': gom.Vec3d, 'radius': float, 'direction': gom.Vec
 %```
 %:::
 
-### Volume defects
+### Volume Defects
 
 :Element Type: Volume defects
 :Result: A list of meshes defined by vertices and triangles.<p>The vertices attribute is a [python array] – one entry for each defect –  of numpy arrays (np.array) of Vec3d.<p>The triangle attribute defines triangles between the points of each mesh using indices to the vertex lists.<p>The 'outer_hull' parameter can optionally be set to a reference of a mesh element of the project. This mesh will be copied and used as an outer hull for the defect element. **Alternatively**, 'outer_hull_vertices' and 'outer_hull_triangles' can be given as explicit outer hull mesh definition.
 
 ```{code-block} python
 result = {
-  'vertices': [ np.array((x,y,z), (x,y,z), ... ), np.array((x,y,z), (x,y,z), ...), ... ],
-  'triangles':  [ np.array((v0,v1,v2), (v0,v1,v2), ... ), np.array((v0,v1,v2), (v0,v1,v2), ...), ... ],
+  'vertices': [ np.array((x,y,z), (x,y,z), ..., dtype=np.float64), np.array((x,y,z), (x,y,z), ..., dtype=np.float64), ... ],
+  'triangles':  [ np.array((v0,v1,v2), (v0,v1,v2), ..., dtype=np.int32), np.array((v0,v1,v2), (v0,v1,v2), ..., dtype=np.int32), ... ],
   'outer_hull' : gom.Reference     # optional OR
   'outer_hull_vertices': np.array((x,y,z),...), 'outer_hull_triangles': np.array((v0,v1,v2),...) 
 }
@@ -358,16 +358,16 @@ result = {
 result = { 'voxel_data' : np.array (), 'transformation' : (gom.Mat4x4 | gom.Vec3d) }
 ```
 
-### Volume material map
+### Volume Segmentation
 
-:Element Type: Attach material labels to volume element
-:Result: Creates a new volume element copy with attached material labels.<p>First parameter is a numpy array of type UINT8 of the size of the volume. The values are the material index per voxel. Background has Index 0.<p>The second parameter is a list of floating point grey values that are the representative grey values of the background and the materials.<p>The third parameter is a reference to the volume element, to which material labels should be attached.
+:Element Type: Create new volume segmentation element 
+:Result: Creates a new volume segmentation element.<p>First parameter is a numpy array of type UINT8 of the size of the volume. The values are the segmentation index per voxel. Background has Index 0.<p>The second parameter is the number of segments including the background.<p>The third parameter is a reference to the linked volume element, to which the segmentation labels belong.
 
 ```{code-block} python
 result = {
-  'material_labels_draft' : np.array (),
-  'material_grey_values_draft' : [background, material 1, ...],
-  'volume_reference_draft' : Reference
+  'segmentation_labels' : np.array (),
+  'number_of_segments' : int, # range: 2..8
+  'volume_element' : Reference
 }
 ```
 
