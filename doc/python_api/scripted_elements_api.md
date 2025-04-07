@@ -300,8 +300,8 @@ result = {'default' : {'point': gom.Vec3d, 'radius': float, 'direction': gom.Vec
 
 ```{code-block} python
 result = {
-  'vertices': [ np.array((x,y,z), (x,y,z), ... ), np.array((x,y,z), (x,y,z), ...), ... ],
-  'triangles':  [ np.array((v0,v1,v2), (v0,v1,v2), ... ), np.array((v0,v1,v2), (v0,v1,v2), ...), ... ],
+  'vertices': [ np.array((x,y,z), (x,y,z), ..., dtype=np.float64), np.array((x,y,z), (x,y,z), ..., dtype=np.float64), ... ],
+  'triangles':  [ np.array((v0,v1,v2), (v0,v1,v2), ..., dtype=np.int32), np.array((v0,v1,v2), (v0,v1,v2), ..., dtype=np.int32), ... ],
   'outer_hull' : gom.Reference     # optional OR
   'outer_hull_vertices': np.array((x,y,z),...), 'outer_hull_triangles': np.array((v0,v1,v2),...) 
 }
