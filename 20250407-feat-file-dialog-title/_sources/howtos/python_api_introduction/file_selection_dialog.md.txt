@@ -63,12 +63,12 @@ If the dialog is cancelled, a `RequestError` exception is thrown.
 
 ```{code-block} python
 file=gom.script.sys.choose_file (
-	file_types=[['*.zxml', 'ZEISS INSPECT exchange'], ['*.gxml', 'ZEISS INSPECT exchange']], 
-	file_types_default='*.zxml', 
-	file='C:/temp/Test.zxml', 
-	folder='C:/temp/', 
-	selection_type='load file',
-  title="Import data from exchange file")
+    file_types=[['*.zxml', 'ZEISS INSPECT exchange'], ['*.gxml', 'ZEISS INSPECT exchange']], 
+    file_types_default='*.zxml', 
+    file='C:/temp/Test.zxml', 
+    folder='C:/temp/', 
+    selection_type='load file',
+    title="Import data from exchange file")
 
 print(f'{file=}')
 # Output: file=C:/temp/Test.gxml
