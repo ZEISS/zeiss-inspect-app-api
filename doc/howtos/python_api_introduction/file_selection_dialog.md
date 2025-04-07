@@ -28,7 +28,10 @@ Default file (optional)
  
 File types
 : Allows to filter files by file extension pattern
- 
+
+Use custom title (optional)
+: Allows to set a custom dialog window title
+
 After completing the configuration dialog, `choose_file()` is inserted into the source code. You change its configuration by clicking on the command `choose_file()` again.
 
 ## Scripting `choose_file()`
@@ -44,6 +47,7 @@ Parameters:
 | folder             | base folder           | QString      |      
 | file               | default selected file | QString      |      
 | selection_type     | selection type        | QString      |
+| title              | dialog title          | QString      |
 
 ## Return value
 
@@ -58,12 +62,13 @@ If the dialog is cancelled, a `RequestError` exception is thrown.
 ## Example
 
 ```{code-block} python
-file=gom.script.sys.choose_file_draft (
+file=gom.script.sys.choose_file (
 	file_types=[['*.zxml', 'ZEISS INSPECT exchange'], ['*.gxml', 'ZEISS INSPECT exchange']], 
 	file_types_default='*.zxml', 
 	file='C:/temp/Test.zxml', 
 	folder='C:/temp/', 
-	selection_type='load file')
+	selection_type='load file',
+  title="Import data from exchange file")
 
 print(f'{file=}')
 # Output: file=C:/temp/Test.gxml
