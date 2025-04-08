@@ -6,7 +6,7 @@
 
 ![Define Project Keywords Dialog](assets/define_project_keywords.png)
 
-See [ZEISS Quality Tech Guide: Define Project Keywords](https://techguide.zeiss.com/en/zeiss-inspect-2023/article/cmd_sys_set_project_keywords.html) for an introduction.
+See [ZEISS Quality Tech Guide: Define Project Keywords](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/cmd_sys_set_project_keywords.html) for an introduction.
 
 ## Reading project keywords
 
