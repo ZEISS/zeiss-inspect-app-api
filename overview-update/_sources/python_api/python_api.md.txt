@@ -146,6 +146,25 @@ Return the displayable name of the add-on
 This function returns the displayable name of the add-on. This is the human
 readable name which is displayed in the add-on manager and the add-on store.
 
+#### gom.api.addons.AddOn.get_required_software_version
+
+```{py:function} gom.api.addons.AddOn.get_required_software_version(): str
+
+Return the minimum version of the ZEISS INSPECT software required to use this add-on
+:API version: 1
+:return: Addon version in string format
+:rtype: str
+```
+
+By default, an add-on is compatible with the ZEISS INSPECT software version it was created in and
+all following software version. This is the case because it can be assumed that this add-on is
+tested with that specific software version, not with any prior version, leading to a minimum requirement.
+On the other hand, the software version where an add-on then later will break because of incompatibilities
+cannot be foreseen at add-on creation time. Thus, it is also assumed that a maintainer cares for an
+add-on and updates it to the latest software version if necessary. There cannot be a "works until" entry
+in the add-on itself, because this would require to modify already released version as soon as this specific
+version which breaks the add-on becomes known.
+
 #### gom.api.addons.AddOn.get_script_list
 
 ```{py:function} gom.api.addons.AddOn.get_script_list(): list
@@ -168,6 +187,17 @@ Return the list of tags with which the add-on has been tagged
 ```
 
 This function returns the list of tags in the addons `metainfo.json` file.
+
+#### gom.api.addons.AddOn.get_version
+
+```{py:function} gom.api.addons.AddOn.get_version(): str
+
+Return the version of the add-on
+:API version: 1
+:return: Add-on version in string format
+:rtype: str
+```
+
 
 #### gom.api.addons.AddOn.has_license
 

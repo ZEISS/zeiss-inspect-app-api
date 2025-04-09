@@ -101,8 +101,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-id">gom.api.addons.AddOn.get_id</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-level">gom.api.addons.AddOn.get_level</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-name">gom.api.addons.AddOn.get_name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-required-software-version">gom.api.addons.AddOn.get_required_software_version</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-script-list">gom.api.addons.AddOn.get_script_list</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-tags">gom.api.addons.AddOn.get_tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-version">gom.api.addons.AddOn.get_version</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-has-license">gom.api.addons.AddOn.has_license</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-is-edited">gom.api.addons.AddOn.is_edited</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-is-protected">gom.api.addons.AddOn.is_protected</a></li>
@@ -564,6 +566,34 @@ uniquely address the add-on.</p>
 <p>This function returns the displayable name of the add-on. This is the human
 readable name which is displayed in the add-on manager and the add-on store.</p>
 </section>
+<section id="gom-api-addons-addon-get-required-software-version">
+<h4>gom.api.addons.AddOn.get_required_software_version<a class="headerlink" href="#gom-api-addons-addon-get-required-software-version" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.addons.AddOn.get_required_software_version():</span> <span class="pre">str</span></span></dt>
+<dd><p>Return the minimum version of the ZEISS INSPECT software required to use this add-on</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Addon version in string format</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>By default, an add-on is compatible with the ZEISS INSPECT software version it was created in and
+all following software version. This is the case because it can be assumed that this add-on is
+tested with that specific software version, not with any prior version, leading to a minimum requirement.
+On the other hand, the software version where an add-on then later will break because of incompatibilities
+cannot be foreseen at add-on creation time. Thus, it is also assumed that a maintainer cares for an
+add-on and updates it to the latest software version if necessary. There cannot be a “works until” entry
+in the add-on itself, because this would require to modify already released version as soon as this specific
+version which breaks the add-on becomes known.</p>
+</section>
 <section id="gom-api-addons-addon-get-script-list">
 <h4>gom.api.addons.AddOn.get_script_list<a class="headerlink" href="#gom-api-addons-addon-get-script-list" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -604,6 +634,26 @@ readable name which is displayed in the add-on manager and the add-on store.</p>
 </dd></dl>
 
 <p>This function returns the list of tags in the addons <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p>
+</section>
+<section id="gom-api-addons-addon-get-version">
+<h4>gom.api.addons.AddOn.get_version<a class="headerlink" href="#gom-api-addons-addon-get-version" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.addons.AddOn.get_version():</span> <span class="pre">str</span></span></dt>
+<dd><p>Return the version of the add-on</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Add-on version in string format</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="gom-api-addons-addon-has-license">
 <h4>gom.api.addons.AddOn.has_license<a class="headerlink" href="#gom-api-addons-addon-has-license" title="Link to this heading"></a></h4>
@@ -3922,7 +3972,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f6317f21240>
+  <jinja2.runtime.BlockReference object at 0x7f3c9be33690>
 
 
 </footer>
