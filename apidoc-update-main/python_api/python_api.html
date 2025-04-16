@@ -191,7 +191,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-views">gom.api.extensions.views</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-views-scriptedview">gom.api.extensions.views.ScriptedView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-views-scriptedcanvas">gom.api.extensions.views.ScriptedCanvas</a></li>
 </ul>
 </li>
 </ul>
@@ -1858,8 +1858,8 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 pair, where a Python script fetches data from the ZEISS INSPECT application (model part) and a JavaScript
 renderer visualizes it in a custom way (view part) inside of a native ZEISS INSPECT view. Also, events can be
 emitted from the JavaScript renderer and processed by the Python script.</p>
-<section id="gom-api-extensions-views-scriptedview">
-<h4>gom.api.extensions.views.ScriptedView<a class="headerlink" href="#gom-api-extensions-views-scriptedview" title="Link to this heading"></a></h4>
+<section id="gom-api-extensions-views-scriptedcanvas">
+<h4>gom.api.extensions.views.ScriptedCanvas<a class="headerlink" href="#gom-api-extensions-views-scriptedcanvas" title="Link to this heading"></a></h4>
 <p>This class is the base class for all scripted views</p>
 <p>A scripted view is a view that is embedded into the native ZEISS INSPECT application, but
 its content is rendered by a JavaScript renderer fetching its data from a Python service. Both
@@ -2007,6 +2007,115 @@ using node.js and webpack.</p>
 </div>
 <p>Please refer to the <code class="docutils literal notranslate"><span class="pre">node.js</span></code> and <code class="docutils literal notranslate"><span class="pre">webpack</span></code> documentation for more details on how to create a bundle. Additionally,
 have a look into the app examples for a more detailed example as a starting point for your own scripted views.</p>
+<section id="gom-api-extensions-views-scriptedcanvas-event">
+<h5>gom.api.extensions.views.ScriptedCanvas.Event<a class="headerlink" href="#gom-api-extensions-views-scriptedcanvas-event" title="Link to this heading"></a></h5>
+<p>Event types passed to the <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">()</span></code> function</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">INITIALIZED</span></code>: Sent when the view has been initialized</p></li>
+</ul>
+</section>
+<section id="gom-api-extensions-views-scriptedcanvas-init">
+<h5>gom.api.extensions.views.ScriptedCanvas.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-views-scriptedcanvas-init" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.ScriptedCanvas.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">renderer:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">bundle:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – Globally unique scripted view id string</p></li>
+<li><p><strong>description</strong> (<em>str</em>) – Human readable name, will appear in menus etc.</p></li>
+<li><p><strong>renderer</strong> (<em>str</em>) – Path to the JavaScript renderer script</p></li>
+<li><p><strong>functions</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – List of functions that can be called by the JavaScript renderer</p></li>
+<li><p><strong>properties</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Additional properties</p></li>
+<li><p><strong>bundle</strong> (<em>str</em>) – Packages NPM bundle this scripted view related on</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Constructor</p>
+</section>
+<section id="gom-api-extensions-views-scriptededitor-datatypes">
+<h5>gom.api.extensions.views.ScriptedEditor.DataTypes<a class="headerlink" href="#gom-api-extensions-views-scriptededitor-datatypes" title="Link to this heading"></a></h5>
+<p>Data types that can be returned by get_data_types () and are used to determine the load mechanism for each file of an app content</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NONE</span></code>: Do <strong>not</strong> load data from the file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">JSON</span></code>: Load data as JSON format, i.e., as a ‘dict’</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">STRING</span></code>: Load data as plain string</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BYTES</span></code>: Load data as pure bytes array</p></li>
+</ul>
+</section>
+<section id="gom-api-extensions-views-scriptededitor-extract-data">
+<h5>gom.api.extensions.views.ScriptedEditor.extract_data<a class="headerlink" href="#gom-api-extensions-views-scriptededitor-extract-data" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.ScriptedEditor.extract_data(self:</span> <span class="pre">Any,</span> <span class="pre">content:</span> <span class="pre">str,</span> <span class="pre">json:</span> <span class="pre">List[Any]):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>content</strong> (<em>str</em>) – Name of App Content</p></li>
+<li><p><strong>json</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – List of data created by the editor (one entry per file).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of tuples. Each tuples holds the filename, the processed data to save and the DataTypes of the file to save.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Inverse of self.prepare_data()</p>
+<p>This function processes the data generated by the editor and returns it in a format that can be saved to the files.</p>
+</section>
+<section id="gom-api-extensions-views-scriptededitor-get-data-types">
+<h5>gom.api.extensions.views.ScriptedEditor.get_data_types<a class="headerlink" href="#gom-api-extensions-views-scriptededitor-get-data-types" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.ScriptedEditor.get_data_types(self:</span> <span class="pre">Any,</span> <span class="pre">content:</span> <span class="pre">str,</span> <span class="pre">files:</span> <span class="pre">List[str]):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>content</strong> (<em>str</em>) – Name of App Content</p></li>
+<li><p><strong>files</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of files belonging to this App Content</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of tuples matching each filename to a DataTypes</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Determine the loading type for each app content file.</p>
+</section>
+<section id="gom-api-extensions-views-scriptededitor-prepare-data">
+<h5>gom.api.extensions.views.ScriptedEditor.prepare_data<a class="headerlink" href="#gom-api-extensions-views-scriptededitor-prepare-data" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.ScriptedEditor.prepare_data(self:</span> <span class="pre">Any,</span> <span class="pre">content:</span> <span class="pre">str,</span> <span class="pre">data:</span> <span class="pre">List[tuple[str,</span> <span class="pre">Any]],</span> <span class="pre">readonly:</span> <span class="pre">bool):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>content</strong> (<em>str</em>) – Name of App Content</p></li>
+<li><p><strong>data</strong> (<em>List</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – List of tuples. Each tuple holds the filename and the data in the format specified by get_data_types ().</p></li>
+<li><p><strong>readonly</strong> (<em>bool</em>) – Whether the editor is opened in read-only mode</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of dictionaries (JSON style) for each initial file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Prepare JSON style data from app contents.</p>
+</section>
 <section id="gom-api-extensions-views-scriptedview-event">
 <h5>gom.api.extensions.views.ScriptedView.Event<a class="headerlink" href="#gom-api-extensions-views-scriptedview-event" title="Link to this heading"></a></h5>
 <p>Event types passed to the <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">()</span></code> function</p>
@@ -2018,16 +2127,16 @@ have a look into the app examples for a more detailed example as a starting poin
 <h5>gom.api.extensions.views.ScriptedView.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-views-scriptedview-init" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.views.ScriptedView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">renderer:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">bundle:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.ScriptedView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">viewtype:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">callables:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<em>str</em>) – Globally unique scripted view id string</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – Human readable name, will appear in menus etc.</p></li>
-<li><p><strong>renderer</strong> (<em>str</em>) – Path to the JavaScript renderer script</p></li>
+<li><p><strong>renderer</strong> – Path to the JavaScript renderer script</p></li>
 <li><p><strong>functions</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – List of functions that can be called by the JavaScript renderer</p></li>
 <li><p><strong>properties</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Additional properties</p></li>
-<li><p><strong>bundle</strong> (<em>str</em>) – Packages NPM bundle this scripted view related on</p></li>
+<li><p><strong>bundle</strong> – Packages NPM bundle this scripted view related on</p></li>
 </ul>
 </dd>
 </dl>
@@ -3972,7 +4081,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fea73f5f150>
+  <jinja2.runtime.BlockReference object at 0x7fe194c95390>
 
 
 </footer>
