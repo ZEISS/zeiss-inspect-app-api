@@ -91,7 +91,7 @@
 
 ## Project keywords and CSV export/import
 
-:Template: <a href=""></a>
+:Template: <a href="https://zeiss.github.io/zeiss-inspect-app-api/20250417-update-link/python_examples/examples_overview.html#csvexample">CSVExample</a>
 :Description: Read and write project keywords from/to CSV file.
 :How-to: <a href="../project_keywords/project_keywords.html">Project keywords handling</a>
 :Example Documentation: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/CSVExample/doc/Documentation.md">CSV import/export example</a>
