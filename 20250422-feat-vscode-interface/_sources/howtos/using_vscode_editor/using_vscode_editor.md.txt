@@ -71,7 +71,7 @@ Select Edit ► Preferences and navigate to Apps ► 'API configuration'.
 ## Connect VSCode to ZEISS INSPECT
 
 ```{caution}
-Your current VSCode workspace will be lost by connecting to ZEISS INSPECT. Save the workspace as a file if you still need it.
+Your current VSCode workspace will be lost by connecting to ZEISS INSPECT. Save the workspace to a file if you still need it.
 ```
 
 ![Status Bar: Host Disconneted](assets/connecting1.png)
@@ -100,9 +100,9 @@ The auto completion for ZEISS INSPECT API functions is mainly based on the 'zeis
 
 ```{important}
 You must import an API package into your source file to enable auto completion for it.
+```
 
 ![VSCode Intellisense](assets/vscode_intellisense.png)
-```
 
 The ZEISS Inspect API wheel contains its own function and class documentation. Thus, the VSCode Intellisense can be used during development.
 
@@ -118,7 +118,7 @@ To start or stop recording of ZEISS INSPECT commands, click RMB ► 'Record comm
 
 ![Select element properties](assets/select_element_properties.png)
 
-Browse the VSCode Explorer section 'ELEMENTS' for the desired item and click RMB ► Insert element at cursor position. In the source code, append a dot to the selected element. The auto completion allows to browse through the available element properties.
+Browse the VSCode Explorer section 'ELEMENTS' for the desired item and click RMB ► 'Insert element at cursor position'. In the source code, append a dot to the selected element. The auto completion allows to browse through the available element properties.
 
 ## Inserting a user-defined Dialog
 
