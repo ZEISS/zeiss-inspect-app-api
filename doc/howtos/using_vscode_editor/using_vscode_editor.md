@@ -10,7 +10,7 @@
 ### Python installation
 
 Using VSCode as App editor requires an additional Python 3.9 installation. Follow the installation instructions of your local IT or
-download and install Python 3.9 from https://www.python.org/.
+download and install Python 3.9 from [www.python.org](https://www.python.org/).
 
 Install the zeiss-inspect-api Python wheel matching your ZEISS INSPECT version via command line:
 
@@ -30,7 +30,7 @@ Select Edit ► Preferences and navigate to Apps ► 'API configuration'.
 
 * API port (2): Socket port for calling ZEISS INSPECT API functions.
 
-  If set to '0' (default), a port is chosen automatically. Set a free port manually if you are running multiple ZEISS INSPECT instances in parallel on the same computer .
+  If set to '0' (default), a port is chosen automatically. Set a free port manually if you are running multiple ZEISS INSPECT instances in parallel on the same computer.
 
 * Editor port (3): Socket port for connecting an external App editor.
 
@@ -64,14 +64,15 @@ Select Edit ► Preferences and navigate to Apps ► 'API configuration'.
 
 * Select the Python interpreter:
 
-  * From View ► Command Palette... (`Ctrl+Shift+P`) choose 'Python: Select Interpreter'
+  * From View ► 'Command Palette...' (`Ctrl+Shift+P`) choose 'Python: Select Interpreter'
 
     Select the interpreter from your separate Python 3.9 installation (see [Python installation](#python-installation)). 
 
 ## Connect VSCode to ZEISS INSPECT
 
-> [!CAUTION]
-> Your current VSCode workspace will be lost by connecting to ZEISS INSPECT. Save the workspace as a file if you still need it.
+```{caution}
+Your current VSCode workspace will be lost by connecting to ZEISS INSPECT. Save the workspace as a file if you still need it.
+```
 
 ![Status Bar: Host Disconneted](assets/connecting1.png)
 
@@ -81,11 +82,13 @@ Press 'Host: Disconnected' in the status bar. If connecting succeeded, the statu
 
 The Explorer now shows all Apps installed in ZEISS INSPECT in the section 'ZEISS INSPECT Apps 🔒' of the workspace. Apps in this section are read-only and can only be viewed. Apps in editing mode &ndash; 'CheckResultsDataArray' in the example above &ndash; are shown below this workspace section.
 
-> [!NOTE]
-> You must use the ZEISS INSPECT App Explorer to switch Apps between finalized and editing mode!
+```{note}
+You must use the ZEISS INSPECT App Explorer to switch Apps between finalized and editing mode!
+```
 
-> [!INFORMATION]
-> Apps in the read-only section of the VSCode Explorer are presented by a virtual file system based on websocket communication with ZEISS INSPECT. Apps in editing mode are regular files on your file system.
+```{note}
+Apps in the read-only section of the VSCode Explorer are presented by a virtual file system based on websocket communication with ZEISS INSPECT. Apps in editing mode are regular files on your file system.
+```
 
 ## Editing
 
@@ -95,10 +98,11 @@ You can work with Apps in editing mode as with any other source file.
 
 The auto completion for ZEISS INSPECT API functions is mainly based on the 'zeiss-inspect-api' Python wheel (see [Python installation](#python-installation)).
 
-> [!IMPORTANT]
-> You must import an API package into your source file to enable auto completion for it.
+```{important}
+You must import an API package into your source file to enable auto completion for it.
 
 ![VSCode Intellisense](assets/vscode_intellisense.png)
+```
 
 The ZEISS Inspect API wheel contains its own function and class documentation. Thus, the VSCode Intellisense can be used during development.
 
@@ -134,8 +138,9 @@ A dialog file template is created:
 
 ## Editing a user-defined Dialog
 
-> [!NOTE]
-> This function assumes that a dialog already exists in the App folder.
+```{note}
+This function assumes that a dialog already exists in the App folder.
+```
 
 ![Open dialog editing UI in Application](assets/userdialog6.png)
 
@@ -149,8 +154,9 @@ This opens the dialog in the ZEISS INSPECT Dialog Editor.
 
 ## Running and Debugging Python Apps
 
-> [!IMPORTANT]
-> Make sure that you have selected the right Python interpreter as described in [VSCode configuration](#vscode-configuration).
+```{caution}
+Make sure that you have selected the right Python interpreter as described in [VSCode configuration](#vscode-configuration).
+```
 
 To run or debug a Python script in an App
 
