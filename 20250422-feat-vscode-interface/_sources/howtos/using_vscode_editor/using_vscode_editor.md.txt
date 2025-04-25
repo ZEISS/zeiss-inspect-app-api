@@ -2,7 +2,7 @@
 
 # Using Visual Studio Code as App editor
 
-> Abstract: This section describes how to use Visual Studio Code as App editor with features like auto completion for ZEISS INSPECT API functions or
+> Abstract: This section describes how to use Visual Studio Code as App editor with features like auto completion and Intellisense for ZEISS INSPECT API functions or
 > insertion of ZEISS INSPECT Elements.
 
 ## Setup
