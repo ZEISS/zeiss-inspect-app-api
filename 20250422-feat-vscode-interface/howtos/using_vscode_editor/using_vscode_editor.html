@@ -146,7 +146,7 @@ insertion of ZEISS INSPECT Elements.</p>
 <section id="python-installation">
 <h3>Python installation<a class="headerlink" href="#python-installation" title="Link to this heading"></a></h3>
 <p>Using VSCode as App editor requires an additional Python 3.9 installation. Follow the installation instructions of your local IT or
-download and install Python 3.9 from https://www.python.org/.</p>
+download and install Python 3.9 from <a class="reference external" href="https://www.python.org/">www.python.org</a>.</p>
 <p>Install the zeiss-inspect-api Python wheel matching your ZEISS INSPECT version via command line:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">zeiss</span><span class="o">-</span><span class="n">inspect</span><span class="o">-</span><span class="n">api</span><span class="o">==</span><span class="mf">2025.</span><span class="o">*</span>
 </pre></div>
@@ -161,7 +161,7 @@ download and install Python 3.9 from https://www.python.org/.</p>
 <p>Set to ‘Yes’.</p>
 </li>
 <li><p>API port (2): Socket port for calling ZEISS INSPECT API functions.</p>
-<p>If set to ‘0’ (default), a port is chosen automatically. Set a free port manually if you are running multiple ZEISS INSPECT instances in parallel on the same computer .</p>
+<p>If set to ‘0’ (default), a port is chosen automatically. Set a free port manually if you are running multiple ZEISS INSPECT instances in parallel on the same computer.</p>
 </li>
 <li><p>Editor port (3): Socket port for connecting an external App editor.</p>
 <p>Must be set to a free port. The default (‘40000’) is usually fine.</p>
@@ -192,7 +192,7 @@ download and install Python 3.9 from https://www.python.org/.</p>
 </li>
 <li><p>Select the Python interpreter:</p>
 <ul>
-<li><p>From View ► Command Palette… (<code class="docutils literal notranslate"><span class="pre">Ctrl+Shift+P</span></code>) choose ‘Python: Select Interpreter’</p>
+<li><p>From View ► ‘Command Palette…’ (<code class="docutils literal notranslate"><span class="pre">Ctrl+Shift+P</span></code>) choose ‘Python: Select Interpreter’</p>
 <p>Select the interpreter from your separate Python 3.9 installation (see <a class="reference internal" href="#python-installation">Python installation</a>).</p>
 </li>
 </ul>
@@ -202,33 +202,33 @@ download and install Python 3.9 from https://www.python.org/.</p>
 </section>
 <section id="connect-vscode-to-zeiss-inspect">
 <h2>Connect VSCode to ZEISS INSPECT<a class="headerlink" href="#connect-vscode-to-zeiss-inspect" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>[!CAUTION]
-Your current VSCode workspace will be lost by connecting to ZEISS INSPECT. Save the workspace as a file if you still need it.</p>
-</div></blockquote>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Your current VSCode workspace will be lost by connecting to ZEISS INSPECT. Save the workspace as a file if you still need it.</p>
+</div>
 <p><img alt="Status Bar: Host Disconneted" src="../../_images/connecting1.png" /></p>
 <p>Press ‘Host: Disconnected’ in the status bar. If connecting succeeded, the status changes to ‘Host: Connected’.</p>
 <p><img alt="" src="../../_images/virtual_file_system-1.png" /></p>
 <p>The Explorer now shows all Apps installed in ZEISS INSPECT in the section ‘ZEISS INSPECT Apps 🔒’ of the workspace. Apps in this section are read-only and can only be viewed. Apps in editing mode – ‘CheckResultsDataArray’ in the example above – are shown below this workspace section.</p>
-<blockquote>
-<div><p>[!NOTE]
-You must use the ZEISS INSPECT App Explorer to switch Apps between finalized and editing mode!</p>
-</div></blockquote>
-<blockquote>
-<div><p>[!INFORMATION]
-Apps in the read-only section of the VSCode Explorer are presented by a virtual file system based on websocket communication with ZEISS INSPECT. Apps in editing mode are regular files on your file system.</p>
-</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must use the ZEISS INSPECT App Explorer to switch Apps between finalized and editing mode!</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Apps in the read-only section of the VSCode Explorer are presented by a virtual file system based on websocket communication with ZEISS INSPECT. Apps in editing mode are regular files on your file system.</p>
+</div>
 </section>
 <section id="editing">
 <h2>Editing<a class="headerlink" href="#editing" title="Link to this heading"></a></h2>
 <p>You can work with Apps in editing mode as with any other source file.</p>
 <p><img alt="auto completion" src="../../_images/auto_completion.png" /></p>
 <p>The auto completion for ZEISS INSPECT API functions is mainly based on the ‘zeiss-inspect-api’ Python wheel (see <a class="reference internal" href="#python-installation">Python installation</a>).</p>
-<blockquote>
-<div><p>[!IMPORTANT]
-You must import an API package into your source file to enable auto completion for it.</p>
-</div></blockquote>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>You must import an API package into your source file to enable auto completion for it.</p>
 <p><img alt="VSCode Intellisense" src="../../_images/vscode_intellisense.png" /></p>
+</div>
 <p>The ZEISS Inspect API wheel contains its own function and class documentation. Thus, the VSCode Intellisense can be used during development.</p>
 </section>
 <section id="recording-zeiss-inspect-commands">
@@ -254,10 +254,10 @@ You must import an API package into your source file to enable auto completion f
 </section>
 <section id="editing-a-user-defined-dialog">
 <h2>Editing a user-defined Dialog<a class="headerlink" href="#editing-a-user-defined-dialog" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>[!NOTE]
-This function assumes that a dialog already exists in the App folder.</p>
-</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function assumes that a dialog already exists in the App folder.</p>
+</div>
 <p><img alt="Open dialog editing UI in Application" src="../../_images/userdialog6.png" /></p>
 <p>From View ► Command Palette… (<code class="docutils literal notranslate"><span class="pre">Ctrl+Shift+P</span></code>), select ‘ZEISS app development: Open dialog editing UI in Application’ or click RMB ► ‘Open dialog editing UI in Application’ on the dialog file.</p>
 <p><img alt="Dialog Editor confirmation" src="../../_images/userdialog8.png" /></p>
@@ -266,10 +266,10 @@ This function assumes that a dialog already exists in the App folder.</p>
 </section>
 <section id="running-and-debugging-python-apps">
 <h2>Running and Debugging Python Apps<a class="headerlink" href="#running-and-debugging-python-apps" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>[!IMPORTANT]
-Make sure that you have selected the right Python interpreter as described in <a class="reference internal" href="#vscode-configuration">VSCode configuration</a>.</p>
-</div></blockquote>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Make sure that you have selected the right Python interpreter as described in <a class="reference internal" href="#vscode-configuration">VSCode configuration</a>.</p>
+</div>
 <p>To run or debug a Python script in an App</p>
 <ul>
 <li><p>Open the script in VScode</p></li>
@@ -313,7 +313,7 @@ Make sure that you have selected the right Python interpreter as described in <a
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f3ce22924a0>
+  <jinja2.runtime.BlockReference object at 0x7f1c38f3a4a0>
 
 
 </footer>
