@@ -96,6 +96,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#adding-log-output-to-a-service">Adding log output to a service</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-services">Debugging services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#service-api-documentation">Service API documentation</a></li>
 </ul>
 </li>
@@ -327,6 +328,40 @@ Currently the service has to run on the same machine as the application and can 
 </div>
 </section>
 </section>
+<section id="debugging-services">
+<h2>Debugging services<a class="headerlink" href="#debugging-services" title="Link to this heading"></a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A service (script functions called from within the application) can be debugged by running it in the Python interpreter selected in VSCode.</p>
+</div>
+<ul>
+<li><p>See <a class="reference internal" href="../using_vscode_editor/using_vscode_editor.html"><span class="std std-doc">Using Visual Studio Code as App Editor</span></a> for fundamentals</p></li>
+<li><p>In the service script, set <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">endpoint</span></code> parameters in the <code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apifunction</span>
+
+<span class="o">...</span>
+
+<span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;My Service&#39;</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="s1">&#39;gom.api.myendpoint&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</li>
+<li><p>Launch ZEISS INSPECT.</p></li>
+<li><p>Launch the service script in VSCode with the launch configuration (<code class="docutils literal notranslate"><span class="pre">launch.json</span></code>) provided by ZEISS INSPECT (see <a href="https://zeiss.github.io/zeiss-inspect-app-api/main/howtos/using_vscode_editor/using_vscode_editor.html#implementation-details">Running and Debugging Python Apps</a>).</p></li>
+<li><p>The script will then register to the running ZEISS INSPECT instance as a service and can be debugged regularly:</p>
+<ul class="simple">
+<li><p>Set breakpoints in the service script.</p></li>
+<li><p>Call service function from within a regular ZEISS Inspect script.</p></li>
+<li><p>Breakpoints are triggered and execution can be evaluated.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The service calling functions have a timeout. Do not remain in the breakpoint state for too long, otherwise the calling command might fail!</p>
+</div>
+<p><img alt="Debugging a service" src="../../_images/debugging_service.png" /></p>
+</section>
 <section id="service-api-documentation">
 <h2>Service API documentation<a class="headerlink" href="#service-api-documentation" title="Link to this heading"></a></h2>
 <p>See <a href="../../python_api/python_api.html#gom-api-services">gom.api.services</a></p>
@@ -355,7 +390,7 @@ Currently the service has to run on the same machine as the application and can 
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f948cba9cc0>
+  <jinja2.runtime.BlockReference object at 0x7fd6323dd550>
 
 
 </footer>
