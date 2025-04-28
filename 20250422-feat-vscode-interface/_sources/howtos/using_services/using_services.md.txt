@@ -183,7 +183,7 @@ A service (script functions called from within the application) can be debugged 
 * Launch the service script in VSCode with the launch configuration (`launch.json`) provided by ZEISS INSPECT (see <a href="https://zeiss.github.io/zeiss-inspect-app-api/main/howtos/using_vscode_editor/using_vscode_editor.html#implementation-details">Running and Debugging Python Apps</a>).
 * The script will then register to the running ZEISS INSPECT instance as a service and can be debugged regularly:
   * Set breakpoints in the service script.
-  * Call service function from within a regular ZEISS Inspect script.
+  * Call service function from within a regular ZEISS INSPECT script.
   * Breakpoints are triggered and execution can be evaluated.
 
 ```{caution}
