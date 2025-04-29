@@ -85,6 +85,7 @@ The following script serves as a minimum template for a scripted diagram service
 
 import gom
 from gom import apifunction
+import matplotlib.pyplot as plt
 import gom.api.extensions.diagrams.matplotlib_tools as mpltools
 
 @apifunction
