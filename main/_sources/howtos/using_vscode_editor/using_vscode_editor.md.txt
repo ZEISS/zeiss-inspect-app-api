@@ -182,3 +182,10 @@ A script can then be started by selecting this launch configuration right in the
 When debugging, the Python interpreter now runs directly in VSCode and the ZEISS INSPECT software is handled like a remote API. Thus, all Python debugging features can be used natively in VSCode.
 
 ![Debugging features](assets/debugging_features.png)
+
+## Related
+
+* <a href="../using_services/using_services.html#debugging-services">Debugging services</a>
+* [ZEISS INSPECT API Python wheel](https://github.com/ZEISS/zeiss-inspect-api-wheel) GitHub repository
+* [ZEISS INSPECT API Python wheel](https://pypi.org/project/zeiss-inspect-api/) PyPI project
+* [Visual Studio Code Telemetry Configuration](https://code.visualstudio.com/docs/configure/telemetry)
