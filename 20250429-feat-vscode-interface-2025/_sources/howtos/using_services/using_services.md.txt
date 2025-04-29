@@ -161,6 +161,37 @@ gom.log.info ('Informational message')
 See [Python Logging HOWTO](https://docs.python.org/3/howto/logging.html) to learn more about logging in Python.
 ```
 
+## Debugging services
+
+```{important}
+A service (script functions called from within the application) can be debugged by running it in the Python interpreter selected in VSCode.
+```
+
+* See [Using Visual Studio Code as App Editor](../using_vscode_editor/using_vscode_editor.md) for fundamentals
+* In the service script, set `name` and `endpoint` parameters in the `gom.run_api()` function:
+
+  ```{code-block} python
+  import gom
+  from gom import apifunction
+ 
+  ...
+ 
+  gom.run_api(name='My Service', endpoint='gom.api.myendpoint') 
+  ```
+
+* Launch ZEISS INSPECT.
+* Launch the service script in VSCode with the launch configuration (`launch.json`) provided by ZEISS INSPECT (see <a href="https://zeiss.github.io/zeiss-inspect-app-api/main/howtos/using_vscode_editor/using_vscode_editor.html#implementation-details">Running and Debugging Python Apps</a>).
+* The script will then register to the running ZEISS INSPECT instance as a service and can be debugged regularly:
+  * Set breakpoints in the service script.
+  * Call service function from within a regular ZEISS INSPECT script.
+  * Breakpoints are triggered and execution can be evaluated.
+
+```{caution}
+The service calling functions have a timeout. Do not remain in the breakpoint state for too long, otherwise the calling command might fail!
+```
+
+![Debugging a service](assets/debugging_service.png)
+
 ## Service API documentation
 
 See <a href="../../python_api/python_api.html#gom-api-services">gom.api.services</a>
