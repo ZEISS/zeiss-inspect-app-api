@@ -1,6 +1,6 @@
 ![New in Version 2025](https://img.shields.io/badge/New-Version_2025-orange)
 
-# Using ZEISS INSPECT with Jupyter Notebook
+# Using Jupyter Notebook
 
 > Abstract: This article shows how to run ZEISS INSPECT Python scripts interactively in [Jupyter Notebook](https://jupyter.org/). For this purpose, a virtual Python environment is created where the [ZEISS INSPECT API wheel](https://pypi.org/project/zeiss-inspect-api/) and the [Jupyter metapackage](https://pypi.org/project/jupyter/) are installed.
 
