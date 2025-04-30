@@ -64,9 +64,9 @@ Jupyter Notebook opens its web GUI in your browser. A file browser is shown init
 
 * Use New ► 'New Folder' from the 'Files' tab to create a folder named `zeiss_inspect_jupyter`.
 * Go to the folder `zeiss_inspect_jupyter`.
-* Use File ► New ► Notebook from the main menu to create a new notebook
+* Use File ► New ► Notebook from the main menu to create a new notebook.
 * A dialog 'Select Kernel' is shown.
-  * Select 'Python3 (ipykernel)' from the dropdown menu 
+  * Select 'Python3 (ipykernel)' from the dropdown menu.
 * Modify the following Python code using your API port and API key (see <a href="../using_vscode_editor/using_vscode_editor.html#zeiss-inspect-configuration">Using Visual Studio Code as App editor &ndash; ZEISS INSPECT configuration</a>) and enter it in the first cell of your notebook:
 
     ```{code-block} python
