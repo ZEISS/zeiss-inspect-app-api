@@ -16,7 +16,7 @@ In this example, the Windows PowerShell is used to create and configure a virtua
 
 Create and enable a virtual environment named `jupyter_env`:
 
-```{code-block} popershell
+```{code-block} powershell
 python -m venv jupyter_env
 
 .\jupyter_env\Scripts\Activate.ps1
