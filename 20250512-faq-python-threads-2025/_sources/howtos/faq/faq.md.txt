@@ -146,7 +146,7 @@ Depending on the specific use case, one of the following workarounds might be ap
 * Use a 3rd party library which makes use of threading natively.
 * Use the python subprocess module.
 * Use threads in a way that no ZEISS INSPECT API calls are made. You will have to find out if and how this works in your specific case.
-* Use a <a href="../python_api_introduction/user_defined_dialogs.html#using-a-timer-to-activate-the-event-handler">timer event</a> to implement time-based scheduling.
+* Use a <a href="../python_api_introduction/user_defined_dialogs.html#using-a-timer-to-activate-the-event-handler">timer event</a> to implement time-based scheduling in a dialog event handler.
 
 ## How do I filter nominal, actual or inspection elements?
 
