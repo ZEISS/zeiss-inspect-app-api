@@ -283,7 +283,7 @@ where <code class="docutils literal notranslate"><span class="pre">%APPDATA</spa
 </section>
 <section id="can-i-use-multithreading-in-python-scripts">
 <h2>Can I use multithreading in Python scripts?<a class="headerlink" href="#can-i-use-multithreading-in-python-scripts" title="Link to this heading"></a></h2>
-<p>No, in general, this is not possible. Due the <a class="reference external" href="https://en.wikipedia.org/wiki/Global_interpreter_lock">Python Global Interpreter Lock</a>, the ZEISS INSPECT App API was implemented non-thread-safe only and is called during script evaluation in the background on various occasions.</p>
+<p>No, in general this is not possible. Due the <a class="reference external" href="https://en.wikipedia.org/wiki/Global_interpreter_lock">Python Global Interpreter Lock</a>, the ZEISS INSPECT App API was implemented non-thread-safe only and is called during script evaluation in the background on various occasions.</p>
 <p>Depending on the specific use case, one of the following workarounds might be applicable:</p>
 <ul class="simple">
 <li><p>Use a 3rd party library which makes use of threading natively.</p></li>
@@ -589,7 +589,7 @@ where <code class="docutils literal notranslate"><span class="pre">%APPDATA</spa
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f54ffa2fc50>
+  <jinja2.runtime.BlockReference object at 0x7fb8d6f37c50>
 
 
 </footer>
