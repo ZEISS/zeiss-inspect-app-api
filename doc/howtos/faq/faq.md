@@ -139,7 +139,7 @@ sys.exit(0)
 
 ## Can I use multithreading in Python scripts?
 
-No, in general, this is not possible. Due the [Python Global Interpreter Lock](https://en.wikipedia.org/wiki/Global_interpreter_lock), the ZEISS INSPECT App API was implemented non-thread-safe only and is called during script evaluation in the background on various occasions.
+No, in general this is not possible. Due the [Python Global Interpreter Lock](https://en.wikipedia.org/wiki/Global_interpreter_lock), the ZEISS INSPECT App API was implemented non-thread-safe only and is called during script evaluation in the background on various occasions.
 
 Depending on the specific use case, one of the following workarounds might be applicable:
 
