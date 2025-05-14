@@ -136,6 +136,17 @@ sys.exit(0)
 
 ```
 
+## Can I use multithreading in Python scripts?
+
+No, in general this is not possible. Due the [Python Global Interpreter Lock](https://en.wikipedia.org/wiki/Global_interpreter_lock), the ZEISS INSPECT App API was implemented non-thread-safe only and is called during script evaluation in the background on various occasions.
+
+Depending on the specific use case, one of the following workarounds might be applicable:
+
+* Use a 3rd party library which makes use of threading natively.
+* Use the python subprocess module.
+* Use threads in a way that no ZEISS INSPECT API calls are made. You will have to find out if and how this works in your specific case.
+* Use a <a href="../python_api_introduction/user_defined_dialogs.html#using-a-timer-to-activate-the-event-handler">timer event</a> to implement time-based scheduling in a dialog event handler.
+
 ## How do I filter nominal, actual or inspection elements?
 
 Use `print (gom.app.project.<element_type>.__doc__)` where you replace `<element_type>` by `actual_elements`, `nominal_elements` or `inspection` as needed to get the available properties.
