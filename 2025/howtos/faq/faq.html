@@ -65,6 +65,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-fix-a-unicode-error-when-trying-to-access-a-file">How do I fix a <code class="docutils literal notranslate"><span class="pre">unicode</span> <span class="pre">error</span></code> when trying to access a file?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-can-i-update-the-apps-after-changes-made-outside-of-zeiss-inspect">How can I update the Apps after changes made outside of ZEISS INSPECT?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-can-i-stop-script-execution">How can I stop script execution?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#can-i-use-multithreading-in-python-scripts">Can I use multithreading in Python scripts?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-filter-nominal-actual-or-inspection-elements">How do I filter nominal, actual or inspection elements?</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#examples-for-filtering-actual-elements">Examples for filtering actual elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#examples-for-filtering-nominal-elements">Examples for filtering nominal elements</a></li>
@@ -279,6 +280,17 @@ where <code class="docutils literal notranslate"><span class="pre">%APPDATA</spa
 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="can-i-use-multithreading-in-python-scripts">
+<h2>Can I use multithreading in Python scripts?<a class="headerlink" href="#can-i-use-multithreading-in-python-scripts" title="Link to this heading"></a></h2>
+<p>No, in general this is not possible. Due the <a class="reference external" href="https://en.wikipedia.org/wiki/Global_interpreter_lock">Python Global Interpreter Lock</a>, the ZEISS INSPECT App API was implemented non-thread-safe only and is called during script evaluation in the background on various occasions.</p>
+<p>Depending on the specific use case, one of the following workarounds might be applicable:</p>
+<ul class="simple">
+<li><p>Use a 3rd party library which makes use of threading natively.</p></li>
+<li><p>Use the python subprocess module.</p></li>
+<li><p>Use threads in a way that no ZEISS INSPECT API calls are made. You will have to find out if and how this works in your specific case.</p></li>
+<li><p>Use a <a href="../python_api_introduction/user_defined_dialogs.html#using-a-timer-to-activate-the-event-handler">timer event</a> to implement time-based scheduling in a dialog event handler.</p></li>
+</ul>
 </section>
 <section id="how-do-i-filter-nominal-actual-or-inspection-elements">
 <h2>How do I filter nominal, actual or inspection elements?<a class="headerlink" href="#how-do-i-filter-nominal-actual-or-inspection-elements" title="Link to this heading"></a></h2>
@@ -577,7 +589,7 @@ where <code class="docutils literal notranslate"><span class="pre">%APPDATA</spa
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fed8c10eb50>
+  <jinja2.runtime.BlockReference object at 0x7fc812a7fc50>
 
 
 </footer>
