@@ -5,10 +5,15 @@
 ### Installation
 
 1. Installation
-   * Install the extension directly from the Visual Studio Code extension tab or from the marketplace. 
-   * VSCode version 1.64 or higher is needed for this to work properly.
 
-     ![](assets/extension.png)
+   * VSCode version 1.64 or higher is needed for this to work properly.
+   * Install the 'ZEISS INSPECT App Development Extension' version "**2024.x.y**" directly from the Visual Studio Code extension view or from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=CarlZeissGOMMetrologyGmbH.gom-msvc-python-api).
+   
+     ![VSCode Extension Installation](assets/install_extension.png)
+
+     ```{caution}
+     You must use extension version "**2024.x.y**" for ZEISS INSPECT 2023, which can be installed via the "Install Specific Version..." menu.
+     ```
 
 2. Configure connection
  
