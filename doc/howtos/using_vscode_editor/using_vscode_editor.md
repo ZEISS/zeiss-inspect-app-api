@@ -42,13 +42,21 @@ Select Edit ► Preferences and navigate to Apps ► 'API configuration'.
 
 ### VSCode configuration
 
-!['ZEISS INSPECT App Development' Extension Settings](assets/vscode_configuration.png)
-
 * Install [Visual Studio Code](https://code.visualstudio.com/)
 
 * Install the most recent 'ZEISS INSPECT App Development' extension for Visual Studio Code.
 
+  ![ZEISS INSPECT App Development Extension Installation](assets/extension_installation.png)
+
+  The extension is provided in the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=CarlZeissGOMMetrologyGmbH.gom-msvc-python-api).
+
+  ```{caution}
+  For ZEISS INSPECT 2023 and before (including GOM Inspect versions), you must use extension version "2024.x.y" which can be installed via the "Install Specific Version..." menu.
+  ```
+
 * Edit the 'ZEISS INSPECT App Development' extension settings:
+  
+  !['ZEISS INSPECT App Development' Extension Settings](assets/vscode_configuration.png)
   
   * Host URL (1): Host running the ZEISS INSPECT application.
 
