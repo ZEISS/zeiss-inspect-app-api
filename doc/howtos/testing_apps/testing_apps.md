@@ -137,7 +137,7 @@ def test_volume_section():
 
 You can see, that `ElementTest` can be used to access element properties easily. `ArrayDataTest` is used for `numpy` array comparison.
 The path where test data is stored is supplied in the constructors (e.g. `ElementTest('test_data/data_interfaces_volume_section_tokens.dat')`).
-If a relative path is given, like here, a resource inside the App is created / compared with. You can also use absolute paths to a file on your disk, but this is not recommended since not everyone who installed your App will have access this data.
+If a relative path is given, like here, a resource inside the App is created / compared with. You can also use absolute paths to a file on your disk, but this is not recommended since not everyone who installed your App will have access to this data.
 
 These classes will **create the test data** for you, if you run the test execution via "Run tests (create data)...".
 
