@@ -2,7 +2,7 @@
 myst:
     html_meta:
         "description": "Examples for using the ZEISS INSPECT 2025 App Python API"
-        "keywords": "Metrology, ZEISS INSPECT, Python API, GOM API, Scripting, Add-ons, Apps, Examples"
+        "keywords": "Metrology, ZEISS INSPECT, Python API, App API, GOM API, Scripting, Add-ons, Apps, Examples"
 ---
 
 <style>
@@ -210,7 +210,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     This examples demonstrates, how a dialog can be closed from its own handler, just to be opened again.
 
 :References:
-    [HowTo](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/howtos/python_api_introduction/user_defined_dialogs.html#executing-dialogs)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/python_api_introduction/user_defined_dialogs.html#executing-dialogs)
 :Tags:
     <a href="#id6">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> 
 
@@ -373,7 +373,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Service API Example
 
 :References:
-    [HowTo](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/howtos/using_services/using_services.html), [API](https://zeissiqs.github.io/zeiss-inspect-addon-api/2025/python_api/python_api.html#gom-api-services)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/using_services/using_services.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/python_api.html#gom-api-services)
 :Tags:
     <a href="#id33">![Static Badge](https://img.shields.io/badge/service-blue)</a> 
 
