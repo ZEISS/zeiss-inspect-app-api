@@ -1,8 +1,9 @@
 # Testing Apps
 
 ```{note}
-You can use the `Python API Examples` App, which you can find in the store, as an example how to include tests in your App.
+You can use the [CheckResultsDataArray App](../../python_examples/examples_overview.html#checkresultsdataarray) as an example for adding tests to your App.
 ```
+
 ## Why testing?
 
 Testing your App is a crucial step for maintainability, especially when dealing with multiple software versions or updates. As manually testing your App is often tedious and time consuming, this how-to focuses on how to include **automated tests** in your App.
@@ -11,35 +12,35 @@ Automated tests are important when writing Apps in Python because they help to e
 
 ## File structure
 
-For test discovery to work, the file and folder structure of App tests needs to adhere to the following conventions, which are similar to the *pyTest*s [Conventions for Python test discovery](https://docs.pytest.org/en/7.2.x/explanation/goodpractices.html#conventions-for-python-test-discovery).
+For test discovery to work, the file and folder structure of App tests needs to adhere to the following conventions, which are similar to *pytest*'s [Conventions for Python test discovery](https://docs.pytest.org/en/7.2.x/explanation/goodpractices.html#conventions-for-python-test-discovery).
 
-* test script file names **start with `test_`**
-* test scripts *only* contain **functions with the prefix `test_`**.
-   * this means: no code outside of function definitions. 
-* (optional, but recommended) all python test scripts reside in a separate `tests/` directory of your Apps top-level directory.
+* Test script file names **start with `test_`**
+* Test scripts *only* contain **functions with the prefix `test_`**.
+   * This means: no code outside of function definitions. 
+* (optional, but recommended) All python test scripts reside in a separate `tests/` directory of your App's top-level directory.
 
-```{figure} file_structure.png
+```{figure} assets/file_structure.png
 :align: center
 Exemplary file structure.
 ```
 
 
 ```{note}
-In ZEISS INSPECT 2023, there is no need for a script at the top-level that executes all of your tests anymore. Instead, use the "Execute App tests" command (see [Running tests](#running-app-tests)).
+Starting with ZEISS INSPECT 2023, there is no need for a script at the top-level that executes all of your tests anymore. Instead, use the "Execute App tests" command (see [Running tests](#running-app-tests)).
 ```
 
 ## Writing a test script
 
-The following steps are required to write a new test script. The example code is taken from the `Python API Examples` App, which you can find in the store.
+The following steps are required to write a new test script. The example code is taken from the [CheckResultsDataArray App](../../python_examples/examples_overview.html#checkresultsdataarray).
 
 1. Create a test script: Create a Python file with the convention test_*.py. 
-   (Example: `PythonApiExamples/tests/test_data_interfaces_check_results`)
+   (Example: [/tests/test_data_interfaces_check_results](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/CheckResultsDataArray/scripts/tests/test_data_interfaces_check_results.py))
    
 2. Import the module or package to be tested: Import the module or package that you want to test.
 
    ```python
    # Importing the example we want to test
-   import PythonApiExamples.examples.data_interfaces.check_results_data_array as example
+   import check_results_data_array as example
    ```
    
    For this to work properly, the code that you want to test needs to be structured in functions as well. In this case, the functions `get_single_result_value()` of the `check_results_data_arrray` script is imported.
@@ -48,48 +49,51 @@ The following steps are required to write a new test script. The example code is
 3. Write test functions: Write test functions named with prefix `test_` that define expected behavior. For simple checks for expected values, use the `assert` statement like shown below. For more complex test data (like arrays or Element properties), see [Working with test data](#working-with-test-data).
 
    ```python
-   def test_check_results ():
-     # Setup test project
-     open_project('zeiss_part_test_project')
-     test_element = gom.app.project.inspection['Surface comparison 1']
-     
-     # Test definition
-     expected_single_value = 2.0495047569274902
-     actual_result_value = example.get_single_result_value(test_element)
-     
-     assert actual_result_value == expected_single_value
+   def test_check_results():
+       # Setup test project
+       open_project('zeiss_part_test_project')
+       test_element = gom.app.project.inspection['Surface comparison 1']
+
+       # Test definition
+       expected_single_value = -0.1673445701599121
+       assert expected_single_value == example.get_single_result_value(test_element)
+
+       actual_result_array = example.get_result_values_array(test_element)
+       test = ArrayDataTest('test_data/data_interfaces_check_results.dat')
+       test.testArrayValues(actual_result_array)
    ```
 
 That's all it takes to create a simple test, which can now be run.
 
 ## Running App tests
 
-To run App tests, either a single one or multiple/all tests of an App, you can use the integrated script editor or VSCode. You can also execute tests from a script.
-### Using the script editor
+To run App tests &ndash; either a single one or multiple/all tests of an App &ndash; you can use the integrated script editor or VSCode. You can also execute tests from a script.
+
+### Using the App Explorer
 
 To run the tests of a specific test script, use the context menu and select "Run tests...". 
 
-![Executimg tests from App Explorer](execute_tests_command.png)
+![Executimg tests from App Explorer](assets/execute_tests_command.png)
 
 You can use this context also on higher levels of the file hierarchy, e.g. to execute all tests of a folder or of the complete App.
 
 Results will be shown in the log of the script editor.
 
-![](test_log.jpg)
+![Test log](assets/test_log.png)
 
 ### Using VSCode
 
 The ZEISS INSPECT App extension for VSCode was also extended to be able to run the test functions separately, or a collection of tests.
 To use this feature, navigate to the "Testing" workspace of VSCode and select the test items you want to run.
 
-![Executing tests from VSCode](vscode_testing.jpg)
+![Executing tests from VSCode](assets/vscode_testing.png)
 
 ### From scripts
 
 You can use the `execute_addon_tests` command to run tests of an App. It takes the App UUID as mandatory argument. If solely given, all tests of the App are executed. You can also provide a list of test paths with the argument `test_paths` in form of relative paths inside the App. The suffix `#test_<...>` indicates, which test function to run. 
 
 ```
-results = gom.script.sys.execute_addon_tests_draft(addon_uuid='5f396cc9-7865-44a1-8a85-ed7c1689dd68')
+results = gom.script.sys.execute_addon_tests_draft(addon_uuid='cc4de73f-a8b9-4c01-8f45-141a74f29333')
 ```
 
 ```
@@ -98,19 +102,18 @@ results = gom.script.sys.execute_addon_tests_draft(addon_uuid='5f396cc9-7865-44a
 ```
 This will give you `results` as a list of tuples (test name, success, error message), which you can use for further evaluation.
 
-
 ## Working with test data
 
-In the namespace `addon`, there are two new classes: `addon.ArrayDataTest` and `addon.ElementTest`.
+In the namespace `addon`, there are two classes: `addon.ArrayDataTest` and `addon.ElementTest`.
 
-These classes can help you to create test data and compare the data of the current test run with the saved data. An example usage is given by `test_data_interfaces_volume_section.py` of the Python API Examples App.
+These classes can help you to create test data and compare the data of the current test run with the saved data. An example usage is given in `test_data_interfaces_volume_section.py` of the [CheckResultsDataArray App](../../python_examples/examples_overview.html#checkresultsdataarray).
 
 ```
 from addon import ArrayDataTest, ElementTest
-from PythonApiExamples.setup_project import open_project
+from ExampleProjects.setup_project import open_project
 
 # Importing the example we want to test
-import PythonApiExamples.examples.data_interfaces.volume_section_image_data as example
+import import volume_section_image_data as example as example
 
 def test_volume_section():
 	# Setup test project
@@ -133,12 +136,12 @@ def test_volume_section():
 ```
 
 You can see, that `ElementTest` can be used to access element properties easily. `ArrayDataTest` is used for `numpy` array comparison.
-The path, where test data is stored, is supplied in the constructors (e.g. `ElementTest('test_data/data_interfaces_volume_section_tokens.dat')`).
-If a relative path is given, like here, a resource inside the App is created / compared with. You can also use absolute paths to a file on your disk, but this is not recommended since not everyone that installed your App has access to this test data.
+The path where test data is stored is supplied in the constructors (e.g. `ElementTest('test_data/data_interfaces_volume_section_tokens.dat')`).
+If a relative path is given, like here, a resource inside the App is created / compared with. You can also use absolute paths to a file on your disk, but this is not recommended since not everyone who installed your App will have access this data.
 
 These classes will **create the test data** for you, if you run the test execution via "Run tests (create data)...".
 
-![Run test with creation of test data](run_tests_create_data.png)
+![Run test with creation of test data](assets/run_tests_create_data.png)
 
 In a "normal" test run, data will be compared to the stored resources.
 
@@ -148,7 +151,7 @@ Normally, you would have to test Apps (or parts of it) using [user-defined dialo
 
 ### Example
 
-![Example dialog](that_dialog.png) 
+![Example dialog](assets/that_dialog.png) 
 
 ```{code-block} python
 def code_that_contains_dialogs():
@@ -239,7 +242,7 @@ The dialog was canceled
 `AutoDialogContext` is a context manager ([https://docs.python.org/3/reference/datamodel.html#context-managers](https://docs.python.org/3/reference/datamodel.html#context-managers)),
 which can be used together with the `with` statement ([https://docs.python.org/3/reference/compound_stmts.html#with](https://docs.python.org/3/reference/compound_stmts.html#with)).
 
-Its `__init__` method expects a callback function. This callback function should take a single parameter which is a dialog handle. The dialog handle may be used to manipulate the dialog (set the value of widgets, call the handler manually, etc).
+Its `__init__` method expects a callback function. This callback function should take a dialog handle as the only parameter. The dialog handle may be used to manipulate the dialog (set the value of widgets, call the handler manually, etc).
 
 Interaction with the control buttons of the dialog is done via the return value of the callback:
 * If the dialog should be closed via the close button, the callback should return 'close'.
@@ -305,8 +308,8 @@ C:/Users/<USERID>/AppData/Roaming/gom/2023/gom_edited_addons/d569d88b-a493-4298-
 
 The HTML coverage report summary shows the same information:
 
-![HTML coverage report, summary](coverage-1.jpeg)
+![HTML coverage report, summary](assets/coverage-1.jpeg)
 
 Clicking a module shows a detailed report with code lines marked as run (green), missing (red) or excluded (gray). A code section (single line or begin of block) can be excluded from the coverage report with `# pragma: no cover`.
 
-![HTML coverage report, file based](coverage-2.jpeg)
+![HTML coverage report, file based](assets/coverage-2.jpeg)
