@@ -1,7 +1,7 @@
 # Testing Apps
 
 ```{note}
-You can use the [CheckResultsDataArray App](../../python_examples/examples_overview.html#checkresultsdataarray) as an example for adding tests to your App.
+You can use the <a href="../../python_examples/examples_overview.html#checkresultsdataarray">CheckResultsDataArray App</a> as an example for adding tests to your App.
 ```
 
 ## Why testing?
@@ -31,7 +31,7 @@ Starting with ZEISS INSPECT 2023, there is no need for a script at the top-level
 
 ## Writing a test script
 
-The following steps are required to write a new test script. The example code is taken from the [CheckResultsDataArray App](../../python_examples/examples_overview.html#checkresultsdataarray).
+The following steps are required to write a new test script. The example code is taken from the <a href="../../python_examples/examples_overview.html#checkresultsdataarray">CheckResultsDataArray App</a>.
 
 1. Create a test script: Create a Python file with the convention test_*.py. 
    (Example: [/tests/test_data_interfaces_check_results](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/CheckResultsDataArray/scripts/tests/test_data_interfaces_check_results.py))
@@ -106,7 +106,7 @@ This will give you `results` as a list of tuples (test name, success, error mess
 
 In the namespace `addon`, there are two classes: `addon.ArrayDataTest` and `addon.ElementTest`.
 
-These classes can help you to create test data and compare the data of the current test run with the saved data. An example usage is given in `test_data_interfaces_volume_section.py` of the [CheckResultsDataArray App](../../python_examples/examples_overview.html#checkresultsdataarray).
+These classes can help you to create test data and compare the data of the current test run with the saved data. An example usage is given in `test_data_interfaces_volume_section.py` of the <a href="../../python_examples/examples_overview.html#volumesectionimagedata">VolumeSectionImageData App</a>.
 
 ```
 from addon import ArrayDataTest, ElementTest
