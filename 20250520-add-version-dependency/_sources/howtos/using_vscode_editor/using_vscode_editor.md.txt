@@ -5,11 +5,11 @@
 > Abstract: This section describes how to use Visual Studio Code as App editor with features like auto completion and Intellisense for ZEISS INSPECT API functions or
 > insertion of ZEISS INSPECT Elements.
 
+## Setup
+
 ```{caution}
 This setup requires ZEISS INSPECT 2025 Service Pack 1 or newer!
 ```
-
-## Setup
 
 ### Python installation
 
