@@ -7,6 +7,10 @@
 
 ## Setup
 
+```{caution}
+This setup requires ZEISS INSPECT 2025 Service Pack 1 or newer!
+```
+
 ### Python installation
 
 Using VSCode as App editor requires an additional Python 3.9 installation. Follow the installation instructions of your local IT or
