@@ -98,7 +98,7 @@ results = gom.script.sys.execute_addon_tests_draft(addon_uuid='cc4de73f-a8b9-4c0
 
 ```
 results = gom.script.sys.execute_addon_tests_draft(addon_uuid='5f396cc9-7865-44a1-8a85-ed7c1689dd68', 
-   test_paths=['/PythonApiExamples/tests/test_dialog_widgets_explorer_selection#test_explorer_selection'])
+	test_paths=['/PythonApiExamples/tests/test_dialog_widgets_explorer_selection#test_explorer_selection'])
 ```
 This will give you `results` as a list of tuples (test name, success, error message), which you can use for further evaluation.
 
@@ -116,23 +116,23 @@ from ExampleProjects.setup_project import open_project
 import import volume_section_image_data as example as example
 
 def test_volume_section():
-   # Setup test project
-   open_project('volume_test_project')
-   test_element = gom.app.project.actual_elements['Plane X +40.00 mm']
-   #
-   # TEST
-   #
-   element_test = ElementTest('test_data/data_interfaces_volume_section_tokens.dat')
-   element_test.testElementValues(test_element, ['image_width', 'image_height', 'image_type'])
-   element_test.callTest()
+	# Setup test project
+	open_project('volume_test_project')
+	test_element = gom.app.project.actual_elements['Plane X +40.00 mm']
+	#
+	# TEST
+	#
+	element_test = ElementTest('test_data/data_interfaces_volume_section_tokens.dat')
+	element_test.testElementValues(test_element, ['image_width', 'image_height', 'image_type'])
+	element_test.callTest()
 
-   raw_array = example.get_image_data_raw(test_element)
-   raw_array_test = ArrayDataTest('test_data/data_interfaces_volume_section_raw.dat')
-   raw_array_test.testArrayValues(raw_array)
+	raw_array = example.get_image_data_raw(test_element)
+	raw_array_test = ArrayDataTest('test_data/data_interfaces_volume_section_raw.dat')
+	raw_array_test.testArrayValues(raw_array)
 
-   rgb_array = example.get_image_data_rgb(test_element)
-   rgb_array_test = ArrayDataTest('test_data/data_interfaces_volume_section_rgb.dat')
-   rgb_array_test.testArrayValues(rgb_array)
+	rgb_array = example.get_image_data_rgb(test_element)
+	rgb_array_test = ArrayDataTest('test_data/data_interfaces_volume_section_rgb.dat')
+	rgb_array_test.testArrayValues(rgb_array)
 ```
 
 You can see, that `ElementTest` can be used to access element properties easily. `ArrayDataTest` is used for `numpy` array comparison.
@@ -203,17 +203,17 @@ from gom_test_helpers.dialogs.AutoDialogContext import AutoDialogContext
 
 print('Automatically executing the dialog with callback1')
 with AutoDialogContext(callback1):
-   code_that_contains_dialogs()
+	code_that_contains_dialogs()
 
 print('')
 print('Automatically executing the dialog with callback2')
 with AutoDialogContext(callback2):
-   code_that_contains_dialogs()
+	code_that_contains_dialogs()
 
 print('')
 print('Automatically executing the dialog with callback3')
 with AutoDialogContext(callback3):
-   code_that_contains_dialogs()
+	code_that_contains_dialogs()
 ```
 
 Output:

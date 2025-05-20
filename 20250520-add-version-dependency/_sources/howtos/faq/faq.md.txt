@@ -9,7 +9,6 @@ Apps which are edited are located in `C:\Users\<USERID>\AppData\Roaming\GOM\<VER
 When editing is finished, an App file (see [App file format](../app_file_format/app_file_format.md)) is created and saved in `C:\Users\<USERID>\AppData\Roaming\GOM\<VERSION>\gom_addons`.
 
 The connected folders are saved as Windows shortcuts in `C:\Users\<USERID>\AppData\Roaming\GOM\<VERSION>\gom_script_external_folders`.
-
 ## Where is the Python installation used by ZEISS INSPECT located?
 
 Token: `gom.app.python_directory`

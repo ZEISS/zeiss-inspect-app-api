@@ -2,7 +2,7 @@
 myst:
     html_meta:
         "description": "Examples for using the ZEISS INSPECT 2025 App Python API"
-        "keywords": "Metrology, ZEISS INSPECT, Python API, App API, GOM API, Scripting, Add-ons, Apps, Examples"
+        "keywords": "Metrology, ZEISS INSPECT, Python API, GOM API, Scripting, Add-ons, Apps, Examples"
 ---
 
 <style>
@@ -1201,3 +1201,4 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 * [ZEISS IQS GitHub &mdash; App Development Documentation](https://zeiss.github.io/zeiss-inspect-app-api/2025/index.html)
 * [ZEISS Quality Software Store](https://software-store.zeiss.com)
+
