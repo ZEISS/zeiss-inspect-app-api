@@ -104,10 +104,11 @@ or\
 `RESULT=gom.script.sys.execute_user_defined_dialog (file='dialog.gdlg')`,\
 the dialog file is given relative to the App's `scripts/` folder.
 
-To allow loading of dialog files relative to the current working directory &ndash; i.e. where the current notebook (`*.ipynb`) file is located &ndash; you must include the following patch:
+To allow loading of dialog files relative to the current working directory &ndash; i.e. where the current Notebook (`*.ipynb`) file is located &ndash; you must include the following patch:
 
 ```{code-block} python
-# Workaround for finding dialog files in current notebook's folder
+# Workaround for finding dialog files in current Notebook's folder
+
 # Define the wrapper function
 def patched_create_user_defined_dialog(file, *args, **kwargs):
     # Prepend the path to the file
