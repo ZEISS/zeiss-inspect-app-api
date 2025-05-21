@@ -225,8 +225,9 @@
 or<br />
 <code class="docutils literal notranslate"><span class="pre">RESULT=gom.script.sys.execute_user_defined_dialog</span> <span class="pre">(file='dialog.gdlg')</span></code>,<br />
 the dialog file is given relative to the App’s <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> folder.</p>
-<p>To allow loading of dialog files relative to the current working directory – i.e. where the current notebook (<code class="docutils literal notranslate"><span class="pre">*.ipynb</span></code>) file is located – you must include the following patch:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Workaround for finding dialog files in current notebook&#39;s folder</span>
+<p>To allow loading of dialog files relative to the current working directory – i.e. where the current Notebook (<code class="docutils literal notranslate"><span class="pre">*.ipynb</span></code>) file is located – you must include the following patch:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Workaround for finding dialog files in current Notebook&#39;s folder</span>
+
 <span class="c1"># Define the wrapper function</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">patched_create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="c1"># Prepend the path to the file</span>
@@ -275,7 +276,7 @@ the dialog file is given relative to the App’s <code class="docutils literal n
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7ffa93907690>
+  <jinja2.runtime.BlockReference object at 0x7fba53b4cfa0>
 
 
 </footer>
