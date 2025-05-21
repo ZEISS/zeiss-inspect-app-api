@@ -60,7 +60,7 @@ jupyter notebook
 
 Jupyter Notebook opens its web GUI in your browser. A file browser is shown initially.
 
-## Create a Notebook
+## Creating a Notebook
 
 * Use New ► 'New Folder' from the 'Files' tab to create a folder named `zeiss_inspect_jupyter`.
 * Go to the folder `zeiss_inspect_jupyter`.
@@ -94,4 +94,37 @@ Jupyter Notebook opens its web GUI in your browser. A file browser is shown init
     print(gom.api.interpreter.get_pid())
     ```
 
-  * This prints the process ID (PID) of your running ZEISS INSPECT instance &ndash; compare with the output from running `tasklist | findstr 'INSPECT'` in a PowerShell.
+    This prints the process ID (PID) of your running ZEISS INSPECT instance &ndash; compare with the output from running `tasklist | findstr 'INSPECT'` in a PowerShell.
+
+## Using user-defined dialogs in a Notebook
+
+When creating [user-defined dialogs](../python_api_introduction/user_defined_dialogs.md) in an App using\
+`DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')`\
+or\
+`RESULT=gom.script.sys.execute_user_defined_dialog (file='dialog.gdlg')`,\
+the dialog file is given relative to the App's `scripts/` folder.
+
+To allow loading of dialog files relative to the current working directory &ndash; i.e. where the current notebook (`*.ipynb`) file is located &ndash; you must include the following patch:
+
+```{code-block} python
+# Workaround for finding dialog files in current notebook's folder
+# Define the wrapper function
+def patched_create_user_defined_dialog(file, *args, **kwargs):
+    # Prepend the path to the file
+    new_file = os.path.join(os.getcwd(), file)
+    
+    # Call the original function with the modified file path
+    return original_create_user_defined_dialog(file=new_file, *args, **kwargs)
+
+# Store the original function
+original_create_user_defined_dialog = gom.script.sys.create_user_defined_dialog
+
+# Replace the original function with the patched version
+gom.script.sys.create_user_defined_dialog = patched_create_user_defined_dialog
+```
+
+## Related
+
+* [Jupyter Notebook](https://jupyter.org/)
+* [ZEISS INSPECT API wheel](https://pypi.org/project/zeiss-inspect-api/)
+* [Using Visual Studio Code as App editor](../using_vscode_editor/using_vscode_editor.md)
