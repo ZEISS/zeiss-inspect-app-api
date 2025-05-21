@@ -85,7 +85,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#starting-jupyter-notebook">Starting Jupyter Notebook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#create-a-notebook">Create a Notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-notebook">Creating a Notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-user-defined-dialogs-in-a-notebook">Using user-defined dialogs in a Notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#related">Related</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../starting_options/starting_options.html">Software and script starting options</a></li>
@@ -178,8 +180,8 @@
 <p><img alt="Jupyter file browser" src="../../_images/jupyter_web_gui-1.png" /></p>
 <p>Jupyter Notebook opens its web GUI in your browser. A file browser is shown initially.</p>
 </section>
-<section id="create-a-notebook">
-<h2>Create a Notebook<a class="headerlink" href="#create-a-notebook" title="Link to this heading"></a></h2>
+<section id="creating-a-notebook">
+<h2>Creating a Notebook<a class="headerlink" href="#creating-a-notebook" title="Link to this heading"></a></h2>
 <ul>
 <li><p>Use New ► ‘New Folder’ from the ‘Files’ tab to create a folder named <code class="docutils literal notranslate"><span class="pre">zeiss_inspect_jupyter</span></code>.</p></li>
 <li><p>Go to the folder <code class="docutils literal notranslate"><span class="pre">zeiss_inspect_jupyter</span></code>.</p></li>
@@ -212,10 +214,41 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">interpreter</span><span class="o">.</span><span class="n">get_pid</span><span class="p">())</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>This prints the process ID (PID) of your running ZEISS INSPECT instance – compare with the output from running <code class="docutils literal notranslate"><span class="pre">tasklist</span> <span class="pre">|</span> <span class="pre">findstr</span> <span class="pre">'INSPECT'</span></code> in a PowerShell.</p></li>
-</ul>
+<p>This prints the process ID (PID) of your running ZEISS INSPECT instance – compare with the output from running <code class="docutils literal notranslate"><span class="pre">tasklist</span> <span class="pre">|</span> <span class="pre">findstr</span> <span class="pre">'INSPECT'</span></code> in a PowerShell.</p>
 </li>
+</ul>
+</section>
+<section id="using-user-defined-dialogs-in-a-notebook">
+<h2>Using user-defined dialogs in a Notebook<a class="headerlink" href="#using-user-defined-dialogs-in-a-notebook" title="Link to this heading"></a></h2>
+<p>When creating <a class="reference internal" href="../python_api_introduction/user_defined_dialogs.html"><span class="std std-doc">user-defined dialogs</span></a> in an App using<br />
+<code class="docutils literal notranslate"><span class="pre">DIALOG=gom.script.sys.create_user_defined_dialog</span> <span class="pre">(file='dialog.gdlg')</span></code><br />
+or<br />
+<code class="docutils literal notranslate"><span class="pre">RESULT=gom.script.sys.execute_user_defined_dialog</span> <span class="pre">(file='dialog.gdlg')</span></code>,<br />
+the dialog file is given relative to the App’s <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> folder.</p>
+<p>To allow loading of dialog files relative to the current working directory – i.e. where the current notebook (<code class="docutils literal notranslate"><span class="pre">*.ipynb</span></code>) file is located – you must include the following patch:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Workaround for finding dialog files in current notebook&#39;s folder</span>
+<span class="c1"># Define the wrapper function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">patched_create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># Prepend the path to the file</span>
+    <span class="n">new_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">file</span><span class="p">)</span>
+    
+    <span class="c1"># Call the original function with the modified file path</span>
+    <span class="k">return</span> <span class="n">original_create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">new_file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="c1"># Store the original function</span>
+<span class="n">original_create_user_defined_dialog</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span>
+
+<span class="c1"># Replace the original function with the patched version</span>
+<span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="o">=</span> <span class="n">patched_create_user_defined_dialog</span>
+</pre></div>
+</div>
+</section>
+<section id="related">
+<h2>Related<a class="headerlink" href="#related" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jupyter.org/">Jupyter Notebook</a></p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/zeiss-inspect-api/">ZEISS INSPECT API wheel</a></p></li>
+<li><p><a class="reference internal" href="../using_vscode_editor/using_vscode_editor.html"><span class="std std-doc">Using Visual Studio Code as App editor</span></a></p></li>
 </ul>
 </section>
 </section>
@@ -242,7 +275,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fe65a9fc750>
+  <jinja2.runtime.BlockReference object at 0x7ffa93907690>
 
 
 </footer>
