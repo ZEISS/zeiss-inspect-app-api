@@ -121,6 +121,7 @@
   <section id="jupyter-notebook-test">
 <h1>Jupyter Notebook Test<a class="headerlink" href="#jupyter-notebook-test" title="Link to this heading"></a></h1>
 <p>This page was rendered from the Jupyter Notebook page <a href="jupyter_test.ipynb">jupyter_test.ipynb</a> by Sphinx using the <a class="reference external" href="https://myst-nb.readthedocs.io/en/v0.8.5/index.html">myst-nb</a>.</p>
+<p>You can download <a href="jupyter_test.ipynb">jupyter_test.ipynb</a> to run it in your local Jupyter Notebook installation connected to ZEISS INSPECT.</p>
 <p>In general, <code class="docutils literal notranslate"><span class="pre">myst-nb</span></code> can execute code cells while rendering. However, this is not possible here, because ZEISS INSPECT is not available in the GitHub CI environment. Therefore, Notebook execution is disabled in the Sphinx configuration and the page is shown with output from a previous run in the proper execution environment.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -175,60 +176,6 @@ sys.base_prefix=&#39;C:\\Users\\IQMPRINK\\AppData\\Local\\Programs\\Python\\Pyth
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Workaround for finding dialog files in current notebook&#39;s folder</span>
-<span class="c1"># Define the wrapper function</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">patched_create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="c1"># Prepend the path to the file</span>
-    <span class="n">new_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">file</span><span class="p">)</span>
-    
-    <span class="c1"># Call the original function with the modified file path</span>
-    <span class="k">return</span> <span class="n">original_create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">new_file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="c1"># Store the original function</span>
-<span class="n">original_create_user_defined_dialog</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span>
-
-<span class="c1"># Replace the original function with the patched version</span>
-<span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="o">=</span> <span class="n">patched_create_user_defined_dialog</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
-
-<span class="c1">#</span>
-<span class="c1"># Event handler function called if anything happens inside of the dialog</span>
-<span class="c1">#</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">dialog_event_handler</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
-	<span class="k">pass</span>
-
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">dialog_event_handler</span>
-
-<span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog2/dialog2.gdlg&#39;</span><span class="p">)</span>
-
-<span class="c1">#</span>
-<span class="c1"># Event handler function called if anything happens inside of the dialog</span>
-<span class="c1">#</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">dialog_event_handler</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
-	<span class="k">pass</span>
-
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">dialog_event_handler</span>
-
-<span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">dummy</span><span class="o">.</span><span class="n">my_var</span><span class="p">)</span>
 <span class="n">dummy</span><span class="o">.</span><span class="n">show_var</span><span class="p">()</span>
 </pre></div>
@@ -259,7 +206,7 @@ sys.base_prefix=&#39;C:\\Users\\IQMPRINK\\AppData\\Local\\Programs\\Python\\Pyth
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f58e98e47c0>
+  <jinja2.runtime.BlockReference object at 0x7f6fe700ac80>
 
 
 </footer>

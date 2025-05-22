@@ -15,6 +15,8 @@
    "source": [
     "This page was rendered from the Jupyter Notebook page <a href=\"jupyter_test.ipynb\">jupyter_test.ipynb</a> by Sphinx using the [myst-nb](https://myst-nb.readthedocs.io/en/v0.8.5/index.html).\n",
     "\n",
+    "You can download <a href=\"jupyter_test.ipynb\">jupyter_test.ipynb</a> to run it in your local Jupyter Notebook installation connected to ZEISS INSPECT.\n",
+    "\n",
     "In general, `myst-nb` can execute code cells while rendering. However, this is not possible here, because ZEISS INSPECT is not available in the GitHub CI environment. Therefore, Notebook execution is disabled in the Sphinx configuration and the page is shown with output from a previous run in the proper execution environment."
    ]
   },
@@ -80,69 +82,6 @@
     "print(f\"{sys.platlibdir=}\")\n",
     "print(f\"{sys.exec_prefix=}\")\n",
     "print(f\"{sys.base_prefix=}\")"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 4,
-   "id": "5a750cef-33c9-46d9-86bd-b0e0fb41eb61",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# Workaround for finding dialog files in current notebook's folder\n",
-    "# Define the wrapper function\n",
-    "def patched_create_user_defined_dialog(file, *args, **kwargs):\n",
-    "    # Prepend the path to the file\n",
-    "    new_file = os.path.join(os.getcwd(), file)\n",
-    "    \n",
-    "    # Call the original function with the modified file path\n",
-    "    return original_create_user_defined_dialog(file=new_file, *args, **kwargs)\n",
-    "\n",
-    "# Store the original function\n",
-    "original_create_user_defined_dialog = gom.script.sys.create_user_defined_dialog\n",
-    "\n",
-    "# Replace the original function with the patched version\n",
-    "gom.script.sys.create_user_defined_dialog = patched_create_user_defined_dialog"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 5,
-   "id": "e4e7c369-ebda-4628-83e1-bc16875940ed",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')\n",
-    "\n",
-    "#\n",
-    "# Event handler function called if anything happens inside of the dialog\n",
-    "#\n",
-    "def dialog_event_handler (widget):\n",
-    "\tpass\n",
-    "\n",
-    "DIALOG.handler = dialog_event_handler\n",
-    "\n",
-    "RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 6,
-   "id": "25306e07-70ca-4de7-a41b-6d32263b5199",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog2/dialog2.gdlg')\n",
-    "\n",
-    "#\n",
-    "# Event handler function called if anything happens inside of the dialog\n",
-    "#\n",
-    "def dialog_event_handler (widget):\n",
-    "\tpass\n",
-    "\n",
-    "DIALOG.handler = dialog_event_handler\n",
-    "\n",
-    "RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)"
    ]
   },
   {
