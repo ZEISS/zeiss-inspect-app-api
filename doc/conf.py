@@ -53,8 +53,8 @@ html_theme_options = {
   'includehidden': False
 }
 
-# Include contents of the following folders in the output
-html_extra_path = ['howtos/using_jupyter_notebook']
+# Include contents of the following folders in the output (prevents rendering)
+#html_extra_path = ['howtos/using_jupyter_notebook']
 
 # "sphinx_rtd_theme" appends " &mdash; <project>  documentation" to the page heading -
 # this changes the title to "<page_heading> &mdash; <project>"
