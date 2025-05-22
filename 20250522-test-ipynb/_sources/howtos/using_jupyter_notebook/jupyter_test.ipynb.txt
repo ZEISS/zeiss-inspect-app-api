@@ -44,7 +44,6 @@
    "source": [
     "import os\n",
     "import sys\n",
-    "import dummy\n",
     "\n",
     "os.environ['TOM_PYTHON_API_URL'] = 'ws://localhost:44444?apikey=9f7103b3cfd3561d977f373884c7280c359867924e320e8e1b52fab704a9435f'\n",
     "\n",
