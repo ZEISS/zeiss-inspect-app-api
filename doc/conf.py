@@ -34,7 +34,7 @@ myst_heading_anchors = 4
 suppress_warnings  = ['myst.header']
 
 # -- Options for Jupyter Notebook --------------------------------------------
-jupyter_execute_notebooks = "off"
+nb_execution_mode = "off"
 
 # -- Options for sitemap -----------------------------------------------------
 # https://sphinx-sitemap.readthedocs.io/en/latest/getting-started.html
