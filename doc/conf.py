@@ -33,6 +33,9 @@ myst_heading_anchors = 4
 # Unfortunately, suppressing this only for a single file does not seem to work...
 suppress_warnings  = ['myst.header']
 
+# -- Options for Jupyter Notebook --------------------------------------------
+jupyter_execute_notebooks = "off"
+
 # -- Options for sitemap -----------------------------------------------------
 # https://sphinx-sitemap.readthedocs.io/en/latest/getting-started.html
 html_baseurl = 'https://zeiss.github.io/zeiss-inspect-app-api/main/'
