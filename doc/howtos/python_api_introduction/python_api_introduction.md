@@ -342,10 +342,6 @@ In a script, each element present in the application (project, inspection elemen
 
 In most cases, the data interfaces are based on the Python package [NumPy](https://numpy.org/).
 
-```{caution}
-Due to breaking changes in NumPy 2.0.0 (see [NumPy 2.0.0 Release Notes](https://github.com/numpy/numpy/releases/tag/v2.0.0)), the latest NumPy 1.x version must be used with ZEISS INSPECT 2023.
-```
-
 ### Concept
 This is already the case for access via the data interface instead of the token interface: The returned value has the format `(stages, <index dimensions>)`.
 
