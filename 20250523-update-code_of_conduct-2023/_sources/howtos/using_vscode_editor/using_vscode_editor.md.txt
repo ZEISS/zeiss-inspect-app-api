@@ -1,203 +1,219 @@
-![New in Version 2025](https://img.shields.io/badge/New-Version_2025-orange)
-
-# Using Visual Studio Code as App editor
-
-> Abstract: This section describes how to use Visual Studio Code as App editor with features like auto completion and Intellisense for ZEISS INSPECT API functions or
-> insertion of ZEISS INSPECT Elements.
+# Using Visual Studio Code as an add-on editor
 
 ## Setup
 
-```{caution}
-This setup requires ZEISS INSPECT 2025 Service Pack 1 or newer!
-```
+### Installation
 
-### Python installation
+1. Installation
 
-Using VSCode as App editor requires an additional Python 3.9 installation. Follow the installation instructions of your local IT or
-download and install Python 3.9 from [www.python.org](https://www.python.org/).
+   * VSCode version 1.64 or higher is needed for this to work properly.
+   * Install the 'ZEISS INSPECT App Development Extension' version "**2024.x.y**" directly from the Visual Studio Code extension view or from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=CarlZeissGOMMetrologyGmbH.gom-msvc-python-api).
+   
+     ![VSCode Extension Installation](assets/install_extension.png)
 
-Install the zeiss-inspect-api Python wheel matching your ZEISS INSPECT version via command line:
+     ```{caution}
+     You must use extension version "**2024.x.y**" for ZEISS INSPECT 2023, which can be installed via the "Install Specific Version..." menu.
+     ```
 
-```
-python -m pip install zeiss-inspect-api==2025.*
-```
+2. Configure connection
+ 
+    * Ensure that the python API preferences in ZEISS INSPECT are set up properly 
+    
+      ![](assets/setup2.png)
+      
+    * Ensure that the python API settings are correct in VSCode and are matching these in ZEISS INSPECT: 
+    
+      ![](assets/setup4.png)
 
-### ZEISS INSPECT configuration
+### Connecting
 
-![API configuration](assets/api_configuration.png)
+1. Have ZEISS INSPECT running as a host
+2. In the VSCode status bar, the connection status is displayed:
 
-Select Edit ► Preferences and navigate to Apps ► 'API configuration'. 
-
-* Enable API (1): Determines if the API functions can be reached via socket communication.
-  
-  Set to 'Yes'.
-
-* API port (2): Socket port for calling ZEISS INSPECT API functions.
-
-  If set to '0' (default), a port is chosen automatically. Set a free port manually if you are running multiple ZEISS INSPECT instances in parallel on the same computer.
-
-* Editor port (3): Socket port for connecting an external App editor.
-
-  Must be set to a free port. The default ('40000') is usually fine.
-
-* API key (4): Unique key which protects connections to the ZEISS INSPECT API.
-
-  The API key is set to a unique, random value when ZEISS INSPECT is installed. It has to be copied into the client application (see [VSCode configuration](#vscode-configuration)).
-
-### VSCode configuration
-
-* Install [Visual Studio Code](https://code.visualstudio.com/)
-
-* Install the most recent 'ZEISS INSPECT App Development' extension for Visual Studio Code.
-
-  ![ZEISS INSPECT App Development Extension Installation](assets/extension_installation.png)
-
-  The extension is provided in the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=CarlZeissGOMMetrologyGmbH.gom-msvc-python-api).
-
-  ```{caution}
-  For ZEISS INSPECT 2023 and before (including GOM Inspect versions), you must use extension version "2024.x.y" which can be installed via the "Install Specific Version..." menu.
-  ```
-
-* Edit the 'ZEISS INSPECT App Development' extension settings:
-  
-  !['ZEISS INSPECT App Development' Extension Settings](assets/vscode_configuration.png)
-  
-  * Host URL (1): Host running the ZEISS INSPECT application.
-
-    This is usually 'ws://localhost'.
-
-  * API key (2): The unique ZEISS INSPECT application API key.
-
-    Copy the key from your ZEISS INSPECT preferences (see [ZEISS INSPECT configuration](#zeiss-inspect-configuration)).
-
-  * Editor port (3): This port is used to access Apps installed / edited in ZEISS INSPECT.
-
-    Copy the editor port from your ZEISS INSPECT preferences (see [ZEISS INSPECT configuration](#zeiss-inspect-configuration)).
-
-* Select the Python interpreter:
-
-  * From View ► 'Command Palette...' (`Ctrl+Shift+P`) choose 'Python: Select Interpreter'
-
-    Select the interpreter from your separate Python 3.9 installation (see [Python installation](#python-installation)). 
-
-## Connect VSCode to ZEISS INSPECT
-
-```{caution}
-Your current VSCode workspace will be lost by connecting to ZEISS INSPECT. Save the workspace to a file if you still need it.
-```
-
-![Status Bar: Host Disconneted](assets/connecting1.png)
-
-Press 'Host: Disconnected' in the status bar. If connecting succeeded, the status changes to 'Host: Connected'.
-
-![](assets/virtual_file_system-1.png)
-
-The Explorer now shows all Apps installed in ZEISS INSPECT in the section 'ZEISS INSPECT Apps 🔒' of the workspace. Apps in this section are read-only and can only be viewed. Apps in editing mode &ndash; 'CheckResultsDataArray' in the example above &ndash; are shown below this workspace section.
-
-```{note}
-You must use the ZEISS INSPECT App Explorer to switch Apps between finalized and editing mode!
-```
-
-```{note}
-Apps in the read-only section of the VSCode Explorer are presented by a virtual file system based on websocket communication with ZEISS INSPECT. Apps in editing mode are regular files on your file system.
-```
+   ![](assets/connecting1.png)
+ 
+3. Press onto the "Host: Disconnected" status entry to connect to the host application.
+4. After the connection has been established,
+    * the connection status will reflect that and
+    * the ZEISS INSPECT Add-on Explorer content is mirrored and displayed in VSCode:
+    
+      ![](assets/connecting2.png)
 
 ## Editing
 
-You can work with Apps in editing mode as with any other source file.
+### Creating scripts
 
-![auto completion](assets/auto_completion.png)
+1. Select 'New GOM script' from the file explorers right mouse menu.
+2. Enter unique name for that script.
 
-The auto completion for ZEISS INSPECT API functions is mainly based on the 'zeiss-inspect-api' Python wheel (see [Python installation](#python-installation)).
+  ![](assets/editing1.png)
 
-```{important}
-You must import an API package into your source file to enable auto completion for it.
-```
 
-![VSCode Intellisense](assets/vscode_intellisense.png)
+### Executing scripts
 
-The ZEISS Inspect API wheel contains its own function and class documentation. Thus, the VSCode Intellisense can be used during development.
+1. Select script to execute in the VSCode explorer.
+    * The script can either reside in the internal edited Add-ons folder or be a local file from any other workspace location.
+2. Select "Run script in ZEISS INSPECT host" from the editors toolbar
+3. The script outputs will be shown in the "debug console".
 
-## Recording ZEISS INSPECT Commands
+   ![](assets/editing2.png)
 
-![Record commands](assets/record_commands.png)
+### Recording commands
 
-To start or stop recording of ZEISS INSPECT commands, click RMB ► 'Record commands' at the appropriate position of your Python file.
+1. Make sure that your Add-on in is in editing mode
+2. Select the script into which you want to record commands for displaying in the editor.
+3. In that editor, select "Record commands" from the editor toolbar.
+4. Execute commands in the ZEISS INSPECT application
+    * The executed commands will be recorded in the currently edited VSCode script.
+    * In addition, the "ZEISS INSPECT script commands" subsection of the output tab shows a log of the executed commands.
+    
+      ![](assets/recording1.png)
 
-## Inserting ZEISS INSPECT Element Values
+5. For recording into a different position of the script, set the cursor to that line first or while recording.
+6. Press "Record commands" again to stop command recording.
 
-![Select element in explorer](assets/element_selection.png)
+### Inserting elements
 
-![Select element properties](assets/select_element_properties.png)
+> Elements in ZEISS INSPECT are represented by 'element references' in the script. These are python expressions which, when executed, return a reference to that element.
 
-Browse the VSCode Explorer section 'ELEMENTS' for the desired item and click RMB ► 'Insert element at cursor position'. In the source code, append a dot to the selected element. The auto completion allows to browse through the available element properties.
+1. When connected to a ZEISS INSPECT application host, select the 'Elements' in the explorer view.
+    * There, all elements in the project are listed.
+2. Set editor cursor to the place the element should be into inserted into.
+3. Select "Insert element into editor" from the top toolbar of the 'Elements' tab
+    * You will get an 'element reference', an expression which, when, executed, returns the element referenced.
+    
+      ![](assets/inserting_elements.png)
 
-## Inserting a user-defined Dialog
+### Inserting keywords
 
-![Insert new user defined script dialog](assets/userdialog1.png)
+> A keyword is an attribute used to query an element property. Various element attributes are existing depending on the element type.
 
-From View ► Command Palette... (`Ctrl+Shift+P`), select 'ZEISS app development: Insert new user defined script dialog'.
+1. Insert an element reference in the script as mentioned above.
+2. After the element reference, press '.' to insert a dot
+    * A selection menu opens presenting the available keywords for that element
+    
+      ![](assets/inserting_keywords.png)
 
-Next, you define the dialog file name:
+## Debugging
 
-![Set dialog filename](assets/userdialog2.png)
+### Start debugging
 
-A dialog file template is created:
+1. Prepare debugged script as usual by setting breakpoints etc.
 
-![Dialog file template](assets/userdialog3.png)
+   ![](assets/debugging1.png)
 
-![Dialog file contents](assets/userdialog4.png)
+2. Start debugger by selecting "Debug script in ZEISS INSPECT host" from the editor toolbar
 
-## Editing a user-defined Dialog
+   ![](assets/debugging2.png)
+
+3. Full VSCode debugging functionality can be used now, including
+
+   ![](assets/debugging3.png)
+
+    * breakpoints and triggered breaks,
+    * step over/in/out,
+    * tracebacks,
+    * variable inspection etc.
+
+## User defined script dialogs
 
 ```{note}
-This function assumes that a dialog already exists in the App folder.
+User defined script dialogs cannot be edited graphically in VSCode at the moment. Instead, an application based script dialog can be opened. A connection to a running application must be present for that purpose.
 ```
 
-![Open dialog editing UI in Application](assets/userdialog6.png)
+### Create new user defined script dialog
 
-From View ► Command Palette... (`Ctrl+Shift+P`), select 'ZEISS app development: Open dialog editing UI in Application' or click RMB ► 'Open dialog editing UI in Application' on the dialog file.
+1. Select "Python API: Insert new user defined script dialog" from the command selector or from the right mouse menu while editing the script into which the dialog should be inserted.
 
-![Dialog Editor confirmation](assets/userdialog8.png)
+   ![](assets/userdialog1.png)
 
-![Dialog Editor](assets/userdialog7.png)
+2. Choose a name for the dialog file which will then be created.
 
-This opens the dialog in the ZEISS INSPECT Dialog Editor.
+   ![](assets/userdialog2.png)
 
-## Running and Debugging Python Apps
+3. The edited script will contain the necessary dialog commands then and a separate dialog definition file (*.gdlg) has been created.
 
-```{caution}
-Make sure that you have selected the right Python interpreter as described in [VSCode configuration](#vscode-configuration).
+   ![](assets/userdialog3.png)
+
+4. Select the dialog definition file to open the 
+
+   ![](assets/userdialog4.png)
+
+5. When the script is executed, the user defined script dialog is displayed.
+
+   ![](assets/userdialog5.png)
+   
+### Edit user defined script dialog
+
+1. Edit script dialog file (*.gdlg) can be edited either in JSON format directly (possible, but not recommended) or by opening the script dialog editor in the connected application:
+
+   ![](assets/userdialog6.png)
+   
+2. The application will then open the script dialog editor. After closing it again, the edited *.gdlg file will be adapted accordingly.
+
+   ![](assets/userdialog7.png)
+
+```{note}
+Due to an unsolved bug, the script editor window might open below the VSCode window or on another display in some multi display settings. There is a hint box as indicator that the script editor windows has been opened at all.
+
+![](assets/userdialog8.png)
 ```
 
-To run or debug a Python script in an App
+## FAQ
 
-* Open the script in VScode
-* Select 'Run and Debug' (`Ctrl+Shift+D`) in the primary side bar
+### Configuration
 
-  ![Run and Debug](assets/run_and_debug.png)
+#### How do I set a shortcut to toggle the recording mode ?
 
-* Use 'Start Debugging' (`F5`) with the debug configuration provided by ZEISS INSPECT to run the script
+* Select the "Keyboard Shortcuts" properties from the configurations menu:
 
-See [Debug code with Visual Studio Code](https://code.visualstudio.com/docs/debugtest/debugging) for details.
+  ![](assets/toggle_recording_1.png)
 
-### Implementation details
+* Assign the command "Python API: Toggle command recording" to a key:
 
-When VSCode is connected to a running ZEISS INSPECT application, the virtual filesystem containing the Apps etc. also contains a matching `launch.json`. This launch configuration can be used out-of-the-box without setting up anything else.
+  ![](assets/toggle_recording_2.png)
 
-![Launch configuration](assets/launch_configuration.png)
+* The 'when' clause determines when the command is available. The correct 'when' clause here ist:
 
-A script can then be started by selecting this launch configuration right in the debugging workspace:
+  resourceLangId == python && scriptingHostConnected
 
-![Selecting the launch configuration](assets/select_debug_configuration.png)
+* If necessary, existing command bindings to that key can be removed here, too:
 
-When debugging, the Python interpreter now runs directly in VSCode and the ZEISS INSPECT software is handled like a remote API. Thus, all Python debugging features can be used natively in VSCode.
+  ![](assets/toggle_recording_3.png)
 
-![Debugging features](assets/debugging_features.png)
+#### How do I set shortcuts for starting the current script in the ZEISS INSPECT host ?
 
-## Related
+* See above for the general process.
+* The relevant commands here are:
+  * 'Python API: Run script in ZEISS INSPECT host': Start the script.
+  * 'Python API: Debug script in ZEISS INSPECT host': Start the script with debugger attached.
+* F9 / CTRL + F9 might be valid keys for that.
 
-* <a href="../using_services/using_services.html#debugging-services">Debugging services</a>
-* [ZEISS INSPECT API Python wheel](https://github.com/ZEISS/zeiss-inspect-api-wheel) GitHub repository
-* [ZEISS INSPECT API Python wheel](https://pypi.org/project/zeiss-inspect-api/) PyPI project
-* [Visual Studio Code Telemetry Configuration](https://code.visualstudio.com/docs/configure/telemetry)
+### Script editing
+
+#### Can I use local workspaces from disk instead of the application script database for my project ?
+
+* Yes. You can add arbitrary folders to the workspace and edit and starts scripts from right there.
+* The edited external folder can be connected to the ZEISS INSPECT Add-on Explorer, so that it can be used from there:
+
+  ![](assets/03-Add-on_External_Folder_v2.png)
+
+### Troubleshooting
+
+#### When using IntelliSense completion, the keyword list stalls
+
+* When using the '.' or a hotkey to access the list of possible completions, a tooltip displays 'Loading...' but nothing happens:
+
+  ![](assets/keyword_list_1.png)
+
+* This bug is caused by the 'Microsoft Python' extension in connection with the script database filesystem.
+* There is currently no fix, so disabling this extension is the only way here. This does not affect most python editor features:
+
+  ![](assets/keyword_list_2.png)
+
+#### When starting both the application and a script from within Visual Studio Code, crashes can happen
+
+* This is more a ZEISS internal issue. When developing application code and script code at the same time from the same VSCode instance, this can happen.
+* The parallel debugging session (application and scripting) seem to be the problem.
+* Workaround: Do not start ZEISS INSPECT application via the VSCode launcher, but e.g. from a command prompt.
+

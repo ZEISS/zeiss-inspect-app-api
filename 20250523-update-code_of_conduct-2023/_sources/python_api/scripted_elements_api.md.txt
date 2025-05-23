@@ -1,9 +1,3 @@
-<style>
-    tr.row-odd pre {
-        background-color: #ffffff;
-    }
-</style>
-
 # Scripted elements API
 
 This reference describes functions and data structures necessary for the implementation of "scripted elements".
@@ -14,9 +8,10 @@ If you don't know about the concept yet, take a look at the [Scripted elements i
 
 ## The `dialog` function
 
-```{note}
-The main purpose of this function is to use display a script dialog and allow the user to enter element parameters. All tokens of other elements can be accessed within this function.
-```
+💡 **Notes:**
+
+* The main purpose of this function is to use display a script dialog and allow the user to enter element parameters.
+* All tokens of other elements can be accessed within this function.
 
 ### Signature
 
@@ -29,18 +24,18 @@ def dialog(context, params):
 
 The context contains the following members:
 
-| Name                       | Role                                                  | Remarks                                                        |
-| -------------------------- | ----------------------------------------------------- | -------------------------------------------------------------- |
-| <pre>.data</pre>           | UDE data storage access                               | see "calculate" Function                                       |
-| <pre>.stages</pre>         | Current stage                                         | List containing stage index of current stage                   |
-| <pre>.total_stages</pre>   |	Number of stages                                     | Valid stage indices are 0 to total_stages - 1                  |
-| <pre>.calc</pre>           | Function to calculate preview                         | See below                                                      |
-| <pre>.result</pre>         | Directly set preview                                  | see "calculate" Function                                       |
-| <pre>.is_new_element</pre> | Flag if element creation                              | True on (edit) creation, false on recalc                       |
-| <pre>.name</pre>           | Name of created element                               | Read/write attribute<br>Ignored on recalc and script execution |
-| <pre>.error</pre>          | Last error text from preview calculation              | Empty if no error occurred                                     |
-| <pre>.edit_element</pre>   | Reference to edited element                           | Only available during element editing                          |
-| <pre>.recalc_element</pre> | Reference to element used in project<br>recalculation |                                                                |
+| Name                       | Role                                               | Remarks                                                        |
+| -------------------------- | -------------------------------------------------- | -------------------------------------------------------------- |
+| <pre>.data</pre>           | UDE data storage access                            | see "calculate" Function                                       |
+| <pre>.stages</pre>         | Current stage                                      | List containing stage index of current stage                   |
+| <pre>.total_stages</pre>   |	Number of stages                                  | Valid stage indices are 0 to total_stages - 1                  |
+| <pre>.calc</pre>           | Function to calculate preview                      | See below                                                      |
+| <pre>.result</pre>         | Directly set preview                               | see "calculate" Function                                       |
+| <pre>.is_new_element</pre> | Flag if element creation                           | True on (edit) creation, false on recalc                       |
+| <pre>.name</pre>           | Name of created element                            | Read/write attribute<br>Ignored on recalc and script execution |
+| <pre>.error</pre>          | Last error text from preview calculation           | Empty if no error occurred                                     |
+| <pre>.edit_element</pre>   | Reference to edited element                        | Only available during element editing                          |
+| <pre>.recalc_element</pre> | Reference to element used in project recalculation |                                                                |
 
 #### Parameter `params`
 
@@ -65,14 +60,14 @@ To calculate a preview, the `context.calc()` function can be invoked. It takes t
 A call to this function will return immediately. The calculation is invoked asynchronously in a separate python instance.
 
 ```{seealso}
-A preview calculation is implemented in the example <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_actuals/ScriptedActualPoint/doc/Documentation.md#offset_point_v2-includes-preview-calculation">offset_point_v2</a>.
+A preview calculation is implemented in the example [offset_point_v2](../python_examples/scripted_actuals/offset_point_v2.md).
 ```
 
 ## The `calculation` function
 
-```{note}
-It is not possible to call script commands or read tokens from within this function. (Do not call `gom.app.project....`) The function should loop over all stages to be calculated and set a computation result  for each stage.
-```
+💡 **Notes:**
+* It is not possible to call script commands or read tokens from within this function. (Do not call `gom.app.project....`)
+* The function should loop over all stages to be calculated and set a computation result  for each stage.
 
 ### Signature
 
@@ -92,7 +87,7 @@ The context contains the following members:
 | <pre>.result[stage]</pre>             | Directly set preview                               | see below                                                      |
 | <pre>.is_new_element</pre>            | Flag if element creation                           | True on (edit) creation, false on recalc                       |
 | <pre>.name</pre>                      | Name of created element                            | Read/write attribute<br>Ignored on recalc and script execution |
-| <pre>.error[stage]</pre>              | Used to assign an error text                       | Sets element to not computed in the given stage                |
+| <pre>.error[stage]</pre>              | Used to assign an error text                       | Will set the element to not computed in the given stage        |
 | <pre>.edit_element</pre>              | Reference to edited element                        | Only available during element editing                          |
 | <pre>.recalc_element</pre>            | Reference to element being computed                | Only available during non-interactive calculation              |
 | <pre>.progress_stages_computing</pre> | Number of stages which have started to compute     | Used to display progress information                           |
@@ -122,7 +117,7 @@ On success the function must return True, otherwise False.
 ## Scripted actuals - Return values
 
 ```{seealso}
-The section <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/README.md#scripted_actuals--building-custom-actual-elements-with-python-code">App Examples - scripted_actuals</a> provides an example for each element type.
+The section [Python API Examples - scripted_actuals](../python_examples/scripted_actuals.md) provides an example for each element type.
 ```
 
 ### Point
@@ -173,7 +168,7 @@ result = [ { 'points': [gom.Vec3d, gom.Vec3d, ...] } ]
 
 # Optional: Curve with additional creation plane
 result = {
-  'curves': [{'points': [gom.Vec3d, ...]}],
+  'curves': [{'points': [gom.Vec3d, ...]],
   'plane' : {'normal' : gom.Vec3d, 'distance' : float}
 }
 ```
@@ -298,7 +293,7 @@ result = {'default' : {'point': gom.Vec3d, 'radius': float, 'direction': gom.Vec
 %```
 %:::
 
-### Volume Defects
+### Volume defects
 
 :Element Type: Volume defects
 :Result: A list of meshes defined by vertices and triangles.<p>The vertices attribute is a [python array] – one entry for each defect –  of numpy arrays (np.array) of Vec3d.<p>The triangle attribute defines triangles between the points of each mesh using indices to the vertex lists.<p>The 'outer_hull' parameter can optionally be set to a reference of a mesh element of the project. This mesh will be copied and used as an outer hull for the defect element. **Alternatively**, 'outer_hull_vertices' and 'outer_hull_triangles' can be given as explicit outer hull mesh definition.
@@ -358,16 +353,16 @@ result = {
 result = { 'voxel_data' : np.array (), 'transformation' : (gom.Mat4x4 | gom.Vec3d) }
 ```
 
-### Volume Segmentation
+### Volume material map
 
-:Element Type: Create new volume segmentation element 
-:Result: Creates a new volume segmentation element.<p>First parameter is a numpy array of type UINT8 of the size of the volume. The values are the segmentation index per voxel. Background has Index 0.<p>The second parameter is the number of segments including the background.<p>The third parameter is a reference to the linked volume element, to which the segmentation labels belong.
+:Element Type: Attach material labels to volume element
+:Result: Creates a new volume element copy with attached material labels.<p>First parameter is a numpy array of type UINT8 of the size of the volume. The values are the material index per voxel. Background has Index 0.<p>The second parameter is a list of floating point grey values that are the representative grey values of the background and the materials.<p>The third parameter is a reference to the volume element, to which material labels should be attached.
 
 ```{code-block} python
 result = {
-  'segmentation_labels' : np.array (),
-  'number_of_segments' : int, # range: 2..8
-  'volume_element' : Reference
+  'material_labels_draft' : np.array (),
+  'material_grey_values_draft' : [background, material 1, ...],
+  'volume_reference_draft' : Reference
 }
 ```
 
@@ -383,7 +378,7 @@ result = { 'pixel_data' : np.array (), 'transformation' : gom.Mat4x4 }
 ### Volume Region
 
 :Element Type: Volume Region
-:Result: Accepts a numpy array of the region data. The 'dtype' must be UINT_8. This array can be smaller than the volume grid.<p>The offset parameter defines the location of the first voxel in the numpy array of the volume region.<p>This scripted element requires specifying a reference to a linked volume element.
+:Result: Accepts a numpy array of the region data. The 'dtype' must be UINT_8. This array can be smaller than the volume grid.<p>The offset parameter defines the location of the first voxel in the numpy array of the volume region.<p>This scripted element requires specifying a reference to a volume element. This can be a volume or linked volume element.
 
 ```{code-block} python
 result = {
@@ -441,3 +436,4 @@ result = { "deviation_values" : np.array(dtype=np.float32), "reference" : gom.Re
 ```{code-block} python
 result = { "actual_values" : double, 'nominal_values': double, "reference" : gom.Reference}
 ```
+
