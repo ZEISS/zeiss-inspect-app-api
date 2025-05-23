@@ -219,7 +219,7 @@
 <section id="dialog-designer">
 <h3>Dialog designer<a class="headerlink" href="#dialog-designer" title="Link to this heading"></a></h3>
 <ul>
-<li><p>User defined <strong>Dialogs</strong> can be inserted into the script using <em>right mouse button</em> → Insert → Dialog… in the <a href="../using_add_on_editor/using_add_on_editor.html">Add-on Editor</a>.</p>
+<li><p>User defined <strong>Dialogs</strong> can be inserted into the script using RMB ► Insert ► Dialog… in the <a href="../using_add_on_editor/using_add_on_editor.html">Add-on Editor</a>.</p>
 <p><img alt="" src="../../_images/insert_dialog.png" /></p>
 </li>
 <li><p>When a new dialog is inserted, a dialog <strong>Template</strong>, the <strong>target location</strong> of the dialog configuration and the dialog <strong>Type</strong> can be selected.</p>
@@ -299,7 +299,10 @@
 </ul>
 <section id="editing-the-grid">
 <h4>Editing the grid<a class="headerlink" href="#editing-the-grid" title="Link to this heading"></a></h4>
-<p>💡 Editing the layout means changing the underlying grid.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Editing the layout means changing the underlying grid.</p>
+</div>
 <ul>
 <li><p>Because the underlying layout is a grid, the following actions are possible:</p>
 <ul class="simple">
@@ -332,7 +335,10 @@
 </section>
 <section id="spacers">
 <h4>Spacers<a class="headerlink" href="#spacers" title="Link to this heading"></a></h4>
-<p>💡 <strong>Spacers</strong> are empty spaces extending in either horizontal or vertical direction.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Spacers</strong> are empty spaces extending in either horizontal or vertical direction.</p>
+</div>
 <ul class="simple">
 <li><p>If a spacer is inserted into a cell, the cell claims the maximum available space in spacer direction.</p></li>
 <li><p>All other cells share the remaining space.</p></li>
@@ -356,7 +362,10 @@
 </ul>
 </li>
 </ul>
-<p>💡 Removing widgets from the grid is not possible. Instead, they can be overwritten by other widgets.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Removing widgets from the grid is not possible. Instead, they can be overwritten by other widgets.</p>
+</div>
 <p><img alt="" src="../../_images/separator_line.png" /></p>
 </section>
 <section id="configuring-widgets">
@@ -428,7 +437,10 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </section>
 <section id="control-widget">
 <h3>Control widget<a class="headerlink" href="#control-widget" title="Link to this heading"></a></h3>
-<p>💡 The <strong>Control</strong> widget contains the <strong>ok</strong> / <strong>cancel</strong> or similar buttons of the dialog.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <strong>Control</strong> widget contains the <strong>ok</strong> / <strong>cancel</strong> or similar buttons of the dialog.</p>
+</div>
 <ul class="simple">
 <li><p>The control elements of a dialog cannot be configured like other dialog widgets.</p></li>
 <li><p>Therefore, their name is fixed and they are grouped together inside of the control widget named <strong>control</strong>.</p></li>
@@ -458,7 +470,10 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </table>
 <section id="control-widget-elements">
 <h4>Control widget elements<a class="headerlink" href="#control-widget-elements" title="Link to this heading"></a></h4>
-<p>💡 The names of the <strong>Control</strong> widget elements are fixed</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The names of the <strong>Control</strong> widget elements are fixed.</p>
+</div>
 <ul class="simple">
 <li><p>Usually, the names are corresponding with the elements’ semantics. For example, the name of the <strong>ok</strong> button is ‘ok’. The names can also be obtained from the <code class="docutils literal notranslate"><span class="pre">__doc__</span></code> string as shown in the code example below.</p></li>
 <li><p>The control elements are accessed like all other widget attributes.</p></li>
@@ -501,7 +516,10 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </section>
 <section id="status-label">
 <h4>Status label<a class="headerlink" href="#status-label" title="Link to this heading"></a></h4>
-<p>⚠️ The <strong>Status label</strong> of the control widget is invisible until a status text is set.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>The <strong>Status label</strong> of the control widget is invisible until a status text is set.</p>
+</div>
 <ul class="simple">
 <li><p>If a status text is set, a small warning icon appears, like in regular applications’ dialogs.</p></li>
 <li><p>The status label can be configured using its properties like all other widgets.</p></li>
@@ -509,7 +527,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <p><img alt="" src="../../_images/control_widget_status_label.png" /></p>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Using the Status label</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="c1"># Set status label text</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;No point selected.&#39;</span>
@@ -634,6 +652,10 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </li>
 <li><p>The keyword and its actual value are shown</p>
 <p><img alt="" src="../../_images/widget_text_insert_expression4.png" /></p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>The comment ‘#&#64; Not yet named’ should be deleted, otherwise the selected keyword ‘Date’ will not be shown in the editor.</p>
+</div>
 </li>
 <li><p>The final rendering of the text widget</p>
 <p><img alt="" src="../../_images/widget_text_insert_expression6.png" /></p>
@@ -847,7 +869,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </dd>
 <dt>Manual mode</dt><dd><p>In this mode, the user may set the progress bar through its <code class="docutils literal notranslate"><span class="pre">value</span></code> variable.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span><span class="o">,</span><span class="w"> </span><span class="nn">time</span>
-<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">minimum</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">maximum</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">open_user_defined_dialog</span><span class="p">(</span> <span class="n">dialog</span> <span class="o">=</span> <span class="n">DIALOG</span> <span class="p">)</span>
@@ -864,7 +886,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </dd>
 <dt>Automatic mode</dt><dd><p>In this mode, the progress bar displays the same progress informations as the progress bar in the lower right corner of the software.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
-<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">open_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_project</span> <span class="p">()</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">import_project</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;some project&#39;</span><span class="p">)</span>
@@ -893,7 +915,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 
 <span class="c1"># Create a user defined dialog with a progress bar, mode &#39;system&#39;</span>
-<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">open_user_defined_dialog</span><span class="p">(</span> <span class="n">dialog</span> <span class="o">=</span> <span class="n">DIALOG</span> <span class="p">)</span>
 
 <span class="c1"># Split progress bar into 3 parts</span>
@@ -924,7 +946,10 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </div>
 </dd>
 </dl>
-<p>💡 It is possible to switch  between automatic and manual mode for each part.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is possible to switch  between automatic and manual mode for each part.</p>
+</div>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Property</p></th>
@@ -1059,7 +1084,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <dt>Integer widget</dt><dd><p>The Integer widget is used to request an integer value from the user. <code class="docutils literal notranslate"><span class="pre">integerWidget</span></code> is the object name of the integer widget in the example below.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="n">userInput</span> <span class="o">=</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">integerWidget</span>
 </pre></div>
 </div>
@@ -1109,7 +1134,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <dt>Decimal widget</dt><dd><p>The Decimal widget is used to request a floating point value from the user. It is possible to choose the number of digits and a unit. The selectable units are the ones from the user preferences (Edit &gt; Application &gt; Settings &gt; Preferences) in the <em>Default units</em> tab. <code class="docutils literal notranslate"><span class="pre">decimalWidget</span></code> is the object name of the decimal widget in the example below.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="n">userInput</span> <span class="o">=</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">decimalWidget</span>
 </pre></div>
 </div>
@@ -1167,7 +1192,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <dt>Text entry field</dt><dd><p>The Text entry field widget can be used to get string input from the user. A simple use case is given by the next code block. <code class="docutils literal notranslate"><span class="pre">textEntryWidget</span></code> is the object name of the widget in the example below.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">textEntryWidget</span> <span class="o">=</span> <span class="s2">&quot;some default text&quot;</span>
 <span class="n">RESULT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span><span class="p">(</span><span class="n">dialog</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">textEntryWidget</span> <span class="p">)</span> <span class="c1"># the user input string</span>
@@ -1219,7 +1244,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <dt>Slider widget</dt><dd><p>The Slider widget can be used to get a float value from a certain interval from the user. <code class="docutils literal notranslate"><span class="pre">sliderWidget</span></code> is the object name of the slider widget in the example below.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="n">RESULT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">sliderWidget</span> <span class="p">)</span> <span class="c1"># some text</span>
@@ -1283,7 +1308,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <dt>Checkbox widget</dt><dd><p>The Checkbox widget can be used to get boolean input from the user. <code class="docutils literal notranslate"><span class="pre">checkboxWidget</span></code> is the object name of the checkbox widget in the example below.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
 <span class="nb">print</span> <span class="p">(</span><span class="n">RESULT</span><span class="o">.</span><span class="n">checkboxWidget</span><span class="p">)</span>
@@ -1389,7 +1414,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <dt>Date widget</dt><dd><p>The Date widget requests a date from the user. <code class="docutils literal notranslate"><span class="pre">dateWidget</span></code> is the object name of the date widget in the example below.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="n">dateObject</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">dateWidget</span><span class="o">.</span><span class="n">value</span> <span class="c1"># date object</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">dateWidget</span><span class="o">.</span><span class="n">year</span> <span class="p">)</span>  <span class="c1"># integer</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">dateWidget</span><span class="o">.</span><span class="n">month</span> <span class="p">)</span> <span class="c1"># integer</span>
@@ -1454,7 +1479,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <dt>Color widget</dt><dd><p>The Color widget allows to select a color. <code class="docutils literal notranslate"><span class="pre">colorWidget</span></code> is the object name of the color widget in the example below. <code class="docutils literal notranslate"><span class="pre">gomColor</span></code> behaves in the same way as <code class="docutils literal notranslate"><span class="pre">gom.Color(</span> <span class="pre">...</span> <span class="pre">)</span></code>.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="c1">#</span>
 <span class="c1"># Event handler function called if anything happens inside of the dialog</span>
@@ -1512,7 +1537,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <dt>Unit widget</dt><dd><p>The Unit widget allows to select a unit. <code class="docutils literal notranslate"><span class="pre">unitWidget</span></code> is the object name of the unit widget in the example below.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="c1">#</span>
 <span class="c1"># Event handler function called if anything happens inside of the dialog</span>
@@ -1574,7 +1599,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </dd>
 </dl>
 <p><code class="docutils literal notranslate"><span class="pre">elementSelectionWidget</span></code> is the object name of the element selection widget in the example below.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="n">selectedElement</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">elementSelectionWidget</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">selectedElement</span><span class="o">.</span><span class="n">value</span> <span class="p">)</span> <span class="c1"># output: gom.app.project.inspection[&#39;Equidistant Surface Points 1&#39;]</span>
@@ -1627,7 +1652,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </tbody>
 </table>
 <p>The following script shows how to use a custom filter for element selection. The example filter allows the user to select a system plane:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG4</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG4</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">dialog_event_handler</span><span class="p">(</span><span class="n">widget</span><span class="p">):</span>
@@ -1669,7 +1694,9 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </dd>
 </dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selectedValue</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">selectionListWidget</span><span class="o">.</span><span class="n">value</span>
+<span class="n">selectedIndex</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">selectionListWidget</span><span class="o">.</span><span class="n">index</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">selectedValue</span> <span class="p">)</span> <span class="c1"># output: entry2</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">selectedIndex</span> <span class="p">)</span> <span class="c1"># output: 1</span>
 </pre></div>
 </div>
 <table class="docutils align-default">
@@ -1703,6 +1730,10 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <tr class="row-odd"><td><p>items</p></td>
 <td><p>list of str</p></td>
 <td><p><pre>DIALOG.selectEntry.items = [‘Debug’, ‘Info’, ‘Warn’, ‘Error’, ‘Fatal’]</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>index</p></td>
+<td><p>int</p></td>
+<td><p><pre>print(f’List item with index {DIALOG.selectEntry.index} is selected.’)</pre></p></td>
 </tr>
 </tbody>
 </table>
@@ -1766,7 +1797,10 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </tr>
 </tbody>
 </table>
-<p>💡 There are also values for file icons. These only work straightforward using the dialog designer but not from a script. You can only change between no icon and system icons in a straightforward way.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are also values for file icons. These only work straightforward using the dialog designer but not from a script. You can only change between no icon and system icons in a straightforward way.</p>
+</div>
 </section>
 <section id="radio-button-widget">
 <h4>Radio button widget<a class="headerlink" href="#radio-button-widget" title="Link to this heading"></a></h4>
@@ -1978,7 +2012,7 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <p><img alt="Label widget with HTML formatted text" src="../../_images/widget_text_html_label.png" /></p>
 <p>Example: Continuous text widget (<code class="docutils literal notranslate"><span class="pre">cont_text</span></code>) with formatted text</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Continuous text - font size: 18 pt, font weight: 600, color: red, </span>
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&lt;span style=&quot;font-size:18pt; font-weight:600; color:red;&quot;&gt;Attention!&lt;/span&gt;&#39;</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&lt;span style=&quot;font-size:18pt; font-weight:800; color:red;&quot;&gt;Attention!&lt;/span&gt;&#39;</span>
 </pre></div>
 </div>
 <p><img alt="Continuous text widget with HTML formatted text" src="../../_images/widget_text_html_formatting.png" /></p>
@@ -2038,6 +2072,8 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <li><p>The dialog result is returned.</p></li>
 </ul>
 <p><img alt="" src="../../_images/dialog1.png" /></p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Break dialog with dialog definition in Python file</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span>
     <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">[</span>
@@ -2094,8 +2130,15 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
         <span class="s2">&quot;translatable&quot;</span><span class="p">:</span> <span class="kc">True</span>
     <span class="p">}</span>
 <span class="p">})</span>
-
 </pre></div>
+</div>
+</div>
+<p>or</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Break dialog with dialog definition in separate dialog file</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;my_dialog.gdlg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </section>
 <section id="extendable-break-dialog-create-and-show">
@@ -2105,10 +2148,10 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 <li><p>A dialog is created and executed by subsequent commands.</p></li>
 <li><p>This way, the created dialog can be modified by the script right before execution.</p></li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Creating and executing a dialog with two separate commands</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Creating and executing a dialog with two separate commands (dialog definition in Python file)</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dialog, but do not execute it yet</span>
-<span class="n">DIALOG</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+<span class="n">DIALOG</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=...</span><span class="p">)</span>
 
 <span class="c1">#</span>
 <span class="c1"># The dialog has been created. At this point of the script, the dialog handle DIALOG</span>
@@ -2117,6 +2160,16 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 
 <span class="c1"># Execute dialog and fetch execution result</span>
 <span class="n">RESULT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span><span class="p">(</span> <span class="n">dialog</span> <span class="o">=</span> <span class="n">DIALOG</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>or</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Creating and executing a dialog with two separate commands (dialog definition in separate dialog file)</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dialog, but do not execute it yet</span>
+<span class="n">DIALOG</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;my_dialog.gdlg&#39;</span><span class="p">)</span>
+
+<span class="c1"># ...</span>
 </pre></div>
 </div>
 </div>
@@ -2134,11 +2187,14 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </ul>
 </li>
 </ul>
-<p>💡 At script termination all open dialogs are closed automatically.</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Non blocking configurable dialogs</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At script termination all open dialogs are closed automatically.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Non blocking configurable dialogs</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dialog but do not execute it yet</span>
-<span class="n">DIALOG</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+<span class="n">DIALOG</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="c1">#</span>
 <span class="c1"># The dialog has been created. At this point of the script, the dialog handle DIALOG</span>
@@ -2162,7 +2218,10 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </section>
 <section id="dialog-results">
 <h3>Dialog results<a class="headerlink" href="#dialog-results" title="Link to this heading"></a></h3>
-<p>💡 The return value is an object with one property per interactive dialog widget containing its current value.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The return value is an object with one property per interactive dialog widget containing its current value.</p>
+</div>
 <ul class="simple">
 <li><p>The return value is an object containing all current values.</p></li>
 <li><p>Each dialog widget which can be changed by the script user writes its resulting value into this result object.</p></li>
@@ -2212,12 +2271,15 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
     <span class="n">point2</span> <span class="o">=</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">point2</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>💡 The type of the result depends on the specific widget.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The type of the result depends on the specific widget.</p>
+</div>
 <section id="custom-results">
 <h4>Custom results<a class="headerlink" href="#custom-results" title="Link to this heading"></a></h4>
 <p>You can return custom results from dialogs using an optional parameter to the <code class="docutils literal notranslate"><span class="pre">close_user_defined_dialog</span></code>-function. The following example produces ‘Yes’
 and ‘No’ results for the different buttons and ‘Cheater’ when the user uses the close button of the dialog.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="c1">#</span>
 <span class="c1"># Event handler function called if anything happens inside of the dialog</span>
@@ -2248,10 +2310,10 @@ and ‘No’ results for the different buttons and ‘Cheater’ when the user u
 <li><p>Each widget in the dialog can be accessed via the dialog handle.</p></li>
 <li><p>The widget is identified by its unique name.</p></li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Configuring dialog widgets</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Configuring dialog widgets</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dialog and receive dialog handle</span>
-<span class="n">DIALOG</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+<span class="n">DIALOG</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="c1"># The handle for a widget inside of the dialog is addressed by its unique name</span>
 <span class="n">WIDGET</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">distance</span>
@@ -2287,10 +2349,10 @@ and ‘No’ results for the different buttons and ‘Cheater’ when the user u
 </tbody>
 </table>
 <p>For the type of the value property for a specific widget, see section <a class="reference internal" href="#specific-widgets">Specific widgets</a> above. For widgets which are not used to enter some value, <code class="docutils literal notranslate"><span class="pre">value</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code> and read-only. In addition, widgets have further attributes depending on their type (see section <a class="reference internal" href="#specific-widgets">Specific widgets</a> above for details).</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Accessing widget attributes</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Accessing widget attributes</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dialog but do not execute it yet</span>
-<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="c1"># Set name to &#39;default name&#39; and disable &#39;ok&#39; button</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;default name&quot;</span>
@@ -2314,9 +2376,9 @@ and ‘No’ results for the different buttons and ‘Cheater’ when the user u
 <li><p>The handler function is registered using the special attribute <code class="docutils literal notranslate"><span class="pre">handler</span></code>.</p></li>
 <li><p>The <strong>prev</strong> and <strong>next</strong> buttons of a wizard dialog are the only control widgets, which trigger the event handler.</p></li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Dialog handler functions</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Dialog handler functions</span><a class="headerlink" href="#id14" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="c1"># Handler function registered to the dialog</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">handler_function</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
@@ -2362,8 +2424,8 @@ and ‘No’ results for the different buttons and ‘Cheater’ when the user u
 </table>
 <p>If the widget parameter is not a string, it represents a widget object. Note, that you cannot use the <code class="docutils literal notranslate"><span class="pre">is</span></code> operator on these objects. Always use <code class="docutils literal notranslate"><span class="pre">==</span></code> and similar
 operators to compare the widget parameter:</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Comparing widget parameters</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Comparing widget parameters</span><a class="headerlink" href="#id15" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">handler_function</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
     <span class="o">...</span>
     <span class="c1"># compare widget using &quot;==&quot;, using &quot;is&quot; will not work!</span>
@@ -2378,10 +2440,13 @@ operators to compare the widget parameter:</p>
 </section>
 <section id="closing-dialogs-from-within-the-event-handler">
 <h4>Closing dialogs from within the event handler<a class="headerlink" href="#closing-dialogs-from-within-the-event-handler" title="Link to this heading"></a></h4>
-<p>💡 Dialogs can be closed from within event handlers.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Dialogs can be closed from within event handlers.</p>
+</div>
 <p><img alt="" src="../../_images/event_handler_script_launcher.png" /></p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Button event handler</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Button event handler</span><a class="headerlink" href="#id16" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dialog_event_handler</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">button1</span><span class="p">:</span>
         <span class="n">execute_func_1</span> <span class="p">()</span>
@@ -2395,7 +2460,10 @@ operators to compare the widget parameter:</p>
 </pre></div>
 </div>
 </div>
-<p>⚠️ Right after the dialog has been closed its handle becomes invalid.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Right after the dialog has been closed, its handle becomes invalid.</p>
+</div>
 <p>This implies, that the event handler function must be written in a way that no dialog dependent code is executed after the dialog has been closed.</p>
 </section>
 <section id="using-a-timer-to-activate-the-event-handler">
@@ -2412,12 +2480,15 @@ about its attributes:</p>
 <span class="c1"># interval (integer) - timer interval [ms]</span>
 </pre></div>
 </div>
-<p>💡 Please note that the timer is disabled by default.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The timer is disabled by default.</p>
+</div>
 <p>Example:</p>
-<p><img alt="" src="../../_images/event_handler_timer_edit.png" /></p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Button/Timer event handler</span><a class="headerlink" href="#id14" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;boring dialog definition&#39;</span><span class="p">)</span>
+<p><img alt="" src="../../_images/event_handler_timer.png" /></p>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">Button/Timer event handler</span><a class="headerlink" href="#id17" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="c1">#</span>
 <span class="c1"># Event handler function called if anything happens inside of the dialog</span>
@@ -2465,9 +2536,12 @@ about its attributes:</p>
 <li><p>Instead, it is possible to query the variable dynamically during runtime.</p></li>
 <li><p>The more commonly used widget attributes are documented in the section <a class="reference internal" href="#specific-widgets">Specific widgets</a> above.</p></li>
 </ul>
-<p>💡 Most objects support the attribute <code class="docutils literal notranslate"><span class="pre">__doc__</span></code> which prints the available object documentation to the console.</p>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Print object documentation</span><a class="headerlink" href="#id15" title="Link to this code"></a></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Most objects support the attribute <code class="docutils literal notranslate"><span class="pre">__doc__</span></code> which prints the available object documentation to the console.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">Print object documentation</span><a class="headerlink" href="#id18" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
 <span class="c1"># Query __doc__ attribute of a button widget</span>
 <span class="c1">#</span>
@@ -2505,18 +2579,21 @@ about its attributes:</p>
 <li><p>The script programmer is responsible for adding functionality to this layout.</p></li>
 <li><p>Wizards are not very versatile, but modifying the displayed texts and images is easily possible.</p></li>
 </ul>
-<p>⚠️ It is not possible to exchange widgets from within a dialog after the dialog has been created!</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is not possible to exchange widgets from within a dialog after the dialog has been created!</p>
+</div>
 <p>Therefore Wizards only have simple options like exchange of images and texts in those containing elements.</p>
 <section id="control-widgets">
 <h3>Control widgets<a class="headerlink" href="#control-widgets" title="Link to this heading"></a></h3>
 <p>The operational elements in a control widget from a wizard do act like those in regular dialogs und can be accessed via handles as well:</p>
 <p><img alt="" src="../../_images/wizard.png" /></p>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">Wizard example</span><a class="headerlink" href="#id16" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">Wizard example</span><a class="headerlink" href="#id19" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
 <span class="c1"># Create dialog with wizard control panel</span>
 <span class="c1">#</span>
-<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;boring dialog definition&#39;</span><span class="p">)</span>
+<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="c1">#</span>
 <span class="c1"># Handler function to be registered to the dialog</span>
 <span class="c1">#</span>
@@ -2575,7 +2652,7 @@ about its attributes:</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f1ee7cc3140>
+  <jinja2.runtime.BlockReference object at 0x7f59e4d9b0b0>
 
 
 </footer>
