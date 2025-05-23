@@ -18,7 +18,7 @@
 
 ### Dialog designer
 
-* User defined **Dialogs** can be inserted into the script using RMB ► Insert ► Dialog... in the <a href="../using_app_editor/using_app_editor.html">App Editor</a>.
+* User defined **Dialogs** can be inserted into the script using RMB ► Insert ► Dialog... in the <a href="../using_add_on_editor/using_add_on_editor.html">Add-on Editor</a>.
 
     ![](assets/insert_dialog.png)
 
@@ -83,7 +83,7 @@
     ![](assets/dialog_editor.png)
     
 ```{note}
-The Dialog Editor is opened from the <a href="../using_app_editor/using_app_editor.html">App Editor</a> by
+The Dialog Editor is opened from the <a href="../using_add_on_editor/using_add_on_editor.html">Add-on Editor</a> by
 * Selecting a dialog file (*.gdlg) in the App Explorer
 * Selecting a dialog definition embedded in a Python script
 * Using _right mouse button_ → Insert → Dialog... in the script editor
