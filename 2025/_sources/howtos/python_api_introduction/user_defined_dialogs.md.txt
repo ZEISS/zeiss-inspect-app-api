@@ -262,7 +262,7 @@ The **Status label** of the control widget is invisible until a status text is s
 ```{code-block} python
 :caption: Using the Status label
 
-DIALOG=gom.script.sys.create_user_defined_dialog (content='dialog definition')
+DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 # Set status label text
 DIALOG.control.status = 'No point selected.'
@@ -501,7 +501,7 @@ Manual mode
 
     ```{code-block} python
     import gom, time
-    DIALOG=gom.script.sys.create_user_defined_dialog (content='dialog definition')
+    DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
     DIALOG.progress.minimum = 0
     DIALOG.progress.maximum = 100
     gom.script.sys.open_user_defined_dialog( dialog = DIALOG )
@@ -520,7 +520,7 @@ Automatic mode
 
     ```{code-block} python
     import gom
-    DIALOG=gom.script.sys.create_user_defined_dialog (content='dialog definition')
+    DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
     gom.script.sys.open_user_defined_dialog (dialog=DIALOG)
     gom.script.sys.create_project ()
     gom.script.sys.import_project (file='some project')
@@ -551,7 +551,7 @@ Partially controlled system progress bar
   import gom
 
   # Create a user defined dialog with a progress bar, mode 'system'
-  DIALOG=gom.script.sys.create_user_defined_dialog (content='dialog definition')
+  DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
   gom.script.sys.open_user_defined_dialog( dialog = DIALOG )
 
   # Split progress bar into 3 parts
@@ -647,7 +647,7 @@ Integer widget
 : The Integer widget is used to request an integer value from the user. `integerWidget` is the object name of the integer widget in the example below.
 
 ``` python
-RESULT=gom.script.sys.execute_user_defined_dialog (content='dialog definition')
+RESULT=gom.script.sys.execute_user_defined_dialog (file='dialog.gdlg')
 userInput = RESULT.integerWidget
 ```
 
@@ -669,7 +669,7 @@ Decimal widget
 : The Decimal widget is used to request a floating point value from the user. It is possible to choose the number of digits and a unit. The selectable units are the ones from the user preferences (Edit \> Application \> Settings \> Preferences) in the _Default units_ tab. `decimalWidget` is the object name of the decimal widget in the example below.
 
 ``` python
-RESULT=gom.script.sys.execute_user_defined_dialog (content='dialog definition')
+RESULT=gom.script.sys.execute_user_defined_dialog (file='dialog.gdlg')
 userInput = RESULT.decimalWidget
 ```
 
@@ -695,7 +695,7 @@ Text entry field
 : The Text entry field widget can be used to get string input from the user. A simple use case is given by the next code block. `textEntryWidget` is the object name of the widget in the example below.
 
 ``` python
-DIALOG=gom.script.sys.create_user_defined_dialog (content='dialog definition')
+DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 DIALOG.textEntryWidget = "some default text"
 RESULT = gom.script.sys.show_user_defined_dialog(dialog = DIALOG)
 print( RESULT.textEntryWidget ) # the user input string
@@ -719,7 +719,7 @@ Slider widget
 : The Slider widget can be used to get a float value from a certain interval from the user. `sliderWidget` is the object name of the slider widget in the example below.
 
 ``` python
-DIALOG=gom.script.sys.create_user_defined_dialog (content='dialog definition')
+DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 RESULT = gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 print( RESULT.sliderWidget ) # some text
@@ -750,7 +750,7 @@ Checkbox widget
 : The Checkbox widget can be used to get boolean input from the user. `checkboxWidget` is the object name of the checkbox widget in the example below.
 
 ``` python
-DIALOG=gom.script.sys.create_user_defined_dialog (content='dialog definition')
+DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 print (RESULT.checkboxWidget)
@@ -797,7 +797,7 @@ Date widget
 : The Date widget requests a date from the user. `dateWidget` is the object name of the date widget in the example below.
 
 ``` python
-DIALOG=gom.script.sys.create_user_defined_dialog (content='dialog definition')
+DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 dateObject = DIALOG.dateWidget.value # date object
 print( DIALOG.dateWidget.year )  # integer
 print( DIALOG.dateWidget.month ) # integer
@@ -826,7 +826,7 @@ Color widget
 : The Color widget allows to select a color. `colorWidget` is the object name of the color widget in the example below. `gomColor` behaves in the same way as `gom.Color( ... )`.
 
 ``` python
-DIALOG=gom.script.sys.create_user_defined_dialog (content='dialog definition')
+DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 #
 # Event handler function called if anything happens inside of the dialog
@@ -859,7 +859,7 @@ Unit widget
 : The Unit widget allows to select a unit. `unitWidget` is the object name of the unit widget in the example below.
 
 ``` python
-DIALOG=gom.script.sys.create_user_defined_dialog (content='dialog definition')
+DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 #
 # Event handler function called if anything happens inside of the dialog
@@ -898,7 +898,7 @@ Selection element widget
 `elementSelectionWidget` is the object name of the element selection widget in the example below.
 
 ``` python
-DIALOG=gom.script.sys.execute_user_defined_dialog (content='dialog definition')
+DIALOG=gom.script.sys.execute_user_defined_dialog (dialog='dialog.gdlg')
 
 selectedElement = DIALOG.elementSelectionWidget
 print(selectedElement.value ) # output: gom.app.project.inspection['Equidistant Surface Points 1']
@@ -919,7 +919,7 @@ print(selectedElement.value ) # output: gom.app.project.inspection['Equidistant 
 The following script shows how to use a custom filter for element selection. The example filter allows the user to select a system plane:
 
 ``` python
-DIALOG4 = gom.script.sys.create_user_defined_dialog(content='...')
+DIALOG4 = gom.script.sys.create_user_defined_dialog(file='dialog.gdlg')
 
 
 def dialog_event_handler(widget):
@@ -1191,7 +1191,9 @@ In case a character string is not recognized as HTML code automatically, enclose
 
 ![](assets/dialog1.png)
 
-``` python
+```{code-block} python
+:caption: Break dialog with dialog definition in Python file 
+
 RESULT=gom.script.sys.execute_user_defined_dialog (dialog={
     "content": [
         [
@@ -1251,6 +1253,14 @@ RESULT=gom.script.sys.execute_user_defined_dialog (dialog={
 
 ```
 
+or
+
+```{code-block} python
+:caption: Break dialog with dialog definition in separate dialog file 
+
+RESULT=gom.script.sys.execute_user_defined_dialog (file='my_dialog.gdlg')
+```
+
 #### Extendable break dialog (`create` and `show`)
 
 ![](assets/dialog2_extendable_break.png)
@@ -1259,10 +1269,10 @@ RESULT=gom.script.sys.execute_user_defined_dialog (dialog={
 * This way, the created dialog can be modified by the script right before execution.
 
 ```{code-block} python
-:caption: Creating and executing a dialog with two separate commands
+:caption: Creating and executing a dialog with two separate commands (dialog definition in Python file)
 
 # Create dialog, but do not execute it yet
-DIALOG = gom.script.sys.create_user_defined_dialog (content='...')
+DIALOG = gom.script.sys.create_user_defined_dialog (dialog=...)
 
 #
 # The dialog has been created. At this point of the script, the dialog handle DIALOG
@@ -1271,6 +1281,17 @@ DIALOG = gom.script.sys.create_user_defined_dialog (content='...')
 
 # Execute dialog and fetch execution result
 RESULT = gom.script.sys.show_user_defined_dialog( dialog = DIALOG )
+```
+
+or
+
+```{code-block} python
+:caption: Creating and executing a dialog with two separate commands (dialog definition in separate dialog file)
+
+# Create dialog, but do not execute it yet
+DIALOG = gom.script.sys.create_user_defined_dialog (file='my_dialog.gdlg')
+
+# ...
 ```
 
 #### Info dialog (`create`, `open` and `close`)
@@ -1291,7 +1312,7 @@ At script termination all open dialogs are closed automatically.
 :caption: Non blocking configurable dialogs
 
 # Create dialog but do not execute it yet
-DIALOG = gom.script.sys.create_user_defined_dialog (content='...')
+DIALOG = gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 #
 # The dialog has been created. At this point of the script, the dialog handle DIALOG
@@ -1378,7 +1399,7 @@ You can return custom results from dialogs using an optional parameter to the `c
 and 'No' results for the different buttons and 'Cheater' when the user uses the close button of the dialog.
 
 ``` python
-DIALOG = gom.script.sys.create_user_defined_dialog (content='...')
+DIALOG = gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 #
 # Event handler function called if anything happens inside of the dialog
@@ -1411,7 +1432,7 @@ Please find the complete example here: [dialog_yes_no.py](assets/dialog_yes_no.p
 :caption: Configuring dialog widgets
 
 # Create dialog and receive dialog handle
-DIALOG = gom.script.sys.create_user_defined_dialog (content='...')
+DIALOG = gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 # The handle for a widget inside of the dialog is addressed by its unique name
 WIDGET = DIALOG.distance
@@ -1434,7 +1455,7 @@ For the type of the value property for a specific widget, see section [Specific 
 :caption: Accessing widget attributes
 
 # Create dialog but do not execute it yet
-DIALOG=gom.script.sys.create_dialog (content='...')
+DIALOG=gom.script.sys.create_dialog (file='dialog.gdlg')
 
 # Set name to 'default name' and disable 'ok' button
 DIALOG.name.value = "default name"
@@ -1458,7 +1479,7 @@ RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 ```{code-block} python
 :caption: Dialog handler functions
 
-DIALOG=gom.script.sys.create_user_defined_dialog (content='dialog definition')
+DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 # Handler function registered to the dialog
 def handler_function (widget):
@@ -1562,7 +1583,7 @@ Example:
 ```{code-block} python
 :caption: Button/Timer event handler
 
-DIALOG=gom.script.sys.create_user_defined_dialog (content='boring dialog definition')
+DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 #
 # Event handler function called if anything happens inside of the dialog
@@ -1664,7 +1685,7 @@ The operational elements in a control widget from a wizard do act like those in 
 #
 # Create dialog with wizard control panel
 #
-DIALOG=gom.script.sys.create_user_defined_dialog (content='boring dialog definition')
+DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 #
 # Handler function to be registered to the dialog
 #
