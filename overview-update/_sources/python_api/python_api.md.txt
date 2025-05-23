@@ -570,6 +570,8 @@ Check a single value for expected properties
 :type context: Any
 :param values: Dialog widget values as a dictionary. The keys are the widget names as defined
 :type values: Any
+:return: Computed values for the given stage. This is always a map, where the keys strongly depend
+:rtype: None
 ```
 
 This function is called for a single stage value is to be computed. The input values from the
@@ -578,6 +580,7 @@ parameter named as the associated input widget.
 
                the stage this computation call refers to.
                in the dialog definition.
+        on the element type.
 
 #### gom.api.extensions.ScriptedElement.compute_stage
 
@@ -587,6 +590,8 @@ parameter named as the associated input widget.
 :type context: Any
 :param values: Dialog widget values as a dictionary. The keys are the widget names as defined
 :type values: Any
+:return: Computed values for the given stage. This is always a map, where the keys strongly depend
+:rtype: None
 ```
 
 This function is called for a single stage value is to be computed. The input values from the
@@ -595,6 +600,7 @@ parameter named as the associated input widget.
 
                the stage this computation call refers to.
                in the dialog definition.
+        on the element type.
 
 #### gom.api.extensions.ScriptedElement.compute_stages
 
@@ -604,6 +610,8 @@ parameter named as the associated input widget.
 :type context: Any
 :param values: Dialog widget values as a dictionary.
 :type values: Any
+:return: Dictionary containing the results and the states of the computation. Each entry in these
+:rtype: None
 ```
 
 This function is called to compute multiple stages of the scripted element. The expected result is 
@@ -613,6 +621,9 @@ The function is calling the `compute ()` function of the scripted element for ea
 For a more efficient implementation, it can be overwritten and bulk compute many stages at once.
 
                the stage this computation call refers to.
+        dictionaries is a vector of the same length as the number of stages. The entries are
+        - `results`:  Computed values for each stage
+        - `states`:   States of the computation for each stage. `True` if the computation was successful.
 
 #### gom.api.extensions.ScriptedElement.dialog
 
@@ -765,7 +776,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     "center"   : (x: float, y: float, z: float), // Centerpoint of the circle
     "direction": (x: float, y: float, z: float), // Direction/normal of the circle
-    "radius"   : r: float                        // Radius of the circle
+    "radius"   : r: float,                       // Radius of the circle
+    "data": {...}                                // Optional element data, stored with the element
 }
 ```
 
@@ -781,7 +793,8 @@ The expected parameters from the element's `compute ()` function is a map with t
     "point1": (x: float, y: float, z: float), // First point of the cone (circle center)
     "radius1": r1: float,                     // Radius of the first circle
     "point2": (x: float, y: float, z: float), // Second point of the cone (circle center)
-    "radius2": r2: float                      // Radius of the second circle
+    "radius2": r2: float,                     // Radius of the second circle
+    "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
@@ -794,8 +807,9 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 ```
 {
-    "plane": p: Plane // Plane of the curve (optional)
-    "curves": [Curve] // List of curves
+    "plane": p: Plane, // Plane of the curve (optional)
+    "curves": [Curve], // List of curves
+    "data": {...}      // Optional element data, stored with the element        
 }
 ```
 
@@ -803,7 +817,7 @@ The format of the `Curve` object is:
 
 ```
 {
-    "points": [(x: float, y: float, z: float), ...] // List of points
+    "points": [(x: float, y: float, z: float), ...]
 }
 ```
 
@@ -821,6 +835,7 @@ The expected parameters from the element's `compute ()` function is a map with t
     "point": (x: float, y: float, z: float),     // Base point of the cylinder
     "direction": (x: float, y: float, z: float), // Direction of the cylinder
     "radius": r: float,                          // Radius of the cylinder
+    "data": {...}                                // Optional element data, stored with the element
 }
 ```
 
@@ -834,7 +849,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 ```
 {
     "point1": (x: float, y: float, z: float), // First point of the distance
-    "point2": (x: float, y: float, z: float)  // Second point of the distance
+    "point2": (x: float, y: float, z: float), // Second point of the distance
+    "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
@@ -848,7 +864,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 ```
 {
     "normal": (x: float, y: float, z: float), // Normal of the plane
-    "distance": d: float                      // Distance of the plane
+    "distance": d: float,                     // Distance of the plane
+    "data": {...}                             // Optional element data, stored with the element        
 }
 ```
 
@@ -856,8 +873,9 @@ or
 
 ```
 {
-    "target": plane: Plane, // Source plane point of this plane
-    "offset": offset: float // Offset relative to the source plane
+    "target": plane: Plane,  // Source plane point of this plane
+    "offset": offset: float, // Offset relative to the source plane
+    "data": {...}            // Optional element data, stored with the element        
 }
 ```
 
@@ -865,7 +883,9 @@ or
 
 ```
 {
-    "plane": Reference // Reference to another plane element of coordinate system
+    "plane": Reference, // Reference to another plane element of coordinate system
+    "data": {...}       // Optional element data, stored with the element
+
 }
 ```
 
@@ -878,7 +898,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 ```
 {
-    "value": (x: float, y: float, z: float) // The point in 3D space.
+    "value": (x: float, y: float, z: float), // The point in 3D space.
+    "data": {...}                            // Optional element data, stored with the element
 }
 ```
 
@@ -892,7 +913,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 ```
 {
     "points":  [(x: float, y: float, z: float), ...], // List of points
-    "normals": [(x: float, y: float, z: float), ...]  // List of normals for each point
+    "normals": [(x: float, y: float, z: float), ...], // List of normals for each point
+    "data": {...}                                     // Optional element data, stored with the element        
 }
 ```
 
@@ -927,7 +949,8 @@ The expected parameters from the element's `compute ()` function is a map with t
     "curves": [Curve],
     "plane": Plane,
     "cone": Cone,
-    "cylinder": Cylinder
+    "cylinder": Cylinder,
+    "data": {...}          // Optional element data, stored with the element        
 }
 ```
 
@@ -952,7 +975,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 ```
 {
     "vertices":  [(x: float, y: float, z: float), ...], // List of vertices
-    "triangles": [(i1: int, i2: int, i3: int), ...]     // List of triangles (vertices' indices)
+    "triangles": [(i1: int, i2: int, i3: int), ...],    // List of triangles (vertices' indices)
+    "data": {...}                                       // Optional element data, stored with the element        
 }
 ```
 
@@ -965,7 +989,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 ```
 {
-    "curves": [Curve]
+    "curves": [Curve], // Curve definition
+    "data": {...}      // Optional element data, stored with the element        
 }
 ```
 
@@ -992,7 +1017,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 ```
 {
-    "value": v: float // Value of the element
+    "value": v: float, // Value of the element
+    "data": {...}      // Optional element data, stored with the element        
 }
 ```
 
@@ -1006,7 +1032,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 ```
 {
     'voxel_data': data: np.array (shape=(x, y, z), dtype=np.float32), // Voxels of the volume
-    'transformation': (x: float, y: float, z: float)                  // Transformation of the volume
+    'transformation': (x: float, y: float, z: float),                 // Transformation of the volume
+    "data": {...}                                      // Optional element data, stored with the element        
 }
 ```
 
@@ -1050,7 +1077,8 @@ The expected parameters from the elements `compute ()` function is a map with th
 {
     "actual_values": [v: float, v: float, ...] // Deviations
     "nominal": float,                          // Nominal value
-    "target_element": gom.Item                 // Inspected element
+    "target_element": gom.Item,                // Inspected element
+    "data": {...}                              // Optional element data, stored with the element    
 }
 ```
 
@@ -1065,7 +1093,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     "nominal": float,           // Nominal value
     "actual": float,            // Actual value
-    "target_element": gom.Item  // Inspected element
+    "target_element": gom.Item, // Inspected element
+    "data": {...}               // Optional element data, stored with the element        
 }
 ```
 
@@ -1104,7 +1133,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     "deviation_values": [v: float, v: float, ...] // Deviations
     "nominal": float,                             // Nominal value
-    "target_element": gom.Item                    // Inspected element
+    "target_element": gom.Item,                   // Inspected element
+    "data": {...}                                 // Optional element data, stored with the element        
 }
 ```
 
@@ -1123,7 +1153,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     "center"   : (x: float, y: float, z: float), // Centerpoint of the circle
     "direction": (x: float, y: float, z: float), // Direction/normal of the circle
-    "radius"   : r: float                        // Radius of the circle
+    "radius"   : r: float,                       // Radius of the circle
+    "data": {...}                                // Optional element data, stored with the element        
 }
 ```
 
@@ -1139,7 +1170,8 @@ The expected parameters from the element's `compute ()` function is a map with t
     "point1": (x: float, y: float, z: float), // First point of the cone (circle center)
     "radius1": r1: float,                     // Radius of the first circle
     "point2": (x: float, y: float, z: float), // Second point of the cone (circle center)
-    "radius2": r2: float                      // Radius of the second circle
+    "radius2": r2: float,                     // Radius of the second circle
+    "data": {...}                             // Optional element data, stored with the element        
 }
 ```
 
@@ -1152,8 +1184,9 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 ```
 {
-    "plane": p: Plane // Plane of the curve (optional)
-    "curves": [Curve] // List of curves
+    "plane": p: Plane  // Plane of the curve (optional)
+    "curves": [Curve], // List of curves
+    "data": {...}      // Optional element data, stored with the element        
 }
 ```
 
@@ -1179,6 +1212,7 @@ The expected parameters from the element's `compute ()` function is a map with t
     "point": (x: float, y: float, z: float),     // Base point of the cylinder
     "direction": (x: float, y: float, z: float), // Direction of the cylinder
     "radius": r: float,                          // Radius of the cylinder
+    "data": {...}                                // Optional element data, stored with the element        
 }
 ```
 
@@ -1192,7 +1226,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 ```
 {
     "point1": (x: float, y: float, z: float), // First point of the distance
-    "point2": (x: float, y: float, z: float)  // Second point of the distance
+    "point2": (x: float, y: float, z: float), // Second point of the distance
+    "data": {...}                             // Optional element data, stored with the element       
 }
 ```
 
@@ -1206,7 +1241,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 ```
 {
     "normal": (x: float, y: float, z: float), // Normal of the plane
-    "distance": d: float                      // Distance of the plane
+    "distance": d: float,                     // Distance of the plane
+    "data": {...}                             // Optional element data, stored with the element        
 }
 ```
 
@@ -1214,8 +1250,9 @@ or
 
 ```
 {
-    "target": plane: Plane, // Source plane point of this plane
-    "offset": offset: float // Offset relative to the source place
+    "target": plane: Plane,  // Source plane point of this plane
+    "offset": offset: float, // Offset relative to the source place
+    "data": {...}            // Optional element data, stored with the element        
 }
 ```
 
@@ -1223,7 +1260,8 @@ or
 
 ```
 {
-    "plane": Reference // Reference to another plane element of coordinate system
+    "plane": Reference, // Reference to another plane element of coordinate system
+    "data": {...}       // Optional element data, stored with the element
 }
 ```
 
@@ -1236,7 +1274,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 ```
 {
-    "value": (x: float, y: float, z: float) // The point in 3D space.
+    "value": (x: float, y: float, z: float), // The point in 3D space.
+    "data": {...}                            // Optional element data, stored with the element        
 }
 ```
 
@@ -1250,7 +1289,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 ```
 {
     "points":  [(x: float, y: float, z: float), ...], // List of points
-    "normals": [(x: float, y: float, z: float), ...]  // List of normals for each point
+    "normals": [(x: float, y: float, z: float), ...], // List of normals for each point
+    "data": {...}                                     // Optional element data, stored with the element        
 }
 ```
 
@@ -1285,7 +1325,8 @@ The expected parameters from the element's `compute ()` function is a map with t
     "curves": [Curve],
     "plane": Plane,
     "cone": Cone,
-    "cylinder": Cylinder
+    "cylinder": Cylinder,
+    "data": {...}         // Optional element data, stored with the element        
 }
 ```
 
@@ -1310,7 +1351,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 ```
 {
     "vertices":  [(x: float, y: float, z: float), ...], // List of vertices
-    "triangles": [(i1: int, i2: int, i3: int), ...]     // List of triangles (vertices indices)
+    "triangles": [(i1: int, i2: int, i3: int), ...],    // List of triangles (vertices indices)
+    "data": {...}                                       // Optional element data, stored with the element
 }
 ```
 
@@ -1323,7 +1365,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 ```
 {
-    "curves": [Curve]
+    "curves": [Curve], // Curves
+    "data": {...}      // Optional element data, stored with the element        
 }
 ```
 
@@ -1345,7 +1388,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 ```
 {
-    "value": v: float // Value of the element
+    "value": v: float, // Value of the element
+    "data": {...}      // Optional element data, stored with the element        
 }
 ```
 
