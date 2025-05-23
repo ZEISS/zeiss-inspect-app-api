@@ -84,7 +84,7 @@
     
 ```{note}
 The Dialog Editor is opened from the <a href="../using_add_on_editor/using_add_on_editor.html">Add-on Editor</a> by
-* Selecting a dialog file (*.gdlg) in the App Explorer
+* Selecting a dialog file (*.gdlg) in the Add-on Explorer
 * Selecting a dialog definition embedded in a Python script
 * Using _right mouse button_ → Insert → Dialog... in the script editor
 ```
