@@ -126,7 +126,7 @@ gom.script.sys.create_user_defined_dialog = patched_create_user_defined_dialog
 
 ## Related
 
-* [Using Jupyter Notebook with VSCode](using_jupyter+vscode)
+* [Using Jupyter Notebook with VSCode](using_jupyter_and_vscode)
 * [Jupyter Notebook](https://jupyter.org/)
 * [ZEISS INSPECT API wheel](https://pypi.org/project/zeiss-inspect-api/)
 * [Using Visual Studio Code as App editor](../using_vscode_editor/using_vscode_editor.md)
