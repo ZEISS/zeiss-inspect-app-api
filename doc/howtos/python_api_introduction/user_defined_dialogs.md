@@ -165,13 +165,14 @@ The definition of the dialog can be found in [scriptingEditorExampleDialog.py](a
     - [Control widget elements](#control-widget-elements)
     - [Control button properties](#control-button-properties)
     - [Status label](#status-label)
-- [Specific widgets](#specific-widgets)
+- [Output](#output)
     - [Description field (label) widget](#description-field-label-widget)
     - [Continuous text widget](#continuous-text-widget)
     - [Image widget](#image-widget)
+    % Information box 
     - [Log widget](#log-widget)
     - [Progress-bar widget](#progress-bar-widget)
-    - [Element name widget](#element-name-widget)
+- [Input](#input)
     - [Integer widget](#integer-widget)
     - [Decimal widget](#decimal-widget)
     - [Text entry field](#text-entry-field)
@@ -181,13 +182,22 @@ The definition of the dialog can be found in [scriptingEditorExampleDialog.py](a
     - [Date widget](#date-widget)
     - [Color widget](#color-widget)
     - [Unit widget](#unit-widget)
-    - [Selection element widget](#selection-element-widget)
+    - [Element name widget](#element-name-widget)
+- [Selection](#selection)
+    % Split button
+    % Toggle bar
     - [Selection list widget](#selection-list-widget)
+    % Combo box
+    - [Selection element widget](#selection-element-widget)
+- [Buttons](#buttons)
     - [Button widget](#button-widget)
+- [Layout](#layout)
     - [Radio button widget](#radio-button-widget)
+- [Other](#other)
     - [Abort button widget](#abort-button-widget)
-    - [Tolerances widget](#tolerances-widget)
     - [File system browser widget](#file-system-browser-widget)
+    % File drag&drop area
+    - [Tolerances widget](#tolerances-widget)
 
 This section gives an overview of the available widgets. If the code examples given in this section are not intuitive to you, you might want to take a look 
 into [Executing dialogs](#executing-dialogs).
@@ -274,7 +284,7 @@ gom.script.sys.show_user_defined_dialog(dialog = DIALOG)
 
 You can reset the status icon and clear the error message by assigning an empty string (`DIALOG.control.status = ''`).
 
-### Specific widgets
+### Output
 
 #### Description field (label) widget
 
@@ -470,6 +480,30 @@ RESULT=gom.script.sys.execute_user_defined_dialog (dialog={
 })
 ```
 
+#### Information box widget
+
+![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
+
+Collapsed\
+![](assets/widget_information_box_collapsed.png)
+
+Expanded\
+![](assets/widget_information_box_expanded.png)
+
+Information box widget
+: The Information box widget allows to show text. You can toggle between expanded and non-expanded state at run time. The default state can be configured.
+
+| Property             | Type      | Example                                                        |
+| -------------------- | --------- | -------------------------------------------------------------- |                               
+| tooltip              | str       | <pre>DIALOG.information.tooltip = 'About this widget'</pre>    |                                                        
+| enabled              | bool      | <pre>DIALOG.information.enabled = True</pre>                   |                                             
+| value                | (unspecified/various) | n.a.                                               |                                         
+| focus                | bool      | <pre>DIALOG.information.focus = True</pre> ⚠️ Only works if dialog is open |                                          
+| visible              | bool      | <pre>DIALOG.information.visible = False</pre>                  |
+| handler              | unspecified/various | <pre>DIALOG.information.handler = information_handler |
+| text                 | str       | <pre>DIALOG.information.text = "This is an information box"    |                                                                                             
+| expanded             | bool      | <pre>DIALOG.information.expanded = True                        |
+
 #### Log widget
 
 ![](assets/widget_log.png)
@@ -597,6 +631,8 @@ It is possible to switch  between automatic and manual mode for each part.
 | step     | int   | <pre># Set current step<br>DIALOG.progressbar.step = 0</pre>                            |
 | text     | str   | <pre># Set text mode (none, percentage, step)<br>DIALOG.progressbar.text = 'step'</pre> |
 | mode     | str   | <pre># Set mode (system, manual)<br>DIALOG.progressbar.mode = 'manual'</pre>            |
+
+### Input
 
 #### Element name widget
 
