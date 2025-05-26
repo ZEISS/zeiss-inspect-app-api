@@ -2,7 +2,7 @@
 
 # Using Jupyter Notebook with VSCode
 
-> Abstract: This article shows how to run ZEISS INSPECT Python scripts interactively in [Jupyter Notebook](https://jupyter.org/) with VSCode. For this purpose, the [Jupyter Extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) is used. The Jupyter extension simplifies setting up a virtual Python environment for Jupyter Notebook and adds some convenience for editing and running Notebooks. The [ZEISS INSPECT API wheel](https://pypi.org/project/zeiss-inspect-api/) must be installed in the virtual environment from the VSCode terminal.
+> Abstract: This article shows how to run ZEISS INSPECT Python scripts interactively in [Jupyter Notebook](https://jupyter.org/) with [VSCode](https://code.visualstudio.com/). For this purpose, the [Jupyter Extension for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) is used. The Jupyter extension simplifies setting up a virtual Python environment for Jupyter Notebook and adds some convenience for editing and running Notebooks. The [ZEISS INSPECT API wheel](https://pypi.org/project/zeiss-inspect-api/) must be installed in the virtual environment from the VSCode terminal.
 
 ## Setup
 
@@ -43,7 +43,6 @@
 
    * The virtual environment is shown in the VSCode Explorer and in the Notebook editor.
    * The Python cell was executed and its output is printed below the cell.
-
 
 4. Install the `zeiss-inspect-api` wheel
 
