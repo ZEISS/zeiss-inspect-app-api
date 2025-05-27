@@ -202,7 +202,7 @@ The definition of the dialog can be found in [scriptingEditorExampleDialog.py](a
 - [Other](#other)
     - [Abort button widget](#abort-button-widget)
     - [File system browser widget](#file-system-browser-widget)
-    - [File drag&drop area widget](#file-drag-drop-area)
+    - [File drag&drop area widget](#file-dragdrop-area-widget)
     - [Tolerances widget](#tolerances-widget)
 
 This section gives an overview of the available widgets. If the code examples given in this section are not intuitive to you, you might want to take a look 
@@ -290,6 +290,7 @@ gom.script.sys.show_user_defined_dialog(dialog = DIALOG)
 
 You can reset the status icon and clear the error message by assigning an empty string (`DIALOG.control.status = ''`).
 
+### Specific widgets
 ### Output
 
 #### Description field (label) widget
