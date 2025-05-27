@@ -498,7 +498,7 @@ Expanded\
 ![](assets/widget_information_box_expanded.png)
 
 Information box widget
-: The Information box widget allows to show text. You can toggle between expanded and non-expanded state at run time. The default state can be configured.
+: The Information box widget allows to show text. You can toggle between expanded and collapsed state at run time. The default state can be configured.
 
 | Property             | Type      | Example                                                        |
 | -------------------- | --------- | -------------------------------------------------------------- |                               
