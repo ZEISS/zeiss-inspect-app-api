@@ -1082,7 +1082,7 @@ print( selectedIndex ) # output: 1
 
 #### Combo box widget
 
-![New in Version 2026](https://img.shields.io/badge/New-Version_2025-orange)
+![New in Version 2025](https://img.shields.io/badge/New-Version_2025-orange)
 
 ![](assets/widget_combo_box-3.png)
 
