@@ -169,7 +169,7 @@ The definition of the dialog can be found in [scriptingEditorExampleDialog.py](a
     - [Description field (label) widget](#description-field-label-widget)
     - [Continuous text widget](#continuous-text-widget)
     - [Image widget](#image-widget)
-    % Information box 
+    - [Information box widget](#information-box-widget) 
     - [Log widget](#log-widget)
     - [Progress-bar widget](#progress-bar-widget)
 - [Input](#input)
@@ -184,19 +184,25 @@ The definition of the dialog can be found in [scriptingEditorExampleDialog.py](a
     - [Unit widget](#unit-widget)
     - [Element name widget](#element-name-widget)
 - [Selection](#selection)
-    % Split button
-    % Toggle bar
+    - [Split button widget](#split-button-widget)
+    - [Toggle bar widget](#toggle-bar-widget)
     - [Selection list widget](#selection-list-widget)
-    % Combo box
+    - [Combo box widget](#combo-box-widget)
     - [Selection element widget](#selection-element-widget)
 - [Buttons](#buttons)
     - [Button widget](#button-widget)
-- [Layout](#layout)
     - [Radio button widget](#radio-button-widget)
+- [Layout](#layout)
+    - [Separator line widget](#separator-line-widget)
+	- [Horizontal spacer widget](#horizontal-spacer-widget)
+	- [Vertical spacer widget](#vertical-spacer-widget)
+	% tab Layout (2026)
+	% Separator layout (2026)
+	% Wizard (2026)
 - [Other](#other)
     - [Abort button widget](#abort-button-widget)
     - [File system browser widget](#file-system-browser-widget)
-    % File drag&drop area
+    - [File drag&drop area widget](#file-drag-drop-area)
     - [Tolerances widget](#tolerances-widget)
 
 This section gives an overview of the available widgets. If the code examples given in this section are not intuitive to you, you might want to take a look 
@@ -634,47 +640,6 @@ It is possible to switch  between automatic and manual mode for each part.
 
 ### Input
 
-#### Element name widget
-
-![](assets/widget_element_name.png)
-
-Element name widget
-: The Element name widget is used to request an element name from the user. It is possible to select the default name (according to naming scheme, e.g. 'Point 2' if 'Point 1' already exists), or to enter an arbitrary name. `elementnameWidget` is the object name of the element name widget in the example below.
-
-```python
-# Let the user define 3 new points (the coordinates are created automatically in this example)
-for i in range(3):
-    DIALOG=gom.script.sys.create_user_defined_dialog (dialog='dialog definition')
-    
-    #
-    # Event handler function called if anything happens inside of the dialog
-    #
-    def dialog_event_handler (widget):
-        pass
-    
-    DIALOG.handler = dialog_event_handler
-    
-    RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
-    
-    print (RESULT.elementnameWidget)
-    
-    MCAD_ELEMENT=gom.script.primitive.create_point (
-        name=RESULT.elementnameWidget,
-        point={'point': gom.Vec3d (i+10.0, 0.0, 0.0)}
-    )
-```
-
-| Property | Type  | Example                                                                               |
-| -------- | ----- | ------------------------------------------------------------------------------------- |
-| tooltip  | str   | <pre>DIALOG.inputEleName.tooltip = 'Enter the number of points!'</pre>                |
-| enabled  | bool  | <pre>DIALOG.inputEleName.enabled = False</pre>                                        |
-| value    | int   | <pre>DIALOG.inputEleName.value = 'Blob'</pre>                                         |
-| focus    | bool  | <pre>DIALOG.inputEleName.focus = True</pre>⚠️ Only works if dialog is open           |
-| visible  | bool  | <pre>DIALOG.inputEleName.visible = False</pre>                                        |
-| basename | str   | <pre>DIALOG.inputEleName.basename = 'Point'</pre>                                     |
-| mode     | str   | <pre># Mode to get the name suggestion from. ('manually', 'from_element_type', 'check_like')<br>DIALOG.inputEleName.mode = 'from_element_type'</pre> |
-| read_only | bool | <pre># Keep user from changing the default<br>DIALOG.inputEleName.read_only = true</pre> |
-
 #### Integer widget
 
 ![](assets/widget_integer.png)
@@ -918,6 +883,106 @@ RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 | focus                | bool      | <pre>DIALOG.inputUnit.focus = True</pre>⚠️ Only works if dialog is open                             |
 | visible              | bool      | <pre>DIALOG.inputUnit.visible = False</pre>                                                          |
 
+#### Element name widget
+
+![](assets/widget_element_name.png)
+
+Element name widget
+: The Element name widget is used to request an element name from the user. It is possible to select the default name (according to naming scheme, e.g. 'Point 2' if 'Point 1' already exists), or to enter an arbitrary name. `elementnameWidget` is the object name of the element name widget in the example below.
+
+```python
+# Let the user define 3 new points (the coordinates are created automatically in this example)
+for i in range(3):
+    DIALOG=gom.script.sys.create_user_defined_dialog (dialog='dialog definition')
+    
+    #
+    # Event handler function called if anything happens inside of the dialog
+    #
+    def dialog_event_handler (widget):
+        pass
+    
+    DIALOG.handler = dialog_event_handler
+    
+    RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
+    
+    print (RESULT.elementnameWidget)
+    
+    MCAD_ELEMENT=gom.script.primitive.create_point (
+        name=RESULT.elementnameWidget,
+        point={'point': gom.Vec3d (i+10.0, 0.0, 0.0)}
+    )
+```
+
+| Property | Type  | Example                                                                               |
+| -------- | ----- | ------------------------------------------------------------------------------------- |
+| tooltip  | str   | <pre>DIALOG.inputEleName.tooltip = 'Enter the number of points!'</pre>                |
+| enabled  | bool  | <pre>DIALOG.inputEleName.enabled = False</pre>                                        |
+| value    | int   | <pre>DIALOG.inputEleName.value = 'Blob'</pre>                                         |
+| focus    | bool  | <pre>DIALOG.inputEleName.focus = True</pre>⚠️ Only works if dialog is open           |
+| visible  | bool  | <pre>DIALOG.inputEleName.visible = False</pre>                                        |
+| basename | str   | <pre>DIALOG.inputEleName.basename = 'Point'</pre>                                     |
+| mode     | str   | <pre># Mode to get the name suggestion from. ('manually', 'from_element_type', 'check_like')<br>DIALOG.inputEleName.mode = 'from_element_type'</pre> |
+| read_only | bool | <pre># Keep user from changing the default<br>DIALOG.inputEleName.read_only = true</pre> |
+
+### Selection
+
+#### Split button widget
+
+![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
+
+Three split button widgets with modes 'menu', 'instant' and 'tool', respectively. The top widget has focus. The arrows are just examples for icons.\
+![](assets/widget_split_button.png)
+
+Split button widget
+: A split button is a hybrid between a button and an options menu. Each item consist of text and/or an icon. One of the modes `'instant'`, `'menu'` or `'tool'` can be configured.
+
+`'instant'` mode
+: You must open the menu to click a button. The initial button remains fixed.
+
+`'menu'` mode
+: You can click the initial button immediately or open the menu to click any available button. The initial button remains fixed.
+
+`'tool'` mode
+: You can click the initial button immediately or open the menu to click any available button. The initial button changes to the clicked button. 
+
+| Property | Type  | Example                                                                               |
+| -------- | ----- | ------------------------------------------------------------------------------------- |
+| tooltip  | str   | <pre>DIALOG.button.tooltip = 'Start aquisition'</pre>                                 |
+| enabled  | bool  | <pre>DIALOG.button.enabled = False</pre>                                              |
+| value    | int   | <pre>if DIALOG.button.value == 0:</pre> ℹ️ Index of pressed button                   |
+| focus    | bool  | <pre>DIALOG.button2.focus = True</pre>                                                |
+| visible  | bool  | <pre>DIALOG.button.visible = False</pre>                                              |
+| handler  | (unspecified/various) | <pre>DIALOG.button.handler = my_buttonhandler</pre> ℹ️ Optional widget specific event handler |
+| items    | list  | <pre>print(DIALOG.button.items)</pre> List of lists defining items [[string, base64]] |
+| texts    | list  | <pre>print(DIALOG.button.items)</pre> List of texts for items [string]                |
+| icons    | list  | <pre>print(DIALOG.button.items)</pre> List of icons for items [base64]                |
+| mode     | str   | <pre>DIALOG.button.mode = 'tool'</pre> ℹ️ Button mode (instant, menu, tool)          |
+
+
+#### Toggle bar widget
+
+![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
+
+![](assets/widget_toggle_bar.png)
+
+Toggle bar widget
+: The toggle bar widget allows to select one of several items. Each item consists of text and/or an icon.
+
+| Property | Type  | Example                                                                               |
+| -------- | ----- | ------------------------------------------------------------------------------------- |
+| tooltip  | str   | <pre>DIALOG.toggle.tooltip = 'Select shape'</pre>                                     |
+| enabled  | bool  | <pre>DIALOG.toggle.enabled = False</pre>                                              |
+| value    | int   | <pre>if DIALOG.toggle.value == 0:</pre> ℹ️ Index of selected item                    |
+| focus    | bool  | <pre>DIALOG.toggle2.focus = True</pre>                                                |
+| visible  | bool  | <pre>DIALOG.toggle.visible = False</pre>                                              |
+| handler  | (unspecified/various) | <pre>DIALOG.toggle.handler = my_togglehandler</pre> ℹ️ Optional widget specific event handler |
+| items    | list  | <pre># List of lists defining items (text, icon, tooltip) [[string, base64, string]] |                                                           
+| texts    | list  | <pre># List of texts for items [string]</pre>                                        |                                                                                  
+| icons    | list  | <pre># List of icons for items [base64]</pre>                                        |                                                                                  
+| tooltips | list  | <pre># List of tooltips for items [string]</pre>                                     |                                                                              
+| style    | str   | <pre># Style of buttons (icon, text, icon_and_text)</pre>                            |                                                                      
+| mode     | str   | <pre># Label mode for button group (no_label, label)                                 |
+
 #### Selection element widget
 
 ![](assets/widget_selection_element.png)
@@ -1013,6 +1078,29 @@ print( selectedIndex ) # output: 1
 | items    | list of str | <pre>DIALOG.selectEntry.items = ['Debug', 'Info', 'Warn', 'Error', 'Fatal']</pre>                    |
 | index    | int         | <pre>print(f'List item with index {DIALOG.selectEntry.index} is selected.')</pre>                    |             
 
+#### Combo box widget
+
+![New in Version 2026](https://img.shields.io/badge/New-Version_2025-orange)
+
+![](assets/widget_combo_box-3.png)
+
+Selection in progress\
+![](assets/widget_combo_box-2.png)
+
+Combo box widget
+: The combo box allows to select multiple items from a list. Each item consists of text and data (represented as string).
+
+| Property | Type        | Example                                                                                              |
+| -------- | ----------- | ---------------------------------------------------------------------------------------------------- |
+| tooltip  | str         | <pre>DIALOG.list.tooltip = 'Select one of the operating modes'</pre>                                 |
+| enabled  | bool        | <pre>DIALOG.list.enabled = False</pre>                                                               |
+| value    | str         | <pre>DIALOG.list.value = ['circles', 'cones']</pre> ℹ️ Assign a list of data items                   |
+| focus    | bool        | <pre>DIALOG.list.focus = True</pre>⚠️ Only works if dialog is open                                   |
+| visible  | bool        | <pre>DIALOG.list.visible = False</pre>                                                               |
+| handler  | (unspecified/various) | <pre>DIALOG.toggle.handler = my_listhandler</pre> ℹ️ Optional widget specific event handler |
+| items    | list        | <pre># List of items (display text, data)</pre>                                                      |
+
+### Buttons
 
 #### Button widget
 
@@ -1070,6 +1158,68 @@ if selectedChoice == 'ONE':
 | items    | (special list) | <pre># Possible values is a list of lists of two strings.<br># Each first string is the returned value<br># Each second string is the entries' title<br>DIALOG.radiobuttons.items = [['Value1', 'Title1'], ['Value2', 'Title2'], ['Value3', 'Title3']]<br>DIALOG.radiobuttons.default = 'Value2'</pre> |
 | default  | str            | <pre>DIALOG.radiobuttons.default = 'Value1'</pre>                                                                     |
 
+### Layout
+
+#### Separator line widget
+
+![](assets/separator_line.png)
+
+Separator line widget
+: The separator line widget provides a horizontal line with an optional title.
+
+#### Horizontal spacer widget
+
+![](assets/widget_horizontal_spacer.png)
+
+Horizontal spacer widget
+: The horizontal spacer widget claims the space specified by `minimum_size` (default: 0) and `maximum_size` (default: -1, i.e. unlimited). The actual widget is not visible.
+
+#### Vertical spacer widget
+
+Vertical spacer widget
+: The vertical spacer claims the space specified by `minimum_size` (default: 0) and `maximum_size` (default: -1, i.e. unlimited). The actual widget is not visible.
+
+#### Tab layout widget
+
+![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
+
+![](assets/widget_tab_layout-1.png) ![](assets/widget_tab_layout-2.png)
+
+Tab layout widget
+: The Tab layout widget provides a configurable number of tabs. Each tab serves as container for any number and types of widgets.
+
+`current_tab` (integer)
+: Index of current tab                                                                                              
+
+`tabs` (list)
+: List of tab titles 
+
+#### Separator layout widget
+
+![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
+
+Collapsed\
+![](assets/widget_separator_layout_collapsed.png)
+
+Expanded (contains a single description field widget)\
+![](assets/widget_separator_layout_expanded.png)
+
+Separator layout widget
+: The saparator layout widget serves as a container for any number of widgets. Its contents can be collapsed or expanded. It provides titel, desciption and icon as optional features.
+
+`title` (string)
+: Title text                                                                                                        
+
+`description` (string)
+: Description text                                                                                                  
+
+`icon` (string)                                                                                                             
+: System icon or user icon imported from file. Icons are stored as base64-encoded strings.
+
+`expanded` (boolean)
+: True: Layout is initially expanded 
+
+### Other
 
 #### Abort button widget
 
@@ -1081,6 +1231,50 @@ Abort button widget
 ![](assets/built-in_progressbar.png)
 
 % To Do: Add enabled abort button. Check if the button still exists in ZEISS INSPECT.
+
+#### File system browser widget
+
+![](assets/widget_fsbrowser.png)
+
+File system browser widget
+: The File system browser widget allows to view the file system and to select a file or a set of files, respectively. A filter can be set to show only files with certain filename extensions.
+
+| Property           | Type                  | Example                                                                                |
+| ------------------ | --------------------- | -------------------------------------------------------------------------------------- |
+| tooltip            | str                   | <pre>DIALOG.filesystemWidget.tooltip = 'Select CAD file'</pre>                         |
+| enabled            | bool                  | <pre>DIALOG.filesystemWidget.enabled = False</pre>                                     |
+| value              | (unspecified/various) |  The current value of the widget. Type depends on the widget type and can be 'none' for empty widgets. |
+| focus              | bool                  | <pre>DIALOG.filesystemWidget.focus = True</pre>⚠️ Only works if dialog is open         |
+| visible            | bool                  | <pre>DIALOG.filesystemWidget.visible = False</pre>                                     |
+| root               | str                   | <pre>DIALOG.filesystemWidget.root = 'C:/Users'</pre>                                   |
+| show_date          | bool                  | <pre>DIALOG.filesystemWidget.show_date = True</pre>                                    |
+| show_size          | bool                  | <pre>DIALOG.filesystemWidget.show_size = True</pre>                                    |
+| show_type          | bool                  | <pre>DIALOG.filesystemWidget.show_type = True</pre>                                    |
+| use_multiselection | bool                  | <pre># Enable selection of multiple files<br>DIALOG.filesystemWidget.use_multiselection = True</pre> |                                                               
+| selected           | list                  | <pre>print(DIALOG.filesystemWidget.selected)<br># example output: \['C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 1.g3d', 'C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 2.g3d'\]</pre> |
+| filter             | list                  | <pre># Apply a filter of filename extensions<br>DIALOG.filesystemWidget.filter = \[ '\*.g3d', '\*.stp' \]</pre> |
+
+#### File drag&drop area widget
+
+![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
+
+![](assets/widget_file_drag_n_drop_area.png)
+
+File drag&drop area
+: The File drag&drop area allows to select files. The widget shows the base names of the selected files, but stores the filenames with full paths internally. Some of its text items can be configured.
+
+| Property   | Type    | Example                                                                                              |
+| ---------- | --------| ---------------------------------------------------------------------------------------------------- |
+| tooltip    | str     | <pre>DIALOG.filedroparea.tooltip = 'Select one of the operating modes'</pre>                         |
+| enabled    | bool    | <pre>DIALOG.filedroparea.enabled = False</pre>                                                       |
+| value      | str     | <pre>DIALOG.filedroparea.value = ['circles', 'cones']</pre> ℹ️ Assign a list of data items           |
+| focus      | bool    | <pre>DIALOG.filedroparea.focus = True</pre>⚠️ Only works if dialog is open                           |
+| visible    | bool    | <pre>DIALOG.filedroparea.visible = False</pre>                                                       |
+| handler    | (unspecified/various) | <pre>DIALOG.filedroparea.handler = my_filedrophandler</pre> ℹ️ Optional widget specific event handler |
+| text_area  | str     | <pre>DIALOG.filedroparea.text_area = 'Drag and drop project files here' # default: '<drag and drop file(s) here>'</pre> |
+| text_hover | str     | <pre>DIALOG.filedroparea.text_hover = 'Drop it!' # default: '<drop file(s)>'</pre>                   |
+| text_list  | str     | <pre>DIALOG.filedroparea.text_list = 'Selected project(s)' # default: 'file(s):'</pre>               |
+| max_length | str     | <pre>DIALOG.filedroparea.max_length = 40 # max. characters, default: -1 (unlimited)</pre>            |
 
 #### Tolerances widget
 
@@ -1132,28 +1326,6 @@ The Tolerances widget's result data type depends on the input:
 
    `gom.dialog.DialogResult ('tolerances': {'lower': -1.0, 'tolerance_type': 'two_sided_center', 'upper': 1.1})`
 ```
-
-#### File system browser widget
-
-![](assets/widget_fsbrowser.png)
-
-File system browser widget
-: The File system browser widget allows to view the file system and to select a file or a set of files, respectively. A filter can be set to show only files with certain filename extensions.
-
-| Property           | Type                  | Example                                                                                |
-| ------------------ | --------------------- | -------------------------------------------------------------------------------------- |
-| tooltip            | str                   | <pre>DIALOG.filesystemWidget.tooltip = 'Select CAD file'</pre>                         |
-| enabled            | bool                  | <pre>DIALOG.filesystemWidget.enabled = False</pre>                                     |
-| value              | (unspecified/various) |  The current value of the widget. Type depends on the widget type and can be 'none' for empty widgets. |
-| focus              | bool                  | <pre>DIALOG.filesystemWidget.focus = True</pre>⚠️ Only works if dialog is open         |
-| visible            | bool                  | <pre>DIALOG.filesystemWidget.visible = False</pre>                                     |
-| root               | str                   | <pre>DIALOG.filesystemWidget.root = 'C:/Users'</pre>                                   |
-| show_date          | bool                  | <pre>DIALOG.filesystemWidget.show_date = True</pre>                                    |
-| show_size          | bool                  | <pre>DIALOG.filesystemWidget.show_size = True</pre>                                    |
-| show_type          | bool                  | <pre>DIALOG.filesystemWidget.show_type = True</pre>                                    |
-| use_multiselection | bool                  | <pre># Enable selection of multiple files<br>DIALOG.filesystemWidget.use_multiselection = True</pre> |                                                               
-| selected           | list                  | <pre>print(DIALOG.filesystemWidget.selected)<br># example output: \['C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 1.g3d', 'C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 2.g3d'\]</pre> |
-| filter             | list                  | <pre># Apply a filter of filename extensions<br>DIALOG.filesystemWidget.filter = \[ '\*.g3d', '\*.stp' \]</pre> |
 
 ### Widget text assignment and formatting at run time
 
