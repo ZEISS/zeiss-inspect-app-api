@@ -1163,7 +1163,7 @@ if selectedChoice == 'ONE':
 
 #### Separator line widget
 
-![](assets/separator_line.png)
+![](assets/widget_separator_line.png)
 
 Separator line widget
 : The separator line widget provides a horizontal line with an optional title.
