@@ -931,7 +931,8 @@ for i in range(3):
 
 ![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
 
-Three split button widgets with modes 'menu', 'instant' and 'tool', respectively. The top widget has focus. The arrows are just examples for icons.\
+Three split button widgets with modes 'menu', 'instant' and 'tool', respectively.\
+The top widget has focus. The arrows are just examples for icons.\
 ![](assets/widget_split_button.png)
 
 Split button widget
