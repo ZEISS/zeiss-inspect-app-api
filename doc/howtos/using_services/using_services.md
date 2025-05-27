@@ -48,6 +48,9 @@ Each service consists of a Python script file in an App. The App's `metainfo.jso
 
 ## Service scripts
 
+```{caution}
+`gom` commands &ndash; `gom.script.*` or `gom.interactive.*` &ndash; cannot be used in a service script!
+```
 ```{note}
 Functions decorated as `@apifunction` will be exported as the service API.
 ```
