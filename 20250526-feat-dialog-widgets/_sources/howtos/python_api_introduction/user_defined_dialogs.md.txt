@@ -1272,10 +1272,10 @@ File drag&drop area
 | focus      | bool    | <pre>DIALOG.filedroparea.focus = True</pre>⚠️ Only works if dialog is open                           |
 | visible    | bool    | <pre>DIALOG.filedroparea.visible = False</pre>                                                       |
 | handler    | (unspecified/various) | <pre>DIALOG.filedroparea.handler = my_filedrophandler</pre> ℹ️ Optional widget specific event handler |
-| text_area  | str     | <pre>DIALOG.filedroparea.text_area = 'Drag and drop project files here' # default: '<drag and drop file(s) here>'</pre> |
-| text_hover | str     | <pre>DIALOG.filedroparea.text_hover = 'Drop it!' # default: '<drop file(s)>'</pre>                   |
-| text_list  | str     | <pre>DIALOG.filedroparea.text_list = 'Selected project(s)' # default: 'file(s):'</pre>               |
-| max_length | str     | <pre>DIALOG.filedroparea.max_length = 40 # max. characters, default: -1 (unlimited)</pre>            |
+| text_area  | str     | <pre>DIALOG.filedroparea.text_area = 'Drag and drop project files here'</pre> ℹ️ default: '<drag and drop file(s) here>' |
+| text_hover | str     | <pre>DIALOG.filedroparea.text_hover = 'Drop it!'</pre> ℹ️ default: '<drop file(s)>'                 |
+| text_list  | str     | <pre>DIALOG.filedroparea.text_list = 'Selected project(s)'</pre> ℹ️ default: 'file(s):'             |
+| max_length | str     | <pre>DIALOG.filedroparea.max_length = 40</pre> ℹ️ max. characters, default: -1 (unlimited)          |
 
 #### Tolerances widget
 
