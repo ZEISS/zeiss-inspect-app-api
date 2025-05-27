@@ -1177,6 +1177,8 @@ Horizontal spacer widget
 
 #### Vertical spacer widget
 
+![](assets/widget_vertical_spacer.png)
+
 Vertical spacer widget
 : The vertical spacer claims the space specified by `minimum_size` (default: 0) and `maximum_size` (default: -1, i.e. unlimited). The actual widget is not visible.
 
