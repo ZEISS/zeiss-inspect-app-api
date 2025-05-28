@@ -475,6 +475,37 @@ Nevertheless, the vector can be number entirely different depending on active/in
 Usually, it is *not* possible to access arbitrary stages of other elements due to recalc restrictions !
 ```
 
+**Additional element data**
+
+Every element can store arbitrary data sets in addition to the computed values. While the computed values are used
+to create the element's geometry and are stored in the elements internal structures, the additional data is kept in
+the associated EDM project database and can be retrieved via an element token.
+
+Each elements `compute ()` function returns a dictionary always. The exact format of that dictionary depends on the
+element type and the elements geometry data is tagged by the fixed key named. In addition, that result map can contain
+a dictionary with key `data`. The key/value pairs within can then be accessed via the element's token interface under
+that exact same name.
+
+Example:
+
+```
+def compute (self, context, values):
+    # Compute the element geometry (a point is that case)
+    center = self.compute_center (values['threshold'])
+
+    # Return both element specific geometry plus an arbitraty data set
+    return {
+        'geometry': {
+            'type': 'point',
+            'center': center
+        },
+        'data': {
+            'threshold': values['threshold'],
+            'description': values['description']
+        }
+    }
+```
+
 #### gom.api.extensions.ScriptedElement.Event
 
 
