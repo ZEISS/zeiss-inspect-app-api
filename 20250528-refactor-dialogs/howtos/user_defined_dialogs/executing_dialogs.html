@@ -478,7 +478,7 @@ and ‘No’ results for the different buttons and ‘Cheater’ when the user u
 <li><p>The handler function is also called on application global signals, e.g. when application data has been changed. In these cases is the string <code class="docutils literal notranslate"><span class="pre">'system'</span></code> passed to the handler function. Those global signals are caused by changing the element selection or opening a project for example.</p></li>
 <li><p>The handler function can access dialog widget properties.</p></li>
 <li><p>The handler function is registered using the special attribute <code class="docutils literal notranslate"><span class="pre">handler</span></code>.</p></li>
-<li><p><strong>New in ZEISS INSPECT 2026</strong>: Each dialog widget can have a specific event handler. If the widget’s <code class="docutils literal notranslate"><span class="pre">handler</span></code> property is empty or no valid function, the dialog event handler is called instead.</p></li>
+<li><p><strong>New in ZEISS INSPECT 2026</strong>:\Each dialog widget can have a specific event handler. If the widget’s <code class="docutils literal notranslate"><span class="pre">handler</span></code> property is empty or no valid function, the dialog event handler is called instead.</p></li>
 <li><p>The <strong>prev</strong> and <strong>next</strong> buttons of a wizard dialog are the only control widgets, which trigger the event handler.</p></li>
 </ul>
 <div class="literal-block-wrapper docutils container" id="id8">
@@ -543,10 +543,10 @@ operators to compare the widget parameter:</p>
 </div>
 </div>
 <p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
-<p>Each dialog widget can have a specific event handler. If the widget’s <code class="docutils literal notranslate"><span class="pre">handler</span></code> property is empty or no valid function, the dialog event handler is called instead.</p>
+<p>Each dialog widget can have a specific event handler, which receives only events from the widget(s) it is assigned to. If the widget’s <code class="docutils literal notranslate"><span class="pre">handler</span></code> property is empty or no valid function, the dialog event handler is called instead.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">initialize</span></code> event is not passed to any widget object’s event handler!</p>
+<p>The events ‘initialize’, ‘system’ and ‘timer’ are related to the entire dialog and therefore only passed to the dialog event handler!</p>
 </div>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text">Using a widget object specific event handler</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
@@ -680,7 +680,7 @@ about its attributes:</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f913fe282f0>
+  <jinja2.runtime.BlockReference object at 0x7fca2157c2f0>
 
 
 </footer>
