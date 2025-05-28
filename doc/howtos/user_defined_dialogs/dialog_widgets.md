@@ -1,170 +1,12 @@
-# User-defined Dialogs
+# Dialog widgets
 
-- [Creating dialogs](#creating-dialogs)
-- [Dialog widgets](#dialog-widgets)
-- [Executing dialogs](#executing-dialogs)
-- [Wizards](#wizards)
+This section gives an overview of the available widgets. If the code examples given in this section are not intuitive to you, you might want to take a look 
+into [Executing dialogs](executing_dialogs.md).
 
-## Creating dialogs
-
-- [Dialog designer](#dialog-designer)
-- [Dialog layout](#dialog-layout)
-    - [Editing the grid](#editing-the-grid)
-    - [Spacers](#spacers)
-- [Widgets](#widgets)
-    - [Inserting and removing widgets](#inserting-and-removing-widgets)
-    - [Configuring widgets](#configuring-widgets)
-- [Editing already created dialogs](#editing-already-created-dialogs)
-
-### Dialog designer
-
-* User defined **Dialogs** can be inserted into the script using RMB ► Insert ► Dialog... in the <a href="../using_app_editor/using_app_editor.html">App Editor</a>.
-
-    ![](assets/insert_dialog.png)
-
-* When a new dialog is inserted, a dialog **Template**, the **target location** of the dialog configuration and the dialog **Type** can be selected.
-
-    ![](assets/dialog_template.png)
-
-* Some dialog **Templates** are provided by the system. Additional templates can be created by the user.
-
-* The options for placing a dialog configuration (see section **Create as** in the window above) are
-    * **Separate dialog file** - default
-    * **Embedded into script**
-
-    The base filename of a dialog file is `dialog.gdlg`, it can be renamed later. A dialog is stored as a JSON document internally.
-
-    ```{code-block} python
-    :caption: Example&colon; Script with separate dialog file
-
-    RESULT=gom.script.sys.execute_user_defined_dialog (file=':dialog.gdlg')
-    ```
-
-    ```{code-block} python
-    :caption: Example&colon; Script with embedded dialog
-
-    RESULT=gom.script.sys.execute_user_defined_dialog (dialog={
-        "content": [
-            [
-                {
-                    ...
-                }
-            ]
-        ],    
-        "control": {
-            "id": "OkCancel"
-        },
-        "embedding": "always_toplevel",
-        "position": "automatic",
-        "size": {
-            "height": 155,    
-            "width": 198
-        },
-        "sizemode": "automatic",
-        "style": "",
-        "title": {
-            "id": "",
-            "text": "Message",
-            "translatable":     True
-        }
-    })
-    ```
-
-* The options for the dialog **Type** are
-    * **Break dialog (script is blocked)** - default
-    * **Extendable break dialog (script is blocked)**
-    * **Info dialog (script continues)** 
-    
-    The dialog type is explained in section [Executing dialogs](#executing-dialogs)
-
-
-* Dialogs are designed using the GUI based **Dialog Editor**.
-
-    ![](assets/dialog_editor.png)
-    
-```{note}
-The Dialog Editor is opened from the <a href="../using_app_editor/using_app_editor.html">App Editor</a> by
-* Selecting a dialog file (*.gdlg) in the App Explorer
-* Selecting a dialog definition embedded in a Python script
-* Using _right mouse button_ → Insert → Dialog... in the script editor
-```
-
-### Dialog layout
-
-* The **Dialog Editor** is using a grid based layout.
-* Elements can be inserted into the grid via drag and drop.
-
-#### Editing the grid
-
-```{note}
-Editing the layout means changing the underlying grid.
-```
-
-* Because the underlying layout is a grid, the following actions are possible:
-    * Adding and removing rows and columns.
-    * Merging and splitting rows and columns.
-
-    | Tool button                              | Function                          |
-    | ---------------------------------------- | --------------------------------- |
-    | ![](assets/split_cells_vertically.png)   | Split selected cells vertically   |
-    | ![](assets/split_cells_horizontally.png) | Split selected cells horizontally |
-    | ![](assets/merge_cells.png)              | Merge selected cells              |
-
-* Selected cells are marked with a red overlay.
-
-    ![](assets/selected_cell.png)
-
-#### Spacers
-
-```{note}
-**Spacers** are empty spaces extending in either horizontal or vertical direction.
-```
-
-* If a spacer is inserted into a cell, the cell claims the maximum available space in spacer direction.
-* All other cells share the remaining space.
-
-![](assets/spacer.png)
-
-### Widgets
-
-#### Inserting and removing widgets
-
-* The list of available widgets resides at the left of the Dialog Editor in the section **Dialog Elements**.
-* **Widgets** are inserted via drag and drop.
-* Newly dropped widgets overwrite existing widgets at the drop target cells.
-* A unique **object name** is assigned during insertion of a widget. This name is used to access the widget in the Python script.
-* Because each cell has to be filled with a widget, widgets can not be removed from the grid. To get rid of a widget
-    * Another widget can be dragged and dropped onto the existing widget or
-    * The widget cell can be merged with another cell.
-
-```{note}
-Removing widgets from the grid is not possible. Instead, they can be overwritten by other widgets.
-```
-
-![](assets/separator_line.png)
-
-#### Configuring widgets
-
-* The properties of selected widgets can be edited in the **Property Editor** at the right side of the Dialog Editor.
-* Every widget has at least a unique **Object name**.
-* Additionally, various parameters depending on the widget type can be edited.
-
-![](assets/configuring_widgets.png)
-
-The definition of the dialog can be found in [scriptingEditorExampleDialog.py](assets/scriptingEditorExampleDialog.py)
-
-### Editing already created dialogs
-
-* Creating a dialog leads to a script command with a dialog representation as JSON code, which can either be embedded or stored in an external dialog file (`*.gdlg`).
-* Double clicking onto the embedded dialog or the dialog file opens the Dialog Editor again.
-
-## Dialog widgets
-
-- [Use of the \_\_doc\_\_ string](#use-of-the-__doc__-string)
-- [Control widget](#control-widget)
-    - [Control widget elements](#control-widget-elements)
-    - [Control button properties](#control-button-properties)
-    - [Status label](#status-label)
+- [Determining the widget attributes](#determining-the-widget-attributes)
+- [Dialog window control](#dialog-window-control)
+    - [Control widget](#control-widget)
+    - [Wizards](#wizards)
 - [Output](#output)
     - [Description field (label) widget](#description-field-label-widget)
     - [Continuous text widget](#continuous-text-widget)
@@ -194,33 +36,56 @@ The definition of the dialog can be found in [scriptingEditorExampleDialog.py](a
     - [Radio button widget](#radio-button-widget)
 - [Layout](#layout)
     - [Separator line widget](#separator-line-widget)
-	- [Horizontal spacer widget](#horizontal-spacer-widget)
-	- [Vertical spacer widget](#vertical-spacer-widget)
-	% tab Layout (2026)
-	% Separator layout (2026)
-	% Wizard (2026)
+    - [Horizontal spacer widget](#horizontal-spacer-widget)
+    - [Vertical spacer widget](#vertical-spacer-widget)
+    - [Tab layout widget](#tab-layout-widget)
+    - [Separator layout widget](#separator-layout-widget)
+    % Wizard (2026)
 - [Other](#other)
     - [Abort button widget](#abort-button-widget)
     - [File system browser widget](#file-system-browser-widget)
     - [File drag&drop area widget](#file-dragdrop-area-widget)
     - [Tolerances widget](#tolerances-widget)
 
-This section gives an overview of the available widgets. If the code examples given in this section are not intuitive to you, you might want to take a look 
-into [Executing dialogs](#executing-dialogs).
+## Determining the widget attributes
 
-### Use of the \_\_doc\_\_ string
-
-Information about the widgets can be obtained by accessing their doc string. Let `objName` be the object name of a widget and `DIALOG` the dialog handle 
-(see [Executing dialogs](#executing-dialogs) if this is unclear to you), the `__doc__` string can be obtained as follows:
-
-```python
-print( DIALOG.objName.__doc__ )
+```{note}
+The widget attributes are documented below. Additionally, information about any widget can be obtained by accessing its `__doc__` string.
 ```
+
+```{code-block} python
+:caption: Print object documentation
+
+#
+# Query __doc__ attribute of a button widget
+#
+print (DIALOG.my_button.__doc__)
+# output:
+# Handle for a widget called 'my_button' of type 'Button' (button::pushbutton)
+#
+# Attributes:
+# name             (string)              - Name of the widget. The name can be used to access the widget via a dialog handle.
+# tooltip          (string)              - Tooltip of the widget. If empty, no tooltip is displayed.
+# enabled          (boolean)             - Enabled state of the widget. Default is 'enabled', set to false for disabling it.
+# value            (unspecified/various) - The current value of the widget. Type depends on the widget type and can be 'none' for empty widgets.
+# attributes       (map)                 - Map of all accessable widget attributes together with their current values.
+# focus            (boolean)             - Focus state of the widget. Can be used to set an explicit widget focus.
+# text             (string)              - Text of the button
+# type             (string)              - Button type ('push', 'toggle')
+# icon             (Tom::Parse::Binary)  - Icon of the button
+# icon_file_name   (string)              - Source file name of the icon
+# icon_size        (string)              - Icon size mode (icon, full)
+# icon_type        (string)              - Icon type (none, system, file)
+# icon_system_type (string)              - System icon type (ok, cancel, arrow_up, arrow_down, arrow_left, arrow_right)
+# icon_system_size (string)              - System icon size (default, large, extra_large)
+```
+
+## Dialog window control
 
 ### Control widget
 
 ```{note}
-The **Control** widget contains the **ok** / **cancel** or similar buttons of the dialog.
+Each dialog window has a **Control** widget, which contains the **ok** / **cancel** or similar buttons of the dialog.
 ```
 
 * The control elements of a dialog cannot be configured like other dialog widgets.
@@ -290,10 +155,66 @@ gom.script.sys.show_user_defined_dialog(dialog = DIALOG)
 
 You can reset the status icon and clear the error message by assigning an empty string (`DIALOG.control.status = ''`).
 
-### Specific widgets
-### Output
+### Wizards
 
-#### Description field (label) widget
+* **Wizards** are dialogs with **\< Back** and **Next \>** buttons at the lower dialog edge.
+* The script programmer is responsible for adding functionality to this layout.
+* Wizards are not very versatile, but modifying the displayed texts and images is easily possible.
+
+```{warning}
+It is not possible to exchange widgets from within a dialog after the dialog has been created!
+```
+
+Therefore Wizards only have simple options like exchange of images and texts in those containing elements.
+
+#### Control widgets
+
+The operational elements in a control widget from a wizard do act like those in regular dialogs und can be accessed via handles as well:
+
+![](assets/wizard.png)
+
+```{code-block} python
+:caption: Wizard example
+
+#
+# Create dialog with wizard control panel
+#
+DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
+#
+# Handler function to be registered to the dialog
+#
+def func (widget):
+    #
+    # Handle clicks onto the 'prev' button
+    #
+    if widget == DIALOG.control.prev:
+        # Here you would write code to display the content of the previous wizard 'page'
+        
+        #
+        # Handle clicks onto the 'next' button
+        #
+        print("Prev button was clicked.")
+    elif widget == DIALOG.control.next:
+        # Here you would write code to display the content of the next wizard 'page'
+        
+        #
+        # Update dialog button enabled state and register handler function
+        #
+        print("Next button was clicked.")
+
+DIALOG.handler = func
+
+#
+# Execute wizard dialog
+#
+RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
+```
+
+[Creating wizard dialogs](creating_wizard_dialogs.md) shows some ways to manage wizard dialogs in greater detail.
+
+## Output
+
+### Description field (label) widget
 
 ![](assets/widget_label.png)
 
@@ -310,7 +231,7 @@ Description field (label) widget
 | word_wrap | bool  | <pre>DIALOG.label.word_wrap = True</pre>                                              |
 
  
-#### Continuous text widget
+### Continuous text widget
 
 ![](assets/text_field.png)
 
@@ -346,7 +267,7 @@ Continuous text widget
 | default_font_family | str  | <pre>DIALOG.textWidget.default_font_family = 'Arial Black'</pre> |                      
 | default_font_size   | int  | <pre>DIALOG.textWidget.default_font_size = 12</pre>        |
 
-##### Displaying keywords in a continuous text widget
+#### Displaying keywords in a continuous text widget
 
 A keyword can be inserted into the text with the following procedure:
 
@@ -374,7 +295,7 @@ A keyword can be inserted into the text with the following procedure:
 
     ![](assets/widget_text_insert_expression6.png)
 
-##### Internal representation of a dialog with text widget
+#### Internal representation of a dialog with text widget
 
 The dialog is stored as a JSON document internally.
 
@@ -384,36 +305,36 @@ The dialog is stored as a JSON document internally.
 :caption: Internal representation of a dialog
 
 gom.script.sys.execute_user_defined_dialog (dialog={
-	"content": [
-		[
-			{
+    "content": [
+        [
+            {
                 ...
-			},
-			{
-				"columns": 1,
-				"default_font_family": "",
-				"default_font_size": 0,
-				"name": "text",
-				"rows": 1,
-				"text": {
-					"id": "",
-					"text": "\<html\>\<p align=\"center\"\>By clicking 'Close', the dialog will be closed.\</p\>\</html\>",
-					"translatable": True
-				},
+            },
+            {
+                "columns": 1,
+                "default_font_family": "",
+                "default_font_size": 0,
+                "name": "text",
+                "rows": 1,
+                "text": {
+                    "id": "",
+                    "text": "\<html\>\<p align=\"center\"\>By clicking 'Close', the dialog will be closed.\</p\>\</html\>",
+                    "translatable": True
+                },
                                 ...
-				"type": "display::text",
-				"wordwrap": False
-			}
-		]
-	],
-	"control": {
-		"id": "Close"
-	},
+                "type": "display::text",
+                "wordwrap": False
+            }
+        ]
+    ],
+    "control": {
+        "id": "Close"
+    },
         ...
 })
 ```
 
-#### Image widget
+### Image widget
 
 ![](assets/widget_image.png)
 
@@ -436,7 +357,7 @@ Image widget
 
 Note that you can switch from a system image to a user image using the property `use_system_image`. But this user image must have been selected beforehand in the designer. You cannot read a new image file by setting the `filename` property. Also, all of the image formatting properties (`keep_original_size`, `keep_aspect`, `width`, `height`) only work in the designer. From the script you can only read these values. Although you cannot read images using the `filename` property you can copy images from one dialog to another using the `data` property. So you are able to prepare (create) a dialog as an image container holding several images. You can then use this image container dialog to copy the image you need to an actually displayed dialog.
 
-##### Internal representation of a dialog with image widget
+#### Internal representation of a dialog with image widget
 
 The dialog is stored as a JSON document internally. The 'data' element contains the image data.
 
@@ -487,7 +408,7 @@ RESULT=gom.script.sys.execute_user_defined_dialog (dialog={
 })
 ```
 
-#### Information box widget
+### Information box widget
 
 ![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
 
@@ -511,7 +432,7 @@ Information box widget
 | text                 | str       | <pre>DIALOG.information.text = "This is an information box"    |                                                                                             
 | expanded             | bool      | <pre>DIALOG.information.expanded = True                        |
 
-#### Log widget
+### Log widget
 
 ![](assets/widget_log.png)
 
@@ -530,7 +451,7 @@ Log widget
 | visible              | bool      | <pre>DIALOG.log.visible = False</pre>                          |
 | monospace            | bool      | <pre># Use monospace font<br>DIALOG.log.monospace = True</pre> |
 
-#### Progress bar widget
+### Progress bar widget
 
 ![](assets/widget_progressbar.png)
 
@@ -639,9 +560,9 @@ It is possible to switch  between automatic and manual mode for each part.
 | text     | str   | <pre># Set text mode (none, percentage, step)<br>DIALOG.progressbar.text = 'step'</pre> |
 | mode     | str   | <pre># Set mode (system, manual)<br>DIALOG.progressbar.mode = 'manual'</pre>            |
 
-### Input
+## Input
 
-#### Integer widget
+### Integer widget
 
 ![](assets/widget_integer.png)
 
@@ -663,7 +584,7 @@ userInput = RESULT.integerWidget
 | minimum  | double | <pre>DIALOG.inputInt.minimum = 20</pre>                                |
 | maximum  | double | <pre>DIALOG.inputInt.maximum = 50</pre>                                |
 
-#### Decimal widget
+### Decimal widget
 
 ![](assets/widget_decimal.png)
 
@@ -690,7 +611,7 @@ userInput = RESULT.decimalWidget
 % No visible effect:
 % background_style - str - Set style sheet based background color  - red, green, blue 
 
-#### Text entry field
+### Text entry field
 ![](assets/widget_text_entry.png)
 
 Text entry field
@@ -713,7 +634,7 @@ print( RESULT.textEntryWidget ) # the user input string
 | read_only | bool  | <pre>if DIALOG.inputString.read_only:</pre>                                |
 | password  | bool  | <pre># Hide user input by replacing each character by a dot<br>DIALOG.inputString.password = True</pre> |
 
-#### Slider widget
+### Slider widget
 
 ![](assets/widget_slider.png)
 
@@ -744,7 +665,7 @@ print( RESULT.sliderWidget ) # some text
 % tick_interval - double - Interval of ticks drawn
 
 
-#### Checkbox widget
+### Checkbox widget
 
 ![](assets/widget_checkbox.png)
 
@@ -766,7 +687,7 @@ print (RESULT.checkboxWidget)
 | title     | str   | <pre>DIALOG.inputCheckbox.title = 'Mirror option'</pre>                                              |
 | visible   | bool  | <pre>DIALOG.inputCheckbox.visible = False</pre>                                                      |
 
-#### File widget
+### File widget
 
 ![](assets/widget_file.png)
 
@@ -791,7 +712,7 @@ File widget
 % Clarify this:
 % selection_type - str - File selector type; any, directory, executable, file, multi_file
 
-#### Date widget
+### Date widget
 
 ![](assets/widget_date.png)
 
@@ -820,7 +741,7 @@ print( DIALOG.dateWidget.day )   # integer
 | show_today_button | bool      | <pre>DIALOG.inputDate.show_today_button = True</pre>                                                 |
 
 
-#### Color widget
+### Color widget
 
 ![](assets/widget_color.png)
 
@@ -853,7 +774,7 @@ print('Selection:', RESULT.colorWidget) # example output (white): 0xffffffff
 | visible              | bool      | <pre>DIALOG.inputColor.visible = False</pre>                                                         |
 | transparency_allowed | bool      | <pre>DIALOG.inputColor.transparency_allowed = True</pre>                                             |
 
-#### Unit widget
+### Unit widget
 
 ![](assets/widget_unit.png)
 
@@ -884,7 +805,7 @@ RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 | focus                | bool      | <pre>DIALOG.inputUnit.focus = True</pre>⚠️ Only works if dialog is open                             |
 | visible              | bool      | <pre>DIALOG.inputUnit.visible = False</pre>                                                          |
 
-#### Element name widget
+### Element name widget
 
 ![](assets/widget_element_name.png)
 
@@ -925,9 +846,9 @@ for i in range(3):
 | mode     | str   | <pre># Mode to get the name suggestion from. ('manually', 'from_element_type', 'check_like')<br>DIALOG.inputEleName.mode = 'from_element_type'</pre> |
 | read_only | bool | <pre># Keep user from changing the default<br>DIALOG.inputEleName.read_only = true</pre> |
 
-### Selection
+## Selection
 
-#### Split button widget
+### Split button widget
 
 ![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
 
@@ -961,7 +882,7 @@ Split button widget
 | mode     | str   | <pre>DIALOG.button.mode = 'tool'</pre> ℹ️ Button mode (instant, menu, tool)          |
 
 
-#### Toggle bar widget
+### Toggle bar widget
 
 ![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
 
@@ -985,7 +906,7 @@ Toggle bar widget
 | style    | str   | <pre># Style of buttons (icon, text, icon_and_text)</pre>                            |                                                                      
 | mode     | str   | <pre># Label mode for button group (no_label, label)                                 |
 
-#### Selection element widget
+### Selection element widget
 
 ![](assets/widget_selection_element.png)
 
@@ -1056,7 +977,7 @@ print('Chosen system plane: ', RESULT.input_new.name)
 
 Please find the complete example here: [dialog_custom_elem_select.py](assets/dialog_custom_elem_select.py)
 
-#### Selection list widget
+### Selection list widget
 
 ![](assets/widget_list_selection.png)
 
@@ -1080,7 +1001,7 @@ print( selectedIndex ) # output: 1
 | items    | list of str | <pre>DIALOG.selectEntry.items = ['Debug', 'Info', 'Warn', 'Error', 'Fatal']</pre>                    |
 | index    | int         | <pre>print(f'List item with index {DIALOG.selectEntry.index} is selected.')</pre>                    |             
 
-#### Combo box widget
+### Combo box widget
 
 ![New in Version 2025](https://img.shields.io/badge/New-Version_2025-orange)
 
@@ -1102,9 +1023,9 @@ Combo box widget
 | handler  | (unspecified/various) | <pre>DIALOG.toggle.handler = my_listhandler</pre> ℹ️ Optional widget specific event handler |
 | items    | list        | <pre># List of items (display text, data)</pre>                                                      |
 
-### Buttons
+## Buttons
 
-#### Button widget
+### Button widget
 
 ![](assets/widget_button_off.png)
 
@@ -1136,7 +1057,7 @@ The buttons size and icon can be changed in the Dialog Editor.
 There are also values for file icons. These only work straightforward using the dialog designer but not from a script. You can only change between no icon and system icons in a straightforward way.
 ```
 
-#### Radio button widget
+### Radio button widget
 
 ![](assets/widget_radiobutton.png)
 
@@ -1160,30 +1081,30 @@ if selectedChoice == 'ONE':
 | items    | (special list) | <pre># Possible values is a list of lists of two strings.<br># Each first string is the returned value<br># Each second string is the entries' title<br>DIALOG.radiobuttons.items = [['Value1', 'Title1'], ['Value2', 'Title2'], ['Value3', 'Title3']]<br>DIALOG.radiobuttons.default = 'Value2'</pre> |
 | default  | str            | <pre>DIALOG.radiobuttons.default = 'Value1'</pre>                                                                     |
 
-### Layout
+## Layout
 
-#### Separator line widget
+### Separator line widget
 
 ![](assets/widget_separator_line.png)
 
 Separator line widget
 : The separator line widget provides a horizontal line with an optional title.
 
-#### Horizontal spacer widget
+### Horizontal spacer widget
 
 ![](assets/widget_horizontal_spacer.png)
 
 Horizontal spacer widget
 : The horizontal spacer widget claims the space specified by `minimum_size` (default: 0) and `maximum_size` (default: -1, i.e. unlimited). The actual widget is not visible.
 
-#### Vertical spacer widget
+### Vertical spacer widget
 
 ![](assets/widget_vertical_spacer.png)
 
 Vertical spacer widget
 : The vertical spacer claims the space specified by `minimum_size` (default: 0) and `maximum_size` (default: -1, i.e. unlimited). The actual widget is not visible.
 
-#### Tab layout widget
+### Tab layout widget
 
 ![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
 
@@ -1198,7 +1119,7 @@ Tab layout widget
 `tabs` (list)
 : List of tab titles 
 
-#### Separator layout widget
+### Separator layout widget
 
 ![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
 
@@ -1223,9 +1144,9 @@ Separator layout widget
 `expanded` (boolean)
 : True: Layout is initially expanded 
 
-### Other
+## Other
 
-#### Abort button widget
+### Abort button widget
 
 ![](assets/widget_abort_disabled.png)
 
@@ -1236,7 +1157,7 @@ Abort button widget
 
 % To Do: Add enabled abort button. Check if the button still exists in ZEISS INSPECT.
 
-#### File system browser widget
+### File system browser widget
 
 ![](assets/widget_fsbrowser.png)
 
@@ -1258,7 +1179,7 @@ File system browser widget
 | selected           | list                  | <pre>print(DIALOG.filesystemWidget.selected)<br># example output: \['C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 1.g3d', 'C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 2.g3d'\]</pre> |
 | filter             | list                  | <pre># Apply a filter of filename extensions<br>DIALOG.filesystemWidget.filter = \[ '\*.g3d', '\*.stp' \]</pre> |
 
-#### File drag&drop area widget
+### File drag&drop area widget
 
 ![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
 
@@ -1280,7 +1201,7 @@ File drag&drop area
 | text_list  | str     | <pre>DIALOG.filedroparea.text_list = 'Selected project(s)'</pre> ℹ️ default: 'file(s):'             |
 | max_length | str     | <pre>DIALOG.filedroparea.max_length = 40</pre> ℹ️ max. characters, default: -1 (unlimited)          |
 
-#### Tolerances widget
+### Tolerances widget
 
 ![](assets/widget_tolerances.png)
 
@@ -1310,7 +1231,7 @@ The Tolerances widget's result data type depends on the input:
 * Symmetric upper/lower tolerance values: A single floating point value is returned.
 * Asymmetric upper/lower lolerance value or one-sided tolerance: A dictionary is returned.
 
-##### Examples
+#### Examples
 
 1. Symmetric Tolerances
 
@@ -1331,7 +1252,7 @@ The Tolerances widget's result data type depends on the input:
    `gom.dialog.DialogResult ('tolerances': {'lower': -1.0, 'tolerance_type': 'two_sided_center', 'upper': 1.1})`
 ```
 
-### Widget text assignment and formatting at run time
+## Widget text assignment and formatting at run time
 
 The [Description field (label) widget](#description-field-label-widget) and the [Continuous text widget](#continuous-text-widget) support HTML / CSS syntax for text formatting and character encoding.
 
@@ -1373,559 +1294,3 @@ In case a character string is not recognized as HTML code automatically, enclose
 
 `DIALOG.label.text = '<html>Diameter &#x2300;</html>'`
 ```
-
-
-## Executing dialogs
-
-- [Dialog commands](#dialog-commands)
-    - [Break dialog (`execute`)](#break-dialog-execute)
-    - [Extendable break dialog (`create` and `show`)](#extendable-break-dialog-create-and-show)
-    - [Info dialog (`create`, `open` and `close`)](#info-dialog-create-open-and-close)
-- [Dialog results](#dialog-results)
-    - [Custom results](#custom-results)
-- [Configuring dialog widgets](#configuring-dialog-widgets)
-- [Event handler functions](#event-handler-functions)
-    - [Registering event handlers](#registering-event-handlers)
-    - [Closing dialogs from within the event handler](#closing-dialogs-from-within-the-event-handler)
-    - [Using a timer to activate the event handler](#using-a-timer-to-activate-the-event-handler)
-- [Determining the existing widget attributes](#determining-the-existing-widget-attributes)
-
-### Dialog commands
-
-#### Break dialog (`execute`)
-
-![](assets/dialog1_break.png)
-
-* Standard case of a dialog.
-* The dialog is created and executed with a single command.
-* The command blocks the script until the dialog is closed again.
-* The dialog result is returned.
-
-![](assets/dialog1.png)
-
-```{code-block} python
-:caption: Break dialog with dialog definition in Python file 
-
-RESULT=gom.script.sys.execute_user_defined_dialog (dialog={
-    "content": [
-        [
-            {
-                "columns": 1,
-                "name": "label",
-                "rows": 1,
-                "text": {
-                    "id": "",
-                    "text": "Distance",
-                    "translatable": True
-                },
-                "tooltip": {
-                    "id": "",
-                    "text": "",
-                    "translatable": True
-                },
-                "type": "label",
-                "word_wrap": False
-            },
-            {
-                "background_style": "",
-                "columns": 1,
-                "maximum": 1000,
-                "minimum": 0,
-                "name": "inputDistance",
-                "precision": 2,
-                "rows": 1,
-                "tooltip": {
-                    "id": "",
-                    "text": "",
-                    "translatable": True
-                },
-                "type": "input::number",
-                "unit": "",
-                "value": 0
-            }
-        ]
-    ],
-    "control": {
-        "id": "OkCancel"
-    },
-    "embedding": "always_toplevel",
-    "position": "automatic",
-    "size": {
-        "height": 112,
-        "width": 198
-    },
-    "sizemode": "automatic",
-    "style": "",
-    "title": {
-        "id": "",
-        "text": "Distance",
-        "translatable": True
-    }
-})
-
-```
-
-or
-
-```{code-block} python
-:caption: Break dialog with dialog definition in separate dialog file 
-
-RESULT=gom.script.sys.execute_user_defined_dialog (file='my_dialog.gdlg')
-```
-
-#### Extendable break dialog (`create` and `show`)
-
-![](assets/dialog2_extendable_break.png)
-
-* A dialog is created and executed by subsequent commands.
-* This way, the created dialog can be modified by the script right before execution.
-
-```{code-block} python
-:caption: Creating and executing a dialog with two separate commands (dialog definition in Python file)
-
-# Create dialog, but do not execute it yet
-DIALOG = gom.script.sys.create_user_defined_dialog (dialog=...)
-
-#
-# The dialog has been created. At this point of the script, the dialog handle DIALOG
-# can be used to access and configure dialog parts
-#
-
-# Execute dialog and fetch execution result
-RESULT = gom.script.sys.show_user_defined_dialog( dialog = DIALOG )
-```
-
-or
-
-```{code-block} python
-:caption: Creating and executing a dialog with two separate commands (dialog definition in separate dialog file)
-
-# Create dialog, but do not execute it yet
-DIALOG = gom.script.sys.create_user_defined_dialog (file='my_dialog.gdlg')
-
-# ...
-```
-
-#### Info dialog (`create`, `open` and `close`)
-
-![](assets/dialog3_info.png)
-
-* In this mode, the script execution continues after the dialog has been opened.
-* The sequence of commands is as follows:
-    * the `create` command creates a dialog. The dialog can be configured now. Afterwards
-    * the `open` command is issued to display the dialog. The script executing continues. At last
-    * the `close` command closes the dialog again, if no closed manually by the user yet.
-
-```{note}
-At script termination all open dialogs are closed automatically.
-```
-
-```{code-block} python
-:caption: Non blocking configurable dialogs
-
-# Create dialog but do not execute it yet
-DIALOG = gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
-
-#
-# The dialog has been created. At this point of the script, the dialog handle DIALOG
-# can be used to access and configure dialog parts
-#
-
-# Show dialog. The script execution continues.
-gom.script.sys.open_user_defined_dialog( dialog = DIALOG )
-
-#
-# The dialog content can be modified here, the dialog is still open
-#
-DIALOG.title = 'Stufe 2'
-
-# Close dialog again
-gom.script.sys.close_user_defined_dialog (dialog=DIALOG)
-```
-
-### Dialog results
-
-```{note}
-The return value is an object with one property per interactive dialog widget containing its current value.
-```
-
-* The return value is an object containing all current values.
-* Each dialog widget which can be changed by the script user writes its resulting value into this result object.
-* The key for each widget is its object name, which is unique.
-
-![](assets/result1.png)
-
-``` python
-#
-# Print whole dialog result as an object. This is a result map with just one entry 'distance',
-# named after the unique object name assigned to the spinbox (decimal widget).
-#
-print (RESULT) # Print whole result map
-# output: gom.dialog.DialogResult ('distance': 2.0, 'label': None)
-
-#
-# Print result for the element named 'distance'. This will lead to the decimal widget content.
-#
-print (RESULT.distance)
-# output: 2.0
-
-#
-# Print whole dialog result as a dictionary with the same content as above. 
-#
-print (RESULT.__dict__)
-# output: {'__args__': [{'distance': 2.0, 'label': None}], '__kwargs__': {}}
-print (RESULT.__dict__['__args__'][0])
-# output: {'distance': 2.0, 'label': None}
-```
-
-![](assets/result2.png)
-
-``` python
-# Print content of the 'name' widget
-print( RESULT.name )
-# output: Line 1
-
-# Print content of the widget named 'point1'. This can again be an element reference.
-print( RESULT.point1 )
-# output: gom.ActualReference (gom.app.project.inspection['Point 5'])
-
-# Print content of the widget named 'point2'.
-print( RESULT.point2 )
-# output: gom.ActualReference (gom.app.project.inspection['Point 6'])
-
-# construct a line with the user input. Therefore our dialog works similar to the 2-point line
-# construction dialog
-MCAD_ELEMENT=gom.script.primitive.create_line_by_2_points (
-    name= RESULT.name,
-    point1 = RESULT.point1,
-    point2 = RESULT.point2)
-```
-
-```{note}
-The type of the result depends on the specific widget.
-```
-
-#### Custom results
-
-You can return custom results from dialogs using an optional parameter to the `close_user_defined_dialog`-function. The following example produces 'Yes' 
-and 'No' results for the different buttons and 'Cheater' when the user uses the close button of the dialog.
-
-``` python
-DIALOG = gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
-
-#
-# Event handler function called if anything happens inside of the dialog
-#
-def dialog_event_handler (widget):
-    if widget == DIALOG.button_yes:
-        gom.script.sys.close_user_defined_dialog( dialog = DIALOG, result = 'Yes' )
-    if widget == DIALOG.button_no:
-        gom.script.sys.close_user_defined_dialog( dialog = DIALOG, result = 'No' )
-
-DIALOG.handler = dialog_event_handler
-
-try:
-    RESULT = gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
-except gom.BreakError as e:
-    RESULT = 'Cheater'
-
-print('RESULT', RESULT)
-```
-
-Please find the complete example here: [dialog_yes_no.py](assets/dialog_yes_no.py)
-
-### Configuring dialog widgets
-
-* Dialogs created with the `create` and `open` commands can be modified before executed.
-* Each widget in the dialog can be accessed via the dialog handle.
-* The widget is identified by its unique name.
-
-```{code-block} python
-:caption: Configuring dialog widgets
-
-# Create dialog and receive dialog handle
-DIALOG = gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
-
-# The handle for a widget inside of the dialog is addressed by its unique name
-WIDGET = DIALOG.distance
-
-# The widget parameter can be set via widget attributes. 'Value', for instance, relates to the current widget value.
-WIDGET.value = 3.0
-```
-
-* All widgets share some common standard attributes:
-
-| Attribute | Type                | Property                                  |
-| --------- | ------------------- | ----------------------------------------- |
-| name      | str                 | Unique name of the widget - do not write! |
-| enabled   | bool                | Widget is currently active / inactive     |
-| value     | (depends on widget) | Current value                             |
-
-For the type of the value property for a specific widget, see section [Specific widgets](#specific-widgets) above. For widgets which are not used to enter some value, `value` is `None` and read-only. In addition, widgets have further attributes depending on their type (see section [Specific widgets](#specific-widgets) above for details).
-
-```{code-block} python
-:caption: Accessing widget attributes
-
-# Create dialog but do not execute it yet
-DIALOG=gom.script.sys.create_dialog (file='dialog.gdlg')
-
-# Set name to 'default name' and disable 'ok' button
-DIALOG.name.value = "default name"
-DIALOG.control.ok.enabled = False
-
-# Execute dialog
-RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
-```
-
-### Event handler functions
-
-#### Registering event handlers
-
-* A function can be registered to the dialog called on value changed.
-* Every time the user modified a dialog value, the **handler** function is called.
-* The handler function is also called on application global signals, e.g. when application data has been changed. In these cases is the string `'system'` passed to the handler function. Those global signals are caused by changing the element selection or opening a project for example.
-* The handler function can access dialog widget properties.
-* The handler function is registered using the special attribute `handler`.
-* The **prev** and **next** buttons of a wizard dialog are the only control widgets, which trigger the event handler.
-
-```{code-block} python
-:caption: Dialog handler functions
-
-DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
-
-# Handler function registered to the dialog
-def handler_function (widget):
-    # Print information about the modified widget
-    print ("Modified:", str (widget))
-    # If the 'name' widget is empty, the 'ok' button is disabled.
-    if DIALOG.name.value == "":
-        DIALOG.control.ok.enabled = False
-    else:
-        DIALOG.control.ok.enabled = True
-
-    if str(widget) == 'system':
-        print("It is a global event.")
-    elif str(widget) == 'initialize':
-        print("Dialog is displayed for the first time.")
-
-# Register dialog handler
-DIALOG.handler = handler_function
-
-# Execute dialog
-RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
-```
-
-A complete example with a handler function can be found in the file [scriptingEditorExampleDialog.py](assets/scriptingEditorExampleDialog.py). The argument passed to the event handler is either the dialog widget (e.g. a button) which triggered the event handler or a string. The following table lists all possible strings:
-
-| Value        | Description                                                                  |
-| ------------ | ---------------------------------------------------------------------------- |
-| 'system'     | Passed to the event handler in the case of a global event.                   |
-| 'timer'      | Passed to the event handler in the case of a global event.                   |
-| 'initialize' | Passed to the event handler when the dialog is displayed for the first time. |
-
-If the widget parameter is not a string, it represents a widget object. Note, that you cannot use the `is` operator on these objects. Always use `==` and similar 
-operators to compare the widget parameter:
-
-```{code-block} python
-:caption: Comparing widget parameters
-
-def handler_function (widget):
-    ...
-    # compare widget using "==", using "is" will not work!
-    if widget == DIALOG.textInput:
-        if DIALOG.textInput.value == "":
-            DIALOG.control.ok.enabled = False
-        else:
-           DIALOG.control.ok.enabled = True
-```
-
-#### Closing dialogs from within the event handler
-
-```{note}
-Dialogs can be closed from within event handlers.
-```
-
-![](assets/event_handler_script_launcher.png)
-
-```{code-block} python
-:caption: Button event handler
-
-def dialog_event_handler (widget):
-    if widget == DIALOG.button1:
-        execute_func_1 ()
-        gom.script.sys.close_user_defined_dialog (dialog=DIALOG)
-    elif widget == DIALOG.button2:
-        execute_func_2 ()
-        gom.script.sys.close_user_defined_dialog (dialog=DIALOG)
-    elif widget == DIALOG.button3:
-        execute_func_3 ()
-        gom.script.sys.close_user_defined_dialog (dialog=DIALOG)
-```
-
-```{warning}
-Right after the dialog has been closed, its handle becomes invalid.
-```
-
-This implies, that the event handler function must be written in a way that no dialog dependent code is executed after the dialog has been closed.
-
-#### Using a timer to activate the event handler
-
-Each `DIALOG` has a special property named `DIALOG.timer`. This timer property can be used to trigger the event handler registered to `DIALOG` in 
-certain time intervals. When the event handler is triggered by the timer, the string `timer` is passed to it. The `__doc__`-string of the timer gives information 
-about its attributes:
-
-``` python
-print(DIALOG.timer.__doc__)
-# output:
-# Timer
-#
-# Attributes:
-# enabled (boolean) - timer enabled
-# interval (integer) - timer interval [ms]
-```
-
-```{note}
-The timer is disabled by default.
-```
-
-Example:
-
-![](assets/event_handler_timer.png)
-
-```{code-block} python
-:caption: Button/Timer event handler
-
-DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
-
-#
-# Event handler function called if anything happens inside of the dialog
-#
-state = False
-def dialog_event_handler (widget):
-    global state
-    if widget == DIALOG.start:
-        DIALOG.timer.interval = DIALOG.interval.value * 1000
-        DIALOG.timer.enabled = True
-        DIALOG.start.enabled = False
-        DIALOG.stop.enabled = True
-    elif widget == DIALOG.stop:
-        DIALOG.timer.enabled = False
-        DIALOG.start.enabled = True
-        DIALOG.stop.enabled = False
-    elif widget == DIALOG.interval:
-        DIALOG.timer.interval = DIALOG.interval.value * 1000
-    elif widget == DIALOG.exit:
-        gom.script.sys.close_user_defined_dialog (dialog=DIALOG)
-    elif str(widget) == 'system':
-        print("Its a system event.")
-    elif str(widget) == 'timer':
-        print("Its a timer event. Let´s swap the image.")
-        state = not state
-     
-        if state:
-            DIALOG.image.system_image = 'system_message_warning'
-        else:
-            DIALOG.image.system_image = 'system_message_question'
-
-DIALOG.handler = dialog_event_handler
-DIALOG.stop.enabled = False
-RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
-```
-
-The complete code of the example can be found here: [timer.py](assets/timer.py). 
-
-### Determining the existing widget attributes
-
-* Because Python is a very dynamic language, the type of a variable or attribute can not be determined statically.
-* Instead, it is possible to query the variable dynamically during runtime.
-* The more commonly used widget attributes are documented in the section [Specific widgets](#specific-widgets) above.
-
-```{note}
-Most objects support the attribute `__doc__` which prints the available object documentation to the console.
-```
-
-```{code-block} python
-:caption: Print object documentation
-
-#
-# Query __doc__ attribute of a button widget
-#
-print (DIALOG.my_button.__doc__)
-# output:
-# Handle for a widget called 'my_button' of type 'Button' (button::pushbutton)
-#
-# Attributes:
-# name             (string)              - Name of the widget. The name can be used to access the widget via a dialog handle.
-# tooltip          (string)              - Tooltip of the widget. If empty, no tooltip is displayed.
-# enabled          (boolean)             - Enabled state of the widget. Default is 'enabled', set to false for disabling it.
-# value            (unspecified/various) - The current value of the widget. Type depends on the widget type and can be 'none' for empty widgets.
-# attributes       (map)                 - Map of all accessable widget attributes together with their current values.
-# focus            (boolean)             - Focus state of the widget. Can be used to set an explicit widget focus.
-# text             (string)              - Text of the button
-# type             (string)              - Button type ('push', 'toggle')
-# icon             (Tom::Parse::Binary)  - Icon of the button
-# icon_file_name   (string)              - Source file name of the icon
-# icon_size        (string)              - Icon size mode (icon, full)
-# icon_type        (string)              - Icon type (none, system, file)
-# icon_system_type (string)              - System icon type (ok, cancel, arrow_up, arrow_down, arrow_left, arrow_right)
-# icon_system_size (string)              - System icon size (default, large, extra_large)
-```
-
-## Wizards
-
-- [Control widgets](#control-widgets)
-
-* **Wizards** are dialogs with **\< Back** and **Next \>** buttons at the lower dialog edge.
-* The script programmer is responsible for adding functionality to this layout.
-* Wizards are not very versatile, but modifying the displayed texts and images is easily possible.
-
-```{warning}
-It is not possible to exchange widgets from within a dialog after the dialog has been created!
-```
-
-Therefore Wizards only have simple options like exchange of images and texts in those containing elements.
-
-### Control widgets
-
-The operational elements in a control widget from a wizard do act like those in regular dialogs und can be accessed via handles as well:
-
-![](assets/wizard.png)
-
-```{code-block} python
-:caption: Wizard example
-
-#
-# Create dialog with wizard control panel
-#
-DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
-#
-# Handler function to be registered to the dialog
-#
-def func (widget):
-    #
-    # Handle clicks onto the 'prev' button
-    #
-    if widget == DIALOG.control.prev:
-        # Here you would write code to display the content of the previous wizard 'page'
-        
-        #
-        # Handle clicks onto the 'next' button
-        #
-        print("Prev button was clicked.")
-    elif widget == DIALOG.control.next:
-        # Here you would write code to display the content of the next wizard 'page'
-        
-        #
-        # Update dialog button enabled state and register handler function
-        #
-        print("Next button was clicked.")
-
-DIALOG.handler = func
-
-#
-# Execute wizard dialog
-#
-RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
-```
-
-[Creating wizard dialogs](creating_wizard_dialogs.md) shows some ways to manage wizard dialogs in greater detail.
