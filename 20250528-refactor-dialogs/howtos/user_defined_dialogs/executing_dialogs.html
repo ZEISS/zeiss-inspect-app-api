@@ -478,6 +478,7 @@ and ‘No’ results for the different buttons and ‘Cheater’ when the user u
 <li><p>The handler function is also called on application global signals, e.g. when application data has been changed. In these cases is the string <code class="docutils literal notranslate"><span class="pre">'system'</span></code> passed to the handler function. Those global signals are caused by changing the element selection or opening a project for example.</p></li>
 <li><p>The handler function can access dialog widget properties.</p></li>
 <li><p>The handler function is registered using the special attribute <code class="docutils literal notranslate"><span class="pre">handler</span></code>.</p></li>
+<li><p><strong>New in ZEISS INSPECT 2026</strong>: Each dialog widget can have a specific event handler. If the widget’s <code class="docutils literal notranslate"><span class="pre">handler</span></code> property is empty or no valid function, the dialog event handler is called instead.</p></li>
 <li><p>The <strong>prev</strong> and <strong>next</strong> buttons of a wizard dialog are the only control widgets, which trigger the event handler.</p></li>
 </ul>
 <div class="literal-block-wrapper docutils container" id="id8">
@@ -541,6 +542,24 @@ operators to compare the widget parameter:</p>
 </pre></div>
 </div>
 </div>
+<p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
+<p>Each dialog widget can have a specific event handler. If the widget’s <code class="docutils literal notranslate"><span class="pre">handler</span></code> property is empty or no valid function, the dialog event handler is called instead.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">initialize</span></code> event is not passed to any widget object’s event handler!</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Using a widget object specific event handler</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Register dialog event handler</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">handler_function</span>
+
+<span class="c1"># Register widget specific event handler for &#39;list&#39; widget object</span>
+<span class="c1"># -&gt; All other widget&#39;s events are handled by</span>
+<span class="c1">#    the handler assigned to DIALOG.handler</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">list_handler_function</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="closing-dialogs-from-within-the-event-handler">
 <h3>Closing dialogs from within the event handler<a class="headerlink" href="#closing-dialogs-from-within-the-event-handler" title="Link to this heading"></a></h3>
@@ -549,8 +568,8 @@ operators to compare the widget parameter:</p>
 <p>Dialogs can be closed from within event handlers.</p>
 </div>
 <p><img alt="" src="../../_images/event_handler_script_launcher.png" /></p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Button event handler</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Button event handler</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dialog_event_handler</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">button1</span><span class="p">:</span>
         <span class="n">execute_func_1</span> <span class="p">()</span>
@@ -590,8 +609,8 @@ about its attributes:</p>
 </div>
 <p>Example:</p>
 <p><img alt="" src="../../_images/event_handler_timer.png" /></p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Button/Timer event handler</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Button/Timer event handler</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="c1">#</span>
@@ -661,7 +680,7 @@ about its attributes:</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f8d94d282f0>
+  <jinja2.runtime.BlockReference object at 0x7f913fe282f0>
 
 
 </footer>
