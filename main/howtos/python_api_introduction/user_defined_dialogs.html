@@ -78,13 +78,17 @@
 <li class="toctree-l4"><a class="reference internal" href="#status-label">Status label</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#specific-widgets">Specific widgets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#specific-widgets">Specific widgets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output">Output</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#description-field-label-widget">Description field (label) widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#continuous-text-widget">Continuous text widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#image-widget">Image widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#information-box-widget">Information box widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#log-widget">Log widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#progress-bar-widget">Progress bar widget</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#element-name-widget">Element name widget</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#input">Input</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#integer-widget">Integer widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#decimal-widget">Decimal widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#text-entry-field">Text entry field</a></li>
@@ -94,13 +98,35 @@
 <li class="toctree-l4"><a class="reference internal" href="#date-widget">Date widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#color-widget">Color widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#unit-widget">Unit widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#element-name-widget">Element name widget</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#selection">Selection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#split-button-widget">Split button widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#toggle-bar-widget">Toggle bar widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#selection-element-widget">Selection element widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#selection-list-widget">Selection list widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#combo-box-widget">Combo box widget</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#buttons">Buttons</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#button-widget">Button widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#radio-button-widget">Radio button widget</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#layout">Layout</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#separator-line-widget">Separator line widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#horizontal-spacer-widget">Horizontal spacer widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vertical-spacer-widget">Vertical spacer widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tab-layout-widget">Tab layout widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#separator-layout-widget">Separator layout widget</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#other">Other</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#abort-button-widget">Abort button widget</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#tolerances-widget">Tolerances widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#file-system-browser-widget">File system browser widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#file-drag-drop-area-widget">File drag&amp;drop area widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tolerances-widget">Tolerances widget</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#widget-text-assignment-and-formatting-at-run-time">Widget text assignment and formatting at run time</a></li>
@@ -404,14 +430,18 @@
 <li><p><a class="reference internal" href="#status-label">Status label</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#specific-widgets">Specific widgets</a></p>
+<li><p><a class="reference internal" href="#output">Output</a></p>
 <ul>
 <li><p><a class="reference internal" href="#description-field-label-widget">Description field (label) widget</a></p></li>
 <li><p><a class="reference internal" href="#continuous-text-widget">Continuous text widget</a></p></li>
 <li><p><a class="reference internal" href="#image-widget">Image widget</a></p></li>
+<li><p><a class="reference internal" href="#information-box-widget">Information box widget</a></p></li>
 <li><p><a class="reference internal" href="#log-widget">Log widget</a></p></li>
 <li><p><a class="reference internal" href="#progress-bar-widget">Progress-bar widget</a></p></li>
-<li><p><a class="reference internal" href="#element-name-widget">Element name widget</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#input">Input</a></p>
+<ul>
 <li><p><a class="reference internal" href="#integer-widget">Integer widget</a></p></li>
 <li><p><a class="reference internal" href="#decimal-widget">Decimal widget</a></p></li>
 <li><p><a class="reference internal" href="#text-entry-field">Text entry field</a></p></li>
@@ -421,13 +451,37 @@
 <li><p><a class="reference internal" href="#date-widget">Date widget</a></p></li>
 <li><p><a class="reference internal" href="#color-widget">Color widget</a></p></li>
 <li><p><a class="reference internal" href="#unit-widget">Unit widget</a></p></li>
-<li><p><a class="reference internal" href="#selection-element-widget">Selection element widget</a></p></li>
+<li><p><a class="reference internal" href="#element-name-widget">Element name widget</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#selection">Selection</a></p>
+<ul>
+<li><p><a class="reference internal" href="#split-button-widget">Split button widget</a></p></li>
+<li><p><a class="reference internal" href="#toggle-bar-widget">Toggle bar widget</a></p></li>
 <li><p><a class="reference internal" href="#selection-list-widget">Selection list widget</a></p></li>
+<li><p><a class="reference internal" href="#combo-box-widget">Combo box widget</a></p></li>
+<li><p><a class="reference internal" href="#selection-element-widget">Selection element widget</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#buttons">Buttons</a></p>
+<ul>
 <li><p><a class="reference internal" href="#button-widget">Button widget</a></p></li>
 <li><p><a class="reference internal" href="#radio-button-widget">Radio button widget</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#layout">Layout</a></p>
+<ul>
+<li><p><a class="reference internal" href="#separator-line-widget">Separator line widget</a></p></li>
+<li><p><a class="reference internal" href="#horizontal-spacer-widget">Horizontal spacer widget</a></p></li>
+<li><p><a class="reference internal" href="#vertical-spacer-widget">Vertical spacer widget</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#other">Other</a></p>
+<ul>
 <li><p><a class="reference internal" href="#abort-button-widget">Abort button widget</a></p></li>
-<li><p><a class="reference internal" href="#tolerances-widget">Tolerances widget</a></p></li>
 <li><p><a class="reference internal" href="#file-system-browser-widget">File system browser widget</a></p></li>
+<li><p><a class="reference internal" href="#file-drag-drop-area-widget">File drag&amp;drop area widget</a></p></li>
+<li><p><a class="reference internal" href="#tolerances-widget">Tolerances widget</a></p></li>
 </ul>
 </li>
 </ul>
@@ -548,6 +602,9 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </section>
 <section id="specific-widgets">
 <h3>Specific widgets<a class="headerlink" href="#specific-widgets" title="Link to this heading"></a></h3>
+</section>
+<section id="output">
+<h3>Output<a class="headerlink" href="#output" title="Link to this heading"></a></h3>
 <section id="description-field-label-widget">
 <h4>Description field (label) widget<a class="headerlink" href="#description-field-label-widget" title="Link to this heading"></a></h4>
 <p><img alt="" src="../../_images/widget_label.png" /></p>
@@ -817,6 +874,60 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </div>
 </section>
 </section>
+<section id="information-box-widget">
+<h4>Information box widget<a class="headerlink" href="#information-box-widget" title="Link to this heading"></a></h4>
+<p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
+<p>Collapsed<br />
+<img alt="" src="../../_images/widget_information_box_collapsed.png" /></p>
+<p>Expanded<br />
+<img alt="" src="../../_images/widget_information_box_expanded.png" /></p>
+<dl class="simple myst">
+<dt>Information box widget</dt><dd><p>The Information box widget allows to show text. You can toggle between expanded and collapsed state at run time. The default state can be configured.</p>
+</dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>tooltip</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.information.tooltip = ‘About this widget’</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>enabled</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.information.enabled = True</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>(unspecified/various)</p></td>
+<td><p>n.a.</p></td>
+</tr>
+<tr class="row-odd"><td><p>focus</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.information.focus = True</pre> ⚠️ Only works if dialog is open</p></td>
+</tr>
+<tr class="row-even"><td><p>visible</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.information.visible = False</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>handler</p></td>
+<td><p>unspecified/various</p></td>
+<td><p><pre>DIALOG.information.handler = information_handler</p></td>
+</tr>
+<tr class="row-even"><td><p>text</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.information.text = “This is an information box”</p></td>
+</tr>
+<tr class="row-odd"><td><p>expanded</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.information.expanded = True</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="log-widget">
 <h4>Log widget<a class="headerlink" href="#log-widget" title="Link to this heading"></a></h4>
 <p><img alt="" src="../../_images/widget_log.png" /></p>
@@ -1011,78 +1122,9 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </tbody>
 </table>
 </section>
-<section id="element-name-widget">
-<h4>Element name widget<a class="headerlink" href="#element-name-widget" title="Link to this heading"></a></h4>
-<p><img alt="" src="../../_images/widget_element_name.png" /></p>
-<dl class="simple myst">
-<dt>Element name widget</dt><dd><p>The Element name widget is used to request an element name from the user. It is possible to select the default name (according to naming scheme, e.g. ‘Point 2’ if ‘Point 1’ already exists), or to enter an arbitrary name. <code class="docutils literal notranslate"><span class="pre">elementnameWidget</span></code> is the object name of the element name widget in the example below.</p>
-</dd>
-</dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let the user define 3 new points (the coordinates are created automatically in this example)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
-    
-    <span class="c1">#</span>
-    <span class="c1"># Event handler function called if anything happens inside of the dialog</span>
-    <span class="c1">#</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">dialog_event_handler</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
-        <span class="k">pass</span>
-    
-    <span class="n">DIALOG</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">dialog_event_handler</span>
-    
-    <span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
-    
-    <span class="nb">print</span> <span class="p">(</span><span class="n">RESULT</span><span class="o">.</span><span class="n">elementnameWidget</span><span class="p">)</span>
-    
-    <span class="n">MCAD_ELEMENT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">primitive</span><span class="o">.</span><span class="n">create_point</span> <span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="n">RESULT</span><span class="o">.</span><span class="n">elementnameWidget</span><span class="p">,</span>
-        <span class="n">point</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)}</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.inputEleName.tooltip = ‘Enter the number of points!’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.inputEleName.enabled = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>value</p></td>
-<td><p>int</p></td>
-<td><p><pre>DIALOG.inputEleName.value = ‘Blob’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>focus</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.inputEleName.focus = True</pre>⚠️ Only works if dialog is open</p></td>
-</tr>
-<tr class="row-even"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.inputEleName.visible = False</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>basename</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.inputEleName.basename = ‘Point’</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>mode</p></td>
-<td><p>str</p></td>
-<td><p><pre># Mode to get the name suggestion from. (‘manually’, ‘from_element_type’, ‘check_like’)<br>DIALOG.inputEleName.mode = ‘from_element_type’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>read_only</p></td>
-<td><p>bool</p></td>
-<td><p><pre># Keep user from changing the default<br>DIALOG.inputEleName.read_only = true</pre></p></td>
-</tr>
-</tbody>
-</table>
 </section>
+<section id="input">
+<h3>Input<a class="headerlink" href="#input" title="Link to this heading"></a></h3>
 <section id="integer-widget">
 <h4>Integer widget<a class="headerlink" href="#integer-widget" title="Link to this heading"></a></h4>
 <p><img alt="" src="../../_images/widget_integer.png" /></p>
@@ -1589,6 +1631,215 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </tbody>
 </table>
 </section>
+<section id="element-name-widget">
+<h4>Element name widget<a class="headerlink" href="#element-name-widget" title="Link to this heading"></a></h4>
+<p><img alt="" src="../../_images/widget_element_name.png" /></p>
+<dl class="simple myst">
+<dt>Element name widget</dt><dd><p>The Element name widget is used to request an element name from the user. It is possible to select the default name (according to naming scheme, e.g. ‘Point 2’ if ‘Point 1’ already exists), or to enter an arbitrary name. <code class="docutils literal notranslate"><span class="pre">elementnameWidget</span></code> is the object name of the element name widget in the example below.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let the user define 3 new points (the coordinates are created automatically in this example)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+    
+    <span class="c1">#</span>
+    <span class="c1"># Event handler function called if anything happens inside of the dialog</span>
+    <span class="c1">#</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dialog_event_handler</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
+        <span class="k">pass</span>
+    
+    <span class="n">DIALOG</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">dialog_event_handler</span>
+    
+    <span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
+    
+    <span class="nb">print</span> <span class="p">(</span><span class="n">RESULT</span><span class="o">.</span><span class="n">elementnameWidget</span><span class="p">)</span>
+    
+    <span class="n">MCAD_ELEMENT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">primitive</span><span class="o">.</span><span class="n">create_point</span> <span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">RESULT</span><span class="o">.</span><span class="n">elementnameWidget</span><span class="p">,</span>
+        <span class="n">point</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)}</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>tooltip</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.inputEleName.tooltip = ‘Enter the number of points!’</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>enabled</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.inputEleName.enabled = False</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>int</p></td>
+<td><p><pre>DIALOG.inputEleName.value = ‘Blob’</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>focus</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.inputEleName.focus = True</pre>⚠️ Only works if dialog is open</p></td>
+</tr>
+<tr class="row-even"><td><p>visible</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.inputEleName.visible = False</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>basename</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.inputEleName.basename = ‘Point’</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>mode</p></td>
+<td><p>str</p></td>
+<td><p><pre># Mode to get the name suggestion from. (‘manually’, ‘from_element_type’, ‘check_like’)<br>DIALOG.inputEleName.mode = ‘from_element_type’</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>read_only</p></td>
+<td><p>bool</p></td>
+<td><p><pre># Keep user from changing the default<br>DIALOG.inputEleName.read_only = true</pre></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="selection">
+<h3>Selection<a class="headerlink" href="#selection" title="Link to this heading"></a></h3>
+<section id="split-button-widget">
+<h4>Split button widget<a class="headerlink" href="#split-button-widget" title="Link to this heading"></a></h4>
+<p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
+<p>Three split button widgets with modes ‘menu’, ‘instant’ and ‘tool’, respectively.<br />
+The top widget has focus. The arrows are just examples for icons.<br />
+<img alt="" src="../../_images/widget_split_button.png" /></p>
+<dl class="simple myst">
+<dt>Split button widget</dt><dd><p>A split button is a hybrid between a button and an options menu. Each item consist of text and/or an icon. One of the modes <code class="docutils literal notranslate"><span class="pre">'instant'</span></code>, <code class="docutils literal notranslate"><span class="pre">'menu'</span></code> or <code class="docutils literal notranslate"><span class="pre">'tool'</span></code> can be configured.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">'instant'</span></code> mode</dt><dd><p>You must open the menu to click a button. The initial button remains fixed.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">'menu'</span></code> mode</dt><dd><p>You can click the initial button immediately or open the menu to click any available button. The initial button remains fixed.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">'tool'</span></code> mode</dt><dd><p>You can click the initial button immediately or open the menu to click any available button. The initial button changes to the clicked button.</p>
+</dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>tooltip</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.button.tooltip = ‘Start aquisition’</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>enabled</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.button.enabled = False</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>int</p></td>
+<td><p><pre>if DIALOG.button.value == 0:</pre> ℹ️ Index of pressed button</p></td>
+</tr>
+<tr class="row-odd"><td><p>focus</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.button2.focus = True</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>visible</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.button.visible = False</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>handler</p></td>
+<td><p>(unspecified/various)</p></td>
+<td><p><pre>DIALOG.button.handler = my_buttonhandler</pre> ℹ️ Optional widget specific event handler</p></td>
+</tr>
+<tr class="row-even"><td><p>items</p></td>
+<td><p>list</p></td>
+<td><p><pre>print(DIALOG.button.items)</pre> List of lists defining items [[string, base64]]</p></td>
+</tr>
+<tr class="row-odd"><td><p>texts</p></td>
+<td><p>list</p></td>
+<td><p><pre>print(DIALOG.button.items)</pre> List of texts for items [string]</p></td>
+</tr>
+<tr class="row-even"><td><p>icons</p></td>
+<td><p>list</p></td>
+<td><p><pre>print(DIALOG.button.items)</pre> List of icons for items [base64]</p></td>
+</tr>
+<tr class="row-odd"><td><p>mode</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.button.mode = ‘tool’</pre> ℹ️ Button mode (instant, menu, tool)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="toggle-bar-widget">
+<h4>Toggle bar widget<a class="headerlink" href="#toggle-bar-widget" title="Link to this heading"></a></h4>
+<p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
+<p><img alt="" src="../../_images/widget_toggle_bar.png" /></p>
+<dl class="simple myst">
+<dt>Toggle bar widget</dt><dd><p>The toggle bar widget allows to select one of several items. Each item consists of text and/or an icon.</p>
+</dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>tooltip</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.toggle.tooltip = ‘Select shape’</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>enabled</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.toggle.enabled = False</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>int</p></td>
+<td><p><pre>if DIALOG.toggle.value == 0:</pre> ℹ️ Index of selected item</p></td>
+</tr>
+<tr class="row-odd"><td><p>focus</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.toggle2.focus = True</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>visible</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.toggle.visible = False</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>handler</p></td>
+<td><p>(unspecified/various)</p></td>
+<td><p><pre>DIALOG.toggle.handler = my_togglehandler</pre> ℹ️ Optional widget specific event handler</p></td>
+</tr>
+<tr class="row-even"><td><p>items</p></td>
+<td><p>list</p></td>
+<td><p><pre># List of lists defining items (text, icon, tooltip) [[string, base64, string]]</p></td>
+</tr>
+<tr class="row-odd"><td><p>texts</p></td>
+<td><p>list</p></td>
+<td><p><pre># List of texts for items [string]</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>icons</p></td>
+<td><p>list</p></td>
+<td><p><pre># List of icons for items [base64]</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>tooltips</p></td>
+<td><p>list</p></td>
+<td><p><pre># List of tooltips for items [string]</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>style</p></td>
+<td><p>str</p></td>
+<td><p><pre># Style of buttons (icon, text, icon_and_text)</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>mode</p></td>
+<td><p>str</p></td>
+<td><p><pre># Label mode for button group (no_label, label)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="selection-element-widget">
 <h4>Selection element widget<a class="headerlink" href="#selection-element-widget" title="Link to this heading"></a></h4>
 <p><img alt="" src="../../_images/widget_selection_element.png" /></p>
@@ -1744,6 +1995,58 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </tbody>
 </table>
 </section>
+<section id="combo-box-widget">
+<h4>Combo box widget<a class="headerlink" href="#combo-box-widget" title="Link to this heading"></a></h4>
+<p><img alt="New in Version 2025" src="https://img.shields.io/badge/New-Version_2025-orange" /></p>
+<p><img alt="" src="../../_images/widget_combo_box-3.png" /></p>
+<p>Selection in progress<br />
+<img alt="" src="../../_images/widget_combo_box-2.png" /></p>
+<dl class="simple myst">
+<dt>Combo box widget</dt><dd><p>The combo box allows to select multiple items from a list. Each item consists of text and data (represented as string).</p>
+</dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>tooltip</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.list.tooltip = ‘Select one of the operating modes’</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>enabled</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.list.enabled = False</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.list.value = [‘circles’, ‘cones’]</pre> ℹ️ Assign a list of data items</p></td>
+</tr>
+<tr class="row-odd"><td><p>focus</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.list.focus = True</pre>⚠️ Only works if dialog is open</p></td>
+</tr>
+<tr class="row-even"><td><p>visible</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.list.visible = False</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>handler</p></td>
+<td><p>(unspecified/various)</p></td>
+<td><p><pre>DIALOG.toggle.handler = my_listhandler</pre> ℹ️ Optional widget specific event handler</p></td>
+</tr>
+<tr class="row-even"><td><p>items</p></td>
+<td><p>list</p></td>
+<td><p><pre># List of items (display text, data)</pre></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="buttons">
+<h3>Buttons<a class="headerlink" href="#buttons" title="Link to this heading"></a></h3>
 <section id="button-widget">
 <h4>Button widget<a class="headerlink" href="#button-widget" title="Link to this heading"></a></h4>
 <p><img alt="" src="../../_images/widget_button_off.png" /></p>
@@ -1857,6 +2160,69 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </tbody>
 </table>
 </section>
+</section>
+<section id="layout">
+<h3>Layout<a class="headerlink" href="#layout" title="Link to this heading"></a></h3>
+<section id="separator-line-widget">
+<h4>Separator line widget<a class="headerlink" href="#separator-line-widget" title="Link to this heading"></a></h4>
+<p><img alt="" src="../../_images/widget_separator_line.png" /></p>
+<dl class="simple myst">
+<dt>Separator line widget</dt><dd><p>The separator line widget provides a horizontal line with an optional title.</p>
+</dd>
+</dl>
+</section>
+<section id="horizontal-spacer-widget">
+<h4>Horizontal spacer widget<a class="headerlink" href="#horizontal-spacer-widget" title="Link to this heading"></a></h4>
+<p><img alt="" src="../../_images/widget_horizontal_spacer.png" /></p>
+<dl class="simple myst">
+<dt>Horizontal spacer widget</dt><dd><p>The horizontal spacer widget claims the space specified by <code class="docutils literal notranslate"><span class="pre">minimum_size</span></code> (default: 0) and <code class="docutils literal notranslate"><span class="pre">maximum_size</span></code> (default: -1, i.e. unlimited). The actual widget is not visible.</p>
+</dd>
+</dl>
+</section>
+<section id="vertical-spacer-widget">
+<h4>Vertical spacer widget<a class="headerlink" href="#vertical-spacer-widget" title="Link to this heading"></a></h4>
+<p><img alt="" src="../../_images/widget_vertical_spacer.png" /></p>
+<dl class="simple myst">
+<dt>Vertical spacer widget</dt><dd><p>The vertical spacer claims the space specified by <code class="docutils literal notranslate"><span class="pre">minimum_size</span></code> (default: 0) and <code class="docutils literal notranslate"><span class="pre">maximum_size</span></code> (default: -1, i.e. unlimited). The actual widget is not visible.</p>
+</dd>
+</dl>
+</section>
+<section id="tab-layout-widget">
+<h4>Tab layout widget<a class="headerlink" href="#tab-layout-widget" title="Link to this heading"></a></h4>
+<p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
+<p><img alt="" src="../../_images/widget_tab_layout-1.png" /> <img alt="" src="../../_images/widget_tab_layout-2.png" /></p>
+<dl class="simple myst">
+<dt>Tab layout widget</dt><dd><p>The Tab layout widget provides a configurable number of tabs. Each tab serves as container for any number and types of widgets.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">current_tab</span></code> (integer)</dt><dd><p>Index of current tab</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">tabs</span></code> (list)</dt><dd><p>List of tab titles</p>
+</dd>
+</dl>
+</section>
+<section id="separator-layout-widget">
+<h4>Separator layout widget<a class="headerlink" href="#separator-layout-widget" title="Link to this heading"></a></h4>
+<p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
+<p>Collapsed<br />
+<img alt="" src="../../_images/widget_separator_layout_collapsed.png" /></p>
+<p>Expanded (contains a single description field widget)<br />
+<img alt="" src="../../_images/widget_separator_layout_expanded.png" /></p>
+<dl class="simple myst">
+<dt>Separator layout widget</dt><dd><p>The saparator layout widget serves as a container for any number of widgets. Its contents can be collapsed or expanded. It provides titel, desciption and icon as optional features.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">title</span></code> (string)</dt><dd><p>Title text</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">description</span></code> (string)</dt><dd><p>Description text</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">icon</span></code> (string)</dt><dd><p>System icon or user icon imported from file. Icons are stored as base64-encoded strings.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">expanded</span></code> (boolean)</dt><dd><p>True: Layout is initially expanded</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="other">
+<h3>Other<a class="headerlink" href="#other" title="Link to this heading"></a></h3>
 <section id="abort-button-widget">
 <h4>Abort button widget<a class="headerlink" href="#abort-button-widget" title="Link to this heading"></a></h4>
 <p><img alt="" src="../../_images/widget_abort_disabled.png" /></p>
@@ -1865,6 +2231,131 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </dd>
 </dl>
 <p><img alt="" src="../../_images/built-in_progressbar.png" /></p>
+</section>
+<section id="file-system-browser-widget">
+<h4>File system browser widget<a class="headerlink" href="#file-system-browser-widget" title="Link to this heading"></a></h4>
+<p><img alt="" src="../../_images/widget_fsbrowser.png" /></p>
+<dl class="simple myst">
+<dt>File system browser widget</dt><dd><p>The File system browser widget allows to view the file system and to select a file or a set of files, respectively. A filter can be set to show only files with certain filename extensions.</p>
+</dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>tooltip</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.filesystemWidget.tooltip = ‘Select CAD file’</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>enabled</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.filesystemWidget.enabled = False</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>(unspecified/various)</p></td>
+<td><p>The current value of the widget. Type depends on the widget type and can be ‘none’ for empty widgets.</p></td>
+</tr>
+<tr class="row-odd"><td><p>focus</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.filesystemWidget.focus = True</pre>⚠️ Only works if dialog is open</p></td>
+</tr>
+<tr class="row-even"><td><p>visible</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.filesystemWidget.visible = False</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>root</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.filesystemWidget.root = ‘C:/Users’</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>show_date</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.filesystemWidget.show_date = True</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>show_size</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.filesystemWidget.show_size = True</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>show_type</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.filesystemWidget.show_type = True</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>use_multiselection</p></td>
+<td><p>bool</p></td>
+<td><p><pre># Enable selection of multiple files<br>DIALOG.filesystemWidget.use_multiselection = True</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>selected</p></td>
+<td><p>list</p></td>
+<td><p><pre>print(DIALOG.filesystemWidget.selected)<br># example output: [‘C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 1.g3d’, ‘C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 2.g3d’]</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>filter</p></td>
+<td><p>list</p></td>
+<td><p><pre># Apply a filter of filename extensions<br>DIALOG.filesystemWidget.filter = [ ‘*.g3d’, ‘*.stp’ ]</pre></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="file-drag-drop-area-widget">
+<h4>File drag&amp;drop area widget<a class="headerlink" href="#file-drag-drop-area-widget" title="Link to this heading"></a></h4>
+<p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
+<p><img alt="" src="../../_images/widget_file_drag_n_drop_area.png" /></p>
+<dl class="simple myst">
+<dt>File drag&amp;drop area</dt><dd><p>The File drag&amp;drop area allows to select files. The widget shows the base names of the selected files, but stores the filenames with full paths internally. Some of its text items can be configured.</p>
+</dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>tooltip</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.filedroparea.tooltip = ‘Select one of the operating modes’</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>enabled</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.filedroparea.enabled = False</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.filedroparea.value = [‘circles’, ‘cones’]</pre> ℹ️ Assign a list of data items</p></td>
+</tr>
+<tr class="row-odd"><td><p>focus</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.filedroparea.focus = True</pre>⚠️ Only works if dialog is open</p></td>
+</tr>
+<tr class="row-even"><td><p>visible</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.filedroparea.visible = False</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>handler</p></td>
+<td><p>(unspecified/various)</p></td>
+<td><p><pre>DIALOG.filedroparea.handler = my_filedrophandler</pre> ℹ️ Optional widget specific event handler</p></td>
+</tr>
+<tr class="row-even"><td><p>text_area</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.filedroparea.text_area = ‘Drag and drop project files here’</pre> ℹ️ default: ‘&lt;drag and drop file(s) here&gt;’</p></td>
+</tr>
+<tr class="row-odd"><td><p>text_hover</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.filedroparea.text_hover = ‘Drop it!’</pre> ℹ️ default: ‘&lt;drop file(s)&gt;’</p></td>
+</tr>
+<tr class="row-even"><td><p>text_list</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.filedroparea.text_list = ‘Selected project(s)’</pre> ℹ️ default: ‘file(s):’</p></td>
+</tr>
+<tr class="row-odd"><td><p>max_length</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.filedroparea.max_length = 40</pre> ℹ️ max. characters, default: -1 (unlimited)</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="tolerances-widget">
 <h4>Tolerances widget<a class="headerlink" href="#tolerances-widget" title="Link to this heading"></a></h4>
@@ -1962,72 +2453,6 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </li>
 </ol>
 </div>
-</section>
-<section id="file-system-browser-widget">
-<h4>File system browser widget<a class="headerlink" href="#file-system-browser-widget" title="Link to this heading"></a></h4>
-<p><img alt="" src="../../_images/widget_fsbrowser.png" /></p>
-<dl class="simple myst">
-<dt>File system browser widget</dt><dd><p>The File system browser widget allows to view the file system and to select a file or a set of files, respectively. A filter can be set to show only files with certain filename extensions.</p>
-</dd>
-</dl>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.filesystemWidget.tooltip = ‘Select CAD file’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filesystemWidget.enabled = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>value</p></td>
-<td><p>(unspecified/various)</p></td>
-<td><p>The current value of the widget. Type depends on the widget type and can be ‘none’ for empty widgets.</p></td>
-</tr>
-<tr class="row-odd"><td><p>focus</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filesystemWidget.focus = True</pre>⚠️ Only works if dialog is open</p></td>
-</tr>
-<tr class="row-even"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filesystemWidget.visible = False</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>root</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.filesystemWidget.root = ‘C:/Users’</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>show_date</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filesystemWidget.show_date = True</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>show_size</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filesystemWidget.show_size = True</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>show_type</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filesystemWidget.show_type = True</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>use_multiselection</p></td>
-<td><p>bool</p></td>
-<td><p><pre># Enable selection of multiple files<br>DIALOG.filesystemWidget.use_multiselection = True</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>selected</p></td>
-<td><p>list</p></td>
-<td><p><pre>print(DIALOG.filesystemWidget.selected)<br># example output: [‘C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 1.g3d’, ‘C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 2.g3d’]</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>filter</p></td>
-<td><p>list</p></td>
-<td><p><pre># Apply a filter of filename extensions<br>DIALOG.filesystemWidget.filter = [ ‘*.g3d’, ‘*.stp’ ]</pre></p></td>
-</tr>
-</tbody>
-</table>
 </section>
 </section>
 <section id="widget-text-assignment-and-formatting-at-run-time">
@@ -2681,7 +3106,7 @@ about its attributes:</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7ff10bf1f0d0>
+  <jinja2.runtime.BlockReference object at 0x7f15f2d46cd0>
 
 
 </footer>
