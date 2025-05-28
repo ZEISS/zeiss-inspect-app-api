@@ -80,7 +80,7 @@ Furthermore, we recommend following our How-to Guides to get you started.
    howtos/using_app_editor/using_app_editor
    howtos/app_file_format/app_file_format
    howtos/python_api_introduction/file_selection_dialog
-   howtos/python_api_introduction/user_defined_dialogs
+   howtos/user_defined_dialogs/user_defined_dialogs
    howtos/scripting_solutions/scripting_solutions
    howtos/faq/faq
 ```
@@ -109,7 +109,7 @@ Furthermore, we recommend following our How-to Guides to get you started.
    :maxdepth: 1
    :caption: How-to Guides – Expert
 
-   howtos/python_api_introduction/creating_wizard_dialogs
+   howtos/user_defined_dialogs/creating_wizard_dialogs
    howtos/using_gui_libraries/using_gui_libraries
    howtos/using_shared_environments/using_shared_environments
    howtos/using_wheelhouses/using_wheelhouses
