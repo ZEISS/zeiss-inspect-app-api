@@ -31,13 +31,13 @@ Furthermore, checks shall be assigned an `abbreviation`. This is the short form 
 
 ```{seealso}
 * Detailed description of the [Scripted element API](../../python_api/scripted_elements_api.md)
-* Documentation of the [Unit widget](../python_api_introduction/user_defined_dialogs.md#unit-widget)
-* Documentation of the [Tolerances widget](../python_api_introduction/user_defined_dialogs.md#tolerances-widget) 
+* Documentation of the [Unit widget](../user_defined_dialogs/user_defined_dialogs.md#unit-widget)
+* Documentation of the [Tolerances widget](../user_defined_dialogs/user_defined_dialogs.md#tolerances-widget) 
 ```
 
 ## Types of scripted checks
 
-Currently, three types of scripted checks are supported. The `Python API Examples` App provides examples for all three. Click on the respective links to get to the example documentation.
+Currently, three types of scripted checks are supported. The `ZEISS INSPECT App Examples` provide examples for all three types. Click on the respective links to get to the example documentation.
 
 * Scripted scalar check: Check an element and assign a simple scalar value pair (nominal/actual) to it. See <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_checks/ScriptedScalarCheck/doc/Documentation.md">ScriptedScalarCheck</a>.
 * Scripted curve check: Check an existing *curve* element and assign actual/nominal values for each point of the curve. See <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_checks/ScriptedCurveCheck/doc/Documentation.md">ScriptedCurveCheck</a>.

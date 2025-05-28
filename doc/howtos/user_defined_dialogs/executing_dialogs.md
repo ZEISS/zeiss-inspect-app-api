@@ -283,7 +283,7 @@ WIDGET.value = 3.0
 | enabled   | bool                | Widget is currently active / inactive     |
 | value     | (depends on widget) | Current value                             |
 
-For the type of the value property for a specific widget, see section [Specific widgets](#specific-widgets) above. For widgets which are not used to enter some value, `value` is `None` and read-only. In addition, widgets have further attributes depending on their type (see section [Specific widgets](#specific-widgets) above for details).
+For the type of the value property for a specific widget, see [Dialog widgets](dialog_widgets.md). For widgets which are not used to enter some value, `value` is `None` and read-only. In addition, widgets have further attributes depending on their type (see [Dialog widgets](dialog_widgets.md) for details).
 
 ```{code-block} python
 :caption: Accessing widget attributes

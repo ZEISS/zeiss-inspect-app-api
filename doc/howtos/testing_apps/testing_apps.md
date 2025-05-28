@@ -147,7 +147,7 @@ In a "normal" test run, data will be compared to the stored resources.
 
 ## Testing Apps with dialogs
 
-Normally, you would have to test Apps (or parts of it) using [user-defined dialogs](../python_api_introduction/user_defined_dialogs.md) manually, but the Python class `AutoDialogContext` allows automated testing.
+Normally, you would have to test Apps (or parts of it) using [User-defined dialogs](../user_defined_dialogs/user_defined_dialogs.md) manually, but the Python class `AutoDialogContext` allows automated testing.
 
 ### Example
 
@@ -177,7 +177,7 @@ def code_that_contains_dialogs():
 code_that_contains_dialogs()
 ```
 
-For automated testing, we provide a callback function for each test case covering this dialog. We can set input values, trigger the dialog handler with a specified event and emulate the dialog's [control widgets](../python_api_introduction/user_defined_dialogs.md#control-widget) (i.e. 'Ok' or 'Cancel' button). Note that each callback function evaluates the `dialog.title`. This allows to set up a function which can handle multiple dialogs.
+For automated testing, we provide a callback function for each test case covering this dialog. We can set input values, trigger the dialog handler with a specified event and emulate the dialog's [control widgets](../user_defined_dialogs/dialog_widgets.md#control-widget) (i.e. 'Ok' or 'Cancel' button). Note that each callback function evaluates the `dialog.title`. This allows to set up a function which can handle multiple dialogs.
 
 ```{code-block} python
     def callback1(dialog):
