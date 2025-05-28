@@ -455,3 +455,7 @@ RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 ```
 
 The complete code of the example can be found here: [timer.py](assets/timer.py). 
+
+## Testing dialogs
+
+See [Testing Apps &ndash; Testing Apps with dialogs](../testing_apps/testing_apps.md#testing-apps-with-dialogs) for implementing automated tests including dialog execution.
