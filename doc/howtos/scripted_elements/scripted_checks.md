@@ -31,8 +31,8 @@ Furthermore, checks shall be assigned an `abbreviation`. This is the short form 
 
 ```{seealso}
 * Detailed description of the [Scripted element API](../../python_api/scripted_elements_api.md)
-* Documentation of the [Unit widget](../user_defined_dialogs/user_defined_dialogs.md#unit-widget)
-* Documentation of the [Tolerances widget](../user_defined_dialogs/user_defined_dialogs.md#tolerances-widget) 
+* Documentation of the [Unit widget](../user_defined_dialogs/dialog_widgets.md#unit-widget)
+* Documentation of the [Tolerances widget](../user_defined_dialogs/dialog_widgets.md#tolerances-widget) 
 ```
 
 ## Types of scripted checks
