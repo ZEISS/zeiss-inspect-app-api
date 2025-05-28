@@ -156,7 +156,7 @@ gom.app.project.alignments['<Name of the part>::Original alignment']
 
 The "elements" of the GOM Software, i.e. what you see in the element explorer of your project, hold several properties and data which you can access using the Python API.
 
-First of all, you need a reference to an element, which you can get either by [using a script dialog](user_defined_dialogs.md) or simply by referencing it by name.
+First of all, you need a reference to an element, which you can get either by a [User-defined dialog](../user_defined_dialogs/user_defined_dialogs.md) or simply by referencing it by name.
 
 If you have installed the `Python API Examples` App from the store and loaded the `zeiss_part_test_project` (see the [Python API Examples Documentation](../../python_examples/index.md)), you can reference the mesh like this:
 
