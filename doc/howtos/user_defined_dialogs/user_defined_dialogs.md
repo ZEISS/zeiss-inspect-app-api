@@ -9,7 +9,7 @@ You can add a GUI to your App by creating user-defined dialogs, which are based 
 
 ## Creating dialogs
 
-- [Dialog designer](#dialog-designer)
+- [Dialog Editor](#dialog-editor)
 - [Dialog layout](#dialog-layout)
     - [Editing the grid](#editing-the-grid)
     - [Spacers](#spacers)
@@ -126,6 +126,10 @@ Editing the layout means changing the underlying grid.
 * All other cells share the remaining space.
 
 ![](assets/spacer.png)
+
+#### Layout widgets
+
+See <a href="fialog_widgets.html#layout">Dialog widgets &ndash; Layout</a> for additional layout features.
 
 ### Widgets
 
