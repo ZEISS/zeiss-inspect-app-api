@@ -81,6 +81,8 @@ Furthermore, we recommend following our How-to Guides to get you started.
    howtos/app_file_format/app_file_format
    howtos/python_api_introduction/file_selection_dialog
    howtos/user_defined_dialogs/user_defined_dialogs
+   howtos/user_defined_dialogs/dialog_widgets
+   howtos/user_defided_dialogs/executing_dialogs
    howtos/scripting_solutions/scripting_solutions
    howtos/faq/faq
 ```
