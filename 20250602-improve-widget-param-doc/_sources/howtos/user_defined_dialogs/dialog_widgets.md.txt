@@ -245,7 +245,7 @@ visible    (boolean)
 : Visible state of the widget. Default is 'visible', set to false for setting it invisible.
 
 handler    (unspecified/various)
-: Individual event handler of the widget. If empty or no valid function, the dialog event handler is called instead.
+: Individual event handler of the widget. If empty or no valid function, the dialog event handler is called instead. See [Executing dialogs &ndash; Event handler functions](executing_dialogs.md#event-handler-functions).
 
 ### Example
 
@@ -268,14 +268,6 @@ DIALOG.handler = dialog_event_handler
 
 RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 ```
-
-
-|   | Type  | Example                                                                               |
-| --------- | ----- | ------------------------------------------------------------------------------------- |
-| tooltip   | str   | <pre>DIALOG.label.tooltip = 'This is just a label!'</pre>                             |
-| enabled   | bool  | <pre>DIALOG.label.enabled = False</pre>                                               |
-| focus     | bool  | <pre>DIALOG.label.focus = True</pre>⚠️ Only works if dialog is open                   |
-| visible   | bool  | <pre>DIALOG.label.visible = False</pre>                                               |
 
 ## Output
 
