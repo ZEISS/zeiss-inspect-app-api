@@ -1099,11 +1099,11 @@ filter      (function)
 : Element filter function for custom type element selector widgets                                                  
 
 fast_filter (function)
-: Faster element filter function for custom type element selector widgets. Switch expected filter function signature, bulk vs. single element:\
+: Faster element filter function for custom type element selector widgets. Switch expected filter function signature, bulk vs. single element:
 * `True`: List of elements → Iterable of bools
 * `False`: Single element → bool (default)
 
-use_not_defined
+use_not_defined (boolean)
 : Enable to initially show an empty choice for user-defined filter functions, i.e. like the other element types. (default: 'False')
 
 `elementSelectionWidget` is the object name of the element selection widget in the example below.
@@ -1167,7 +1167,7 @@ value      (string)
 : The current value
 
 index (integer)
-: Index of selected list item                     |    
+: Index of selected list item
 
 items      (list)
 : List of items 
