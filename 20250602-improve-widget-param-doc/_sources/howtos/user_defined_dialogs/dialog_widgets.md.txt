@@ -898,10 +898,10 @@ value                (object)
 : The current color value (gom.Color object)
 
 color                (QColor)
-: The current color value (gom.Color object)
+: The current selected color value (gom.Color object)                                                                                        
 
-: Current selected color                                                                                            
-transparency_allowed (boolean)             - Transparency allowed 
+transparency_allowed (boolean)
+: Transparency allowed 
 
 ```{code-block} python
 :caption: Color widget example
@@ -1020,30 +1020,31 @@ The top widget has focus. The arrows are just examples for icons.\
 ![](assets/widget_split_button.png)
 
 Split button widget
-: A split button is a hybrid between a button and an options menu. Each item consist of text and/or an icon. One of the modes `'instant'`, `'menu'` or `'tool'` can be configured.
+: A split button is a hybrid between a button and an options menu. Each item consist of text and/or an icon. One of the modes 'instant', 'menu' or 'tool' can be configured.
 
-`'instant'` mode
+value      (integer)
+: Index of pressed button
+
+items      (list)
+: List of lists defining items [[string, base64]]
+
+texts      (list)
+: List of texts for items [string]
+
+icons      (list)
+: List of icons for items [base64]
+
+mode       (string)
+: Button mode ('instant', 'menu', 'tool')
+
+'instant' mode
 : You must open the menu to click a button. The initial button remains fixed.
 
-`'menu'` mode
+'menu' mode
 : You can click the initial button immediately or open the menu to click any available button. The initial button remains fixed.
 
-`'tool'` mode
+'tool' mode
 : You can click the initial button immediately or open the menu to click any available button. The initial button changes to the clicked button. 
-
-| Property | Type  | Example                                                                               |
-| -------- | ----- | ------------------------------------------------------------------------------------- |
-| tooltip  | str   | <pre>DIALOG.button.tooltip = 'Start aquisition'</pre>                                 |
-| enabled  | bool  | <pre>DIALOG.button.enabled = False</pre>                                              |
-| value    | int   | <pre>if DIALOG.button.value == 0:</pre> ℹ️ Index of pressed button                   |
-| focus    | bool  | <pre>DIALOG.button2.focus = True</pre>                                                |
-| visible  | bool  | <pre>DIALOG.button.visible = False</pre>                                              |
-| handler  | (unspecified/various) | <pre>DIALOG.button.handler = my_buttonhandler</pre> ℹ️ Optional widget specific event handler |
-| items    | list  | <pre>print(DIALOG.button.items)</pre> List of lists defining items [[string, base64]] |
-| texts    | list  | <pre>print(DIALOG.button.items)</pre> List of texts for items [string]                |
-| icons    | list  | <pre>print(DIALOG.button.items)</pre> List of icons for items [base64]                |
-| mode     | str   | <pre>DIALOG.button.mode = 'tool'</pre> ℹ️ Button mode (instant, menu, tool)          |
-
 
 ### Toggle bar widget
 
@@ -1054,20 +1055,26 @@ Split button widget
 Toggle bar widget
 : The toggle bar widget allows to select one of several items. Each item consists of text and/or an icon.
 
-| Property | Type  | Example                                                                               |
-| -------- | ----- | ------------------------------------------------------------------------------------- |
-| tooltip  | str   | <pre>DIALOG.toggle.tooltip = 'Select shape'</pre>                                     |
-| enabled  | bool  | <pre>DIALOG.toggle.enabled = False</pre>                                              |
-| value    | int   | <pre>if DIALOG.toggle.value == 0:</pre> ℹ️ Index of selected item                    |
-| focus    | bool  | <pre>DIALOG.toggle2.focus = True</pre>                                                |
-| visible  | bool  | <pre>DIALOG.toggle.visible = False</pre>                                              |
-| handler  | (unspecified/various) | <pre>DIALOG.toggle.handler = my_togglehandler</pre> ℹ️ Optional widget specific event handler |
-| items    | list  | <pre># List of lists defining items (text, icon, tooltip) [[string, base64, string]] |                                                           
-| texts    | list  | <pre># List of texts for items [string]</pre>                                        |                                                                                  
-| icons    | list  | <pre># List of icons for items [base64]</pre>                                        |                                                                                  
-| tooltips | list  | <pre># List of tooltips for items [string]</pre>                                     |                                                                              
-| style    | str   | <pre># Style of buttons (icon, text, icon_and_text)</pre>                            |                                                                      
-| mode     | str   | <pre># Label mode for button group (no_label, label)                                 |
+value      (integer)
+:  Index of selected item
+
+items      (list)
+: List of lists defining items [[string, base64, string]]                                                           
+
+texts      (list)
+: List of texts for items [string]                                                                                  
+
+icons      (list)
+: List of icons for items [base64]                                                                                  
+
+tooltips   (list)
+: List of tooltips for items [string]                                                                               
+
+style      (string)
+: Style of buttons ('icon', 'text', 'icon_and_text')
+
+mode       (string)
+: Label mode for button group ('no_label', 'label')
 
 ### Selection element widget
 
@@ -1082,30 +1089,39 @@ Selection element widget
   * Direction
   * User-defined
 
+value       (special)
+: The current selected element. May also be `None` for user-defined `filter` and `use_not_defined`
+
+supplier    (string)
+: Type of elements handled by this widget (any, points, lines, planes, directions, coordinate_systems, custom)      
+
+filter      (function)
+: Element filter function for custom type element selector widgets                                                  
+
+fast_filter (function)
+: Faster element filter function for custom type element selector widgets. Switch expected filter function signature, bulk vs. single element:\
+* `True`: List of elements → Iterable of bools
+* `False`: Single element → bool (default)
+
+use_not_defined
+: Enable to initially show an empty choice for user-defined filter functions, i.e. like the other element types. (default: 'False')
+
 `elementSelectionWidget` is the object name of the element selection widget in the example below.
 
-``` python
+```{code-block} python
+:caption: Selection element widget example
+
 DIALOG=gom.script.sys.execute_user_defined_dialog (dialog='dialog.gdlg')
 
 selectedElement = DIALOG.elementSelectionWidget
 print(selectedElement.value ) # output: gom.app.project.inspection['Equidistant Surface Points 1']
 ```
 
-| Property        | Type      | Example                                                                                                                                                                                         |
-|-----------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| tooltip         | str       | <pre>DIALOG.selectElement.tooltip = 'Select a line for rotation'</pre>                                                                                                                          |
-| enabled         | bool      | <pre>DIALOG.selectElement.enabled = False</pre>                                                                                                                                                 |
-| value           | (special) | <pre>if DIALOG.selectElement.value != None:</pre>_Note:_<br>May also be `None` for user-defined `filter` and `use_not_defined` enabled.                                                         |
-| focus           | bool      | <pre>DIALOG.selectElement.focus = True</pre>⚠️ Only works if dialog is open                                                                                                                     |
-| visible         | bool      | <pre>DIALOG.selectElement.visible = False</pre>                                                                                                                                                 |
-| supplier        | str       | <pre># Read-only property<br># Possible values: 'any', 'points', 'lines', 'planes', 'directions', 'custom'<br>print(DIALOG.selectElement.supplier)</pre>                                        |
-| filter          | function  | Element filter function for the 'custom' supplier. See example below.                                                                                                                           |
-| fast_filter     | bool      | Switch expected filter function signature, bulk vs. single element:<br/><ul><li>`True`: List of elements → Iterable of bools</li><li>`False`: Single element → bool</li></ul>_Default:_ `False` |
-| use_not_defined | bool      | Enable to initially show an empty choice for user-defined filter functions,<br>i.e. like the other element types.<br/> _Default:_ `False`                                                          |
-
 The following script shows how to use a custom filter for element selection. The example filter allows the user to select a system plane:
 
-``` python
+```{code-block} python
+:caption: Selection element widget with custom filter
+
 DIALOG4 = gom.script.sys.create_user_defined_dialog(file='dialog.gdlg')
 
 
@@ -1147,22 +1163,23 @@ Please find the complete example here: [dialog_custom_elem_select.py](assets/dia
 Selection list widget
 : The Selection list widget allows to make a selection from a predefined set of options. The selected item can be accessed from a script through its object name (e.g. `selectionListWidget`) as follows.
 
-``` python
+value      (string)
+: The current value
+
+index (integer)
+: Index of selected list item                     |    
+
+items      (list)
+: List of items 
+
+```{code-block} python
+:caption: Selection list widget attributes example
+
 selectedValue = DIALOG.selectionListWidget.value
 selectedIndex = DIALOG.selectionListWidget.index
 print( selectedValue ) # output: entry2
 print( selectedIndex ) # output: 1
-```
-
-| Property | Type        | Example                                                                                              |
-| -------- | ----------- | ---------------------------------------------------------------------------------------------------- |
-| tooltip  | str         | <pre>DIALOG.selectEntry.tooltip = 'Select one of the operating modes'</pre>                          |
-| enabled  | bool        | <pre>DIALOG.selectEntry.enabled = False</pre>                                                        |
-| value    | str         | <pre>DIALOG.selectEntry.value = 'Debug'</pre>                                                        |
-| focus    | bool        | <pre>DIALOG.selectEntry.focus = True</pre>⚠️ Only works if dialog is open                           |
-| visible  | bool        | <pre>DIALOG.select_mode.visible = False</pre>                                                        |
-| items    | list of str | <pre>DIALOG.selectEntry.items = ['Debug', 'Info', 'Warn', 'Error', 'Fatal']</pre>                    |
-| index    | int         | <pre>print(f'List item with index {DIALOG.selectEntry.index} is selected.')</pre>                    |             
+```            
 
 ### Combo box widget
 
@@ -1176,15 +1193,18 @@ Selection in progress\
 Combo box widget
 : The combo box allows to select multiple items from a list. Each item consists of text and data (represented as string).
 
-| Property | Type        | Example                                                                                              |
-| -------- | ----------- | ---------------------------------------------------------------------------------------------------- |
-| tooltip  | str         | <pre>DIALOG.list.tooltip = 'Select one of the operating modes'</pre>                                 |
-| enabled  | bool        | <pre>DIALOG.list.enabled = False</pre>                                                               |
-| value    | str         | <pre>DIALOG.list.value = ['circles', 'cones']</pre> ℹ️ Assign a list of data items                   |
-| focus    | bool        | <pre>DIALOG.list.focus = True</pre>⚠️ Only works if dialog is open                                   |
-| visible  | bool        | <pre>DIALOG.list.visible = False</pre>                                                               |
-| handler  | (unspecified/various) | <pre>DIALOG.toggle.handler = my_listhandler</pre> ℹ️ Optional widget specific event handler |
-| items    | list        | <pre># List of items (display text, data)</pre>                                                      |
+value      (list)
+: List of selected items (data)
+
+items      (list)
+: List of available items (display text, data)
+
+```{code-block} python
+:caption: Combo box widget attributes example
+
+# Assign a list of selected data items
+DIALOG.shape_list.value = ['circles', 'cones']
+```
 
 ## Buttons
 
