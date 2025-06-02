@@ -212,6 +212,83 @@ RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 
 [Creating wizard dialogs](creating_wizard_dialogs.md) shows some ways to manage wizard dialogs in greater detail.
 
+## Common widget attributes
+
+The following attributes are common to all widgets listed in the following sections:
+
+* [Output](#output)
+* [Input](#input)
+* [Selection](#selection)
+* [Buttons](#buttons)
+* [Layout](#layout)
+* [Other](#other)
+
+```{py:property} name
+
+Name of the widget. The name can be used to access the widget via a dialog handle.
+:type: str             
+```
+
+```{py:property} tooltip
+
+Tooltip of the widget. If empty, no tooltip is displayed.
+:type: str      
+```
+
+```{py:property} enabled
+
+Enabled state of the widget. Default is 'enabled', set to false for disabling it.
+:type: bool  
+```
+
+```{py:property} value
+
+The current value of the widget. Type depends on the widget type and can be 'none' for empty widgets.
+:type: unspecified/various       
+```
+
+```{py:property} attributes
+
+Map of all accessable widget attributes together with their current values.
+:type: map
+```
+
+```{py:property} focus
+
+Focus state of the widget. Can be used to set an explicit widget focus.
+:type: bool
+```
+
+```{py:property} visible
+
+Visible state of the widget. Default is 'visible', set to false for setting it invisible.
+:type: bool
+```
+
+```{py:property} handler
+
+Individual event handler of the widget. If empty or no valid function, the dialog event handler is called instead.
+:type: unspecified/various
+```
+
+tooltip    (string)              
+: Tooltip of the widget. If empty, no tooltip is displayed.
+
+enabled    (boolean)             - Enabled state of the widget. Default is 'enabled', set to false for disabling it.                                 
+value      (unspecified/various) - The current value of the widget. Type depends on the widget type and can be 'none' for empty widgets.             
+attributes (map)                 - Map of all accessable widget attributes together with their current values.                                       
+focus      (boolean)             - Focus state of the widget. Can be used to set an explicit widget focus.                                           
+visible    (boolean)             - Visible state of the widget. Default is 'visible', set to false for setting it invisible.                         
+handler    (unspecified/various) - Individual event handler of the widget. If empty or no valid function, the dialog event handler is called instead.
+
+
+|   | Type  | Example                                                                               |
+| --------- | ----- | ------------------------------------------------------------------------------------- |
+| tooltip   | str   | <pre>DIALOG.label.tooltip = 'This is just a label!'</pre>                             |
+| enabled   | bool  | <pre>DIALOG.label.enabled = False</pre>                                               |
+| focus     | bool  | <pre>DIALOG.label.focus = True</pre>⚠️ Only works if dialog is open                   |
+| visible   | bool  | <pre>DIALOG.label.visible = False</pre>                                               |
+
 ## Output
 
 ### Description field (label) widget
