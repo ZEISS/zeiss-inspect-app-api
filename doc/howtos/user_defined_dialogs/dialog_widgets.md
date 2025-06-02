@@ -1215,7 +1215,7 @@ DIALOG.shape_list.value = ['circles', 'cones']
 ![](assets/widget_button_on.png)
 
 Button widget
-: The Button widget allows to trigger an event or to return a boolean value, respectively. There are two types of buttons: push buttons and toggle buttons. The push button is a regular button and needs an event handler to manage its action. The toggle button has two states - active and inactive - and the user can toggle between them by clicking the button. The button is highlighted in active state as shown in the screenshot. The state of the toggle button can be accessed as follows.
+: The Button widget allows to trigger an event or to return a boolean value, respectively. There are two types of buttons: push buttons and toggle buttons. The push button is a regular button and needs an event handler to manage its action. The toggle button has two states - active and inactive - and the user can toggle between them by clicking the button. The button is highlighted in active state as shown in the screenshot. The state of the toggle button can be accessed via the 'value' attribute.
 
 value            (boolean)
 : The current button value (only useful for toggle button)
@@ -1269,7 +1269,8 @@ value      (string)
 : The current selected radio button. This can be `None`.
 
 items      (list)
-: List of radio button items (data, display text), e.g. `DIALOG.radiobuttons.items = [['Value1', 'Title1'], ['Value2', 'Title2'], ['Value3', 'Title3']]`
+: List of radio button items (data, display text), e.g.\
+`DIALOG.radiobuttons.items = [['Value1', 'Title1'], ['Value2', 'Title2'], ['Value3', 'Title3']]`
 
 default    (string)
 : Default enabled radio button, e.g. `DIALOG.radiobuttons.default = 'Value2'`
