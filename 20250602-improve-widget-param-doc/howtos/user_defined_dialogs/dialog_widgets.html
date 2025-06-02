@@ -491,7 +491,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </dd>
 <dt>visible    (boolean)</dt><dd><p>Visible state of the widget. Default is ‘visible’, set to false for setting it invisible.</p>
 </dd>
-<dt>handler    (unspecified/various)</dt><dd><p>Individual event handler of the widget. If empty or no valid function, the dialog event handler is called instead.</p>
+<dt>handler    (unspecified/various)</dt><dd><p>Individual event handler of the widget. If empty or no valid function, the dialog event handler is called instead. See <a class="reference internal" href="executing_dialogs.html#event-handler-functions"><span class="std std-ref">Executing dialogs – Event handler functions</span></a>.</p>
 </dd>
 </dl>
 <section id="example">
@@ -515,32 +515,6 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
 </pre></div>
 </div>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p></p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.label.tooltip = ‘This is just a label!’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.label.enabled = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>focus</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.label.focus = True</pre>⚠️ Only works if dialog is open</p></td>
-</tr>
-<tr class="row-odd"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.label.visible = False</pre></p></td>
-</tr>
-</tbody>
-</table>
 </section>
 </section>
 <section id="output">
@@ -2452,7 +2426,7 @@ The top widget has focus. The arrows are just examples for icons.<br />
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f8919fd9b70>
+  <jinja2.runtime.BlockReference object at 0x7fc8dee60e50>
 
 
 </footer>
