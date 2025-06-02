@@ -278,15 +278,11 @@ RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 Description field (label) widget
 : The Description field (label) widget allows to display static text. It is typically used for labelling a section or an individual element of a dialog.
 
-| Property  | Type  | Example                                                                               |
-| --------- | ----- | ------------------------------------------------------------------------------------- |
-| tooltip   | str   | <pre>DIALOG.label.tooltip = 'This is just a label!'</pre>                             |
-| enabled   | bool  | <pre>DIALOG.label.enabled = False</pre>                                               |
-| focus     | bool  | <pre>DIALOG.label.focus = True</pre>⚠️ Only works if dialog is open                   |
-| visible   | bool  | <pre>DIALOG.label.visible = False</pre>                                               |
-| text      | str   | <pre>DIALOG.label.text = 'New label:'</pre>                                           |
-| word_wrap | bool  | <pre>DIALOG.label.word_wrap = True</pre>                                              |
-
+text (string)
+: Label text
+                                                                                                  
+word_wrap  (boolean)
+: Word wrap
  
 ### Continuous text widget
 
@@ -294,6 +290,25 @@ Description field (label) widget
 
 Continuous text widget
 : The Continuous text widget allows to display static text and keywords. A double click onto a text field widget opens the content editor. Some formatting can be applied.
+
+
+text (string)
+: Continuous text widget contents
+
+word_wrap  (boolean)
+: Word wrap
+
+default_font_family (string)
+: Default font name
+
+default_font_size (integer)
+: Default font size
+
+```{code-block} python
+DIALOG.text = "How to become a professional metrologist"
+DIALOG.text.default_font = 'Arial Black'
+DIALOG.text.default_font_size = 16
+```
 
 | Editor                     | Dialog                      |
 | -------------------------- | --------------------------- |
@@ -315,14 +330,7 @@ Continuous text widget
 % 
 % To Do: Check how to insert local variables
 
-| Property            | Type | Example                                                    |
-| ------------------- | ---- | ---------------------------------------------------------- |
-| enabled             | bool | <pre>DIALOG.textWidget.enabled = False</pre>               |
-| text                | str  | <pre>print(DIALOG.textWidget.text)</pre>                   |
-| wordwrap            | bool | <pre>DIALOG.textWidget.wordwrap = True</pre>               |
-| visible             | bool | <pre>DIALOG.textWidget.visible = False</pre>               |                              
-| default_font_family | str  | <pre>DIALOG.textWidget.default_font_family = 'Arial Black'</pre> |                      
-| default_font_size   | int  | <pre>DIALOG.textWidget.default_font_size = 12</pre>        |
+
 
 #### Displaying keywords in a continuous text widget
 
@@ -398,19 +406,29 @@ gom.script.sys.execute_user_defined_dialog (dialog={
 Image widget
 : The Image widget allows to display arbitrary images.
 
+use_system_image (bool)
+: Use system image instead of a user defined custom image
 
-| Property           | Type      | Example                                                      |
-| ------------------ | --------- | ------------------------------------------------------------ |
-| enabled            | bool      | <pre>DIALOG.image.enabled = False</pre>                      |
-| use_system_image   | bool      | <pre>DIALOG.image.use_system_image = True</pre>              |
-| system_image       | str       | <pre># Possible values: 'system_message_information', 'system_message_warning',<br> 'system_message_critical', 'system_message_question'<br>DIALOG.image.system_image = 'system_message_question'</pre> |
-| file_name          | str       | read-only!                                                   |
-| keep_original_size | bool      | read-only!                                                   |
-| keep_aspect        | bool      | read-only!                                                   |
-| data               | (special) | <pre># This is the actual image data<br># Copy image from one dialog to another:<br>my_dialog.my_image.data = image_container_dialog.image_1.data</pre> |
-| width              | int       | <pre>print('image width ' + str(DIALOG.image.width))</pre>   |
-| height             | int       | <pre>print('image height ' + str(DIALOG.image.height))</pre> |
-| visible            | bool      | <pre>DIALOG.image.visible = False</pre>              |
+system_image       (string)
+: Name of the system image to display. Valid names are: 'system_message_information', 'system_message_warning', 'system_message_critical', 'system_message_question'
+
+data             (QImage)
+:Custom image data to be displayed
+
+file_name          (string)
+: Source file name of the image (read-only)
+
+keep_original_size (boolean)
+: Keep original image size (read-only)
+
+keep_aspect        (boolean)
+: Keep original image aspect ratio (read-only)
+
+width
+: Image width (read-only)                                                                                                                                              
+
+height
+: Image height (read-only)
 
 Note that you can switch from a system image to a user image using the property `use_system_image`. But this user image must have been selected beforehand in the designer. You cannot read a new image file by setting the `filename` property. Also, all of the image formatting properties (`keep_original_size`, `keep_aspect`, `width`, `height`) only work in the designer. From the script you can only read these values. Although you cannot read images using the `filename` property you can copy images from one dialog to another using the `data` property. So you are able to prepare (create) a dialog as an image container holding several images. You can then use this image container dialog to copy the image you need to an actually displayed dialog.
 
@@ -478,16 +496,11 @@ Expanded\
 Information box widget
 : The Information box widget allows to show text. You can toggle between expanded and collapsed state at run time. The default state can be configured.
 
-| Property             | Type      | Example                                                        |
-| -------------------- | --------- | -------------------------------------------------------------- |                               
-| tooltip              | str       | <pre>DIALOG.information.tooltip = 'About this widget'</pre>    |                                                        
-| enabled              | bool      | <pre>DIALOG.information.enabled = True</pre>                   |                                             
-| value                | (unspecified/various) | n.a.                                               |                                         
-| focus                | bool      | <pre>DIALOG.information.focus = True</pre> ⚠️ Only works if dialog is open |                                          
-| visible              | bool      | <pre>DIALOG.information.visible = False</pre>                  |
-| handler              | unspecified/various | <pre>DIALOG.information.handler = information_handler |
-| text                 | str       | <pre>DIALOG.information.text = "This is an information box"    |                                                                                             
-| expanded             | bool      | <pre>DIALOG.information.expanded = True                        |
+text       (string)              
+: Information text
+
+expanded   (boolean)
+: Initial expanded state
 
 ### Log widget
 
@@ -496,17 +509,23 @@ Information box widget
 Log widget
 : The Log widget can display multiple lines of unformatted text, which can be easily saved to a text file by clicking the save button.
 
+text                 (string)
+: Log text
 
-| Property             | Type      | Example                                                        |
-| -------------------- | --------- | -------------------------------------------------------------- |
-| enabled              | bool      | <pre>DIALOG.log.enabled = True</pre>                           |
-| text                 | str       | <pre>DIALOG.log.text += 'Yet another log message.\n</pre>      |
-| word_wrap            | bool      | <pre>DIALOG.log.word_wrap = True</pre>                         |
-| show_save            | bool      | <pre>DIALOG.log.show_save = False</pre>                        |
-| save_dialog_title    | str       | <pre>DIALOG.log.save_dialog_title = 'Save operator log'</pre>  |
-| scroll_automatically | bool      | <pre>DIALOG.log.scroll_automatically = True</pre>              |
-| visible              | bool      | <pre>DIALOG.log.visible = False</pre>                          |
-| monospace            | bool      | <pre># Use monospace font<br>DIALOG.log.monospace = True</pre> |
+word_wrap            (boolean)
+: Wrap log text
+
+show_save            (boolean)
+: Show save button
+
+save_dialog_title    (string)
+: Title of the save dialog
+
+scroll_automatically (boolean)
+: Scroll to end of text when new lines are added
+
+monospace            (boolean)
+: Use monospace font
 
 ### Progress bar widget
 
@@ -514,6 +533,26 @@ Log widget
 
 Progress bar widget
 : The Progress bar widget can be used in the two modes _system_ and _manual_.
+
+value      (integer)
+: Current value                                                                                                     
+
+minimum    (integer)             - Minimum value                                                                                                     
+
+maximum    (integer)
+: Maximum value                                                                                                     
+
+parts      (integer)
+: Progress bar parts                                                                                                
+
+step       (integer)
+: Current progress bar step                                                                                         
+
+text       (string)
+: Progress bar text mode (none, percentage, step)                                                                   
+
+mode       (string)
+: Progress bar mode (system, manual)
 
 Manual mode
 : In this mode, the user may set the progress bar through its `value` variable.
@@ -534,7 +573,7 @@ Manual mode
     gom.script.sys.close_user_defined_dialog (dialog=DIALOG)
     ```
 
-Automatic mode
+System mode
 : In this mode, the progress bar displays the same progress informations as the progress bar in the lower right corner of the software.
 
     ```{code-block} python
