@@ -639,22 +639,8 @@ Partially controlled system progress bar
   ```
 
 ```{note}
-It is possible to switch  between automatic and manual mode for each part.
+It is possible to switch  between system and manual mode for each part.
 ```
-
-| Property | Type  | Example                                                                                 |
-| -------- | ----- | --------------------------------------------------------------------------------------- |
-| tooltip  | str   | <pre>DIALOG.progressbar.tooltip = 'Work in progress!'</pre>                             |
-| enabled  | bool  | <pre>DIALOG.progressbar.enabled = False</pre>                                           |
-| value    | int   | <pre>if DIALOG.progressbar.value < 50:</pre>                                            |
-| focus    | bool  | <pre>DIALOG.progressbar.focus = True</pre>⚠️ Only works if dialog is open              |
-| minimum  | int   | <pre>DIALOG.progressbar.minimum = 20</pre>                                              |
-| maximum  | int   | <pre>DIALOG.progressbar.maximum = 50</pre>                                              |
-| visible  | bool  | <pre>DIALOG.progressbar.visible = False</pre>                                           |
-| parts    | int   | <pre># Set number of progress bar parts<br>DIALOG.progressbar.parts = 3</pre>           |
-| step     | int   | <pre># Set current step<br>DIALOG.progressbar.step = 0</pre>                            |
-| text     | str   | <pre># Set text mode (none, percentage, step)<br>DIALOG.progressbar.text = 'step'</pre> |
-| mode     | str   | <pre># Set mode (system, manual)<br>DIALOG.progressbar.mode = 'manual'</pre>            |
 
 ## Input
 
