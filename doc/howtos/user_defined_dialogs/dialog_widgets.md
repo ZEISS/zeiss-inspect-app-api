@@ -658,7 +658,7 @@ value      (integer)
 : The current input value
 
 minimum    (double)
-- Minimum possible value
+: Minimum possible value
 
 maximum    (double)
 : Maximum possible value
@@ -668,16 +668,6 @@ maximum    (double)
 RESULT=gom.script.sys.execute_user_defined_dialog (file='dialog.gdlg')
 userInput = RESULT.integerWidget
 ```
-
-| Property | Type   | Example                                                                |
-| -------- | ------ | ---------------------------------------------------------------------- |
-| tooltip  | str    | <pre>DIALOG.inputInt.tooltip = 'Enter the number of points!'</pre>     |
-| enabled  | bool   | <pre>DIALOG.inputInt.enabled = False</pre>                             |
-| value    | int    | <pre>if DIALOG.inputInt.value < 15:</pre>                              |
-| focus    | bool   | <pre>DIALOG.inputInt.focus = True</pre>⚠️ Only works if dialog is open |
-| visible  | bool   | <pre>DIALOG.inputInt.visible = False</pre>                             |
-| minimum  | double | <pre>DIALOG.inputInt.minimum = 20</pre>                                |
-| maximum  | double | <pre>DIALOG.inputInt.maximum = 50</pre>                                |
 
 ### Decimal widget
 
@@ -690,7 +680,7 @@ value             (double)
 : The current input value
 
 minimum           (double)
-- Minimum possible value
+: Minimum possible value
 
 maximum           (double)
 : Maximum possible value
@@ -699,7 +689,7 @@ precision         (double)
 : Value precision (number of decimals)
 
 unit              (string)
-: Unit id
+: Unit ID
 
 default_precision (boolean)
 : Use default precision                                                                                             
@@ -708,12 +698,14 @@ background_style  (string)
 : Style sheet based background color (red, green, blue) 
 
 ```{code-block} python
+:caption: Decimal widget example
+
 RESULT=gom.script.sys.execute_user_defined_dialog (file='dialog.gdlg')
 userInput = RESULT.decimalWidget
 ```
 
 ```{code-block} python
-:caption: Devimal widget attributes example
+:caption: Decimal widget attributes example
 
 DIALOG.decimalWidget.precision = 2
 DIALOG.decimalWidget.unit = 'LENGTH'
@@ -721,6 +713,10 @@ DIALOG.decimalWidget.unit = 'LENGTH'
 
 % No visible effect:
 % background_style - str - Set style sheet based background color  - red, green, blue 
+
+```{hint}
+See [Tech Guide: What are the Possibilities for Unit Conversions Usable in Scripts?](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/faq_what_are_the_possibilities_for_unit_conversion_usable_in_scripts.html) for available units.
+```
 
 ### Text entry field
 ![](assets/widget_text_entry.png)
@@ -741,7 +737,9 @@ password   (boolean)
 % Usage?
 % validator  (Tom::GScript::Callable) - Input validator
 
-``` python
+```{code-block} python
+:caption: Text entry field example
+
 DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 DIALOG.textEntryWidget = "some default text"
 RESULT = gom.script.sys.show_user_defined_dialog(dialog = DIALOG)
@@ -777,7 +775,9 @@ step          (double)
 orientation   (string)
 : Widget orientation ('horizontal' or 'vertical')
 
-``` python
+```{code-block} python
+:caption: Slider widget example
+
 DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 RESULT = gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
@@ -800,7 +800,9 @@ title      (string)
 style      (string)
 : Style of the checkbox
 
-``` python
+```{code-block} python
+:caption: Checkbox widget example
+
 DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
@@ -867,7 +869,9 @@ day               (integer)
 show_today_button (boolean)
 : Show button for setting the current date
 
-``` python
+```{code-block} python
+:caption: Date widget example
+
 DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 dateObject = DIALOG.dateWidget.value # date object
 print( DIALOG.dateWidget.year )  # integer
@@ -891,7 +895,9 @@ color                (QColor)
 : Current selected color                                                                                            
 transparency_allowed (boolean)             - Transparency allowed 
 
-``` python
+```{code-block} python
+:caption: Color widget example
+
 DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 #
@@ -922,7 +928,9 @@ value
 See [Tech Guide: What are the Possibilities for Unit Conversions Usable in Scripts?](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/faq_what_are_the_possibilities_for_unit_conversion_usable_in_scripts.html) for available units.
 ```
 
-``` python
+```{code-block} python
+:caption: Unit widget example
+
 DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 #
@@ -968,7 +976,9 @@ mode       (string)
 read_only  (boolean)
 : Read only  
 
-```python
+```{code-block} python
+:caption: Element name widget example
+
 # Let the user define 3 new points (the coordinates are created automatically in this example)
 for i in range(3):
     DIALOG=gom.script.sys.create_user_defined_dialog (dialog='dialog definition')
@@ -990,17 +1000,6 @@ for i in range(3):
         point={'point': gom.Vec3d (i+10.0, 0.0, 0.0)}
     )
 ```
-
-| Property | Type  | Example                                                                               |
-| -------- | ----- | ------------------------------------------------------------------------------------- |
-| tooltip  | str   | <pre>DIALOG.inputEleName.tooltip = 'Enter the number of points!'</pre>                |
-| enabled  | bool  | <pre>DIALOG.inputEleName.enabled = False</pre>                                        |
-| value    | int   | <pre>DIALOG.inputEleName.value = 'Blob'</pre>                                         |
-| focus    | bool  | <pre>DIALOG.inputEleName.focus = True</pre>⚠️ Only works if dialog is open           |
-| visible  | bool  | <pre>DIALOG.inputEleName.visible = False</pre>                                        |
-| basename | str   | <pre>DIALOG.inputEleName.basename = 'Point'</pre>                                     |
-| mode     | str   | <pre># Mode to get the name suggestion from. ('manually', 'from_element_type', 'check_like')<br>DIALOG.inputEleName.mode = 'from_element_type'</pre> |
-| read_only | bool | <pre># Keep user from changing the default<br>DIALOG.inputEleName.read_only = true</pre> |
 
 ## Selection
 
