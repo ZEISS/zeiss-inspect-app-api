@@ -305,6 +305,8 @@ default_font_size (integer)
 : Default font size
 
 ```{code-block} python
+:caption: Continuous text widget attributes example
+
 DIALOG.text = "How to become a professional metrologist"
 DIALOG.text.default_font = 'Arial Black'
 DIALOG.text.default_font_size = 16
@@ -410,10 +412,10 @@ use_system_image (bool)
 : Use system image instead of a user defined custom image
 
 system_image       (string)
-: Name of the system image to display. Valid names are: 'system_message_information', 'system_message_warning', 'system_message_critical', 'system_message_question'
+: Name of the system image to display. Valid names are: 'system_message_information', 'system_message_warning', 'system_message_critical', 'system_message_question'.
 
 data             (QImage)
-:Custom image data to be displayed
+: Custom image data to be displayed
 
 file_name          (string)
 : Source file name of the image (read-only)
@@ -537,7 +539,8 @@ Progress bar widget
 value      (integer)
 : Current value                                                                                                     
 
-minimum    (integer)             - Minimum value                                                                                                     
+minimum    (integer)
+: Minimum value                                                                                                     
 
 maximum    (integer)
 : Maximum value                                                                                                     
@@ -651,6 +654,16 @@ It is possible to switch  between system and manual mode for each part.
 Integer widget
 : The Integer widget is used to request an integer value from the user. `integerWidget` is the object name of the integer widget in the example below.
 
+value      (integer)
+: The current input value
+
+minimum    (double)
+- Minimum possible value
+
+maximum    (double)
+: Maximum possible value
+
+
 ``` python
 RESULT=gom.script.sys.execute_user_defined_dialog (file='dialog.gdlg')
 userInput = RESULT.integerWidget
@@ -673,22 +686,38 @@ userInput = RESULT.integerWidget
 Decimal widget
 : The Decimal widget is used to request a floating point value from the user. It is possible to choose the number of digits and a unit. The selectable units are the ones from the user preferences (Edit \> Application \> Settings \> Preferences) in the _Default units_ tab. `decimalWidget` is the object name of the decimal widget in the example below.
 
-``` python
+value             (double)
+: The current input value
+
+minimum           (double)
+- Minimum possible value
+
+maximum           (double)
+: Maximum possible value
+
+precision         (double)
+: Value precision (number of decimals)
+
+unit              (string)
+: Unit id
+
+default_precision (boolean)
+: Use default precision                                                                                             
+
+background_style  (string)
+: Style sheet based background color (red, green, blue) 
+
+```{code-block} python
 RESULT=gom.script.sys.execute_user_defined_dialog (file='dialog.gdlg')
 userInput = RESULT.decimalWidget
 ```
 
-| Property  | Type   | Example                                                                  |
-| --------- | ------ | ------------------------------------------------------------------------ |
-| tooltip   | str    | <pre>DIALOG.input.tooltip = 'Enter distance between points!'</pre>       |
-| enabled   | bool   | <pre>DIALOG.input.enabled = False</pre>                                  |
-| value     | int    | <pre>if DIALOG.input.value < 15:</pre>                                   |
-| focus     | bool   | <pre>DIALOG.input.focus = True</pre>⚠️ Only works if dialog is open     |
-| visible   | bool   | <pre>DIALOG.input.visible = False</pre>                                  |
-| minimum   | double | <pre>DIALOG.input.minimum = 20</pre>                                     |
-| maximum   | double | <pre>DIALOG.input.maximum = 50</pre>                                     |
-| precision | double | <pre># Set precision to 2 decimals<br>DIALOG.input.precision = 2</pre>   |
-| unit      | str    | <pre># Set unit ID<br>DIALOG.input.unit = 'LENGTH'</pre>                 |
+```{code-block} python
+:caption: Devimal widget attributes example
+
+DIALOG.decimalWidget.precision = 2
+DIALOG.decimalWidget.unit = 'LENGTH'
+```
 
 % No visible effect:
 % background_style - str - Set style sheet based background color  - red, green, blue 
@@ -699,22 +728,25 @@ userInput = RESULT.decimalWidget
 Text entry field
 : The Text entry field widget can be used to get string input from the user. A simple use case is given by the next code block. `textEntryWidget` is the object name of the widget in the example below.
 
+
+value      (string)
+: The current input value
+             
+read_only  (boolean)
+: Read only                                                                                                         
+
+password   (boolean)
+: Password; hide input
+
+% Usage?
+% validator  (Tom::GScript::Callable) - Input validator
+
 ``` python
 DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 DIALOG.textEntryWidget = "some default text"
 RESULT = gom.script.sys.show_user_defined_dialog(dialog = DIALOG)
 print( RESULT.textEntryWidget ) # the user input string
 ```
-
-| Property  | Type  | Example                                                                    |
-| --------- | ----- | -------------------------------------------------------------------------- |
-| tooltip   | str   | <pre>DIALOG.inputString.tooltip = 'Enter object description'</pre>         |
-| enabled   | bool  | <pre>DIALOG.inputString.enabled = True</pre>                               |
-| value     | str   | <pre>DIALOG.inputString.value = "Warsaw"</pre>                             |
-| focus     | bool  | <pre>DIALOG.inputString.focus = True</pre>⚠️ Only works if dialog is open |
-| visible   | bool  | <pre>DIALOG.inputString.visible = False</pre>                              |
-| read_only | bool  | <pre>if DIALOG.inputString.read_only:</pre>                                |
-| password  | bool  | <pre># Hide user input by replacing each character by a dot<br>DIALOG.inputString.password = True</pre> |
 
 ### Slider widget
 
@@ -723,29 +755,34 @@ print( RESULT.textEntryWidget ) # the user input string
 Slider widget
 : The Slider widget can be used to get a float value from a certain interval from the user. `sliderWidget` is the object name of the slider widget in the example below.
 
+value         (double)
+: The current value
+
+minimum       (double)
+: Minimum possible value                                                                                            
+
+maximum       (double)
+: Maximum possible value                                                                                            
+
+precision     (double)
+: Value precision (number of decimals)
+
+step          (double)
+: Amount of increase/decrease with each step                                                                        
+
+% tick_interval (double)
+% : Interval of ticks drawn                                                                                           
+% ticks are not drawn
+
+orientation   (string)
+: Widget orientation ('horizontal' or 'vertical')
+
 ``` python
 DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 RESULT = gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 print( RESULT.sliderWidget ) # some text
 ```
-
-| Property      | Type   | Example                                                                    |
-| ------------- | ------ | -------------------------------------------------------------------------- |
-| tooltip       | str    | <pre>DIALOG.input.tooltip = 'Drag slider to change rotation'</pre>         |
-| enabled       | bool   | <pre>DIALOG.input.enabled = True</pre>                                     |
-| value         | str    | <pre>print('Angle:', str(DIALOG.input.value))</pre>                        |
-| focus         | bool   | <pre>DIALOG.input.focus = True</pre>⚠️ Only works if dialog is open        |
-| visible       | bool   | <pre>DIALOG.input.visible = False</pre>                                    |
-| minimum       | double | <pre>DIALOG.input.minimum = -90</pre>                                      |
-| maximum       | double | <pre>DIALOG.input.maximum = 90</pre>                                       |
-| precision     | double | <pre># Set precision to 1 decimal<br>DIALOG.input.precision = 1</pre>      |
-| step          | double | <pre># Set step size to 15<br>DIALOG.input.step = 15</pre>                 |
-| orientation   | str    | <pre>print(DIALOG.input.orientation)</pre>⚠️ read-only                     |
-
-% ticks are not drawn
-% tick_interval - double - Interval of ticks drawn
-
 
 ### Checkbox widget
 
@@ -754,20 +791,21 @@ print( RESULT.sliderWidget ) # some text
 Checkbox widget
 : The Checkbox widget can be used to get boolean input from the user. `checkboxWidget` is the object name of the checkbox widget in the example below.
 
+value      (boolean) 
+: The current value          
+
+title      (string)
+: Title of the checkbox
+
+style      (string)
+: Style of the checkbox
+
 ``` python
 DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 
 RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 print (RESULT.checkboxWidget)
 ```
-
-| Property  | Type  | Example                                                                                              |
-| --------- | ----- | ---------------------------------------------------------------------------------------------------- |
-| tooltip   | str   | <pre>DIALOG.inputCheckbox.tooltip = 'Check this option to clear the results after evaluation.'</pre> |
-| enabled   | bool  | <pre>DIALOG.inputCheckbox.enabled = True</pre>                                                       |
-| value     | bool  | <pre>print('Evaluation enabled:', str(DIALOG.inputCheckbox.value))</pre>                             |
-| title     | str   | <pre>DIALOG.inputCheckbox.title = 'Mirror option'</pre>                                              |
-| visible   | bool  | <pre>DIALOG.inputCheckbox.visible = False</pre>                                                      |
 
 ### File widget
 
@@ -776,23 +814,30 @@ print (RESULT.checkboxWidget)
 File widget
 : By clicking the File widget, a file selection dialog is opened. This allows to select a file from the file system.
 
+value          (unspecified/various)
+: The current value of the widget
 
-| Property  | Type  | Example                                                                                              |
-| --------- | ----- | ---------------------------------------------------------------------------------------------------- |
-| tooltip   | str   | <pre>DIALOG.inputFile.tooltip = 'Select a file for the protocol'</pre>                               |
-| enabled   | bool  | <pre>DIALOG.inputFile.enabled = False</pre>                                                          |
-| value     | str   | <pre>if DIALOG.inputFile.value != '':</pre>                                                          |
-| focus     | bool  | <pre>DIALOG.inputFile.focus = True</pre>⚠️ Only works if dialog is open                             |
-| visible   | bool  | <pre>DIALOG.inputFile.visible = False</pre>                                                          |
-| type      | str   | <pre># Possible values: 'any' (any file), 'new' (not an existing file),<br># 'file' (an existing file), 'multi_file' (multiple existing files),<br># 'directory' (an existing folder)<br>DIALOG.inputFile.type = 'any'</pre> |
-| title     | str   | <pre>DIALOG.inputFile.title = 'Select the location for the protocol files'</pre>                     |
-| default   | str   | <pre>DIALOG.inputFile.default = 'D:/data/default.txt'</pre>                                          |
-| file      | str   | <pre>print(DIALOG.inputFile.file)</pre>                                                              |
-| file_types | list | <pre># Show only specified file types; each list item must consist of \[\<filename_extension\>, \<description\>\]<br>DIALOG.inputFile.file_types = \[\['\*.g3d', 'Mesh data'\], \['\*.stp', 'CAD data'\]\]</pre> ⚠️ ``limited`` must be set to ``True`` in order to apply the filter! |
-| limited    | bool | <pre># Limit file selection to 'file_types'<br>DIALOG.inputFile.limited = True</pre>                 |
+file           (string)
+: Selected file                                                                                                     
+
+type           (string)
+: File type: 'any' (any file), 'new' (not an existing file), 'file' (an existing file), 'multi_file' (multiple existing files), 'directory' (an existing directory)
 
 % Clarify this:
-% selection_type - str - File selector type; any, directory, executable, file, multi_file
+% selection_type (string)
+% : File selector type (any, directory, executable, file, multi_file)
+
+title          (string)
+: File selector dialog title         
+
+default        (string)
+: Default value                                                                                                     
+
+limited        (boolean)
+: Flag for limited file types                                                                                       
+
+file_types     (list)
+: List of allowed file types;  each list item must consist of `[<filename_extension>, <description>]`.  `limited` must be set to `True` in order to apply the filter!
 
 ### Date widget
 
@@ -800,6 +845,27 @@ File widget
 
 Date widget
 : The Date widget requests a date from the user. `dateWidget` is the object name of the date widget in the example below.
+
+value             (string):
+: The current value
+
+use_current_date  (boolean)
+: Flag for initializing with default date
+
+default_date      (QDate)
+: Default date                                                                                                      
+
+year              (integer)
+: Year                                                                                                              
+
+month             (integer)
+: Month                                                                                                             
+
+day               (integer)
+: Day                                                                                                               
+
+show_today_button (boolean)
+: Show button for setting the current date
 
 ``` python
 DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
@@ -809,26 +875,21 @@ print( DIALOG.dateWidget.month ) # integer
 print( DIALOG.dateWidget.day )   # integer
 ```
 
-| Property          | Type      | Example                                                                                              |
-| ----------------- | --------- | ---------------------------------------------------------------------------------------------------- |
-| tooltip           | str       | <pre>DIALOG.inputDate.tooltip = 'Enter fabrication date'</pre>                                       |
-| enabled           | bool      | <pre>DIALOG.inputDate.enabled = False</pre>                                                          |
-| value             | (special) | <pre>print('Selected date:', str(DIALOG.inputDate.value))</pre>                                      |
-| focus             | bool      | <pre>DIALOG.inputDate.focus = True</pre>⚠️ Only works if dialog is open                              |
-| visible           | bool      | <pre>DIALOG.inputDate.visible = False</pre>                                                         |
-| use_current_date  | bool      | <pre>DIALOG.inputDate.use_current_date = True</pre>💡 if set, use current date to initialize widget. |
-| year              | int       | <pre>DIALOG.inputDate.year = 2014</pre>                                                              |
-| month             | int       | <pre>DIALOG.inputDate.month = 12</pre>                                                               |
-| day               | int       | <pre>DIALOG.inputDate.day = 24</pre>                                                                 |
-| show_today_button | bool      | <pre>DIALOG.inputDate.show_today_button = True</pre>                                                 |
-
-
 ### Color widget
 
 ![](assets/widget_color.png)
 
 Color widget
 : The Color widget allows to select a color. `colorWidget` is the object name of the color widget in the example below. `gomColor` behaves in the same way as `gom.Color( ... )`.
+
+value                (object)
+: The current color value (gom.Color object)
+
+color                (QColor)
+: The current color value (gom.Color object)
+
+: Current selected color                                                                                            
+transparency_allowed (boolean)             - Transparency allowed 
 
 ``` python
 DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
@@ -847,21 +908,19 @@ RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 print('Selection:', RESULT.colorWidget) # example output (white): 0xffffffff
 ```
 
-| Property             | Type      | Example                                                                                              |
-| -------------------- | --------- | ---------------------------------------------------------------------------------------------------- |
-| tooltip              | str       | <pre>DIALOG.inputColor.tooltip = 'Select a color for the marks.'</pre>                               |
-| enabled              | bool      | <pre>DIALOG.inputColor.enabled = True</pre>                                                          |
-| value                | (special) | <pre>print('Mark color:', str(DIALOG.inputColor.value))</pre>                                        |
-| focus                | bool      | <pre>DIALOG.inputColor.focus = True</pre>⚠️ Only works if dialog is open                            |
-| visible              | bool      | <pre>DIALOG.inputColor.visible = False</pre>                                                         |
-| transparency_allowed | bool      | <pre>DIALOG.inputColor.transparency_allowed = True</pre>                                             |
-
 ### Unit widget
 
 ![](assets/widget_unit.png)
 
 Unit widget
 : The Unit widget allows to select a unit. `unitWidget` is the object name of the unit widget in the example below.
+
+value
+: The current unit
+
+```{hint}
+See [Tech Guide: What are the Possibilities for Unit Conversions Usable in Scripts?](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/faq_what_are_the_possibilities_for_unit_conversion_usable_in_scripts.html) for available units.
+```
 
 ``` python
 DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
@@ -879,20 +938,35 @@ DIALOG.handler = dialog_event_handler
 RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 ```
 
-| Property             | Type      | Example                                                                                              |
-| -------------------- | --------- | ---------------------------------------------------------------------------------------------------- |
-| tooltip              | str       | <pre>DIALOG.inputUnit.tooltip = 'Select a unit.'</pre>          |
-| enabled              | bool      | <pre>DIALOG.inputUnit.enabled = True</pre>                                                           |
-| value                | (special) | <pre>print('Unit ID:', DIALOG.inputUnit.value)</pre>                                         |
-| focus                | bool      | <pre>DIALOG.inputUnit.focus = True</pre>⚠️ Only works if dialog is open                             |
-| visible              | bool      | <pre>DIALOG.inputUnit.visible = False</pre>                                                          |
-
 ### Element name widget
 
 ![](assets/widget_element_name.png)
 
 Element name widget
 : The Element name widget is used to request an element name from the user. It is possible to select the default name (according to naming scheme, e.g. 'Point 2' if 'Point 1' already exists), or to enter an arbitrary name. `elementnameWidget` is the object name of the element name widget in the example below.
+
+value      (unspecified/various)
+: The current value
+
+basename   (string)
+: Base name (e.g. 'Point')
+
+mode       (string)
+: Mode to get the name suggestion from: (manually, from_element_type, check_like)
+
+% Usage?
+%numbering  (Tom::Reference)
+%: Element
+
+% Usage?
+%element    (Tom::Reference)
+%: Element
+
+% Usage?
+% validator  (Tom::GScript::Callable) - Input validator
+
+read_only  (boolean)
+: Read only  
 
 ```python
 # Let the user define 3 new points (the coordinates are created automatically in this example)
