@@ -1060,10 +1060,9 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </dd>
 <dt>value                (object)</dt><dd><p>The current color value (gom.Color object)</p>
 </dd>
-<dt>color                (QColor)</dt><dd><p>The current color value (gom.Color object)</p>
+<dt>color                (QColor)</dt><dd><p>The current selected color value (gom.Color object)</p>
 </dd>
-<dd><p>Current selected color<br />
-transparency_allowed (boolean)             - Transparency allowed</p>
+<dt>transparency_allowed (boolean)</dt><dd><p>Transparency allowed</p>
 </dd>
 </dl>
 <div class="literal-block-wrapper docutils container" id="id18">
@@ -1171,65 +1170,25 @@ transparency_allowed (boolean)             - Transparency allowed</p>
 The top widget has focus. The arrows are just examples for icons.<br />
 <img alt="" src="../../_images/widget_split_button.png" /></p>
 <dl class="simple myst">
-<dt>Split button widget</dt><dd><p>A split button is a hybrid between a button and an options menu. Each item consist of text and/or an icon. One of the modes <code class="docutils literal notranslate"><span class="pre">'instant'</span></code>, <code class="docutils literal notranslate"><span class="pre">'menu'</span></code> or <code class="docutils literal notranslate"><span class="pre">'tool'</span></code> can be configured.</p>
+<dt>Split button widget</dt><dd><p>A split button is a hybrid between a button and an options menu. Each item consist of text and/or an icon. One of the modes ‘instant’, ‘menu’ or ‘tool’ can be configured.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">'instant'</span></code> mode</dt><dd><p>You must open the menu to click a button. The initial button remains fixed.</p>
+<dt>value      (integer)</dt><dd><p>Index of pressed button</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">'menu'</span></code> mode</dt><dd><p>You can click the initial button immediately or open the menu to click any available button. The initial button remains fixed.</p>
+<dt>items      (list)</dt><dd><p>List of lists defining items [[string, base64]]</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">'tool'</span></code> mode</dt><dd><p>You can click the initial button immediately or open the menu to click any available button. The initial button changes to the clicked button.</p>
+<dt>texts      (list)</dt><dd><p>List of texts for items [string]</p>
+</dd>
+<dt>icons      (list)</dt><dd><p>List of icons for items [base64]</p>
+</dd>
+<dt>mode       (string)</dt><dd><p>Button mode (‘instant’, ‘menu’, ‘tool’)</p>
+</dd>
+<dt>‘instant’ mode</dt><dd><p>You must open the menu to click a button. The initial button remains fixed.</p>
+</dd>
+<dt>‘menu’ mode</dt><dd><p>You can click the initial button immediately or open the menu to click any available button. The initial button remains fixed.</p>
+</dd>
+<dt>‘tool’ mode</dt><dd><p>You can click the initial button immediately or open the menu to click any available button. The initial button changes to the clicked button.</p>
 </dd>
 </dl>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.button.tooltip = ‘Start aquisition’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.button.enabled = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>value</p></td>
-<td><p>int</p></td>
-<td><p><pre>if DIALOG.button.value == 0:</pre> ℹ️ Index of pressed button</p></td>
-</tr>
-<tr class="row-odd"><td><p>focus</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.button2.focus = True</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.button.visible = False</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>handler</p></td>
-<td><p>(unspecified/various)</p></td>
-<td><p><pre>DIALOG.button.handler = my_buttonhandler</pre> ℹ️ Optional widget specific event handler</p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>list</p></td>
-<td><p><pre>print(DIALOG.button.items)</pre> List of lists defining items [[string, base64]]</p></td>
-</tr>
-<tr class="row-odd"><td><p>texts</p></td>
-<td><p>list</p></td>
-<td><p><pre>print(DIALOG.button.items)</pre> List of texts for items [string]</p></td>
-</tr>
-<tr class="row-even"><td><p>icons</p></td>
-<td><p>list</p></td>
-<td><p><pre>print(DIALOG.button.items)</pre> List of icons for items [base64]</p></td>
-</tr>
-<tr class="row-odd"><td><p>mode</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.button.mode = ‘tool’</pre> ℹ️ Button mode (instant, menu, tool)</p></td>
-</tr>
-</tbody>
-</table>
 </section>
 <section id="toggle-bar-widget">
 <h3>Toggle bar widget<a class="headerlink" href="#toggle-bar-widget" title="Link to this heading"></a></h3>
@@ -1238,65 +1197,21 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dl class="simple myst">
 <dt>Toggle bar widget</dt><dd><p>The toggle bar widget allows to select one of several items. Each item consists of text and/or an icon.</p>
 </dd>
+<dt>value      (integer)</dt><dd><p>Index of selected item</p>
+</dd>
+<dt>items      (list)</dt><dd><p>List of lists defining items [[string, base64, string]]</p>
+</dd>
+<dt>texts      (list)</dt><dd><p>List of texts for items [string]</p>
+</dd>
+<dt>icons      (list)</dt><dd><p>List of icons for items [base64]</p>
+</dd>
+<dt>tooltips   (list)</dt><dd><p>List of tooltips for items [string]</p>
+</dd>
+<dt>style      (string)</dt><dd><p>Style of buttons (‘icon’, ‘text’, ‘icon_and_text’)</p>
+</dd>
+<dt>mode       (string)</dt><dd><p>Label mode for button group (‘no_label’, ‘label’)</p>
+</dd>
 </dl>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.toggle.tooltip = ‘Select shape’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.toggle.enabled = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>value</p></td>
-<td><p>int</p></td>
-<td><p><pre>if DIALOG.toggle.value == 0:</pre> ℹ️ Index of selected item</p></td>
-</tr>
-<tr class="row-odd"><td><p>focus</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.toggle2.focus = True</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.toggle.visible = False</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>handler</p></td>
-<td><p>(unspecified/various)</p></td>
-<td><p><pre>DIALOG.toggle.handler = my_togglehandler</pre> ℹ️ Optional widget specific event handler</p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>list</p></td>
-<td><p><pre># List of lists defining items (text, icon, tooltip) [[string, base64, string]]</p></td>
-</tr>
-<tr class="row-odd"><td><p>texts</p></td>
-<td><p>list</p></td>
-<td><p><pre># List of texts for items [string]</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>icons</p></td>
-<td><p>list</p></td>
-<td><p><pre># List of icons for items [base64]</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>tooltips</p></td>
-<td><p>list</p></td>
-<td><p><pre># List of tooltips for items [string]</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>style</p></td>
-<td><p>str</p></td>
-<td><p><pre># Style of buttons (icon, text, icon_and_text)</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>mode</p></td>
-<td><p>str</p></td>
-<td><p><pre># Label mode for button group (no_label, label)</p></td>
-</tr>
-</tbody>
-</table>
 </section>
 <section id="selection-element-widget">
 <h3>Selection element widget<a class="headerlink" href="#selection-element-widget" title="Link to this heading"></a></h3>
@@ -1312,61 +1227,36 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <li><p>User-defined</p></li>
 </ul>
 </dd>
+<dt>value       (special)</dt><dd><p>The current selected element. May also be <code class="docutils literal notranslate"><span class="pre">None</span></code> for user-defined <code class="docutils literal notranslate"><span class="pre">filter</span></code> and <code class="docutils literal notranslate"><span class="pre">use_not_defined</span></code></p>
+</dd>
+<dt>supplier    (string)</dt><dd><p>Type of elements handled by this widget (any, points, lines, planes, directions, coordinate_systems, custom)</p>
+</dd>
+<dt>filter      (function)</dt><dd><p>Element filter function for custom type element selector widgets</p>
+</dd>
+<dt>fast_filter (function)</dt><dd><p>Faster element filter function for custom type element selector widgets. Switch expected filter function signature, bulk vs. single element:\</p>
+</dd>
+</dl>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: List of elements → Iterable of bools</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: Single element → bool (default)</p></li>
+</ul>
+<dl class="simple myst">
+<dt>use_not_defined</dt><dd><p>Enable to initially show an empty choice for user-defined filter functions, i.e. like the other element types. (default: ‘False’)</p>
+</dd>
 </dl>
 <p><code class="docutils literal notranslate"><span class="pre">elementSelectionWidget</span></code> is the object name of the element selection widget in the example below.</p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">Selection element widget example</span><a class="headerlink" href="#id21" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="n">selectedElement</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">elementSelectionWidget</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">selectedElement</span><span class="o">.</span><span class="n">value</span> <span class="p">)</span> <span class="c1"># output: gom.app.project.inspection[&#39;Equidistant Surface Points 1&#39;]</span>
 </pre></div>
 </div>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.selectElement.tooltip = ‘Select a line for rotation’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.selectElement.enabled = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>value</p></td>
-<td><p>(special)</p></td>
-<td><p><pre>if DIALOG.selectElement.value != None:</pre><em>Note:</em><br>May also be <code class="docutils literal notranslate"><span class="pre">None</span></code> for user-defined <code class="docutils literal notranslate"><span class="pre">filter</span></code> and <code class="docutils literal notranslate"><span class="pre">use_not_defined</span></code> enabled.</p></td>
-</tr>
-<tr class="row-odd"><td><p>focus</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.selectElement.focus = True</pre>⚠️ Only works if dialog is open</p></td>
-</tr>
-<tr class="row-even"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.selectElement.visible = False</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>supplier</p></td>
-<td><p>str</p></td>
-<td><p><pre># Read-only property<br># Possible values: ‘any’, ‘points’, ‘lines’, ‘planes’, ‘directions’, ‘custom’<br>print(DIALOG.selectElement.supplier)</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>filter</p></td>
-<td><p>function</p></td>
-<td><p>Element filter function for the ‘custom’ supplier. See example below.</p></td>
-</tr>
-<tr class="row-odd"><td><p>fast_filter</p></td>
-<td><p>bool</p></td>
-<td><p>Switch expected filter function signature, bulk vs. single element:<br/><ul><li><code class="docutils literal notranslate"><span class="pre">True</span></code>: List of elements → Iterable of bools</li><li><code class="docutils literal notranslate"><span class="pre">False</span></code>: Single element → bool</li></ul><em>Default:</em> <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>use_not_defined</p></td>
-<td><p>bool</p></td>
-<td><p>Enable to initially show an empty choice for user-defined filter functions,<br>i.e. like the other element types.<br/> <em>Default:</em> <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
-</tr>
-</tbody>
-</table>
+</div>
 <p>The following script shows how to use a custom filter for element selection. The example filter allows the user to select a system plane:</p>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">Selection element widget with custom filter</span><a class="headerlink" href="#id22" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG4</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 
@@ -1399,6 +1289,7 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Chosen system plane: &#39;</span><span class="p">,</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">input_new</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
 <p>Please find the complete example here: <a class="reference download internal" download="" href="../../_downloads/4c0e7fb37b7a196f4010a25003cd919e/dialog_custom_elem_select.py"><span class="xref download myst">dialog_custom_elem_select.py</span></a></p>
 </section>
 <section id="selection-list-widget">
@@ -1407,51 +1298,22 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dl class="simple myst">
 <dt>Selection list widget</dt><dd><p>The Selection list widget allows to make a selection from a predefined set of options. The selected item can be accessed from a script through its object name (e.g. <code class="docutils literal notranslate"><span class="pre">selectionListWidget</span></code>) as follows.</p>
 </dd>
+<dt>value      (string)</dt><dd><p>The current value</p>
+</dd>
+<dt>index (integer)</dt><dd><p>Index of selected list item                     |</p>
+</dd>
+<dt>items      (list)</dt><dd><p>List of items</p>
+</dd>
 </dl>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">Selection list widget attributes example</span><a class="headerlink" href="#id23" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selectedValue</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">selectionListWidget</span><span class="o">.</span><span class="n">value</span>
 <span class="n">selectedIndex</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">selectionListWidget</span><span class="o">.</span><span class="n">index</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">selectedValue</span> <span class="p">)</span> <span class="c1"># output: entry2</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">selectedIndex</span> <span class="p">)</span> <span class="c1"># output: 1</span>
 </pre></div>
 </div>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.selectEntry.tooltip = ‘Select one of the operating modes’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.selectEntry.enabled = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>value</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.selectEntry.value = ‘Debug’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>focus</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.selectEntry.focus = True</pre>⚠️ Only works if dialog is open</p></td>
-</tr>
-<tr class="row-even"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.select_mode.visible = False</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>items</p></td>
-<td><p>list of str</p></td>
-<td><p><pre>DIALOG.selectEntry.items = [‘Debug’, ‘Info’, ‘Warn’, ‘Error’, ‘Fatal’]</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>index</p></td>
-<td><p>int</p></td>
-<td><p><pre>print(f’List item with index {DIALOG.selectEntry.index} is selected.’)</pre></p></td>
-</tr>
-</tbody>
-</table>
+</div>
 </section>
 <section id="combo-box-widget">
 <h3>Combo box widget<a class="headerlink" href="#combo-box-widget" title="Link to this heading"></a></h3>
@@ -1462,45 +1324,18 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dl class="simple myst">
 <dt>Combo box widget</dt><dd><p>The combo box allows to select multiple items from a list. Each item consists of text and data (represented as string).</p>
 </dd>
+<dt>value      (list)</dt><dd><p>List of selected items (data)</p>
+</dd>
+<dt>items      (list)</dt><dd><p>List of available items (display text, data)</p>
+</dd>
 </dl>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.list.tooltip = ‘Select one of the operating modes’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.list.enabled = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>value</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.list.value = [‘circles’, ‘cones’]</pre> ℹ️ Assign a list of data items</p></td>
-</tr>
-<tr class="row-odd"><td><p>focus</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.list.focus = True</pre>⚠️ Only works if dialog is open</p></td>
-</tr>
-<tr class="row-even"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.list.visible = False</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>handler</p></td>
-<td><p>(unspecified/various)</p></td>
-<td><p><pre>DIALOG.toggle.handler = my_listhandler</pre> ℹ️ Optional widget specific event handler</p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>list</p></td>
-<td><p><pre># List of items (display text, data)</pre></p></td>
-</tr>
-</tbody>
-</table>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">Combo box widget attributes example</span><a class="headerlink" href="#id24" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign a list of selected data items</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">shape_list</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;circles&#39;</span><span class="p">,</span> <span class="s1">&#39;cones&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 <section id="buttons">
@@ -1970,7 +1805,7 @@ The top widget has focus. The arrows are just examples for icons.<br />
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fe3834abb60>
+  <jinja2.runtime.BlockReference object at 0x7f8290253000>
 
 
 </footer>
