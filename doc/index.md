@@ -117,6 +117,7 @@ Furthermore, we recommend following our How-to Guides to get you started.
    howtos/using_services/using_services
    howtos/using_scripted_diagrams/using_scripted_diagrams
    howtos/using_jupyter_notebook/using_jupyter_notebook
+   howtos/using_jupyter_notebook/using_jupyter_and_vscode
    howtos/starting_options/starting_options
    howtos/scripting_legacy_projects/scripting_legacy_projects
 ```
