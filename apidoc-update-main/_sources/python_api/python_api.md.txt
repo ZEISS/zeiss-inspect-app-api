@@ -421,24 +421,11 @@ API for script based functionality extensions
 This API enables the user to define various element classes which can be used to extend the functionality of
 ZEISS INSPECT.
 
-### gom.api.extensions.ScriptedElement
+### gom.api.extensions.ScriptedCalculationElement
 
 
-This class is used to define a scripted element. A scripted element is a user defined
-element type where configuration and computation are happening entirely in a Python script,
-so user defined behavior and visualization can be implemented.
-
-**Element id**
-
-Every element must have a unique id. It is left to the implementor to avoid inter app conflicts here. The
-id can be hierarchical like `company.topic.group.element_type`. The id may only contain lower case characters, 
-grouping dots and underscores.
-
-**Element category**
-
-The category of an element type is used to find the application side counterpart which cares for the
-functionality implementation. For example, `scriptedelement.actual` links that element type the application
-counterpart which cares for scripted actual elements and handles its creation, editing, administration, ...
+This class is used to define a scripted calculation element which calculated its own data. It is used as a
+base class for scripted actual, nominals and checks.
 
 **Working with stages**
 
@@ -475,48 +462,9 @@ Nevertheless, the vector can be number entirely different depending on active/in
 Usually, it is *not* possible to access arbitrary stages of other elements due to recalc restrictions !
 ```
 
-**Additional element data**
+#### gom.api.extensions.ScriptedCalculationElement.__init__
 
-Every element can store arbitrary data sets in addition to the computed values. While the computed values are used
-to create the element's geometry and are stored in the elements internal structures, the additional data is kept in
-the associated EDM project database and can be retrieved via an element token.
-
-Each elements `compute ()` function returns a dictionary always. The exact format of that dictionary depends on the
-element type and the elements geometry data is tagged by the fixed key named. In addition, that result map can contain
-a dictionary with key `data`. The key/value pairs within can then be accessed via the element's token interface under
-that exact same name.
-
-Example:
-
-```
-def compute (self, context, values):
-    # Compute the element geometry (a point is that case)
-    center = self.compute_center (values['threshold'])
-
-    # Return both element specific geometry plus an arbitraty data set
-    return {
-        'geometry': {
-            'type': 'point',
-            'center': center
-        },
-        'data': {
-            'threshold': values['threshold'],
-            'description': values['description']
-        }
-    }
-```
-
-#### gom.api.extensions.ScriptedElement.Event
-
-
-Event types passed to the `event ()` function
-
-- `DIALOG_INITIALIZE`: Sent when the dialog has been initialized and made visible
-- `DIALOG_CHANGED`:    A dialog widget value changed
-
-#### gom.api.extensions.ScriptedElement.__init__
-
-```{py:function} gom.api.extensions.ScriptedElement.__init__(self: Any, id: str, category: str, description: str, element_type: str, callables: Any, properties: Any): None
+```{py:function} gom.api.extensions.ScriptedCalculationElement.__init__(self: Any, id: str, category: str, description: str, element_type: str, callables: Any, properties: Any): None
 
 :param id: Unique contribution id, like `special_point`
 :type id: str
@@ -532,9 +480,9 @@ Event types passed to the `event ()` function
 
 Constructor
 
-#### gom.api.extensions.ScriptedElement.add_selected_element_parameter
+#### gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter
 
-```{py:function} gom.api.extensions.ScriptedElement.add_selected_element_parameter(self: Any, values: Dict[str, Any]): None
+```{py:function} gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter(self: Any, values: Dict[str, Any]): None
 
 :param values: Values map
 :type values: Dict[str, Any]
@@ -542,9 +490,9 @@ Constructor
 
 Adds the current selected element as the target element to the values map
 
-#### gom.api.extensions.ScriptedElement.add_target_element_parameter
+#### gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter
 
-```{py:function} gom.api.extensions.ScriptedElement.add_target_element_parameter(self: Any, values: Dict[str, Any], element: Any): None
+```{py:function} gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter(self: Any, values: Dict[str, Any], element: Any): None
 
 :param values: Values map
 :type values: Dict[str, Any]
@@ -554,6 +502,103 @@ Adds the current selected element as the target element to the values map
 
 Adds an element as the target element to the parameters map in the
 appropriate fields
+
+#### gom.api.extensions.ScriptedCalculationElement.compute
+
+```{py:function} gom.api.extensions.ScriptedCalculationElement.compute(self: Any, context: Any, values: Any): None
+
+:param context: Script context object containing execution related parameters. This includes
+:type context: Any
+:param values: Dialog widget values as a dictionary. The keys are the widget names as defined
+:type values: Any
+```
+
+This function is called for a single stage value is to be computed. The input values from the
+associated dialog function are passed as `kwargs` parameters - one value as one specific
+parameter named as the associated input widget.
+
+               the stage this computation call refers to.
+               in the dialog definition.
+
+#### gom.api.extensions.ScriptedCalculationElement.compute_stage
+
+```{py:function} gom.api.extensions.ScriptedCalculationElement.compute_stage(self: Any, context: Any, values: Any): None
+
+:param context: Script context object containing execution related parameters. This includes
+:type context: Any
+:param values: Dialog widget values as a dictionary. The keys are the widget names as defined
+:type values: Any
+```
+
+This function is called for a single stage value is to be computed. The input values from the
+associated dialog function are passed as `kwargs` parameters - one value as one specific
+parameter named as the associated input widget.
+
+               the stage this computation call refers to.
+               in the dialog definition.
+
+#### gom.api.extensions.ScriptedCalculationElement.compute_stages
+
+```{py:function} gom.api.extensions.ScriptedCalculationElement.compute_stages(self: Any, context: Any, values: Any): None
+
+:param context: Script context object containing execution related parameters. This includes
+:type context: Any
+:param values: Dialog widget values as a dictionary.
+:type values: Any
+```
+
+This function is called to compute multiple stages of the scripted element. The expected result is 
+a vector of the same length as the number of stages.
+
+The function is calling the `compute ()` function of the scripted element for each stage by default.
+For a more efficient implementation, it can be overwritten and bulk compute many stages at once.
+
+               the stage this computation call refers to.
+
+### gom.api.extensions.ScriptedElement
+
+
+Base class for all scripted elements
+
+This class is the base class for all scripted element types . A scripted element is a user defined 
+element type where configuration and computation are happening entirely in a Python script, so user 
+defined behavior and visualization can be implemented.
+
+**Element id**
+
+Every element must have a unique id. It is left to the implementor to avoid inter app conflicts here. The
+id can be hierarchical like `company.topic.group.element_type`. The id may only contain lower case characters, 
+grouping dots and underscores.
+
+**Element category**
+
+The category of an element type is used to find the application side counterpart which cares for the
+functionality implementation. For example, `scriptedelement.actual` links that element type the application
+counterpart which cares for scripted actual elements and handles its creation, editing, administration, ...
+
+#### gom.api.extensions.ScriptedElement.Event
+
+
+Event types passed to the `event ()` function
+
+- `DIALOG_INITIALIZE`: Sent when the dialog has been initialized and made visible
+- `DIALOG_CHANGED`:    A dialog widget value changed
+
+#### gom.api.extensions.ScriptedElement.__init__
+
+```{py:function} gom.api.extensions.ScriptedElement.__init__(self: Any, id: str, category: str, description: str, callables: Any, properties: Any): None
+
+:param id: Unique contribution id, like `special_point`
+:type id: str
+:param category: Scripted element type id, like `scriptedelement.actual`
+:type category: str
+:param description: Human readable contribution description
+:type description: str
+:param category: Contribution category
+:type category: str
+```
+
+Constructor
 
 #### gom.api.extensions.ScriptedElement.apply_dialog
 
@@ -592,69 +637,6 @@ Check if a base element (an element the scripted element is constructed upon) is
 ```
 
 Check a single value for expected properties
-
-#### gom.api.extensions.ScriptedElement.compute
-
-```{py:function} gom.api.extensions.ScriptedElement.compute(self: Any, context: Any, values: Any): None
-
-:param context: Script context object containing execution related parameters. This includes
-:type context: Any
-:param values: Dialog widget values as a dictionary. The keys are the widget names as defined
-:type values: Any
-:return: Computed values for the given stage. This is always a map, where the keys strongly depend
-:rtype: None
-```
-
-This function is called for a single stage value is to be computed. The input values from the
-associated dialog function are passed as `kwargs` parameters - one value as one specific
-parameter named as the associated input widget.
-
-               the stage this computation call refers to.
-               in the dialog definition.
-        on the element type.
-
-#### gom.api.extensions.ScriptedElement.compute_stage
-
-```{py:function} gom.api.extensions.ScriptedElement.compute_stage(self: Any, context: Any, values: Any): None
-
-:param context: Script context object containing execution related parameters. This includes
-:type context: Any
-:param values: Dialog widget values as a dictionary. The keys are the widget names as defined
-:type values: Any
-:return: Computed values for the given stage. This is always a map, where the keys strongly depend
-:rtype: None
-```
-
-This function is called for a single stage value is to be computed. The input values from the
-associated dialog function are passed as `kwargs` parameters - one value as one specific
-parameter named as the associated input widget.
-
-               the stage this computation call refers to.
-               in the dialog definition.
-        on the element type.
-
-#### gom.api.extensions.ScriptedElement.compute_stages
-
-```{py:function} gom.api.extensions.ScriptedElement.compute_stages(self: Any, context: Any, values: Any): None
-
-:param context: Script context object containing execution related parameters. This includes
-:type context: Any
-:param values: Dialog widget values as a dictionary.
-:type values: Any
-:return: Dictionary containing the results and the states of the computation. Each entry in these
-:rtype: None
-```
-
-This function is called to compute multiple stages of the scripted element. The expected result is 
-a vector of the same length as the number of stages.
-
-The function is calling the `compute ()` function of the scripted element for each stage by default.
-For a more efficient implementation, it can be overwritten and bulk compute many stages at once.
-
-               the stage this computation call refers to.
-        dictionaries is a vector of the same length as the number of stages. The entries are
-        - `results`:  Computed values for each stage
-        - `states`:   States of the computation for each stage. `True` if the computation was successful.
 
 #### gom.api.extensions.ScriptedElement.dialog
 
@@ -1424,6 +1406,78 @@ The expected parameters from the element's `compute ()` function is a map with t
 }
 ```
 
+### gom.api.extensions.sequence
+
+Scripted sequence elements
+
+ 
+This module contains the base class for scripted sequence elements. A scripted sequence element
+combines a sequence of commands into one group. The group is treated as one single combined element
+with parts. The resulting cluster of elements can then be edited again as a altogether group, of the
+single elements within can be edited separately.
+
+#### gom.api.extensions.sequence.ScriptedSequenceElement
+
+
+This class is used to define a scripted sequence element
+
+##### gom.api.extensions.sequence.ScriptedSequenceElement.__init__
+
+```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.__init__(self: Any, id: str, description: str): None
+
+:param id: Unique contribution id, like `special_point`
+:type id: str
+:param description: Human readable contribution description
+:type description: str
+```
+
+Constructor
+
+##### gom.api.extensions.sequence.ScriptedSequenceElement.create
+
+```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.create(self: Any, context: Any, args: Any): None
+
+:param context: The context of the sequence element
+:type context: Any
+:param args: The arguments passed to the sequence element, usually from the configuration dialog
+:type args: Any
+:return: Dictionary describing the created sequence element. The fields here are:
+:rtype: None
+```
+
+Function called to create the scripted sequence
+
+This function is called to create or edit the element of a scripted sequence. The
+parameters set in the `dialog` function are passed here as a parameter.
+
+In principle, this function is like a sub script calling the single create commands.
+Behind the scenes, the calls are handled a bit different than regular script command 
+calls to be able to build a component object at the end. In detail, the following rules
+apply:
+
+- The order of elements must remain the same during object livetime. So no parameter or
+  external condition may change the element order.
+- The number of elements must remain the same during object livetime. No parameter or
+  condition may affect the number of created elements.
+- There may not be other glue code commands in the sequence. Only creation commands are allowed
+  here. In principle, other glue code is allowed, including API calls.
+
+These limilations are required because behind the scenes, the scripting engine processes the
+creation requests depending on the mode of sequence command execution:
+
+- For a simple creation process (like a scripted sequence creation command), the command list is
+  executed like any other script.
+- When an existing creation sequence is edited, the command list is **not** executed regularly.
+  Instead, the command parameters are collected and will be passed to the already existing 
+  elements to adapt these.
+- For preview computation, a combination of both modes is used: The objects are created in a first
+  step, but marked as 'preview' and will not be part of the regular dependency graph or project.
+  Afterwards, like in the 'edit' case, the parameters are collected and passed to the already 
+  existing preview elements then to update these. 
+
+        'elements' - List of all created elements (including the leading element)
+        'leading' - 'Leading' element which represents the whole sequence
+
 ### gom.api.extensions.views
 
 Scripted views
@@ -1688,9 +1742,18 @@ Event types passed to the `event ()` function
 
 - `INITIALIZED`: Sent when the view has been initialized
 
+##### gom.api.extensions.views.ScriptedView.Signal
+
+
+Identifier for SW signals that the view can be connected to
+
+- `DATA_CHANGED`: Emitted when any project related data changes
+- `SELECTION_CHANGED`: Emitted when the selection in the Project explorer changes
+- `CONFIG_CHANGED`: Emitted when the software preferences are applied
+
 ##### gom.api.extensions.views.ScriptedView.__init__
 
-```{py:function} gom.api.extensions.views.ScriptedView.__init__(self: Any, id: str, viewtype: str, description: str, functions: List[Any], properties: Dict[str, Any], callables: Dict[str, Any]): None
+```{py:function} gom.api.extensions.views.ScriptedView.__init__(self: Any, id: str, viewtype: str, description: str, functions: List[Any], properties: Dict[str, Any], callables: Dict[str, Any], signals: List[str]): None
 
 :param id: Globally unique scripted view id string
 :type id: str

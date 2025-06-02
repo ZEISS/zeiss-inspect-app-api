@@ -54,7 +54,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../using_app_editor/using_app_editor.html">Using the App Editor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../app_file_format/app_file_format.html">App file format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/file_selection_dialog.html">Selecting a file or folder</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/user_defined_dialogs.html">User-defined Dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/user_defined_dialogs.html">User-defined Dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/dialog_widgets.html">Dialog widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/executing_dialogs.html">Executing dialogs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../scripting_solutions/scripting_solutions.html">Scripting solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq/faq.html">Frequently asked questions</a></li>
 </ul>
@@ -87,7 +89,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides – Expert</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/creating_wizard_dialogs.html">Creating wizard dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/creating_wizard_dialogs.html">Creating wizard dialogs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_gui_libraries/using_gui_libraries.html">Using an additional Python GUI library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_shared_environments/using_shared_environments.html">Using shared environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_wheelhouses/using_wheelhouses.html">Using Python wheelhouses</a></li>
@@ -95,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../using_services/using_services.html">Using services</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_scripted_diagrams/using_scripted_diagrams.html">Using scripted diagrams</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_jupyter_notebook/using_jupyter_notebook.html">Using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_jupyter_notebook/using_jupyter_and_vscode.html">Using Jupyter Notebook with VSCode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../starting_options/starting_options.html">Software and script starting options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../scripting_legacy_projects/scripting_legacy_projects.html">Scripting with legacy projects (part-less)</a></li>
 </ul>
@@ -166,7 +169,7 @@
 </pre></div>
 </div>
 <p>As you can see, the function takes the parameters <code class="docutils literal notranslate"><span class="pre">context</span></code> and <code class="docutils literal notranslate"><span class="pre">params</span></code>. Although the <code class="docutils literal notranslate"><span class="pre">context</span></code> object has several members, for now we will only use it to set a name for our scripted element (line 15). The main objective of our dialog function is to fill the second parameter, the <code class="docutils literal notranslate"><span class="pre">params</span></code> map (python type: dictionary).</p>
-<p>In this case, we want to ask the user on which point our offset-point should be based on, and by how much the point should be offset. We <a class="reference internal" href="../python_api_introduction/user_defined_dialogs.html"><span class="std std-doc">create a user dialog</span></a> and in the dialog editor, we add two input widgets:</p>
+<p>In this case, we want to ask the user on which point our offset-point should be based on, and by how much the point should be offset. We create a <a class="reference internal" href="../user_defined_dialogs/user_defined_dialogs.html"><span class="std std-doc">User-defined dialog</span></a> and in the Dialog Editor, we add two input widgets:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">-&gt;</span> <span class="pre">Decimal</span></code>: a decimal widget for the offset input</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Selection</span> <span class="pre">-&gt;</span> <span class="pre">Selection</span> <span class="pre">element</span></code>: an element widget to select a point-like element</p></li>
@@ -243,7 +246,7 @@ The result for stage <code class="docutils literal notranslate"><span class="pre
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fba5a748590>
+  <jinja2.runtime.BlockReference object at 0x7f51a3c75ad0>
 
 
 </footer>
