@@ -1345,7 +1345,7 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <p><img alt="" src="../../_images/widget_button_off.png" /></p>
 <p><img alt="" src="../../_images/widget_button_on.png" /></p>
 <dl class="simple myst">
-<dt>Button widget</dt><dd><p>The Button widget allows to trigger an event or to return a boolean value, respectively. There are two types of buttons: push buttons and toggle buttons. The push button is a regular button and needs an event handler to manage its action. The toggle button has two states - active and inactive - and the user can toggle between them by clicking the button. The button is highlighted in active state as shown in the screenshot. The state of the toggle button can be accessed as follows.</p>
+<dt>Button widget</dt><dd><p>The Button widget allows to trigger an event or to return a boolean value, respectively. There are two types of buttons: push buttons and toggle buttons. The push button is a regular button and needs an event handler to manage its action. The toggle button has two states - active and inactive - and the user can toggle between them by clicking the button. The button is highlighted in active state as shown in the screenshot. The state of the toggle button can be accessed via the ‘value’ attribute.</p>
 </dd>
 <dt>value            (boolean)</dt><dd><p>The current button value (only useful for toggle button)</p>
 </dd>
@@ -1387,7 +1387,8 @@ The top widget has focus. The arrows are just examples for icons.<br />
 </dd>
 <dt>value      (string)</dt><dd><p>The current selected radio button. This can be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </dd>
-<dt>items      (list)</dt><dd><p>List of radio button items (data, display text), e.g. <code class="docutils literal notranslate"><span class="pre">DIALOG.radiobuttons.items</span> <span class="pre">=</span> <span class="pre">[['Value1',</span> <span class="pre">'Title1'],</span> <span class="pre">['Value2',</span> <span class="pre">'Title2'],</span> <span class="pre">['Value3',</span> <span class="pre">'Title3']]</span></code></p>
+<dt>items      (list)</dt><dd><p>List of radio button items (data, display text), e.g.<br />
+<code class="docutils literal notranslate"><span class="pre">DIALOG.radiobuttons.items</span> <span class="pre">=</span> <span class="pre">[['Value1',</span> <span class="pre">'Title1'],</span> <span class="pre">['Value2',</span> <span class="pre">'Title2'],</span> <span class="pre">['Value3',</span> <span class="pre">'Title3']]</span></code></p>
 </dd>
 <dt>default    (string)</dt><dd><p>Default enabled radio button, e.g. <code class="docutils literal notranslate"><span class="pre">DIALOG.radiobuttons.default</span> <span class="pre">=</span> <span class="pre">'Value2'</span></code></p>
 </dd>
@@ -1755,7 +1756,7 @@ The top widget has focus. The arrows are just examples for icons.<br />
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fb03181ec80>
+  <jinja2.runtime.BlockReference object at 0x7facf40ded60>
 
 
 </footer>
