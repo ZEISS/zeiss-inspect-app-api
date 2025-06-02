@@ -98,7 +98,7 @@ Jupyter Notebook opens its web GUI in your browser. A file browser is shown init
 
 ## Using user-defined dialogs in a Notebook
 
-When creating [user-defined dialogs](../python_api_introduction/user_defined_dialogs.md) in an App using\
+When creating [user-defined dialogs](../user_defined_dialogs/user_defined_dialogs.md) in an App using\
 `DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')`\
 or\
 `RESULT=gom.script.sys.execute_user_defined_dialog (file='dialog.gdlg')`,\
