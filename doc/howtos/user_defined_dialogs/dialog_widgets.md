@@ -561,6 +561,8 @@ Manual mode
 : In this mode, the user may set the progress bar through its `value` variable.
 
     ```{code-block} python
+    :caption: Progress bar widget example &ndash; manual mode
+
     import gom, time
     DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
     DIALOG.progress.minimum = 0
@@ -580,6 +582,8 @@ System mode
 : In this mode, the progress bar displays the same progress informations as the progress bar in the lower right corner of the software.
 
     ```{code-block} python
+    :caption: Progress bar widget example &ndash; system mode
+
     import gom
     DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
     gom.script.sys.open_user_defined_dialog (dialog=DIALOG)
@@ -590,11 +594,13 @@ System mode
 
 You can switch between automatic and manual mode from within the script by setting the mode variable as shown below:
 
-```python
+```{code-block} python
+:caption: Changing the progress bar widget mode
+
 # manual mode:
 DIALOG.progress.mode = "manual"
 
-# automatic mode:
+# system mode:
 DIALOG.progress.mode = "system"
 ```
 
@@ -606,7 +612,9 @@ Partially controlled system progress bar
 
   
 
-  ``` python
+  ```{code-block} python
+  :caption: Progress bar consisting of multiple parts
+
   # -*- coding: utf-8 -*-
 
   import gom
@@ -642,7 +650,7 @@ Partially controlled system progress bar
   ```
 
 ```{note}
-It is possible to switch  between system and manual mode for each part.
+It is possible to switch between system and manual mode for each part.
 ```
 
 ## Input
