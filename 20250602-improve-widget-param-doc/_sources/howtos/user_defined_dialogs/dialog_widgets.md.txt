@@ -1217,24 +1217,41 @@ DIALOG.shape_list.value = ['circles', 'cones']
 Button widget
 : The Button widget allows to trigger an event or to return a boolean value, respectively. There are two types of buttons: push buttons and toggle buttons. The push button is a regular button and needs an event handler to manage its action. The toggle button has two states - active and inactive - and the user can toggle between them by clicking the button. The button is highlighted in active state as shown in the screenshot. The state of the toggle button can be accessed as follows.
 
-``` python
+value            (boolean)
+: The current button value (only useful for toggle button)
+
+text             (string)
+: Text of the button
+
+button_type      (string)
+: Button type ('push', 'toggle')
+
+icon             (Tom::Parse::Binary)
+: Icon of the button
+
+icon_file_name   (string)
+: Source file name of the icon
+
+icon_size        (string)
+: Icon size mode (icon, full)
+
+icon_type        (string)
+: Icon type ('none', 'system', 'file')                                                                                    
+
+icon_system_type (string)
+: System icon type ('ok', 'cancel', 'warning', 'error', 'arrow_up', 'arrow_down', 'arrow_left', 'arrow_right')                      
+
+icon_system_size (string):
+: System icon size ('default', 'large', 'extra_large')
+
+```{code-block} python
+:caption: Button widget example
+
 toggleButtonState = DIALOG.toggleButtonWidget.value
 print(toggleButtonState) # output: True
 ```
 
 The buttons size and icon can be changed in the Dialog Editor.
-
-| Property         | Type | Example                                                                                                               |
-| ---------------- | ---- | --------------------------------------------------------------------------------------------------------------------- |
-| tooltip          | str  | <pre>DIALOG.button.tooltip = 'Click to start evaluation'</pre>                                                        |
-| enabled          | bool | <pre>DIALOG.button.enabled = False                                                                                    |
-| value            | bool | <pre>if DIALOG.button.value:</pre>💡 Only for toggle button!                                                          |
-| text             | str  | <pre>DIALOG.button.text = 'Click here!'                                                                               |
-| type             | str  | <pre># Possible values: 'push', 'toggle'<br>DIALOG.button.type = 'toggle'<br>DIALOG.button.value = True</pre>         |
-| icon_type        | str  | <pre># Possible values: 'none', 'file', 'system'<br># but see remark below!<br>DIALOG.button.icon_type = 'none'</pre> |
-| icon_system_type | str  | <pre># Possible values: 'ok', 'cancel',<br># 'arrow_left', 'arrow_right', 'arrow_up', 'arrow_down'<br>DIALOG.button.icon_system_type = 'ok'</pre> |
-| icon_system_size | str  | <pre># Possible values: 'default', 'large', 'extra_large'<br>DIALOG.button.icon_system_size = 'extra_large'</pre>     |
-| visible          | bool | <pre>DIALOG.button.visible = False
 
 ```{note}
 There are also values for file icons. These only work straightforward using the dialog designer but not from a script. You can only change between no icon and system icons in a straightforward way.
@@ -1247,22 +1264,25 @@ There are also values for file icons. These only work straightforward using the 
 Radio button widget
 :  The Radio button widget enables the user to choose an option from a predefined set. Each option has a label and a unique ID, which both can be set in the scripting dialog editor by double clicking the widget. The IDs are 'ONE', 'TWO' and 'THREE' in the example below.
 
-``` python
+
+value      (string) 
+: The current selected radio button. This can be `None`.
+
+items      (list)
+: List of radio button items (data, display text), e.g. `DIALOG.radiobuttons.items = [['Value1', 'Title1'], ['Value2', 'Title2'], ['Value3', 'Title3']]`
+
+default    (string)
+: Default enabled radio button, e.g. `DIALOG.radiobuttons.default = 'Value2'`
+
+```{code-block} python
+:caption: Radio button widget example
+
 selectedChoice = DIALOG.radiobuttonsWidget.value
 print( selectedChoice ) # output: ONE
 
 if selectedChoice == 'ONE':
     print("IDs are strings.") # output: IDs are strings.
 ```
-
-| Property | Type           | Example                                                                                                               |
-| -------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
-| tooltip  | str            | <pre>DIALOG.radiobuttons.tooltip = 'Choose one alternative!'</pre>                                                    |
-| enabled  | bool           | <pre>DIALOG.radiobuttons.enabled = False</pre>                                                                        |
-| value    | str            | <pre>DIALOG.radiobuttons.value = 'Value3'</pre>                                                                       |
-| visible  | bool           | <pre>DIALOG.radiobuttons.visible = False</pre>                                                                        |
-| items    | (special list) | <pre># Possible values is a list of lists of two strings.<br># Each first string is the returned value<br># Each second string is the entries' title<br>DIALOG.radiobuttons.items = [['Value1', 'Title1'], ['Value2', 'Title2'], ['Value3', 'Title3']]<br>DIALOG.radiobuttons.default = 'Value2'</pre> |
-| default  | str            | <pre>DIALOG.radiobuttons.default = 'Value1'</pre>                                                                     |
 
 ## Layout
 

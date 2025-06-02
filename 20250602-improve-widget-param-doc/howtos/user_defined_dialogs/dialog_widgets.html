@@ -1347,58 +1347,33 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dl class="simple myst">
 <dt>Button widget</dt><dd><p>The Button widget allows to trigger an event or to return a boolean value, respectively. There are two types of buttons: push buttons and toggle buttons. The push button is a regular button and needs an event handler to manage its action. The toggle button has two states - active and inactive - and the user can toggle between them by clicking the button. The button is highlighted in active state as shown in the screenshot. The state of the toggle button can be accessed as follows.</p>
 </dd>
+<dt>value            (boolean)</dt><dd><p>The current button value (only useful for toggle button)</p>
+</dd>
+<dt>text             (string)</dt><dd><p>Text of the button</p>
+</dd>
+<dt>button_type      (string)</dt><dd><p>Button type (‘push’, ‘toggle’)</p>
+</dd>
+<dt>icon             (Tom::Parse::Binary)</dt><dd><p>Icon of the button</p>
+</dd>
+<dt>icon_file_name   (string)</dt><dd><p>Source file name of the icon</p>
+</dd>
+<dt>icon_size        (string)</dt><dd><p>Icon size mode (icon, full)</p>
+</dd>
+<dt>icon_type        (string)</dt><dd><p>Icon type (‘none’, ‘system’, ‘file’)</p>
+</dd>
+<dt>icon_system_type (string)</dt><dd><p>System icon type (‘ok’, ‘cancel’, ‘warning’, ‘error’, ‘arrow_up’, ‘arrow_down’, ‘arrow_left’, ‘arrow_right’)</p>
+</dd>
+<dt>icon_system_size (string):</dt><dd><p>System icon size (‘default’, ‘large’, ‘extra_large’)</p>
+</dd>
 </dl>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">Button widget example</span><a class="headerlink" href="#id25" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">toggleButtonState</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">toggleButtonWidget</span><span class="o">.</span><span class="n">value</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">toggleButtonState</span><span class="p">)</span> <span class="c1"># output: True</span>
 </pre></div>
 </div>
+</div>
 <p>The buttons size and icon can be changed in the Dialog Editor.</p>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.button.tooltip = ‘Click to start evaluation’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.button.enabled = False</p></td>
-</tr>
-<tr class="row-even"><td><p>value</p></td>
-<td><p>bool</p></td>
-<td><p><pre>if DIALOG.button.value:</pre>💡 Only for toggle button!</p></td>
-</tr>
-<tr class="row-odd"><td><p>text</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.button.text = ‘Click here!’</p></td>
-</tr>
-<tr class="row-even"><td><p>type</p></td>
-<td><p>str</p></td>
-<td><p><pre># Possible values: ‘push’, ‘toggle’<br>DIALOG.button.type = ‘toggle’<br>DIALOG.button.value = True</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>icon_type</p></td>
-<td><p>str</p></td>
-<td><p><pre># Possible values: ‘none’, ‘file’, ‘system’<br># but see remark below!<br>DIALOG.button.icon_type = ‘none’</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>icon_system_type</p></td>
-<td><p>str</p></td>
-<td><p><pre># Possible values: ‘ok’, ‘cancel’,<br># ‘arrow_left’, ‘arrow_right’, ‘arrow_up’, ‘arrow_down’<br>DIALOG.button.icon_system_type = ‘ok’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>icon_system_size</p></td>
-<td><p>str</p></td>
-<td><p><pre># Possible values: ‘default’, ‘large’, ‘extra_large’<br>DIALOG.button.icon_system_size = ‘extra_large’</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.button.visible = False</p></td>
-</tr>
-</tbody>
-</table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>There are also values for file icons. These only work straightforward using the dialog designer but not from a script. You can only change between no icon and system icons in a straightforward way.</p>
@@ -1410,7 +1385,15 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dl class="simple myst">
 <dt>Radio button widget</dt><dd><p>The Radio button widget enables the user to choose an option from a predefined set. Each option has a label and a unique ID, which both can be set in the scripting dialog editor by double clicking the widget. The IDs are ‘ONE’, ‘TWO’ and ‘THREE’ in the example below.</p>
 </dd>
+<dt>value      (string)</dt><dd><p>The current selected radio button. This can be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+<dt>items      (list)</dt><dd><p>List of radio button items (data, display text), e.g. <code class="docutils literal notranslate"><span class="pre">DIALOG.radiobuttons.items</span> <span class="pre">=</span> <span class="pre">[['Value1',</span> <span class="pre">'Title1'],</span> <span class="pre">['Value2',</span> <span class="pre">'Title2'],</span> <span class="pre">['Value3',</span> <span class="pre">'Title3']]</span></code></p>
+</dd>
+<dt>default    (string)</dt><dd><p>Default enabled radio button, e.g. <code class="docutils literal notranslate"><span class="pre">DIALOG.radiobuttons.default</span> <span class="pre">=</span> <span class="pre">'Value2'</span></code></p>
+</dd>
 </dl>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">Radio button widget example</span><a class="headerlink" href="#id26" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selectedChoice</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">radiobuttonsWidget</span><span class="o">.</span><span class="n">value</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">selectedChoice</span> <span class="p">)</span> <span class="c1"># output: ONE</span>
 
@@ -1418,40 +1401,7 @@ The top widget has focus. The arrows are just examples for icons.<br />
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;IDs are strings.&quot;</span><span class="p">)</span> <span class="c1"># output: IDs are strings.</span>
 </pre></div>
 </div>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.radiobuttons.tooltip = ‘Choose one alternative!’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.radiobuttons.enabled = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>value</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.radiobuttons.value = ‘Value3’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.radiobuttons.visible = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>items</p></td>
-<td><p>(special list)</p></td>
-<td><p><pre># Possible values is a list of lists of two strings.<br># Each first string is the returned value<br># Each second string is the entries’ title<br>DIALOG.radiobuttons.items = [[‘Value1’, ‘Title1’], [‘Value2’, ‘Title2’], [‘Value3’, ‘Title3’]]<br>DIALOG.radiobuttons.default = ‘Value2’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>default</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.radiobuttons.default = ‘Value1’</pre></p></td>
-</tr>
-</tbody>
-</table>
+</div>
 </section>
 </section>
 <section id="layout">
@@ -1805,7 +1755,7 @@ The top widget has focus. The arrows are just examples for icons.<br />
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f04d9c57000>
+  <jinja2.runtime.BlockReference object at 0x7fb03181ec80>
 
 
 </footer>
