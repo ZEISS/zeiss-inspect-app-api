@@ -1485,6 +1485,24 @@ The top widget has focus. The arrows are just examples for icons.<br />
 </dd>
 </dl>
 <p><img alt="" src="../../_images/built-in_progressbar.png" /></p>
+<dl class="simple myst">
+<dt>text             (string)</dt><dd><p>Text of the button</p>
+</dd>
+<dt>button_type      (string)</dt><dd><p>Button type (‘push’, ‘toggle’)</p>
+</dd>
+<dt>icon             (Tom::Parse::Binary)</dt><dd><p>Icon of the button</p>
+</dd>
+<dt>icon_file_name   (string)</dt><dd><p>Source file name of the icon</p>
+</dd>
+<dt>icon_size        (string)</dt><dd><p>Icon size mode (icon, full)</p>
+</dd>
+<dt>icon_type        (string)</dt><dd><p>Icon type (none, system, file)</p>
+</dd>
+<dt>icon_system_type (string)</dt><dd><p>System icon type (ok, cancel, warning, error, arrow_up, arrow_down, arrow_left, arrow_right)</p>
+</dd>
+<dt>icon_system_size (string)</dt><dd><p>System icon size (default, large, extra_large)</p>
+</dd>
+</dl>
 </section>
 <section id="file-system-browser-widget">
 <h3>File system browser widget<a class="headerlink" href="#file-system-browser-widget" title="Link to this heading"></a></h3>
@@ -1492,65 +1510,37 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dl class="simple myst">
 <dt>File system browser widget</dt><dd><p>The File system browser widget allows to view the file system and to select a file or a set of files, respectively. A filter can be set to show only files with certain filename extensions.</p>
 </dd>
+<dt>root               (string):</dt><dd><p>File system root directory</p>
+</dd>
+<dt>show_date          (boolean)</dt><dd><p>Show file date column</p>
+</dd>
+<dt>show_size          (boolean)</dt><dd><p>Show file size column</p>
+</dd>
+<dt>show_type          (boolean)</dt><dd><p>Show file type column</p>
+</dd>
+<dt>use_multiselection (boolean)</dt><dd><p>Single/multi file selection mode</p>
+</dd>
+<dt>selected           (list)</dt><dd><p>Selected files</p>
+</dd>
+<dt>filter             (list)</dt><dd><p>List of filename extensions to be shown</p>
+</dd>
 </dl>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.filesystemWidget.tooltip = ‘Select CAD file’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filesystemWidget.enabled = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>value</p></td>
-<td><p>(unspecified/various)</p></td>
-<td><p>The current value of the widget. Type depends on the widget type and can be ‘none’ for empty widgets.</p></td>
-</tr>
-<tr class="row-odd"><td><p>focus</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filesystemWidget.focus = True</pre>⚠️ Only works if dialog is open</p></td>
-</tr>
-<tr class="row-even"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filesystemWidget.visible = False</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>root</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.filesystemWidget.root = ‘C:/Users’</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>show_date</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filesystemWidget.show_date = True</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>show_size</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filesystemWidget.show_size = True</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>show_type</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filesystemWidget.show_type = True</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>use_multiselection</p></td>
-<td><p>bool</p></td>
-<td><p><pre># Enable selection of multiple files<br>DIALOG.filesystemWidget.use_multiselection = True</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>selected</p></td>
-<td><p>list</p></td>
-<td><p><pre>print(DIALOG.filesystemWidget.selected)<br># example output: [‘C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 1.g3d’, ‘C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 2.g3d’]</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>filter</p></td>
-<td><p>list</p></td>
-<td><p><pre># Apply a filter of filename extensions<br>DIALOG.filesystemWidget.filter = [ ‘*.g3d’, ‘*.stp’ ]</pre></p></td>
-</tr>
-</tbody>
-</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dialog_handler</span><span class="p">(</span><span class="n">widget</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="s1">&#39;initialize&#39;</span><span class="p">:</span>
+        <span class="n">DIALOG</span><span class="o">.</span><span class="n">filesystem</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;C:/temp&#39;</span>
+        <span class="n">DIALOG</span><span class="o">.</span><span class="n">filesystem</span><span class="o">.</span><span class="n">use_multiselection</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="nb">filter</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*.g3d&#39;</span><span class="p">,</span> <span class="s1">&#39;*.stp&#39;</span><span class="p">]</span>
+    <span class="o">...</span>
+
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">dialog_handler</span>
+
+<span class="n">RESULT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span><span class="p">(</span> <span class="n">dialog</span> <span class="o">=</span> <span class="n">DIALOG</span> <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">RESULT</span><span class="o">.</span><span class="n">filesystem</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
+<span class="c1"># E.g.:</span>
+<span class="c1"># [&#39;C:/temp/ZEISS_INSPECT_Training/Training Data/Raw Data/Actual/ZEISS Training Object Mesh 1.g3d&#39;, &#39;C:/temp/ZEISS_INSPECT_Training/Training Data/Raw Data/Actual/ZEISS Training Object Mesh 2.g3d&#39;]</span>
+</pre></div>
+</div>
 </section>
 <section id="file-drag-drop-area-widget">
 <h3>File drag&amp;drop area widget<a class="headerlink" href="#file-drag-drop-area-widget" title="Link to this heading"></a></h3>
@@ -1559,57 +1549,15 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dl class="simple myst">
 <dt>File drag&amp;drop area</dt><dd><p>The File drag&amp;drop area allows to select files. The widget shows the base names of the selected files, but stores the filenames with full paths internally. Some of its text items can be configured.</p>
 </dd>
+<dt>text_area  (string)</dt><dd><p>Default text of drop area (default: ‘&lt;drag and drop file(s) here&gt;’)</p>
+</dd>
+<dt>text_hover (string)</dt><dd><p>Text shown when hovered with droppable file (default: ‘&lt;drop file(s)&gt;’)</p>
+</dd>
+<dt>text_list  (string)</dt><dd><p>Preamble text before filenames list (default: ‘file(s):’)</p>
+</dd>
+<dt>max_length (string)</dt><dd><p>Maximum number of characters displayed for filenames (default: -1, i.e. unlimited)</p>
+</dd>
 </dl>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.filedroparea.tooltip = ‘Select one of the operating modes’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filedroparea.enabled = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>value</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.filedroparea.value = [‘circles’, ‘cones’]</pre> ℹ️ Assign a list of data items</p></td>
-</tr>
-<tr class="row-odd"><td><p>focus</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filedroparea.focus = True</pre>⚠️ Only works if dialog is open</p></td>
-</tr>
-<tr class="row-even"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.filedroparea.visible = False</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>handler</p></td>
-<td><p>(unspecified/various)</p></td>
-<td><p><pre>DIALOG.filedroparea.handler = my_filedrophandler</pre> ℹ️ Optional widget specific event handler</p></td>
-</tr>
-<tr class="row-even"><td><p>text_area</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.filedroparea.text_area = ‘Drag and drop project files here’</pre> ℹ️ default: ‘&lt;drag and drop file(s) here&gt;’</p></td>
-</tr>
-<tr class="row-odd"><td><p>text_hover</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.filedroparea.text_hover = ‘Drop it!’</pre> ℹ️ default: ‘&lt;drop file(s)&gt;’</p></td>
-</tr>
-<tr class="row-even"><td><p>text_list</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.filedroparea.text_list = ‘Selected project(s)’</pre> ℹ️ default: ‘file(s):’</p></td>
-</tr>
-<tr class="row-odd"><td><p>max_length</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.filedroparea.max_length = 40</pre> ℹ️ max. characters, default: -1 (unlimited)</p></td>
-</tr>
-</tbody>
-</table>
 </section>
 <section id="tolerances-widget">
 <h3>Tolerances widget<a class="headerlink" href="#tolerances-widget" title="Link to this heading"></a></h3>
@@ -1617,73 +1565,29 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dl class="simple myst">
 <dt>Tolerances widget</dt><dd><p>The Tolerances widget is a group of input widgets which allows to configure all parameters related to tolerances.</p>
 </dd>
+<dt>expanded       (boolean)</dt><dd><p>Widget is expanded</p>
+</dd>
+<dt>mode           (string)</dt><dd><p>Tolerance mode  (‘no_tolerance’, ‘via_tolerance_table’, ‘from_cad’, ‘manual’, ‘from_element’)</p>
+</dd>
+<dt>upper          (double)</dt><dd><p>Upper limit</p>
+</dd>
+<dt>lower          (double)</dt><dd><p>Lower limit</p>
+</dd>
+<dt>use_upper      (boolean)</dt><dd><p>Use upper limit</p>
+</dd>
+<dt>use_lower      (boolean)</dt><dd><p>Use lower limit</p>
+</dd>
+<dt>use_warn_limit (boolean)</dt><dd><p>Use warning level</p>
+</dd>
+<dt>upper_warn     (double)</dt><dd><p>Upper warn limit</p>
+</dd>
+<dt>lower_warn     (double)</dt><dd><p>Lower warn limit</p>
+</dd>
+<dt>link_limits    (boolean)</dt><dd><p>Link limits</p>
+</dd>
+<dt>unit           (string)</dt><dd><p>Unit ID</p>
+</dd>
 </dl>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Property</p></th>
-<th class="head"><p>Type</p></th>
-<th class="head"><p>Example</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>tooltip</p></td>
-<td><p>str</p></td>
-<td><p><pre>DIALOG.tolerancesWidget.tooltip = ‘Configure tolerances’</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>enabled</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.tolerancesWidget.enabled = False</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>value</p></td>
-<td><p>(unspecified/various)</p></td>
-<td><p>The current value of the widget. Type depends on the widget type and can be ‘none’ for empty widgets.</p></td>
-</tr>
-<tr class="row-odd"><td><p>focus</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.tolerancesWidget.focus = True</pre>⚠️ Only works if dialog is open</p></td>
-</tr>
-<tr class="row-even"><td><p>visible</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.tolerancesWidget.visible = False</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>expanded</p></td>
-<td><p>bool</p></td>
-<td><p><pre># Check if widged is expanded<br>if DIALOG.tolerancesWidget.expanded == True:</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>mode</p></td>
-<td><p>str</p></td>
-<td><p><pre># Tolerance mode (‘no_tolerance’, ‘via_tolerance_table’, ‘from_cad’, ‘manual’, ‘from_element’)<br> print( DIALOG.tolerancesWidget.mode )</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>upper</p></td>
-<td><p>double</p></td>
-<td><p><pre>DIALOG.tolerancesWidget.upper = 0.3</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>lower</p></td>
-<td><p>double</p></td>
-<td><p><pre>DIALOG.tolerancesWidget.lower = 0.2</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>use_warn_limit</p></td>
-<td><p>bool</p></td>
-<td><p><pre># Use warning levels<br>DIALOG.tolerancesWidget = True</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>upper_warn</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.tolerancesWidget.upper_warn = 0.5</pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>lower_warn</p></td>
-<td><p>bool</p></td>
-<td><p><pre>DIALOG.tolerancesWidget.lower_warn = 0.4</pre></p></td>
-</tr>
-<tr class="row-even"><td><p>link_limits</p></td>
-<td><p>bool</p></td>
-<td><p><pre># Allow setting of upper / lower limits separately<br>DIALOG.tolerancesWidget.link_limits = False </pre></p></td>
-</tr>
-<tr class="row-odd"><td><p>unit</p></td>
-<td><p>str</p></td>
-<td><p><pre># Set unit ID<br>DIALOG.tolerancesWidget.unit = ‘LENGTH’</p></td>
-</tr>
-</tbody>
-</table>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The Tolerances widget’s result data type depends on the input:</p>
@@ -1706,6 +1610,10 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <p><code class="docutils literal notranslate"><span class="pre">gom.dialog.DialogResult</span> <span class="pre">('tolerances':</span> <span class="pre">{'lower':</span> <span class="pre">-1.0,</span> <span class="pre">'tolerance_type':</span> <span class="pre">'two_sided_center',</span> <span class="pre">'upper':</span> <span class="pre">1.1})</span></code></p>
 </li>
 </ol>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>See <a class="reference external" href="https://techguide.zeiss.com/en/zeiss-inspect-2026/article/faq_what_are_the_possibilities_for_unit_conversion_usable_in_scripts.html">Tech Guide: What are the Possibilities for Unit Conversions Usable in Scripts?</a> for available units.</p>
 </div>
 </section>
 </section>
@@ -1766,7 +1674,7 @@ The top widget has focus. The arrows are just examples for icons.<br />
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fd3531dcd00>
+  <jinja2.runtime.BlockReference object at 0x7f650ab8ec10>
 
 
 </footer>
