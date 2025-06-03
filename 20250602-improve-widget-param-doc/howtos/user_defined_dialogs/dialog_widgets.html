@@ -1413,13 +1413,19 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dl class="simple myst">
 <dt>Separator line widget</dt><dd><p>The separator line widget provides a horizontal line with an optional title.</p>
 </dd>
+<dt>title      (string)</dt><dd><p>Separator title (optional)</p>
+</dd>
 </dl>
 </section>
 <section id="horizontal-spacer-widget">
 <h3>Horizontal spacer widget<a class="headerlink" href="#horizontal-spacer-widget" title="Link to this heading"></a></h3>
 <p><img alt="" src="../../_images/widget_horizontal_spacer.png" /></p>
 <dl class="simple myst">
-<dt>Horizontal spacer widget</dt><dd><p>The horizontal spacer widget claims the space specified by <code class="docutils literal notranslate"><span class="pre">minimum_size</span></code> (default: 0) and <code class="docutils literal notranslate"><span class="pre">maximum_size</span></code> (default: -1, i.e. unlimited). The actual widget is not visible.</p>
+<dt>Horizontal spacer widget</dt><dd><p>The horizontal spacer widget claims the space specified by ‘minimum_size’ and ‘maximum_size’. The actual widget is not visible.</p>
+</dd>
+<dt>minimum_size (integer)</dt><dd><p>Minimum spacer size (default: 0)</p>
+</dd>
+<dt>maximum_size (integer)</dt><dd><p>Maximum spacer size (default: -1, i.e. unlimited)</p>
 </dd>
 </dl>
 </section>
@@ -1427,7 +1433,11 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <h3>Vertical spacer widget<a class="headerlink" href="#vertical-spacer-widget" title="Link to this heading"></a></h3>
 <p><img alt="" src="../../_images/widget_vertical_spacer.png" /></p>
 <dl class="simple myst">
-<dt>Vertical spacer widget</dt><dd><p>The vertical spacer claims the space specified by <code class="docutils literal notranslate"><span class="pre">minimum_size</span></code> (default: 0) and <code class="docutils literal notranslate"><span class="pre">maximum_size</span></code> (default: -1, i.e. unlimited). The actual widget is not visible.</p>
+<dt>Vertical spacer widget</dt><dd><p>The vertical spacer claims the space specified by ‘minimum_size’ and ‘maximum_size’. The actual widget is not visible.</p>
+</dd>
+<dt>minimum_size (integer)</dt><dd><p>Minimum spacer size (default: 0)</p>
+</dd>
+<dt>maximum_size (integer)</dt><dd><p>Maximum spacer size (default: -1, i.e. unlimited)</p>
 </dd>
 </dl>
 </section>
@@ -1438,9 +1448,9 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dl class="simple myst">
 <dt>Tab layout widget</dt><dd><p>The Tab layout widget provides a configurable number of tabs. Each tab serves as container for any number and types of widgets.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">current_tab</span></code> (integer)</dt><dd><p>Index of current tab</p>
+<dt>current_tab (integer)</dt><dd><p>Index of current tab</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">tabs</span></code> (list)</dt><dd><p>List of tab titles</p>
+<dt>tabs (list)</dt><dd><p>List of tab titles</p>
 </dd>
 </dl>
 </section>
@@ -1454,13 +1464,13 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dl class="simple myst">
 <dt>Separator layout widget</dt><dd><p>The saparator layout widget serves as a container for any number of widgets. Its contents can be collapsed or expanded. It provides titel, desciption and icon as optional features.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">title</span></code> (string)</dt><dd><p>Title text</p>
+<dt>title (string)</dt><dd><p>Title text</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">description</span></code> (string)</dt><dd><p>Description text</p>
+<dt>description (string)</dt><dd><p>Description text</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">icon</span></code> (string)</dt><dd><p>System icon or user icon imported from file. Icons are stored as base64-encoded strings.</p>
+<dt>icon (string)</dt><dd><p>System icon or user icon imported from file. Icons are stored as base64-encoded strings.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">expanded</span></code> (boolean)</dt><dd><p>True: Layout is initially expanded</p>
+<dt>expanded (boolean)</dt><dd><p>True: Layout is initially expanded</p>
 </dd>
 </dl>
 </section>
@@ -1756,7 +1766,7 @@ The top widget has focus. The arrows are just examples for icons.<br />
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7facf40ded60>
+  <jinja2.runtime.BlockReference object at 0x7fd3531dcd00>
 
 
 </footer>
