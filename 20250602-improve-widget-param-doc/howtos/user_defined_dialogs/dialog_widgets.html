@@ -709,10 +709,18 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <section id="information-box-widget">
 <h3>Information box widget<a class="headerlink" href="#information-box-widget" title="Link to this heading"></a></h3>
 <p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
-<p>Collapsed<br />
-<img alt="" src="../../_images/widget_information_box_collapsed.png" /></p>
-<p>Expanded<br />
-<img alt="" src="../../_images/widget_information_box_expanded.png" /></p>
+<figure class="align-default" id="id8">
+<img alt="../../_images/widget_information_box_collapsed.png" src="../../_images/widget_information_box_collapsed.png" />
+<figcaption>
+<p><span class="caption-text">Collapsed</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id9">
+<img alt="../../_images/widget_information_box_expanded.png" src="../../_images/widget_information_box_expanded.png" />
+<figcaption>
+<p><span class="caption-text">Expanded</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 <dl class="simple myst">
 <dt>Information box widget</dt><dd><p>The Information box widget allows to show text. You can toggle between expanded and collapsed state at run time. The default state can be configured.</p>
 </dd>
@@ -763,8 +771,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <dt>mode       (string)</dt><dd><p>Progress bar mode (system, manual)</p>
 </dd>
 <dt>Manual mode</dt><dd><p>In this mode, the user may set the progress bar through its <code class="docutils literal notranslate"><span class="pre">value</span></code> variable.</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Progress bar widget example – manual mode</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Progress bar widget example – manual mode</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span><span class="o">,</span><span class="w"> </span><span class="nn">time</span>
 <span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">minimum</span> <span class="o">=</span> <span class="mi">0</span>
@@ -783,8 +791,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </div>
 </dd>
 <dt>System mode</dt><dd><p>In this mode, the progress bar displays the same progress informations as the progress bar in the lower right corner of the software.</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Progress bar widget example – system mode</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Progress bar widget example – system mode</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">open_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
@@ -797,8 +805,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </dd>
 </dl>
 <p>You can switch between automatic and manual mode from within the script by setting the mode variable as shown below:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Changing the progress bar widget mode</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Changing the progress bar widget mode</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># manual mode:</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;manual&quot;</span>
 
@@ -814,8 +822,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <li><p>Each part controls an equally sized progress bar interval. If, for example, there are 3 parts, the first part ranges from 0 to 33, the second from 33 to 66 and the third from 66 to 100.</p></li>
 <li><p>When a command is executed, the command controls just the one active part of the progress bar widget.</p></li>
 </ul>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Progress bar consisting of multiple parts</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Progress bar consisting of multiple parts</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
@@ -900,15 +908,15 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <dt>background_style  (string)</dt><dd><p>Style sheet based background color (red, green, blue)</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Decimal widget example</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Decimal widget example</span><a class="headerlink" href="#id14" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="n">userInput</span> <span class="o">=</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">decimalWidget</span>
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Decimal widget attributes example</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Decimal widget attributes example</span><a class="headerlink" href="#id15" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">.</span><span class="n">decimalWidget</span><span class="o">.</span><span class="n">precision</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">decimalWidget</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="s1">&#39;LENGTH&#39;</span>
 </pre></div>
@@ -932,8 +940,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <dt>password   (boolean)</dt><dd><p>Password; hide input</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Text entry field example</span><a class="headerlink" href="#id14" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Text entry field example</span><a class="headerlink" href="#id16" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">textEntryWidget</span> <span class="o">=</span> <span class="s2">&quot;some default text&quot;</span>
 <span class="n">RESULT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span><span class="p">(</span><span class="n">dialog</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="p">)</span>
@@ -963,8 +971,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <dt>orientation   (string)</dt><dd><p>Widget orientation (‘horizontal’ or ‘vertical’)</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Slider widget example</span><a class="headerlink" href="#id15" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">Slider widget example</span><a class="headerlink" href="#id17" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="n">RESULT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
@@ -986,8 +994,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <dt>style      (string)</dt><dd><p>Style of the checkbox</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">Checkbox widget example</span><a class="headerlink" href="#id16" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">Checkbox widget example</span><a class="headerlink" href="#id18" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
@@ -1041,8 +1049,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <dt>show_today_button (boolean)</dt><dd><p>Show button for setting the current date</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">Date widget example</span><a class="headerlink" href="#id17" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">Date widget example</span><a class="headerlink" href="#id19" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 <span class="n">dateObject</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">dateWidget</span><span class="o">.</span><span class="n">value</span> <span class="c1"># date object</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">dateWidget</span><span class="o">.</span><span class="n">year</span> <span class="p">)</span>  <span class="c1"># integer</span>
@@ -1065,8 +1073,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <dt>transparency_allowed (boolean)</dt><dd><p>Transparency allowed</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">Color widget example</span><a class="headerlink" href="#id18" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">Color widget example</span><a class="headerlink" href="#id20" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="c1">#</span>
@@ -1098,8 +1106,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <p class="admonition-title">Hint</p>
 <p>See <a class="reference external" href="https://techguide.zeiss.com/en/zeiss-inspect-2026/article/faq_what_are_the_possibilities_for_unit_conversion_usable_in_scripts.html">Tech Guide: What are the Possibilities for Unit Conversions Usable in Scripts?</a> for available units.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">Unit widget example</span><a class="headerlink" href="#id19" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">Unit widget example</span><a class="headerlink" href="#id21" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="c1">#</span>
@@ -1134,8 +1142,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <dt>read_only  (boolean)</dt><dd><p>Read only</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text">Element name widget example</span><a class="headerlink" href="#id20" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">Element name widget example</span><a class="headerlink" href="#id22" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let the user define 3 new points (the coordinates are created automatically in this example)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
     <span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
@@ -1245,8 +1253,8 @@ The top widget has focus. The arrows are just examples for icons.<br />
 </dd>
 </dl>
 <p><code class="docutils literal notranslate"><span class="pre">elementSelectionWidget</span></code> is the object name of the element selection widget in the example below.</p>
-<div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text">Selection element widget example</span><a class="headerlink" href="#id21" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">Selection element widget example</span><a class="headerlink" href="#id23" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="n">selectedElement</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">elementSelectionWidget</span>
@@ -1255,8 +1263,8 @@ The top widget has focus. The arrows are just examples for icons.<br />
 </div>
 </div>
 <p>The following script shows how to use a custom filter for element selection. The example filter allows the user to select a system plane:</p>
-<div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text">Selection element widget with custom filter</span><a class="headerlink" href="#id22" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">Selection element widget with custom filter</span><a class="headerlink" href="#id24" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG4</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 
@@ -1305,8 +1313,8 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dt>items      (list)</dt><dd><p>List of items</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">Selection list widget attributes example</span><a class="headerlink" href="#id23" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">Selection list widget attributes example</span><a class="headerlink" href="#id25" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selectedValue</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">selectionListWidget</span><span class="o">.</span><span class="n">value</span>
 <span class="n">selectedIndex</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">selectionListWidget</span><span class="o">.</span><span class="n">index</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">selectedValue</span> <span class="p">)</span> <span class="c1"># output: entry2</span>
@@ -1329,8 +1337,8 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dt>items      (list)</dt><dd><p>List of available items (display text, data)</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">Combo box widget attributes example</span><a class="headerlink" href="#id24" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">Combo box widget attributes example</span><a class="headerlink" href="#id26" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign a list of selected data items</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">shape_list</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;circles&#39;</span><span class="p">,</span> <span class="s1">&#39;cones&#39;</span><span class="p">]</span>
 </pre></div>
@@ -1366,8 +1374,8 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dt>icon_system_size (string):</dt><dd><p>System icon size (‘default’, ‘large’, ‘extra_large’)</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">Button widget example</span><a class="headerlink" href="#id25" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">Button widget example</span><a class="headerlink" href="#id27" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">toggleButtonState</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">toggleButtonWidget</span><span class="o">.</span><span class="n">value</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">toggleButtonState</span><span class="p">)</span> <span class="c1"># output: True</span>
 </pre></div>
@@ -1393,8 +1401,8 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dt>default    (string)</dt><dd><p>Default enabled radio button, e.g. <code class="docutils literal notranslate"><span class="pre">DIALOG.radiobuttons.default</span> <span class="pre">=</span> <span class="pre">'Value2'</span></code></p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">Radio button widget example</span><a class="headerlink" href="#id26" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text">Radio button widget example</span><a class="headerlink" href="#id28" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selectedChoice</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">radiobuttonsWidget</span><span class="o">.</span><span class="n">value</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">selectedChoice</span> <span class="p">)</span> <span class="c1"># output: ONE</span>
 
@@ -1510,7 +1518,7 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dl class="simple myst">
 <dt>File system browser widget</dt><dd><p>The File system browser widget allows to view the file system and to select a file or a set of files, respectively. A filter can be set to show only files with certain filename extensions.</p>
 </dd>
-<dt>root               (string):</dt><dd><p>File system root directory</p>
+<dt>root               (string)</dt><dd><p>File system root directory</p>
 </dd>
 <dt>show_date          (boolean)</dt><dd><p>Show file date column</p>
 </dd>
@@ -1674,7 +1682,7 @@ The top widget has focus. The arrows are just examples for icons.<br />
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f650ab8ec10>
+  <jinja2.runtime.BlockReference object at 0x7fc661d158d0>
 
 
 </footer>
