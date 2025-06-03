@@ -120,14 +120,16 @@ ok     (unspecified/various) - Control widget
 cancel (unspecified/various) - Control widget
 ```
 
-#### Control button properties
+#### Control button attributes
 
-Control buttons only have the following two properties which can be set programmatically:
+Control buttons only have the following two attributes which can be set programmatically:
 
-| Property | Type | Example                                          |
-| -------- | ---- | ------------------------------------------------ |
-| text     | str  | <pre>DIALOG.control.prev.text = 'Previous'</pre> |
-| enabled  | bool | <pre>DIALOG.control.ok.enabled = False</pre>     |
+
+text (string)
+: Button text, e.g. `DIALOG.control.prev.text = 'Previous'`
+
+enabled (boolean)
+: Button enabled, e.g. `DIALOG.control.ok.enabled = False`     |
 
 #### Status label
 
@@ -169,7 +171,7 @@ Therefore Wizards only have simple options like exchange of images and texts in 
 
 #### Control widgets
 
-The operational elements in a control widget from a wizard do act like those in regular dialogs und can be accessed via handles as well:
+The operational elements in a control widget from a wizard are acting like those in regular dialogs und can be accessed via handles as well:
 
 ![](assets/wizard.png)
 
@@ -275,7 +277,6 @@ RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 
 ![](assets/widget_label.png)
 
-Description field (label) widget
 : The Description field (label) widget allows to display static text. It is typically used for labelling a section or an individual element of a dialog.
 
 text (string)
