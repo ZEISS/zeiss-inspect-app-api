@@ -1146,9 +1146,13 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <section id="split-button-widget">
 <h3>Split button widget<a class="headerlink" href="#split-button-widget" title="Link to this heading"></a></h3>
 <p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
-<p>Three split button widgets with modes ‘menu’, ‘instant’ and ‘tool’, respectively.<br />
-The top widget has focus. The arrows are just examples for icons.<br />
-<img alt="" src="../../_images/widget_split_button.png" /></p>
+<figure class="align-default" id="id23">
+<img alt="../../_images/widget_split_button.png" src="../../_images/widget_split_button.png" />
+<figcaption>
+<p><span class="caption-text">Three split button widgets with modes ‘menu’, ‘instant’ and ‘tool’, respectively.<br />
+The top widget has focus. The arrows are just examples for icons.</span><a class="headerlink" href="#id23" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 <p>A split button is a hybrid between a button and an options menu. Each item consist of text and/or an icon. One of the modes ‘instant’, ‘menu’ or ‘tool’ can be configured.</p>
 <dl class="simple myst">
 <dt>value      (integer)</dt><dd><p>Index of pressed button</p>
@@ -1223,8 +1227,8 @@ The toggle bar widget allows to select one of several items. Each item consists 
 </dd>
 </dl>
 <p><code class="docutils literal notranslate"><span class="pre">elementSelectionWidget</span></code> is the object name of the element selection widget in the example below.</p>
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">Selection element widget example</span><a class="headerlink" href="#id23" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">Selection element widget example</span><a class="headerlink" href="#id24" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 <span class="n">selectedElement</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">elementSelectionWidget</span>
@@ -1233,8 +1237,8 @@ The toggle bar widget allows to select one of several items. Each item consists 
 </div>
 </div>
 <p>The following script shows how to use a custom filter for element selection. The example filter allows the user to select a system plane:</p>
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">Selection element widget with custom filter</span><a class="headerlink" href="#id24" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">Selection element widget with custom filter</span><a class="headerlink" href="#id25" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG4</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
 
 
@@ -1282,8 +1286,8 @@ The toggle bar widget allows to select one of several items. Each item consists 
 <dt>items      (list)</dt><dd><p>List of items</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">Selection list widget attributes example</span><a class="headerlink" href="#id25" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">Selection list widget attributes example</span><a class="headerlink" href="#id26" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selectedValue</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">selectionListWidget</span><span class="o">.</span><span class="n">value</span>
 <span class="n">selectedIndex</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">selectionListWidget</span><span class="o">.</span><span class="n">index</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">selectedValue</span> <span class="p">)</span> <span class="c1"># output: entry2</span>
@@ -1296,10 +1300,10 @@ The toggle bar widget allows to select one of several items. Each item consists 
 <h3>Combo box widget<a class="headerlink" href="#combo-box-widget" title="Link to this heading"></a></h3>
 <p><img alt="New in Version 2025" src="https://img.shields.io/badge/New-Version_2025-orange" /></p>
 <p><img alt="" src="../../_images/widget_combo_box-3.png" /></p>
-<figure class="align-default" id="id26">
+<figure class="align-default" id="id27">
 <img alt="../../_images/widget_combo_box-2.png" src="../../_images/widget_combo_box-2.png" />
 <figcaption>
-<p><span class="caption-text">Selection in progress</span><a class="headerlink" href="#id26" title="Link to this image"></a></p>
+<p><span class="caption-text">Selection in progress</span><a class="headerlink" href="#id27" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The combo box allows to select multiple items from a list. Each item consists of text and data (represented as string).</p>
@@ -1309,8 +1313,8 @@ The toggle bar widget allows to select one of several items. Each item consists 
 <dt>items      (list)</dt><dd><p>List of available items (display text, data)</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id27">
-<div class="code-block-caption"><span class="caption-text">Combo box widget attributes example</span><a class="headerlink" href="#id27" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text">Combo box widget attributes example</span><a class="headerlink" href="#id28" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign a list of selected data items</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">shape_list</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;circles&#39;</span><span class="p">,</span> <span class="s1">&#39;cones&#39;</span><span class="p">]</span>
 </pre></div>
@@ -1345,8 +1349,8 @@ The toggle bar widget allows to select one of several items. Each item consists 
 <dt>icon_system_size (string):</dt><dd><p>System icon size (‘default’, ‘large’, ‘extra_large’)</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id28">
-<div class="code-block-caption"><span class="caption-text">Button widget example</span><a class="headerlink" href="#id28" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id29">
+<div class="code-block-caption"><span class="caption-text">Button widget example</span><a class="headerlink" href="#id29" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">toggleButtonState</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">toggleButtonWidget</span><span class="o">.</span><span class="n">value</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">toggleButtonState</span><span class="p">)</span> <span class="c1"># output: True</span>
 </pre></div>
@@ -1371,8 +1375,8 @@ The toggle bar widget allows to select one of several items. Each item consists 
 <dt>default    (string)</dt><dd><p>Default enabled radio button, e.g. <code class="docutils literal notranslate"><span class="pre">DIALOG.radiobuttons.default</span> <span class="pre">=</span> <span class="pre">'Value2'</span></code></p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id29">
-<div class="code-block-caption"><span class="caption-text">Radio button widget example</span><a class="headerlink" href="#id29" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id30">
+<div class="code-block-caption"><span class="caption-text">Radio button widget example</span><a class="headerlink" href="#id30" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selectedChoice</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">radiobuttonsWidget</span><span class="o">.</span><span class="n">value</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">selectedChoice</span> <span class="p">)</span> <span class="c1"># output: ONE</span>
 
@@ -1431,16 +1435,16 @@ The toggle bar widget allows to select one of several items. Each item consists 
 <section id="separator-layout-widget">
 <h3>Separator layout widget<a class="headerlink" href="#separator-layout-widget" title="Link to this heading"></a></h3>
 <p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
-<figure class="align-default" id="id30">
+<figure class="align-default" id="id31">
 <img alt="../../_images/widget_separator_layout_collapsed.png" src="../../_images/widget_separator_layout_collapsed.png" />
 <figcaption>
-<p><span class="caption-text">Collapsed</span><a class="headerlink" href="#id30" title="Link to this image"></a></p>
+<p><span class="caption-text">Collapsed</span><a class="headerlink" href="#id31" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<figure class="align-default" id="id31">
+<figure class="align-default" id="id32">
 <img alt="../../_images/widget_separator_layout_expanded.png" src="../../_images/widget_separator_layout_expanded.png" />
 <figcaption>
-<p><span class="caption-text">Expanded (contains a single description field widget)</span><a class="headerlink" href="#id31" title="Link to this image"></a></p>
+<p><span class="caption-text">Expanded (contains a single description field widget)</span><a class="headerlink" href="#id32" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The separator layout widget serves as a container for any number of widgets. Its contents can be collapsed or expanded. It provides titel, desciption and icon as optional features.</p>
@@ -1649,7 +1653,7 @@ The toggle bar widget allows to select one of several items. Each item consists 
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f46cde80c90>
+  <jinja2.runtime.BlockReference object at 0x7fa270da0360>
 
 
 </footer>
