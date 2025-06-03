@@ -1001,9 +1001,10 @@ for i in range(3):
 
 ![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
 
+```{figure} assets/widget_split_button.png
 Three split button widgets with modes 'menu', 'instant' and 'tool', respectively.\
-The top widget has focus. The arrows are just examples for icons.\
-![](assets/widget_split_button.png)
+The top widget has focus. The arrows are just examples for icons.
+```
 
 A split button is a hybrid between a button and an options menu. Each item consist of text and/or an icon. One of the modes 'instant', 'menu' or 'tool' can be configured.
 
