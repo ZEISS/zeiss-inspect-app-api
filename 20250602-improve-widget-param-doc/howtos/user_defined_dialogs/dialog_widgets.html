@@ -1327,8 +1327,12 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <h3>Combo box widget<a class="headerlink" href="#combo-box-widget" title="Link to this heading"></a></h3>
 <p><img alt="New in Version 2025" src="https://img.shields.io/badge/New-Version_2025-orange" /></p>
 <p><img alt="" src="../../_images/widget_combo_box-3.png" /></p>
-<p>Selection in progress<br />
-<img alt="" src="../../_images/widget_combo_box-2.png" /></p>
+<figure class="align-default" id="id26">
+<img alt="../../_images/widget_combo_box-2.png" src="../../_images/widget_combo_box-2.png" />
+<figcaption>
+<p><span class="caption-text">Selection in progress</span><a class="headerlink" href="#id26" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 <dl class="simple myst">
 <dt>Combo box widget</dt><dd><p>The combo box allows to select multiple items from a list. Each item consists of text and data (represented as string).</p>
 </dd>
@@ -1337,8 +1341,8 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dt>items      (list)</dt><dd><p>List of available items (display text, data)</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">Combo box widget attributes example</span><a class="headerlink" href="#id26" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">Combo box widget attributes example</span><a class="headerlink" href="#id27" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign a list of selected data items</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">shape_list</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;circles&#39;</span><span class="p">,</span> <span class="s1">&#39;cones&#39;</span><span class="p">]</span>
 </pre></div>
@@ -1374,8 +1378,8 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dt>icon_system_size (string):</dt><dd><p>System icon size (‘default’, ‘large’, ‘extra_large’)</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id27">
-<div class="code-block-caption"><span class="caption-text">Button widget example</span><a class="headerlink" href="#id27" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text">Button widget example</span><a class="headerlink" href="#id28" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">toggleButtonState</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">toggleButtonWidget</span><span class="o">.</span><span class="n">value</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">toggleButtonState</span><span class="p">)</span> <span class="c1"># output: True</span>
 </pre></div>
@@ -1401,8 +1405,8 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <dt>default    (string)</dt><dd><p>Default enabled radio button, e.g. <code class="docutils literal notranslate"><span class="pre">DIALOG.radiobuttons.default</span> <span class="pre">=</span> <span class="pre">'Value2'</span></code></p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id28">
-<div class="code-block-caption"><span class="caption-text">Radio button widget example</span><a class="headerlink" href="#id28" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id29">
+<div class="code-block-caption"><span class="caption-text">Radio button widget example</span><a class="headerlink" href="#id29" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selectedChoice</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">radiobuttonsWidget</span><span class="o">.</span><span class="n">value</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">selectedChoice</span> <span class="p">)</span> <span class="c1"># output: ONE</span>
 
@@ -1465,10 +1469,18 @@ The top widget has focus. The arrows are just examples for icons.<br />
 <section id="separator-layout-widget">
 <h3>Separator layout widget<a class="headerlink" href="#separator-layout-widget" title="Link to this heading"></a></h3>
 <p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
-<p>Collapsed<br />
-<img alt="" src="../../_images/widget_separator_layout_collapsed.png" /></p>
-<p>Expanded (contains a single description field widget)<br />
-<img alt="" src="../../_images/widget_separator_layout_expanded.png" /></p>
+<figure class="align-default" id="id30">
+<img alt="../../_images/widget_separator_layout_collapsed.png" src="../../_images/widget_separator_layout_collapsed.png" />
+<figcaption>
+<p><span class="caption-text">Collapsed</span><a class="headerlink" href="#id30" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id31">
+<img alt="../../_images/widget_separator_layout_expanded.png" src="../../_images/widget_separator_layout_expanded.png" />
+<figcaption>
+<p><span class="caption-text">Expanded (contains a single description field widget)</span><a class="headerlink" href="#id31" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 <dl class="simple myst">
 <dt>Separator layout widget</dt><dd><p>The saparator layout widget serves as a container for any number of widgets. Its contents can be collapsed or expanded. It provides titel, desciption and icon as optional features.</p>
 </dd>
@@ -1682,7 +1694,7 @@ The top widget has focus. The arrows are just examples for icons.<br />
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fc661d158d0>
+  <jinja2.runtime.BlockReference object at 0x7ff52f34c360>
 
 
 </footer>
