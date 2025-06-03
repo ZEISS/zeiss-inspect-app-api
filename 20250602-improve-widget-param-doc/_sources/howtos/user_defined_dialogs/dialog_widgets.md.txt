@@ -1038,7 +1038,6 @@ mode       (string)
 
 ![](assets/widget_toggle_bar.png)
 
-Toggle bar widget
 The toggle bar widget allows to select one of several items. Each item consists of text and/or an icon.
 
 value      (integer)
