@@ -277,7 +277,7 @@ RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 
 ![](assets/widget_label.png)
 
-: The Description field (label) widget allows to display static text. It is typically used for labelling a section or an individual element of a dialog.
+The Description field (label) widget allows to display static text. It is typically used for labelling a section or an individual element of a dialog.
 
 text (string)
 : Label text
@@ -289,9 +289,7 @@ word_wrap  (boolean)
 
 ![](assets/text_field.png)
 
-Continuous text widget
-: The Continuous text widget allows to display static text and keywords. A double click onto a text field widget opens the content editor. Some formatting can be applied.
-
+The Continuous text widget allows to display static text and keywords. A double click onto a text field widget opens the content editor. Some formatting can be applied.
 
 text (string)
 : Continuous text widget contents
@@ -406,8 +404,7 @@ gom.script.sys.execute_user_defined_dialog (dialog={
 
 ![](assets/widget_image.png)
 
-Image widget
-: The Image widget allows to display arbitrary images.
+The Image widget allows to display arbitrary images.
 
 use_system_image (bool)
 : Use system image instead of a user defined custom image
@@ -498,8 +495,7 @@ Collapsed
 Expanded
 ```
 
-Information box widget
-: The Information box widget allows to show text. You can toggle between expanded and collapsed state at run time. The default state can be configured.
+The Information box widget allows to show text. You can toggle between expanded and collapsed state at run time. The default state can be configured.
 
 text       (string)              
 : Information text
@@ -511,8 +507,7 @@ expanded   (boolean)
 
 ![](assets/widget_log.png)
 
-Log widget
-: The Log widget can display multiple lines of unformatted text, which can be easily saved to a text file by clicking the save button.
+The Log widget can display multiple lines of unformatted text, which can be easily saved to a text file by clicking the save button.
 
 text                 (string)
 : Log text
@@ -536,8 +531,7 @@ monospace            (boolean)
 
 ![](assets/widget_progressbar.png)
 
-Progress bar widget
-: The Progress bar widget can be used in the two modes _system_ and _manual_.
+The Progress bar widget can be used in the two modes _system_ and _manual_.
 
 value      (integer)
 : Current value                                                                                                     
@@ -662,8 +656,7 @@ It is possible to switch between system and manual mode for each part.
 
 ![](assets/widget_integer.png)
 
-Integer widget
-: The Integer widget is used to request an integer value from the user. `integerWidget` is the object name of the integer widget in the example below.
+The Integer widget is used to request an integer value from the user. `integerWidget` is the object name of the integer widget in the example below.
 
 value      (integer)
 : The current input value
@@ -684,8 +677,7 @@ userInput = RESULT.integerWidget
 
 ![](assets/widget_decimal.png)
 
-Decimal widget
-: The Decimal widget is used to request a floating point value from the user. It is possible to choose the number of digits and a unit. The selectable units are the ones from the user preferences (Edit \> Application \> Settings \> Preferences) in the _Default units_ tab. `decimalWidget` is the object name of the decimal widget in the example below.
+The Decimal widget is used to request a floating point value from the user. It is possible to choose the number of digits and a unit. The selectable units are the ones from the user preferences (Edit \> Application \> Settings \> Preferences) in the _Default units_ tab. `decimalWidget` is the object name of the decimal widget in the example below.
 
 value             (double)
 : The current input value
@@ -732,9 +724,7 @@ See [Tech Guide: What are the Possibilities for Unit Conversions Usable in Scrip
 ### Text entry field
 ![](assets/widget_text_entry.png)
 
-Text entry field
-: The Text entry field widget can be used to get string input from the user. A simple use case is given by the next code block. `textEntryWidget` is the object name of the widget in the example below.
-
+The Text entry field widget can be used to get string input from the user. A simple use case is given by the next code block. `textEntryWidget` is the object name of the widget in the example below.
 
 value      (string)
 : The current input value
@@ -761,8 +751,7 @@ print( RESULT.textEntryWidget ) # the user input string
 
 ![](assets/widget_slider.png)
 
-Slider widget
-: The Slider widget can be used to get a float value from a certain interval from the user. `sliderWidget` is the object name of the slider widget in the example below.
+The Slider widget can be used to get a float value from a certain interval from the user. `sliderWidget` is the object name of the slider widget in the example below.
 
 value         (double)
 : The current value
@@ -799,8 +788,7 @@ print( RESULT.sliderWidget ) # some text
 
 ![](assets/widget_checkbox.png)
 
-Checkbox widget
-: The Checkbox widget can be used to get boolean input from the user. `checkboxWidget` is the object name of the checkbox widget in the example below.
+The Checkbox widget can be used to get boolean input from the user. `checkboxWidget` is the object name of the checkbox widget in the example below.
 
 value      (boolean) 
 : The current value          
@@ -824,8 +812,7 @@ print (RESULT.checkboxWidget)
 
 ![](assets/widget_file.png)
 
-File widget
-: By clicking the File widget, a file selection dialog is opened. This allows to select a file from the file system.
+By clicking the File widget, a file selection dialog is opened. This allows to select a file from the file system.
 
 value          (unspecified/various)
 : The current value of the widget
@@ -856,8 +843,7 @@ file_types     (list)
 
 ![](assets/widget_date.png)
 
-Date widget
-: The Date widget requests a date from the user. `dateWidget` is the object name of the date widget in the example below.
+The Date widget requests a date from the user. `dateWidget` is the object name of the date widget in the example below.
 
 value             (string):
 : The current value
@@ -894,8 +880,7 @@ print( DIALOG.dateWidget.day )   # integer
 
 ![](assets/widget_color.png)
 
-Color widget
-: The Color widget allows to select a color. `colorWidget` is the object name of the color widget in the example below. `gomColor` behaves in the same way as `gom.Color( ... )`.
+The Color widget allows to select a color. `colorWidget` is the object name of the color widget in the example below. `gomColor` behaves in the same way as `gom.Color( ... )`.
 
 value                (object)
 : The current color value (gom.Color object)
@@ -929,8 +914,7 @@ print('Selection:', RESULT.colorWidget) # example output (white): 0xffffffff
 
 ![](assets/widget_unit.png)
 
-Unit widget
-: The Unit widget allows to select a unit. `unitWidget` is the object name of the unit widget in the example below.
+The Unit widget allows to select a unit. `unitWidget` is the object name of the unit widget in the example below.
 
 value
 : The current unit
@@ -961,8 +945,7 @@ RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 
 ![](assets/widget_element_name.png)
 
-Element name widget
-: The Element name widget is used to request an element name from the user. It is possible to select the default name (according to naming scheme, e.g. 'Point 2' if 'Point 1' already exists), or to enter an arbitrary name. `elementnameWidget` is the object name of the element name widget in the example below.
+The Element name widget is used to request an element name from the user. It is possible to select the default name (according to naming scheme, e.g. 'Point 2' if 'Point 1' already exists), or to enter an arbitrary name. `elementnameWidget` is the object name of the element name widget in the example below.
 
 value      (unspecified/various)
 : The current value
@@ -1022,8 +1005,7 @@ Three split button widgets with modes 'menu', 'instant' and 'tool', respectively
 The top widget has focus. The arrows are just examples for icons.\
 ![](assets/widget_split_button.png)
 
-Split button widget
-: A split button is a hybrid between a button and an options menu. Each item consist of text and/or an icon. One of the modes 'instant', 'menu' or 'tool' can be configured.
+A split button is a hybrid between a button and an options menu. Each item consist of text and/or an icon. One of the modes 'instant', 'menu' or 'tool' can be configured.
 
 value      (integer)
 : Index of pressed button
@@ -1056,7 +1038,7 @@ mode       (string)
 ![](assets/widget_toggle_bar.png)
 
 Toggle bar widget
-: The toggle bar widget allows to select one of several items. Each item consists of text and/or an icon.
+The toggle bar widget allows to select one of several items. Each item consists of text and/or an icon.
 
 value      (integer)
 :  Index of selected item
@@ -1083,8 +1065,7 @@ mode       (string)
 
 ![](assets/widget_selection_element.png)
 
-Selection element widget
-: The Selection element widget can be used to select the elements from the element explorer. The following element types can be chosen:
+The Selection element widget can be used to select the elements from the element explorer. The following element types can be chosen:
   * Any Point
   * Point element
   * Line element
@@ -1163,8 +1144,7 @@ Please find the complete example here: [dialog_custom_elem_select.py](assets/dia
 
 ![](assets/widget_list_selection.png)
 
-Selection list widget
-: The Selection list widget allows to make a selection from a predefined set of options. The selected item can be accessed from a script through its object name (e.g. `selectionListWidget`) as follows.
+The Selection list widget allows to make a selection from a predefined set of options. The selected item can be accessed from a script through its object name (e.g. `selectionListWidget`) as follows.
 
 value      (string)
 : The current value
@@ -1194,8 +1174,7 @@ print( selectedIndex ) # output: 1
 Selection in progress
 ```
 
-Combo box widget
-: The combo box allows to select multiple items from a list. Each item consists of text and data (represented as string).
+The combo box allows to select multiple items from a list. Each item consists of text and data (represented as string).
 
 value      (list)
 : List of selected items (data)
@@ -1218,8 +1197,7 @@ DIALOG.shape_list.value = ['circles', 'cones']
 
 ![](assets/widget_button_on.png)
 
-Button widget
-: The Button widget allows to trigger an event or to return a boolean value, respectively. There are two types of buttons: push buttons and toggle buttons. The push button is a regular button and needs an event handler to manage its action. The toggle button has two states - active and inactive - and the user can toggle between them by clicking the button. The button is highlighted in active state as shown in the screenshot. The state of the toggle button can be accessed via the 'value' attribute.
+The Button widget allows to trigger an event or to return a boolean value, respectively. There are two types of buttons: push buttons and toggle buttons. The push button is a regular button and needs an event handler to manage its action. The toggle button has two states - active and inactive - and the user can toggle between them by clicking the button. The button is highlighted in active state as shown in the screenshot. The state of the toggle button can be accessed via the 'value' attribute.
 
 value            (boolean)
 : The current button value (only useful for toggle button)
@@ -1265,8 +1243,7 @@ There are also values for file icons. These only work straightforward using the 
 
 ![](assets/widget_radiobutton.png)
 
-Radio button widget
-:  The Radio button widget enables the user to choose an option from a predefined set. Each option has a label and a unique ID, which both can be set in the scripting dialog editor by double clicking the widget. The IDs are 'ONE', 'TWO' and 'THREE' in the example below.
+The Radio button widget enables the user to choose an option from a predefined set. Each option has a label and a unique ID, which both can be set in the scripting dialog editor by double clicking the widget. The IDs are 'ONE', 'TWO' and 'THREE' in the example below.
 
 
 value      (string) 
@@ -1295,8 +1272,7 @@ if selectedChoice == 'ONE':
 
 ![](assets/widget_separator_line.png)
 
-Separator line widget
-: The separator line widget provides a horizontal line with an optional title.
+The separator line widget provides a horizontal line with an optional title.
 
 title      (string)
 : Separator title (optional)
@@ -1305,8 +1281,7 @@ title      (string)
 
 ![](assets/widget_horizontal_spacer.png)
 
-Horizontal spacer widget
-: The horizontal spacer widget claims the space specified by 'minimum_size' and 'maximum_size'. The actual widget is not visible.
+The horizontal spacer widget claims the space specified by 'minimum_size' and 'maximum_size'. The actual widget is not visible.
 
 minimum_size (integer)
 : Minimum spacer size (default: 0)
@@ -1318,8 +1293,7 @@ maximum_size (integer)
 
 ![](assets/widget_vertical_spacer.png)
 
-Vertical spacer widget
-: The vertical spacer claims the space specified by 'minimum_size' and 'maximum_size'. The actual widget is not visible.
+The vertical spacer claims the space specified by 'minimum_size' and 'maximum_size'. The actual widget is not visible.
 
 minimum_size (integer)
 : Minimum spacer size (default: 0)
@@ -1333,8 +1307,7 @@ maximum_size (integer)
 
 ![](assets/widget_tab_layout-1.png) ![](assets/widget_tab_layout-2.png)
 
-Tab layout widget
-: The Tab layout widget provides a configurable number of tabs. Each tab serves as container for any number and types of widgets.
+The Tab layout widget provides a configurable number of tabs. Each tab serves as container for any number and types of widgets.
 
 current_tab (integer)
 : Index of current tab                                                                                              
@@ -1355,8 +1328,7 @@ Collapsed
 Expanded (contains a single description field widget)
 ```
 
-Separator layout widget
-: The saparator layout widget serves as a container for any number of widgets. Its contents can be collapsed or expanded. It provides titel, desciption and icon as optional features.
+The separator layout widget serves as a container for any number of widgets. Its contents can be collapsed or expanded. It provides titel, desciption and icon as optional features.
 
 title (string)
 : Title text                                                                                                        
@@ -1376,8 +1348,7 @@ expanded (boolean)
 
 ![](assets/widget_abort_disabled.png)
 
-Abort button widget
-: The Abort button widget aborts the current action. It is disabled if no action is currently executed. It behaves in the same manner as the abort button in the lower right corner of the ZEISS INSPECT software.
+The Abort button widget aborts the current action. It is disabled if no action is currently executed. It behaves in the same manner as the abort button in the lower right corner of the ZEISS INSPECT software.
 
 ![](assets/built-in_progressbar.png)
 
@@ -1411,8 +1382,7 @@ icon_system_size (string)
 
 ![](assets/widget_fsbrowser.png)
 
-File system browser widget
-: The File system browser widget allows to view the file system and to select a file or a set of files, respectively. A filter can be set to show only files with certain filename extensions.
+The File system browser widget allows to view the file system and to select a file or a set of files, respectively. A filter can be set to show only files with certain filename extensions.
 
 root               (string)
 : File system root directory                                                                                        
@@ -1458,8 +1428,7 @@ print(RESULT.filesystem.selected)
 
 ![](assets/widget_file_drag_n_drop_area.png)
 
-File drag&drop area
-: The File drag&drop area allows to select files. The widget shows the base names of the selected files, but stores the filenames with full paths internally. Some of its text items can be configured.
+The File drag&drop area allows to select files. The widget shows the base names of the selected files, but stores the filenames with full paths internally. Some of its text items can be configured.
 
 text_area  (string)
 : Default text of drop area (default: '\<drag and drop file(s) here\>')
@@ -1477,8 +1446,7 @@ max_length (string)
 
 ![](assets/widget_tolerances.png)
 
-Tolerances widget
-: The Tolerances widget is a group of input widgets which allows to configure all parameters related to tolerances.
+The Tolerances widget is a group of input widgets which allows to configure all parameters related to tolerances.
 
 expanded       (boolean)
 : Widget is expanded
