@@ -735,8 +735,8 @@ read_only  (boolean)
 password   (boolean)
 : Password; hide input
 
-% Usage?
-% validator  (Tom::GScript::Callable) - Input validator
+validator  (function)
+: Input validator &ndash; input is accepted only if the validator function returns 'True'
 
 ```{code-block} python
 :caption: Text entry field example
@@ -745,6 +745,23 @@ DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
 DIALOG.textEntryWidget = "some default text"
 RESULT = gom.script.sys.show_user_defined_dialog(dialog = DIALOG)
 print( RESULT.textEntryWidget ) # the user input string
+```
+
+```{code-block} python
+:caption: Input validator example
+
+import re
+
+# ...
+
+# Accept only lowercase letters, digits & dash
+def check_input(s):
+	pattern = r'^[a-z0-9-]+$'
+	return bool(re.fullmatch(pattern, s))
+
+DIALOG.input.validator = check_input
+
+# ...
 ```
 
 ### Slider widget
