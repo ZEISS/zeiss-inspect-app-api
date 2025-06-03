@@ -1189,8 +1189,9 @@ print( selectedIndex ) # output: 1
 
 ![](assets/widget_combo_box-3.png)
 
-Selection in progress\
-![](assets/widget_combo_box-2.png)
+```{figure} assets/widget_combo_box-2.png
+Selection in progress
+```
 
 Combo box widget
 : The combo box allows to select multiple items from a list. Each item consists of text and data (represented as string).
@@ -1344,11 +1345,14 @@ tabs (list)
 
 ![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
 
-Collapsed\
-![](assets/widget_separator_layout_collapsed.png)
 
-Expanded (contains a single description field widget)\
-![](assets/widget_separator_layout_expanded.png)
+```{figure} assets/widget_separator_layout_collapsed.png
+Collapsed
+```
+
+```{figure} assets/widget_separator_layout_expanded.png
+Expanded (contains a single description field widget)
+```
 
 Separator layout widget
 : The saparator layout widget serves as a container for any number of widgets. Its contents can be collapsed or expanded. It provides titel, desciption and icon as optional features.
