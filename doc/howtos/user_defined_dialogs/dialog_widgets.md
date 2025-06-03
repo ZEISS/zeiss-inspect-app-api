@@ -1294,19 +1294,34 @@ if selectedChoice == 'ONE':
 Separator line widget
 : The separator line widget provides a horizontal line with an optional title.
 
+title      (string)
+: Separator title (optional)
+
 ### Horizontal spacer widget
 
 ![](assets/widget_horizontal_spacer.png)
 
 Horizontal spacer widget
-: The horizontal spacer widget claims the space specified by `minimum_size` (default: 0) and `maximum_size` (default: -1, i.e. unlimited). The actual widget is not visible.
+: The horizontal spacer widget claims the space specified by 'minimum_size' and 'maximum_size'. The actual widget is not visible.
+
+minimum_size (integer)
+: Minimum spacer size (default: 0)
+
+maximum_size (integer)
+: Maximum spacer size (default: -1, i.e. unlimited)
 
 ### Vertical spacer widget
 
 ![](assets/widget_vertical_spacer.png)
 
 Vertical spacer widget
-: The vertical spacer claims the space specified by `minimum_size` (default: 0) and `maximum_size` (default: -1, i.e. unlimited). The actual widget is not visible.
+: The vertical spacer claims the space specified by 'minimum_size' and 'maximum_size'. The actual widget is not visible.
+
+minimum_size (integer)
+: Minimum spacer size (default: 0)
+
+maximum_size (integer)
+: Maximum spacer size (default: -1, i.e. unlimited)
 
 ### Tab layout widget
 
@@ -1317,10 +1332,10 @@ Vertical spacer widget
 Tab layout widget
 : The Tab layout widget provides a configurable number of tabs. Each tab serves as container for any number and types of widgets.
 
-`current_tab` (integer)
+current_tab (integer)
 : Index of current tab                                                                                              
 
-`tabs` (list)
+tabs (list)
 : List of tab titles 
 
 ### Separator layout widget
@@ -1336,16 +1351,16 @@ Expanded (contains a single description field widget)\
 Separator layout widget
 : The saparator layout widget serves as a container for any number of widgets. Its contents can be collapsed or expanded. It provides titel, desciption and icon as optional features.
 
-`title` (string)
+title (string)
 : Title text                                                                                                        
 
-`description` (string)
+description (string)
 : Description text                                                                                                  
 
-`icon` (string)                                                                                                             
+icon (string)                                                                                                             
 : System icon or user icon imported from file. Icons are stored as base64-encoded strings.
 
-`expanded` (boolean)
+expanded (boolean)
 : True: Layout is initially expanded 
 
 ## Other
