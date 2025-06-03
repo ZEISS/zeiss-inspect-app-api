@@ -489,7 +489,7 @@ RESULT=gom.script.sys.execute_user_defined_dialog (dialog={
 
 ![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
 
-```{figure} assets/widget_information_box_collapsed.png)
+```{figure} assets/widget_information_box_collapsed.png
 Collapsed
 ```
 
