@@ -1374,6 +1374,30 @@ Abort button widget
 
 ![](assets/built-in_progressbar.png)
 
+text             (string)
+: Text of the button
+
+button_type      (string)
+: Button type ('push', 'toggle')
+
+icon             (Tom::Parse::Binary)
+: Icon of the button
+
+icon_file_name   (string)
+: Source file name of the icon                                                                                      
+
+icon_size        (string)
+: Icon size mode (icon, full)                                                                                       
+
+icon_type        (string)
+: Icon type (none, system, file)                                                                                    
+
+icon_system_type (string)
+: System icon type (ok, cancel, warning, error, arrow_up, arrow_down, arrow_left, arrow_right)                      
+
+icon_system_size (string)
+: System icon size (default, large, extra_large) 
+
 % To Do: Add enabled abort button. Check if the button still exists in ZEISS INSPECT.
 
 ### File system browser widget
@@ -1383,20 +1407,43 @@ Abort button widget
 File system browser widget
 : The File system browser widget allows to view the file system and to select a file or a set of files, respectively. A filter can be set to show only files with certain filename extensions.
 
-| Property           | Type                  | Example                                                                                |
-| ------------------ | --------------------- | -------------------------------------------------------------------------------------- |
-| tooltip            | str                   | <pre>DIALOG.filesystemWidget.tooltip = 'Select CAD file'</pre>                         |
-| enabled            | bool                  | <pre>DIALOG.filesystemWidget.enabled = False</pre>                                     |
-| value              | (unspecified/various) |  The current value of the widget. Type depends on the widget type and can be 'none' for empty widgets. |
-| focus              | bool                  | <pre>DIALOG.filesystemWidget.focus = True</pre>⚠️ Only works if dialog is open         |
-| visible            | bool                  | <pre>DIALOG.filesystemWidget.visible = False</pre>                                     |
-| root               | str                   | <pre>DIALOG.filesystemWidget.root = 'C:/Users'</pre>                                   |
-| show_date          | bool                  | <pre>DIALOG.filesystemWidget.show_date = True</pre>                                    |
-| show_size          | bool                  | <pre>DIALOG.filesystemWidget.show_size = True</pre>                                    |
-| show_type          | bool                  | <pre>DIALOG.filesystemWidget.show_type = True</pre>                                    |
-| use_multiselection | bool                  | <pre># Enable selection of multiple files<br>DIALOG.filesystemWidget.use_multiselection = True</pre> |                                                               
-| selected           | list                  | <pre>print(DIALOG.filesystemWidget.selected)<br># example output: \['C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 1.g3d', 'C:/temp/Basic_Training_GOM_Inspect_Pro/Training Data/Raw Data/Actual/GOM Training Object Mesh 2.g3d'\]</pre> |
-| filter             | list                  | <pre># Apply a filter of filename extensions<br>DIALOG.filesystemWidget.filter = \[ '\*.g3d', '\*.stp' \]</pre> |
+root               (string):
+: File system root directory                                                                                        
+
+show_date          (boolean)
+: Show file date column                                                                                             
+
+show_size          (boolean)
+: Show file size column                                                                                             
+
+show_type          (boolean)
+: Show file type column
+
+use_multiselection (boolean)
+: Single/multi file selection mode                                                                                  
+
+selected           (list)
+: Selected files                                                                                                    
+
+filter             (list)
+: List of filename extensions to be shown   
+
+```{code-block} python
+def dialog_handler(widget):
+    if widget == 'initialize':
+        DIALOG.filesystem.root = 'C:/temp'
+        DIALOG.filesystem.use_multiselection = True
+        filter = ['*.g3d', '*.stp']
+    ...
+
+DIALOG.handler = dialog_handler
+
+RESULT = gom.script.sys.show_user_defined_dialog( dialog = DIALOG )
+
+print(RESULT.filesystem.selected)
+# E.g.:
+# ['C:/temp/ZEISS_INSPECT_Training/Training Data/Raw Data/Actual/ZEISS Training Object Mesh 1.g3d', 'C:/temp/ZEISS_INSPECT_Training/Training Data/Raw Data/Actual/ZEISS Training Object Mesh 2.g3d']
+```
 
 ### File drag&drop area widget
 
@@ -1407,18 +1454,17 @@ File system browser widget
 File drag&drop area
 : The File drag&drop area allows to select files. The widget shows the base names of the selected files, but stores the filenames with full paths internally. Some of its text items can be configured.
 
-| Property   | Type    | Example                                                                                              |
-| ---------- | --------| ---------------------------------------------------------------------------------------------------- |
-| tooltip    | str     | <pre>DIALOG.filedroparea.tooltip = 'Select one of the operating modes'</pre>                         |
-| enabled    | bool    | <pre>DIALOG.filedroparea.enabled = False</pre>                                                       |
-| value      | str     | <pre>DIALOG.filedroparea.value = ['circles', 'cones']</pre> ℹ️ Assign a list of data items           |
-| focus      | bool    | <pre>DIALOG.filedroparea.focus = True</pre>⚠️ Only works if dialog is open                           |
-| visible    | bool    | <pre>DIALOG.filedroparea.visible = False</pre>                                                       |
-| handler    | (unspecified/various) | <pre>DIALOG.filedroparea.handler = my_filedrophandler</pre> ℹ️ Optional widget specific event handler |
-| text_area  | str     | <pre>DIALOG.filedroparea.text_area = 'Drag and drop project files here'</pre> ℹ️ default: '<drag and drop file(s) here>' |
-| text_hover | str     | <pre>DIALOG.filedroparea.text_hover = 'Drop it!'</pre> ℹ️ default: '<drop file(s)>'                 |
-| text_list  | str     | <pre>DIALOG.filedroparea.text_list = 'Selected project(s)'</pre> ℹ️ default: 'file(s):'             |
-| max_length | str     | <pre>DIALOG.filedroparea.max_length = 40</pre> ℹ️ max. characters, default: -1 (unlimited)          |
+text_area  (string)
+: Default text of drop area (default: '\<drag and drop file(s) here\>')
+
+text_hover (string)
+: Text shown when hovered with droppable file (default: '\<drop file(s)\>')
+
+text_list  (string)
+: Preamble text before filenames list (default: 'file(s):')
+
+max_length (string)
+: Maximum number of characters displayed for filenames (default: -1, i.e. unlimited)
 
 ### Tolerances widget
 
@@ -1427,22 +1473,38 @@ File drag&drop area
 Tolerances widget
 : The Tolerances widget is a group of input widgets which allows to configure all parameters related to tolerances.
 
-| Property         | Type                  | Example                                                                                  |
-| ---------------- | --------------------- | ---------------------------------------------------------------------------------------- |
-| tooltip          | str                   | <pre>DIALOG.tolerancesWidget.tooltip = 'Configure tolerances'</pre>                      |
-| enabled          | bool                  | <pre>DIALOG.tolerancesWidget.enabled = False</pre>                                       |
-| value            | (unspecified/various) |  The current value of the widget. Type depends on the widget type and can be 'none' for empty widgets. |
-| focus            | bool                  | <pre>DIALOG.tolerancesWidget.focus = True</pre>⚠️ Only works if dialog is open           |
-| visible          | bool                  | <pre>DIALOG.tolerancesWidget.visible = False</pre>                                       |
-| expanded         | bool                  | <pre># Check if widged is expanded<br>if DIALOG.tolerancesWidget.expanded == True:</pre> |
-| mode             | str                   | <pre># Tolerance mode ('no_tolerance', 'via_tolerance_table', 'from_cad', 'manual', 'from_element')<br> print( DIALOG.tolerancesWidget.mode )</pre> |
-| upper            | double                | <pre>DIALOG.tolerancesWidget.upper = 0.3</pre>                                           |
-| lower            | double                | <pre>DIALOG.tolerancesWidget.lower = 0.2</pre>
-| use_warn_limit   | bool                  | <pre># Use warning levels<br>DIALOG.tolerancesWidget = True</pre>                        | 
-| upper_warn       | bool                  | <pre>DIALOG.tolerancesWidget.upper_warn = 0.5</pre>                                      |
-| lower_warn       | bool                  | <pre>DIALOG.tolerancesWidget.lower_warn = 0.4</pre>
-| link_limits      | bool                  | <pre># Allow setting of upper / lower limits separately<br>DIALOG.tolerancesWidget.link_limits = False </pre> |
-| unit             | str                   | <pre># Set unit ID<br>DIALOG.tolerancesWidget.unit = 'LENGTH'                            |
+expanded       (boolean)
+: Widget is expanded
+
+mode           (string)
+: Tolerance mode  ('no_tolerance', 'via_tolerance_table', 'from_cad', 'manual', 'from_element')
+
+upper          (double)
+: Upper limit
+
+lower          (double)
+: Lower limit
+
+use_upper      (boolean)
+: Use upper limit
+
+use_lower      (boolean)
+: Use lower limit
+
+use_warn_limit (boolean)
+: Use warning level
+
+upper_warn     (double)
+: Upper warn limit
+
+lower_warn     (double)
+: Lower warn limit
+
+link_limits    (boolean)
+: Link limits
+
+unit           (string)
+: Unit ID
 
 ```{important}
 The Tolerances widget's result data type depends on the input:
@@ -1469,6 +1531,10 @@ The Tolerances widget's result data type depends on the input:
    ![One-sided tolerance](assets/tolerance-3.png)
 
    `gom.dialog.DialogResult ('tolerances': {'lower': -1.0, 'tolerance_type': 'two_sided_center', 'upper': 1.1})`
+```
+
+```{hint}
+See [Tech Guide: What are the Possibilities for Unit Conversions Usable in Scripts?](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/faq_what_are_the_possibilities_for_unit_conversion_usable_in_scripts.html) for available units.
 ```
 
 ## Widget text assignment and formatting at run time
