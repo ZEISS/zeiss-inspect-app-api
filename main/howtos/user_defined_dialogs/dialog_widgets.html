@@ -633,9 +633,9 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </dd>
 <dt>keep_aspect        (boolean)</dt><dd><p>Keep original image aspect ratio (read-only)</p>
 </dd>
-<dt>width</dt><dd><p>Image width (read-only)</p>
+<dt>width              (integer)</dt><dd><p>Image width (read-only)</p>
 </dd>
-<dt>height</dt><dd><p>Image height (read-only)</p>
+<dt>height             (integer)</dt><dd><p>Image height (read-only)</p>
 </dd>
 </dl>
 <p>Note that you can switch from a system image to a user image using the property <code class="docutils literal notranslate"><span class="pre">use_system_image</span></code>. But this user image must have been selected beforehand in the designer. You cannot read a new image file by setting the <code class="docutils literal notranslate"><span class="pre">filename</span></code> property. Also, all of the image formatting properties (<code class="docutils literal notranslate"><span class="pre">keep_original_size</span></code>, <code class="docutils literal notranslate"><span class="pre">keep_aspect</span></code>, <code class="docutils literal notranslate"><span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">height</span></code>) only work in the designer. From the script you can only read these values. Although you cannot read images using the <code class="docutils literal notranslate"><span class="pre">filename</span></code> property you can copy images from one dialog to another using the <code class="docutils literal notranslate"><span class="pre">data</span></code> property. So you are able to prepare (create) a dialog as an image container holding several images. You can then use this image container dialog to copy the image you need to an actually displayed dialog.</p>
@@ -1091,7 +1091,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <p><img alt="" src="../../_images/widget_unit.png" /></p>
 <p>The Unit widget allows to select a unit. <code class="docutils literal notranslate"><span class="pre">unitWidget</span></code> is the object name of the unit widget in the example below.</p>
 <dl class="simple myst">
-<dt>value</dt><dd><p>The current unit</p>
+<dt>value (string)</dt><dd><p>The current unit</p>
 </dd>
 </dl>
 <div class="admonition hint">
@@ -1671,7 +1671,7 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fb6cc9c4130>
+  <jinja2.runtime.BlockReference object at 0x7fac52cb6f20>
 
 
 </footer>
