@@ -424,10 +424,10 @@ keep_original_size (boolean)
 keep_aspect        (boolean)
 : Keep original image aspect ratio (read-only)
 
-width
+width              (integer)
 : Image width (read-only)                                                                                                                                              
 
-height
+height             (integer)
 : Image height (read-only)
 
 Note that you can switch from a system image to a user image using the property `use_system_image`. But this user image must have been selected beforehand in the designer. You cannot read a new image file by setting the `filename` property. Also, all of the image formatting properties (`keep_original_size`, `keep_aspect`, `width`, `height`) only work in the designer. From the script you can only read these values. Although you cannot read images using the `filename` property you can copy images from one dialog to another using the `data` property. So you are able to prepare (create) a dialog as an image container holding several images. You can then use this image container dialog to copy the image you need to an actually displayed dialog.
@@ -933,7 +933,7 @@ print('Selection:', RESULT.colorWidget) # example output (white): 0xffffffff
 
 The Unit widget allows to select a unit. `unitWidget` is the object name of the unit widget in the example below.
 
-value
+value (string)
 : The current unit
 
 ```{hint}
