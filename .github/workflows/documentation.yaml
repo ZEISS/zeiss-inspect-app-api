@@ -52,4 +52,5 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: --user-agent "curl/8.14.1" --base . --verbose --no-progress '${{ env.SUBDIR_NAME }}/**/*.html'
+          workingDirectory: .
           debug: true
