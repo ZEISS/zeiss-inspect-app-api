@@ -56,7 +56,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_app_editor/using_app_editor.html">Using the App Editor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/app_file_format/app_file_format.html">App file format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/python_api_introduction/file_selection_dialog.html">Selecting a file or folder</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../howtos/python_api_introduction/user_defined_dialogs.html">User-defined Dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/user_defined_dialogs/user_defined_dialogs.html">User-defined Dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/user_defined_dialogs/dialog_widgets.html">Dialog widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/user_defined_dialogs/executing_dialogs.html">Executing dialogs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/scripting_solutions/scripting_solutions.html">Scripting solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/faq/faq.html">Frequently asked questions</a></li>
 </ul>
@@ -73,7 +75,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides – Expert</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../howtos/python_api_introduction/creating_wizard_dialogs.html">Creating wizard dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/user_defined_dialogs/creating_wizard_dialogs.html">Creating wizard dialogs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_gui_libraries/using_gui_libraries.html">Using an additional Python GUI library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_shared_environments/using_shared_environments.html">Using shared environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_wheelhouses/using_wheelhouses.html">Using Python wheelhouses</a></li>
@@ -81,6 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_services/using_services.html">Using services</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_scripted_diagrams/using_scripted_diagrams.html">Using scripted diagrams</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_jupyter_notebook/using_jupyter_notebook.html">Using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/using_jupyter_notebook/using_jupyter_and_vscode.html">Using Jupyter Notebook with VSCode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/starting_options/starting_options.html">Software and script starting options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/scripting_legacy_projects/scripting_legacy_projects.html">Scripting with legacy projects (part-less)</a></li>
 </ul>
@@ -1006,6 +1009,32 @@ Nevertheless, the vector can be number entirely different depending on active/in
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>Usually, it is <em>not</em> possible to access arbitrary stages of other elements due to recalc restrictions !</p>
+</div>
+<p><strong>Additional element data</strong></p>
+<p>Every element can store arbitrary data sets in addition to the computed values. While the computed values are used
+to create the element’s geometry and are stored in the elements internal structures, the additional data is kept in
+the associated EDM project database and can be retrieved via an element token.</p>
+<p>Each elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function returns a dictionary always. The exact format of that dictionary depends on the
+element type and the elements geometry data is tagged by the fixed key named. In addition, that result map can contain
+a dictionary with key <code class="docutils literal notranslate"><span class="pre">data</span></code>. The key/value pairs within can then be accessed via the element’s token interface under
+that exact same name.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="c1"># Compute the element geometry (a point is that case)</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_center</span> <span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;threshold&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Return both element specific geometry plus an arbitraty data set</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;point&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="n">center</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;threshold&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
 </div>
 <section id="gom-api-extensions-scriptedelement-event">
 <h4>gom.api.extensions.ScriptedElement.Event<a class="headerlink" href="#gom-api-extensions-scriptedelement-event" title="Link to this heading"></a></h4>
@@ -4138,7 +4167,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fc44e858600>
+  <jinja2.runtime.BlockReference object at 0x7f1a5e4e3e00>
 
 
 </footer>

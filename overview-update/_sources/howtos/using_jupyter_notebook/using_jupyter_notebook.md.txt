@@ -98,7 +98,7 @@ Jupyter Notebook opens its web GUI in your browser. A file browser is shown init
 
 ## Using user-defined dialogs in a Notebook
 
-When creating [user-defined dialogs](../python_api_introduction/user_defined_dialogs.md) in an App using\
+When creating [user-defined dialogs](../user_defined_dialogs/user_defined_dialogs.md) in an App using\
 `DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')`\
 or\
 `RESULT=gom.script.sys.execute_user_defined_dialog (file='dialog.gdlg')`,\
@@ -126,6 +126,7 @@ gom.script.sys.create_user_defined_dialog = patched_create_user_defined_dialog
 
 ## Related
 
+* [Using Jupyter Notebook with VSCode](using_jupyter_and_vscode)
 * [Jupyter Notebook](https://jupyter.org/)
 * [ZEISS INSPECT API wheel](https://pypi.org/project/zeiss-inspect-api/)
 * [Using Visual Studio Code as App editor](../using_vscode_editor/using_vscode_editor.md)

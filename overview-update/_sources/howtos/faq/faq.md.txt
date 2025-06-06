@@ -145,7 +145,7 @@ Depending on the specific use case, one of the following workarounds might be ap
 * Use a 3rd party library which makes use of threading natively.
 * Use the python subprocess module.
 * Use threads in a way that no ZEISS INSPECT API calls are made. You will have to find out if and how this works in your specific case.
-* Use a <a href="../python_api_introduction/user_defined_dialogs.html#using-a-timer-to-activate-the-event-handler">timer event</a> to implement time-based scheduling in a dialog event handler.
+* Use a <a href="../user_defined_dialogs/executing_dialogs.html#using-a-timer-to-activate-the-event-handler">timer event</a> to implement time-based scheduling in a dialog event handler.
 
 ## How do I filter nominal, actual or inspection elements?
 
@@ -261,7 +261,7 @@ print (RESULT.__dict__['__args__'][0])
 # example output: {'distance': 2.0, 'label': None}
 ```
 
-See [User-defined dialogs / Executing dialogs / Dialog results](../python_api_introduction/user_defined_dialogs.md#dialog-results) for more details.
+See [User-defined dialogs / Executing dialogs / Dialog results](../user_defined_dialogs/executing_dialogs.md#dialog-results) for more details.
 
 ## How can I use an image from a script resource file in a user defined dialog?
 
@@ -269,7 +269,7 @@ You add your image file as a resource to the App:
 
 ![App Explorer - PNG file as resource](assets/resource_file_as_image_data.png)
 
-You create a dialog file with an [Image widget](../python_api_introduction/user_defined_dialogs.md#image-widget), but without setting the actual image in the dialog editor.
+You create a dialog file with an [Image widget](../user_defined_dialogs/dialog_widgets.md#image-widget), but without setting the actual image in the dialog editor.
 
 In the Python script, you assign the resource as data to the image widget object:
 
