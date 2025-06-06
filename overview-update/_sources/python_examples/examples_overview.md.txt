@@ -520,6 +520,9 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 :Description:
     Template for custom workspaces
 
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/adding_workspaces_to_apps/adding_workspaces_to_apps.html)
+
 :Required Software:
     ZEISS INSPECT 2023
 
