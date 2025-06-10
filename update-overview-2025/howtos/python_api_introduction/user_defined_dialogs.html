@@ -96,6 +96,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#unit-widget">Unit widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#selection-element-widget">Selection element widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#selection-list-widget">Selection list widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#combo-box-widget">Combo box widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#button-widget">Button widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#radio-button-widget">Radio button widget</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#abort-button-widget">Abort button widget</a></li>
@@ -157,6 +158,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../using_services/using_services.html">Using services</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_scripted_diagrams/using_scripted_diagrams.html">Using scripted diagrams</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_jupyter_notebook/using_jupyter_notebook.html">Using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_jupyter_notebook/using_jupyter_and_vscode.html">Using Jupyter Notebook with VSCode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../starting_options/starting_options.html">Software and script starting options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../scripting_legacy_projects/scripting_legacy_projects.html">Scripting with legacy projects (part-less)</a></li>
 </ul>
@@ -422,6 +424,7 @@
 <li><p><a class="reference internal" href="#unit-widget">Unit widget</a></p></li>
 <li><p><a class="reference internal" href="#selection-element-widget">Selection element widget</a></p></li>
 <li><p><a class="reference internal" href="#selection-list-widget">Selection list widget</a></p></li>
+<li><p><a class="reference internal" href="#combo-box-widget">Combo box widget</a></p></li>
 <li><p><a class="reference internal" href="#button-widget">Button widget</a></p></li>
 <li><p><a class="reference internal" href="#radio-button-widget">Radio button widget</a></p></li>
 <li><p><a class="reference internal" href="#abort-button-widget">Abort button widget</a></p></li>
@@ -1743,6 +1746,55 @@ into <a class="reference internal" href="#executing-dialogs">Executing dialogs</
 </tbody>
 </table>
 </section>
+<section id="combo-box-widget">
+<h4>Combo box widget<a class="headerlink" href="#combo-box-widget" title="Link to this heading"></a></h4>
+<p><img alt="New in Version 2025" src="https://img.shields.io/badge/New-Version_2025-orange" /></p>
+<p><img alt="" src="../../_images/widget_combo_box-3.png" /></p>
+<p>Selection in progress<br />
+<img alt="" src="../../_images/widget_combo_box-2.png" /></p>
+<dl class="simple myst">
+<dt>Combo box widget</dt><dd><p>The combo box allows to select multiple items from a list. Each item consists of text and data (represented as string).</p>
+</dd>
+</dl>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>tooltip</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.list.tooltip = ‘Select one of the operating modes’</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>enabled</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.list.enabled = False</pre></p></td>
+</tr>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>str</p></td>
+<td><p><pre>DIALOG.list.value = [‘circles’, ‘cones’]</pre> ℹ️ Assign a list of data items</p></td>
+</tr>
+<tr class="row-odd"><td><p>focus</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.list.focus = True</pre>⚠️ Only works if dialog is open</p></td>
+</tr>
+<tr class="row-even"><td><p>visible</p></td>
+<td><p>bool</p></td>
+<td><p><pre>DIALOG.list.visible = False</pre></p></td>
+</tr>
+<tr class="row-odd"><td><p>handler</p></td>
+<td><p>(unspecified/various)</p></td>
+<td><p><pre>DIALOG.toggle.handler = my_listhandler</pre> ℹ️ Optional widget specific event handler</p></td>
+</tr>
+<tr class="row-even"><td><p>items</p></td>
+<td><p>list</p></td>
+<td><p><pre># List of items (display text, data)</pre></p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="button-widget">
 <h4>Button widget<a class="headerlink" href="#button-widget" title="Link to this heading"></a></h4>
 <p><img alt="" src="../../_images/widget_button_off.png" /></p>
@@ -2680,7 +2732,7 @@ about its attributes:</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7feb7d93ef50>
+  <jinja2.runtime.BlockReference object at 0x7f3c663f66d0>
 
 
 </footer>

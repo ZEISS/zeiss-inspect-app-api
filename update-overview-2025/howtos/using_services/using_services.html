@@ -102,6 +102,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../using_scripted_diagrams/using_scripted_diagrams.html">Using scripted diagrams</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_jupyter_notebook/using_jupyter_notebook.html">Using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_jupyter_notebook/using_jupyter_and_vscode.html">Using Jupyter Notebook with VSCode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../starting_options/starting_options.html">Software and script starting options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../scripting_legacy_projects/scripting_legacy_projects.html">Scripting with legacy projects (part-less)</a></li>
 </ul>
@@ -211,6 +212,10 @@
 </section>
 <section id="service-scripts">
 <h2>Service scripts<a class="headerlink" href="#service-scripts" title="Link to this heading"></a></h2>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p><code class="docutils literal notranslate"><span class="pre">gom</span></code> commands – <code class="docutils literal notranslate"><span class="pre">gom.script.*</span></code> or <code class="docutils literal notranslate"><span class="pre">gom.interactive.*</span></code> – cannot be used in a service script!</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Functions decorated as <code class="docutils literal notranslate"><span class="pre">&#64;apifunction</span></code> will be exported as the service API.</p>
@@ -391,7 +396,7 @@ Currently the service has to run on the same machine as the application and can 
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7feb7e148210>
+  <jinja2.runtime.BlockReference object at 0x7f3c66905550>
 
 
 </footer>
