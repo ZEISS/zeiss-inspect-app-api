@@ -183,6 +183,7 @@ The definition of the dialog can be found in [scriptingEditorExampleDialog.py](a
     - [Unit widget](#unit-widget)
     - [Selection element widget](#selection-element-widget)
     - [Selection list widget](#selection-list-widget)
+    - [Combo box widget](#combo-box-widget)
     - [Button widget](#button-widget)
     - [Radio button widget](#radio-button-widget)
     - [Abort button widget](#abort-button-widget)
@@ -976,6 +977,29 @@ print( selectedIndex ) # output: 1
 | visible  | bool        | <pre>DIALOG.select_mode.visible = False</pre>                                                        |
 | items    | list of str | <pre>DIALOG.selectEntry.items = ['Debug', 'Info', 'Warn', 'Error', 'Fatal']</pre>                    |
 | index    | int         | <pre>print(f'List item with index {DIALOG.selectEntry.index} is selected.')</pre>                    |             
+
+
+#### Combo box widget
+
+![New in Version 2025](https://img.shields.io/badge/New-Version_2025-orange)
+
+![](assets/widget_combo_box-3.png)
+
+Selection in progress\
+![](assets/widget_combo_box-2.png)
+
+Combo box widget
+: The combo box allows to select multiple items from a list. Each item consists of text and data (represented as string).
+
+| Property | Type        | Example                                                                                              |
+| -------- | ----------- | ---------------------------------------------------------------------------------------------------- |
+| tooltip  | str         | <pre>DIALOG.list.tooltip = 'Select one of the operating modes'</pre>                                 |
+| enabled  | bool        | <pre>DIALOG.list.enabled = False</pre>                                                               |
+| value    | str         | <pre>DIALOG.list.value = ['circles', 'cones']</pre> ℹ️ Assign a list of data items                   |
+| focus    | bool        | <pre>DIALOG.list.focus = True</pre>⚠️ Only works if dialog is open                                   |
+| visible  | bool        | <pre>DIALOG.list.visible = False</pre>                                                               |
+| handler  | (unspecified/various) | <pre>DIALOG.toggle.handler = my_listhandler</pre> ℹ️ Optional widget specific event handler |
+| items    | list        | <pre># List of items (display text, data)</pre>       
 
 
 #### Button widget
