@@ -116,7 +116,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <hr class="small-margin">
 <section id="dropdownwidget">
 <div id="dropdownwidget" class="example-block-odd">
-<h3>DropdownWidget — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/dialog_widgets/DropdownWidget/doc/Documentation.md">view</a> 
+<h3>DropdownWidget — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/dialog_widgets/DropdownWidget/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/dropdown-widget">download</a>
 <a class="headerlink" href="#dropdownwidget" title="Link to this heading"></a></h3>
 
 
@@ -233,7 +233,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="dialogreopenexample">
 <div id="dialogreopenexample" class="example-block-even">
-<h3>DialogReopenExample — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/DialogReopenExample/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/dialog-reopen-example">download</a>
+<h3>DialogReopenExample — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/DialogReopenExample/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#dialogreopenexample" title="Link to this heading"></a></h3>
 
 
@@ -293,7 +293,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="fileselectionandfiltering">
 <div id="fileselectionandfiltering" class="example-block-odd">
-<h3>FileSelectionAndFiltering — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/FileSelectionAndFiltering/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/file-selection-and-filtering">download</a>
+<h3>FileSelectionAndFiltering — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/FileSelectionAndFiltering/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#fileselectionandfiltering" title="Link to this heading"></a></h3>
 
 
@@ -348,7 +348,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="measurementsystemanalysis">
 <div id="measurementsystemanalysis" class="example-block-even">
-<h3>MeasurementSystemAnalysis — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/MeasurementSystemAnalysis/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/measurement-system-analysis">download</a>
+<h3>MeasurementSystemAnalysis — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/MeasurementSystemAnalysis/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#measurementsystemanalysis" title="Link to this heading"></a></h3>
 
 
@@ -428,7 +428,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="serviceexample">
 <div id="serviceexample" class="example-block-even">
-<h3>ServiceExample — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/ServiceExample/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/service-example">download</a>
+<h3>ServiceExample — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/ServiceExample/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#serviceexample" title="Link to this heading"></a></h3>
 
 
