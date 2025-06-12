@@ -1581,7 +1581,7 @@ On the JavaScript side, the event can be emitted like this:
 :caption: Emitting events from the JavaScript renderer
 
 function renderer () {
-    gom.bridge.__events__.emit('view::initialized', 'Hello World');
+    gom.emitEvent('my::custom::event', 'Hello World');
 }
 ```
 
