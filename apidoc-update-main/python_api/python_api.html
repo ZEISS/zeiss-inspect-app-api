@@ -2094,7 +2094,7 @@ renderer in effect in case of en event. It can be overwritten in custom scripted
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Emitting events from the JavaScript renderer</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">renderer</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">gom</span><span class="p">.</span><span class="nx">bridge</span><span class="p">.</span><span class="nx">__events__</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;view::initialized&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">gom</span><span class="p">.</span><span class="nx">emitEvent</span><span class="p">(</span><span class="s1">&#39;my::custom::event&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -4244,7 +4244,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f8f196dd780>
+  <jinja2.runtime.BlockReference object at 0x7f8451c17af0>
 
 
 </footer>
