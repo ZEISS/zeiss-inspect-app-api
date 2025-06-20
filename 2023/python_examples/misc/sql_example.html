@@ -301,7 +301,7 @@ For each of these variables, two text widgets are used - one for the value in ZE
 </section>
 <section id="querying-the-database">
 <h4>Querying the database<a class="headerlink" href="#querying-the-database" title="Link to this heading"></a></h4>
-<p>In this example, whe only use the project name for selecting database entries. The project names must be unique, so we use <a class="reference external" href="https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursor-fetchone.html">MySQLCursor.fetchone()</a> to get a single row from the <code class="docutils literal notranslate"><span class="pre">projects</span></code> table as result.</p>
+<p>In this example, we only use the project name for selecting database entries. The project names must be unique, so we use <a class="reference external" href="https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursor-fetchone.html">MySQLCursor.fetchone()</a> to get a single row from the <code class="docutils literal notranslate"><span class="pre">projects</span></code> table as result.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT company_name, department_name, part_name FROM projects</span>
 <span class="s2">        WHERE project_name=</span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="n">DIALOG</span><span class="o">.</span><span class="n">project_zi</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">)</span>
@@ -404,7 +404,7 @@ For each of these variables, two text widgets are used - one for the value in ZE
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f9ab76aa190>
+  <jinja2.runtime.BlockReference object at 0x7f2b6971e190>
 
 
 </footer>

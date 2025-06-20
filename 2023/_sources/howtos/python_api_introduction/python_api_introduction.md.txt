@@ -162,7 +162,7 @@ As shown above, the following code creates a project in the part-based workflow,
 # Create a project (default; part-based workflow)
 gom.script.sys.create_project ()
 
-# For compatibility, the kind of project can be stated explicitely:
+# For compatibility, the kind of project can be stated explicitly:
 # Create a project (part-based workflow)
 gom.script.sys.create_project (type=2018)
 ```
@@ -266,7 +266,7 @@ For the single part workflow old scripts using *Actual Master* and the *All CAD 
 #### Measurement series
 The script compatibility for the current measurement list is given in most cases. Normal information is usually accessible via the same attributes as before.
 
-#### Tesselate Geometrical Element
+#### Tessellate Geometrical Element
 The obsolete command `gom.script.mesh.tesselate_geometrical_element` creates an element of type mesh.
 
 In the part-based workflow this command has been replaced with the command `gom.script.primitive.tesselate_geometrical_element`, which creates elements of type surface.
