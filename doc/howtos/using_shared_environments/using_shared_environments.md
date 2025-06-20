@@ -18,7 +18,7 @@ Shared environments are useful if
 
 ## How to create a shared environment
 
-Add a key-value pair `"environment": <environment_name>` to the `metainfo.json` files of all Apps which you want to share the environment. `<environment_name>` can be any string, but you are adviced to use a unique name to avoid potential conflicts with other, separate environments. The `environment` element can be placed at any position within the JSON file.
+Add a key-value pair `"environment": <environment_name>` to the `metainfo.json` files of all Apps which you want to share the environment. `<environment_name>` can be any string, but you are advised to use a unique name to avoid potential conflicts with other, separate environments. The `environment` element can be placed at any position within the JSON file.
 
 ## Example:
 
@@ -138,6 +138,6 @@ An App has to be finished (with **Finish Editing**) before its Python files can 
 
 | Provider App  | User App    | Description                                                            |
 | ------------- | ----------- | ---------------------------------------------------------------------- |
-| protected     | unprotected | &#x274c; curently not supported                                        |
+| protected     | unprotected | &#x274c; currently not supported                                        |
 | unprotected   | protected   | &#x2714; no additional measures required                               |
 | protected     | protected   | &#x1f511; 'shared secret' must be created when applying the protection |
