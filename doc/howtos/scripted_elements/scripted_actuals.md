@@ -49,7 +49,7 @@ In this case, we want to ask the user on which point our offset-point should be 
 
 ![](assets/offset_point_dialog.jpg)
 
-It's important to note the widgets' *Object name*s, so we can adress them in the code. Second, it's important to set the "Type" of the selection element widget to `Any point`, so the user gets only the choice between elements that offer some point information.
+It's important to note the widgets' *Object name*s, so we can address them in the code. Second, it's important to set the "Type" of the selection element widget to `Any point`, so the user gets only the choice between elements that offer some point information.
 
 When finished with dialog creation, we have our desired JSON code, which we can use as a parameter for the `gom.script.sys.create_user_defined_dialog` command (line 3). This gives as a `DIALOG` handle, which we will use further.
 
