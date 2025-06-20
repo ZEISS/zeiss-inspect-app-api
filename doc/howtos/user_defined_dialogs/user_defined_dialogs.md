@@ -31,7 +31,7 @@ You can add a GUI to your App by creating user-defined dialogs, which are based 
 * Some dialog **Templates** are provided by the system. Additional templates can be created by the user.
 
 * The options for placing a dialog configuration (see section **Create as** in the window above) are
-    * **Separate dialog file** - default (recommeded)
+    * **Separate dialog file** - default (recommended)
     * **Embedded into script**
 
     The base filename of a dialog file is `dialog.gdlg`, it can be renamed later. A dialog is stored as a JSON document internally.
