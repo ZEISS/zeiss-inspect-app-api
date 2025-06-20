@@ -517,7 +517,7 @@ Manual mode
     ```
 
 Automatic mode
-: In this mode, the progress bar displays the same progress informations as the progress bar in the lower right corner of the software.
+: In this mode, the progress bar displays the same progress information as the progress bar in the lower right corner of the software.
 
     ```{code-block} python
     import gom
@@ -1084,7 +1084,7 @@ Tolerances widget
 | value            | (unspecified/various) |  The current value of the widget. Type depends on the widget type and can be 'none' for empty widgets. |
 | focus            | bool                  | <pre>DIALOG.tolerancesWidget.focus = True</pre>⚠️ Only works if dialog is open           |
 | visible          | bool                  | <pre>DIALOG.tolerancesWidget.visible = False</pre>                                       |
-| expanded         | bool                  | <pre># Check if widged is expanded<br>if DIALOG.tolerancesWidget.expanded == True:</pre> |
+| expanded         | bool                  | <pre># Check if widget is expanded<br>if DIALOG.tolerancesWidget.expanded == True:</pre> |
 | mode             | str                   | <pre># Tolerance mode ('no_tolerance', 'via_tolerance_table', 'from_cad', 'manual', 'from_element')<br> print( DIALOG.tolerancesWidget.mode )</pre> |
 | upper            | double                | <pre>DIALOG.tolerancesWidget.upper = 0.3</pre>                                           |
 | lower            | double                | <pre>DIALOG.tolerancesWidget.lower = 0.2</pre>
@@ -1671,7 +1671,7 @@ print (DIALOG.my_button.__doc__)
 # tooltip          (string)              - Tooltip of the widget. If empty, no tooltip is displayed.
 # enabled          (boolean)             - Enabled state of the widget. Default is 'enabled', set to false for disabling it.
 # value            (unspecified/various) - The current value of the widget. Type depends on the widget type and can be 'none' for empty widgets.
-# attributes       (map)                 - Map of all accessable widget attributes together with their current values.
+# attributes       (map)                 - Map of all accessible widget attributes together with their current values.
 # focus            (boolean)             - Focus state of the widget. Can be used to set an explicit widget focus.
 # text             (string)              - Text of the button
 # type             (string)              - Button type ('push', 'toggle')
