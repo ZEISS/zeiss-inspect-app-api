@@ -946,7 +946,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 
 :Description:
-    This examples demonstrates how to show progress information to the user while calcualting a scripted element.
+    This examples demonstrates how to show progress information to the user while calculating a scripted element.
 
 :References:
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html)
