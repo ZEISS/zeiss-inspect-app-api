@@ -13,9 +13,11 @@
 
 ## Adding workspaces to Apps
 
-> There is no UI based workspace editor yet, but workspace definitions can be added manually.
+```{note}
+There is no UI based workspace editor yet, but workspace definitions can be added manually.
+```
 
-* An example can be found in the App **'Workspace editor tools'** ([Download](https://software-store.zeiss.com/products/apps/workspace-editor-tools))
+* An example can be found in the App **'Workspace'** ([Download](https://software-store.zeiss.com/products/apps/workspace))
 * An App is just a ZIP file with a different extension (.addon) containing JSON based object definitions.
 * It can be unpacked, edited and packed again with a new workspace definition.
 
@@ -35,7 +37,9 @@ The workspace definitions must be placed in a folder named `workspaces`. A separ
 
 ### Step 3: Add a workspace definition file
 
-> The `<workspace>.json` file contains the complete workspace definition.
+```{note}
+The `<workspace>.json` file contains the complete workspace definition.
+```
 
 Add a workspace definition file must be added to the new workspace folder, i.e.
 
@@ -79,7 +83,9 @@ Add a workspace definition file must be added to the new workspace folder, i.e.
 
 A unique id of the workspace.
 
-> Please do not define the UUID manually, but use a UUID generator like Online UUID Generator to generate a fresh, truly unique one!
+```{caution}
+Please do not define the UUID manually, but use a UUID generator like Online UUID Generator to generate a fresh, truly unique one!
+```
 
 #### "color"
 
