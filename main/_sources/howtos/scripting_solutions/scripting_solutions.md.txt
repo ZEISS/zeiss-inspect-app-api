@@ -59,7 +59,7 @@
 
 :Description: Sharing code and data between Apps.
 :How-to: <a href="../using_shared_environments/using_shared_environments.html">Using shared environments</a>
-:Keywords: addon, add-on, app, module, modular, package, class, function, method, code, data, import, reuse, re-use, use, call, execute, interaction
+:Keywords: addon, add-on, app, module, modular, package, class, function, method, code, data, import, reuse, use, call, execute, interaction
 
 ## Workspace
 
