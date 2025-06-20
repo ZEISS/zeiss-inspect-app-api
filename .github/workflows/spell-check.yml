@@ -3,11 +3,7 @@ name: Spell Check
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
 
 jobs:
   spell-check:
@@ -29,4 +25,4 @@ jobs:
 
     - name: Run codespell
       run: |
-        codespell --ignore-words-list="nd,thru" --skip="*.py,*.pdf,license.txt" --exclude-file=.github/workflows/spell-check-exclude.txt .
+        codespell --ignore-words-list="nd,thru" --skip="*.css,*.py,*.pdf" --exclude-file=.github/workflows/spell-check-exclude.txt .
