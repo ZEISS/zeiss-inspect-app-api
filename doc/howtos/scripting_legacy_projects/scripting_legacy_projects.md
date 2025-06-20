@@ -16,7 +16,7 @@ As shown in [ZEISS INSPECT Python API Introduction](../python_api_introduction/p
 # Create a project (default; part-based workflow)
 gom.script.sys.create_project ()
 
-# For compatibility, the kind of project can be stated explicitely:
+# For compatibility, the kind of project can be stated explicitly:
 # Create a project (part-based workflow)
 gom.script.sys.create_project (type=2018)
 ```
@@ -133,7 +133,7 @@ The functionality of these proxies is no longer present in the part-based workfl
 
 The script compatibility for the current measurement list is given in most cases. Normal information is usually accessible via the same attributes as before.
 
-### Tesselate Geometrical Element
+### Tessellate Geometrical Element
 
 The obsolete command `gom.script.mesh.tesselate_geometrical_element` creates an element of type mesh.
 
