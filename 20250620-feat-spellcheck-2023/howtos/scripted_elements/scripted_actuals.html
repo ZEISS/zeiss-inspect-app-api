@@ -167,7 +167,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">Selection</span> <span class="pre">-&gt;</span> <span class="pre">Selection</span> <span class="pre">element</span></code>: an element widget to select a point-like element</p></li>
 </ul>
 <p><img alt="" src="../../_images/offset_point_dialog.jpg" /></p>
-<p>It’s important to note the widgets’ <em>Object name</em>s, so we can adress them in the code. Second, it’s important to set the “Type” of the selection element widget to <code class="docutils literal notranslate"><span class="pre">Any</span> <span class="pre">point</span></code>, so the user gets only the choice between elements that offer some point information.</p>
+<p>It’s important to note the widgets’ <em>Object name</em>s, so we can address them in the code. Second, it’s important to set the “Type” of the selection element widget to <code class="docutils literal notranslate"><span class="pre">Any</span> <span class="pre">point</span></code>, so the user gets only the choice between elements that offer some point information.</p>
 <p>When finished with dialog creation, we have our desired JSON code, which we can use as a parameter for the <code class="docutils literal notranslate"><span class="pre">gom.script.sys.create_user_defined_dialog</span></code> command (line 3). This gives as a <code class="docutils literal notranslate"><span class="pre">DIALOG</span></code> handle, which we will use further.</p>
 <p>In case the <code class="docutils literal notranslate"><span class="pre">dialog</span></code> function is called from “Edit creation parameters”, e.g the user wants to change parameters after the element was already created, the <code class="docutils literal notranslate"><span class="pre">params</span></code> map is not empty. Instead, it holds the <em>command parameters</em> from the last creation. Hence, we should prefill our DIALOG’s widgets with the current values (see line 5 to 8). We can access the values of the widgets using the dialog handle and widgets’ object names: <code class="docutils literal notranslate"><span class="pre">DIALOG.&lt;widget</span> <span class="pre">name&gt;.value</span></code>.</p>
 <p>Then, the dialog is shown to the user (line 10) and afterwards the results are collected (lines 12/13). After setting the element name, the parameters are returned. The framework then continues to call the <code class="docutils literal notranslate"><span class="pre">calculation</span></code> function.</p>
@@ -238,7 +238,7 @@ The result for stage <code class="docutils literal notranslate"><span class="pre
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f11ad55a970>
+  <jinja2.runtime.BlockReference object at 0x7f28c1ff2970>
 
 
 </footer>
