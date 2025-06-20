@@ -17,7 +17,7 @@ There are currently two categories of scripted elements:
 
 ## Usage
 
-To create a scripted element, the general prodecure is as follows:
+To create a scripted element, the general procedure is as follows:
 
 1. Create a script in the script editor or using VS Code.
 2. Select the type of element that is created by this script in the script properties.
