@@ -173,7 +173,7 @@ Due to an unsolved bug, the script editor window might open below the VSCode win
 
   ![](assets/toggle_recording_2.png)
 
-* The 'when' clause determines when the command is available. The correct 'when' clause here ist:
+* The 'when' clause determines when the command is available. The correct 'when' clause here is:
 
   resourceLangId == python && scriptingHostConnected
 
