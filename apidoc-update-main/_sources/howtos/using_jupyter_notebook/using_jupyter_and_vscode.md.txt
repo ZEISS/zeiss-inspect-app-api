@@ -21,7 +21,7 @@
    1. Select Kernel
    2. Select Another Kernel...
 
-      ![Slect Kernel &ndash; Select Another Kernel](assets/vscode-select_kernel-1+2.png)
+      ![Select Kernel &ndash; Select Another Kernel](assets/vscode-select_kernel-1+2.png)
 
    3. Python Environments...
 
