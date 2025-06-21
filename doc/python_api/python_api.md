@@ -92,17 +92,8 @@ the standard file tools instead.
 #### Example
 
 ```
-for addon in gom.api.addons.get_installed_addons():
-  # Edited add-ons are file system based and must be accessed via file system functions
-  if addon.is_edited():
-    for root, dirs, files in os.walk(addon.get_file ()):
-      for file in files:
-        print(os.path.join(root, file))
-
-  # Finished add-ons can be accessed via this function
-  else:
-    for file in addon.get_file_list():
-      print (file)
+for addon in gom.api.addons.get_installed_addons(): # Edited add-ons are file system based and must be accessed via file system functions if addon.is_edited(): for root, dirs, files in os.walk(addon.get_file ()): for file in files: print(os.path.join(root, file))
+ # Finished add-ons can be accessed via this function else: for file in addon.get_file_list(): print (file)
 ```
 
 #### gom.api.addons.AddOn.get_id
@@ -259,9 +250,7 @@ the file can still be read but will be AES encrypted.
 import gom
 import json
 
-for a in gom.api.addons.get_installed_addons ():
-  text = json.loads (a.read ('metainfo.json'))
-  print (json.dumps (text, indent=4))
+for a in gom.api.addons.get_installed_addons (): text = json.loads (a.read ('metainfo.json')) print (json.dumps (text, indent=4))
 ```
 
 #### gom.api.addons.AddOn.write
@@ -344,8 +333,7 @@ installed in the running instance.
 **Example:**
 
 ```
-for a in gom.api.addons.get_installed_addons ():
-  print (a.get_id (), a.get_name ())
+for a in gom.api.addons.get_installed_addons (): print (a.get_id (), a.get_name ())
 ```
 
 ## gom.api.dialog
@@ -421,24 +409,11 @@ API for script based functionality extensions
 This API enables the user to define various element classes which can be used to extend the functionality of
 ZEISS INSPECT.
 
-### gom.api.extensions.ScriptedElement
+### gom.api.extensions.ScriptedCalculationElement
 
 
-This class is used to define a scripted element. A scripted element is a user defined
-element type where configuration and computation are happening entirely in a Python script,
-so user defined behavior and visualization can be implemented.
-
-**Element id**
-
-Every element must have a unique id. It is left to the implementor to avoid inter app conflicts here. The
-id can be hierarchical like `company.topic.group.element_type`. The id may only contain lower case characters, 
-grouping dots and underscores.
-
-**Element category**
-
-The category of an element type is used to find the application side counterpart which cares for the
-functionality implementation. For example, `scriptedelement.actual` links that element type the application
-counterpart which cares for scripted actual elements and handles its creation, editing, administration, ...
+This class is used to define a scripted calculation element which calculated its own data. It is used as a
+base class for scripted actual, nominals and checks.
 
 **Working with stages**
 
@@ -447,17 +422,8 @@ for simple project setups, computation is usually done for a single stage only. 
 a recalc, computation for many stages is usually required. To support both cases and keep it
 simple for beginners, the scripted elements are using two computation functions:
 
-- `compute ()`:       Computes the result for one single stage only. If nothing else is implemented,
-                      this function will be called for each stage one by one and return the computed
-                      value for that stage only. The stage for which the computation is performed is
-                      passed via the function's script context, but does usually not matter as all input
-                      values are already associated with that single stage.
-- `compute_stages ()`: Computes the results for many (all) stages at once. The value parameters are
-                       always vectors of the same size, one entry per stage. This is the case even if
-                       there is just one stage in the project. The result is expected to be a result
-                       vector of the same size as these stage vectors. The script context passed to that
-                       function will contain a list of stages of equal size matching the value's stage
-                       ordering.
+- `compute ()`:       Computes the result for one single stage only. If nothing else is implemented, this function will be called for each stage one by one and return the computed value for that stage only. The stage for which the computation is performed is passed via the function's script context, but does usually not matter as all input values are already associated with that single stage.
+- `compute_stages ()`: Computes the results for many (all) stages at once. The value parameters are always vectors of the same size, one entry per stage. This is the case even if there is just one stage in the project. The result is expected to be a result vector of the same size as these stage vectors. The script context passed to that function will contain a list of stages of equal size matching the value's stage ordering.
 
 So for a project with stages, it is usually sufficient to just implement `compute ()`. For increased
 performance or parallelization, `compute_stages ()` can then be implemented as a second step.
@@ -475,48 +441,9 @@ Nevertheless, the vector can be number entirely different depending on active/in
 Usually, it is *not* possible to access arbitrary stages of other elements due to recalc restrictions !
 ```
 
-**Additional element data**
+#### gom.api.extensions.ScriptedCalculationElement.__init__
 
-Every element can store arbitrary data sets in addition to the computed values. While the computed values are used
-to create the element's geometry and are stored in the elements internal structures, the additional data is kept in
-the associated EDM project database and can be retrieved via an element token.
-
-Each elements `compute ()` function returns a dictionary always. The exact format of that dictionary depends on the
-element type and the elements geometry data is tagged by the fixed key named. In addition, that result map can contain
-a dictionary with key `data`. The key/value pairs within can then be accessed via the element's token interface under
-that exact same name.
-
-Example:
-
-```
-def compute (self, context, values):
-    # Compute the element geometry (a point is that case)
-    center = self.compute_center (values['threshold'])
-
-    # Return both element specific geometry plus an arbitraty data set
-    return {
-        'geometry': {
-            'type': 'point',
-            'center': center
-        },
-        'data': {
-            'threshold': values['threshold'],
-            'description': values['description']
-        }
-    }
-```
-
-#### gom.api.extensions.ScriptedElement.Event
-
-
-Event types passed to the `event ()` function
-
-- `DIALOG_INITIALIZE`: Sent when the dialog has been initialized and made visible
-- `DIALOG_CHANGED`:    A dialog widget value changed
-
-#### gom.api.extensions.ScriptedElement.__init__
-
-```{py:function} gom.api.extensions.ScriptedElement.__init__(self: Any, id: str, category: str, description: str, element_type: str, callables: Any, properties: Any): None
+```{py:function} gom.api.extensions.ScriptedCalculationElement.__init__(self: Any, id: str, category: str, description: str, element_type: str, callables: Any, properties: Any): None
 
 :param id: Unique contribution id, like `special_point`
 :type id: str
@@ -532,9 +459,9 @@ Event types passed to the `event ()` function
 
 Constructor
 
-#### gom.api.extensions.ScriptedElement.add_selected_element_parameter
+#### gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter
 
-```{py:function} gom.api.extensions.ScriptedElement.add_selected_element_parameter(self: Any, values: Dict[str, Any]): None
+```{py:function} gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter(self: Any, values: Dict[str, Any]): None
 
 :param values: Values map
 :type values: Dict[str, Any]
@@ -542,9 +469,9 @@ Constructor
 
 Adds the current selected element as the target element to the values map
 
-#### gom.api.extensions.ScriptedElement.add_target_element_parameter
+#### gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter
 
-```{py:function} gom.api.extensions.ScriptedElement.add_target_element_parameter(self: Any, values: Dict[str, Any], element: Any): None
+```{py:function} gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter(self: Any, values: Dict[str, Any], element: Any): None
 
 :param values: Values map
 :type values: Dict[str, Any]
@@ -554,6 +481,95 @@ Adds the current selected element as the target element to the values map
 
 Adds an element as the target element to the parameters map in the
 appropriate fields
+
+#### gom.api.extensions.ScriptedCalculationElement.compute
+
+```{py:function} gom.api.extensions.ScriptedCalculationElement.compute(self: Any, context: Any, values: Any): None
+
+:param context: Script context object containing execution related parameters. This includes the stage this computation call refers to.
+:type context: Any
+:param values: Dialog widget values as a dictionary. The keys are the widget names as defined in the dialog definition.
+:type values: Any
+```
+
+This function is called for a single stage value is to be computed. The input values from the
+associated dialog function are passed as `kwargs` parameters - one value as one specific
+parameter named as the associated input widget.
+
+#### gom.api.extensions.ScriptedCalculationElement.compute_stage
+
+```{py:function} gom.api.extensions.ScriptedCalculationElement.compute_stage(self: Any, context: Any, values: Any): None
+
+:param context: Script context object containing execution related parameters. This includes the stage this computation call refers to.
+:type context: Any
+:param values: Dialog widget values as a dictionary. The keys are the widget names as defined in the dialog definition.
+:type values: Any
+```
+
+This function is called for a single stage value is to be computed. The input values from the
+associated dialog function are passed as `kwargs` parameters - one value as one specific
+parameter named as the associated input widget.
+
+#### gom.api.extensions.ScriptedCalculationElement.compute_stages
+
+```{py:function} gom.api.extensions.ScriptedCalculationElement.compute_stages(self: Any, context: Any, values: Any): None
+
+:param context: Script context object containing execution related parameters. This includes the stage this computation call refers to.
+:type context: Any
+:param values: Dialog widget values as a dictionary.
+:type values: Any
+```
+
+This function is called to compute multiple stages of the scripted element. The expected result is 
+a vector of the same length as the number of stages.
+
+The function is calling the `compute ()` function of the scripted element for each stage by default.
+For a more efficient implementation, it can be overwritten and bulk compute many stages at once.
+
+### gom.api.extensions.ScriptedElement
+
+
+Base class for all scripted elements
+
+This class is the base class for all scripted element types . A scripted element is a user defined 
+element type where configuration and computation are happening entirely in a Python script, so user 
+defined behavior and visualization can be implemented.
+
+**Element id**
+
+Every element must have a unique id. It is left to the implementer to avoid inter app conflicts here. The
+id can be hierarchical like `company.topic.group.element_type`. The id may only contain lower case characters, 
+grouping dots and underscores.
+
+**Element category**
+
+The category of an element type is used to find the application side counterpart which cares for the
+functionality implementation. For example, `scriptedelement.actual` links that element type the application
+counterpart which cares for scripted actual elements and handles its creation, editing, administration, ...
+
+#### gom.api.extensions.ScriptedElement.Event
+
+
+Event types passed to the `event ()` function
+
+- `DIALOG_INITIALIZE`: Sent when the dialog has been initialized and made visible
+- `DIALOG_CHANGED`:    A dialog widget value changed
+
+#### gom.api.extensions.ScriptedElement.__init__
+
+```{py:function} gom.api.extensions.ScriptedElement.__init__(self: Any, id: str, category: str, description: str, callables: Any, properties: Any): None
+
+:param id: Unique contribution id, like `special_point`
+:type id: str
+:param category: Scripted element type id, like `scriptedelement.actual`
+:type category: str
+:param description: Human readable contribution description
+:type description: str
+:param category: Contribution category
+:type category: str
+```
+
+Constructor
 
 #### gom.api.extensions.ScriptedElement.apply_dialog
 
@@ -593,69 +609,6 @@ Check if a base element (an element the scripted element is constructed upon) is
 
 Check a single value for expected properties
 
-#### gom.api.extensions.ScriptedElement.compute
-
-```{py:function} gom.api.extensions.ScriptedElement.compute(self: Any, context: Any, values: Any): None
-
-:param context: Script context object containing execution related parameters. This includes
-:type context: Any
-:param values: Dialog widget values as a dictionary. The keys are the widget names as defined
-:type values: Any
-:return: Computed values for the given stage. This is always a map, where the keys strongly depend
-:rtype: None
-```
-
-This function is called for a single stage value is to be computed. The input values from the
-associated dialog function are passed as `kwargs` parameters - one value as one specific
-parameter named as the associated input widget.
-
-               the stage this computation call refers to.
-               in the dialog definition.
-        on the element type.
-
-#### gom.api.extensions.ScriptedElement.compute_stage
-
-```{py:function} gom.api.extensions.ScriptedElement.compute_stage(self: Any, context: Any, values: Any): None
-
-:param context: Script context object containing execution related parameters. This includes
-:type context: Any
-:param values: Dialog widget values as a dictionary. The keys are the widget names as defined
-:type values: Any
-:return: Computed values for the given stage. This is always a map, where the keys strongly depend
-:rtype: None
-```
-
-This function is called for a single stage value is to be computed. The input values from the
-associated dialog function are passed as `kwargs` parameters - one value as one specific
-parameter named as the associated input widget.
-
-               the stage this computation call refers to.
-               in the dialog definition.
-        on the element type.
-
-#### gom.api.extensions.ScriptedElement.compute_stages
-
-```{py:function} gom.api.extensions.ScriptedElement.compute_stages(self: Any, context: Any, values: Any): None
-
-:param context: Script context object containing execution related parameters. This includes
-:type context: Any
-:param values: Dialog widget values as a dictionary.
-:type values: Any
-:return: Dictionary containing the results and the states of the computation. Each entry in these
-:rtype: None
-```
-
-This function is called to compute multiple stages of the scripted element. The expected result is 
-a vector of the same length as the number of stages.
-
-The function is calling the `compute ()` function of the scripted element for each stage by default.
-For a more efficient implementation, it can be overwritten and bulk compute many stages at once.
-
-               the stage this computation call refers to.
-        dictionaries is a vector of the same length as the number of stages. The entries are
-        - `results`:  Computed values for each stage
-        - `states`:   States of the computation for each stage. `True` if the computation was successful.
-
 #### gom.api.extensions.ScriptedElement.dialog
 
 ```{py:function} gom.api.extensions.ScriptedElement.dialog(self: Any, context: Any, args: Any): None
@@ -674,43 +627,26 @@ configure the element and to provide input values for the computation.
 The dialog arguments are passed as a JSON like map structure. The format is as follows:
 
 ```
-{
-    "version": 1,
-    "name": "Element name",
-    "values: {
-        "widget1": value1,
-        "widget2": value2
-        ...
-    }
+{ "version": 1, "name": "Element name", "values: { "widget1": value1, "widget2": value2 ... }
 }
 ```
 
-- `version`: Version of the dialog structure. This is used to allow for future changes in the dialog
-             structure without breaking existing scripts
+- `version`: Version of the dialog structure. This is used to allow for future changes in the dialog structure without breaking existing scripts
 - `name`:    Human readable name of the element which is created or edited
-- `values`:  A map of widget names and their initial values. The widget names are the keys and the values
-             are the initial or edited values for the widgets. This map is always present, but can be empty
-             for newly created elements. The element names are matching those in the user defined dialog, so
-             the values can be set accordingly. As a default, use the function `initialize_dialog (args)` to
-             setup all widgets from the args values.
+- `values`:  A map of widget names and their initial values. The widget names are the keys and the values are the initial or edited values for the widgets. This map is always present, but can be empty for newly created elements. The element names are matching those in the user defined dialog, so the values can be set accordingly. As a default, use the function `initialize_dialog (args)` to setup all widgets from the args values.
 
 The helper functions `initialize_dialog ()` and `apply_dialog ()` can be used to initialize the dialog directly.
 and read back the generated values. So a typical dialog function will look like this:
 
 ```
-def dialog (self, context, args):
-    dlg = gom.api.dialog.create ('/dialogs/create_element.gdlg')
-    self.initialize_dialog (dlg, args)
-    args = self.apply_dialog (args, gom.api.dialog.show (dlg))
-    return args
+def dialog (self, context, args): dlg = gom.api.dialog.create ('/dialogs/create_element.gdlg') self.initialize_dialog (dlg, args) args = self.apply_dialog (args, gom.api.dialog.show (dlg)) return args
 ```
 
 For default dialogs, this can be shortened to a call to `show_dialog ()` which will handle the dialog
 creation, initialization and return the dialog values in the correct format in a single call:
 
 ```
-def dialog (self, context, args):
-    return self.show_dialog (context, args, '/dialogs/create_element.gdlg')
+def dialog (self, context, args): return self.show_dialog (context, args, '/dialogs/create_element.gdlg')
 ```
 
 #### gom.api.extensions.ScriptedElement.event
@@ -722,15 +658,12 @@ def dialog (self, context, args):
 :param event_type: Event type
 :type event_type: Any
 :param args: Event arguments
-:return: `True` if the event requires a recomputation of the elements preview. Upon return, the framework
+:return: `True` if the event requires a recomputation of the elements preview. Upon return, the framework will then trigger a call to the `compute ()` function and use its result for a preview update. In the case of `False`, no recomputation is triggered and the preview remains unchanged.
 :rtype: None
 ```
 
 Contribution event handling function. This function is called when the contributions UI state changes.
 The function can then react to that event and update the UI state accordingly. 
-
-        will then trigger a call to the `compute ()` function and use its result for a preview update.
-        In the case of `False`, no recomputation is triggered and the preview remains unchanged.
 
 #### gom.api.extensions.ScriptedElement.event_handler
 
@@ -750,14 +683,12 @@ and will convert the event parameter accordingly
 :type dlg: Any
 :param args: Dialog arguments as passed to the `dialog ()` function with the same format as described there. Values which are not found in the dialog are ignored.
 :type args: Any
-:return: `True` if the dialog was successfully initialized and all values could be applied.
+:return: `True` if the dialog was successfully initialized and all values could be applied. Otherwise, the service's log will show a warning about the missing values.
 :rtype: bool
 ```
 
 Initializes the dialog from the given arguments. This function is used to setup the dialog
 widgets from the given arguments. The arguments are a map of widget names and their values.
-
-        Otherwise, the service's log will show a warning about the missing values.
 
 #### gom.api.extensions.ScriptedElement.is_visible
 
@@ -804,11 +735,7 @@ Scripted actual circle element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "center"   : (x: float, y: float, z: float), // Centerpoint of the circle
-    "direction": (x: float, y: float, z: float), // Direction/normal of the circle
-    "radius"   : r: float,                       // Radius of the circle
-    "data": {...}                                // Optional element data, stored with the element
+{ "center"   : (x: float, y: float, z: float), // Centerpoint of the circle "direction": (x: float, y: float, z: float), // Direction/normal of the circle "radius"   : r: float,                       // Radius of the circle "data": {...}                                // Optional element data, stored with the element
 }
 ```
 
@@ -820,12 +747,7 @@ Scripted actual cone element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "point1": (x: float, y: float, z: float), // First point of the cone (circle center)
-    "radius1": r1: float,                     // Radius of the first circle
-    "point2": (x: float, y: float, z: float), // Second point of the cone (circle center)
-    "radius2": r2: float,                     // Radius of the second circle
-    "data": {...}                             // Optional element data, stored with the element
+{ "point1": (x: float, y: float, z: float), // First point of the cone (circle center) "radius1": r1: float,                     // Radius of the first circle "point2": (x: float, y: float, z: float), // Second point of the cone (circle center) "radius2": r2: float,                     // Radius of the second circle "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
@@ -837,18 +759,14 @@ Scripted actual curve element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "plane": p: Plane, // Plane of the curve (optional)
-    "curves": [Curve], // List of curves
-    "data": {...}      // Optional element data, stored with the element        
+{ "plane": p: Plane, // Plane of the curve (optional) "curves": [Curve], // List of curves "data": {...}      // Optional element data, stored with the element
 }
 ```
 
 The format of the `Curve` object is:
 
 ```
-{
-    "points": [(x: float, y: float, z: float), ...]
+{ "points": [(x: float, y: float, z: float), ...]
 }
 ```
 
@@ -862,11 +780,7 @@ Scripted actual cylinder element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "point": (x: float, y: float, z: float),     // Base point of the cylinder
-    "direction": (x: float, y: float, z: float), // Direction of the cylinder
-    "radius": r: float,                          // Radius of the cylinder
-    "data": {...}                                // Optional element data, stored with the element
+{ "point": (x: float, y: float, z: float),     // Base point of the cylinder "direction": (x: float, y: float, z: float), // Direction of the cylinder "radius": r: float,                          // Radius of the cylinder "data": {...}                                // Optional element data, stored with the element
 }
 ```
 
@@ -878,10 +792,7 @@ Scripted actual distance element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "point1": (x: float, y: float, z: float), // First point of the distance
-    "point2": (x: float, y: float, z: float), // Second point of the distance
-    "data": {...}                             // Optional element data, stored with the element
+{ "point1": (x: float, y: float, z: float), // First point of the distance "point2": (x: float, y: float, z: float), // Second point of the distance "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
@@ -893,29 +804,21 @@ Scripted actual plane element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "normal": (x: float, y: float, z: float), // Normal of the plane
-    "distance": d: float,                     // Distance of the plane
-    "data": {...}                             // Optional element data, stored with the element        
+{ "normal": (x: float, y: float, z: float), // Normal of the plane "distance": d: float,                     // Distance of the plane "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
 or 
 
 ```
-{
-    "target": plane: Plane,  // Source plane point of this plane
-    "offset": offset: float, // Offset relative to the source plane
-    "data": {...}            // Optional element data, stored with the element        
+{ "target": plane: Plane,  // Source plane point of this plane "offset": offset: float, // Offset relative to the source plane "data": {...}            // Optional element data, stored with the element
 }
 ```
 
 or
 
 ```
-{
-    "plane": Reference, // Reference to another plane element of coordinate system
-    "data": {...}       // Optional element data, stored with the element
+{ "plane": Reference, // Reference to another plane element of coordinate system "data": {...}       // Optional element data, stored with the element
 
 }
 ```
@@ -928,9 +831,7 @@ Scripted actual point element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "value": (x: float, y: float, z: float), // The point in 3D space.
-    "data": {...}                            // Optional element data, stored with the element
+{ "value": (x: float, y: float, z: float), // The point in 3D space. "data": {...}                            // Optional element data, stored with the element
 }
 ```
 
@@ -942,10 +843,7 @@ Scripted actual point cloud element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "points":  [(x: float, y: float, z: float), ...], // List of points
-    "normals": [(x: float, y: float, z: float), ...], // List of normals for each point
-    "data": {...}                                     // Optional element data, stored with the element        
+{ "points":  [(x: float, y: float, z: float), ...], // List of points "normals": [(x: float, y: float, z: float), ...], // List of normals for each point "data": {...}                                     // Optional element data, stored with the element
 }
 ```
 
@@ -976,21 +874,14 @@ Scripted actual section element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "curves": [Curve],
-    "plane": Plane,
-    "cone": Cone,
-    "cylinder": Cylinder,
-    "data": {...}          // Optional element data, stored with the element        
+{ "curves": [Curve], "plane": Plane, "cone": Cone, "cylinder": Cylinder, "data": {...}          // Optional element data, stored with the element
 }
 ```
 
 The format of the `Curve` object is:
 
 ```
-{
-    "points":  [(x: float, y: float, z: float), ...] // List of points
-    "normals": [(x: float, y: float, z: float), ...] // List of normals for each point
+{ "points":  [(x: float, y: float, z: float), ...] // List of points "normals": [(x: float, y: float, z: float), ...] // List of normals for each point
 }
 ```
 
@@ -1004,10 +895,7 @@ Scripted actual surface element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "vertices":  [(x: float, y: float, z: float), ...], // List of vertices
-    "triangles": [(i1: int, i2: int, i3: int), ...],    // List of triangles (vertices' indices)
-    "data": {...}                                       // Optional element data, stored with the element        
+{ "vertices":  [(x: float, y: float, z: float), ...], // List of vertices "triangles": [(i1: int, i2: int, i3: int), ...],    // List of triangles (vertices' indices) "data": {...}                                       // Optional element data, stored with the element
 }
 ```
 
@@ -1019,18 +907,14 @@ Scripted actual surface curve element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "curves": [Curve], // Curve definition
-    "data": {...}      // Optional element data, stored with the element        
+{ "curves": [Curve], // Curve definition "data": {...}      // Optional element data, stored with the element
 }
 ```
 
 The format of the `Curve` object is:
 
 ```
-{
-    "points":  [(x: float, y: float, z: float), ...] // List of points
-    "normals": [(x: float, y: float, z: float), ...] // List of normals for each point
+{ "points":  [(x: float, y: float, z: float), ...] // List of points "normals": [(x: float, y: float, z: float), ...] // List of normals for each point
 }
 ```
 
@@ -1047,9 +931,7 @@ Scripted actual value element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "value": v: float, // Value of the element
-    "data": {...}      // Optional element data, stored with the element        
+{ "value": v: float, // Value of the element "data": {...}      // Optional element data, stored with the element
 }
 ```
 
@@ -1061,10 +943,7 @@ Scripted actual volume element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    'voxel_data': data: np.array (shape=(x, y, z), dtype=np.float32), // Voxels of the volume
-    'transformation': (x: float, y: float, z: float),                 // Transformation of the volume
-    "data": {...}                                      // Optional element data, stored with the element        
+{ 'voxel_data': data: np.array (shape=(x, y, z), dtype=np.float32), // Voxels of the volume 'transformation': (x: float, y: float, z: float),                 // Transformation of the volume "data": {...}                                      // Optional element data, stored with the element
 }
 ```
 
@@ -1105,11 +984,7 @@ Scripted curve inspection
 The expected parameters from the elements `compute ()` function is a map with the following format:
 
 ```
-{
-    "actual_values": [v: float, v: float, ...] // Deviations
-    "nominal": float,                          // Nominal value
-    "target_element": gom.Item,                // Inspected element
-    "data": {...}                              // Optional element data, stored with the element    
+{ "actual_values": [v: float, v: float, ...] // Deviations "nominal": float,                          // Nominal value "target_element": gom.Item,                // Inspected element "data": {...}                              // Optional element data, stored with the element
 }
 ```
 
@@ -1121,11 +996,7 @@ Scripted scalar inspection
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "nominal": float,           // Nominal value
-    "actual": float,            // Actual value
-    "target_element": gom.Item, // Inspected element
-    "data": {...}               // Optional element data, stored with the element        
+{ "nominal": float,           // Nominal value "actual": float,            // Actual value "target_element": gom.Item, // Inspected element "data": {...}               // Optional element data, stored with the element
 }
 ```
 
@@ -1161,11 +1032,7 @@ Scripted surface inspection
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "deviation_values": [v: float, v: float, ...] // Deviations
-    "nominal": float,                             // Nominal value
-    "target_element": gom.Item,                   // Inspected element
-    "data": {...}                                 // Optional element data, stored with the element        
+{ "deviation_values": [v: float, v: float, ...] // Deviations "nominal": float,                             // Nominal value "target_element": gom.Item,                   // Inspected element "data": {...}                                 // Optional element data, stored with the element
 }
 ```
 
@@ -1181,11 +1048,7 @@ Scripted nominal circle element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "center"   : (x: float, y: float, z: float), // Centerpoint of the circle
-    "direction": (x: float, y: float, z: float), // Direction/normal of the circle
-    "radius"   : r: float,                       // Radius of the circle
-    "data": {...}                                // Optional element data, stored with the element        
+{ "center"   : (x: float, y: float, z: float), // Centerpoint of the circle "direction": (x: float, y: float, z: float), // Direction/normal of the circle "radius"   : r: float,                       // Radius of the circle "data": {...}                                // Optional element data, stored with the element
 }
 ```
 
@@ -1197,12 +1060,7 @@ Scripted nominal cone element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "point1": (x: float, y: float, z: float), // First point of the cone (circle center)
-    "radius1": r1: float,                     // Radius of the first circle
-    "point2": (x: float, y: float, z: float), // Second point of the cone (circle center)
-    "radius2": r2: float,                     // Radius of the second circle
-    "data": {...}                             // Optional element data, stored with the element        
+{ "point1": (x: float, y: float, z: float), // First point of the cone (circle center) "radius1": r1: float,                     // Radius of the first circle "point2": (x: float, y: float, z: float), // Second point of the cone (circle center) "radius2": r2: float,                     // Radius of the second circle "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
@@ -1214,18 +1072,14 @@ Scripted nominal curve element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "plane": p: Plane  // Plane of the curve (optional)
-    "curves": [Curve], // List of curves
-    "data": {...}      // Optional element data, stored with the element        
+{ "plane": p: Plane  // Plane of the curve (optional) "curves": [Curve], // List of curves "data": {...}      // Optional element data, stored with the element
 }
 ```
 
 The format of the `Curve` object is:
 
 ```
-{
-    "points": [(x: float, y: float, z: float), ...] // List of points
+{ "points": [(x: float, y: float, z: float), ...] // List of points
 }
 ```
 
@@ -1239,11 +1093,7 @@ Scripted nominal cylinder element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "point": (x: float, y: float, z: float),     // Base point of the cylinder
-    "direction": (x: float, y: float, z: float), // Direction of the cylinder
-    "radius": r: float,                          // Radius of the cylinder
-    "data": {...}                                // Optional element data, stored with the element        
+{ "point": (x: float, y: float, z: float),     // Base point of the cylinder "direction": (x: float, y: float, z: float), // Direction of the cylinder "radius": r: float,                          // Radius of the cylinder "data": {...}                                // Optional element data, stored with the element
 }
 ```
 
@@ -1255,10 +1105,7 @@ Scripted nominal distance element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "point1": (x: float, y: float, z: float), // First point of the distance
-    "point2": (x: float, y: float, z: float), // Second point of the distance
-    "data": {...}                             // Optional element data, stored with the element       
+{ "point1": (x: float, y: float, z: float), // First point of the distance "point2": (x: float, y: float, z: float), // Second point of the distance "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
@@ -1270,29 +1117,21 @@ Scripted nominal plane element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "normal": (x: float, y: float, z: float), // Normal of the plane
-    "distance": d: float,                     // Distance of the plane
-    "data": {...}                             // Optional element data, stored with the element        
+{ "normal": (x: float, y: float, z: float), // Normal of the plane "distance": d: float,                     // Distance of the plane "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
 or 
 
 ```
-{
-    "target": plane: Plane,  // Source plane point of this plane
-    "offset": offset: float, // Offset relative to the source place
-    "data": {...}            // Optional element data, stored with the element        
+{ "target": plane: Plane,  // Source plane point of this plane "offset": offset: float, // Offset relative to the source place "data": {...}            // Optional element data, stored with the element
 }
 ```
 
 or
 
 ```
-{
-    "plane": Reference, // Reference to another plane element of coordinate system
-    "data": {...}       // Optional element data, stored with the element
+{ "plane": Reference, // Reference to another plane element of coordinate system "data": {...}       // Optional element data, stored with the element
 }
 ```
 
@@ -1304,9 +1143,7 @@ Scripted nominal point element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "value": (x: float, y: float, z: float), // The point in 3D space.
-    "data": {...}                            // Optional element data, stored with the element        
+{ "value": (x: float, y: float, z: float), // The point in 3D space. "data": {...}                            // Optional element data, stored with the element
 }
 ```
 
@@ -1318,10 +1155,7 @@ Scripted nominal point cloud element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "points":  [(x: float, y: float, z: float), ...], // List of points
-    "normals": [(x: float, y: float, z: float), ...], // List of normals for each point
-    "data": {...}                                     // Optional element data, stored with the element        
+{ "points":  [(x: float, y: float, z: float), ...], // List of points "normals": [(x: float, y: float, z: float), ...], // List of normals for each point "data": {...}                                     // Optional element data, stored with the element
 }
 ```
 
@@ -1352,21 +1186,14 @@ Scripted nominal section element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "curves": [Curve],
-    "plane": Plane,
-    "cone": Cone,
-    "cylinder": Cylinder,
-    "data": {...}         // Optional element data, stored with the element        
+{ "curves": [Curve], "plane": Plane, "cone": Cone, "cylinder": Cylinder, "data": {...}         // Optional element data, stored with the element
 }
 ```
 
 The format of the `Curve` object is:
 
 ```
-{
-    "points":  [(x: float, y: float, z: float), ...] // List of points
-    "normals": [(x: float, y: float, z: float), ...] // List of normals for each point
+{ "points":  [(x: float, y: float, z: float), ...] // List of points "normals": [(x: float, y: float, z: float), ...] // List of normals for each point
 }
 ```
 
@@ -1380,10 +1207,7 @@ Scripted nominal surface element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "vertices":  [(x: float, y: float, z: float), ...], // List of vertices
-    "triangles": [(i1: int, i2: int, i3: int), ...],    // List of triangles (vertices indices)
-    "data": {...}                                       // Optional element data, stored with the element
+{ "vertices":  [(x: float, y: float, z: float), ...], // List of vertices "triangles": [(i1: int, i2: int, i3: int), ...],    // List of triangles (vertices indices) "data": {...}                                       // Optional element data, stored with the element
 }
 ```
 
@@ -1395,18 +1219,14 @@ Scripted nominal surface curve element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "curves": [Curve], // Curves
-    "data": {...}      // Optional element data, stored with the element        
+{ "curves": [Curve], // Curves "data": {...}      // Optional element data, stored with the element
 }
 ```
 
 The format of the `Curve` object is:
 
 ```
-{
-    "points":  [(x: float, y: float, z: float), ...] // List of points
-    "normals": [(x: float, y: float, z: float), ...] // List of normals for each point
+{ "points":  [(x: float, y: float, z: float), ...] // List of points "normals": [(x: float, y: float, z: float), ...] // List of normals for each point
 }
 ```
 
@@ -1418,11 +1238,69 @@ Scripted nominal value element
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
-{
-    "value": v: float, // Value of the element
-    "data": {...}      // Optional element data, stored with the element        
+{ "value": v: float, // Value of the element "data": {...}      // Optional element data, stored with the element
 }
 ```
+
+### gom.api.extensions.sequence
+
+Scripted sequence elements
+
+ 
+This module contains the base class for scripted sequence elements. A scripted sequence element
+combines a sequence of commands into one group. The group is treated as one single combined element
+with parts. The resulting cluster of elements can then be edited again as a altogether group, of the
+single elements within can be edited separately.
+
+#### gom.api.extensions.sequence.ScriptedSequenceElement
+
+
+This class is used to define a scripted sequence element
+
+##### gom.api.extensions.sequence.ScriptedSequenceElement.__init__
+
+```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.__init__(self: Any, id: str, description: str): None
+
+:param id: Unique contribution id, like `special_point`
+:type id: str
+:param description: Human readable contribution description
+:type description: str
+```
+
+Constructor
+
+##### gom.api.extensions.sequence.ScriptedSequenceElement.create
+
+```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.create(self: Any, context: Any, args: Any): None
+
+:param context: The context of the sequence element
+:type context: Any
+:param args: The arguments passed to the sequence element, usually from the configuration dialog
+:type args: Any
+:return: Dictionary describing the created sequence element. The fields here are: 'elements' - List of all created elements (including the leading element) 'leading' - 'Leading' element which represents the whole sequence
+:rtype: None
+```
+
+Function called to create the scripted sequence
+
+This function is called to create or edit the element of a scripted sequence. The
+parameters set in the `dialog` function are passed here as a parameter.
+
+In principle, this function is like a sub script calling the single create commands.
+Behind the scenes, the calls are handled a bit different than regular script command 
+calls to be able to build a component object at the end. In detail, the following rules
+apply:
+
+- The order of elements must remain the same during object livetime. So no parameter or external condition may change the element order.
+- The number of elements must remain the same during object livetime. No parameter or condition may affect the number of created elements.
+- There may not be other glue code commands in the sequence. Only creation commands are allowed here. In principle, other glue code is allowed, including API calls.
+
+These limilations are required because behind the scenes, the scripting engine processes the
+creation requests depending on the mode of sequence command execution:
+
+- For a simple creation process (like a scripted sequence creation command), the command list is executed like any other script.
+- When an existing creation sequence is edited, the command list is **not** executed regularly. Instead, the command parameters are collected and will be passed to the already existing elements to adapt these.
+- For preview computation, a combination of both modes is used: The objects are created in a first step, but marked as 'preview' and will not be part of the regular dependency graph or project. Afterwards, like in the 'edit' case, the parameters are collected and passed to the already existing preview elements then to update these.
 
 ### gom.api.extensions.views
 
@@ -1466,20 +1344,8 @@ from gom import apicontribution
 
 @apicontribution
 class MyScriptedView (gom.api.extensions.views.ScriptedView):
-
-    def __init__(self):
-        super().__init__(id='com.zeiss.testing.scriptedview',
-                         description='My Scripted View',
-                         renderer='renderers/MyRenderer.js',
-                         functions=[
-                             self.get_data
-                         ],
-                         bundle='npms/MyScriptedView.js')
-
-    def get_data(self):
-        return {
-            'text': 'Hello World'
-        }
+ def __init__(self): super().__init__(id='com.zeiss.testing.scriptedview', description='My Scripted View', renderer='renderers/MyRenderer.js', functions=[ self.get_data ], bundle='npms/MyScriptedView.js')
+ def get_data(self): return { 'text': 'Hello World' }
 
 gom.run_api ())    
 ```
@@ -1497,9 +1363,7 @@ via the `gom.bridge` object:
 ```{code-block} javascript
 :caption: Accessing data via the scripting bridge from Python
 
-function renderer () {
-    var data = gom.bridge.get_data();
-    console.log(data.text);
+function renderer () { var data = gom.bridge.get_data(); console.log(data.text);
 }
 ```
 
@@ -1514,11 +1378,7 @@ renderer in effect in case of en event. It can be overwritten in custom scripted
 
 ...
 @apicontribution
-class MyScriptedView (gom.api.extensions.views.ScriptedView):
-    ...
-    def event(self, event: str, args: Any):
-        if event == self.Event.INITIALIZED:
-            print('View initialized')
+class MyScriptedView (gom.api.extensions.views.ScriptedView): ... def event(self, event: str, args: Any): if event == self.Event.INITIALIZED: print('View initialized')
 ```
 
 On the JavaScript side, the event can be emitted like this:
@@ -1526,8 +1386,7 @@ On the JavaScript side, the event can be emitted like this:
 ```{code-block} javascript
 :caption: Emitting events from the JavaScript renderer
 
-function renderer () {
-    gom.bridge.__events__.emit('view::initialized', 'Hello World');
+function renderer () { gom.emitEvent('my::custom::event', 'Hello World');
 }
 ```
 
@@ -1549,23 +1408,7 @@ using node.js and webpack.
 
 ```{code-block} json
 :caption: Example of a package.json file for bundle creation
-
-    "name": "app-module-bundle",
-    "version": 1,
-    "description": "App module bundle",
-    "private": true,
-    "scripts": {
-        "build": "webpack --mode production"
-    },
-    "dependencies": {
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-scripts": "^5.0.1"            
-    },
-    "devDependencies": {
-        "webpack": "^5.88.2",
-        "webpack-cli": "^5.1.4"
-    }
+ "name": "app-module-bundle", "version": 1, "description": "App module bundle", "private": true, "scripts": { "build": "webpack --mode production" }, "dependencies": { "react": "^18.2.0", "react-dom": "^18.2.0", "react-scripts": "^5.0.1" }, "devDependencies": { "webpack": "^5.88.2", "webpack-cli": "^5.1.4" }
 ```
 
 Then, a `webpack.config.js` like the following has to be added:
@@ -1575,23 +1418,7 @@ Then, a `webpack.config.js` like the following has to be added:
 
 const path = require('path');
 
-module.exports = {
-    mode: process.env.NODE_ENV || 'production',
-    entry: './src/index.js',
-    output: {
-        path: __dirname + '/dist',
-        filename: 'bundle.js',
-        library: {
-        name: '""" + project_title.replace(' ', '') + """Bundle',
-        type: 'umd',
-        export: 'default'
-        },
-        globalObject: 'this'
-    },
-    // We want to bundle all modules together
-    optimization: {
-        minimize: true
-    }
+module.exports = { mode: process.env.NODE_ENV || 'production', entry: './src/index.js', output: { path: __dirname + '/dist', filename: 'bundle.js', library: { name: '""" + project_title.replace(' ', '') + """Bundle', type: 'umd', export: 'default' }, globalObject: 'this' }, // We want to bundle all modules together optimization: { minimize: true }
 };    
 ```
 
@@ -1688,9 +1515,18 @@ Event types passed to the `event ()` function
 
 - `INITIALIZED`: Sent when the view has been initialized
 
+##### gom.api.extensions.views.ScriptedView.Signal
+
+
+Identifier for SW signals that the view can be connected to
+
+- `DATA_CHANGED`: Emitted when any project related data changes
+- `SELECTION_CHANGED`: Emitted when the selection in the Project explorer changes
+- `CONFIG_CHANGED`: Emitted when the software preferences are applied
+
 ##### gom.api.extensions.views.ScriptedView.__init__
 
-```{py:function} gom.api.extensions.views.ScriptedView.__init__(self: Any, id: str, viewtype: str, description: str, functions: List[Any], properties: Dict[str, Any], callables: Dict[str, Any]): None
+```{py:function} gom.api.extensions.views.ScriptedView.__init__(self: Any, id: str, viewtype: str, description: str, functions: List[Any], properties: Dict[str, Any], callables: Dict[str, Any], signals: List[str]): None
 
 :param id: Globally unique scripted view id string
 :type id: str
@@ -1803,7 +1639,7 @@ Compute pixel coordinates from point coordinates
 ```
 
 This function is used to compute the location of a 3d point in a 2d image. This is a photogrammetric
-operation which will return a precise result. The input parameter is a list of tupels where each tuple consists
+operation which will return a precise result. The input parameter is a list of tuples where each tuple consists
 of a 3d point and and acquisition object. The acquisition object is then used to compute the location of the
 3d point in the referenced image. This might lead to multiple pixels as a result, so the return value is again
 a list containing 0 to n entries of pixel matches.
@@ -1905,9 +1741,7 @@ that disabling full synchronization points can lead to side effects - use this f
 **Example**
 
 ```
-with gom.api.tools.MultiElementCreationScope ():
-    for _ in range (1000):
-        gom.script.sys.create_some_simple_point (...)
+with gom.api.tools.MultiElementCreationScope (): for _ in range (1000): gom.script.sys.create_some_simple_point (...)
 
 # Synchronization signal is emitted here. Application is sync'ed and valid afterwards again.
 
@@ -2217,8 +2051,7 @@ This function can be used to query the modules of the API
 **Example:**
 
 ```
-for m in gom.api.introspection.modules ():
-  print (m.name ())
+for m in gom.api.introspection.modules (): print (m.name ())
 ```
 
 ## gom.api.progress
@@ -2238,13 +2071,7 @@ This class is meant to be used with the Python 'with' statement
 ```
 import gom.api.progress
 
-with gom.api.progress.ProgressBar() as bar:
-    bar.set_message('Calculation in progress')
-    for i in range(100):
-        # Do some calculations
-        foo()
-        # Increase the progress
-        bar.set_progress(i)    
+with gom.api.progress.ProgressBar() as bar: bar.set_message('Calculation in progress') for i in range(100): # Do some calculations foo() # Increase the progress bar.set_progress(i)
 
 # Progress bar entry gets removed automatically after leaving the 'with' statement
 ```
@@ -2299,7 +2126,7 @@ This module contains functions for accessing project relevant data
 
 :deprecated: Please use gom.api.progress.ProgressBar instead
 
-Auxillary class allowing to set progress information
+Auxiliary class allowing to set progress information
 
 This class is used to access the progress bar and progress message widgets of the application.
 
@@ -2747,8 +2574,7 @@ This function returns the listof registered services
 **Example:**
 
 ```
-for s in gom.api.services.get_services ():
-  print (s.get_name ())
+for s in gom.api.services.get_services (): print (s.get_name ())
 > 'Advanced fitting algorithms'
 > 'Tube inspection diagrams'
 > ...
@@ -2758,8 +2584,8 @@ for s in gom.api.services.get_services ():
 
 API for storing add-on related settings persistently
 
-This API allows reading/writing values into the application configuration permantly. The
-configuration is persistant and will survive application restarts. Also, it can be accessed
+This API allows reading/writing values into the application configuration permanently. The
+configuration is persistent and will survive application restarts. Also, it can be accessed
 via the applications preferences dialog.
 
 The configuration entries must be defined in the add-ons `metainfo.json` file. This configuration
@@ -2770,63 +2596,7 @@ dialog and can be adapted interactively there.
 ### Example
 
 ```
-{
-  "title": "Settings API example",
-  "description": "Example add-on demonstrating usage of the settings API",
-  "uuid": "3b515488-aa7b-4035-85e1-b9509db8af4f",
-  "version": "1.0.2",
-  "settings": [
-   {
-      "name": "dialog",
-      "description": "Dialog configuration"
-   },
-   {
-     "name": "dialog.size",
-     "description": "Size of the dialog"
-   },
-   {
-     "name": "dialog.size.width",
-     "description": "Dialog width",
-     "value": 640,
-     "digits": 0
-   },
-   {
-     "name": "dialog.size.height",
-     "description": "Dialog height",
-     "value": 480,
-     "digits": 0
-   },
-   {
-     "name": "dialog.threshold",
-     "description": "Threshold",
-     "value": 1.0,
-     "minimum": 0.0,
-     "maximum": 10.0,
-     "digits": 2,
-     "step": 0.01
-   },
-   {
-     "name": "dialog.magic",
-     "description": "Magic Key",
-     "value": "Default text",
-     "visible": false
-   },
-   {
-     "name": "enable",
-     "description": "Enable size storage",
-     "value": true,
-     "visible": true
-   },
-   {
-     "name": "dialog.file",
-     "description": "Selected file",
-     "value": "",
-     "type": "file",
-     "mode": "any",
-     "visible": true
-   }
-  ]
- }
+{ "title": "Settings API example", "description": "Example add-on demonstrating usage of the settings API", "uuid": "3b515488-aa7b-4035-85e1-b9509db8af4f", "version": "1.0.2", "settings": [ { "name": "dialog", "description": "Dialog configuration" }, { "name": "dialog.size", "description": "Size of the dialog" }, { "name": "dialog.size.width", "description": "Dialog width", "value": 640, "digits": 0 }, { "name": "dialog.size.height", "description": "Dialog height", "value": 480, "digits": 0 }, { "name": "dialog.threshold", "description": "Threshold", "value": 1.0, "minimum": 0.0, "maximum": 10.0, "digits": 2, "step": 0.01 }, { "name": "dialog.magic", "description": "Magic Key", "value": "Default text", "visible": false }, { "name": "enable", "description": "Enable size storage", "value": true, "visible": true }, { "name": "dialog.file", "description": "Selected file", "value": "", "type": "file", "mode": "any", "visible": true } ] }
 ```
 
 This will lead to configuration entries in the applications preferences. Given that the `metainfo.json` is
@@ -3072,10 +2842,7 @@ in the UI until the scope is left again.
 ```
 import gom.api.tools
 
-with gom.api.tools.MultiElementCreationScope():
-    for _ in range(10000):
-        # Will not lead to a full application synchronization
-        gom.script.inspection.create_some_simple_point(...)
+with gom.api.tools.MultiElementCreationScope(): for _ in range(10000): # Will not lead to a full application synchronization gom.script.inspection.create_some_simple_point(...)
 
 # Full application synchronization is done here, we are safe again
 
