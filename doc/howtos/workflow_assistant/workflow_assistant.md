@@ -8,6 +8,19 @@ See [Tech Guide &ndash; Workflow Assistant](https://techguide.zeiss.com/en/zeiss
 
 A Workflow assistant can be composed of the following UI elements:
 
+1. Menu page &ndash; Shows a list of menu entries.
+2. Next page entry &ndash; Allows switching to the next page, which can be e.g. a Menu page.
+3. Accordion entry &ndash; In the initial collapsed state, only its title is shown. If expanded, its menu entries are shown below its title.
+4. Command entry &ndash; Triggers execution of a command, usually without a dialog.
+5. Embedded command page &ndash;  Triggers execition of a command; its dialog will be embedded in the Workflow Assistant.
+6. Wizard page &ndash; A page showing a sequence of operations (Wizard steps)
+
+```{note}
+The initial appearance of Command entry, Embedded command page and Wizard page is identical, but differs during execution.
+```
+
+1. Menu page
+
 ```{figure} assets/menupage.png
 :alt: Menu page
 :class: bordered-figure
@@ -17,6 +30,7 @@ Menu page
 
 This Menu page consists of the items "First steps", "Inspection" and "Reports".
 
+3. Accordion Entry
 ```{figure} assets/accordion_collapsed.png
 :alt: Collapsed accordion entry
 :class: bordered-figure
@@ -33,11 +47,13 @@ Expanded accordion entry
 
 The menu item "First steps" is an accordion entry; it contains menu entries which can be collapsed or expanded.
 
+3. Next Page Entry
+
 ```{figure} assets/menu_page-1.png
-:alt: Menu page "Inspection"
+:alt:  "Inspection"
 :class: bordered-figure
 
-Menu page "Inspection"
+Next Page Entry "Inspection"
 ```
 
 ```{figure} assets/menu_page-2.png
