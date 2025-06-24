@@ -24,7 +24,7 @@ This Menu page consists of the items "First steps", "Inspection" and "Reports".
 Collapsed accordion entry
 ```
 
-```{figure} assets/accordion_collapsed.png
+```{figure} assets/accordion_expanded.png
 :alt: Expanded accordion entry
 :class: bordered-figure
 
@@ -70,15 +70,15 @@ To update the App Explorer and the Workflow Assistant view:
 The minimal example demonstrates the basic structure to create a Workflow Assistant menu structure referencing built-in commands. The basic building blocks for the menu structure are:
 
 1. [MenuPage](#menupage)
-  * A menu page with multiple entries that can be shown in the Workflow Assistant view.
+   * A menu page with multiple entries that can be shown in the Workflow Assistant view.
 2. [NextPageEntry](#nextpageentry)
-  * A menu entry that allows the user to navigate to another menu or wizard page
-  * Uses 'name', 'icon' and 'description' of referenced page if not given explicitly.
+   * A menu entry that allows the user to navigate to another menu or wizard page
+   * Uses 'name', 'icon' and 'description' of referenced page if not given explicitly.
 3. [EmbeddedCommandPage](#embeddedcommandentry)
-  * This is used to display a single command in the Workflow Assistant.
+   * This is used to display a single command in the Workflow Assistant.
 4. [WizardPage](#wizardpage)
-  * A page to show multiple commands as a sequence in a wizard layout.
-  * An [EmbeddedCommandStep](#embeddedcommandstep) is used to represent each step
+   * A page to show multiple commands as a sequence in a wizard layout.
+   * An [EmbeddedCommandStep](#embeddedcommandstep) is used to represent each step
 
 ```{code-block} json
 :caption: minimal.json &ndash; top level
@@ -99,9 +99,9 @@ The minimal example demonstrates the basic structure to create a Workflow Assist
 }
 ```
 
-At the top level, each Workflow Assistant must have a unique ID (UUID) (line x) and a name 
-(line x). With `"using"`, an alias for an object's UUID can be defined to improve readability (line x).
-The element `"objects"` contains a list of objects, which are the building blocks of this Workflow Assistant.
+At the top level, each Workflow Assistant must have a unique ID (UUID) (line 2) and a name 
+(line 3). With `"using"`, an alias for an object's UUID can be defined to improve readability (l. 4..8).
+The element `"objects"` (l. 10) contains a list of objects, which are the building blocks of this Workflow Assistant.
 
 ```{code-block} json
 :caption: minimal.json &ndash; NextPageEntry
@@ -126,7 +126,14 @@ The element `"objects"` contains a list of objects, which are the building block
 }
 ```
 
-Initially, the [NextPageEntry](#nextpageentry) is shown with its `"name"` and `"description"` (lines x & y) in the Workflow Assistant view. The order of multiple Assistants within the view is defined by the `"position"` element (line x). In this case, the entry is inserted after the `"inspect"` Workflow's `"inspection_home"` page.
+```{figure} assets/minimal_example-1.png
+:alt: NextPageEntry "hook_for_inspect"
+:class: bordered-figure
+
+NextPageEntry "hook_for_inspect"
+```
+
+Initially, the [NextPageEntry](#nextpageentry) is shown with its `"name"` and `"description"` (l. 6 & 7) in the Workflow Assistant view. The order of multiple Assistants within the view is defined by the `"position"` element (l. 10..13). In this case, the entry is inserted after the `"inspect"` Workflow's `"inspection_home"` page.
 
 The `"inspect"` workflow is part of the ZEISS INSPECT System Apps. The alias we previously defined with `"using"` allows to reference it by name instead of its ID.
 
@@ -161,6 +168,13 @@ The element `"page"` defines the page which is opened if we click this [NextPage
 }
 ```
 
+```{figure} assets/minimal_example-2.png
+:alt: MenuPage "homepage"
+:class: bordered-figure
+
+MenuPage "homepage"
+```
+
 The [MenuPage](#menupage) `"homepage"` provides two menu entries:
 1. A [NextPageEntry] to the page `"create_diameter"`
 2. An [EmbeddedCommandPage](#embeddedcommandpage) for execution of the ZEISS INSPECT command `comparison.create_multiple_surface_comparison_on_cad`.
@@ -193,6 +207,19 @@ The [MenuPage](#menupage) `"homepage"` provides two menu entries:
     }
   ]
 }
+```
+
+```{figure} assets/minimal_example-3.png
+:alt: WizardPage "create_diameter" &ndash; Step 1
+:class: bordered-figure
+
+WizardPage "create_diameter" &ndash; Step 1
+```
+```{figure} assets/minimal_example-4.png
+:alt: WizardPage "create_diameter" &ndash; Step 2
+:class: bordered-figure
+
+WizardPage "create_diameter" &ndash; Step 2
 ```
 
 The last object of our "Minimal example" is the `"create_diameter"` [WizardPage](#wizardpage). Clicking this page leads to the two subsequent wizard steps, both of which are [EmbeddedCommandSteps](#embeddedcommandstep). The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.
