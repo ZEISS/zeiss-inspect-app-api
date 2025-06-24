@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" sizes="16x16" type="image/png" href="../../_static/favicon.png">
-    <meta property="article:modified_time" content="2025-06-24T13:33:29+00:00" />
+    <meta property="article:modified_time" content="2025-06-24T14:07:46+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Workflow assistant &mdash; App Development Documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
@@ -169,6 +169,21 @@
 <h2>User interface<a class="headerlink" href="#user-interface" title="Link to this heading"></a></h2>
 <p>See <a class="reference external" href="https://techguide.zeiss.com/en/zeiss-inspect-2025/article/view_workflow_assistant.html">Tech Guide – Workflow Assistant</a> for opening the Workflow assistant view.</p>
 <p>A Workflow assistant can be composed of the following UI elements:</p>
+<ol class="arabic simple">
+<li><p>Menu page – Shows a list of menu entries.</p></li>
+<li><p>Next page entry – Allows switching to the next page, which can be e.g. a Menu page.</p></li>
+<li><p>Accordion entry – In the initial collapsed state, only its title is shown. If expanded, its menu entries are shown below its title.</p></li>
+<li><p>Command entry – Triggers execution of a command, usually without a dialog.</p></li>
+<li><p>Embedded command page –  Triggers execition of a command; its dialog will be embedded in the Workflow Assistant.</p></li>
+<li><p>Wizard page – A page showing a sequence of operations (Wizard steps)</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The initial appearance of Command entry, Embedded command page and Wizard page is identical, but differs during execution.</p>
+</div>
+<ol class="arabic simple">
+<li><p>Menu page</p></li>
+</ol>
 <figure class="align-default" id="id1">
 <img alt="Menu page" class="bordered-figure" src="../../_images/menupage.png" />
 <figcaption>
@@ -176,6 +191,9 @@
 </figcaption>
 </figure>
 <p>This Menu page consists of the items “First steps”, “Inspection” and “Reports”.</p>
+<ol class="arabic simple" start="3">
+<li><p>Accordion Entry</p></li>
+</ol>
 <figure class="align-default" id="id2">
 <img alt="Collapsed accordion entry" class="bordered-figure" src="../../_images/accordion_collapsed.png" />
 <figcaption>
@@ -189,10 +207,13 @@
 </figcaption>
 </figure>
 <p>The menu item “First steps” is an accordion entry; it contains menu entries which can be collapsed or expanded.</p>
+<ol class="arabic simple" start="3">
+<li><p>Next Page Entry</p></li>
+</ol>
 <figure class="align-default" id="id4">
-<img alt="Menu page &quot;Inspection&quot;" class="bordered-figure" src="../../_images/menu_page-1.png" />
+<img alt="Inspection" class="bordered-figure" src="../../_images/menu_page-1.png" />
 <figcaption>
-<p><span class="caption-text">Menu page “Inspection”</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Next Page Entry “Inspection”</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id5">
@@ -640,7 +661,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">&quot;info
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f2287990c90>
+  <jinja2.runtime.BlockReference object at 0x7f51b1ed6dd0>
 
 
 </footer>
