@@ -1403,7 +1403,8 @@ gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 ```
 
 ```{seealso}
-The Wizard widget is commonly used in a [Workflow Assistant](../workflow_assistant/workflow_assistant).
+The Wizard widget is commonly used in a Workflow Assistant.
+% [Workflow Assistant](../workflow_assistant/workflow_assistant).
 ```
 
 ## Other
