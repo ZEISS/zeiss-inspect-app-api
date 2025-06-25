@@ -5,9 +5,9 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" sizes="16x16" type="image/png" href="../../_static/favicon.png">
-    <meta property="article:modified_time" content="2025-06-02T05:37:09+00:00" />
+    <meta property="article:modified_time" content="2025-06-25T15:17:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creating wizard dialogs &mdash; App Development Documentation</title>
+  <title>Creating wizard dialogs (deprecated) &mdash; App Development Documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme_zeiss.css?v=7b4cc488" />
 
@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Using an additional Python GUI library" href="../using_gui_libraries/using_gui_libraries.html" />
-    <link rel="prev" title="Testing Apps" href="../testing_apps/testing_apps.html" /> 
+    <link rel="prev" title="Wizard widget control" href="wizard_control.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -74,7 +74,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides – Expert</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating wizard dialogs</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="wizard_control.html">Wizard widget control</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Creating wizard dialogs (deprecated)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#what-is-a-wizard-dialog">What is a wizard dialog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-a-simple-wizard-dialog">Creating a simple wizard dialog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#changing-the-button-text">Changing the button text</a></li>
@@ -123,7 +124,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Creating wizard dialogs</li>
+      <li class="breadcrumb-item active">Creating wizard dialogs (deprecated)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -132,8 +133,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="creating-wizard-dialogs">
-<h1>Creating wizard dialogs<a class="headerlink" href="#creating-wizard-dialogs" title="Link to this heading"></a></h1>
+  <section id="creating-wizard-dialogs-deprecated">
+<h1>Creating wizard dialogs (deprecated)<a class="headerlink" href="#creating-wizard-dialogs-deprecated" title="Link to this heading"></a></h1>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The wizard dialog scheme described in this section has been deprecated in favor of the new <a class="reference internal" href="dialog_widgets.html#wizard-widget"><span class="std std-ref">Wizard widget</span></a>, which allows a much easier and more powerful implementation of wizard dialogs.</p>
+<p>The concept described below is no longer recommended for new implementations.</p>
+</div>
 <ul class="simple">
 <li><p><a class="reference internal" href="#what-is-a-wizard-dialog">What is a wizard dialog</a></p></li>
 <li><p><a class="reference internal" href="#creating-a-simple-wizard-dialog">Creating a simple wizard dialogs</a></p></li>
@@ -429,7 +435,7 @@ First of all we have to define appropriate dialogs:</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../testing_apps/testing_apps.html" class="btn btn-neutral float-left" title="Testing Apps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="wizard_control.html" class="btn btn-neutral float-left" title="Wizard widget control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../using_gui_libraries/using_gui_libraries.html" class="btn btn-neutral float-right" title="Using an additional Python GUI library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -437,7 +443,7 @@ First of all we have to define appropriate dialogs:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2025, Carl Zeiss GOM Metrology GmbH.
-      <span class="lastupdated">Last updated on Jun 02, 2025.
+      <span class="lastupdated">Last updated on Jun 25, 2025.
       </span></p>
   </div>
 
@@ -449,7 +455,7 @@ First of all we have to define appropriate dialogs:</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f052203a6d0>
+  <jinja2.runtime.BlockReference object at 0x7f3d02bb1cc0>
 
 
 </footer>
