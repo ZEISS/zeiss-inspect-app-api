@@ -80,7 +80,7 @@ Wizard step with a branch-button
 ```{figure} assets/wizard_step6_next_button_text.png
 :class: bordered-figure
 
-: Wizard step with alternative next-button text
+Wizard step with alternative next-button text
 ```
 
 `DIALOG.wizard.step_set_next_button_text(step_id, text)`
