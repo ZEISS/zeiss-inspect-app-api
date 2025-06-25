@@ -83,7 +83,11 @@ You can add a GUI to your App by creating user-defined dialogs, which are based 
 * Dialogs are designed using the GUI based **Dialog Editor**.
 
     ![](assets/dialog_editor.png)
-    
+
+* With **Embedding** in the dialog properties, control how a dialog is embedded in ZEISS INSPECT
+
+    ![](assets/dialog_embedding.png)
+
 ```{note}
 The Dialog Editor is opened from the <a href="../using_app_editor/using_app_editor.html">App Editor</a> by
 * Selecting a dialog file (*.gdlg) in the App Explorer
