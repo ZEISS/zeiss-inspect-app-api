@@ -40,7 +40,7 @@ into [Executing dialogs](executing_dialogs.md).
     - [Vertical spacer widget](#vertical-spacer-widget)
     - [Tab layout widget](#tab-layout-widget)
     - [Separator layout widget](#separator-layout-widget)
-    % Wizard (2026)
+    - [Wizard widget](#wizard-widget)
 - [Other](#other)
     - [Abort button widget](#abort-button-widget)
     - [File system browser widget](#file-system-browser-widget)
@@ -1358,6 +1358,53 @@ icon (string)
 
 expanded (boolean)
 : True: Layout is initially expanded 
+
+### Wizard widget
+
+![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
+
+Wizard style: "List"\
+![](assets/wizard_widget_list.png)
+
+Wizard style: "Stack"\
+![](assets/wizard_widget_stack.png)
+
+Wizard widget
+: The wizard widget allows to create any number of wizard steps, which are completed sequentially. Advancing to the next step, skipping a step or branching to a specific step is only possible if a certain condition, which is defined in the dialog handler, is true. Each wizard step provides a dialog with any type and number of widgets.
+
+`current_id` (integer)
+: ID of current step                                                                              
+
+`steps` (list)
+: List of step titles
+
+```{important}
+If a wizard step can be completed is controlled with the wizard object's method `step_set_complete(step_id, condition)`.
+
+The condition must be a boolean value, which is typically computed from user input and/or project data.
+
+E.g.: `DIALOG.wizard.step_set_complete(DIALOG.wizard.current_id, DIALOG.user_age.value > 18)`
+```
+
+```{code-block} Python
+:caption: Wizard widget &ndash; Enable completion when currrent step is initialized  
+
+import gom
+
+DIALOG=gom.script.sys.create_user_defined_dialog (file='dialog.gdlg')
+
+def dialog_event_handler (widget):
+	if widget['type'] == 'initialized':
+		DIALOG.wizard.step_set_complete(DIALOG.wizard.current_id, True)
+
+DIALOG.wizard.handler = dialog_event_handler
+
+gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
+```
+
+```{seealso}
+The Wizard widget is commonly used in a [Workflow Assistant](../workflow_assistant/workflow_assistant).
+```
 
 ## Other
 
