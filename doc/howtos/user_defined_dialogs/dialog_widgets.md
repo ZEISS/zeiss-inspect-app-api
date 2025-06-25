@@ -1387,7 +1387,7 @@ E.g.: `DIALOG.wizard.step_set_complete(DIALOG.wizard.current_id, DIALOG.user_age
 ```
 
 ```{code-block} Python
-:caption: Wizard widget &ndash; Enable completion when currrent step is initialized  
+:caption: Wizard widget &ndash; Enable completion when current step is initialized  
 
 import gom
 
