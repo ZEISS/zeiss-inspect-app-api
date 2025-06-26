@@ -7,7 +7,7 @@
 <meta content="ZEISS INSPECT 2025 App Python API Specification" name="description" />
 <meta content="Metrology, ZEISS INSPECT, Python API, GOM API, Scripting, Add-ons, Apps, Specification, Documentation" name="keywords" />
     <link rel="icon" sizes="16x16" type="image/png" href="../_static/favicon.png">
-    <meta property="article:modified_time" content="2025-05-28T06:40:15+00:00" />
+    <meta property="article:modified_time" content="2025-06-26T14:18:34+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZEISS INSPECT App Python API documentation &mdash; App Development Documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -129,18 +129,22 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-extensions">gom.api.extensions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement">gom.api.extensions.ScriptedCalculationElement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-init">gom.api.extensions.ScriptedCalculationElement.<strong>init</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-add-selected-element-parameter">gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-add-target-element-parameter">gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-compute">gom.api.extensions.ScriptedCalculationElement.compute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-compute-stage">gom.api.extensions.ScriptedCalculationElement.compute_stage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-compute-stages">gom.api.extensions.ScriptedCalculationElement.compute_stages</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-scriptedelement">gom.api.extensions.ScriptedElement</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-event">gom.api.extensions.ScriptedElement.Event</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-init">gom.api.extensions.ScriptedElement.<strong>init</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-add-selected-element-parameter">gom.api.extensions.ScriptedElement.add_selected_element_parameter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-add-target-element-parameter">gom.api.extensions.ScriptedElement.add_target_element_parameter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-apply-dialog">gom.api.extensions.ScriptedElement.apply_dialog</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-check-list">gom.api.extensions.ScriptedElement.check_list</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-check-target-element">gom.api.extensions.ScriptedElement.check_target_element</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-check-value">gom.api.extensions.ScriptedElement.check_value</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-compute">gom.api.extensions.ScriptedElement.compute</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-compute-stage">gom.api.extensions.ScriptedElement.compute_stage</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-compute-stages">gom.api.extensions.ScriptedElement.compute_stages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-dialog">gom.api.extensions.ScriptedElement.dialog</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id1">gom.api.extensions.ScriptedElement.event</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-event-handler">gom.api.extensions.ScriptedElement.event_handler</a></li>
@@ -193,6 +197,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-nominals-surface">gom.api.extensions.nominals.Surface</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-nominals-surfacecurve">gom.api.extensions.nominals.SurfaceCurve</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-nominals-valueelement">gom.api.extensions.nominals.ValueElement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-sequence">gom.api.extensions.sequence</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-sequence-scriptedsequenceelement">gom.api.extensions.sequence.ScriptedSequenceElement</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-views">gom.api.extensions.views</a><ul>
@@ -296,6 +304,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-scriptedelements">gom.api.scriptedelements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-inspection-definition">gom.api.scriptedelements.get_inspection_definition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-unit-definition">gom.api.scriptedelements.get_unit_definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-units">gom.api.scriptedelements.get_units</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-selection">gom.api.selection</a><ul>
@@ -967,19 +976,10 @@ contributions script context is mandatory for the function to work.</p>
 <p>API for script based functionality extensions</p>
 <p>This API enables the user to define various element classes which can be used to extend the functionality of
 ZEISS INSPECT.</p>
-<section id="gom-api-extensions-scriptedelement">
-<h3>gom.api.extensions.ScriptedElement<a class="headerlink" href="#gom-api-extensions-scriptedelement" title="Link to this heading"></a></h3>
-<p>This class is used to define a scripted element. A scripted element is a user defined
-element type where configuration and computation are happening entirely in a Python script,
-so user defined behavior and visualization can be implemented.</p>
-<p><strong>Element id</strong></p>
-<p>Every element must have a unique id. It is left to the implementor to avoid inter app conflicts here. The
-id can be hierarchical like <code class="docutils literal notranslate"><span class="pre">company.topic.group.element_type</span></code>. The id may only contain lower case characters,
-grouping dots and underscores.</p>
-<p><strong>Element category</strong></p>
-<p>The category of an element type is used to find the application side counterpart which cares for the
-functionality implementation. For example, <code class="docutils literal notranslate"><span class="pre">scriptedelement.actual</span></code> links that element type the application
-counterpart which cares for scripted actual elements and handles its creation, editing, administration, …</p>
+<section id="gom-api-extensions-scriptedcalculationelement">
+<h3>gom.api.extensions.ScriptedCalculationElement<a class="headerlink" href="#gom-api-extensions-scriptedcalculationelement" title="Link to this heading"></a></h3>
+<p>This class is used to define a scripted calculation element which calculated its own data. It is used as a
+base class for scripted actual, nominals and checks.</p>
 <p><strong>Working with stages</strong></p>
 <p>Each scripted element must be computed for one or more stages. In the case of a preview or
 for simple project setups, computation is usually done for a single stage only. In case of
@@ -1011,45 +1011,11 @@ Nevertheless, the vector can be number entirely different depending on active/in
 <p class="admonition-title">Caution</p>
 <p>Usually, it is <em>not</em> possible to access arbitrary stages of other elements due to recalc restrictions !</p>
 </div>
-<p><strong>Additional element data</strong></p>
-<p>Every element can store arbitrary data sets in addition to the computed values. While the computed values are used
-to create the element’s geometry and are stored in the elements internal structures, the additional data is kept in
-the associated EDM project database and can be retrieved via an element token.</p>
-<p>Each elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function returns a dictionary always. The exact format of that dictionary depends on the
-element type and the elements geometry data is tagged by the fixed key named. In addition, that result map can contain
-a dictionary with key <code class="docutils literal notranslate"><span class="pre">data</span></code>. The key/value pairs within can then be accessed via the element’s token interface under
-that exact same name.</p>
-<p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-    <span class="c1"># Compute the element geometry (a point is that case)</span>
-    <span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_center</span> <span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;threshold&#39;</span><span class="p">])</span>
-
-    <span class="c1"># Return both element specific geometry plus an arbitraty data set</span>
-    <span class="k">return</span> <span class="p">{</span>
-        <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;point&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="n">center</span>
-        <span class="p">},</span>
-        <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;threshold&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</pre></div>
-</div>
-<section id="gom-api-extensions-scriptedelement-event">
-<h4>gom.api.extensions.ScriptedElement.Event<a class="headerlink" href="#gom-api-extensions-scriptedelement-event" title="Link to this heading"></a></h4>
-<p>Event types passed to the <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">()</span></code> function</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">DIALOG_INITIALIZE</span></code>: Sent when the dialog has been initialized and made visible</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DIALOG_CHANGED</span></code>:    A dialog widget value changed</p></li>
-</ul>
-</section>
-<section id="gom-api-extensions-scriptedelement-init">
-<h4>gom.api.extensions.ScriptedElement.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-scriptedelement-init" title="Link to this heading"></a></h4>
+<section id="gom-api-extensions-scriptedcalculationelement-init">
+<h4>gom.api.extensions.ScriptedCalculationElement.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-scriptedcalculationelement-init" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">category:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">element_type:</span> <span class="pre">str,</span> <span class="pre">callables:</span> <span class="pre">Any,</span> <span class="pre">properties:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedCalculationElement.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">category:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">element_type:</span> <span class="pre">str,</span> <span class="pre">callables:</span> <span class="pre">Any,</span> <span class="pre">properties:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1065,11 +1031,11 @@ that exact same name.</p>
 
 <p>Constructor</p>
 </section>
-<section id="gom-api-extensions-scriptedelement-add-selected-element-parameter">
-<h4>gom.api.extensions.ScriptedElement.add_selected_element_parameter<a class="headerlink" href="#gom-api-extensions-scriptedelement-add-selected-element-parameter" title="Link to this heading"></a></h4>
+<section id="gom-api-extensions-scriptedcalculationelement-add-selected-element-parameter">
+<h4>gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter<a class="headerlink" href="#gom-api-extensions-scriptedcalculationelement-add-selected-element-parameter" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.add_selected_element_parameter(self:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter(self:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>values</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Values map</p>
@@ -1079,11 +1045,11 @@ that exact same name.</p>
 
 <p>Adds the current selected element as the target element to the values map</p>
 </section>
-<section id="gom-api-extensions-scriptedelement-add-target-element-parameter">
-<h4>gom.api.extensions.ScriptedElement.add_target_element_parameter<a class="headerlink" href="#gom-api-extensions-scriptedelement-add-target-element-parameter" title="Link to this heading"></a></h4>
+<section id="gom-api-extensions-scriptedcalculationelement-add-target-element-parameter">
+<h4>gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter<a class="headerlink" href="#gom-api-extensions-scriptedcalculationelement-add-target-element-parameter" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.add_target_element_parameter(self:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">element:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter(self:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">element:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1096,6 +1062,106 @@ that exact same name.</p>
 
 <p>Adds an element as the target element to the parameters map in the
 appropriate fields</p>
+</section>
+<section id="gom-api-extensions-scriptedcalculationelement-compute">
+<h4>gom.api.extensions.ScriptedCalculationElement.compute<a class="headerlink" href="#gom-api-extensions-scriptedcalculationelement-compute" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedCalculationElement.compute(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>Any</em>) – Script context object containing execution related parameters. This includes the stage this computation call refers to.</p></li>
+<li><p><strong>values</strong> (<em>Any</em>) – Dialog widget values as a dictionary. The keys are the widget names as defined in the dialog definition.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function is called for a single stage value is to be computed. The input values from the
+associated dialog function are passed as <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> parameters - one value as one specific
+parameter named as the associated input widget.</p>
+</section>
+<section id="gom-api-extensions-scriptedcalculationelement-compute-stage">
+<h4>gom.api.extensions.ScriptedCalculationElement.compute_stage<a class="headerlink" href="#gom-api-extensions-scriptedcalculationelement-compute-stage" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedCalculationElement.compute_stage(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>Any</em>) – Script context object containing execution related parameters. This includes the stage this computation call refers to.</p></li>
+<li><p><strong>values</strong> (<em>Any</em>) – Dialog widget values as a dictionary. The keys are the widget names as defined in the dialog definition.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function is called for a single stage value is to be computed. The input values from the
+associated dialog function are passed as <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> parameters - one value as one specific
+parameter named as the associated input widget.</p>
+</section>
+<section id="gom-api-extensions-scriptedcalculationelement-compute-stages">
+<h4>gom.api.extensions.ScriptedCalculationElement.compute_stages<a class="headerlink" href="#gom-api-extensions-scriptedcalculationelement-compute-stages" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedCalculationElement.compute_stages(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>Any</em>) – Script context object containing execution related parameters. This includes the stage this computation call refers to.</p></li>
+<li><p><strong>values</strong> (<em>Any</em>) – Dialog widget values as a dictionary.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function is called to compute multiple stages of the scripted element. The expected result is
+a vector of the same length as the number of stages.</p>
+<p>The function is calling the <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function of the scripted element for each stage by default.
+For a more efficient implementation, it can be overwritten and bulk compute many stages at once.</p>
+</section>
+</section>
+<section id="gom-api-extensions-scriptedelement">
+<h3>gom.api.extensions.ScriptedElement<a class="headerlink" href="#gom-api-extensions-scriptedelement" title="Link to this heading"></a></h3>
+<p>Base class for all scripted elements</p>
+<p>This class is the base class for all scripted element types . A scripted element is a user defined
+element type where configuration and computation are happening entirely in a Python script, so user
+defined behavior and visualization can be implemented.</p>
+<p><strong>Element id</strong></p>
+<p>Every element must have a unique id. It is left to the implementer to avoid inter app conflicts here. The
+id can be hierarchical like <code class="docutils literal notranslate"><span class="pre">company.topic.group.element_type</span></code>. The id may only contain lower case characters,
+grouping dots and underscores.</p>
+<p><strong>Element category</strong></p>
+<p>The category of an element type is used to find the application side counterpart which cares for the
+functionality implementation. For example, <code class="docutils literal notranslate"><span class="pre">scriptedelement.actual</span></code> links that element type the application
+counterpart which cares for scripted actual elements and handles its creation, editing, administration, …</p>
+<section id="gom-api-extensions-scriptedelement-event">
+<h4>gom.api.extensions.ScriptedElement.Event<a class="headerlink" href="#gom-api-extensions-scriptedelement-event" title="Link to this heading"></a></h4>
+<p>Event types passed to the <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">()</span></code> function</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DIALOG_INITIALIZE</span></code>: Sent when the dialog has been initialized and made visible</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DIALOG_CHANGED</span></code>:    A dialog widget value changed</p></li>
+</ul>
+</section>
+<section id="gom-api-extensions-scriptedelement-init">
+<h4>gom.api.extensions.ScriptedElement.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-scriptedelement-init" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">category:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">callables:</span> <span class="pre">Any,</span> <span class="pre">properties:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – Unique contribution id, like <code class="docutils literal notranslate"><span class="pre">special_point</span></code></p></li>
+<li><p><strong>category</strong> (<em>str</em>) – Scripted element type id, like <code class="docutils literal notranslate"><span class="pre">scriptedelement.actual</span></code></p></li>
+<li><p><strong>description</strong> (<em>str</em>) – Human readable contribution description</p></li>
+<li><p><strong>category</strong> – Contribution category</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Constructor</p>
 </section>
 <section id="gom-api-extensions-scriptedelement-apply-dialog">
 <h4>gom.api.extensions.ScriptedElement.apply_dialog<a class="headerlink" href="#gom-api-extensions-scriptedelement-apply-dialog" title="Link to this heading"></a></h4>
@@ -1115,10 +1181,10 @@ back into the dialog arguments. See function <code class="docutils literal notra
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>values</strong> – : Dictionary of values</p></li>
-<li><p><strong>key</strong> – : Key of the value to check</p></li>
-<li><p><strong>value_type</strong> – : Type each of the values is expected to have</p></li>
-<li><p><strong>length</strong> – : Number of values expected in the tuple or ‘None’ if any length is allowed</p></li>
+<li><p><strong>values</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Dictionary of values</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – Key of the value to check</p></li>
+<li><p><strong>value_type</strong> (<em>type</em>) – Type each of the values is expected to have</p></li>
+<li><p><strong>length</strong> (<em>int</em>) – Number of values expected in the tuple or ‘None’ if any length is allowed</p></li>
 </ul>
 </dd>
 </dl>
@@ -1143,107 +1209,15 @@ back into the dialog arguments. See function <code class="docutils literal notra
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>values</strong> – : Dictionary of values</p></li>
-<li><p><strong>key</strong> – : Key of the value to check</p></li>
-<li><p><strong>value_type</strong> – : Type the value is expected to have</p></li>
+<li><p><strong>values</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Dictionary of values</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – Key of the value to check</p></li>
+<li><p><strong>value_type</strong> (<em>type</em>) – Type the value is expected to have</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <p>Check a single value for expected properties</p>
-</section>
-<section id="gom-api-extensions-scriptedelement-compute">
-<h4>gom.api.extensions.ScriptedElement.compute<a class="headerlink" href="#gom-api-extensions-scriptedelement-compute" title="Link to this heading"></a></h4>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.compute(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
-<dd><dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<em>Any</em>) – Script context object containing execution related parameters. This includes</p></li>
-<li><p><strong>values</strong> (<em>Any</em>) – Dialog widget values as a dictionary. The keys are the widget names as defined</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Computed values for the given stage. This is always a map, where the keys strongly depend</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function is called for a single stage value is to be computed. The input values from the
-associated dialog function are passed as <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> parameters - one value as one specific
-parameter named as the associated input widget.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>           the stage this computation call refers to.
-           in the dialog definition.
-    on the element type.
-</pre></div>
-</div>
-</section>
-<section id="gom-api-extensions-scriptedelement-compute-stage">
-<h4>gom.api.extensions.ScriptedElement.compute_stage<a class="headerlink" href="#gom-api-extensions-scriptedelement-compute-stage" title="Link to this heading"></a></h4>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.compute_stage(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
-<dd><dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<em>Any</em>) – Script context object containing execution related parameters. This includes</p></li>
-<li><p><strong>values</strong> (<em>Any</em>) – Dialog widget values as a dictionary. The keys are the widget names as defined</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Computed values for the given stage. This is always a map, where the keys strongly depend</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function is called for a single stage value is to be computed. The input values from the
-associated dialog function are passed as <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> parameters - one value as one specific
-parameter named as the associated input widget.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>           the stage this computation call refers to.
-           in the dialog definition.
-    on the element type.
-</pre></div>
-</div>
-</section>
-<section id="gom-api-extensions-scriptedelement-compute-stages">
-<h4>gom.api.extensions.ScriptedElement.compute_stages<a class="headerlink" href="#gom-api-extensions-scriptedelement-compute-stages" title="Link to this heading"></a></h4>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.compute_stages(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
-<dd><dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<em>Any</em>) – Script context object containing execution related parameters. This includes</p></li>
-<li><p><strong>values</strong> (<em>Any</em>) – Dialog widget values as a dictionary.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary containing the results and the states of the computation. Each entry in these</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function is called to compute multiple stages of the scripted element. The expected result is
-a vector of the same length as the number of stages.</p>
-<p>The function is calling the <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function of the scripted element for each stage by default.
-For a more efficient implementation, it can be overwritten and bulk compute many stages at once.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>           the stage this computation call refers to.
-    dictionaries is a vector of the same length as the number of stages. The entries are
-    - `results`:  Computed values for each stage
-    - `states`:   States of the computation for each stage. `True` if the computation was successful.
-</pre></div>
-</div>
 </section>
 <section id="gom-api-extensions-scriptedelement-dialog">
 <h4>gom.api.extensions.ScriptedElement.dialog<a class="headerlink" href="#gom-api-extensions-scriptedelement-dialog" title="Link to this heading"></a></h4>
@@ -1295,8 +1269,21 @@ and read back the generated values. So a typical dialog function will look like 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
     <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="s1">&#39;/dialogs/create_element.gdlg&#39;</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span> <span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span> <span class="p">(</span><span class="n">dlg</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span> <span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span> <span class="p">(</span><span class="n">dlg</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">args</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">dlg</span></code> object is a handle to the dialog which can be used to access the dialog widgets and their values.
+For example, if a selection element with user defined filter function called <code class="docutils literal notranslate"><span class="pre">element</span></code> is member of the dialog,
+the filter can be applied like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="s1">&#39;/dialogs/create_element.gdlg&#39;</span><span class="p">)</span>
+    <span class="n">dlg</span><span class="o">.</span><span class="n">element</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">element_filter</span>
+    <span class="o">...</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">element_filter</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;curve&#39;</span>
 </pre></div>
 </div>
 <p>For default dialogs, this can be shortened to a call to <code class="docutils literal notranslate"><span class="pre">show_dialog</span> <span class="pre">()</span></code> which will handle the dialog
@@ -1320,7 +1307,7 @@ creation, initialization and return the dialog values in the correct format in a
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the event requires a recomputation of the elements preview. Upon return, the framework</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the event requires a recomputation of the elements preview. Upon return, the framework will then trigger a call to the <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function and use its result for a preview update. In the case of <code class="docutils literal notranslate"><span class="pre">False</span></code>, no recomputation is triggered and the preview remains unchanged.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -1330,10 +1317,6 @@ creation, initialization and return the dialog values in the correct format in a
 
 <p>Contribution event handling function. This function is called when the contributions UI state changes.
 The function can then react to that event and update the UI state accordingly.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    will then trigger a call to the `compute ()` function and use its result for a preview update.
-    In the case of `False`, no recomputation is triggered and the preview remains unchanged.
-</pre></div>
-</div>
 </section>
 <section id="gom-api-extensions-scriptedelement-event-handler">
 <h4>gom.api.extensions.ScriptedElement.event_handler<a class="headerlink" href="#gom-api-extensions-scriptedelement-event-handler" title="Link to this heading"></a></h4>
@@ -1359,7 +1342,7 @@ and will convert the event parameter accordingly</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the dialog was successfully initialized and all values could be applied.</p>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the dialog was successfully initialized and all values could be applied. Otherwise, the service’s log will show a warning about the missing values.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
@@ -1369,9 +1352,6 @@ and will convert the event parameter accordingly</p>
 
 <p>Initializes the dialog from the given arguments. This function is used to setup the dialog
 widgets from the given arguments. The arguments are a map of widget names and their values.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    Otherwise, the service&#39;s log will show a warning about the missing values.
-</pre></div>
-</div>
 </section>
 <section id="gom-api-extensions-scriptedelement-is-visible">
 <h4>gom.api.extensions.ScriptedElement.is_visible<a class="headerlink" href="#gom-api-extensions-scriptedelement-is-visible" title="Link to this heading"></a></h4>
@@ -1411,6 +1391,13 @@ the selections and other precautions are setup and the user then shall be enable
 <p>Show dialog and return the values. This function is a helper function to simplify the dialog creation
 and execution. It will create the dialog, initialize it with the given arguments and show it. The
 resulting values are then returned in the expected return format.</p>
+<p>This function is a shortcut for the following code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>   <span class="c1"># Create dialog and return a handle to it</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>  <span class="c1"># Initialize the dialog with the given arguments</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">)</span>  <span class="c1"># Show dialog and enter the dialog loop</span>
+<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>      <span class="c1"># Apply the final dialog values</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="gom-api-extensions-actuals">
@@ -1669,10 +1656,14 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <p>Scripted curve inspection</p>
 <p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;actual_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">Deviations</span>
-    <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                          <span class="o">//</span> <span class="n">Nominal</span> <span class="n">value</span>
-    <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Item</span><span class="p">,</span>                <span class="o">//</span> <span class="n">Inspected</span> <span class="n">element</span>
-    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                              <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>    
+    <span class="s2">&quot;actual_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>  <span class="o">//</span> <span class="n">Deviations</span>
+    <span class="s2">&quot;nominal_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">Nominal</span> <span class="n">values</span>
+     <span class="o">...</span><span class="ow">or</span> <span class="n">alternatively</span><span class="o">...</span>
+    <span class="s2">&quot;nominal_value&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>        <span class="o">//</span> <span class="n">Alternative</span><span class="p">:</span> <span class="n">Single</span> <span class="n">common</span> <span class="n">nominal</span> <span class="n">value</span>
+    <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Item</span><span class="p">,</span>    <span class="o">//</span> <span class="n">Inspected</span> <span class="n">element</span>
+    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                   <span class="o">//</span> <span class="n">Unit</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="n">value</span>
+    <span class="s2">&quot;abbreviation&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>           <span class="o">//</span> <span class="n">Abbreviation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="nb">type</span> <span class="k">as</span> <span class="n">shown</span> <span class="ow">in</span> <span class="n">labels</span> <span class="n">etc</span><span class="o">.</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                  <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>    
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1685,6 +1676,8 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
     <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>           <span class="o">//</span> <span class="n">Nominal</span> <span class="n">value</span>
     <span class="s2">&quot;actual&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>            <span class="o">//</span> <span class="n">Actual</span> <span class="n">value</span>
     <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Item</span><span class="p">,</span> <span class="o">//</span> <span class="n">Inspected</span> <span class="n">element</span>
+    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                <span class="o">//</span> <span class="n">Unit</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="n">value</span>
+    <span class="s2">&quot;abbreviation&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>        <span class="o">//</span> <span class="n">Abbreviation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="nb">type</span> <span class="k">as</span> <span class="n">shown</span> <span class="ow">in</span> <span class="n">labels</span> <span class="n">etc</span><span class="o">.</span>
     <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>               <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
 <span class="p">}</span>
 </pre></div>
@@ -1697,16 +1690,15 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <h5>gom.api.extensions.inspections.ScriptedInspection.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-inspections-scriptedinspection-init" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.inspections.ScriptedInspection.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">element_type:</span> <span class="pre">str,</span> <span class="pre">typename:</span> <span class="pre">str,</span> <span class="pre">unit:</span> <span class="pre">str,</span> <span class="pre">abbreviation:</span> <span class="pre">str,</span> <span class="pre">help_id:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.inspections.ScriptedInspection.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">element_type:</span> <span class="pre">str,</span> <span class="pre">unit:</span> <span class="pre">str,</span> <span class="pre">abbreviation:</span> <span class="pre">str,</span> <span class="pre">help_id:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<em>str</em>) – Scripted actual id string</p></li>
+<li><p><strong>id</strong> (<em>str</em>) – Scripted inspection id string</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – Human readable name, will appear in menus</p></li>
 <li><p><strong>element_type</strong> (<em>str</em>) – Type of the generated element (inspection.scalar, inspection.surface, …)</p></li>
-<li><p><strong>type_name</strong> – Scripted inspection type name. Must be a globally unique name.</p></li>
 <li><p><strong>unit</strong> (<em>str</em>) – Unit of the inspection value</p></li>
-<li><p><strong>abbreviation</strong> (<em>str</em>) – Abbreviation of the inspection type</p></li>
+<li><p><strong>abbreviation</strong> (<em>str</em>) – Abbreviation of the inspection type as shown in labels etc.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1723,6 +1715,8 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
     <span class="s2">&quot;deviation_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">Deviations</span>
     <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                             <span class="o">//</span> <span class="n">Nominal</span> <span class="n">value</span>
     <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Item</span><span class="p">,</span>                   <span class="o">//</span> <span class="n">Inspected</span> <span class="n">element</span>
+    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                                  <span class="o">//</span> <span class="n">Unit</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="n">value</span>
+    <span class="s2">&quot;abbreviation&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                          <span class="o">//</span> <span class="n">Abbreviation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="nb">type</span> <span class="k">as</span> <span class="n">shown</span> <span class="ow">in</span> <span class="n">labels</span> <span class="n">etc</span><span class="o">.</span>
     <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                 <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
 <span class="p">}</span>
 </pre></div>
@@ -1938,6 +1932,85 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 </div>
 </section>
 </section>
+<section id="gom-api-extensions-sequence">
+<h3>gom.api.extensions.sequence<a class="headerlink" href="#gom-api-extensions-sequence" title="Link to this heading"></a></h3>
+<p>Scripted sequence elements</p>
+<p>This module contains the base class for scripted sequence elements. A scripted sequence element
+combines a sequence of commands into one group. The group is treated as one single combined element
+with parts. The resulting cluster of elements can then be edited again as a altogether group, of the
+single elements within can be edited separately.</p>
+<section id="gom-api-extensions-sequence-scriptedsequenceelement">
+<h4>gom.api.extensions.sequence.ScriptedSequenceElement<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequenceelement" title="Link to this heading"></a></h4>
+<p>This class is used to define a scripted sequence element</p>
+<section id="gom-api-extensions-sequence-scriptedsequenceelement-init">
+<h5>gom.api.extensions.sequence.ScriptedSequenceElement.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequenceelement-init" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequenceElement.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – Unique contribution id, like <code class="docutils literal notranslate"><span class="pre">special_point</span></code></p></li>
+<li><p><strong>description</strong> (<em>str</em>) – Human readable contribution description</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Constructor</p>
+</section>
+<section id="gom-api-extensions-sequence-scriptedsequenceelement-create">
+<h5>gom.api.extensions.sequence.ScriptedSequenceElement.create<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequenceelement-create" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequenceElement.create(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">args:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>Any</em>) – The context of the sequence element</p></li>
+<li><p><strong>args</strong> (<em>Any</em>) – The arguments passed to the sequence element, usually from the configuration dialog</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary describing the created sequence element. The fields here are: ‘elements’ - List of all created elements (including the leading element) ‘leading’ - ‘Leading’ element which represents the whole sequence</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Function called to create the scripted sequence</p>
+<p>This function is called to create or edit the element of a scripted sequence. The
+parameters set in the <code class="docutils literal notranslate"><span class="pre">dialog</span></code> function are passed here as a parameter.</p>
+<p>In principle, this function is like a sub script calling the single create commands.
+Behind the scenes, the calls are handled a bit different than regular script command
+calls to be able to build a component object at the end. In detail, the following rules
+apply:</p>
+<ul class="simple">
+<li><p>The order of elements must remain the same during object livetime. So no parameter or
+external condition may change the element order.</p></li>
+<li><p>The number of elements must remain the same during object livetime. No parameter or
+condition may affect the number of created elements.</p></li>
+<li><p>There may not be other glue code commands in the sequence. Only creation commands are allowed
+here. In principle, other glue code is allowed, including API calls.</p></li>
+</ul>
+<p>These limilations are required because behind the scenes, the scripting engine processes the
+creation requests depending on the mode of sequence command execution:</p>
+<ul class="simple">
+<li><p>For a simple creation process (like a scripted sequence creation command), the command list is
+executed like any other script.</p></li>
+<li><p>When an existing creation sequence is edited, the command list is <strong>not</strong> executed regularly.
+Instead, the command parameters are collected and will be passed to the already existing
+elements to adapt these.</p></li>
+<li><p>For preview computation, a combination of both modes is used: The objects are created in a first
+step, but marked as ‘preview’ and will not be part of the regular dependency graph or project.
+Afterwards, like in the ‘edit’ case, the parameters are collected and passed to the already
+existing preview elements then to update these.</p></li>
+</ul>
+</section>
+</section>
+</section>
 <section id="gom-api-extensions-views">
 <h3>gom.api.extensions.views<a class="headerlink" href="#gom-api-extensions-views" title="Link to this heading"></a></h3>
 <p>Scripted views</p>
@@ -2027,7 +2100,7 @@ renderer in effect in case of en event. It can be overwritten in custom scripted
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Emitting events from the JavaScript renderer</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">renderer</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">gom</span><span class="p">.</span><span class="nx">bridge</span><span class="p">.</span><span class="nx">__events__</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;view::initialized&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">gom</span><span class="p">.</span><span class="nx">emitEvent</span><span class="p">(</span><span class="s1">&#39;my::custom::event&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2210,11 +2283,20 @@ have a look into the app examples for a more detailed example as a starting poin
 <li><p><code class="docutils literal notranslate"><span class="pre">INITIALIZED</span></code>: Sent when the view has been initialized</p></li>
 </ul>
 </section>
+<section id="gom-api-extensions-views-scriptedview-signal">
+<h5>gom.api.extensions.views.ScriptedView.Signal<a class="headerlink" href="#gom-api-extensions-views-scriptedview-signal" title="Link to this heading"></a></h5>
+<p>Identifier for SW signals that the view can be connected to</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DATA_CHANGED</span></code>: Emitted when any project related data changes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SELECTION_CHANGED</span></code>: Emitted when the selection in the Project explorer changes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CONFIG_CHANGED</span></code>: Emitted when the software preferences are applied</p></li>
+</ul>
+</section>
 <section id="gom-api-extensions-views-scriptedview-init">
 <h5>gom.api.extensions.views.ScriptedView.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-views-scriptedview-init" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.views.ScriptedView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">viewtype:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">callables:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.ScriptedView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">viewtype:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">callables:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">signals:</span> <span class="pre">List[str]):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -2353,7 +2435,7 @@ functions which can be used to process the image data.</p>
 </dd></dl>
 
 <p>This function is used to compute the location of a 3d point in a 2d image. This is a photogrammetric
-operation which will return a precise result. The input parameter is a list of tupels where each tuple consists
+operation which will return a precise result. The input parameter is a list of tuples where each tuple consists
 of a 3d point and and acquisition object. The acquisition object is then used to compute the location of the
 3d point in the referenced image. This might lead to multiple pixels as a result, so the return value is again
 a list containing 0 to n entries of pixel matches.</p>
@@ -3078,7 +3160,7 @@ testing purposes.</p>
 <dd class="field-odd"><p>Please use gom.api.progress.ProgressBar instead</p>
 </dd>
 </dl>
-<p>Auxillary class allowing to set progress information</p>
+<p>Auxiliary class allowing to set progress information</p>
 <p>This class is used to access the progress bar and progress message widgets of the application.</p>
 <section id="gom-api-project-progressinformation-set-message">
 <h4>gom.api.project.ProgressInformation.set_message<a class="headerlink" href="#gom-api-project-progressinformation-set-message" title="Link to this heading"></a></h4>
@@ -3537,6 +3619,23 @@ inspection with the given type.</p>
 </dd></dl>
 
 </section>
+<section id="gom-api-scriptedelements-get-units">
+<h3>gom.api.scriptedelements.get_units<a class="headerlink" href="#gom-api-scriptedelements-get-units" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_units():</span> <span class="pre">[str]</span></span></dt>
+<dd><p>Return available units</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of known units</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 <section id="gom-api-selection">
 <h2>gom.api.selection<a class="headerlink" href="#gom-api-selection" title="Link to this heading"></a></h2>
@@ -3759,8 +3858,8 @@ have been stopped.</p>
 <section id="gom-api-settings">
 <h2>gom.api.settings<a class="headerlink" href="#gom-api-settings" title="Link to this heading"></a></h2>
 <p>API for storing add-on related settings persistently</p>
-<p>This API allows reading/writing values into the application configuration permantly. The
-configuration is persistant and will survive application restarts. Also, it can be accessed
+<p>This API allows reading/writing values into the application configuration permanently. The
+configuration is persistent and will survive application restarts. Also, it can be accessed
 via the applications preferences dialog.</p>
 <p>The configuration entries must be defined in the add-ons <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file. This configuration
 defined the available keys, the entry types and the entry properties. If the entry type can be
@@ -4158,7 +4257,7 @@ in the UI until the scope is left again.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2025, Carl Zeiss GOM Metrology GmbH.
-      <span class="lastupdated">Last updated on May 28, 2025.
+      <span class="lastupdated">Last updated on Jun 26, 2025.
       </span></p>
   </div>
 
@@ -4170,7 +4269,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f5d53841240>
+  <jinja2.runtime.BlockReference object at 0x7f60d6066d60>
 
 
 </footer>
