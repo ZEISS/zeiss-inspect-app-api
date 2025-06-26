@@ -126,7 +126,7 @@ The argument of the Wizard widget event is a dict with the following keys:
 
     Finalize actions relevant to the step, e.g., create some (intermediate) element based on the current Dialog parameters.
 
-  * `"skipped"` &ndash; The current step has skipped by the user.
+  * `"skipped"` &ndash; The current step has been skipped by the user.
 
     This can also be used to clean up, which may or may not be the same as for the discarded event.
 
