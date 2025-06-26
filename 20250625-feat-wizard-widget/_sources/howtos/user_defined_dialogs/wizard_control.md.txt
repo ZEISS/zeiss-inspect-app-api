@@ -99,6 +99,45 @@ Step with finish-button
 
 ## Wizard events
 
+```{note}
+A dedicated event handler function for the Wizard widget is recommended.
+```
+
+The argument of the Wizard widget event is a dict with the following keys:
+
+`widget`
+: The wizard widget
+
+`step`
+: Current wizard step
+
+`type`
+: Event type
+
+  * `"initialized"` &ndash; A new step has been reached.
+
+    Do setup for the new wizard step here, e.g. change the selection.
+
+  * `"discarded"` &ndash; The current step has been discarded, either by the user navigating to the previous step or aborting the whole dialog. In the latter case a `"discarded"` event for all previously completed steps will be emitted in reversed order.
+  
+    Do cleanup here, e.g., delete temporary elements or restore some selection.
+
+  * `"committed"`&ndash; The current step has been committed by the user.
+
+    Finalize actions relevant to the step, e.g., create some (intermediate) element based on the current Dialog parameters.
+
+  * `"skipped"` &ndash; The current step has skipped by the user.
+
+    This can also be used to clean up, which may or may not be the same as for the discarded event.
+
+  * `"branched"` &ndash; The user has pressed the branch button.
+
+    This may be the same as the committed event, but it may also trigger a different action especially if there is no branch ID set.
+
+  * `"id_changed"` &ndash; This is a general event when a the wizard step changes.
+  
+    This can be reacted to in place of the more detailed events above, e.g., if only the current id is needed to adjust your workflow.
+
 ## Related
 
 * [Dialog widgets &ndash; Wizard widget](dialog_widgets.md#wizard-widget)
