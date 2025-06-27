@@ -94,7 +94,7 @@ The wizard lets you continue to the next step only after you have completed the 
 :alt: Menu page
 :class: bordered-figure
 
-Wizard Step 2 &ndash; "Check Diameter"
+Embedded Command Page &ndash; "Distance Quick Creation"
 ```
 
 Starting "Distance Inspections" from the "Basic Inspections" menu page calls the internal command `inspection.distance_quick_creation`. This is the same as running Construct ► Distance ► Distance Quick Creation... from the main menu, but this way the dialog window is embedded in the workflow assistant.
