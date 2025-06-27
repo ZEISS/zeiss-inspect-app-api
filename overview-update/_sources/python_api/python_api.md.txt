@@ -591,6 +591,21 @@ Event types passed to the `event ()` function
 
 Constructor
 
+#### gom.api.extensions.ScriptedElement.add_log_message
+
+```{py:function} gom.api.extensions.ScriptedElement.add_log_message(self: Any, context: Any, level: Any, message: Any): None
+
+:param context: Script context object containing execution related parameters.
+:type context: Any
+:param level: Log level
+:type level: Any
+:param message: Log message to be added
+:type message: Any
+```
+
+Add a log message to the service log. The message will be logged with the given level and appear
+in the service log file. It is used to forward errors from the C++ side to the Python side.
+
 #### gom.api.extensions.ScriptedElement.apply_dialog
 
 ```{py:function} gom.api.extensions.ScriptedElement.apply_dialog(self: Any, args: Any, values: Any): None
