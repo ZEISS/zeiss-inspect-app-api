@@ -175,25 +175,19 @@
 <section id="user-interface">
 <h2>User interface<a class="headerlink" href="#user-interface" title="Link to this heading"></a></h2>
 <p>A workflow assistant can be composed of the following UI elements:</p>
-<ol class="arabic simple">
-<li><p><a class="reference internal" href="#pages">Pages</a> – A page is a container for other Workflow Assistant elements.</p></li>
-</ol>
+<ol class="arabic">
+<li><p><a class="reference internal" href="#pages">Pages</a> – A page is a container for other Workflow Assistant elements.</p>
 <p>There are three different page types:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#menupage">MenuPage</a> – Shows a list of <a class="reference internal" href="#menu-entries">Menu Entries</a>.</p></li>
 <li><p><a class="reference internal" href="#wizardpage">WizardPage</a> – Contains a list of <a class="reference internal" href="#wizard-steps">WizardSteps</a>, which are executed sequentially.</p></li>
 <li><p><a class="reference internal" href="#embeddedcommandpage">EmbeddedCommandPage</a> – Contains an embedded command dialog.</p></li>
 </ul>
-<ol class="arabic" start="2">
+</li>
 <li><p><a class="reference internal" href="#menu-entries">Menu Entries</a></p>
 <p>There are four different types:</p>
-<ul>
-<li><p><a class="reference internal" href="#nextpageentry">NextPageEntry</a> – Leads to a new page.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The apperance if a NextPageEntry depends on its target page type.</p>
-</div>
-</li>
+<ul class="simple">
+<li><p><a class="reference internal" href="#nextpageentry">NextPageEntry</a> – Leads to a new page.</p></li>
 <li><p><a class="reference internal" href="#commandentry">CommandEntry</a> – Execute a command, usually without a dialog.</p></li>
 <li><p><a class="reference internal" href="#embeddedcommandentry">EmbeddedCommandEntry</a> – Execute a command with its dialog embedded in the menu page.</p></li>
 <li><p><a class="reference internal" href="#accordionentry">AccordionEntry</a> – Contains a list of menu entries which can be collapsed and expanded.</p></li>
@@ -234,7 +228,7 @@ The “breadcrumbs” at the top of the workflow assistant show the current posi
 <figure class="align-default" id="id3">
 <img alt="Menu page" class="bordered-figure" src="../../_images/inspection-basic_inspections-diameter_inspections.png" />
 <figcaption>
-<p><span class="caption-text">“Inspection menu”</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">“Inspection menu” – Select Basic Inspections ► Diameter Inspections</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id4">
@@ -246,10 +240,10 @@ The “breadcrumbs” at the top of the workflow assistant show the current posi
 <figure class="align-default" id="id5">
 <img alt="Menu page" class="bordered-figure" src="../../_images/wizard2-check.png" />
 <figcaption>
-<p><span class="caption-text">Wizard step 2 – “Check Diameter”</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-text">Wizard Step 2 – “Check Diameter”</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Selecting “Basic Inspections” leads to “Diameter Inspections”, “Distance Inspections” and “Angle Inspections”. Starting “Diameter Inspection” shows a Wizard page with two steps:</p>
+<p>Selecting “Basic Inspections” leads to “Diameter Inspections”, “Distance Inspections” and “Angle Inspections”. Starting “Diameter Inspections” shows a Wizard page with two steps:</p>
 <ol class="arabic simple">
 <li><p>Construct Cylinder or Circle</p></li>
 <li><p>Check Diameter</p></li>
@@ -264,7 +258,7 @@ The “breadcrumbs” at the top of the workflow assistant show the current posi
 <figure class="align-default" id="id6">
 <img alt="Menu page" class="bordered-figure" src="../../_images/embedded_command_page-distance_inspections.png" />
 <figcaption>
-<p><span class="caption-text">Wizard step 2 – “Check Diameter”</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-text">Wizard Step 2 – “Check Diameter”</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>Starting “Distance Inspections” from the “Basic Inspections” menu page calls the internal command <code class="docutils literal notranslate"><span class="pre">inspection.distance_quick_creation</span></code>. This is the same as running Construct ► Distance ► Distance Quick Creation… from the main menu, but this way the dialog window is embedded in the workflow assistant.</p>
@@ -706,7 +700,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">&quot;info
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f4a71c575b0>
+  <jinja2.runtime.BlockReference object at 0x7f5389f9b380>
 
 
 </footer>
