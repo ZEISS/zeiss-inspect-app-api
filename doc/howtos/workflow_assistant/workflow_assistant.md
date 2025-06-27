@@ -104,7 +104,7 @@ Starting "Distance Inspections" from the "Basic Inspections" menu page calls the
 Create a JSON file `workflow_assistant/<assistant_name>/<assistant_name>.json` in your App's folder.
 
 ```{note}
-This cannot be done in the App Explorer yet. Instead, go the App folder in `%APPDATA%/gom/<inspect_version>/gom_edited_addons` and create the JSON file using an external editor.
+A new JSON file cannot be created in the App Explorer yet. Go to the App folder in `%APPDATA%/gom/<inspect_version>/gom_edited_addons` and create the JSON file using an external editor instead.
 ```
 
 ```{hint}
