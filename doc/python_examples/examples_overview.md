@@ -116,7 +116,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <hr class="small-margin">
 <section id="dropdownwidget">
 <div id="dropdownwidget" class="example-block-odd">
-<h3>DropdownWidget — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/dialog_widgets/DropdownWidget/doc/Documentation.md">view</a> 
+<h3>DropdownWidget — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/dialog_widgets/DropdownWidget/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/dropdown-widget">download</a>
 <a class="headerlink" href="#dropdownwidget" title="Link to this heading"></a></h3>
 
 
@@ -535,7 +535,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="workspace">
 <div id="workspace" class="example-block-odd">
-<h3>Workspace — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/Workspace/doc/Documentation.md">view</a> 
+<h3>Workspace — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/Workspace/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/workspace">download</a>
 <a class="headerlink" href="#workspace" title="Link to this heading"></a></h3>
 
 
