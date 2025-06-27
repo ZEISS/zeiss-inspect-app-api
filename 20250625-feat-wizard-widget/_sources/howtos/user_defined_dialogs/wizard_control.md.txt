@@ -141,4 +141,4 @@ The argument of the Wizard widget event is a dict with the following keys:
 ## Related
 
 * [Dialog widgets &ndash; Wizard widget](dialog_widgets.md#wizard-widget)
-% Workflow Assistant
+* [ZEISS INSPECT App Examples &ndash; Workflow Assistants](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/doc/Documentation.md)
