@@ -1,70 +1,110 @@
 # Workflow assistant
 
-> Abstract:
+> Abstract:  A workflow assistant helps you to find the most important functions for a specific measuring or inspection tasks. A workflow assistant can help you to access the most frequently used functions faster. By default, you find the tab **Workflow Assistant** in the right docking area next to the tab **Properties** (see [Tech Guide &ndash; Workflow Assistant](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/view_workflow_assistant.html)).
 
 ## User interface
 
-See [Tech Guide &ndash; Workflow Assistant](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/view_workflow_assistant.html) for opening the Workflow assistant view.
+A workflow assistant can be composed of the following UI elements:
 
-A Workflow assistant can be composed of the following UI elements:
+1. [Pages](#pages) &ndash; A page is a container for other Workflow Assistant elements.
 
-1. Menu page &ndash; Shows a list of menu entries.
-2. Next page entry &ndash; Allows switching to the next page, which can be e.g. a Menu page.
-3. Accordion entry &ndash; In the initial collapsed state, only its title is shown. If expanded, its menu entries are shown below its title.
-4. Command entry &ndash; Triggers execution of a command, usually without a dialog.
-5. Embedded command page &ndash;  Triggers execition of a command; its dialog will be embedded in the Workflow Assistant.
-6. Wizard page &ndash; A page showing a sequence of operations (Wizard steps)
+  There are three different page types:
+   
+  * [MenuPage](#menupage) &ndash; Shows a list of [Menu Entries](#menu-entries).
+  * [WizardPage](#wizardpage) &ndash; Contains a list of [WizardSteps](#wizard-steps), which are executed sequentially.
+  * [EmbeddedCommandPage](#embeddedcommandpage) &ndash; Contains an embedded command dialog.
+
+2. [Menu Entries](#menu-entries)
+
+   There are four different types:
+
+   * [NextPageEntry](#nextpageentry) &ndash; Leads to a new page.
+
+     ```{note}
+     The apperance if a NextPageEntry depends on its target page type.
+     ```
+  
+   * [CommandEntry](#commandentry) &ndash; Execute a command, usually without a dialog.
+
+   * [EmbeddedCommandEntry](#embeddedcommandentry) &ndash; Execute a command with its dialog embedded in the menu page.
+
+   * [AccordionEntry](#accordionentry) &ndash; Contains a list of menu entries which can be collapsed and expanded.
 
 ```{note}
-The initial appearance of Command entry, Embedded command page and Wizard page is identical, but differs during execution.
+![Breacrumbs](assets/breadcrumbs.png)
+The "breadcrumbs" at the top of the workflow assistant show the current position in the menu structure.
 ```
 
-1. Menu page
+```{note}
+The initial appearance of CommandEntry, EmbeddedCommandPage and WizardPage is identical, but differs during execution.
+
+The appearance of the NextPageEntry depends on its target's type.
+```
+
+### Example
+
+The built-in workflow of the **Inspection** workspace is used as an example.
+
+#### 1. Menu page
 
 ```{figure} assets/menupage.png
 :alt: Menu page
 :class: bordered-figure
 
-Menu page
+Inspection Workspace Workflow Assistant &ndash; Menu page
 ```
 
-This Menu page consists of the items "First steps", "Inspection" and "Reports".
+This Menu page consists of the items "First steps" (Accordion entry), "Inspection" (Menu page) and "Reports" (Accordion entry).
 
-3. Accordion Entry
-```{figure} assets/accordion_collapsed.png
-:alt: Collapsed accordion entry
+#### 2. Wizard page
+
+```{figure} assets/inspection_digitize-inspection.png
+:alt: Menu page
 :class: bordered-figure
 
-Collapsed accordion entry
+Select "Inspection"
 ```
 
-```{figure} assets/accordion_expanded.png
-:alt: Expanded accordion entry
+```{figure} assets/inspection-basic_inspections-diameter_inspections.png
+:alt: Menu page
 :class: bordered-figure
 
-Expanded accordion entry
+"Inspection menu"
 ```
 
-The menu item "First steps" is an accordion entry; it contains menu entries which can be collapsed or expanded.
-
-3. Next Page Entry
-
-```{figure} assets/menu_page-1.png
-:alt:  "Inspection"
+```{figure} assets/wizard1-construct.png
+:alt: Menu page
 :class: bordered-figure
 
-Next Page Entry "Inspection"
+Wizard step 1 &ndash; "Construct Cylinder or Circle"
 ```
 
-```{figure} assets/menu_page-2.png
-:alt: Menu page "Inspection" with two accordion entries, "Visual inspections" and "Basic inspections"
+```{figure} assets/wizard2-check.png
+:alt: Menu page
 :class: bordered-figure
 
-Menu page "Inspection" with two accordion entries, "Visual inspections" and "Basic inspections"
+Wizard step 2 &ndash; "Check Diameter"
 ```
 
-A Menu page entry leads to another menu page. The current page ("Start/Inspection") is shown in the "breadcrumbs".
+Selecting "Basic Inspections" leads to "Diameter Inspections", "Distance Inspections" and "Angle Inspections". Starting "Diameter Inspection" shows a Wizard page with two steps:
 
+1. Construct Cylinder or Circle
+2. Check Diameter
+
+```{note}
+The wizard lets you continue to the next step only after you have completed the current step!
+```
+
+#### 3. Embedded command page
+
+```{figure} assets/embedded_command_page-distance_inspections.png
+:alt: Menu page
+:class: bordered-figure
+
+Wizard step 2 &ndash; "Check Diameter"
+```
+
+Starting "Distance Inspections" from the "Basic Inspections" menu page calls the internal command `inspection.distance_quick_creation`. This is the same as running Construct ► Distance ► Distance Quick Creation... from the main menu, but this way the dialog window is embedded in the workflow assistant.
 
 ## Creating a Workflow Assistant
 
@@ -192,7 +232,7 @@ MenuPage "homepage"
 ```
 
 The [MenuPage](#menupage) `"homepage"` provides two menu entries:
-1. A [NextPageEntry] to the page `"create_diameter"`
+1. A [NextPageEntry](#nextpageentry) to the page `"create_diameter"`
 2. An [EmbeddedCommandPage](#embeddedcommandpage) for execution of the ZEISS INSPECT command `comparison.create_multiple_surface_comparison_on_cad`.
 
 ```{code-block} json
