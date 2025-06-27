@@ -8,26 +8,19 @@ A workflow assistant can be composed of the following UI elements:
 
 1. [Pages](#pages) &ndash; A page is a container for other Workflow Assistant elements.
 
-  There are three different page types:
+   There are three different page types:
    
-  * [MenuPage](#menupage) &ndash; Shows a list of [Menu Entries](#menu-entries).
-  * [WizardPage](#wizardpage) &ndash; Contains a list of [WizardSteps](#wizard-steps), which are executed sequentially.
-  * [EmbeddedCommandPage](#embeddedcommandpage) &ndash; Contains an embedded command dialog.
+   * [MenuPage](#menupage) &ndash; Shows a list of [Menu Entries](#menu-entries).
+   * [WizardPage](#wizardpage) &ndash; Contains a list of [WizardSteps](#wizard-steps), which are executed sequentially.
+   * [EmbeddedCommandPage](#embeddedcommandpage) &ndash; Contains an embedded command dialog.
 
 2. [Menu Entries](#menu-entries)
 
    There are four different types:
 
    * [NextPageEntry](#nextpageentry) &ndash; Leads to a new page.
-
-     ```{note}
-     The apperance if a NextPageEntry depends on its target page type.
-     ```
-  
    * [CommandEntry](#commandentry) &ndash; Execute a command, usually without a dialog.
-
    * [EmbeddedCommandEntry](#embeddedcommandentry) &ndash; Execute a command with its dialog embedded in the menu page.
-
    * [AccordionEntry](#accordionentry) &ndash; Contains a list of menu entries which can be collapsed and expanded.
 
 ```{note}
@@ -69,7 +62,7 @@ Select "Inspection"
 :alt: Menu page
 :class: bordered-figure
 
-"Inspection menu"
+"Inspection menu" &ndash; Select Basic Inspections ► Diameter Inspections
 ```
 
 ```{figure} assets/wizard1-construct.png
@@ -83,10 +76,10 @@ Wizard step 1 &ndash; "Construct Cylinder or Circle"
 :alt: Menu page
 :class: bordered-figure
 
-Wizard step 2 &ndash; "Check Diameter"
+Wizard Step 2 &ndash; "Check Diameter"
 ```
 
-Selecting "Basic Inspections" leads to "Diameter Inspections", "Distance Inspections" and "Angle Inspections". Starting "Diameter Inspection" shows a Wizard page with two steps:
+Selecting "Basic Inspections" leads to "Diameter Inspections", "Distance Inspections" and "Angle Inspections". Starting "Diameter Inspections" shows a Wizard page with two steps:
 
 1. Construct Cylinder or Circle
 2. Check Diameter
@@ -101,7 +94,7 @@ The wizard lets you continue to the next step only after you have completed the 
 :alt: Menu page
 :class: bordered-figure
 
-Wizard step 2 &ndash; "Check Diameter"
+Wizard Step 2 &ndash; "Check Diameter"
 ```
 
 Starting "Distance Inspections" from the "Basic Inspections" menu page calls the internal command `inspection.distance_quick_creation`. This is the same as running Construct ► Distance ► Distance Quick Creation... from the main menu, but this way the dialog window is embedded in the workflow assistant.
