@@ -2,6 +2,10 @@
 
 > Abstract: Enabling completion of a wizard step has been shown as a fundamental feature in [Dialog widgets &ndash; Wizard widget](dialog_widgets.md#wizard-widget). More functions for controlling the presentation and sequence of wizard steps are introduced in this section.
 
+```{Hint}
+A complete example can be found in [ZEISS INSPECT App Examples &ndash; Workflow Assistants](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/doc/Documentation.md).
+```
+
 ## Step complete
 
 ```{figure} assets/wizard_step1_complete_false.png
