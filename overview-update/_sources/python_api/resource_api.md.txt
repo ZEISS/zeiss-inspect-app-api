@@ -1,6 +1,6 @@
 # gom.Resource API
 
-## Summmary
+## Summary
 
 The `gom.Resource` API can be used to access binary data of files included in an App's scripts folder.
 
