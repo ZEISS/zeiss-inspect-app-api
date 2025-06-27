@@ -86,7 +86,7 @@ Select Edit ► Preferences and navigate to Apps ► 'API configuration'.
 Your current VSCode workspace will be lost by connecting to ZEISS INSPECT. Save the workspace to a file if you still need it.
 ```
 
-![Status Bar: Host Disconneted](assets/connecting1.png)
+![Status Bar: Host Disconnected](assets/connecting1.png)
 
 Press 'Host: Disconnected' in the status bar. If connecting succeeded, the status changes to 'Host: Connected'.
 
