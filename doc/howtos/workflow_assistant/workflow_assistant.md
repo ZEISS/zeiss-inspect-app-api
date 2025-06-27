@@ -58,14 +58,14 @@ This Menu page consists of the items "First steps" (Accordion entry), "Inspectio
 
 #### 2. Wizard page
 
-```{figure} assets/inspectio_digitize-inspection.png
+```{figure} assets/inspection_digitize-inspection.png
 :alt: Menu page
 :class: bordered-figure
 
 Select "Inspection"
 ```
 
-```{figure} assets/inspectio_digitize-inspection-diameter_inspection.png
+```{figure} assets/inspection_digitize-inspection-diameter_inspection.png
 :alt: Menu page
 :class: bordered-figure
 
