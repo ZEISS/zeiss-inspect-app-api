@@ -140,6 +140,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-scriptedelement">gom.api.extensions.ScriptedElement</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-event">gom.api.extensions.ScriptedElement.Event</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-init">gom.api.extensions.ScriptedElement.<strong>init</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-add-log-message">gom.api.extensions.ScriptedElement.add_log_message</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-apply-dialog">gom.api.extensions.ScriptedElement.apply_dialog</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-check-list">gom.api.extensions.ScriptedElement.check_list</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-check-target-element">gom.api.extensions.ScriptedElement.check_target_element</a></li>
@@ -1161,6 +1162,25 @@ counterpart which cares for scripted actual elements and handles its creation, e
 </dd></dl>
 
 <p>Constructor</p>
+</section>
+<section id="gom-api-extensions-scriptedelement-add-log-message">
+<h4>gom.api.extensions.ScriptedElement.add_log_message<a class="headerlink" href="#gom-api-extensions-scriptedelement-add-log-message" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.add_log_message(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">level:</span> <span class="pre">Any,</span> <span class="pre">message:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>Any</em>) – Script context object containing execution related parameters.</p></li>
+<li><p><strong>level</strong> (<em>Any</em>) – Log level</p></li>
+<li><p><strong>message</strong> (<em>Any</em>) – Log message to be added</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Add a log message to the service log. The message will be logged with the given level and appear
+in the service log file. It is used to forward errors from the C++ side to the Python side.</p>
 </section>
 <section id="gom-api-extensions-scriptedelement-apply-dialog">
 <h4>gom.api.extensions.ScriptedElement.apply_dialog<a class="headerlink" href="#gom-api-extensions-scriptedelement-apply-dialog" title="Link to this heading"></a></h4>
@@ -4266,7 +4286,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fe6da0a0910>
+  <jinja2.runtime.BlockReference object at 0x7f7372fa8f30>
 
 
 </footer>
