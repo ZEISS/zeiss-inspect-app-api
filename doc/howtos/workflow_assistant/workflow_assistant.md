@@ -65,7 +65,7 @@ This Menu page consists of the items "First steps" (Accordion entry), "Inspectio
 Select "Inspection"
 ```
 
-```{figure} assets/inspection-basic_inspections-diameter_inspection.png
+```{figure} assets/inspection-basic_inspections-diameter_inspections.png
 :alt: Menu page
 :class: bordered-figure
 
