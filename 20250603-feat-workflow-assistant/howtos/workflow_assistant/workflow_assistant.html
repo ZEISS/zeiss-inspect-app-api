@@ -123,6 +123,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#related">Related</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../using_services/using_services.html">Using services</a></li>
@@ -196,17 +197,17 @@
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><img alt="Breacrumbs" src="../../_images/breadcrumbs.png" />
-The “breadcrumbs” at the top of the workflow assistant show the current position in the menu structure.</p>
+<p><img alt="Breacrumbs" src="../../_images/breadcrumbs.png" /></p>
+<p>The “breadcrumbs” at the top of the workflow assistant show the current position in the menu structure.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The initial appearance of CommandEntry, EmbeddedCommandPage and WizardPage is identical, but differs during execution.</p>
-<p>The appearance of the NextPageEntry depends on its target’s type.</p>
+<p>The initial appearance of CommandEntry, EmbeddedCommandPage and WizardPage is identical, but differs during execution.<br />
+The appearance of the NextPageEntry depends on its target’s type.</p>
 </div>
 <section id="example">
 <h3>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
-<p>The built-in workflow of the <strong>Inspection</strong> workspace is used as an example.</p>
+<p>The ZEISS INSPECT built-in workflow of the <strong>Inspection</strong> workspace is used as an example.</p>
 <section id="menu-page">
 <h4>1. Menu page<a class="headerlink" href="#menu-page" title="Link to this heading"></a></h4>
 <figure class="align-default" id="id1">
@@ -228,19 +229,19 @@ The “breadcrumbs” at the top of the workflow assistant show the current posi
 <figure class="align-default" id="id3">
 <img alt="Menu page" class="bordered-figure" src="../../_images/inspection-basic_inspections-diameter_inspections.png" />
 <figcaption>
-<p><span class="caption-text">“Inspection menu” – Select Basic Inspections ► Diameter Inspections</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">“Inspection” menu page – Select Basic Inspections ► Diameter Inspections</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id4">
 <img alt="Menu page" class="bordered-figure" src="../../_images/wizard1-construct.png" />
 <figcaption>
-<p><span class="caption-text">Wizard step 1 – “Construct Cylinder or Circle”</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Wizard page, Wizard step 1 – “Construct Cylinder or Circle”</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="id5">
 <img alt="Menu page" class="bordered-figure" src="../../_images/wizard2-check.png" />
 <figcaption>
-<p><span class="caption-text">Wizard Step 2 – “Check Diameter”</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-text">Wizard page, Wizard step 2 – “Check Diameter”</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>Selecting “Basic Inspections” leads to “Diameter Inspections”, “Distance Inspections” and “Angle Inspections”. Starting “Diameter Inspections” shows a Wizard page with two steps:</p>
@@ -258,7 +259,7 @@ The “breadcrumbs” at the top of the workflow assistant show the current posi
 <figure class="align-default" id="id6">
 <img alt="Menu page" class="bordered-figure" src="../../_images/embedded_command_page-distance_inspections.png" />
 <figcaption>
-<p><span class="caption-text">Embedded Command Page – “Distance Quick Creation”</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-text">Embedded command page – “Distance Quick Creation”</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>Starting “Distance Inspections” from the “Basic Inspections” menu page calls the internal command <code class="docutils literal notranslate"><span class="pre">inspection.distance_quick_creation</span></code>. This is the same as running Construct ► Distance ► Distance Quick Creation… from the main menu, but this way the dialog window is embedded in the workflow assistant.</p>
@@ -270,20 +271,20 @@ The “breadcrumbs” at the top of the workflow assistant show the current posi
 <p>Create a JSON file <code class="docutils literal notranslate"><span class="pre">workflow_assistant/&lt;assistant_name&gt;/&lt;assistant_name&gt;.json</span></code> in your App’s folder.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This cannot be done in the App Explorer yet. Instead, go the App folder in <code class="docutils literal notranslate"><span class="pre">%APPDATA%/gom/&lt;inspect_version&gt;/gom_edited_addons</span></code> and create the JSON file using an external editor.</p>
+<p>A new JSON file cannot be created in the App Explorer yet. Go to your App folder in <code class="docutils literal notranslate"><span class="pre">%APPDATA%/gom/&lt;inspect_version&gt;/gom_edited_addons</span></code> and create the JSON file using an external editor instead.</p>
 </div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>To update the App Explorer and the Workflow Assistant view:</p>
-<ol class="arabic simple">
-<li><p>Run <code class="docutils literal notranslate"><span class="pre">gom.script.sys.update_addon_database()</span></code> from a Python script.</p></li>
-<li><p>Switch to a different workspace and back again.</p></li>
-</ol>
+<ul class="simple">
+<li><p>To update the App Explorer, run <code class="docutils literal notranslate"><span class="pre">gom.script.sys.update_addon_database()</span></code> from a Python script.</p></li>
+<li><p>To update the Workflow Assistant view, switch to a different workspace and back again.</p></li>
+</ul>
 </div>
 </section>
 <section id="minimal-example">
 <h2>Minimal example<a class="headerlink" href="#minimal-example" title="Link to this heading"></a></h2>
-<p>The minimal example demonstrates the basic structure to create a Workflow Assistant menu structure referencing built-in commands. The basic building blocks for the menu structure are:</p>
+<p>The minimal example demonstrates the basic structure to create a Workflow Assistant menu structure referencing built-in commands. See <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants">App Examples – WorkflowAssistants</a> for complete source code.</p>
+<p>The basic building blocks for the menu structure are:</p>
 <ol class="arabic simple">
 <li><p><a class="reference internal" href="#menupage">MenuPage</a></p>
 <ul class="simple">
@@ -444,6 +445,10 @@ The element <code class="docutils literal notranslate"><span class="pre">&quot;o
 </section>
 <section id="workflow-assistant-json-format">
 <h2>Workflow assistant JSON format<a class="headerlink" href="#workflow-assistant-json-format" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Optional parameters are marked with <strong>‘*’</strong>.</p>
+</div>
 <section id="top-level-elements">
 <h3>Top level elements<a class="headerlink" href="#top-level-elements" title="Link to this heading"></a></h3>
 <p>The following JSON elements are used at the Workflow assistant’s top level.</p>
@@ -676,6 +681,12 @@ Example: <code class="docutils literal notranslate"><span class="pre">&quot;info
 </section>
 </section>
 </section>
+<section id="related">
+<h2>Related<a class="headerlink" href="#related" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants">App Examples – WorkflowAssistants</a></p></li>
+</ul>
+</section>
 </section>
 
 
@@ -700,7 +711,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">&quot;info
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fb1a6829630>
+  <jinja2.runtime.BlockReference object at 0x7fcdf5669780>
 
 
 </footer>
