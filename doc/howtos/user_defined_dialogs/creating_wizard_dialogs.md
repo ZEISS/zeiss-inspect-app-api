@@ -1,4 +1,10 @@
-# Creating wizard dialogs
+# Creating wizard dialogs (deprecated)
+
+```{caution}
+The wizard dialog scheme described in this section has been deprecated in favor of the new [Wizard widget](dialog_widgets.md#wizard-widget), which allows a much easier and more powerful implementation of wizard dialogs.
+
+The concept described below is no longer recommended for new implementations.
+```
 
 - [What is a wizard dialog](#what-is-a-wizard-dialog)
 - [Creating a simple wizard dialogs](#creating-a-simple-wizard-dialog)
