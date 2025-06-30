@@ -321,7 +321,7 @@ type (String)
 : Workflow assistant element type identifier\
 Examples: `"type": "MenuPage"`, `"type": "NextPageEntry"`
 
-id* (string)	label_menu	
+id* (string)
 : Reference ID of this object\
 Example: `"id": "label_menu"`
 
@@ -400,19 +400,11 @@ Example: `label_menu` / `{ pageA }`
 
 #### CommandEntry
 
-A command entry allows to execute a command *without* a dialog.
+A command entry allows to execute a command. If the command has a dialog, this dialog will be embedded in the workflow assistant.
 
 command (string)
-: Command to execute, usually *without* a dialog.\
+: Command to execute.\
 Example: `inspection.inspect_by_deviation_label`
-
-#### EmbeddedCommandEntry
-
-An embedded command entry allows to execute a command *with* a dialog. The command dialog in embedded into the workflow assistant.
-
-command (string)
-: Command to execute, usually *with* a dialog.\
-Example: `comparison.create_min_max_deviation_label`
 
 ### Wizard steps
 
