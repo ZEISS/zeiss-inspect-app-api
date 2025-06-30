@@ -417,7 +417,7 @@ One of the fields 'command' and/or 'commands' must exist.
 ```
 
 command (string)
-: Command to execute, usually without a dialog.\
+: Command to execute\
 Example: `inspection.inspect_by_deviation_label`
 
 commands (List of Objects)
