@@ -7,7 +7,6 @@
 <meta content="Examples for using the ZEISS INSPECT 2025 App Python API" name="description" />
 <meta content="Metrology, ZEISS INSPECT, Python API, App API, GOM API, Scripting, Add-ons, Apps, Examples" name="keywords" />
     <link rel="icon" sizes="16x16" type="image/png" href="../_static/favicon.png">
-    <meta property="article:modified_time" content="2025-06-24T08:17:14+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZEISS INSPECT App Examples Overview &mdash; App Development Documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
@@ -76,7 +75,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides – Expert</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../howtos/user_defined_dialogs/creating_wizard_dialogs.html">Creating wizard dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/user_defined_dialogs/wizard_control.html">Wizard widget control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/user_defined_dialogs/creating_wizard_dialogs.html">Creating wizard dialogs (deprecated)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_gui_libraries/using_gui_libraries.html">Using an additional Python GUI library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_shared_environments/using_shared_environments.html">Using shared environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_wheelhouses/using_wheelhouses.html">Using Python wheelhouses</a></li>
@@ -148,7 +148,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#id43"><a name="volume-region"></a></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id44"><a name="volume-section"></a></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id45"><a name="widget-properties"></a></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id46"><a name="xray"></a></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id46"><a name="workflow-assistant"></a></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id47"><a name="workspace"></a></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id48"><a name="xray"></a></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#related">Related</a></li>
@@ -290,7 +292,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <hr class="small-margin">
 <section id="dropdownwidget">
 <div id="dropdownwidget" class="example-block-odd">
-<h3>DropdownWidget — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/dialog_widgets/DropdownWidget/doc/Documentation.md">view</a> 
+<h3>DropdownWidget — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/dialog_widgets/DropdownWidget/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/dropdown-widget">download</a>
 <a class="headerlink" href="#dropdownwidget" title="Link to this heading"></a></h3>
 <dl class="myst field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
@@ -645,9 +647,29 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </dl>
 </div>
 </section>
+<section id="workflowassistants">
+<div id="workflowassistants" class="example-block-even">
+<h3>WorkflowAssistants — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#workflowassistants" title="Link to this heading"></a></h3>
+<dl class="myst field-list simple">
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Examples for Workflow Assistants</p>
+</dd>
+<dt class="field-even">References<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/workflow_assistant/workflow_assistant.html">HowTo</a></p>
+</dd>
+<dt class="field-odd">Required Software<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ZEISS INSPECT 2025</p>
+</dd>
+<dt class="field-even">Tags<span class="colon">:</span></dt>
+<dd class="field-even"><p><a href="#id46"><img alt="Static Badge" src="https://img.shields.io/badge/workflow--assistant-blue" /></a> <a href="#id47"><img alt="Static Badge" src="https://img.shields.io/badge/workspace-blue" /></a></p>
+</dd>
+</dl>
+</div>
+</section>
 <section id="workspace">
-<div id="workspace" class="example-block-even">
-<h3>Workspace — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/Workspace/doc/Documentation.md">view</a> 
+<div id="workspace" class="example-block-odd">
+<h3>Workspace — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/Workspace/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/workspace">download</a>
 <a class="headerlink" href="#workspace" title="Link to this heading"></a></h3>
 <dl class="myst field-list simple">
 <dt class="field-odd">Description<span class="colon">:</span></dt>
@@ -660,7 +682,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <dd class="field-odd"><p>ZEISS INSPECT 2023</p>
 </dd>
 <dt class="field-even">Tags<span class="colon">:</span></dt>
-<dd class="field-even"><p><a href="#id1"><img alt="Static Badge" src="https://img.shields.io/badge/api-blue" /></a></p>
+<dd class="field-even"><p><a href="#id1"><img alt="Static Badge" src="https://img.shields.io/badge/api-blue" /></a> <a href="#id47"><img alt="Static Badge" src="https://img.shields.io/badge/workspace-blue" /></a></p>
 </dd>
 </dl>
 </div>
@@ -970,7 +992,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <dd class="field-odd"><p>ZEISS INSPECT 2023</p>
 </dd>
 <dt class="field-even">Tags<span class="colon">:</span></dt>
-<dd class="field-even"><p><a href="#id46"><img alt="Static Badge" src="https://img.shields.io/badge/xray-blue" /></a> <a href="#id41"><img alt="Static Badge" src="https://img.shields.io/badge/volume-blue" /></a> <a href="#id28"><img alt="Static Badge" src="https://img.shields.io/badge/scripted--actual-blue" /></a></p>
+<dd class="field-even"><p><a href="#id48"><img alt="Static Badge" src="https://img.shields.io/badge/xray-blue" /></a> <a href="#id41"><img alt="Static Badge" src="https://img.shields.io/badge/volume-blue" /></a> <a href="#id28"><img alt="Static Badge" src="https://img.shields.io/badge/scripted--actual-blue" /></a></p>
 </dd>
 </dl>
 </div>
@@ -990,7 +1012,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <dd class="field-odd"><p>ZEISS INSPECT 2023</p>
 </dd>
 <dt class="field-even">Tags<span class="colon">:</span></dt>
-<dd class="field-even"><p><a href="#id46"><img alt="Static Badge" src="https://img.shields.io/badge/xray-blue" /></a> <a href="#id42"><img alt="Static Badge" src="https://img.shields.io/badge/volume--defects-blue" /></a> <a href="#id28"><img alt="Static Badge" src="https://img.shields.io/badge/scripted--actual-blue" /></a></p>
+<dd class="field-even"><p><a href="#id48"><img alt="Static Badge" src="https://img.shields.io/badge/xray-blue" /></a> <a href="#id42"><img alt="Static Badge" src="https://img.shields.io/badge/volume--defects-blue" /></a> <a href="#id28"><img alt="Static Badge" src="https://img.shields.io/badge/scripted--actual-blue" /></a></p>
 </dd>
 </dl>
 </div>
@@ -1010,7 +1032,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <dd class="field-odd"><p>ZEISS INSPECT 2023</p>
 </dd>
 <dt class="field-even">Tags<span class="colon">:</span></dt>
-<dd class="field-even"><p><a href="#id46"><img alt="Static Badge" src="https://img.shields.io/badge/xray-blue" /></a> <a href="#id43"><img alt="Static Badge" src="https://img.shields.io/badge/volume--region-blue" /></a> <a href="#id28"><img alt="Static Badge" src="https://img.shields.io/badge/scripted--actual-blue" /></a></p>
+<dd class="field-even"><p><a href="#id48"><img alt="Static Badge" src="https://img.shields.io/badge/xray-blue" /></a> <a href="#id43"><img alt="Static Badge" src="https://img.shields.io/badge/volume--region-blue" /></a> <a href="#id28"><img alt="Static Badge" src="https://img.shields.io/badge/scripted--actual-blue" /></a></p>
 </dd>
 </dl>
 </div>
@@ -1030,7 +1052,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <dd class="field-odd"><p>ZEISS INSPECT 2023</p>
 </dd>
 <dt class="field-even">Tags<span class="colon">:</span></dt>
-<dd class="field-even"><p><a href="#id46"><img alt="Static Badge" src="https://img.shields.io/badge/xray-blue" /></a> <a href="#id44"><img alt="Static Badge" src="https://img.shields.io/badge/volume--section-blue" /></a> <a href="#id28"><img alt="Static Badge" src="https://img.shields.io/badge/scripted--actual-blue" /></a></p>
+<dd class="field-even"><p><a href="#id48"><img alt="Static Badge" src="https://img.shields.io/badge/xray-blue" /></a> <a href="#id44"><img alt="Static Badge" src="https://img.shields.io/badge/volume--section-blue" /></a> <a href="#id28"><img alt="Static Badge" src="https://img.shields.io/badge/scripted--actual-blue" /></a></p>
 </dd>
 </dl>
 </div>
@@ -1532,7 +1554,20 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </ul>
 </section>
 <section id="id46">
-<h3><a name="xray"></a><img alt="Static Badge" src="https://img.shields.io/badge/xray-blue" /><a class="headerlink" href="#id46" title="Link to this heading"></a></h3>
+<h3><a name="workflow-assistant"></a><img alt="Static Badge" src="https://img.shields.io/badge/workflow--assistant-blue" /><a class="headerlink" href="#id46" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a href="#workflowassistants">WorkflowAssistants</a></p></li>
+</ul>
+</section>
+<section id="id47">
+<h3><a name="workspace"></a><img alt="Static Badge" src="https://img.shields.io/badge/workspace-blue" /><a class="headerlink" href="#id47" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a href="#workflowassistants">WorkflowAssistants</a></p></li>
+<li><p><a href="#workspace">Workspace</a></p></li>
+</ul>
+</section>
+<section id="id48">
+<h3><a name="xray"></a><img alt="Static Badge" src="https://img.shields.io/badge/xray-blue" /><a class="headerlink" href="#id48" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p><a href="#scriptedactualvolume">ScriptedActualVolume</a></p></li>
 <li><p><a href="#scriptedactualvolumedefects">ScriptedActualVolumeDefects</a></p></li>
@@ -1561,9 +1596,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, Carl Zeiss GOM Metrology GmbH.
-      <span class="lastupdated">Last updated on Jun 24, 2025.
-      </span></p>
+    <p>&#169; Copyright 2025, Carl Zeiss GOM Metrology GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -1574,7 +1607,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f897c9ba120>
+  <jinja2.runtime.BlockReference object at 0x7fc5f3dc92b0>
 
 
 </footer>
