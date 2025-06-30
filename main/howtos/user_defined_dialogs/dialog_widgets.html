@@ -122,6 +122,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#vertical-spacer-widget">Vertical spacer widget</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tab-layout-widget">Tab layout widget</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#separator-layout-widget">Separator layout widget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wizard-widget">Wizard widget</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#other">Other</a><ul>
@@ -151,7 +152,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides – Expert</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="creating_wizard_dialogs.html">Creating wizard dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wizard_control.html">Wizard widget control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_wizard_dialogs.html">Creating wizard dialogs (deprecated)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_gui_libraries/using_gui_libraries.html">Using an additional Python GUI library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_shared_environments/using_shared_environments.html">Using shared environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_wheelhouses/using_wheelhouses.html">Using Python wheelhouses</a></li>
@@ -256,6 +258,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <li><p><a class="reference internal" href="#vertical-spacer-widget">Vertical spacer widget</a></p></li>
 <li><p><a class="reference internal" href="#tab-layout-widget">Tab layout widget</a></p></li>
 <li><p><a class="reference internal" href="#separator-layout-widget">Separator layout widget</a></p></li>
+<li><p><a class="reference internal" href="#wizard-widget">Wizard widget</a></p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="#other">Other</a></p>
@@ -1477,6 +1480,52 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
 </dd>
 </dl>
 </section>
+<section id="wizard-widget">
+<h3>Wizard widget<a class="headerlink" href="#wizard-widget" title="Link to this heading"></a></h3>
+<p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
+<p>Wizard style: “List”<br />
+<img alt="" src="../../_images/wizard_widget_list.png" /></p>
+<p>Wizard style: “Stack”<br />
+<img alt="" src="../../_images/wizard_widget_stack.png" /></p>
+<dl class="simple myst">
+<dt>Wizard widget</dt><dd><p>The wizard widget allows to create any number of wizard steps, which are completed sequentially. Advancing to the next step, skipping a step or branching to a specific step is only possible if a certain condition, which is defined in the dialog handler, is true. Each wizard step provides a dialog with any type and number of widgets.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">current_id</span></code> (integer)</dt><dd><p>ID of current step</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">steps</span></code> (list)</dt><dd><p>List of step titles</p>
+</dd>
+</dl>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If a wizard step can be completed is controlled with the wizard object’s method <code class="docutils literal notranslate"><span class="pre">step_set_complete(step_id,</span> <span class="pre">condition)</span></code>.</p>
+<p>The condition must be a boolean value, which is typically computed from user input and/or project data.</p>
+<p>E.g.: <code class="docutils literal notranslate"><span class="pre">DIALOG.wizard.step_set_complete(DIALOG.wizard.current_id,</span> <span class="pre">DIALOG.user_age.value</span> <span class="pre">&gt;</span> <span class="pre">18)</span></code></p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id34">
+<div class="code-block-caption"><span class="caption-text">Wizard widget – Enable completion when current step is initialized</span><a class="headerlink" href="#id34" title="Link to this code"></a></div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+
+<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">dialog_event_handler</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
+	<span class="k">if</span> <span class="n">widget</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;initialized&#39;</span><span class="p">:</span>
+		<span class="n">DIALOG</span><span class="o">.</span><span class="n">wizard</span><span class="o">.</span><span class="n">step_set_complete</span><span class="p">(</span><span class="n">DIALOG</span><span class="o">.</span><span class="n">wizard</span><span class="o">.</span><span class="n">current_id</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">wizard</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">dialog_event_handler</span>
+
+<span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="wizard_control.html"><span class="doc std std-doc">Wizard widget control</span></a> for more features.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The Wizard widget is commonly used in dialogs designed for the Workflow Assistant.</p>
+</div>
+</section>
 </section>
 <section id="other">
 <h2>Other<a class="headerlink" href="#other" title="Link to this heading"></a></h2>
@@ -1671,7 +1720,7 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f73714c4ec0>
+  <jinja2.runtime.BlockReference object at 0x7fd7706ee0b0>
 
 
 </footer>
