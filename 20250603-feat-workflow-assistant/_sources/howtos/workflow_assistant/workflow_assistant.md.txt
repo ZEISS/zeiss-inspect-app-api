@@ -114,7 +114,7 @@ A new JSON file cannot be created in the App Explorer yet. Go to your App folder
 
 ## Minimal example
 
-The minimal example demonstrates the basic structure to create a Workflow Assistant menu structure referencing built-in commands. See [App Examples &ndash; WorkflowAssistants](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants) for complete source code.
+The minimal example demonstrates the basic concept of creating a Workflow Assistant menu structure referencing built-in commands. See [App Examples &ndash; WorkflowAssistants](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants) for complete source code.
 
 The basic building blocks for the menu structure are:
 
@@ -184,9 +184,9 @@ NextPageEntry "hook_for_inspect"
 
 Initially, the [NextPageEntry](#nextpageentry) is shown with its `"name"` and `"description"` (l. 6 & 7) in the Workflow Assistant view. The order of multiple Assistants within the view is defined by the `"position"` element (l. 10..13). In this case, the entry is inserted after the `"inspect"` Workflow's `"inspection_home"` page.
 
-The `"inspect"` workflow is part of the ZEISS INSPECT System Apps. The alias we previously defined with `"using"` allows to reference it by name instead of its ID.
+The `"inspect"` workflow is part of the ZEISS INSPECT System Apps. The alias we previously defined with `"using"` allows to reference it by name instead of ID.
 
-The element `"page"` defines the page which is opened if we click this [NextPageEntry](#nextpageentry).
+The element `"page"` (l. 8) defines the page which is opened if we click this [NextPageEntry](#nextpageentry).
 
 ```{code-block} json
 :caption: minimal.json &ndash; MenuPage "homepage"
@@ -271,12 +271,12 @@ WizardPage "create_diameter" &ndash; Step 1
 WizardPage "create_diameter" &ndash; Step 2
 ```
 
-The last object of our "Minimal example" is the `"create_diameter"` [WizardPage](#wizardpage). Clicking this page leads to the two subsequent wizard steps, both of which are [EmbeddedCommandSteps](#embeddedcommandstep). The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.
+The last object of our "Minimal example" is the [WizardPage](#wizardpage) `"create_diameter"`. Clicking this page leads to the two subsequent wizard steps, both of which are [EmbeddedCommandSteps](#embeddedcommandstep). The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.
 
 ## Workflow assistant JSON format
 
 ```{note}
-Optional parameters are marked with **'\*'**.
+Optional parameters are marked with '**\***'.
 ```
 
 ### Top level elements
@@ -382,7 +382,7 @@ Example: `comparison.create_min_max_deviation_label`
 
 #### AccordionEntry
 
-?
+Accordion entries are a group of menu entries which can be collapsed and expanded.
 
 entries (List of MenuEntries)
 : List of [Menu entries](#menu-entries), each entry should be a valid JSON object describing a Menu entry element.\
@@ -391,7 +391,7 @@ Example: `[ { entryA }, { entryB } ]`
 
 #### NextPageEntry
 
-?
+A next page entry leads to a new page.
 
 page ([Page-Object](#pages))
 : Either a single page ID if referring to an already existing page or a definition of a new page.\
@@ -400,7 +400,7 @@ Example: `label_menu` / `{ pageA }`
 
 #### CommandEntry
 
-?
+A command entry allows to execute a command *without* a dialog.
 
 command (string)
 : Command to execute, usually *without* a dialog.\
@@ -408,7 +408,7 @@ Example: `inspection.inspect_by_deviation_label`
 
 #### EmbeddedCommandEntry
 
-?
+An embedded command entry allows to execute a command *with* a dialog. The command dialog in embedded into the workflow assistant.
 
 command (string)
 : Command to execute, usually *with* a dialog.\
@@ -418,7 +418,7 @@ Example: `comparison.create_min_max_deviation_label`
 
 #### EmbeddedCommandStep
 
-?
+A wizard allows to execute a sequence of commands. The command dialogs are embedded into the workflow assistant.
 
 ```{note}
 One of the fields 'command' and/or 'commands' must exist.
