@@ -226,12 +226,12 @@ NextPageEntry "hook_for_inspect"
 
 A [NextPageEntry](#nextpageentry) with its elements `"name"`, `"description"` and `"page"` is defined (l. 6..8).
 
-To actually make a workflow element visible, its `"position"` has to be defined by inserting it as a menu entry at the desired location. In the example above, the entry is inserted after the `"inspect"` Workflow's `"inspection_home"` page.
+Our `"homepage"` is made reachable from the `inspect` workflow assistant page `"inspection_home"` by using the `"position"` element (l. 10..13).
 
-(The `"inspect"` workflow is part of the ZEISS INSPECT System Apps. The alias we previously defined with `"using"` allows to reference it by name instead of ID.)
+(The `"inspect"` workflow assistant is part of the ZEISS INSPECT System Apps. The alias we previously defined with `"using"` allows to reference it by name instead of ID.)
 
 ```{hint}
-As an alternative to the `"position"` element, a workflow assistant can be made visible by referencing one of its pages in a workspace definition.
+Alternatively, you can set the workflow assistant for a custom workspace by referencing one of its pages in the workspace definition.
 
 See [AppExamples &ndash; WorkflowAssistants/workspaces/assistant/assistant.json](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/workspaces/assistant/assistant.json) for an example.
 ```
