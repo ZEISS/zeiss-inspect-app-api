@@ -102,6 +102,8 @@ Starting "Distance Inspections" from the "Basic Inspections" menu page calls the
 
 ```{caution}
 To embed a user-defined dialog, you must select "embed as widget, top-level otherwise" in the dialog properties using the Dialog Editor.
+
+![Dialog Properties &ndash; Embedded as widget](assets/dialog_properties-embedded_as_widget.png)
 ```
 
 ## Creating a Workflow Assistant
