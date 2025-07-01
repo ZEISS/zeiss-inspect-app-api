@@ -290,6 +290,16 @@ WizardPage "create_diameter" &ndash; Step 2
 
 The last object of our "Minimal example" is the [WizardPage](#wizardpage) `"create_diameter"`. This page contains two subsequent wizard steps, both of which are [EmbeddedCommandSteps](#embeddedcommandstep). The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.
 
+```{hint}
+User-defined scripts are referenced in commands with the notation `userscript.<scriptfile>`. If the script is located in a subfolder of the App's `scripts/` folder, use the notation `userscript.<folder>__<scriptfile>`. (A double underscore is used as path separator. In `<scriptfile`, the extension `.py` is omitted.)
+```
+
+```{hint}
+![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
+
+Custom wizards can be implemented using the <a href="../user_defined_dialogs/dialog_widgets.html#wizard-widget">Wizard widget</a> in user-defined scripts. See <a href="../user_defined_dialogs/wizard_control.html">Wizard widget control</a> for details and [App Examples &ndash; WorkflowAssistants/scripts/workflows](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants/scripts/workflows) for a complete example.
+```
+
 ## Workflow Assistant JSON format
 
 ```{note}
@@ -393,7 +403,7 @@ Page with an embedded command. The page ID is defined by the given command.
 
 command (string)
 : Command to execute, usually with a dialog.\
-Example: `comparison.create_min_max_deviation_label`
+Example: `comparison.create_min_max_deviation_label`, `userscript.inspect_gaps`
 
 ### Menu entries
 
@@ -421,7 +431,7 @@ A command entry allows to execute a command. If the command has a dialog, this d
 
 command (string)
 : Command to execute.\
-Example: `inspection.inspect_by_deviation_label`
+Examples: `inspection.inspect_by_deviation_label`, `userscript.inspect_gaps`
 
 ### Wizard steps
 
@@ -450,7 +460,7 @@ commands (List of Objects)
 Example: `[ commandA, commandB ]`
 
 interactive* (boolean)
-: Defines whether to execute the command in interactive mode. (Default: True)
+: Defines whether to execute the command in interactive mode. Must be set to `False` for executing a user script, otherwise the dialog will be closed immediately. (Default: True)
 
 info* ([String-like](#string-like-entry))
 : Descriptive info text for this wizard step\
