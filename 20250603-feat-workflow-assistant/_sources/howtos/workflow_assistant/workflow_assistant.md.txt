@@ -1,4 +1,4 @@
-# Workflow assistant
+# Workflow Assistant
 
 > Abstract:  A workflow assistant helps you to find the most important functions for a specific measuring or inspection tasks. A workflow assistant can help you to access the most frequently used functions faster. By default, you find the tab **Workflow Assistant** in the right docking area next to the tab **Properties** (see [Tech Guide &ndash; Workflow Assistant](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/view_workflow_assistant.html)).
 
@@ -64,6 +64,8 @@ Select "Inspection"
 "Inspection" menu page &ndash; Select Basic Inspections ► Diameter Inspections
 ```
 
+Selecting "Basic Inspections" leads to "Diameter Inspections", "Distance Inspections" and "Angle Inspections". 
+
 ```{figure} assets/wizard1-construct.png
 :alt: Menu page
 :class: bordered-figure
@@ -78,7 +80,7 @@ Wizard page, Wizard step 1 &ndash; "Construct Cylinder or Circle"
 Wizard page, Wizard step 2 &ndash; "Check Diameter"
 ```
 
-Selecting "Basic Inspections" leads to "Diameter Inspections", "Distance Inspections" and "Angle Inspections". Starting "Diameter Inspections" shows a Wizard page with two steps:
+Starting "Diameter Inspections" shows a Wizard page with two steps:
 
 1. Construct Cylinder or Circle
 2. Check Diameter
@@ -112,12 +114,12 @@ A new JSON file cannot be created in the App Explorer yet. Go to your App folder
 
 ```{hint}
 * To update the App Explorer, run `gom.script.sys.update_addon_database()` from a Python script.
-* To update the Workflow Assistant view, switch to a different workspace and back again.
+* To update the workflow assistant view, switch to a different workspace and back again.
 ```
 
 ## Minimal example
 
-The minimal example demonstrates the basic concept of creating a Workflow Assistant menu structure referencing built-in commands.
+The "Minimal example" demonstrates the basic concept of creating a workflow assistant menu structure referencing built-in commands.
 
 ```{note}
 See [App Examples &ndash; WorkflowAssistants](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants) for complete source code.
@@ -126,12 +128,12 @@ See [App Examples &ndash; WorkflowAssistants](https://github.com/ZEISS/zeiss-ins
 The basic building blocks for the menu structure are:
 
 1. [MenuPage](#menupage)
-   * A menu page with multiple entries that can be shown in the Workflow Assistant view.
+   * A menu page with multiple entries that can be shown in the workflow assistant view.
 2. [NextPageEntry](#nextpageentry)
    * A menu entry that allows the user to navigate to another menu or wizard page
    * Uses 'name', 'icon' and 'description' of referenced page if not given explicitly.
 3. [CommandPage](#commandentry)
-   * This is used to display a single command in the Workflow Assistant.
+   * This is used to display a single command in the workflow assistant.
 4. [WizardPage](#wizardpage)
    * A page to show multiple commands as a sequence in a wizard layout.
    * An [EmbeddedCommandStep](#embeddedcommandstep) is used to represent each step
@@ -155,9 +157,9 @@ The basic building blocks for the menu structure are:
 }
 ```
 
-At the top level, each Workflow Assistant must have a unique ID (UUID) (line 2) and a name 
+At the top level, each workflow assistant must have a unique ID (UUID) (line 2) and a name 
 (line 3). With `"using"`, an alias for an object's UUID can be defined to improve readability (l. 4..8).
-The element `"objects"` (l. 10) contains a list of objects, which are the building blocks of this Workflow Assistant.
+The element `"objects"` (l. 10) contains a list of objects, which are the building blocks of this workflow assistant.
 
 ```{code-block} json
 :caption: minimal.json &ndash; MenuPage "homepage"
@@ -189,7 +191,7 @@ The element `"objects"` (l. 10) contains a list of objects, which are the buildi
 
 The [MenuPage](#menupage) `"homepage"` provides two menu entries:
 1. A [NextPageEntry](#nextpageentry) to the page `"create_diameter"`
-2. An [EmbeddedCommandPage](#embeddedcommandpage) for execution of the ZEISS INSPECT command `comparison.create_multiple_surface_comparison_on_cad`.
+2. An [EmbeddedCommandPage](#embeddedcommandpage) for execution of the ZEISS INSPECT command `comparison.create_multiple_surface_comparison_on_cad`
 
 ```{code-block} json
 :caption: minimal.json &ndash; NextPageEntry
@@ -229,7 +231,7 @@ To actually make a workflow element visible, its `"position"` has to be defined 
 (The `"inspect"` workflow is part of the ZEISS INSPECT System Apps. The alias we previously defined with `"using"` allows to reference it by name instead of ID.)
 
 ```{hint}
-As an alternative to the `"position"` element, a workflow assistant can be made visible by adding a reference to one of its pages to a workspace definition.
+As an alternative to the `"position"` element, a workflow assistant can be made visible by referencing one of its pages in a workspace definition.
 
 See [AppExamples &ndash; WorkflowAssistants/workspaces/assistant/assistant.json](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/workspaces/assistant/assistant.json) for an example.
 ```
@@ -288,7 +290,7 @@ WizardPage "create_diameter" &ndash; Step 2
 
 The last object of our "Minimal example" is the [WizardPage](#wizardpage) `"create_diameter"`. This page contains two subsequent wizard steps, both of which are [EmbeddedCommandSteps](#embeddedcommandstep). The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.
 
-## Workflow assistant JSON format
+## Workflow Assistant JSON format
 
 ```{note}
 Optional parameters are marked with '**\***'.
@@ -296,10 +298,10 @@ Optional parameters are marked with '**\***'.
 
 ### Top level elements
 
-The following JSON elements are used at the Workflow assistant's top level.
+The following JSON elements are used at the workflow assistant's top level.
 
 id	(string)
-: UUID for unique identification of the Workflow assistant definition
+: UUID for unique identification of the workflow assistant definition
 
 name (string)
 :	Display name of the definition
@@ -328,9 +330,9 @@ Example:
 }
 ```
 
-### Common workflow assistant object attributes
+### Common Workflow Assistant Object Attributes
 
-These attributes are common for all Workflow assistant elements listed in the following sections.
+These attributes are common for all workflow assistant elements listed in the following sections.
 
 type (String)
 : Workflow assistant element type identifier\
@@ -353,7 +355,7 @@ icon* ([Icon-like](#icon-like-entry))
 Example: `"icon":"surface_section_menu"`
 
 position*	(Object)
-: Insert the element at a specific position in an existing Workflow assistant structure
+: Insert the element at a specific position in an existing workflow assistant structure
 
 * "insert" (id): Element to insert into
 * "before" (id): Position hint, i.e. insert before this element (may be empty)
@@ -462,13 +464,13 @@ Example: `"info_help_id": "cmd_comparison_create_min_max_deviation_label"`
 
 This section introduces some advanced data types for definition of strings and icons.
 
-### String-like entry
+#### String-like entry
 
-#### String
+##### String
 
 Plain string
 
-#### Translated (Object)
+##### Translated (Object)
 
 Runtime-translated string, based on xliff files located in the App's `languages/` folder.
 
@@ -481,19 +483,19 @@ text (string)
 id (string)*
 : Automatically generated translate id
 
-### Icon-like entry
+#### Icon-like entry
 
-Icon-like entries can be defined in multiple ways listed below. They provide an icon to display as part of an element in the Workflow Assistant. Currently only .svg files are fully supported.
+Icon-like entries can be defined in multiple ways listed below. They provide an icon to display as part of an element in the workflow assistant. Currently only .svg files are fully supported.
 
-#### Simple (string)
+##### Simple (string)
 
-Specifies how and where to load an icon from (see [Advanced](#advanced-object) type below for more information about `<path>` and `<mode>`). Always uses "auto" dark mode setting.
+Specifies how and where to load an icon from (see Advanced type below for more information about `<path>` and `<mode>`). Always uses "auto" dark mode setting.
 
 `"<path>"` or `"<mode>::<path>"`
 
 Example: "inspection_home" / `"app::icons/workflow/my_icon.svg"`
 
-#### Advanced (object)
+##### Advanced (object)
 
 path (string)
 : Path to an icon or value of icon (if using a decoder)
