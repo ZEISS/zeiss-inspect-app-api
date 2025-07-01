@@ -308,7 +308,8 @@ RESULT=gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 * The handler function is also called on application global signals, e.g. when application data has been changed. In these cases is the string `'system'` passed to the handler function. Those global signals are caused by changing the element selection or opening a project for example.
 * The handler function can access dialog widget properties.
 * The handler function is registered using the special attribute `handler`.
-* **New in ZEISS INSPECT 2026**:\Each dialog widget can have a specific event handler. If the widget's `handler` property is empty or no valid function, the dialog event handler is called instead.
+* **New in ZEISS INSPECT 2026**:\
+Each dialog widget can have a specific event handler. If the widget's `handler` property is empty or no valid function, the dialog event handler is called instead.
 * The **prev** and **next** buttons of a wizard dialog are the only control widgets, which trigger the event handler.
 
 ```{code-block} python

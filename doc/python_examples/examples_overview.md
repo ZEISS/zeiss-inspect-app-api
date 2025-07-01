@@ -54,7 +54,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id10">![Static Badge](https://img.shields.io/badge/element--properties-blue)</a> <a href="#id9">![Static Badge](https://img.shields.io/badge/element--data-blue)</a> 
+    <a href="#id11">![Static Badge](https://img.shields.io/badge/element--properties-blue)</a> <a href="#id10">![Static Badge](https://img.shields.io/badge/element--data-blue)</a> 
 
 </div>
 
@@ -79,7 +79,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id24">![Static Badge](https://img.shields.io/badge/reference--points-blue)</a> <a href="#id18">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#id16">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
+    <a href="#id25">![Static Badge](https://img.shields.io/badge/reference--points-blue)</a> <a href="#id19">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#id17">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
 
 </div>
 
@@ -104,7 +104,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id9">![Static Badge](https://img.shields.io/badge/element--data-blue)</a> 
+    <a href="#id10">![Static Badge](https://img.shields.io/badge/element--data-blue)</a> 
 
 </div>
 
@@ -130,7 +130,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id6">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> <a href="#id32">![Static Badge](https://img.shields.io/badge/selection--list--widget-blue)</a> 
+    <a href="#id7">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> <a href="#id33">![Static Badge](https://img.shields.io/badge/selection--list--widget-blue)</a> 
 
 </div>
 
@@ -155,7 +155,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id6">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> <a href="#id31">![Static Badge](https://img.shields.io/badge/selection--element--widget-blue)</a> 
+    <a href="#id7">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> <a href="#id32">![Static Badge](https://img.shields.io/badge/selection--element--widget-blue)</a> 
 
 </div>
 
@@ -177,7 +177,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id6">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> <a href="#id39">![Static Badge](https://img.shields.io/badge/unit--widget-blue)</a> 
+    <a href="#id7">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> <a href="#id40">![Static Badge](https://img.shields.io/badge/unit--widget-blue)</a> 
 
 </div>
 
@@ -199,7 +199,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id6">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> <a href="#id44">![Static Badge](https://img.shields.io/badge/widget--properties-blue)</a> 
+    <a href="#id7">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> <a href="#id45">![Static Badge](https://img.shields.io/badge/widget--properties-blue)</a> 
 
 </div>
 
@@ -225,7 +225,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id15">![Static Badge](https://img.shields.io/badge/import-blue)</a> <a href="#id11">![Static Badge](https://img.shields.io/badge/export-blue)</a> <a href="#id23">![Static Badge](https://img.shields.io/badge/project--keywords-blue)</a> 
+    <a href="#id16">![Static Badge](https://img.shields.io/badge/import-blue)</a> <a href="#id12">![Static Badge](https://img.shields.io/badge/export-blue)</a> <a href="#id24">![Static Badge](https://img.shields.io/badge/project--keywords-blue)</a> 
 
 </div>
 
@@ -233,7 +233,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="dialogreopenexample">
 <div id="dialogreopenexample" class="example-block-even">
-<h3>DialogReopenExample — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/DialogReopenExample/doc/Documentation.md">view</a> 
+<h3>DialogReopenExample — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/DialogReopenExample/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/dialog-reopen-example">download</a>
 <a class="headerlink" href="#dialogreopenexample" title="Link to this heading"></a></h3>
 
 
@@ -247,7 +247,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id6">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> 
+    <a href="#id7">![Static Badge](https://img.shields.io/badge/dialog-blue)</a> 
 
 </div>
 
@@ -266,7 +266,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id14">![Static Badge](https://img.shields.io/badge/image--widget-blue)</a> <a href="#id16">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
+    <a href="#id15">![Static Badge](https://img.shields.io/badge/image--widget-blue)</a> <a href="#id17">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
 
 </div>
 
@@ -285,7 +285,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id15">![Static Badge](https://img.shields.io/badge/import-blue)</a> <a href="#id11">![Static Badge](https://img.shields.io/badge/export-blue)</a> <a href="#id23">![Static Badge](https://img.shields.io/badge/project--keywords-blue)</a> 
+    <a href="#id16">![Static Badge](https://img.shields.io/badge/import-blue)</a> <a href="#id12">![Static Badge](https://img.shields.io/badge/export-blue)</a> <a href="#id24">![Static Badge](https://img.shields.io/badge/project--keywords-blue)</a> 
 
 </div>
 
@@ -293,7 +293,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="fileselectionandfiltering">
 <div id="fileselectionandfiltering" class="example-block-odd">
-<h3>FileSelectionAndFiltering — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/FileSelectionAndFiltering/doc/Documentation.md">view</a> 
+<h3>FileSelectionAndFiltering — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/FileSelectionAndFiltering/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/file-selection-and-filtering">download</a>
 <a class="headerlink" href="#fileselectionandfiltering" title="Link to this heading"></a></h3>
 
 
@@ -304,7 +304,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id12">![Static Badge](https://img.shields.io/badge/file-blue)</a> <a href="#id7">![Static Badge](https://img.shields.io/badge/directory-blue)</a> <a href="#id13">![Static Badge](https://img.shields.io/badge/folder-blue)</a> <a href="#id19">![Static Badge](https://img.shields.io/badge/path-blue)</a> 
+    <a href="#id13">![Static Badge](https://img.shields.io/badge/file-blue)</a> <a href="#id8">![Static Badge](https://img.shields.io/badge/directory-blue)</a> <a href="#id14">![Static Badge](https://img.shields.io/badge/folder-blue)</a> <a href="#id20">![Static Badge](https://img.shields.io/badge/path-blue)</a> 
 
 </div>
 
@@ -340,7 +340,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id15">![Static Badge](https://img.shields.io/badge/import-blue)</a> 
+    <a href="#id16">![Static Badge](https://img.shields.io/badge/import-blue)</a> 
 
 </div>
 
@@ -348,7 +348,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="measurementsystemanalysis">
 <div id="measurementsystemanalysis" class="example-block-even">
-<h3>MeasurementSystemAnalysis — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/MeasurementSystemAnalysis/doc/Documentation.md">view</a> 
+<h3>MeasurementSystemAnalysis — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/MeasurementSystemAnalysis/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/measurement-system-analysis">download</a>
 <a class="headerlink" href="#measurementsystemanalysis" title="Link to this heading"></a></h3>
 
 
@@ -359,7 +359,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id16">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
+    <a href="#id17">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
 
 </div>
 
@@ -384,7 +384,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id16">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> <a href="#id24">![Static Badge](https://img.shields.io/badge/reference--points-blue)</a> 
+    <a href="#id17">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> <a href="#id25">![Static Badge](https://img.shields.io/badge/reference--points-blue)</a> 
 
 </div>
 
@@ -420,7 +420,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id35">![Static Badge](https://img.shields.io/badge/sql--database-blue)</a> <a href="#id23">![Static Badge](https://img.shields.io/badge/project--keywords-blue)</a> 
+    <a href="#id36">![Static Badge](https://img.shields.io/badge/sql--database-blue)</a> <a href="#id24">![Static Badge](https://img.shields.io/badge/project--keywords-blue)</a> 
 
 </div>
 
@@ -428,7 +428,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="serviceexample">
 <div id="serviceexample" class="example-block-even">
-<h3>ServiceExample — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/ServiceExample/doc/Documentation.md">view</a> 
+<h3>ServiceExample — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/ServiceExample/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/service-example">download</a>
 <a class="headerlink" href="#serviceexample" title="Link to this heading"></a></h3>
 
 
@@ -442,7 +442,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2025
 
 :Tags:
-    <a href="#id33">![Static Badge](https://img.shields.io/badge/service-blue)</a> 
+    <a href="#id34">![Static Badge](https://img.shields.io/badge/service-blue)</a> 
 
 </div>
 
@@ -464,7 +464,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id34">![Static Badge](https://img.shields.io/badge/settings-blue)</a> 
+    <a href="#id35">![Static Badge](https://img.shields.io/badge/settings-blue)</a> 
 
 </div>
 
@@ -486,7 +486,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id38">![Static Badge](https://img.shields.io/badge/testing-blue)</a> 
+    <a href="#id39">![Static Badge](https://img.shields.io/badge/testing-blue)</a> 
 
 </div>
 
@@ -505,7 +505,51 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id16">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> <a href="#id14">![Static Badge](https://img.shields.io/badge/image--widget-blue)</a> 
+    <a href="#id17">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> <a href="#id15">![Static Badge](https://img.shields.io/badge/image--widget-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="workflowassistants">
+<div id="workflowassistants" class="example-block-even">
+<h3>WorkflowAssistants — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#workflowassistants" title="Link to this heading"></a></h3>
+
+
+:Description:
+    Examples for Workflow Assistants
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/workflow_assistant/workflow_assistant.html)
+
+:Required Software:
+    ZEISS INSPECT 2025
+
+:Tags:
+    <a href="#id46">![Static Badge](https://img.shields.io/badge/workflow--assistant-blue)</a> <a href="#id47">![Static Badge](https://img.shields.io/badge/workspace-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="workspace">
+<div id="workspace" class="example-block-odd">
+<h3>Workspace — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/Workspace/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/workspace">download</a>
+<a class="headerlink" href="#workspace" title="Link to this heading"></a></h3>
+
+
+:Description:
+    Template for custom workspaces
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/adding_workspaces_to_apps/adding_workspaces_to_apps.html)
+
+:Required Software:
+    ZEISS INSPECT 2023
+
+:Tags:
+    <a href="#id1">![Static Badge](https://img.shields.io/badge/api-blue)</a> <a href="#id47">![Static Badge](https://img.shields.io/badge/workspace-blue)</a> 
 
 </div>
 
@@ -528,7 +572,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id22">![Static Badge](https://img.shields.io/badge/project-blue)</a> 
+    <a href="#id23">![Static Badge](https://img.shields.io/badge/project-blue)</a> 
 
 </div>
 
@@ -551,7 +595,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id17">![Static Badge](https://img.shields.io/badge/menu-blue)</a> 
+    <a href="#id18">![Static Badge](https://img.shields.io/badge/menu-blue)</a> 
 
 </div>
 
@@ -577,7 +621,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id25">![Static Badge](https://img.shields.io/badge/resources-blue)</a> <a href="#id14">![Static Badge](https://img.shields.io/badge/image--widget-blue)</a> 
+    <a href="#id26">![Static Badge](https://img.shields.io/badge/resources-blue)</a> <a href="#id15">![Static Badge](https://img.shields.io/badge/image--widget-blue)</a> 
 
 </div>
 
@@ -599,7 +643,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id25">![Static Badge](https://img.shields.io/badge/resources-blue)</a> 
+    <a href="#id26">![Static Badge](https://img.shields.io/badge/resources-blue)</a> 
 
 </div>
 
@@ -625,7 +669,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id1">![Static Badge](https://img.shields.io/badge/circle-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id2">![Static Badge](https://img.shields.io/badge/circle-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -647,7 +691,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id3">![Static Badge](https://img.shields.io/badge/cone-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id4">![Static Badge](https://img.shields.io/badge/cone-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -669,7 +713,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id4">![Static Badge](https://img.shields.io/badge/curve-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id5">![Static Badge](https://img.shields.io/badge/curve-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -691,7 +735,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id5">![Static Badge](https://img.shields.io/badge/cylinder-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id6">![Static Badge](https://img.shields.io/badge/cylinder-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -713,7 +757,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id8">![Static Badge](https://img.shields.io/badge/distance-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id9">![Static Badge](https://img.shields.io/badge/distance-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -735,7 +779,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id20">![Static Badge](https://img.shields.io/badge/point-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id21">![Static Badge](https://img.shields.io/badge/point-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -757,7 +801,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id21">![Static Badge](https://img.shields.io/badge/point--cloud-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id22">![Static Badge](https://img.shields.io/badge/point--cloud-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -779,7 +823,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id30">![Static Badge](https://img.shields.io/badge/section-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id31">![Static Badge](https://img.shields.io/badge/section-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -801,7 +845,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id36">![Static Badge](https://img.shields.io/badge/surface-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id37">![Static Badge](https://img.shields.io/badge/surface-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -823,7 +867,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id37">![Static Badge](https://img.shields.io/badge/surface--curve-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id38">![Static Badge](https://img.shields.io/badge/surface--curve-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -845,7 +889,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id45">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#id40">![Static Badge](https://img.shields.io/badge/volume-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id48">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#id41">![Static Badge](https://img.shields.io/badge/volume-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -867,7 +911,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id45">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#id41">![Static Badge](https://img.shields.io/badge/volume--defects-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id48">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#id42">![Static Badge](https://img.shields.io/badge/volume--defects-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -889,7 +933,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id45">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#id42">![Static Badge](https://img.shields.io/badge/volume--region-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id48">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#id43">![Static Badge](https://img.shields.io/badge/volume--region-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -911,7 +955,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id45">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#id43">![Static Badge](https://img.shields.io/badge/volume--section-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id48">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#id44">![Static Badge](https://img.shields.io/badge/volume--section-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -924,7 +968,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 
 :Description:
-    This examples demonstrates how to show progress information to the user while calcualting a scripted element.
+    This examples demonstrates how to show progress information to the user while calculating a scripted element.
 
 :References:
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html)
@@ -933,7 +977,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id2">![Static Badge](https://img.shields.io/badge/computation--progress-blue)</a> 
+    <a href="#id3">![Static Badge](https://img.shields.io/badge/computation--progress-blue)</a> 
 
 </div>
 
@@ -958,7 +1002,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id18">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#id36">![Static Badge](https://img.shields.io/badge/surface-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
+    <a href="#id19">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#id37">![Static Badge](https://img.shields.io/badge/surface-blue)</a> <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
 
 </div>
 
@@ -987,7 +1031,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--check-blue)</a> <a href="#id4">![Static Badge](https://img.shields.io/badge/curve-blue)</a> 
+    <a href="#id29">![Static Badge](https://img.shields.io/badge/scripted--check-blue)</a> <a href="#id5">![Static Badge](https://img.shields.io/badge/curve-blue)</a> 
 
 </div>
 
@@ -1012,7 +1056,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--check-blue)</a> <a href="#id26">![Static Badge](https://img.shields.io/badge/scalar-blue)</a> 
+    <a href="#id29">![Static Badge](https://img.shields.io/badge/scripted--check-blue)</a> <a href="#id27">![Static Badge](https://img.shields.io/badge/scalar-blue)</a> 
 
 </div>
 
@@ -1037,7 +1081,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id28">![Static Badge](https://img.shields.io/badge/scripted--check-blue)</a> <a href="#id36">![Static Badge](https://img.shields.io/badge/surface-blue)</a> 
+    <a href="#id29">![Static Badge](https://img.shields.io/badge/scripted--check-blue)</a> <a href="#id37">![Static Badge](https://img.shields.io/badge/surface-blue)</a> 
 
 </div>
 
@@ -1063,7 +1107,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2025
 
 :Tags:
-    <a href="#id34">![Static Badge](https://img.shields.io/badge/settings-blue)</a> <a href="#id29">![Static Badge](https://img.shields.io/badge/scripted--diagrams-blue)</a> 
+    <a href="#id35">![Static Badge](https://img.shields.io/badge/settings-blue)</a> <a href="#id30">![Static Badge](https://img.shields.io/badge/scripted--diagrams-blue)</a> 
 
 </div>
 
@@ -1085,7 +1129,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2025
 
 :Tags:
-    <a href="#id34">![Static Badge](https://img.shields.io/badge/settings-blue)</a> <a href="#id29">![Static Badge](https://img.shields.io/badge/scripted--diagrams-blue)</a> 
+    <a href="#id35">![Static Badge](https://img.shields.io/badge/settings-blue)</a> <a href="#id30">![Static Badge](https://img.shields.io/badge/scripted--diagrams-blue)</a> 
 
 </div>
 
@@ -1103,6 +1147,11 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 [Download Example Projects App](https://software-store.zeiss.com/products/apps/example-projects)
 
 ## Tag Index
+
+### <a name="api"></a>![Static Badge](https://img.shields.io/badge/api-blue)
+
+* <a href="#workspace">Workspace</a>
+
 
 ### <a name="circle"></a>![Static Badge](https://img.shields.io/badge/circle-blue)
 
@@ -1363,6 +1412,17 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 ### <a name="widget-properties"></a>![Static Badge](https://img.shields.io/badge/widget--properties-blue)
 
 * <a href="#widgetvisibility">WidgetVisibility</a>
+
+
+### <a name="workflow-assistant"></a>![Static Badge](https://img.shields.io/badge/workflow--assistant-blue)
+
+* <a href="#workflowassistants">WorkflowAssistants</a>
+
+
+### <a name="workspace"></a>![Static Badge](https://img.shields.io/badge/workspace-blue)
+
+* <a href="#workflowassistants">WorkflowAssistants</a>
+* <a href="#workspace">Workspace</a>
 
 
 ### <a name="xray"></a>![Static Badge](https://img.shields.io/badge/xray-blue)
