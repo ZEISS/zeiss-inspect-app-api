@@ -517,4 +517,4 @@ dark (string)
 ## Related
 
 * [App Examples &ndash; WorkflowAssistants](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants)
-* [Dialog widgets &ndash; Wizard widget](../user_defined_dialogs/dialog_widgets#wizard-widget)
+* <a href="../user_defined_dialogs/dialog_widgets.html#wizard-widget">Dialog widgets &ndash; Wizard widget</a>
