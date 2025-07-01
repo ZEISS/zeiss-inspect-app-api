@@ -6,7 +6,7 @@
 
 A workflow assistant can be composed of the following UI elements:
 
-1. [Pages](#pages) &ndash; A page is a container for other Workflow Assistant elements.
+1. [Pages](#pages) &ndash; A page is a container for other workflow assistant elements.
 
    There are three different page types:
    
@@ -99,6 +99,10 @@ Embedded command page &ndash; "Distance Quick Creation"
 
 Starting "Distance Inspections" from the "Basic Inspections" menu page calls the internal command `inspection.distance_quick_creation`. This is the same as running Construct ► Distance ► Distance Quick Creation... from the main menu, but this way the dialog window is embedded in the workflow assistant.
 
+```{caution}
+To embed a user-defined dialog, you must select "embed as widget, top-level otherwise" in the dialog properties using the Dialog Editor.
+```
+
 ## Creating a Workflow Assistant
 
 Create a JSON file `workflow_assistant/<assistant_name>/<assistant_name>.json` in your App's folder.
@@ -114,7 +118,11 @@ A new JSON file cannot be created in the App Explorer yet. Go to your App folder
 
 ## Minimal example
 
-The minimal example demonstrates the basic concept of creating a Workflow Assistant menu structure referencing built-in commands. See [App Examples &ndash; WorkflowAssistants](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants) for complete source code.
+The minimal example demonstrates the basic concept of creating a Workflow Assistant menu structure referencing built-in commands.
+
+```{note}
+See [App Examples &ndash; WorkflowAssistants](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants) for complete source code.
+```
 
 The basic building blocks for the menu structure are:
 
@@ -153,12 +161,45 @@ At the top level, each Workflow Assistant must have a unique ID (UUID) (line 2) 
 The element `"objects"` (l. 10) contains a list of objects, which are the building blocks of this Workflow Assistant.
 
 ```{code-block} json
+:caption: minimal.json &ndash; MenuPage "homepage"
+:linenos:
+
+{
+  // ...
+  "objects": [
+    {
+      "type": "MenuPage",
+      "id": "homepage",
+      "name": "a minimal homepage",
+      "entries": [
+        {
+          "type": "NextPageEntry",
+          "page": "create_diameter"
+        },
+        {
+          "type": "EmbeddedCommandPage",
+          "description": "Custom description for command",
+          "command": "comparison.create_multiple_surface_comparison_on_cad"
+        }
+      ]
+    },
+    // ...  
+  ]
+}
+```
+
+The [MenuPage](#menupage) `"homepage"` provides two menu entries:
+1. A [NextPageEntry](#nextpageentry) to the page `"create_diameter"`
+2. An [EmbeddedCommandPage](#embeddedcommandpage) for execution of the ZEISS INSPECT command `comparison.create_multiple_surface_comparison_on_cad`.
+
+```{code-block} json
 :caption: minimal.json &ndash; NextPageEntry
 :linenos:
 
 {
   // ...
   "objects": [
+    // ...
     {
       "type": "NextPageEntry",
       "name": "Minimal example",
@@ -182,39 +223,16 @@ The element `"objects"` (l. 10) contains a list of objects, which are the buildi
 NextPageEntry "hook_for_inspect"
 ```
 
-Initially, the [NextPageEntry](#nextpageentry) is shown with its `"name"` and `"description"` (l. 6 & 7) in the Workflow Assistant view. The order of multiple Assistants within the view is defined by the `"position"` element (l. 10..13). In this case, the entry is inserted after the `"inspect"` Workflow's `"inspection_home"` page.
+A [NextPageEntry](#nextpageentry) with its elements `"name"`, `"description"` and `"page"` is defined (l. 6..8).
 
-The `"inspect"` workflow is part of the ZEISS INSPECT System Apps. The alias we previously defined with `"using"` allows to reference it by name instead of ID.
+To actually make a workflow element visible, its `"position"` has to be defined by inserting it as a menu entry at the desired location. In the example above, the entry is inserted after the `"inspect"` Workflow's `"inspection_home"` page.
 
-The element `"page"` (l. 8) defines the page which is opened if we click this [NextPageEntry](#nextpageentry).
+(The `"inspect"` workflow is part of the ZEISS INSPECT System Apps. The alias we previously defined with `"using"` allows to reference it by name instead of ID.)
 
-```{code-block} json
-:caption: minimal.json &ndash; MenuPage "homepage"
-:linenos:
+```{hint}
+As an alternative to the `"position"` element, a workflow assistant can be made visible by adding a reference to one of its pages to a workspace definition.
 
-{
-  // ...
-  "objects": [
-    // ...
-    {
-      "type": "MenuPage",
-      "id": "homepage",
-      "name": "a minimal homepage",
-      "entries": [
-        {
-          "type": "NextPageEntry",
-          "page": "create_diameter"
-        },
-        {
-          "type": "EmbeddedCommandPage",
-          "description": "Custom description for command",
-          "command": "comparison.create_multiple_surface_comparison_on_cad"
-        }
-      ]
-   },
-  // ...  
-  ]
-}
+See [AppExamples &ndash; WorkflowAssistants/workspaces/assistant/assistant.json](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/workspaces/assistant/assistant.json) for an example.
 ```
 
 ```{figure} assets/minimal_example-2.png
@@ -224,9 +242,7 @@ The element `"page"` (l. 8) defines the page which is opened if we click this [N
 MenuPage "homepage"
 ```
 
-The [MenuPage](#menupage) `"homepage"` provides two menu entries:
-1. A [NextPageEntry](#nextpageentry) to the page `"create_diameter"`
-2. An [EmbeddedCommandPage](#embeddedcommandpage) for execution of the ZEISS INSPECT command `comparison.create_multiple_surface_comparison_on_cad`.
+Clicking the NextPageEntry `"Minimal example"` leads to the MenuPage `"homepage"`.
 
 ```{code-block} json
 :caption: minimal.json &ndash; WizardPage "create_diameter"
@@ -271,7 +287,7 @@ WizardPage "create_diameter" &ndash; Step 1
 WizardPage "create_diameter" &ndash; Step 2
 ```
 
-The last object of our "Minimal example" is the [WizardPage](#wizardpage) `"create_diameter"`. Clicking this page leads to the two subsequent wizard steps, both of which are [EmbeddedCommandSteps](#embeddedcommandstep). The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.
+The last object of our "Minimal example" is the [WizardPage](#wizardpage) `"create_diameter"`. This page contains two subsequent wizard steps, both of which are [EmbeddedCommandSteps](#embeddedcommandstep). The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.
 
 ## Workflow assistant JSON format
 
@@ -445,6 +461,8 @@ Example: `"info_help_id": "cmd_comparison_create_min_max_deviation_label"`
 
 ### Advanced entry types
 
+This section introduces some advanced data types for definition of strings and icons.
+
 ### String-like entry
 
 #### String
@@ -453,7 +471,7 @@ Plain string
 
 #### Translated (Object)
 
-Runtime-translated string, based on build-system IDs.
+Runtime-translated string, based on xliff files located in the App's `languages/` folder.
 
 translate (boolean)
 : Translate the string at runtime
@@ -500,3 +518,4 @@ dark (string)
 ## Related
 
 * [App Examples &ndash; WorkflowAssistants](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants)
+* [Dialog widgets &ndash; Wizard widget](../howtos/user_defined_dialogs/dialog_widgets.md#wizard-widget)
