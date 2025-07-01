@@ -449,6 +449,15 @@ The element <code class="docutils literal notranslate"><span class="pre">&quot;o
 </figcaption>
 </figure>
 <p>The last object of our “Minimal example” is the <a class="reference internal" href="#wizardpage">WizardPage</a> <code class="docutils literal notranslate"><span class="pre">&quot;create_diameter&quot;</span></code>. This page contains two subsequent wizard steps, both of which are <a class="reference internal" href="#embeddedcommandstep">EmbeddedCommandSteps</a>. The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>User-defined scripts are referenced in commands with the notation <code class="docutils literal notranslate"><span class="pre">userscript.&lt;scriptfile&gt;</span></code>. If the script is located in a subfolder of the App’s <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> folder, use the notation <code class="docutils literal notranslate"><span class="pre">userscript.&lt;folder&gt;__&lt;scriptfile&gt;</span></code>. (A double underscore is used as path separator. In <code class="docutils literal notranslate"><span class="pre">&lt;scriptfile</span></code>, the extension <code class="docutils literal notranslate"><span class="pre">.py</span></code> is omitted.)</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
+<p>Custom wizards can be implemented using the <a href="../user_defined_dialogs/dialog_widgets.html#wizard-widget">Wizard widget</a> in user-defined scripts. See <a href="../user_defined_dialogs/wizard_control.html">Wizard widget control</a> for details and <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants/scripts/workflows">App Examples – WorkflowAssistants/scripts/workflows</a> for a complete example.</p>
+</div>
 </section>
 <section id="workflow-assistant-json-format">
 <h2>Workflow Assistant JSON format<a class="headerlink" href="#workflow-assistant-json-format" title="Link to this heading"></a></h2>
@@ -545,7 +554,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">[</span> <
 <p>Page with an embedded command. The page ID is defined by the given command.</p>
 <dl class="simple myst">
 <dt>command (string)</dt><dd><p>Command to execute, usually with a dialog.<br />
-Example: <code class="docutils literal notranslate"><span class="pre">comparison.create_min_max_deviation_label</span></code></p>
+Example: <code class="docutils literal notranslate"><span class="pre">comparison.create_min_max_deviation_label</span></code>, <code class="docutils literal notranslate"><span class="pre">userscript.inspect_gaps</span></code></p>
 </dd>
 </dl>
 </section>
@@ -575,7 +584,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">label_menu
 <p>A command entry allows to execute a command. If the command has a dialog, this dialog will be embedded in the workflow assistant.</p>
 <dl class="simple myst">
 <dt>command (string)</dt><dd><p>Command to execute.<br />
-Example: <code class="docutils literal notranslate"><span class="pre">inspection.inspect_by_deviation_label</span></code></p>
+Examples: <code class="docutils literal notranslate"><span class="pre">inspection.inspect_by_deviation_label</span></code>, <code class="docutils literal notranslate"><span class="pre">userscript.inspect_gaps</span></code></p>
 </dd>
 </dl>
 </section>
@@ -609,7 +618,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">inspection
 </ul>
 <p>Example: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">commandA,</span> <span class="pre">commandB</span> <span class="pre">]</span></code></p>
 <dl class="simple myst">
-<dt>interactive* (boolean)</dt><dd><p>Defines whether to execute the command in interactive mode. (Default: True)</p>
+<dt>interactive* (boolean)</dt><dd><p>Defines whether to execute the command in interactive mode. Must be set to <code class="docutils literal notranslate"><span class="pre">False</span></code> for executing a user script, otherwise the dialog will be closed immediately. (Default: True)</p>
 </dd>
 <dt>info* (<a class="reference internal" href="#string-like-entry">String-like</a>)</dt><dd><p>Descriptive info text for this wizard step<br />
 Example: <code class="docutils literal notranslate"><span class="pre">Compute</span> <span class="pre">statistics</span> <span class="pre">for</span> <span class="pre">deviation</span> <span class="pre">analysis</span> <span class="pre">on</span> <span class="pre">an</span> <span class="pre">inspection</span> <span class="pre">element</span> <span class="pre">with</span> <span class="pre">color</span> <span class="pre">deviation</span> <span class="pre">representation.</span> <span class="pre">Select</span> <span class="pre">an</span> <span class="pre">area</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">color</span> <span class="pre">deviation</span> <span class="pre">representation</span> <span class="pre">with</span> <span class="pre">any</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">point</span> <span class="pre">selection</span> <span class="pre">functions.&quot;</span></code></p>
@@ -711,7 +720,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">&quot;info
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fefb75052b0>
+  <jinja2.runtime.BlockReference object at 0x7fb445048b40>
 
 
 </footer>
