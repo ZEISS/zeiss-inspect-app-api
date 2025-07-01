@@ -291,7 +291,7 @@ WizardPage "create_diameter" &ndash; Step 2
 The last object of our "Minimal example" is the [WizardPage](#wizardpage) `"create_diameter"`. This page contains two subsequent wizard steps, both of which are [EmbeddedCommandSteps](#embeddedcommandstep). The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.
 
 ```{hint}
-User-defined scripts are referenced in commands with the notation `userscript.<scriptfile>`. If the script is located in a subfolder of the App's `scripts/` folder, use the notation `userscript.<folder>__<scriptfile>`. (A double underscore is used as path separator. In `<scriptfile`, the extension `.py` is omitted.)
+User-defined scripts are referenced in commands with the notation `userscript.<scriptfile>`. If the script is located in a subfolder of the App's `scripts/` folder, use the notation `userscript.<folder>__<scriptfile>`. (A double underscore is used as path separator. In `<scriptfile>`, the extension `.py` is omitted.)
 ```
 
 ```{hint}
