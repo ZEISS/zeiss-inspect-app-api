@@ -96,7 +96,7 @@ The wizard lets you continue to the next step only after you have completed the 
 Embedded command page &ndash; "Distance Quick Creation"
 ```
 
-Starting "Distance Inspections" from the "Basic Inspections" menu page calls the internal command `inspection.distance_quick_creation`. This is the same as running Construct ► Distance ► Distance Quick Creation... from the main menu, but this way the dialog window is embedded in the workflow assistant.
+Starting "Distance Inspections" from the "Basic Inspections" menu page calls the script `userscript.WorkflowAssistant__DistanceQuickCreation` from the System App "Inspect". This is the same as running Construct ► Distance ► Distance Quick Creation... from the main menu, but this way the dialog window is embedded in the workflow assistant.
 
 ```{caution}
 To embed a user-defined dialog, you must select "embed as widget, top-level otherwise" in the dialog properties using the Dialog Editor.
