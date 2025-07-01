@@ -1402,13 +1402,10 @@ DIALOG.wizard.handler = dialog_event_handler
 gom.script.sys.show_user_defined_dialog (dialog=DIALOG)
 ```
 
-```{seealso}
 See [Wizard widget control](wizard_control) for more features.
-```
 
 ```{seealso}
-The Wizard widget is commonly used in dialogs designed for the Workflow Assistant.
-% [Workflow Assistant](../workflow_assistant/workflow_assistant).
+The Wizard widget is commonly used in dialogs designed for the [Workflow Assistant](../workflow_assistant/workflow_assistant).
 ```
 
 ## Other

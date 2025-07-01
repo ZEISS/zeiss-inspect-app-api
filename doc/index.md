@@ -117,6 +117,7 @@ Furthermore, we recommend following our How-to Guides to get you started.
    howtos/using_shared_environments/using_shared_environments
    howtos/using_wheelhouses/using_wheelhouses
    howtos/adding_workspaces_to_apps/adding_workspaces_to_apps
+   howtos/workflow_assistant/workflow_assistant
    howtos/using_services/using_services
    howtos/using_scripted_diagrams/using_scripted_diagrams
    howtos/using_jupyter_notebook/using_jupyter_notebook
