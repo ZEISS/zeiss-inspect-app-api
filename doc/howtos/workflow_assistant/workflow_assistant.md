@@ -226,7 +226,7 @@ NextPageEntry "hook_for_inspect"
 
 A [NextPageEntry](#nextpageentry) with its elements `"name"`, `"description"` and `"page"` is defined (l. 6..8).
 
-Our `"homepage"` is made reachable from the `inspect` workflow assistant page `"inspection_home"` by using the `"position"` element (l. 10..13).
+Our `"homepage"` is made reachable from the `inspect` workflow assistant page `"inspection_home"` by using the `"position"` element (l. 11..14).
 
 (The `"inspect"` workflow assistant is part of the ZEISS INSPECT System Apps. The alias we previously defined with `"using"` allows to reference it by name instead of ID.)
 
