@@ -153,6 +153,6 @@ If a documentation link is defined in an App, each dialog window will provide a 
 
 ![App dialog window with help button](assets/dialog_help_button.png)
 
-When the help button is clicked, the user must confirm that the linked documentation pages is openened in the system's web browser.
+When the help button is clicked, the user must confirm that the linked documentation pages is opened in the system's web browser.
 
 ![Open documentation page confirmation dialog](assets/open_documentation_confirmation.png)

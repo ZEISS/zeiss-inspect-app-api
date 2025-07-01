@@ -73,7 +73,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides – Expert</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/creating_wizard_dialogs.html">Creating wizard dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/wizard_control.html">Wizard widget control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/creating_wizard_dialogs.html">Creating wizard dialogs (deprecated)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_gui_libraries/using_gui_libraries.html">Using an additional Python GUI library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_shared_environments/using_shared_environments.html">Using shared environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_wheelhouses/using_wheelhouses.html">Using Python wheelhouses</a></li>
@@ -169,11 +170,12 @@
 </section>
 <section id="id1">
 <h2>Adding workspaces to Apps<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>There is no UI based workspace editor yet, but workspace definitions can be added manually.</p>
-</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is no UI based workspace editor yet, but workspace definitions can be added manually.</p>
+</div>
 <ul class="simple">
-<li><p>An example can be found in the App <strong>‘Workspace editor tools’</strong> (<a class="reference external" href="https://software-store.zeiss.com/products/apps/workspace-editor-tools">Download</a>)</p></li>
+<li><p>An example can be found in the App <strong>‘Workspace’</strong> (<a class="reference external" href="https://software-store.zeiss.com/products/apps/workspace">Download</a>)</p></li>
 <li><p>An App is just a ZIP file with a different extension (.addon) containing JSON based object definitions.</p></li>
 <li><p>It can be unpacked, edited and packed again with a new workspace definition.</p></li>
 </ul>
@@ -194,9 +196,10 @@
 </section>
 <section id="step-3-add-a-workspace-definition-file">
 <h3>Step 3: Add a workspace definition file<a class="headerlink" href="#step-3-add-a-workspace-definition-file" title="Link to this heading"></a></h3>
-<blockquote>
-<div><p>The <code class="docutils literal notranslate"><span class="pre">&lt;workspace&gt;.json</span></code> file contains the complete workspace definition.</p>
-</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;workspace&gt;.json</span></code> file contains the complete workspace definition.</p>
+</div>
 <p>Add a workspace definition file must be added to the new workspace folder, i.e.</p>
 <p><code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">App/workspaces/&lt;workspace&gt;/&lt;workspace&gt;.json</span></code></p>
 <p><strong>Example:</strong> From the App ‘Airfoil CMM Data Preparation’:</p>
@@ -234,9 +237,10 @@
 <section id="uuid">
 <h4>“uuid”<a class="headerlink" href="#uuid" title="Link to this heading"></a></h4>
 <p>A unique id of the workspace.</p>
-<blockquote>
-<div><p>Please do not define the UUID manually, but use a UUID generator like Online UUID Generator to generate a fresh, truly unique one!</p>
-</div></blockquote>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Please do not define the UUID manually, but use a UUID generator like Online UUID Generator to generate a fresh, truly unique one!</p>
+</div>
 </section>
 <section id="color">
 <h4>“color”<a class="headerlink" href="#color" title="Link to this heading"></a></h4>
@@ -435,7 +439,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7ff0cdba3110>
+  <jinja2.runtime.BlockReference object at 0x7f2cb358f110>
 
 
 </footer>

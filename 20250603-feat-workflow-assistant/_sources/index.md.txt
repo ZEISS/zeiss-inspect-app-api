@@ -111,6 +111,7 @@ Furthermore, we recommend following our How-to Guides to get you started.
    :maxdepth: 1
    :caption: How-to Guides – Expert
 
+   howtos/user_defined_dialogs/wizard_control
    howtos/user_defined_dialogs/creating_wizard_dialogs
    howtos/using_gui_libraries/using_gui_libraries
    howtos/using_shared_environments/using_shared_environments
