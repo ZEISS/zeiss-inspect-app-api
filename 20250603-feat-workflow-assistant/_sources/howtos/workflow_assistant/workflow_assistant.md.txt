@@ -358,7 +358,7 @@ Example: `"name": "element 1"`
 
 description* ([String-like](#string-like-entry))
 : General description of the element\
-Example: `"decription": "this does something"`
+Example: `"description": "this does something"`
 
 icon* ([Icon-like](#icon-like-entry))
 : Icon to be displayed\
