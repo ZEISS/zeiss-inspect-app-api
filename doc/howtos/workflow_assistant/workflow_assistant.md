@@ -489,7 +489,7 @@ Icon-like entries can be defined in multiple ways listed below. They provide an 
 
 ##### Simple (string)
 
-Specifies how and where to load an icon from (see [Advanced](#advanced-object) type below for more information about `<path>` and `<mode>`). Always uses "auto" dark mode setting.
+Specifies how and where to load an icon from (see Advanced type below for more information about `<path>` and `<mode>`). Always uses "auto" dark mode setting.
 
 `"<path>"` or `"<mode>::<path>"`
 
