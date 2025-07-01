@@ -103,7 +103,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#accordionentry">AccordionEntry</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nextpageentry">NextPageEntry</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#commandentry">CommandEntry</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#embeddedcommandentry">EmbeddedCommandEntry</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#wizard-steps">Wizard steps</a><ul>
@@ -177,7 +176,7 @@
 <h2>User interface<a class="headerlink" href="#user-interface" title="Link to this heading"></a></h2>
 <p>A workflow assistant can be composed of the following UI elements:</p>
 <ol class="arabic">
-<li><p><a class="reference internal" href="#pages">Pages</a> – A page is a container for other Workflow Assistant elements.</p>
+<li><p><a class="reference internal" href="#pages">Pages</a> – A page is a container for other workflow assistant elements.</p>
 <p>There are three different page types:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#menupage">MenuPage</a> – Shows a list of <a class="reference internal" href="#menu-entries">Menu Entries</a>.</p></li>
@@ -189,8 +188,7 @@
 <p>There are four different types:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#nextpageentry">NextPageEntry</a> – Leads to a new page.</p></li>
-<li><p><a class="reference internal" href="#commandentry">CommandEntry</a> – Execute a command, usually without a dialog.</p></li>
-<li><p><a class="reference internal" href="#embeddedcommandentry">EmbeddedCommandEntry</a> – Execute a command with its dialog embedded in the menu page.</p></li>
+<li><p><a class="reference internal" href="#commandentry">CommandEntry</a> – Executes a command.</p></li>
 <li><p><a class="reference internal" href="#accordionentry">AccordionEntry</a> – Contains a list of menu entries which can be collapsed and expanded.</p></li>
 </ul>
 </li>
@@ -202,7 +200,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The initial appearance of CommandEntry, EmbeddedCommandPage and WizardPage is identical, but differs during execution.<br />
+<p>The initial appearance of EmbeddedCommandPage, WizardPage and CommandEntry is identical, but differs during execution.<br />
 The appearance of the NextPageEntry depends on its target’s type.</p>
 </div>
 <section id="example">
@@ -262,7 +260,11 @@ The appearance of the NextPageEntry depends on its target’s type.</p>
 <p><span class="caption-text">Embedded command page – “Distance Quick Creation”</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Starting “Distance Inspections” from the “Basic Inspections” menu page calls the internal command <code class="docutils literal notranslate"><span class="pre">inspection.distance_quick_creation</span></code>. This is the same as running Construct ► Distance ► Distance Quick Creation… from the main menu, but this way the dialog window is embedded in the workflow assistant.</p>
+<p>Starting “Distance Inspections” from the “Basic Inspections” menu page calls the script <code class="docutils literal notranslate"><span class="pre">userscript.WorkflowAssistant__DistanceQuickCreation</span></code> from the System App “Inspect”. This is the same as running Construct ► Distance ► Distance Quick Creation… from the main menu, but this way the dialog window is embedded in the workflow assistant.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>To embed a user-defined dialog, you must select “embed as widget, top-level otherwise” in the dialog properties using the Dialog Editor.</p>
+</div>
 </section>
 </section>
 </section>
@@ -283,7 +285,11 @@ The appearance of the NextPageEntry depends on its target’s type.</p>
 </section>
 <section id="minimal-example">
 <h2>Minimal example<a class="headerlink" href="#minimal-example" title="Link to this heading"></a></h2>
-<p>The minimal example demonstrates the basic concept of creating a Workflow Assistant menu structure referencing built-in commands. See <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants">App Examples – WorkflowAssistants</a> for complete source code.</p>
+<p>The minimal example demonstrates the basic concept of creating a Workflow Assistant menu structure referencing built-in commands.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants">App Examples – WorkflowAssistants</a> for complete source code.</p>
+</div>
 <p>The basic building blocks for the menu structure are:</p>
 <ol class="arabic simple">
 <li><p><a class="reference internal" href="#menupage">MenuPage</a></p>
@@ -297,7 +303,7 @@ The appearance of the NextPageEntry depends on its target’s type.</p>
 <li><p>Uses ‘name’, ‘icon’ and ‘description’ of referenced page if not given explicitly.</p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#embeddedcommandentry">EmbeddedCommandPage</a></p>
+<li><p><a class="reference internal" href="#commandentry">CommandPage</a></p>
 <ul class="simple">
 <li><p>This is used to display a single command in the Workflow Assistant.</p></li>
 </ul>
@@ -331,63 +337,73 @@ The appearance of the NextPageEntry depends on its target’s type.</p>
 (line 3). With <code class="docutils literal notranslate"><span class="pre">&quot;using&quot;</span></code>, an alias for an object’s UUID can be defined to improve readability (l. 4…8).
 The element <code class="docutils literal notranslate"><span class="pre">&quot;objects&quot;</span></code> (l. 10) contains a list of objects, which are the building blocks of this Workflow Assistant.</p>
 <div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">minimal.json – NextPageEntry</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">minimal.json – MenuPage “homepage”</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
 <span class="linenos"> 2</span><span class="w">  </span><span class="c1">// ...</span>
 <span class="linenos"> 3</span><span class="w">  </span><span class="nt">&quot;objects&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="linenos"> 4</span><span class="w">    </span><span class="p">{</span>
-<span class="linenos"> 5</span><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NextPageEntry&quot;</span><span class="p">,</span>
-<span class="linenos"> 6</span><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Minimal example&quot;</span><span class="p">,</span>
-<span class="linenos"> 7</span><span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hook for example assistant&quot;</span><span class="p">,</span>
-<span class="linenos"> 8</span><span class="w">      </span><span class="nt">&quot;page&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;homepage&quot;</span><span class="p">,</span>
-<span class="linenos"> 9</span><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hook_for_inspect&quot;</span><span class="p">,</span>
-<span class="linenos">10</span><span class="w">      </span><span class="nt">&quot;position&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="linenos">11</span><span class="w">        </span><span class="nt">&quot;insert&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inspect/inspection_home&quot;</span><span class="p">,</span>
-<span class="linenos">12</span><span class="w">        </span><span class="nt">&quot;before&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
-<span class="linenos">13</span><span class="w">      </span><span class="p">}</span>
-<span class="linenos">14</span><span class="w">    </span><span class="p">},</span>
-<span class="linenos">15</span><span class="w">    </span><span class="c1">// ...</span>
-<span class="linenos">16</span><span class="w">  </span><span class="p">]</span>
-<span class="linenos">17</span><span class="p">}</span>
+<span class="linenos"> 5</span><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MenuPage&quot;</span><span class="p">,</span>
+<span class="linenos"> 6</span><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;homepage&quot;</span><span class="p">,</span>
+<span class="linenos"> 7</span><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a minimal homepage&quot;</span><span class="p">,</span>
+<span class="linenos"> 8</span><span class="w">      </span><span class="nt">&quot;entries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos"> 9</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">10</span><span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NextPageEntry&quot;</span><span class="p">,</span>
+<span class="linenos">11</span><span class="w">          </span><span class="nt">&quot;page&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;create_diameter&quot;</span>
+<span class="linenos">12</span><span class="w">        </span><span class="p">},</span>
+<span class="linenos">13</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos">14</span><span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EmbeddedCommandPage&quot;</span><span class="p">,</span>
+<span class="linenos">15</span><span class="w">          </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Custom description for command&quot;</span><span class="p">,</span>
+<span class="linenos">16</span><span class="w">          </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;comparison.create_multiple_surface_comparison_on_cad&quot;</span>
+<span class="linenos">17</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos">18</span><span class="w">      </span><span class="p">]</span>
+<span class="linenos">19</span><span class="w">    </span><span class="p">},</span>
+<span class="linenos">20</span><span class="w">    </span><span class="c1">// ...  </span>
+<span class="linenos">21</span><span class="w">  </span><span class="p">]</span>
+<span class="linenos">22</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
-<figure class="align-default" id="id9">
-<img alt="NextPageEntry &quot;hook_for_inspect&quot;" class="bordered-figure" src="../../_images/minimal_example-1.png" />
-<figcaption>
-<p><span class="caption-text">NextPageEntry “hook_for_inspect”</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
-</figcaption>
-</figure>
-<p>Initially, the <a class="reference internal" href="#nextpageentry">NextPageEntry</a> is shown with its <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;description&quot;</span></code> (l. 6 &amp; 7) in the Workflow Assistant view. The order of multiple Assistants within the view is defined by the <code class="docutils literal notranslate"><span class="pre">&quot;position&quot;</span></code> element (l. 10…13). In this case, the entry is inserted after the <code class="docutils literal notranslate"><span class="pre">&quot;inspect&quot;</span></code> Workflow’s <code class="docutils literal notranslate"><span class="pre">&quot;inspection_home&quot;</span></code> page.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">&quot;inspect&quot;</span></code> workflow is part of the ZEISS INSPECT System Apps. The alias we previously defined with <code class="docutils literal notranslate"><span class="pre">&quot;using&quot;</span></code> allows to reference it by name instead of ID.</p>
-<p>The element <code class="docutils literal notranslate"><span class="pre">&quot;page&quot;</span></code> (l. 8) defines the page which is opened if we click this <a class="reference internal" href="#nextpageentry">NextPageEntry</a>.</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">minimal.json – MenuPage “homepage”</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<p>The <a class="reference internal" href="#menupage">MenuPage</a> <code class="docutils literal notranslate"><span class="pre">&quot;homepage&quot;</span></code> provides two menu entries:</p>
+<ol class="arabic simple">
+<li><p>A <a class="reference internal" href="#nextpageentry">NextPageEntry</a> to the page <code class="docutils literal notranslate"><span class="pre">&quot;create_diameter&quot;</span></code></p></li>
+<li><p>An <a class="reference internal" href="#embeddedcommandpage">EmbeddedCommandPage</a> for execution of the ZEISS INSPECT command <code class="docutils literal notranslate"><span class="pre">comparison.create_multiple_surface_comparison_on_cad</span></code>.</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">minimal.json – NextPageEntry</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
 <span class="linenos"> 2</span><span class="w">  </span><span class="c1">// ...</span>
 <span class="linenos"> 3</span><span class="w">  </span><span class="nt">&quot;objects&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="linenos"> 4</span><span class="w">    </span><span class="c1">// ...</span>
 <span class="linenos"> 5</span><span class="w">    </span><span class="p">{</span>
-<span class="linenos"> 6</span><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MenuPage&quot;</span><span class="p">,</span>
-<span class="linenos"> 7</span><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;homepage&quot;</span><span class="p">,</span>
-<span class="linenos"> 8</span><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a minimal homepage&quot;</span><span class="p">,</span>
-<span class="linenos"> 9</span><span class="w">      </span><span class="nt">&quot;entries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="linenos">10</span><span class="w">        </span><span class="p">{</span>
-<span class="linenos">11</span><span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NextPageEntry&quot;</span><span class="p">,</span>
-<span class="linenos">12</span><span class="w">          </span><span class="nt">&quot;page&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;create_diameter&quot;</span>
-<span class="linenos">13</span><span class="w">        </span><span class="p">},</span>
-<span class="linenos">14</span><span class="w">        </span><span class="p">{</span>
-<span class="linenos">15</span><span class="w">          </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;EmbeddedCommandPage&quot;</span><span class="p">,</span>
-<span class="linenos">16</span><span class="w">          </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Custom description for command&quot;</span><span class="p">,</span>
-<span class="linenos">17</span><span class="w">          </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;comparison.create_multiple_surface_comparison_on_cad&quot;</span>
-<span class="linenos">18</span><span class="w">        </span><span class="p">}</span>
-<span class="linenos">19</span><span class="w">      </span><span class="p">]</span>
-<span class="linenos">20</span><span class="w">   </span><span class="p">},</span>
-<span class="linenos">21</span><span class="w">  </span><span class="c1">// ...  </span>
-<span class="linenos">22</span><span class="w">  </span><span class="p">]</span>
-<span class="linenos">23</span><span class="p">}</span>
+<span class="linenos"> 6</span><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NextPageEntry&quot;</span><span class="p">,</span>
+<span class="linenos"> 7</span><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Minimal example&quot;</span><span class="p">,</span>
+<span class="linenos"> 8</span><span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hook for example assistant&quot;</span><span class="p">,</span>
+<span class="linenos"> 9</span><span class="w">      </span><span class="nt">&quot;page&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;homepage&quot;</span><span class="p">,</span>
+<span class="linenos">10</span><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hook_for_inspect&quot;</span><span class="p">,</span>
+<span class="linenos">11</span><span class="w">      </span><span class="nt">&quot;position&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="linenos">12</span><span class="w">        </span><span class="nt">&quot;insert&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inspect/inspection_home&quot;</span><span class="p">,</span>
+<span class="linenos">13</span><span class="w">        </span><span class="nt">&quot;before&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="linenos">14</span><span class="w">      </span><span class="p">}</span>
+<span class="linenos">15</span><span class="w">    </span><span class="p">},</span>
+<span class="linenos">16</span><span class="w">    </span><span class="c1">// ...</span>
+<span class="linenos">17</span><span class="w">  </span><span class="p">]</span>
+<span class="linenos">18</span><span class="p">}</span>
 </pre></div>
 </div>
+</div>
+<figure class="align-default" id="id10">
+<img alt="NextPageEntry &quot;hook_for_inspect&quot;" class="bordered-figure" src="../../_images/minimal_example-1.png" />
+<figcaption>
+<p><span class="caption-text">NextPageEntry “hook_for_inspect”</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>A <a class="reference internal" href="#nextpageentry">NextPageEntry</a> with its elements <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;description&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;page&quot;</span></code> is defined (l. 6…8).</p>
+<p>To actually make a workflow element visible, its <code class="docutils literal notranslate"><span class="pre">&quot;position&quot;</span></code> has to be defined by inserting it as a menu entry at the desired location. In the example above, the entry is inserted after the <code class="docutils literal notranslate"><span class="pre">&quot;inspect&quot;</span></code> Workflow’s <code class="docutils literal notranslate"><span class="pre">&quot;inspection_home&quot;</span></code> page.</p>
+<p>(The <code class="docutils literal notranslate"><span class="pre">&quot;inspect&quot;</span></code> workflow is part of the ZEISS INSPECT System Apps. The alias we previously defined with <code class="docutils literal notranslate"><span class="pre">&quot;using&quot;</span></code> allows to reference it by name instead of ID.)</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>As an alternative to the <code class="docutils literal notranslate"><span class="pre">&quot;position&quot;</span></code> element, a workflow assistant can be made visible by adding a reference to one of its pages to a workspace definition.</p>
+<p>See <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/workspaces/assistant/assistant.json">AppExamples – WorkflowAssistants/workspaces/assistant/assistant.json</a> for an example.</p>
 </div>
 <figure class="align-default" id="id11">
 <img alt="MenuPage &quot;homepage&quot;" class="bordered-figure" src="../../_images/minimal_example-2.png" />
@@ -395,11 +411,7 @@ The element <code class="docutils literal notranslate"><span class="pre">&quot;o
 <p><span class="caption-text">MenuPage “homepage”</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The <a class="reference internal" href="#menupage">MenuPage</a> <code class="docutils literal notranslate"><span class="pre">&quot;homepage&quot;</span></code> provides two menu entries:</p>
-<ol class="arabic simple">
-<li><p>A <a class="reference internal" href="#nextpageentry">NextPageEntry</a> to the page <code class="docutils literal notranslate"><span class="pre">&quot;create_diameter&quot;</span></code></p></li>
-<li><p>An <a class="reference internal" href="#embeddedcommandpage">EmbeddedCommandPage</a> for execution of the ZEISS INSPECT command <code class="docutils literal notranslate"><span class="pre">comparison.create_multiple_surface_comparison_on_cad</span></code>.</p></li>
-</ol>
+<p>Clicking the NextPageEntry <code class="docutils literal notranslate"><span class="pre">&quot;Minimal</span> <span class="pre">example&quot;</span></code> leads to the MenuPage <code class="docutils literal notranslate"><span class="pre">&quot;homepage&quot;</span></code>.</p>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text">minimal.json – WizardPage “create_diameter”</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
@@ -441,7 +453,7 @@ The element <code class="docutils literal notranslate"><span class="pre">&quot;o
 <p><span class="caption-text">WizardPage “create_diameter” – Step 2</span><a class="headerlink" href="#id14" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The last object of our “Minimal example” is the <a class="reference internal" href="#wizardpage">WizardPage</a> <code class="docutils literal notranslate"><span class="pre">&quot;create_diameter&quot;</span></code>. Clicking this page leads to the two subsequent wizard steps, both of which are <a class="reference internal" href="#embeddedcommandstep">EmbeddedCommandSteps</a>. The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.</p>
+<p>The last object of our “Minimal example” is the <a class="reference internal" href="#wizardpage">WizardPage</a> <code class="docutils literal notranslate"><span class="pre">&quot;create_diameter&quot;</span></code>. This page contains two subsequent wizard steps, both of which are <a class="reference internal" href="#embeddedcommandstep">EmbeddedCommandSteps</a>. The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.</p>
 </section>
 <section id="workflow-assistant-json-format">
 <h2>Workflow assistant JSON format<a class="headerlink" href="#workflow-assistant-json-format" title="Link to this heading"></a></h2>
@@ -486,7 +498,7 @@ The element <code class="docutils literal notranslate"><span class="pre">&quot;o
 <dt>type (String)</dt><dd><p>Workflow assistant element type identifier<br />
 Examples: <code class="docutils literal notranslate"><span class="pre">&quot;type&quot;:</span> <span class="pre">&quot;MenuPage&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;type&quot;:</span> <span class="pre">&quot;NextPageEntry&quot;</span></code></p>
 </dd>
-<dt>id* (string)	label_menu</dt><dd><p>Reference ID of this object<br />
+<dt>id* (string)</dt><dd><p>Reference ID of this object<br />
 Example: <code class="docutils literal notranslate"><span class="pre">&quot;id&quot;:</span> <span class="pre">&quot;label_menu&quot;</span></code></p>
 </dd>
 <dt>name* (<a class="reference internal" href="#string-like-entry">String-like</a>)</dt><dd><p>General name of element, default: <code class="docutils literal notranslate"><span class="pre">&quot;&lt;Default</span> <span class="pre">name&gt;&quot;</span></code>
@@ -565,19 +577,10 @@ Example: <code class="docutils literal notranslate"><span class="pre">label_menu
 </section>
 <section id="commandentry">
 <h4>CommandEntry<a class="headerlink" href="#commandentry" title="Link to this heading"></a></h4>
-<p>A command entry allows to execute a command <em>without</em> a dialog.</p>
+<p>A command entry allows to execute a command. If the command has a dialog, this dialog will be embedded in the workflow assistant.</p>
 <dl class="simple myst">
-<dt>command (string)</dt><dd><p>Command to execute, usually <em>without</em> a dialog.<br />
+<dt>command (string)</dt><dd><p>Command to execute.<br />
 Example: <code class="docutils literal notranslate"><span class="pre">inspection.inspect_by_deviation_label</span></code></p>
-</dd>
-</dl>
-</section>
-<section id="embeddedcommandentry">
-<h4>EmbeddedCommandEntry<a class="headerlink" href="#embeddedcommandentry" title="Link to this heading"></a></h4>
-<p>An embedded command entry allows to execute a command <em>with</em> a dialog. The command dialog in embedded into the workflow assistant.</p>
-<dl class="simple myst">
-<dt>command (string)</dt><dd><p>Command to execute, usually <em>with</em> a dialog.<br />
-Example: <code class="docutils literal notranslate"><span class="pre">comparison.create_min_max_deviation_label</span></code></p>
 </dd>
 </dl>
 </section>
@@ -592,7 +595,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">comparison
 <p>One of the fields ‘command’ and/or ‘commands’ must exist.</p>
 </div>
 <dl class="simple myst">
-<dt>command (string)</dt><dd><p>Command to execute, usually without a dialog.<br />
+<dt>command (string)</dt><dd><p>Command to execute<br />
 Example: <code class="docutils literal notranslate"><span class="pre">inspection.inspect_by_deviation_label</span></code></p>
 </dd>
 <dt>commands (List of Objects)</dt><dd><p>Each object in the list can either be</p>
@@ -624,6 +627,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">&quot;info
 </section>
 <section id="advanced-entry-types">
 <h3>Advanced entry types<a class="headerlink" href="#advanced-entry-types" title="Link to this heading"></a></h3>
+<p>This section introduces some advanced data types for definition of strings and icons.</p>
 </section>
 <section id="string-like-entry">
 <h3>String-like entry<a class="headerlink" href="#string-like-entry" title="Link to this heading"></a></h3>
@@ -633,7 +637,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">&quot;info
 </section>
 <section id="translated-object">
 <h4>Translated (Object)<a class="headerlink" href="#translated-object" title="Link to this heading"></a></h4>
-<p>Runtime-translated string, based on build-system IDs.</p>
+<p>Runtime-translated string, based on xliff files located in the App’s <code class="docutils literal notranslate"><span class="pre">languages/</span></code> folder.</p>
 <dl class="simple myst">
 <dt>translate (boolean)</dt><dd><p>Translate the string at runtime</p>
 </dd>
@@ -685,6 +689,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">&quot;info
 <h2>Related<a class="headerlink" href="#related" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants">App Examples – WorkflowAssistants</a></p></li>
+<li><p><a href="../user_defined_dialogs/dialog_widgets.html#wizard-widget">Dialog widgets – Wizard widget</a></p></li>
 </ul>
 </section>
 </section>
@@ -711,7 +716,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">&quot;info
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f34af633700>
+  <jinja2.runtime.BlockReference object at 0x7feaad276190>
 
 
 </footer>
