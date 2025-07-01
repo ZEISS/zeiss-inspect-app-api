@@ -19,8 +19,7 @@ A workflow assistant can be composed of the following UI elements:
    There are four different types:
 
    * [NextPageEntry](#nextpageentry) &ndash; Leads to a new page.
-   * [CommandEntry](#commandentry) &ndash; Execute a command, usually without a dialog.
-   * [EmbeddedCommandEntry](#embeddedcommandentry) &ndash; Execute a command with its dialog embedded in the menu page.
+   * [CommandEntry](#commandentry) &ndash; Executes a command.
    * [AccordionEntry](#accordionentry) &ndash; Contains a list of menu entries which can be collapsed and expanded.
 
 ```{note}
@@ -30,7 +29,7 @@ The "breadcrumbs" at the top of the workflow assistant show the current position
 ```
 
 ```{note}
-The initial appearance of CommandEntry, EmbeddedCommandPage and WizardPage is identical, but differs during execution.\
+The initial appearance of EmbeddedCommandPage, WizardPage and CommandEntry is identical, but differs during execution.\
 The appearance of the NextPageEntry depends on its target's type.
 ```
 
@@ -131,7 +130,7 @@ The basic building blocks for the menu structure are:
 2. [NextPageEntry](#nextpageentry)
    * A menu entry that allows the user to navigate to another menu or wizard page
    * Uses 'name', 'icon' and 'description' of referenced page if not given explicitly.
-3. [EmbeddedCommandPage](#embeddedcommandentry)
+3. [CommandPage](#commandentry)
    * This is used to display a single command in the Workflow Assistant.
 4. [WizardPage](#wizardpage)
    * A page to show multiple commands as a sequence in a wizard layout.
