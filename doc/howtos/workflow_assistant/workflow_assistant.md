@@ -231,9 +231,7 @@ Our `"homepage"` is made reachable from the `inspect` workflow assistant page `"
 (The `"inspect"` workflow assistant is part of the ZEISS INSPECT System Apps. The alias we previously defined with `"using"` allows to reference it by name instead of ID.)
 
 ```{hint}
-Alternatively, you can set the workflow assistant for a custom workspace by referencing one of its pages in the workspace definition.
-
-See [AppExamples &ndash; WorkflowAssistants/workspaces/assistant/assistant.json](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/workspaces/assistant/assistant.json) for an example.
+Alternatively, you can add a reference to one of the workflow assistant pages in the definition of a <a href="../adding_workspaces_to_apps/adding_workspaces_to_apps.md">custom workspace</a>. See [AppExamples &ndash; WorkflowAssistants/workspaces/assistant/assistant.json](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/workspaces/assistant/assistant.json) for an example.
 ```
 
 ```{figure} assets/minimal_example-2.png
