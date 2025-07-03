@@ -5,21 +5,14 @@
 > Abstract: This section describes how to use Visual Studio Code as App editor with features like auto completion and Intellisense for ZEISS INSPECT API functions or
 > insertion of ZEISS INSPECT Elements.
 
-## Setup
+## Default setup
 
 ```{caution}
-This setup requires ZEISS INSPECT 2025 Service Pack 1 or newer!
+This setup requires ZEISS INSPECT 2025 Service Pack 3 or newer! See [Setup with separate Python installation](#setup-with-separate-python-installation) for an alternative.
 ```
 
-### Python installation
-
-Using VSCode as App editor requires an additional Python 3.9 installation. Follow the installation instructions of your local IT or
-download and install Python 3.9 from [www.python.org](https://www.python.org/).
-
-Install the zeiss-inspect-api Python wheel matching your ZEISS INSPECT version via command line:
-
-```
-python -m pip install zeiss-inspect-api==2025.*
+```{note}
+This setup uses the Python installation supplied with ZEISS INSPECT. This includes the [ZEISS INSPECT API Python wheel](https://pypi.org/project/zeiss-inspect-api/).
 ```
 
 ### ZEISS INSPECT configuration
@@ -74,17 +67,7 @@ Select Edit ► Preferences and navigate to Apps ► 'API configuration'.
 
     Copy the editor port from your ZEISS INSPECT preferences (see [ZEISS INSPECT configuration](#zeiss-inspect-configuration)).
 
-* Select the Python interpreter:
-
-  * From View ► 'Command Palette...' (`Ctrl+Shift+P`) choose 'Python: Select Interpreter'
-
-    Select the interpreter from your separate Python 3.9 installation (see [Python installation](#python-installation)). 
-
 ## Connect VSCode to ZEISS INSPECT
-
-```{caution}
-Your current VSCode workspace will be lost by connecting to ZEISS INSPECT. Save the workspace to a file if you still need it.
-```
 
 ![Status Bar: Host Disconnected](assets/connecting1.png)
 
@@ -92,10 +75,10 @@ Press 'Host: Disconnected' in the status bar. If connecting succeeded, the statu
 
 ![](assets/virtual_file_system-1.png)
 
-The Explorer now shows all Apps installed in ZEISS INSPECT in the section 'ZEISS INSPECT Apps 🔒' of the workspace. Apps in this section are read-only and can only be viewed. Apps in editing mode &ndash; 'CheckResultsDataArray' in the example above &ndash; are shown below this workspace section.
+The Explorer now shows all Apps installed in ZEISS INSPECT in the section 'ZEISS INSPECT Apps 🔒' of the workspace. Apps in this section are read-only and can only be viewed. Installed Apps in editing mode &ndash; 'CheckResultsDataArray' in the example above &ndash; and Apps in connected folders are shown below this workspace section.
 
 ```{note}
-You must use the ZEISS INSPECT App Explorer to switch Apps between finalized and editing mode!
+You must use the ZEISS INSPECT App Explorer to switch installed Apps between finalized and editing mode!
 ```
 
 ```{note}
@@ -108,7 +91,7 @@ You can work with Apps in editing mode as with any other source file.
 
 ![auto completion](assets/auto_completion.png)
 
-The auto completion for ZEISS INSPECT API functions is mainly based on the 'zeiss-inspect-api' Python wheel (see [Python installation](#python-installation)).
+The auto completion for ZEISS INSPECT API functions is mainly based on the  [ZEISS INSPECT API Python wheel](https://pypi.org/project/zeiss-inspect-api/).
 
 ```{important}
 You must import an API package into your source file to enable auto completion for it.
@@ -167,7 +150,7 @@ This opens the dialog in the ZEISS INSPECT Dialog Editor.
 ## Running and Debugging Python Apps
 
 ```{caution}
-Make sure that you have selected the right Python interpreter as described in [VSCode configuration](#vscode-configuration).
+In case of a [setup with separate Python installation](#setup-with-separate-python-installation): Make sure that you have selected the right Python interpreter.
 ```
 
 To run or debug a Python script in an App
@@ -194,6 +177,32 @@ A script can then be started by selecting this launch configuration right in the
 When debugging, the Python interpreter now runs directly in VSCode and the ZEISS INSPECT software is handled like a remote API. Thus, all Python debugging features can be used natively in VSCode.
 
 ![Debugging features](assets/debugging_features.png)
+
+## Setup with separate Python installation
+
+```{caution}
+This setup should only be used for ZEISS INSPECT 2025 Service Pack 1/2 or if you have to use a separate Python installation for any other reason!
+```
+
+1. Install Python
+
+   Follow the installation instructions of your local IT or download and install Python 3.9 from [www.python.org](https://www.python.org/).
+
+   Install the zeiss-inspect-api Python wheel matching your ZEISS INSPECT version via command line:
+
+   ```
+   python -m pip install zeiss-inspect-api==2025.*
+   ```
+
+2. See [ZEISS INSPECT configuration](#zeiss-inspect-configuration) 
+
+3. See [VSCode configuration](#vscode-configuration)
+
+4. Select the Python interpreter
+
+   From View ► 'Command Palette...' (`Ctrl+Shift+P`) choose 'Python: Select Interpreter'
+
+   Select the interpreter from your separate Python 3.9 installation (see [Python installation](#python-installation)).
 
 ## Related
 
