@@ -2035,14 +2035,14 @@ Behind the scenes, the calls are handled a bit different than regular script com
 calls to be able to build a component object at the end. In detail, the following rules
 apply:</p>
 <ul class="simple">
-<li><p>The order of elements must remain the same during object livetime. So no parameter or
+<li><p>The order of elements must remain the same during object lifetime. So no parameter or
 external condition may change the element order.</p></li>
-<li><p>The number of elements must remain the same during object livetime. No parameter or
+<li><p>The number of elements must remain the same during object lifetime. No parameter or
 condition may affect the number of created elements.</p></li>
 <li><p>There may not be other glue code commands in the sequence. Only creation commands are allowed
 here. In principle, other glue code is allowed, including API calls.</p></li>
 </ul>
-<p>These limilations are required because behind the scenes, the scripting engine processes the
+<p>These limitations are required because behind the scenes, the scripting engine processes the
 creation requests depending on the mode of sequence command execution:</p>
 <ul class="simple">
 <li><p>For a simple creation process (like a scripted sequence creation command), the command list is
@@ -4314,7 +4314,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fb9f8942ac0>
+  <jinja2.runtime.BlockReference object at 0x7f2ed3b0b8c0>
 
 
 </footer>
