@@ -1513,14 +1513,14 @@ Behind the scenes, the calls are handled a bit different than regular script com
 calls to be able to build a component object at the end. In detail, the following rules
 apply:
 
-- The order of elements must remain the same during object livetime. So no parameter or
+- The order of elements must remain the same during object lifetime. So no parameter or
   external condition may change the element order.
-- The number of elements must remain the same during object livetime. No parameter or
+- The number of elements must remain the same during object lifetime. No parameter or
   condition may affect the number of created elements.
 - There may not be other glue code commands in the sequence. Only creation commands are allowed
   here. In principle, other glue code is allowed, including API calls.
 
-These limilations are required because behind the scenes, the scripting engine processes the
+These limitations are required because behind the scenes, the scripting engine processes the
 creation requests depending on the mode of sequence command execution:
 
 - For a simple creation process (like a scripted sequence creation command), the command list is
