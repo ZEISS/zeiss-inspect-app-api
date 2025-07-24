@@ -747,6 +747,26 @@ The function can then react to that event and update the UI state accordingly.
 Wrapper function for calls to `event ()`. This function is called from the application side
 and will convert the event parameter accordingly
 
+#### gom.api.extensions.ScriptedElement.finish
+
+```{py:function} gom.api.extensions.ScriptedElement.finish(self: Any, context: Any, results_states_map: Any): None
+
+:return: results_states_map
+:rtype: None
+```
+
+This function is called to compile diagram data. It can then later be collected by
+scripted diagrams and displayed. 
+
+The default option is to simply pass the results and states,
+so this function must be overwritten to utilize other diagrams.
+
+Example:
+diagram_data = []
+self.add_diagram_data(diagram_data=diagram_data, diagram_id="SVGDiagram",
+                      service_id="gom.api.endpoint.example.py", element_data=results_states_map["results"][0])
+results_states_map["diagram_data"] = diagram_data
+
 #### gom.api.extensions.ScriptedElement.initialize_dialog
 
 ```{py:function} gom.api.extensions.ScriptedElement.initialize_dialog(self: Any, context: Any, dlg: Any, args: Any): bool
@@ -876,7 +896,7 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 ```
 {
-    "point": (x: float, y: float, z: float),     // Base point of the cylinder
+    "center": (x: float, y: float, z: float),    // Center point of the cylinder
     "direction": (x: float, y: float, z: float), // Direction of the cylinder
     "radius": r: float,                          // Radius of the cylinder
     "data": {...}                                // Optional element data, stored with the element
@@ -907,8 +927,8 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 ```
 {
-    "normal": (x: float, y: float, z: float), // Normal of the plane
-    "distance": d: float,                     // Distance of the plane
+    "normal": (x: float, y: float, z: float), // Normal direction of the plane
+    "point": (x: float, y: float, z: float),  // One point of the plane
     "data": {...}                             // Optional element data, stored with the element        
 }
 ```
@@ -917,9 +937,10 @@ or
 
 ```
 {
-    "target": plane: Plane,  // Source plane point of this plane
-    "offset": offset: float, // Offset relative to the source plane
-    "data": {...}            // Optional element data, stored with the element        
+    "point1": (x: float, y: float, z: float), // Point 1 of the plane
+    "point2": (x: float, y: float, z: float), // Point 2 of the plane
+    "point3": (x: float, y: float, z: float), // Point 3 of the plane
+    "data": {...}                             // Optional element data, stored with the element        
 }
 ```
 
@@ -927,7 +948,7 @@ or
 
 ```
 {
-    "plane": Reference, // Reference to another plane element of coordinate system
+    "plane": Reference, // Reference to another plane element
     "data": {...}       // Optional element data, stored with the element
 
 }
@@ -1492,14 +1513,14 @@ Behind the scenes, the calls are handled a bit different than regular script com
 calls to be able to build a component object at the end. In detail, the following rules
 apply:
 
-- The order of elements must remain the same during object livetime. So no parameter or
+- The order of elements must remain the same during object lifetime. So no parameter or
   external condition may change the element order.
-- The number of elements must remain the same during object livetime. No parameter or
+- The number of elements must remain the same during object lifetime. No parameter or
   condition may affect the number of created elements.
 - There may not be other glue code commands in the sequence. Only creation commands are allowed
   here. In principle, other glue code is allowed, including API calls.
 
-These limilations are required because behind the scenes, the scripting engine processes the
+These limitations are required because behind the scenes, the scripting engine processes the
 creation requests depending on the mode of sequence command execution:
 
 - For a simple creation process (like a scripted sequence creation command), the command list is
@@ -2670,7 +2691,7 @@ elements. Please see the scripted element documentation for details about the un
 API for handling scripted elements
 
 This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, ...)
-It is used mostly internal by the scripted element framework.
+It is used mostly internally by the scripted element framework.
 
 ### gom.api.scriptedelements.get_inspection_definition
 
