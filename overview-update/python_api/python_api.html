@@ -75,7 +75,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">How-to Guides – Expert</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../howtos/user_defined_dialogs/creating_wizard_dialogs.html">Creating wizard dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/user_defined_dialogs/wizard_control.html">Wizard widget control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos/user_defined_dialogs/creating_wizard_dialogs.html">Creating wizard dialogs (deprecated)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_gui_libraries/using_gui_libraries.html">Using an additional Python GUI library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_shared_environments/using_shared_environments.html">Using shared environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../howtos/using_wheelhouses/using_wheelhouses.html">Using Python wheelhouses</a></li>
@@ -148,6 +149,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-dialog">gom.api.extensions.ScriptedElement.dialog</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id1">gom.api.extensions.ScriptedElement.event</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-event-handler">gom.api.extensions.ScriptedElement.event_handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-finish">gom.api.extensions.ScriptedElement.finish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-initialize-dialog">gom.api.extensions.ScriptedElement.initialize_dialog</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-is-visible">gom.api.extensions.ScriptedElement.is_visible</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-show-dialog">gom.api.extensions.ScriptedElement.show_dialog</a></li>
@@ -1347,6 +1349,31 @@ The function can then react to that event and update the UI state accordingly.</
 <p>Wrapper function for calls to <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">()</span></code>. This function is called from the application side
 and will convert the event parameter accordingly</p>
 </section>
+<section id="gom-api-extensions-scriptedelement-finish">
+<h4>gom.api.extensions.ScriptedElement.finish<a class="headerlink" href="#gom-api-extensions-scriptedelement-finish" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.finish(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">results_states_map:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>results_states_map</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function is called to compile diagram data. It can then later be collected by
+scripted diagrams and displayed.</p>
+<p>The default option is to simply pass the results and states,
+so this function must be overwritten to utilize other diagrams.</p>
+<p>Example:
+diagram_data = []
+self.add_diagram_data(diagram_data=diagram_data, diagram_id=”SVGDiagram”,
+service_id=”gom.api.endpoint.example.py”, element_data=results_states_map[“results”][0])
+results_states_map[“diagram_data”] = diagram_data</p>
+</section>
 <section id="gom-api-extensions-scriptedelement-initialize-dialog">
 <h4>gom.api.extensions.ScriptedElement.initialize_dialog<a class="headerlink" href="#gom-api-extensions-scriptedelement-initialize-dialog" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -1475,7 +1502,7 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <p>Scripted actual cylinder element</p>
 <p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;point&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span>     <span class="o">//</span> <span class="n">Base</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cylinder</span>
+    <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span>    <span class="o">//</span> <span class="n">Center</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cylinder</span>
     <span class="s2">&quot;direction&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Direction</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cylinder</span>
     <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                          <span class="o">//</span> <span class="n">Radius</span> <span class="n">of</span> <span class="n">the</span> <span class="n">cylinder</span>
     <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>
@@ -1500,23 +1527,24 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <p>Scripted actual plane element</p>
 <p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;normal&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Normal</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
-    <span class="s2">&quot;distance&quot;</span><span class="p">:</span> <span class="n">d</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                     <span class="o">//</span> <span class="n">Distance</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
+    <span class="s2">&quot;normal&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Normal</span> <span class="n">direction</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
+    <span class="s2">&quot;point&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span>  <span class="o">//</span> <span class="n">One</span> <span class="n">point</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
     <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                             <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>or</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="n">plane</span><span class="p">:</span> <span class="n">Plane</span><span class="p">,</span>  <span class="o">//</span> <span class="n">Source</span> <span class="n">plane</span> <span class="n">point</span> <span class="n">of</span> <span class="n">this</span> <span class="n">plane</span>
-    <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">//</span> <span class="n">Offset</span> <span class="n">relative</span> <span class="n">to</span> <span class="n">the</span> <span class="n">source</span> <span class="n">plane</span>
-    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>            <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
+    <span class="s2">&quot;point1&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Point</span> <span class="mi">1</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
+    <span class="s2">&quot;point2&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Point</span> <span class="mi">2</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
+    <span class="s2">&quot;point3&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">//</span> <span class="n">Point</span> <span class="mi">3</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plane</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                             <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>or</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;plane&quot;</span><span class="p">:</span> <span class="n">Reference</span><span class="p">,</span> <span class="o">//</span> <span class="n">Reference</span> <span class="n">to</span> <span class="n">another</span> <span class="n">plane</span> <span class="n">element</span> <span class="n">of</span> <span class="n">coordinate</span> <span class="n">system</span>
+    <span class="s2">&quot;plane&quot;</span><span class="p">:</span> <span class="n">Reference</span><span class="p">,</span> <span class="o">//</span> <span class="n">Reference</span> <span class="n">to</span> <span class="n">another</span> <span class="n">plane</span> <span class="n">element</span>
     <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>       <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>
 
 <span class="p">}</span>
@@ -2007,14 +2035,14 @@ Behind the scenes, the calls are handled a bit different than regular script com
 calls to be able to build a component object at the end. In detail, the following rules
 apply:</p>
 <ul class="simple">
-<li><p>The order of elements must remain the same during object livetime. So no parameter or
+<li><p>The order of elements must remain the same during object lifetime. So no parameter or
 external condition may change the element order.</p></li>
-<li><p>The number of elements must remain the same during object livetime. No parameter or
+<li><p>The number of elements must remain the same during object lifetime. No parameter or
 condition may affect the number of created elements.</p></li>
 <li><p>There may not be other glue code commands in the sequence. Only creation commands are allowed
 here. In principle, other glue code is allowed, including API calls.</p></li>
 </ul>
-<p>These limilations are required because behind the scenes, the scripting engine processes the
+<p>These limitations are required because behind the scenes, the scripting engine processes the
 creation requests depending on the mode of sequence command execution:</p>
 <ul class="simple">
 <li><p>For a simple creation process (like a scripted sequence creation command), the command list is
@@ -3595,7 +3623,7 @@ elements. Please see the scripted element documentation for details about the un
 <h2>gom.api.scriptedelements<a class="headerlink" href="#gom-api-scriptedelements" title="Link to this heading"></a></h2>
 <p>API for handling scripted elements</p>
 <p>This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, …)
-It is used mostly internal by the scripted element framework.</p>
+It is used mostly internally by the scripted element framework.</p>
 <section id="gom-api-scriptedelements-get-inspection-definition">
 <h3>gom.api.scriptedelements.get_inspection_definition<a class="headerlink" href="#gom-api-scriptedelements-get-inspection-definition" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -4286,7 +4314,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fca91e1cfa0>
+  <jinja2.runtime.BlockReference object at 0x7f6716ac7a80>
 
 
 </footer>
