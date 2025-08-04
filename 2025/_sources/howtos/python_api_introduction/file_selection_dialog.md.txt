@@ -58,7 +58,7 @@ If the dialog is cancelled, a `RequestError` exception is thrown.
 ## Example
 
 ```{code-block} python
-file=gom.script.sys.choose_file_draft (
+file=gom.script.sys.choose_file (
 	file_types=[['*.zxml', 'ZEISS INSPECT exchange'], ['*.gxml', 'ZEISS INSPECT exchange']], 
 	file_types_default='*.zxml', 
 	file='C:/temp/Test.zxml', 
