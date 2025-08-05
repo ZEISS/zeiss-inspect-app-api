@@ -15,6 +15,7 @@ myst:
    :title: ZEISS INSPECT 2025 App Python API News
    :link: https://zeiss.github.io/zeiss-inspect-app-api/2025/
 
+   20250804-workflow-assistant
    20250516-update-vscode
    20250123-gom-math
    20250106-app-doc-link
