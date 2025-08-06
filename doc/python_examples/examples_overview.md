@@ -211,7 +211,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <hr class="small-margin">
 <section id="csvexample">
 <div id="csvexample" class="example-block-odd">
-<h3>CSVExample — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/CSVExample/doc/Documentation.md">view</a> 
+<h3>CSVExample — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/CSVExample/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/csv-example">download</a>
 <a class="headerlink" href="#csvexample" title="Link to this heading"></a></h3>
 
 
@@ -472,7 +472,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="settingsapi">
 <div id="settingsapi" class="example-block-even">
-<h3>SettingsAPI — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/SettingsAPI/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/settings-a-p-i">download</a>
+<h3>SettingsAPI — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/SettingsAPI/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/settings-api">download</a>
 <a class="headerlink" href="#settingsapi" title="Link to this heading"></a></h3>
 
 
@@ -1007,7 +1007,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="trimeshdeformmesh">
 <div id="trimeshdeformmesh" class="example-block-even">
-<h3>TrimeshDeformMesh — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_actuals/TrimeshDeformMesh/doc/Documentation.md">view</a> 
+<h3>TrimeshDeformMesh — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_actuals/TrimeshDeformMesh/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/trimesh-deform-mesh">download</a>
 <a class="headerlink" href="#trimeshdeformmesh" title="Link to this heading"></a></h3>
 
 
