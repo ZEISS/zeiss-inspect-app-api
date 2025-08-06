@@ -54,7 +54,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id11">![Static Badge](https://img.shields.io/badge/element--properties-blue)</a> <a href="#id10">![Static Badge](https://img.shields.io/badge/element--data-blue)</a> 
+    <a href="#element-data">![Static Badge](https://img.shields.io/badge/element--properties-blue)</a> <a href="#id10">![Static Badge](https://img.shields.io/badge/element--data-blue)</a> 
 
 </div>
 
@@ -79,7 +79,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     ZEISS INSPECT 2023
 
 :Tags:
-    <a href="#id25">![Static Badge](https://img.shields.io/badge/reference--points-blue)</a> <a href="#id19">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#id17">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
+    <a href="#reference-points">![Static Badge](https://img.shields.io/badge/reference--points-blue)</a> <a href="#mesh">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#measurement">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
 
 </div>
 
