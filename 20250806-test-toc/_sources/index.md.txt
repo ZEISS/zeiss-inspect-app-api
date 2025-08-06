@@ -131,7 +131,7 @@ If you already know how to create an App and now you are interested in Python pr
 
 ```{eval-rst}
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 0
    :caption: Python API Examples
 
    python_examples/index
