@@ -3905,19 +3905,19 @@ have been stopped.</p>
 </section>
 <section id="gom-api-settings">
 <h2>gom.api.settings<a class="headerlink" href="#gom-api-settings" title="Link to this heading"></a></h2>
-<p>API for storing add-on related settings persistently</p>
+<p>API for storing app related settings persistently</p>
 <p>This API allows reading/writing values into the application configuration permanently. The
 configuration is persistent and will survive application restarts. Also, it can be accessed
 via the applications preferences dialog.</p>
-<p>The configuration entries must be defined in the add-ons <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file. This configuration
+<p>The configuration entries must be defined in the app’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file. This configuration
 defined the available keys, the entry types and the entry properties. If the entry type can be
-represented by some widget, the setting entry will also be present in the applications ‘preferences’
+represented by some widget, the setting entry will also be present in the application’s ‘preferences’
 dialog and can be adapted interactively there.</p>
 <section id="id4">
 <h3>Example<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Settings API example&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Example add-on demonstrating usage of the settings API&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Example app demonstrating usage of the settings API&quot;</span><span class="p">,</span>
   <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;3b515488-aa7b-4035-85e1-b9509db8af4f&quot;</span><span class="p">,</span>
   <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.2&quot;</span><span class="p">,</span>
   <span class="s2">&quot;settings&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -3974,8 +3974,8 @@ dialog and can be adapted interactively there.</p>
  <span class="p">}</span>
 </pre></div>
 </div>
-<p>This will lead to configuration entries in the applications preferences. Given that the <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> is
-part of an add-on called ‘Settings API Example’, the application preferences will contain the following items
+<p>This will lead to configuration entries in the application’s preferences. Given that the <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> is
+part of an app called ‘Settings API Example’, the application preferences will contain the following items
 (visible setting entries only):</p>
 <p><img alt="Settings level 1" src="../_images/settings_api_preferences_1.png" /></p>
 <p><img alt="Settings level 2" src="../_images/settings_api_preferences_2.png" /></p>
@@ -4014,7 +4014,7 @@ attribute determines what kind of files or directories can be selected.</p>
 <dd class="field-odd"><p>1</p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>key</strong> (<em>str</em>) – Configuration key. Must be a key as defined in the add-ons <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p>
+<dd class="field-even"><p><strong>key</strong> (<em>str</em>) – Configuration key. Must be a key as defined in the app’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Configuration value for that key</p>
@@ -4038,13 +4038,13 @@ are integer, double, string and bool.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.settings.list():</span> <span class="pre">list[str]</span></span></dt>
-<dd><p>List all available keys for the current add-on</p>
+<dd><p>List all available keys for the current app</p>
 <dl class="myst field-list simple">
 <dt class="field-odd">API version<span class="colon">:</span></dt>
 <dd class="field-odd"><p>1</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>List of all the keys in the settings which belong to the current add-on</p>
+<dd class="field-even"><p>List of all the keys in the settings which belong to the current app</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list[str]</p>
@@ -4052,8 +4052,8 @@ are integer, double, string and bool.</p>
 </dl>
 </dd></dl>
 
-<p>This function returns a list of all available keys in the settings for the current add-on.
-These keys are the same configuration keys are used in the <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file of that add-on.</p>
+<p>This function returns a list of all available keys in the settings for the current app.
+These keys are the same configuration keys are used in the <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file of that app.</p>
 </section>
 <section id="gom-api-settings-set">
 <h3>gom.api.settings.set<a class="headerlink" href="#gom-api-settings-set" title="Link to this heading"></a></h3>
@@ -4067,7 +4067,7 @@ These keys are the same configuration keys are used in the <code class="docutils
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>key</strong> (<em>str</em>) – Configuration key. Must be a key as defined in the add-ons <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – Configuration key. Must be a key as defined in the app’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p></li>
 <li><p><strong>value</strong> (<em>Any</em>) – Value to be written</p></li>
 </ul>
 </dd>
@@ -4315,7 +4315,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fb373a0bd20>
+  <jinja2.runtime.BlockReference object at 0x7fa5702d39a0>
 
 
 </footer>
