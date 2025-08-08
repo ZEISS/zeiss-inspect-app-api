@@ -347,6 +347,7 @@ Examples: `"type": "MenuPage"`, `"type": "NextPageEntry"`
 
 id* (String)
 : Reference ID of this object\
+For pages the id is not optional and it is also a good idea to provide an id for menu entries that might be referenced by another definition.\
 Example: `"id": "label_menu"`
 
 name* ([String-like](#string-like-entry))	
