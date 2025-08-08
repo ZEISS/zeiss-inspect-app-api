@@ -188,6 +188,10 @@ The [MenuPage](#menupage) `"homepage"` provides two menu entries:
 1. A [NextPageEntry](#nextpageentry) to the page `"create_diameter"`
 2. An [EmbeddedCommandPage](#embeddedcommandpage) for execution of the ZEISS INSPECT command `comparison.create_multiple_surface_comparison_on_cad`
 
+```{note}
+The EmbeddedCommandPage is defined directly inside of the MenuPage, in place of a NextPageEntry pointing to it. The NextPageEntry is created implicitly. It will not have any title, description, or icon, but NextPageEntries actually take these from the page they point to if they don't have their own, so we can just add them to the page instead.
+```
+
 ```{code-block} json
 :caption: minimal.json &ndash; NextPageEntry
 :linenos:
