@@ -2,36 +2,25 @@
 
 > Abstract:  The **Workflow Assistant** helps you to find the most important functions for a specific measuring or inspection tasks. It can help you access the most frequently used functions faster. By default, you find the tab **Workflow Assistant** in the right docking area next to the tab **Properties** (see [Tech Guide &ndash; Workflow Assistant](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/view_workflow_assistant.html)).
 
-## User interface
+## Workflow Assistant Object Types
 
-The Workflow Assistant can be composed of the following UI elements:
+The Workflow Assistant is build out Workflow Assistant objects of different types, which can be categorized like this:
 
-1. [Pages](#pages) &ndash; A page is a container for other Workflow Assistant objects.
-
-   There are three different page types:
+1. [Pages](#pages) &ndash; A page defines the main body of the Workflow Assistant. There is always exactly one active page. It may contain other Workflow Assistant objects. 
    
    * [MenuPage](#menupage) &ndash; Shows a list of [Menu Entries](#menu-entries).
    * [WizardPage](#wizardpage) &ndash; Contains a list of [Wizard Steps](#wizard-steps), which are executed sequentially.
    * [EmbeddedCommandPage](#embeddedcommandpage) &ndash; Contains an embedded command dialog.
 
-2. [Menu Entries](#menu-entries)
-
-   There are four different types:
+2. [Menu Entries](#menu-entries) &ndash; Define the layout of a [MenuPage](#menupage).
 
    * [NextPageEntry](#nextpageentry) &ndash; Leads to a new page.
    * [CommandEntry](#commandentry) &ndash; Executes a command.
    * [AccordionEntry](#accordionentry) &ndash; Contains a list of [Menu Entries](#menu-entries) which can be collapsed and expanded.
 
-```{note}
-![Breacrumbs](assets/breadcrumbs.png)
+3. [Wizard Steps](#wizard-steps) &ndash; Define the steps of a [WizardPage](#wizardpage)
 
-The "breadcrumbs" at the top of the Workflow Assistant show the current position in the menu structure.
-```
-
-```{note}
-The initial appearance of EmbeddedCommandPage, WizardPage and CommandEntry is identical, but differs during execution.\
-The appearance of a NextPageEntry depends on the type of page it points to.
-```
+   * [EmbeddedCommandStep](#embeddedcommandstep) &ndash; Contains one or more embedded command dialogs as a step.
 
 ### Example
 
@@ -39,32 +28,36 @@ The ZEISS INSPECT built-in Workflow Assistant definition for the **Inspection** 
 
 #### 1. MenuPage
 
-```{figure} assets/menupage.png
+```{figure} assets/assets/inspection_digitize-inspection.png
 :alt: MenuPage
 :class: bordered-figure
 
-Inspection Workspace Workflow Assistant &ndash; MenuPage
+Inspection Workspace Workflow Assistant &ndash; "Start" MenuPage
 ```
 
-This MenuPage consists of the entries "First steps" (AccordionEntry), "Inspection" (MenuPage) and "Reports" (AccordionEntry).
-
-#### 2. WizardPage
-
-```{figure} assets/inspection_digitize-inspection.png
-:alt: MenuPage
-:class: bordered-figure
-
-Select "Inspection"
-```
+This MenuPage consists of the entries "First steps" (AccordionEntry), "Inspection" (NextPageEntry) and "Reports" (AccordionEntry).
 
 ```{figure} assets/inspection-basic_inspections-diameter_inspections.png
 :alt: MenuPage
 :class: bordered-figure
 
-"Inspection" MenuPage &ndash; Select Basic Inspections ► Diameter Inspections
+"Inspection" MenuPage &ndash; "Inspection" MenuPage
 ```
 
-Selecting "Basic Inspections" leads to "Diameter Inspections", "Distance Inspections" and "Angle Inspections". 
+Expanding "Basic Inspections" (AccordionEntry) leads to "Diameter Inspections" (NextPageEntry), "Distance Inspections" (NextPageEntry) and "Angle Inspections" (NextPageEntry). 
+
+```{note}
+The appearance of a NextPageEntry depends on the type of page it points to.\
+The "Inspection" NextPageEntry points to a MenuPage and has a right arrow, while the "Diameter Inspections" NextPageEntry points to a WizardPage and has a "Star" button, because it stats a Workflow.
+```
+
+```{note}
+![Breacrumbs](assets/breadcrumbs.png)
+
+The "breadcrumbs" at the top of the Workflow Assistant show the current position in the menu structure. They can also be clicked to navigate back.
+```
+
+#### 2. WizardPage
 
 ```{figure} assets/wizard1-construct.png
 :alt: MenuPage
