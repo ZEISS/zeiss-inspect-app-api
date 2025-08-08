@@ -350,7 +350,8 @@ id* (String)
 Example: `"id": "label_menu"`
 
 name* ([String-like](#string-like-entry))	
-: General name of object, default: `"<Default name>"`
+: General name of object, default: `"<Default name>"`\
+Use `**"<home>"**` to as the name for the home page of a workspace. It will translate automatically (to `"Start"` in english and german).\
 Example: `"name": "Object 1"` 
 
 description* ([String-like](#string-like-entry))
