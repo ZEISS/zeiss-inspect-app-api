@@ -459,7 +459,7 @@ commands (List of Objects)
 Example: `[ commandA, commandB ]`
 
 interactive* (boolean)
-: Defines whether to execute the command in interactive mode. Must be set to `False` for executing a user script, otherwise the dialog will be closed immediately. (Default: True)
+: Defines whether to execute the command in interactive mode. Must be set to `False` for executing a user script, otherwise the dialog will be closed immediately. (Default: False)
 
 info* ([String-like](#string-like-entry))
 : Descriptive info text for this wizard step\
