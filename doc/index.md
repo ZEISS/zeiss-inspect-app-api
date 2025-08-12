@@ -25,9 +25,9 @@ Or, depending on your application, you might be interested in the specific artic
 ```
 If you are new to Apps, you find some introductions in the ZEISS Quality Tech Guide:
 
-* [Introduction to Add-ons](https://techguide.zeiss.com/en/zeiss-inspect-2023/article/introduction_to_add-ons.html)
-* [How to Create a Basic Add-on](https://techguide.zeiss.com/en/zeiss-inspect-2023/article/how_to_create_a_basic_add_on.html)
-* [How to Create an Advanced Add-on](https://techguide.zeiss.com/en/zeiss-inspect-2023/article/how_to_create_an_advanced_add_on.html)
+* [Introduction to Apps](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/introduction_to_add-ons.html)
+* [How to Create a Basic App](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/how_to_create_a_basic_add_on.html)
+* [How to Create an Advanced App](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/how_to_create_an_advanced_add_on.html)
 
 Check out the ZEISS INSPECT Apps news page!
 
