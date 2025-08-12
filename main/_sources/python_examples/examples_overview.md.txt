@@ -87,7 +87,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="volumesectionimagedata">
 <div id="volumesectionimagedata" class="example-block-odd">
-<h3>VolumeSectionImageData — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/VolumeSectionImageData/doc/Documentation.md">view</a> 
+<h3>VolumeSectionImageData — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/VolumeSectionImageData/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/volume-section-image-data">download</a>
 <a class="headerlink" href="#volumesectionimagedata" title="Link to this heading"></a></h3>
 
 
@@ -535,7 +535,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="workflowassistants">
 <div id="workflowassistants" class="example-block-odd">
-<h3>WorkflowAssistants — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/doc/Documentation.md">view</a> 
+<h3>WorkflowAssistants — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/workflow-assistants">download</a>
 <a class="headerlink" href="#workflowassistants" title="Link to this heading"></a></h3>
 
 
@@ -963,7 +963,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <section id="scriptedactualvolumesection">
 <div id="scriptedactualvolumesection" class="example-block-even">
-<h3>ScriptedActualVolumeSection — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_actuals/ScriptedActualVolumeSection/doc/Documentation.md">view</a> 
+<h3>ScriptedActualVolumeSection — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_actuals/ScriptedActualVolumeSection/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/scripted-actual-volume-section">download</a>
 <a class="headerlink" href="#scriptedactualvolumesection" title="Link to this heading"></a></h3>
 
 
