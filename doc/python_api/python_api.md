@@ -567,6 +567,14 @@ The category of an element type is used to find the application side counterpart
 functionality implementation. For example, `scriptedelement.actual` links that element type the application
 counterpart which cares for scripted actual elements and handles its creation, editing, administration, ...
 
+#### gom.api.extensions.ScriptedElement.Attribute
+
+
+Attributes used in the dialog definition
+
+The attributes are used to define the dialog widgets and their behavior. A selected set of these
+attributes are listed here as a central reference and for unified constant value access.
+
 #### gom.api.extensions.ScriptedElement.Event
 
 
@@ -574,6 +582,14 @@ Event types passed to the `event ()` function
 
 - `DIALOG_INITIALIZE`: Sent when the dialog has been initialized and made visible
 - `DIALOG_CHANGED`:    A dialog widget value changed
+
+#### gom.api.extensions.ScriptedElement.WidgetType
+
+
+(Selected) widget types used in the dialog definition
+
+The widget types are used to define the dialog widgets and their behavior. A selected set of these
+widget types are listed here as a central reference and for unified constant value access.
 
 #### gom.api.extensions.ScriptedElement.__init__
 
@@ -608,7 +624,14 @@ in the service log file. It is used to forward errors from the C++ side to the P
 
 #### gom.api.extensions.ScriptedElement.apply_dialog
 
-```{py:function} gom.api.extensions.ScriptedElement.apply_dialog(self: Any, args: Any, values: Any): None
+```{py:function} gom.api.extensions.ScriptedElement.apply_dialog(self: Any, dlg: Any, result: Any): None
+
+:param dlg: Dialog handle as created via the `gom.api.dialog.create ()` function
+:type dlg: Any
+:param result: Dialog result values as returned from the `gom.api.dialog.show ()` function.
+:type result: Any
+:return: Resulting dialog parameters
+:rtype: None
 ```
 
 Apply dialog values to the dialog arguments. This function is used to read the dialog values
@@ -671,7 +694,7 @@ The dialog arguments are passed as a JSON like map structure. The format is as f
 ```
 {
     "version": 1,
-    "name": "Element name",
+    "name": "Element 1",
     "values: {
         "widget1": value1,
         "widget2": value2
@@ -682,10 +705,13 @@ The dialog arguments are passed as a JSON like map structure. The format is as f
 
 - `version`: Version of the dialog structure. This is used to allow for future changes in the dialog
              structure without breaking existing scripts
-- `name`:    Human readable name of the element which is created or edited
+- `name`:    Human readable name of the element which is created or edited. This entry is inserted automatically
+             from the dialog widget if two conditions are met: The name of the dialog widget is 'name' and its
+             type is 'Element name'. So in principle, the dialog must be setup to contain an 'Element name' widget
+             named 'name' in an appropriate layout location and the rest then happens automatically.
 - `values`:  A map of widget names and their initial values. The widget names are the keys and the values
              are the initial or edited values for the widgets. This map is always present, but can be empty
-             for newly created elements. The element names are matching those in the user defined dialog, so
+             for newly created elements. The keys are matching the widget names in the user defined dialog, so
              the values can be set accordingly. As a default, use the function `initialize_dialog (args)` to
              setup all widgets from the args values.
 
@@ -696,8 +722,7 @@ and read back the generated values. So a typical dialog function will look like 
 def dialog (self, context, args):
     dlg = gom.api.dialog.create ('/dialogs/create_element.gdlg')
     self.initialize_dialog (dlg, args)
-    result = gom.api.dialog.show (dlg)
-    args = self.apply_dialog (args, gom.api.dialog.show (dlg))
+    args = self.apply_dialog (dlg, gom.api.dialog.show (dlg))
     return args
 ```
 
@@ -731,7 +756,8 @@ def dialog (self, context, args):
 :type context: Any
 :param event_type: Event type
 :type event_type: Any
-:param args: Event arguments
+:param parameters: Event arguments
+:type parameters: Any
 :return: `True` if the event requires a recomputation of the elements preview. Upon return, the framework will then trigger a call to the `compute ()` function and use its result for a preview update. In the case of `False`, no recomputation is triggered and the preview remains unchanged.
 :rtype: None
 ```
@@ -745,7 +771,7 @@ The function can then react to that event and update the UI state accordingly.
 ```
 
 Wrapper function for calls to `event ()`. This function is called from the application side
-and will convert the event parameter accordingly
+and will convert the event parameters accordingly
 
 #### gom.api.extensions.ScriptedElement.finish
 
@@ -819,7 +845,7 @@ This function is a shortcut for the following code:
 dlg = gom.api.dialog.create(context, url)   # Create dialog and return a handle to it
 self.initialize_dialog(context, dlg, args)  # Initialize the dialog with the given arguments
 result = gom.api.dialog.show(context, dlg)  # Show dialog and enter the dialog loop
-return self.apply_dialog(args, result)      # Apply the final dialog values
+return self.apply_dialog(dlg, result)      # Apply the final dialog values
 ```
 
 ### gom.api.extensions.actuals
@@ -1145,8 +1171,6 @@ The expected parameters from the elements `compute ()` function is a map with th
      ...or alternatively...
     "nominal_value": float,        // Alternative: Single common nominal value
     "target_element": gom.Item,    // Inspected element
-    "unit": str,                   // Unit of the inspection value
-    "abbreviation": str,           // Abbreviation of the inspection type as shown in labels etc.
     "data": {...}                  // Optional element data, stored with the element    
 }
 ```
@@ -1163,8 +1187,6 @@ The expected parameters from the element's `compute ()` function is a map with t
     "nominal": float,           // Nominal value
     "actual": float,            // Actual value
     "target_element": gom.Item, // Inspected element
-    "unit": str,                // Unit of the inspection value
-    "abbreviation": str,        // Abbreviation of the inspection type as shown in labels etc.
     "data": {...}               // Optional element data, stored with the element        
 }
 ```
@@ -1184,13 +1206,29 @@ This class is the base class for all scripted inspections
 :type description: str
 :param element_type: Type of the generated element (inspection.scalar, inspection.surface, ...)
 :type element_type: str
-:param unit: Unit of the inspection value
+:param unit: Unit of the inspection value. See above for detailed explanation.
 :type unit: str
 :param abbreviation: Abbreviation of the inspection type as shown in labels etc.
 :type abbreviation: str
 ```
 
 Constructor
+
+*Unit*:
+
+The `unit` parameter must be an identifier which matches the internal unit class. These unit classes are ids like
+`length`, `time`, ``temp`, `angle`, `force`, `pressure`, `power`, ... and many more. Because the available unit classes
+can change from version to version, it is advised to use the `gom.api.scriptedelements.get_units ()` function to get a
+current list of all available units via a script.
+
+Please note that setting a non default unit class can lead to a transformed output value. For example, if the unit class "angle"
+is used, the internal expected unit of angle is "radian" in the range [-pi, pi]. As the displayed unit for that unit class,
+set in the preferences, is usually "degree", the output value will be transformed to the range [-180, 180]. This happens
+automatically in labels, tables, reports etc.  
+
+*Abbreviation*:
+
+The `abbreviation` parameter is a short string which is used to identify the inspection type in labels, menus, etc.                
 
 #### gom.api.extensions.inspections.Surface
 
@@ -1204,8 +1242,6 @@ The expected parameters from the element's `compute ()` function is a map with t
     "deviation_values": [v: float, v: float, ...] // Deviations
     "nominal": float,                             // Nominal value
     "target_element": gom.Item,                   // Inspected element
-    "unit": str,                                  // Unit of the inspection value
-    "abbreviation": str,                          // Abbreviation of the inspection type as shown in labels etc.
     "data": {...}                                 // Optional element data, stored with the element        
 }
 ```
