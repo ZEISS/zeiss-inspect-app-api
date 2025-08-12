@@ -52,7 +52,7 @@ The "Inspection" NextPageEntry points to a MenuPage and has a right arrow, while
 ```
 
 ```{note}
-![Breacrumbs](assets/breadcrumbs.png)
+![Breadcrumbs](assets/breadcrumbs.png)
 
 The "breadcrumbs" at the top of the Workflow Assistant show the current position in the menu structure. They can also be clicked to navigate back.
 ```
