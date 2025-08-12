@@ -4,7 +4,7 @@
 
 ## Workflow Assistant Object Types
 
-The Workflow Assistant is build out Workflow Assistant objects of different types, which can be categorized like this:
+The Workflow Assistant is built out of Workflow Assistant objects of different types, which can be categorized like this:
 
 1. [Pages](#pages) &ndash; A page defines the main body of the Workflow Assistant. There is always exactly one active page. It may contain other Workflow Assistant objects. 
    
@@ -28,7 +28,7 @@ The ZEISS INSPECT built-in Workflow Assistant definition for the **Inspection** 
 
 #### 1. MenuPage
 
-```{figure} assets/assets/inspection_digitize-inspection.png
+```{figure} assets/inspection_digitize-inspection.png
 :alt: MenuPage
 :class: bordered-figure
 
@@ -48,7 +48,7 @@ Expanding "Basic Inspections" (AccordionEntry) leads to "Diameter Inspections" (
 
 ```{note}
 The appearance of a NextPageEntry depends on the type of page it points to.\
-The "Inspection" NextPageEntry points to a MenuPage and has a right arrow, while the "Diameter Inspections" NextPageEntry points to a WizardPage and has a "Star" button, because it stats a Workflow.
+The "Inspection" NextPageEntry points to a MenuPage and has a right arrow, while the "Diameter Inspections" NextPageEntry points to a WizardPage and has a "Start" button, because it starts a Workflow.
 ```
 
 ```{note}
@@ -346,7 +346,7 @@ Example: `"id": "label_menu"`
 
 name* ([String-like](#string-like-entry))	
 : General name of object, default: `"<Default name>"`\
-Use `**"<home>"**` to as the name for the home page of a workspace. It will translate automatically (to `"Start"` in english and german).\
+Use `**"<home>"**` as the name for the home page of a workspace. It will translate automatically (to `"Start"` in english and german).\
 Example: `"name": "Object 1"` 
 
 description* ([String-like](#string-like-entry))
