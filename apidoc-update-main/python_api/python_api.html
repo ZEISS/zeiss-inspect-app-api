@@ -140,7 +140,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-scriptedelement">gom.api.extensions.ScriptedElement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-attribute">gom.api.extensions.ScriptedElement.Attribute</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-event">gom.api.extensions.ScriptedElement.Event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-widgettype">gom.api.extensions.ScriptedElement.WidgetType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-init">gom.api.extensions.ScriptedElement.<strong>init</strong></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-add-log-message">gom.api.extensions.ScriptedElement.add_log_message</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-apply-dialog">gom.api.extensions.ScriptedElement.apply_dialog</a></li>
@@ -1139,6 +1141,12 @@ grouping dots and underscores.</p>
 <p>The category of an element type is used to find the application side counterpart which cares for the
 functionality implementation. For example, <code class="docutils literal notranslate"><span class="pre">scriptedelement.actual</span></code> links that element type the application
 counterpart which cares for scripted actual elements and handles its creation, editing, administration, …</p>
+<section id="gom-api-extensions-scriptedelement-attribute">
+<h4>gom.api.extensions.ScriptedElement.Attribute<a class="headerlink" href="#gom-api-extensions-scriptedelement-attribute" title="Link to this heading"></a></h4>
+<p>Attributes used in the dialog definition</p>
+<p>The attributes are used to define the dialog widgets and their behavior. A selected set of these
+attributes are listed here as a central reference and for unified constant value access.</p>
+</section>
 <section id="gom-api-extensions-scriptedelement-event">
 <h4>gom.api.extensions.ScriptedElement.Event<a class="headerlink" href="#gom-api-extensions-scriptedelement-event" title="Link to this heading"></a></h4>
 <p>Event types passed to the <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">()</span></code> function</p>
@@ -1146,6 +1154,12 @@ counterpart which cares for scripted actual elements and handles its creation, e
 <li><p><code class="docutils literal notranslate"><span class="pre">DIALOG_INITIALIZE</span></code>: Sent when the dialog has been initialized and made visible</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">DIALOG_CHANGED</span></code>:    A dialog widget value changed</p></li>
 </ul>
+</section>
+<section id="gom-api-extensions-scriptedelement-widgettype">
+<h4>gom.api.extensions.ScriptedElement.WidgetType<a class="headerlink" href="#gom-api-extensions-scriptedelement-widgettype" title="Link to this heading"></a></h4>
+<p>(Selected) widget types used in the dialog definition</p>
+<p>The widget types are used to define the dialog widgets and their behavior. A selected set of these
+widget types are listed here as a central reference and for unified constant value access.</p>
 </section>
 <section id="gom-api-extensions-scriptedelement-init">
 <h4>gom.api.extensions.ScriptedElement.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-scriptedelement-init" title="Link to this heading"></a></h4>
@@ -1189,8 +1203,22 @@ in the service log file. It is used to forward errors from the C++ side to the P
 <h4>gom.api.extensions.ScriptedElement.apply_dialog<a class="headerlink" href="#gom-api-extensions-scriptedelement-apply-dialog" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.apply_dialog(self:</span> <span class="pre">Any,</span> <span class="pre">args:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.apply_dialog(self:</span> <span class="pre">Any,</span> <span class="pre">dlg:</span> <span class="pre">Any,</span> <span class="pre">result:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dlg</strong> (<em>Any</em>) – Dialog handle as created via the <code class="docutils literal notranslate"><span class="pre">gom.api.dialog.create</span> <span class="pre">()</span></code> function</p></li>
+<li><p><strong>result</strong> (<em>Any</em>) – Dialog result values as returned from the <code class="docutils literal notranslate"><span class="pre">gom.api.dialog.show</span> <span class="pre">()</span></code> function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Resulting dialog parameters</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 
 <p>Apply dialog values to the dialog arguments. This function is used to read the dialog values
 back into the dialog arguments. See function <code class="docutils literal notranslate"><span class="pre">dialog</span> <span class="pre">()</span></code> for a format description of the arguments.</p>
@@ -1267,7 +1295,7 @@ configure the element and to provide input values for the computation.</p>
 <p>The dialog arguments are passed as a JSON like map structure. The format is as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Element name&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Element 1&quot;</span><span class="p">,</span>
     <span class="s2">&quot;values: {</span>
         <span class="s2">&quot;widget1&quot;</span><span class="p">:</span> <span class="n">value1</span><span class="p">,</span>
         <span class="s2">&quot;widget2&quot;</span><span class="p">:</span> <span class="n">value2</span>
@@ -1279,10 +1307,13 @@ configure the element and to provide input values for the computation.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">version</span></code>: Version of the dialog structure. This is used to allow for future changes in the dialog
 structure without breaking existing scripts</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>:    Human readable name of the element which is created or edited</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>:    Human readable name of the element which is created or edited. This entry is inserted automatically
+from the dialog widget if two conditions are met: The name of the dialog widget is ‘name’ and its
+type is ‘Element name’. So in principle, the dialog must be setup to contain an ‘Element name’ widget
+named ‘name’ in an appropriate layout location and the rest then happens automatically.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">values</span></code>:  A map of widget names and their initial values. The widget names are the keys and the values
 are the initial or edited values for the widgets. This map is always present, but can be empty
-for newly created elements. The element names are matching those in the user defined dialog, so
+for newly created elements. The keys are matching the widget names in the user defined dialog, so
 the values can be set accordingly. As a default, use the function <code class="docutils literal notranslate"><span class="pre">initialize_dialog</span> <span class="pre">(args)</span></code> to
 setup all widgets from the args values.</p></li>
 </ul>
@@ -1291,8 +1322,7 @@ and read back the generated values. So a typical dialog function will look like 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
     <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="s1">&#39;/dialogs/create_element.gdlg&#39;</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span> <span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span> <span class="p">(</span><span class="n">dlg</span><span class="p">)</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span> <span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span> <span class="p">(</span><span class="n">dlg</span><span class="p">))</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span> <span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span> <span class="p">(</span><span class="n">dlg</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">args</span>
 </pre></div>
 </div>
@@ -1325,7 +1355,7 @@ creation, initialization and return the dialog values in the correct format in a
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>context</strong> (<em>Any</em>) – Script context object containing execution related parameters. This includes the stage this computation call refers to.</p></li>
 <li><p><strong>event_type</strong> (<em>Any</em>) – Event type</p></li>
-<li><p><strong>args</strong> – Event arguments</p></li>
+<li><p><strong>parameters</strong> (<em>Any</em>) – Event arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1348,7 +1378,7 @@ The function can then react to that event and update the UI state accordingly.</
 <dd></dd></dl>
 
 <p>Wrapper function for calls to <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">()</span></code>. This function is called from the application side
-and will convert the event parameter accordingly</p>
+and will convert the event parameters accordingly</p>
 </section>
 <section id="gom-api-extensions-scriptedelement-finish">
 <h4>gom.api.extensions.ScriptedElement.finish<a class="headerlink" href="#gom-api-extensions-scriptedelement-finish" title="Link to this heading"></a></h4>
@@ -1442,7 +1472,7 @@ resulting values are then returned in the expected return format.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>   <span class="c1"># Create dialog and return a handle to it</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>  <span class="c1"># Initialize the dialog with the given arguments</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">)</span>  <span class="c1"># Show dialog and enter the dialog loop</span>
-<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>      <span class="c1"># Apply the final dialog values</span>
+<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>      <span class="c1"># Apply the final dialog values</span>
 </pre></div>
 </div>
 </section>
@@ -1709,8 +1739,6 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
      <span class="o">...</span><span class="ow">or</span> <span class="n">alternatively</span><span class="o">...</span>
     <span class="s2">&quot;nominal_value&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>        <span class="o">//</span> <span class="n">Alternative</span><span class="p">:</span> <span class="n">Single</span> <span class="n">common</span> <span class="n">nominal</span> <span class="n">value</span>
     <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Item</span><span class="p">,</span>    <span class="o">//</span> <span class="n">Inspected</span> <span class="n">element</span>
-    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                   <span class="o">//</span> <span class="n">Unit</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="n">value</span>
-    <span class="s2">&quot;abbreviation&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>           <span class="o">//</span> <span class="n">Abbreviation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="nb">type</span> <span class="k">as</span> <span class="n">shown</span> <span class="ow">in</span> <span class="n">labels</span> <span class="n">etc</span><span class="o">.</span>
     <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                  <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>    
 <span class="p">}</span>
 </pre></div>
@@ -1724,8 +1752,6 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
     <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>           <span class="o">//</span> <span class="n">Nominal</span> <span class="n">value</span>
     <span class="s2">&quot;actual&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>            <span class="o">//</span> <span class="n">Actual</span> <span class="n">value</span>
     <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Item</span><span class="p">,</span> <span class="o">//</span> <span class="n">Inspected</span> <span class="n">element</span>
-    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                <span class="o">//</span> <span class="n">Unit</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="n">value</span>
-    <span class="s2">&quot;abbreviation&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>        <span class="o">//</span> <span class="n">Abbreviation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="nb">type</span> <span class="k">as</span> <span class="n">shown</span> <span class="ow">in</span> <span class="n">labels</span> <span class="n">etc</span><span class="o">.</span>
     <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>               <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
 <span class="p">}</span>
 </pre></div>
@@ -1745,7 +1771,7 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <li><p><strong>id</strong> (<em>str</em>) – Scripted inspection id string</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – Human readable name, will appear in menus</p></li>
 <li><p><strong>element_type</strong> (<em>str</em>) – Type of the generated element (inspection.scalar, inspection.surface, …)</p></li>
-<li><p><strong>unit</strong> (<em>str</em>) – Unit of the inspection value</p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – Unit of the inspection value. See above for detailed explanation.</p></li>
 <li><p><strong>abbreviation</strong> (<em>str</em>) – Abbreviation of the inspection type as shown in labels etc.</p></li>
 </ul>
 </dd>
@@ -1753,6 +1779,16 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 </dd></dl>
 
 <p>Constructor</p>
+<p><em>Unit</em>:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">unit</span></code> parameter must be an identifier which matches the internal unit class. These unit classes are ids like
+<code class="docutils literal notranslate"><span class="pre">length</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>, ``temp<code class="docutils literal notranslate"><span class="pre">,</span> </code>angle<code class="docutils literal notranslate"><span class="pre">,</span> </code>force<code class="docutils literal notranslate"><span class="pre">,</span> </code>pressure<code class="docutils literal notranslate"><span class="pre">,</span> </code>power<code class="docutils literal notranslate"><span class="pre">,</span> <span class="pre">...</span> <span class="pre">and</span> <span class="pre">many</span> <span class="pre">more.</span> <span class="pre">Because</span> <span class="pre">the</span> <span class="pre">available</span> <span class="pre">unit</span> <span class="pre">classes</span> <span class="pre">can</span> <span class="pre">change</span> <span class="pre">from</span> <span class="pre">version</span> <span class="pre">to</span> <span class="pre">version,</span> <span class="pre">it</span> <span class="pre">is</span> <span class="pre">advised</span> <span class="pre">to</span> <span class="pre">use</span> <span class="pre">the</span> </code>gom.api.scriptedelements.get_units ()` function to get a
+current list of all available units via a script.</p>
+<p>Please note that setting a non default unit class can lead to a transformed output value. For example, if the unit class “angle”
+is used, the internal expected unit of angle is “radian” in the range [-pi, pi]. As the displayed unit for that unit class,
+set in the preferences, is usually “degree”, the output value will be transformed to the range [-180, 180]. This happens
+automatically in labels, tables, reports etc.</p>
+<p><em>Abbreviation</em>:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">abbreviation</span></code> parameter is a short string which is used to identify the inspection type in labels, menus, etc.</p>
 </section>
 </section>
 <section id="gom-api-extensions-inspections-surface">
@@ -1763,8 +1799,6 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
     <span class="s2">&quot;deviation_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">Deviations</span>
     <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                             <span class="o">//</span> <span class="n">Nominal</span> <span class="n">value</span>
     <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Item</span><span class="p">,</span>                   <span class="o">//</span> <span class="n">Inspected</span> <span class="n">element</span>
-    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                                  <span class="o">//</span> <span class="n">Unit</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="n">value</span>
-    <span class="s2">&quot;abbreviation&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                          <span class="o">//</span> <span class="n">Abbreviation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="nb">type</span> <span class="k">as</span> <span class="n">shown</span> <span class="ow">in</span> <span class="n">labels</span> <span class="n">etc</span><span class="o">.</span>
     <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                 <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
 <span class="p">}</span>
 </pre></div>
@@ -4315,7 +4349,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f5fc3c51160>
+  <jinja2.runtime.BlockReference object at 0x7fed9d620130>
 
 
 </footer>
