@@ -80,23 +80,23 @@
 <li class="toctree-l1"><a class="reference internal" href="../using_wheelhouses/using_wheelhouses.html">Using Python wheelhouses</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../adding_workspaces_to_apps/adding_workspaces_to_apps.html">Adding workspaces to Apps</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Workflow Assistant</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#user-interface">User interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#workflow-assistant-object-types">Workflow Assistant Object Types</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#example">Example</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#menu-page">1. Menu page</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#wizard-page">2. Wizard page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#menupage">1. MenuPage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#wizardpage">2. WizardPage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#embedded-command-page">3. Embedded command page</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-a-workflow-assistant">Creating a Workflow Assistant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-workflow-assistant-definition">Creating a Workflow Assistant definition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#minimal-example">Minimal example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#workflow-assistant-json-format">Workflow Assistant JSON format</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#top-level-elements">Top level elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#top-level-tags">Top level tags</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#common-workflow-assistant-object-attributes">Common Workflow Assistant Object Attributes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pages">Pages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#menupage">MenuPage</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#wizardpage">WizardPage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">MenuPage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">WizardPage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#embeddedcommandpage">EmbeddedCommandPage</a></li>
 </ul>
 </li>
@@ -165,80 +165,77 @@
   <section id="workflow-assistant">
 <h1>Workflow Assistant<a class="headerlink" href="#workflow-assistant" title="Link to this heading"></a></h1>
 <blockquote>
-<div><p>Abstract:  A workflow assistant helps you to find the most important functions for a specific measuring or inspection tasks. A workflow assistant can help you to access the most frequently used functions faster. By default, you find the tab <strong>Workflow Assistant</strong> in the right docking area next to the tab <strong>Properties</strong> (see <a class="reference external" href="https://techguide.zeiss.com/en/zeiss-inspect-2025/article/view_workflow_assistant.html">Tech Guide – Workflow Assistant</a>).</p>
+<div><p>Abstract:  The <strong>Workflow Assistant</strong> helps you to find the most important functions for a specific measuring or inspection tasks. It can help you access the most frequently used functions faster. By default, you find the tab <strong>Workflow Assistant</strong> in the right docking area next to the tab <strong>Properties</strong> (see <a class="reference external" href="https://techguide.zeiss.com/en/zeiss-inspect-2025/article/view_workflow_assistant.html">Tech Guide – Workflow Assistant</a>).</p>
 </div></blockquote>
-<section id="user-interface">
-<h2>User interface<a class="headerlink" href="#user-interface" title="Link to this heading"></a></h2>
-<p>A workflow assistant can be composed of the following UI elements:</p>
-<ol class="arabic">
-<li><p><a class="reference internal" href="#pages">Pages</a> – A page is a container for other workflow assistant elements.</p>
-<p>There are three different page types:</p>
+<section id="workflow-assistant-object-types">
+<h2>Workflow Assistant Object Types<a class="headerlink" href="#workflow-assistant-object-types" title="Link to this heading"></a></h2>
+<p>The Workflow Assistant is built out of Workflow Assistant objects of different types, which can be categorized like this:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#pages">Pages</a> – A page defines the main body of the Workflow Assistant. There is always exactly one active page. It may contain other Workflow Assistant objects.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#menupage">MenuPage</a> – Shows a list of <a class="reference internal" href="#menu-entries">Menu Entries</a>.</p></li>
-<li><p><a class="reference internal" href="#wizardpage">WizardPage</a> – Contains a list of <a class="reference internal" href="#wizard-steps">WizardSteps</a>, which are executed sequentially.</p></li>
+<li><p><a class="reference internal" href="#id1">MenuPage</a> – Shows a list of <a class="reference internal" href="#menu-entries">Menu Entries</a>.</p></li>
+<li><p><a class="reference internal" href="#id2">WizardPage</a> – Contains a list of <a class="reference internal" href="#wizard-steps">Wizard Steps</a>, which are executed sequentially.</p></li>
 <li><p><a class="reference internal" href="#embeddedcommandpage">EmbeddedCommandPage</a> – Contains an embedded command dialog.</p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#menu-entries">Menu Entries</a></p>
-<p>There are four different types:</p>
+<li><p><a class="reference internal" href="#menu-entries">Menu Entries</a> – Define the layout of a <a class="reference internal" href="#id1">MenuPage</a>.</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#nextpageentry">NextPageEntry</a> – Leads to a new page.</p></li>
 <li><p><a class="reference internal" href="#commandentry">CommandEntry</a> – Executes a command.</p></li>
-<li><p><a class="reference internal" href="#accordionentry">AccordionEntry</a> – Contains a list of menu entries which can be collapsed and expanded.</p></li>
+<li><p><a class="reference internal" href="#accordionentry">AccordionEntry</a> – Contains a list of <a class="reference internal" href="#menu-entries">Menu Entries</a> which can be collapsed and expanded.</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#wizard-steps">Wizard Steps</a> – Define the steps of a <a class="reference internal" href="#id2">WizardPage</a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#embeddedcommandstep">EmbeddedCommandStep</a> – Contains one or more embedded command dialogs as a step.</p></li>
 </ul>
 </li>
 </ol>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><img alt="Breacrumbs" src="../../_images/breadcrumbs.png" /></p>
-<p>The “breadcrumbs” at the top of the workflow assistant show the current position in the menu structure.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The initial appearance of EmbeddedCommandPage, WizardPage and CommandEntry is identical, but differs during execution.<br />
-The appearance of the NextPageEntry depends on its target’s type.</p>
-</div>
 <section id="example">
 <h3>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
-<p>The ZEISS INSPECT built-in workflow of the <strong>Inspection</strong> workspace is used as an example.</p>
-<section id="menu-page">
-<h4>1. Menu page<a class="headerlink" href="#menu-page" title="Link to this heading"></a></h4>
-<figure class="align-default" id="id1">
-<img alt="Menu page" class="bordered-figure" src="../../_images/menupage.png" />
-<figcaption>
-<p><span class="caption-text">Inspection Workspace Workflow Assistant – Menu page</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
-</figcaption>
-</figure>
-<p>This Menu page consists of the items “First steps” (Accordion entry), “Inspection” (Menu page) and “Reports” (Accordion entry).</p>
-</section>
-<section id="wizard-page">
-<h4>2. Wizard page<a class="headerlink" href="#wizard-page" title="Link to this heading"></a></h4>
-<figure class="align-default" id="id2">
-<img alt="Menu page" class="bordered-figure" src="../../_images/inspection_digitize-inspection.png" />
-<figcaption>
-<p><span class="caption-text">Select “Inspection”</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
-</figcaption>
-</figure>
+<p>The ZEISS INSPECT built-in Workflow Assistant definition for the <strong>Inspection</strong> workspace is used as an example.</p>
+<section id="menupage">
+<h4>1. MenuPage<a class="headerlink" href="#menupage" title="Link to this heading"></a></h4>
 <figure class="align-default" id="id3">
-<img alt="Menu page" class="bordered-figure" src="../../_images/inspection-basic_inspections-diameter_inspections.png" />
+<img alt="MenuPage" class="bordered-figure" src="../../_images/inspection_digitize-inspection.png" />
 <figcaption>
-<p><span class="caption-text">“Inspection” menu page – Select Basic Inspections ► Diameter Inspections</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">Inspection Workspace Workflow Assistant – “Start” MenuPage</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Selecting “Basic Inspections” leads to “Diameter Inspections”, “Distance Inspections” and “Angle Inspections”.</p>
+<p>This MenuPage consists of the entries “First steps” (AccordionEntry), “Inspection” (NextPageEntry) and “Reports” (AccordionEntry).</p>
 <figure class="align-default" id="id4">
-<img alt="Menu page" class="bordered-figure" src="../../_images/wizard1-construct.png" />
+<img alt="MenuPage" class="bordered-figure" src="../../_images/inspection-basic_inspections-diameter_inspections.png" />
 <figcaption>
-<p><span class="caption-text">Wizard page, Wizard step 1 – “Construct Cylinder or Circle”</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">“Inspection” MenuPage – “Inspection” MenuPage</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
+<p>Expanding “Basic Inspections” (AccordionEntry) leads to “Diameter Inspections” (NextPageEntry), “Distance Inspections” (NextPageEntry) and “Angle Inspections” (NextPageEntry).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The appearance of a NextPageEntry depends on the type of page it points to.<br />
+The “Inspection” NextPageEntry points to a MenuPage and has a right arrow, while the “Diameter Inspections” NextPageEntry points to a WizardPage and has a “Start” button, because it starts a Workflow.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><img alt="Breadcrumbs" src="../../_images/breadcrumbs.png" /></p>
+<p>The “breadcrumbs” at the top of the Workflow Assistant show the current position in the menu structure. They can also be clicked to navigate back.</p>
+</div>
+</section>
+<section id="wizardpage">
+<h4>2. WizardPage<a class="headerlink" href="#wizardpage" title="Link to this heading"></a></h4>
 <figure class="align-default" id="id5">
-<img alt="Menu page" class="bordered-figure" src="../../_images/wizard2-check.png" />
+<img alt="MenuPage" class="bordered-figure" src="../../_images/wizard1-construct.png" />
 <figcaption>
-<p><span class="caption-text">Wizard page, Wizard step 2 – “Check Diameter”</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-text">WizardPage, Wizard step 1 – “Construct Cylinder or Circle”</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Starting “Diameter Inspections” shows a Wizard page with two steps:</p>
+<figure class="align-default" id="id6">
+<img alt="MenuPage" class="bordered-figure" src="../../_images/wizard2-check.png" />
+<figcaption>
+<p><span class="caption-text">WizardPage, Wizard step 2 – “Check Diameter”</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>Starting “Diameter Inspections” shows a WizardPage with two steps:</p>
 <ol class="arabic simple">
 <li><p>Construct Cylinder or Circle</p></li>
 <li><p>Check Diameter</p></li>
@@ -250,13 +247,13 @@ The appearance of the NextPageEntry depends on its target’s type.</p>
 </section>
 <section id="embedded-command-page">
 <h4>3. Embedded command page<a class="headerlink" href="#embedded-command-page" title="Link to this heading"></a></h4>
-<figure class="align-default" id="id6">
-<img alt="Menu page" class="bordered-figure" src="../../_images/embedded_command_page-distance_inspections.png" />
+<figure class="align-default" id="id7">
+<img alt="MenuPage" class="bordered-figure" src="../../_images/embedded_command_page-distance_inspections.png" />
 <figcaption>
-<p><span class="caption-text">Embedded command page – “Distance Quick Creation”</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-text">Embedded command page – “Distance Quick Creation”</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Starting “Distance Inspections” from the “Basic Inspections” menu page calls the script <code class="docutils literal notranslate"><span class="pre">userscript.WorkflowAssistant__DistanceQuickCreation</span></code> from the System App “Inspect”. This is the same as running Construct ► Distance ► Distance Quick Creation… from the main menu, but this way the dialog window is embedded in the workflow assistant.</p>
+<p>Starting “Distance Inspections” from the “Basic Inspections” MenuPage calls the script <code class="docutils literal notranslate"><span class="pre">userscript.WorkflowAssistant__DistanceQuickCreation</span></code> from the System App “Inspect”. This is the same as running Construct ► Distance ► Distance Quick Creation… from the main menu, but this way the dialog window is embedded in the Workflow Assistant.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>To embed a user-defined dialog, you must select “embed as widget, top-level otherwise” in the dialog properties using the Dialog Editor.</p>
@@ -265,8 +262,8 @@ The appearance of the NextPageEntry depends on its target’s type.</p>
 </section>
 </section>
 </section>
-<section id="creating-a-workflow-assistant">
-<h2>Creating a Workflow Assistant<a class="headerlink" href="#creating-a-workflow-assistant" title="Link to this heading"></a></h2>
+<section id="creating-a-workflow-assistant-definition">
+<h2>Creating a Workflow Assistant definition<a class="headerlink" href="#creating-a-workflow-assistant-definition" title="Link to this heading"></a></h2>
 <p>Create a JSON file <code class="docutils literal notranslate"><span class="pre">workflow_assistant/&lt;assistant_name&gt;/&lt;assistant_name&gt;.json</span></code> in your App’s folder.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -276,44 +273,44 @@ The appearance of the NextPageEntry depends on its target’s type.</p>
 <p class="admonition-title">Hint</p>
 <ul class="simple">
 <li><p>To update the App Explorer, run <code class="docutils literal notranslate"><span class="pre">gom.script.sys.update_addon_database()</span></code> from a Python script.</p></li>
-<li><p>To update the workflow assistant view, switch to a different workspace and back again.</p></li>
+<li><p>To update the Workflow Assistant, switch to a different workspace and back again.</p></li>
 </ul>
 </div>
 </section>
 <section id="minimal-example">
 <h2>Minimal example<a class="headerlink" href="#minimal-example" title="Link to this heading"></a></h2>
-<p>The “Minimal example” demonstrates the basic concept of creating a workflow assistant menu structure referencing built-in commands.</p>
+<p>The “Minimal example” demonstrates the basic concept of creating a Workflow Assistant menu structure referencing built-in commands.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>See <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants">App Examples – WorkflowAssistants</a> for complete source code.</p>
 </div>
 <p>The basic building blocks for the menu structure are:</p>
 <ol class="arabic simple">
-<li><p><a class="reference internal" href="#menupage">MenuPage</a></p>
+<li><p><a class="reference internal" href="#id1">MenuPage</a></p>
 <ul class="simple">
-<li><p>A menu page with multiple entries that can be shown in the workflow assistant view.</p></li>
+<li><p>A MenuPage with multiple entries that can be shown in the Workflow Assistant.</p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="#nextpageentry">NextPageEntry</a></p>
 <ul class="simple">
-<li><p>A menu entry that allows the user to navigate to another menu or wizard page</p></li>
+<li><p>A menu entry that allows the user to navigate to another page</p></li>
 <li><p>Uses ‘name’, ‘icon’ and ‘description’ of referenced page if not given explicitly.</p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="#commandentry">CommandPage</a></p>
 <ul class="simple">
-<li><p>This is used to display a single command in the workflow assistant.</p></li>
+<li><p>This is used to display a single command in the Workflow Assistant.</p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#wizardpage">WizardPage</a></p>
+<li><p><a class="reference internal" href="#id2">WizardPage</a></p>
 <ul class="simple">
 <li><p>A page to show multiple commands as a sequence in a wizard layout.</p></li>
 <li><p>An <a class="reference internal" href="#embeddedcommandstep">EmbeddedCommandStep</a> is used to represent each step</p></li>
 </ul>
 </li>
 </ol>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">minimal.json – top level</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">minimal.json – top level</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
 <span class="linenos"> 2</span><span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8d7724f7-5cf3-4262-b39a-7228d69952e8&quot;</span><span class="p">,</span>
 <span class="linenos"> 3</span><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Minimal example&quot;</span><span class="p">,</span>
@@ -330,11 +327,11 @@ The appearance of the NextPageEntry depends on its target’s type.</p>
 </pre></div>
 </div>
 </div>
-<p>At the top level, each workflow assistant must have a unique ID (UUID) (line 2) and a name
-(line 3). With <code class="docutils literal notranslate"><span class="pre">&quot;using&quot;</span></code>, an alias for an object’s UUID can be defined to improve readability (l. 4…8).
-The element <code class="docutils literal notranslate"><span class="pre">&quot;objects&quot;</span></code> (l. 10) contains a list of objects, which are the building blocks of this workflow assistant.</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">minimal.json – MenuPage “homepage”</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<p>At the top level, each Workflow Assistant definition must have a unique ID (UUID) (line 2) and a name
+(line 3). With <code class="docutils literal notranslate"><span class="pre">&quot;using&quot;</span></code>, an alias for a definition’s UUID can be defined to improve readability (l. 4…8).
+The definition’s objects are listed under the <code class="docutils literal notranslate"><span class="pre">&quot;objects&quot;</span></code> tag (l. 10). They are the building blocks of this definition.</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">minimal.json – MenuPage “homepage”</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
 <span class="linenos"> 2</span><span class="w">  </span><span class="c1">// ...</span>
 <span class="linenos"> 3</span><span class="w">  </span><span class="nt">&quot;objects&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -360,13 +357,17 @@ The element <code class="docutils literal notranslate"><span class="pre">&quot;o
 </pre></div>
 </div>
 </div>
-<p>The <a class="reference internal" href="#menupage">MenuPage</a> <code class="docutils literal notranslate"><span class="pre">&quot;homepage&quot;</span></code> provides two menu entries:</p>
+<p>The <a class="reference internal" href="#id1">MenuPage</a> <code class="docutils literal notranslate"><span class="pre">&quot;homepage&quot;</span></code> provides two menu entries:</p>
 <ol class="arabic simple">
 <li><p>A <a class="reference internal" href="#nextpageentry">NextPageEntry</a> to the page <code class="docutils literal notranslate"><span class="pre">&quot;create_diameter&quot;</span></code></p></li>
 <li><p>An <a class="reference internal" href="#embeddedcommandpage">EmbeddedCommandPage</a> for execution of the ZEISS INSPECT command <code class="docutils literal notranslate"><span class="pre">comparison.create_multiple_surface_comparison_on_cad</span></code></p></li>
 </ol>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">minimal.json – NextPageEntry</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The EmbeddedCommandPage is defined directly inside of the MenuPage, in place of a NextPageEntry pointing to it. The NextPageEntry is created implicitly. It will not have any title, description, or icon, but NextPageEntries actually take these from the page they point to if they don’t have their own, so we can just add them to the page instead.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">minimal.json – NextPageEntry</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
 <span class="linenos"> 2</span><span class="w">  </span><span class="c1">// ...</span>
 <span class="linenos"> 3</span><span class="w">  </span><span class="nt">&quot;objects&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -388,28 +389,28 @@ The element <code class="docutils literal notranslate"><span class="pre">&quot;o
 </pre></div>
 </div>
 </div>
-<figure class="align-default" id="id10">
+<figure class="align-default" id="id11">
 <img alt="NextPageEntry &quot;hook_for_inspect&quot;" class="bordered-figure" src="../../_images/minimal_example-1.png" />
 <figcaption>
-<p><span class="caption-text">NextPageEntry “hook_for_inspect”</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+<p><span class="caption-text">NextPageEntry “hook_for_inspect”</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>A <a class="reference internal" href="#nextpageentry">NextPageEntry</a> with its elements <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;description&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;page&quot;</span></code> is defined (l. 6…8).</p>
-<p>Our <code class="docutils literal notranslate"><span class="pre">&quot;homepage&quot;</span></code> is made reachable from the <code class="docutils literal notranslate"><span class="pre">inspect</span></code> workflow assistant page <code class="docutils literal notranslate"><span class="pre">&quot;inspection_home&quot;</span></code> by using the <code class="docutils literal notranslate"><span class="pre">&quot;position&quot;</span></code> element (l. 11…14).</p>
-<p>(The <code class="docutils literal notranslate"><span class="pre">&quot;inspect&quot;</span></code> workflow assistant is part of the ZEISS INSPECT System Apps. The alias we previously defined with <code class="docutils literal notranslate"><span class="pre">&quot;using&quot;</span></code> allows to reference it by name instead of ID.)</p>
+<p>A <a class="reference internal" href="#nextpageentry">NextPageEntry</a> with its tags <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;description&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;page&quot;</span></code> is defined (l. 6…8).</p>
+<p>Our <code class="docutils literal notranslate"><span class="pre">&quot;homepage&quot;</span></code> is made reachable from the <code class="docutils literal notranslate"><span class="pre">inspect</span></code> Workflow Assistant page <code class="docutils literal notranslate"><span class="pre">&quot;inspection_home&quot;</span></code> by using the <code class="docutils literal notranslate"><span class="pre">&quot;position&quot;</span></code> tag (l. 11…14).</p>
+<p>(The <code class="docutils literal notranslate"><span class="pre">&quot;inspect&quot;</span></code> Workflow Assistant definition is part of the ZEISS INSPECT System Apps. The alias we previously defined with <code class="docutils literal notranslate"><span class="pre">&quot;using&quot;</span></code> allows to reference it by name instead of ID.)</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>Alternatively, you can add a reference to one of the workflow assistant pages in the definition of a <a href="../adding_workspaces_to_apps/adding_workspaces_to_apps.md">custom workspace</a>. See <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/workspaces/assistant/assistant.json">AppExamples – WorkflowAssistants/workspaces/assistant/assistant.json</a> for an example.</p>
+<p>Alternatively, you can add a reference to one of the Workflow Assistant pages in the definition of a <a href="../adding_workspaces_to_apps/adding_workspaces_to_apps.md">custom workspace</a>. See <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/workspaces/assistant/assistant.json">AppExamples – WorkflowAssistants/workspaces/assistant/assistant.json</a> for an example.</p>
 </div>
-<figure class="align-default" id="id11">
+<figure class="align-default" id="id12">
 <img alt="MenuPage &quot;homepage&quot;" class="bordered-figure" src="../../_images/minimal_example-2.png" />
 <figcaption>
-<p><span class="caption-text">MenuPage “homepage”</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+<p><span class="caption-text">MenuPage “homepage”</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>Clicking the NextPageEntry <code class="docutils literal notranslate"><span class="pre">&quot;Minimal</span> <span class="pre">example&quot;</span></code> leads to the MenuPage <code class="docutils literal notranslate"><span class="pre">&quot;homepage&quot;</span></code>.</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">minimal.json – WizardPage “create_diameter”</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">minimal.json – WizardPage “create_diameter”</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span>
 <span class="linenos"> 2</span><span class="w">  </span><span class="c1">// ...</span>
 <span class="linenos"> 3</span><span class="w">  </span><span class="nt">&quot;objects&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -437,19 +438,19 @@ The element <code class="docutils literal notranslate"><span class="pre">&quot;o
 </pre></div>
 </div>
 </div>
-<figure class="align-default" id="id13">
+<figure class="align-default" id="id14">
 <img alt="WizardPage &quot;create_diameter&quot; &amp;ndash; Step 1" class="bordered-figure" src="../../_images/minimal_example-3.png" />
 <figcaption>
-<p><span class="caption-text">WizardPage “create_diameter” – Step 1</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
+<p><span class="caption-text">WizardPage “create_diameter” – Step 1</span><a class="headerlink" href="#id14" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<figure class="align-default" id="id14">
+<figure class="align-default" id="id15">
 <img alt="WizardPage &quot;create_diameter&quot; &amp;ndash; Step 2" class="bordered-figure" src="../../_images/minimal_example-4.png" />
 <figcaption>
-<p><span class="caption-text">WizardPage “create_diameter” – Step 2</span><a class="headerlink" href="#id14" title="Link to this image"></a></p>
+<p><span class="caption-text">WizardPage “create_diameter” – Step 2</span><a class="headerlink" href="#id15" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The last object of our “Minimal example” is the <a class="reference internal" href="#wizardpage">WizardPage</a> <code class="docutils literal notranslate"><span class="pre">&quot;create_diameter&quot;</span></code>. This page contains two subsequent wizard steps, both of which are <a class="reference internal" href="#embeddedcommandstep">EmbeddedCommandSteps</a>. The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.</p>
+<p>The last object of our “Minimal example” is the <a class="reference internal" href="#id2">WizardPage</a> <code class="docutils literal notranslate"><span class="pre">&quot;create_diameter&quot;</span></code>. This page contains two subsequent wizard steps, both of which are <a class="reference internal" href="#embeddedcommandstep">EmbeddedCommandSteps</a>. The first step allows to create a cylinder or circle while the second step allows to check the diameter of the newly created element. The next step can only be selected when the current step has been completed.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>User-defined scripts are referenced in commands with the notation <code class="docutils literal notranslate"><span class="pre">userscript.&lt;scriptfile&gt;</span></code>. If the script is located in a subfolder of the App’s <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> folder, use the notation <code class="docutils literal notranslate"><span class="pre">userscript.&lt;folder&gt;__&lt;scriptfile&gt;</span></code>. (A double underscore is used as path separator. In <code class="docutils literal notranslate"><span class="pre">&lt;scriptfile&gt;</span></code>, the extension <code class="docutils literal notranslate"><span class="pre">.py</span></code> is omitted.)</p>
@@ -466,17 +467,17 @@ The element <code class="docutils literal notranslate"><span class="pre">&quot;o
 <p class="admonition-title">Note</p>
 <p>Optional parameters are marked with ‘<strong>*</strong>’.</p>
 </div>
-<section id="top-level-elements">
-<h3>Top level elements<a class="headerlink" href="#top-level-elements" title="Link to this heading"></a></h3>
-<p>The following JSON elements are used at the workflow assistant’s top level.</p>
+<section id="top-level-tags">
+<h3>Top level tags<a class="headerlink" href="#top-level-tags" title="Link to this heading"></a></h3>
+<p>The following JSON tags are used at the Workflow Assistant definitions’s top level.</p>
 <dl class="simple myst">
-<dt>id	(string)</dt><dd><p>UUID for unique identification of the workflow assistant definition</p>
+<dt>id	(string)</dt><dd><p>UUID for unique identification of the Workflow Assistant definition</p>
 </dd>
 <dt>name (string)</dt><dd><p>Display name of the definition</p>
 </dd>
 <dt>using	(List of Objects)</dt><dd><p>Shorthands for definition IDs for easier usage</p>
 </dd>
-<dt>objects (List of Objects)</dt><dd><p>List of all elements provided by this workflow definition. Each entry is a JSON object describing a single element.</p>
+<dt>objects (List of Objects)</dt><dd><p>List of all objects provided by this workflow definition. Each JSON object describes a single Workflow Assistant object.</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -498,29 +499,31 @@ The element <code class="docutils literal notranslate"><span class="pre">&quot;o
 </section>
 <section id="common-workflow-assistant-object-attributes">
 <h3>Common Workflow Assistant Object Attributes<a class="headerlink" href="#common-workflow-assistant-object-attributes" title="Link to this heading"></a></h3>
-<p>These attributes are common for all workflow assistant elements listed in the following sections.</p>
+<p>These attributes are common for all Workflow Assistant objects listed in the following sections.</p>
 <dl class="simple myst">
-<dt>type (String)</dt><dd><p>Workflow assistant element type identifier<br />
+<dt>type (String)</dt><dd><p>Workflow assistant object type identifier<br />
 Examples: <code class="docutils literal notranslate"><span class="pre">&quot;type&quot;:</span> <span class="pre">&quot;MenuPage&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;type&quot;:</span> <span class="pre">&quot;NextPageEntry&quot;</span></code></p>
 </dd>
-<dt>id* (string)</dt><dd><p>Reference ID of this object<br />
+<dt>id* (String)</dt><dd><p>Reference ID of this object<br />
+For pages the id is not optional and it is also a good idea to provide an id for menu entries that might be referenced by another definition.<br />
 Example: <code class="docutils literal notranslate"><span class="pre">&quot;id&quot;:</span> <span class="pre">&quot;label_menu&quot;</span></code></p>
 </dd>
-<dt>name* (<a class="reference internal" href="#string-like-entry">String-like</a>)</dt><dd><p>General name of element, default: <code class="docutils literal notranslate"><span class="pre">&quot;&lt;Default</span> <span class="pre">name&gt;&quot;</span></code>
-Example: <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;:</span> <span class="pre">&quot;element</span> <span class="pre">1&quot;</span></code></p>
+<dt>name* (<a class="reference internal" href="#string-like-entry">String-like</a>)</dt><dd><p>General name of object, default: <code class="docutils literal notranslate"><span class="pre">&quot;&lt;Default</span> <span class="pre">name&gt;&quot;</span></code><br />
+Use <code class="docutils literal notranslate"><span class="pre">**&quot;&lt;home&gt;&quot;**</span></code> as the name for the home page of a workspace. It will translate automatically (to <code class="docutils literal notranslate"><span class="pre">&quot;Start&quot;</span></code> in english and german).<br />
+Example: <code class="docutils literal notranslate"><span class="pre">&quot;name&quot;:</span> <span class="pre">&quot;Object</span> <span class="pre">1&quot;</span></code></p>
 </dd>
-<dt>description* (<a class="reference internal" href="#string-like-entry">String-like</a>)</dt><dd><p>General description of the element<br />
+<dt>description* (<a class="reference internal" href="#string-like-entry">String-like</a>)</dt><dd><p>General description of the object<br />
 Example: <code class="docutils literal notranslate"><span class="pre">&quot;description&quot;:</span> <span class="pre">&quot;this</span> <span class="pre">does</span> <span class="pre">something&quot;</span></code></p>
 </dd>
 <dt>icon* (<a class="reference internal" href="#icon-like-entry">Icon-like</a>)</dt><dd><p>Icon to be displayed<br />
 Example: <code class="docutils literal notranslate"><span class="pre">&quot;icon&quot;:&quot;surface_section_menu&quot;</span></code></p>
 </dd>
-<dt>position*	(Object)</dt><dd><p>Insert the element at a specific position in an existing workflow assistant structure</p>
+<dt>position*	(Object)</dt><dd><p>Insert the object at a specific position in an existing Workflow Assistant page</p>
 </dd>
 </dl>
 <ul class="simple">
-<li><p>“insert” (id): Element to insert into</p></li>
-<li><p>“before” (id): Position hint, i.e. insert before this element (may be empty)</p></li>
+<li><p>“insert” (id): Object to insert into</p></li>
+<li><p>“before” (id): Position hint, i.e. insert before this object (may be empty)</p></li>
 </ul>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -532,20 +535,20 @@ Example: <code class="docutils literal notranslate"><span class="pre">&quot;icon
 </section>
 <section id="pages">
 <h3>Pages<a class="headerlink" href="#pages" title="Link to this heading"></a></h3>
-<section id="menupage">
-<h4>MenuPage<a class="headerlink" href="#menupage" title="Link to this heading"></a></h4>
-<p>Basic type of page which displays elements in form of a list.</p>
+<section id="id1">
+<h4>MenuPage<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<p>Basic type of page which displays <a class="reference internal" href="#menu-entries">Menu entries</a> in form of a list.</p>
 <dl class="simple myst">
-<dt>entries (List of MenuEntries)</dt><dd><p>List of <a class="reference internal" href="#menu-entries">Menu entries</a>. Each entry must be a valid JSON object describing a Menu entry element.<br />
+<dt>entries (List of Menu Entries)</dt><dd><p>List of <a class="reference internal" href="#menu-entries">Menu entries</a>. Each entry must be a valid JSON object describing a menu entry object.<br />
 Example: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">{</span> <span class="pre">entryA</span> <span class="pre">},</span> <span class="pre">{</span> <span class="pre">entryB</span> <span class="pre">}</span> <span class="pre">]</span></code>.</p>
 </dd>
 </dl>
 </section>
-<section id="wizardpage">
-<h4>WizardPage<a class="headerlink" href="#wizardpage" title="Link to this heading"></a></h4>
+<section id="id2">
+<h4>WizardPage<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
 <p>Page which displays multiple consecutive steps as a list of accordions with navigation buttons between them.</p>
 <dl class="simple myst">
-<dt>steps (List of WizardSteps)</dt><dd><p>List of <a class="reference internal" href="#wizard-steps">WizardSteps</a>, each entry should be a valid json object describing a WizardSteps element.<br />
+<dt>steps (List of Wizard Steps)</dt><dd><p>List of <a class="reference internal" href="#wizard-steps">WizardSteps</a>, each entry should be a valid json object describing a WizardStep object.<br />
 Example: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">{</span> <span class="pre">entryA</span> <span class="pre">},</span> <span class="pre">{</span> <span class="pre">entryB</span> <span class="pre">}</span> <span class="pre">]</span></code></p>
 </dd>
 </dl>
@@ -564,9 +567,9 @@ Example: <code class="docutils literal notranslate"><span class="pre">comparison
 <h3>Menu entries<a class="headerlink" href="#menu-entries" title="Link to this heading"></a></h3>
 <section id="accordionentry">
 <h4>AccordionEntry<a class="headerlink" href="#accordionentry" title="Link to this heading"></a></h4>
-<p>Accordion entries are a group of menu entries which can be collapsed and expanded.</p>
+<p>AccordionEntries are a group of menu entries which can be collapsed and expanded.</p>
 <dl class="simple myst">
-<dt>entries (List of MenuEntries)</dt><dd><p>List of <a class="reference internal" href="#menu-entries">Menu entries</a>, each entry should be a valid JSON object describing a Menu entry element.<br />
+<dt>entries (List of Menu Entries)</dt><dd><p>List of <a class="reference internal" href="#menu-entries">Menu entries</a>, each entry should be a valid JSON object describing a Menu Entry object.<br />
 Example: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">{</span> <span class="pre">entryA</span> <span class="pre">},</span> <span class="pre">{</span> <span class="pre">entryB</span> <span class="pre">}</span> <span class="pre">]</span></code></p>
 </dd>
 </dl>
@@ -582,7 +585,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">label_menu
 </section>
 <section id="commandentry">
 <h4>CommandEntry<a class="headerlink" href="#commandentry" title="Link to this heading"></a></h4>
-<p>A command entry allows to execute a command. If the command has a dialog, this dialog will be embedded in the workflow assistant.</p>
+<p>A command entry allows to execute a command. If the command has a dialog, this dialog will be embedded in the Workflow Assistant.</p>
 <dl class="simple myst">
 <dt>command (string)</dt><dd><p>Command to execute.<br />
 Examples: <code class="docutils literal notranslate"><span class="pre">inspection.inspect_by_deviation_label</span></code>, <code class="docutils literal notranslate"><span class="pre">userscript.inspect_gaps</span></code></p>
@@ -594,10 +597,10 @@ Examples: <code class="docutils literal notranslate"><span class="pre">inspectio
 <h3>Wizard steps<a class="headerlink" href="#wizard-steps" title="Link to this heading"></a></h3>
 <section id="embeddedcommandstep">
 <h4>EmbeddedCommandStep<a class="headerlink" href="#embeddedcommandstep" title="Link to this heading"></a></h4>
-<p>A wizard allows to execute a sequence of commands. The command dialogs are embedded into the workflow assistant.</p>
+<p>A wizard allows to execute a sequence of commands. The command dialogs are embedded into the Workflow Assistant.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>One of the fields ‘command’ and/or ‘commands’ must exist.</p>
+<p>One of the tags ‘command’ and/or ‘commands’ must exist.</p>
 </div>
 <dl class="simple myst">
 <dt>command (string)</dt><dd><p>Command to execute<br />
@@ -619,7 +622,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">inspection
 </ul>
 <p>Example: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">commandA,</span> <span class="pre">commandB</span> <span class="pre">]</span></code></p>
 <dl class="simple myst">
-<dt>interactive* (boolean)</dt><dd><p>Defines whether to execute the command in interactive mode. Must be set to <code class="docutils literal notranslate"><span class="pre">False</span></code> for executing a user script, otherwise the dialog will be closed immediately. (Default: True)</p>
+<dt>interactive* (boolean)</dt><dd><p>Defines whether to execute the command in interactive mode. Must be set to <code class="docutils literal notranslate"><span class="pre">False</span></code> for executing a user script, otherwise the dialog will be closed immediately. (Default: False)</p>
 </dd>
 <dt>info* (<a class="reference internal" href="#string-like-entry">String-like</a>)</dt><dd><p>Descriptive info text for this wizard step<br />
 Example: <code class="docutils literal notranslate"><span class="pre">Compute</span> <span class="pre">statistics</span> <span class="pre">for</span> <span class="pre">deviation</span> <span class="pre">analysis</span> <span class="pre">on</span> <span class="pre">an</span> <span class="pre">inspection</span> <span class="pre">element</span> <span class="pre">with</span> <span class="pre">color</span> <span class="pre">deviation</span> <span class="pre">representation.</span> <span class="pre">Select</span> <span class="pre">an</span> <span class="pre">area</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">color</span> <span class="pre">deviation</span> <span class="pre">representation</span> <span class="pre">with</span> <span class="pre">any</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">point</span> <span class="pre">selection</span> <span class="pre">functions.&quot;</span></code></p>
@@ -654,7 +657,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">&quot;info
 </section>
 <section id="icon-like-entry">
 <h4>Icon-like entry<a class="headerlink" href="#icon-like-entry" title="Link to this heading"></a></h4>
-<p>Icon-like entries can be defined in multiple ways listed below. They provide an icon to display as part of an element in the workflow assistant. Currently only .svg files are fully supported.</p>
+<p>Icon-like entries can be defined in multiple ways listed below. They provide an icon to display as part of an object in the Workflow Assistant. Currently only .svg files are fully supported.</p>
 <section id="simple-string">
 <h5>Simple (string)<a class="headerlink" href="#simple-string" title="Link to this heading"></a></h5>
 <p>Specifies how and where to load an icon from (see Advanced type below for more information about <code class="docutils literal notranslate"><span class="pre">&lt;path&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;mode&gt;</span></code>). Always uses “auto” dark mode setting.</p>
@@ -721,7 +724,7 @@ Example: <code class="docutils literal notranslate"><span class="pre">&quot;info
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f7155949cc0>
+  <jinja2.runtime.BlockReference object at 0x7fd95acab5b0>
 
 
 </footer>
