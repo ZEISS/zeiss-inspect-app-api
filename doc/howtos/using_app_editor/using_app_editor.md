@@ -131,7 +131,7 @@ A project must be opened to provide items in the Project Contents section. An Ap
 
 The button "Create Project Content" allows to create content in your current project. Currently, creating UI configurations is the only option, but more items will be added later.
 
-See [ZEISS Quality Tech Guide: Create UI Configuration](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/cmd_sys_create_ui_configuration.html) for more information.
+With UI configurations, you can customize specific settings of the user interface, such as toolbars, shortcuts or the menu bar. See [ZEISS Quality Tech Guide: Create UI Configuration](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/cmd_sys_create_ui_configuration.html) for more information.
 
 ## Searching and Filtering
 
