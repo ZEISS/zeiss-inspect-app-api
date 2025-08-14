@@ -123,7 +123,7 @@ You insert a file selection dialog in your Python script by using RMB ► Insert
 
 A project must be opened to provide items in the Project Contents section. An App must be in editing mode to allow adding or removing contents. You copy or move contents between the Project Contents section and an App or between two Apps by drag&amp;drop. You remove content from an App with RMB ► Delete... Based on the content types, the App folder structure is maintained automatically.
 
-![Copying and Moving Contents](assets/add_on_editor_dnd.gif)
+![Copying and Moving Contents](assets/app_editor_dnd.gif)
 
 ## Creating Project Content
 
