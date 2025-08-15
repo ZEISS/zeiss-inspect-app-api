@@ -479,29 +479,6 @@ Usually, it is *not* possible to access arbitrary stages of other elements due t
 
 Constructor
 
-#### gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter
-
-```{py:function} gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter(self: Any, values: Dict[str, Any]): None
-
-:param values: Values map
-:type values: Dict[str, Any]
-```
-
-Adds the current selected element as the target element to the values map
-
-#### gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter
-
-```{py:function} gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter(self: Any, values: Dict[str, Any], element: Any): None
-
-:param values: Values map
-:type values: Dict[str, Any]
-:param element: Element to be added
-:type element: Any
-```
-
-Adds an element as the target element to the parameters map in the
-appropriate fields
-
 #### gom.api.extensions.ScriptedCalculationElement.compute
 
 ```{py:function} gom.api.extensions.ScriptedCalculationElement.compute(self: Any, context: Any, values: Any): None
@@ -1162,16 +1139,23 @@ Scripted actual volume segmentation element
 
 Scripted curve inspection
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+Please see the base class `ScriptedInspection` for a discussion of the properties all scripted inspection types
+have in common.
+
+**Return value**
+
+The expected parameters from the elements `self.compute ()` function is a map with the following format:
 
 ```
 {
     "actual_values": [float, ...]  // Deviations
     "nominal_values": [float, ...] // Nominal values
+
      ...or alternatively...
+
     "nominal_value": float,        // Alternative: Single common nominal value
     "target_element": gom.Item,    // Inspected element
-    "data": {...}                  // Optional element data, stored with the element    
+    "data": {...}                  // Optional element data, stored with the element
 }
 ```
 
@@ -1180,14 +1164,19 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted scalar inspection
 
-The expected parameters from the element's `compute ()` function is a map with the following format:
+Please see the base class `ScriptedInspection` for a discussion of the properties all scripted inspection types
+have in common.
+
+**Return value**
+
+The expected parameters from the element's `self.compute ()` function is a map with the following format:
 
 ```
 {
     "nominal": float,           // Nominal value
     "actual": float,            // Actual value
     "target_element": gom.Item, // Inspected element
-    "data": {...}               // Optional element data, stored with the element        
+    "data": {...}               // Optional element data, stored with the element
 }
 ```
 
@@ -1196,9 +1185,47 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 This class is the base class for all scripted inspections
 
+Scripted inspections are used to inspect elements in the 3D view, like scalar, surface or curve inspections.
+There are specialized classes for each inspection type, like `Scalar`, `Surface` or `Curve`, which inherit from this
+class. The `ScriptedInspection` class is used to define the common properties of all scripted inspections.
+
+**The target element**
+
+The `self.compute ()` function of every scripted inspection expects a `target_element` value which is the element
+which is inspected by the check. This inspected element is usually queried in the checks dialog, but can also be
+or depend on the currently selected element in the 3D view. So the return parameter of the `self.compute ()`
+function looks like this:
+
+```
+{
+    "target_element": my_dialog.element_selector.value, # The inspected element as selected in a dialog widget
+    "data": {...}                                       # Optional data, stored with the element
+    ...                                                 # Specific data required by the inspection type
+}
+```
+
+To avoid background magic, the `target_element` must be explicitly returned by the `self.compute ()` function and
+there is no automatic insertion of a possibly selected element. So if the check should inspect the currently
+selected element in the 3D view, this must be coded explicitly in the `self.compute ()` function:
+
+```
+import gom.api.selection
+
+def compute (self, context, values):
+    selected = gom.api.selection.get_selected_elements()
+    if len (selected) != 1:
+        raise ValueError("Please select exactly one element to inspect")
+
+    return {
+        "target_element": selected[0],
+        "data": {},                                      # Optional data, stored with the element
+        ...                                              # Specific data required by the check type
+    }
+```
+
 ##### gom.api.extensions.inspections.ScriptedInspection.__init__
 
-```{py:function} gom.api.extensions.inspections.ScriptedInspection.__init__(self: Any, id: str, description: str, element_type: str, unit: str, abbreviation: str, help_id: str): None
+```{py:function} gom.api.extensions.inspections.ScriptedInspection.__init__(self: Any, id: str, description: str, element_type: str, dimension: str, abbreviation: str, help_id: str): None
 
 :param id: Scripted inspection id string
 :type id: str
@@ -1206,43 +1233,68 @@ This class is the base class for all scripted inspections
 :type description: str
 :param element_type: Type of the generated element (inspection.scalar, inspection.surface, ...)
 :type element_type: str
-:param unit: Unit of the inspection value. See above for detailed explanation.
-:type unit: str
+:param dimension: Dimension of the inspection value. See above for detailed explanation.
+:type dimension: str
 :param abbreviation: Abbreviation of the inspection type as shown in labels etc.
 :type abbreviation: str
 ```
 
 Constructor
 
-*Unit*:
+**Units and dimensions**
 
-The `unit` parameter must be an identifier which matches the internal unit class. These unit classes are ids like
-`length`, `time`, ``temp`, `angle`, `force`, `pressure`, `power`, ... and many more. Because the available unit classes
-can change from version to version, it is advised to use the `gom.api.scriptedelements.get_units ()` function to get a
-current list of all available units via a script.
+In principle, the term
 
-Please note that setting a non default unit class can lead to a transformed output value. For example, if the unit class "angle"
-is used, the internal expected unit of angle is "radian" in the range [-pi, pi]. As the displayed unit for that unit class,
-set in the preferences, is usually "degree", the output value will be transformed to the range [-180, 180]. This happens
-automatically in labels, tables, reports etc.  
+* 'dimension' refers to a physical dimension which is measured, like 'length', 'time', 'angle', 'force', 'pressure', etc. while
+* 'unit' refers to a specific unit to quantify that dimension, like the units 'inch', 'mm', 'm', ... for the dimension 'length'.
 
-*Abbreviation*:
+These two terms are often mixed up, but dimension describes the type of physical quantity, while unit describes the scale or standard
+used to measure it. When using scripts checks, it is important to understand that
 
-The `abbreviation` parameter is a short string which is used to identify the inspection type in labels, menus, etc.                
+* the 'dimension' of an element must be set explicitly in the script while
+* all internal calculations are done in the *base unit* of that dimension (which is 'mm' for 'length', 's' for 'time', etc.) and
+* a setting in the ZEISS INSPECT preferences defines the *displayed unit* for that dimension, like 'inch' or 'mm' for 'length'.
+
+So, for example, if a scripted check is computing a value with the dimension 'angle', the base unit of that dimension is always
+'radian'. The expected values will be in the range [0, 2*pi] and the displayed unit will be transformed to the
+currently set unit in the preferences. The displayed unit is usually 'degree', so the computed value is transformed internally
+in the applications labels, tables, reports etc. to the range [0, 360] and displayed as such.
+
+The ids for the available dimensions can very over time and are hardcoded in the ZEISS INSPECT application. It is avised to
+use the `gom.api.scriptedelements.get_dimensions ()` function to get a list of all available dimensions in the current version of the
+application and choose one of the returned ids as the `dimension` parameter in the constructor instead of relying to static
+dimension id lists:
+
+```
+import gom.api.scriptedelements
+
+for id in gom.api.scriptedelements.get_dimensions():
+    info = gom.api.scriptedelements.get_dimension_definition(id)
+    print(f"Dimension id: {id}, name: {info['name']}, units: {info['units']}, default: {info['default']}")
+```
+
+**Abbreviation**:
+
+The `abbreviation` parameter is a short string which is used to identify the inspection type in labels, menus, etc.
 
 #### gom.api.extensions.inspections.Surface
 
 
 Scripted surface inspection
 
-The expected parameters from the element's `compute ()` function is a map with the following format:
+Please see the base class `ScriptedInspection` for a discussion of the properties all scripted inspection types
+have in common.
+
+**Return value**
+
+The expected parameters from the element's `self.compute ()` function is a map with the following format:
 
 ```
 {
     "deviation_values": [v: float, v: float, ...] // Deviations
     "nominal": float,                             // Nominal value
     "target_element": gom.Item,                   // Inspected element
-    "data": {...}                                 // Optional element data, stored with the element        
+    "data": {...}                                 // Optional element data, stored with the element
 }
 ```
 
@@ -2175,9 +2227,9 @@ Returns detailed information about the function arguments
 ```
 
 
-#### gom.api.introspection.Function.descripion
+#### gom.api.introspection.Function.description
 
-```{py:function} gom.api.introspection.Function.descripion(): str
+```{py:function} gom.api.introspection.Function.description(): str
 
 Returns the optional function description
 :API version: 1
@@ -2729,6 +2781,31 @@ API for handling scripted elements
 This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, ...)
 It is used mostly internally by the scripted element framework.
 
+### gom.api.scriptedelements.get_dimension_definition
+
+```{py:function} gom.api.scriptedelements.get_dimension_definition(typename: str): Any
+
+Return information about the given dimension
+:param name: Name of the dimension
+:return: Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension
+:rtype: Any
+```
+
+A physical dimension (or just "dimension") refers to the fundamental nature of what is measured - like length,
+time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
+from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
+millimeter, inch for length; or degree, radian for angle.
+
+### gom.api.scriptedelements.get_dimensions
+
+```{py:function} gom.api.scriptedelements.get_dimensions(): [str]
+
+Return available dimensions
+:return: List of known dimensions
+:rtype: [str]
+```
+
+
 ### gom.api.scriptedelements.get_inspection_definition
 
 ```{py:function} gom.api.scriptedelements.get_inspection_definition(typename: str): Any
@@ -2741,27 +2818,6 @@ Return information about the given scripted element type
 
 This function queries in internal 'scalar registry' database for information about the
 inspection with the given type.
-
-### gom.api.scriptedelements.get_unit_definition
-
-```{py:function} gom.api.scriptedelements.get_unit_definition(typename: str): Any
-
-Return information about the given unit type
-:param name: Name of the unit type
-:return: Dictionary with relevant type information or an empty dictionary if the name does not refer to a unit class
-:rtype: Any
-```
-
-
-### gom.api.scriptedelements.get_units
-
-```{py:function} gom.api.scriptedelements.get_units(): [str]
-
-Return available units
-:return: List of known units
-:rtype: [str]
-```
-
 
 ## gom.api.selection
 
