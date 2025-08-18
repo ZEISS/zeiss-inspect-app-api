@@ -133,7 +133,7 @@ Editing the layout means changing the underlying grid.
 
 #### Layout widgets
 
-See <a href="fialog_widgets.html#layout">Dialog widgets &ndash; Layout</a> for additional layout features.
+See <a href="dialog_widgets.html#layout">Dialog widgets &ndash; Layout</a> for additional layout features.
 
 ### Widgets
 
