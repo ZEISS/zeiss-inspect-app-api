@@ -614,6 +614,36 @@ in the service log file. It is used to forward errors from the C++ side to the P
 Apply dialog values to the dialog arguments. This function is used to read the dialog values
 back into the dialog arguments. See function `dialog ()` for a format description of the arguments.
 
+In its default implementation, the function performs the following tasks:
+
+- The dialog result contains values for all dialog widgets, including spacers, labels and other displaying only
+  widgets. These values are not directly relevant for the dialog arguments and are removed.
+- The name of the created element must be treated in a dedicated way. So the dialog results are scanned for
+  an entry named `name` which originates from an element name widget. If this argument is present, it is assumed
+  that it configured the dialog name, is removed from the general dialog result and passed as a special `name`
+  result instead.
+
+So the dialog `result` parameters can look like this:
+
+```
+{'list': 'one', 'list_label': None, 'threshold': 1.0, 'threshold_label': None, 'name' :'Element 1', 'name_label': None}
+```
+
+This will be modified into a format which can be recorded as a script element creation command parameter set:
+
+```
+{'name': 'Element 1', 'values': {'list': 'one', 'threshold': 1.0}}
+```
+
+This function can be overloaded if necessary and if the parameters must be adapted before being applied:
+
+```
+def apply_dialog (self, dlg, result):
+    params = super ().apply_dialog (dlg, result)
+    # ... Adapt parameters...
+    return params
+```
+
 #### gom.api.extensions.ScriptedElement.check_list
 
 ```{py:function} gom.api.extensions.ScriptedElement.check_list(self: Any, values: Dict[str, Any], key: str, value_type: type, length: int): None
