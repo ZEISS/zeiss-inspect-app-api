@@ -1188,6 +1188,30 @@ in the service log file. It is used to forward errors from the C++ side to the P
 
 <p>Apply dialog values to the dialog arguments. This function is used to read the dialog values
 back into the dialog arguments. See function <code class="docutils literal notranslate"><span class="pre">dialog</span> <span class="pre">()</span></code> for a format description of the arguments.</p>
+<p>In its default implementation, the function performs the following tasks:</p>
+<ul class="simple">
+<li><p>The dialog result contains values for all dialog widgets, including spacers, labels and other displaying only
+widgets. These values are not directly relevant for the dialog arguments and are removed.</p></li>
+<li><p>The name of the created element must be treated in a dedicated way. So the dialog results are scanned for
+an entry named <code class="docutils literal notranslate"><span class="pre">name</span></code> which originates from an element name widget. If this argument is present, it is assumed
+that it configured the dialog name, is removed from the general dialog result and passed as a special <code class="docutils literal notranslate"><span class="pre">name</span></code>
+result instead.</p></li>
+</ul>
+<p>So the dialog <code class="docutils literal notranslate"><span class="pre">result</span></code> parameters can look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;list_label&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;threshold_label&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span> <span class="p">:</span><span class="s1">&#39;Element 1&#39;</span><span class="p">,</span> <span class="s1">&#39;name_label&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>This will be modified into a format which can be recorded as a script element creation command parameter set:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Element 1&#39;</span><span class="p">,</span> <span class="s1">&#39;values&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}}</span>
+</pre></div>
+</div>
+<p>This function can be overloaded if necessary and if the parameters must be adapted before being applied:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">apply_dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="n">apply_dialog</span> <span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+    <span class="c1"># ... Adapt parameters...</span>
+    <span class="k">return</span> <span class="n">params</span>
+</pre></div>
+</div>
 </section>
 <section id="gom-api-extensions-scriptedelement-check-list">
 <h4>gom.api.extensions.ScriptedElement.check_list<a class="headerlink" href="#gom-api-extensions-scriptedelement-check-list" title="Link to this heading"></a></h4>
@@ -4382,7 +4406,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fefe7dffee0>
+  <jinja2.runtime.BlockReference object at 0x7faf8603b070>
 
 
 </footer>
