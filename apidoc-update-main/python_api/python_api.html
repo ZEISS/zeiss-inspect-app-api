@@ -132,15 +132,15 @@
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-extensions">gom.api.extensions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement">gom.api.extensions.ScriptedCalculationElement</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-init">gom.api.extensions.ScriptedCalculationElement.<strong>init</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-add-selected-element-parameter">gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-add-target-element-parameter">gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-compute">gom.api.extensions.ScriptedCalculationElement.compute</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-compute-stage">gom.api.extensions.ScriptedCalculationElement.compute_stage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-compute-stages">gom.api.extensions.ScriptedCalculationElement.compute_stages</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-scriptedelement">gom.api.extensions.ScriptedElement</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-attribute">gom.api.extensions.ScriptedElement.Attribute</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-event">gom.api.extensions.ScriptedElement.Event</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-widgettype">gom.api.extensions.ScriptedElement.WidgetType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-init">gom.api.extensions.ScriptedElement.<strong>init</strong></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-add-log-message">gom.api.extensions.ScriptedElement.add_log_message</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-apply-dialog">gom.api.extensions.ScriptedElement.apply_dialog</a></li>
@@ -240,7 +240,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-introspection-function">gom.api.introspection.Function</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-introspection-function-arguments">gom.api.introspection.Function.arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-introspection-function-description">gom.api.introspection.Function.description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-introspection-function-descripion">gom.api.introspection.Function.descripion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-introspection-function-name">gom.api.introspection.Function.name</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-introspection-function-returns">gom.api.introspection.Function.returns</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-introspection-function-signature">gom.api.introspection.Function.signature</a></li>
@@ -305,9 +305,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-scriptedelements">gom.api.scriptedelements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimension-definition">gom.api.scriptedelements.get_dimension_definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimensions">gom.api.scriptedelements.get_dimensions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-inspection-definition">gom.api.scriptedelements.get_inspection_definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-unit-definition">gom.api.scriptedelements.get_unit_definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-units">gom.api.scriptedelements.get_units</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-selection">gom.api.selection</a><ul>
@@ -1034,6 +1034,38 @@ Nevertheless, the vector can be number entirely different depending on active/in
 
 <p>Constructor</p>
 </section>
+<section id="gom-api-extensions-scriptedcalculationelement-add-selected-element-parameter">
+<h4>gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter<a class="headerlink" href="#gom-api-extensions-scriptedcalculationelement-add-selected-element-parameter" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter(self:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>values</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Values map</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Adds the current selected element as the target element to the values map</p>
+</section>
+<section id="gom-api-extensions-scriptedcalculationelement-add-target-element-parameter">
+<h4>gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter<a class="headerlink" href="#gom-api-extensions-scriptedcalculationelement-add-target-element-parameter" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter(self:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">element:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Values map</p></li>
+<li><p><strong>element</strong> (<em>Any</em>) – Element to be added</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Adds an element as the target element to the parameters map in the
+appropriate fields</p>
+</section>
 <section id="gom-api-extensions-scriptedcalculationelement-compute">
 <h4>gom.api.extensions.ScriptedCalculationElement.compute<a class="headerlink" href="#gom-api-extensions-scriptedcalculationelement-compute" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -1107,12 +1139,6 @@ grouping dots and underscores.</p>
 <p>The category of an element type is used to find the application side counterpart which cares for the
 functionality implementation. For example, <code class="docutils literal notranslate"><span class="pre">scriptedelement.actual</span></code> links that element type the application
 counterpart which cares for scripted actual elements and handles its creation, editing, administration, …</p>
-<section id="gom-api-extensions-scriptedelement-attribute">
-<h4>gom.api.extensions.ScriptedElement.Attribute<a class="headerlink" href="#gom-api-extensions-scriptedelement-attribute" title="Link to this heading"></a></h4>
-<p>Attributes used in the dialog definition</p>
-<p>The attributes are used to define the dialog widgets and their behavior. A selected set of these
-attributes are listed here as a central reference and for unified constant value access.</p>
-</section>
 <section id="gom-api-extensions-scriptedelement-event">
 <h4>gom.api.extensions.ScriptedElement.Event<a class="headerlink" href="#gom-api-extensions-scriptedelement-event" title="Link to this heading"></a></h4>
 <p>Event types passed to the <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">()</span></code> function</p>
@@ -1120,12 +1146,6 @@ attributes are listed here as a central reference and for unified constant value
 <li><p><code class="docutils literal notranslate"><span class="pre">DIALOG_INITIALIZE</span></code>: Sent when the dialog has been initialized and made visible</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">DIALOG_CHANGED</span></code>:    A dialog widget value changed</p></li>
 </ul>
-</section>
-<section id="gom-api-extensions-scriptedelement-widgettype">
-<h4>gom.api.extensions.ScriptedElement.WidgetType<a class="headerlink" href="#gom-api-extensions-scriptedelement-widgettype" title="Link to this heading"></a></h4>
-<p>(Selected) widget types used in the dialog definition</p>
-<p>The widget types are used to define the dialog widgets and their behavior. A selected set of these
-widget types are listed here as a central reference and for unified constant value access.</p>
 </section>
 <section id="gom-api-extensions-scriptedelement-init">
 <h4>gom.api.extensions.ScriptedElement.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-scriptedelement-init" title="Link to this heading"></a></h4>
@@ -1169,49 +1189,11 @@ in the service log file. It is used to forward errors from the C++ side to the P
 <h4>gom.api.extensions.ScriptedElement.apply_dialog<a class="headerlink" href="#gom-api-extensions-scriptedelement-apply-dialog" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.apply_dialog(self:</span> <span class="pre">Any,</span> <span class="pre">dlg:</span> <span class="pre">Any,</span> <span class="pre">result:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
-<dd><dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dlg</strong> (<em>Any</em>) – Dialog handle as created via the <code class="docutils literal notranslate"><span class="pre">gom.api.dialog.create</span> <span class="pre">()</span></code> function</p></li>
-<li><p><strong>result</strong> (<em>Any</em>) – Dialog result values as returned from the <code class="docutils literal notranslate"><span class="pre">gom.api.dialog.show</span> <span class="pre">()</span></code> function.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Resulting dialog parameters</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.apply_dialog(self:</span> <span class="pre">Any,</span> <span class="pre">args:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd></dd></dl>
 
 <p>Apply dialog values to the dialog arguments. This function is used to read the dialog values
 back into the dialog arguments. See function <code class="docutils literal notranslate"><span class="pre">dialog</span> <span class="pre">()</span></code> for a format description of the arguments.</p>
-<p>In its default implementation, the function performs the following tasks:</p>
-<ul class="simple">
-<li><p>The dialog result contains values for all dialog widgets, including spacers, labels and other displaying only
-widgets. These values are not directly relevant for the dialog arguments and are removed.</p></li>
-<li><p>The name of the created element must be treated in a dedicated way. So the dialog results are scanned for
-an entry named <code class="docutils literal notranslate"><span class="pre">name</span></code> which originates from an element name widget. If this argument is present, it is assumed
-that it configured the dialog name, is removed from the general dialog result and passed as a special <code class="docutils literal notranslate"><span class="pre">name</span></code>
-result instead.</p></li>
-</ul>
-<p>So the dialog <code class="docutils literal notranslate"><span class="pre">result</span></code> parameters can look like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;list_label&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;threshold_label&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span> <span class="p">:</span><span class="s1">&#39;Element 1&#39;</span><span class="p">,</span> <span class="s1">&#39;name_label&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>This will be modified into a format which can be recorded as a script element creation command parameter set:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Element 1&#39;</span><span class="p">,</span> <span class="s1">&#39;values&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}}</span>
-</pre></div>
-</div>
-<p>This function can be overloaded if necessary and if the parameters must be adapted before being applied:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">apply_dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
-    <span class="n">params</span> <span class="o">=</span> <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="n">apply_dialog</span> <span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
-    <span class="c1"># ... Adapt parameters...</span>
-    <span class="k">return</span> <span class="n">params</span>
-</pre></div>
-</div>
 </section>
 <section id="gom-api-extensions-scriptedelement-check-list">
 <h4>gom.api.extensions.ScriptedElement.check_list<a class="headerlink" href="#gom-api-extensions-scriptedelement-check-list" title="Link to this heading"></a></h4>
@@ -1285,7 +1267,7 @@ configure the element and to provide input values for the computation.</p>
 <p>The dialog arguments are passed as a JSON like map structure. The format is as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Element 1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Element name&quot;</span><span class="p">,</span>
     <span class="s2">&quot;values: {</span>
         <span class="s2">&quot;widget1&quot;</span><span class="p">:</span> <span class="n">value1</span><span class="p">,</span>
         <span class="s2">&quot;widget2&quot;</span><span class="p">:</span> <span class="n">value2</span>
@@ -1297,13 +1279,10 @@ configure the element and to provide input values for the computation.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">version</span></code>: Version of the dialog structure. This is used to allow for future changes in the dialog
 structure without breaking existing scripts</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>:    Human readable name of the element which is created or edited. This entry is inserted automatically
-from the dialog widget if two conditions are met: The name of the dialog widget is ‘name’ and its
-type is ‘Element name’. So in principle, the dialog must be setup to contain an ‘Element name’ widget
-named ‘name’ in an appropriate layout location and the rest then happens automatically.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>:    Human readable name of the element which is created or edited</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">values</span></code>:  A map of widget names and their initial values. The widget names are the keys and the values
 are the initial or edited values for the widgets. This map is always present, but can be empty
-for newly created elements. The keys are matching the widget names in the user defined dialog, so
+for newly created elements. The element names are matching those in the user defined dialog, so
 the values can be set accordingly. As a default, use the function <code class="docutils literal notranslate"><span class="pre">initialize_dialog</span> <span class="pre">(args)</span></code> to
 setup all widgets from the args values.</p></li>
 </ul>
@@ -1312,7 +1291,8 @@ and read back the generated values. So a typical dialog function will look like 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
     <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="s1">&#39;/dialogs/create_element.gdlg&#39;</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span> <span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span> <span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span> <span class="p">(</span><span class="n">dlg</span><span class="p">))</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span> <span class="p">(</span><span class="n">dlg</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span> <span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span> <span class="p">(</span><span class="n">dlg</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">args</span>
 </pre></div>
 </div>
@@ -1345,7 +1325,7 @@ creation, initialization and return the dialog values in the correct format in a
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>context</strong> (<em>Any</em>) – Script context object containing execution related parameters. This includes the stage this computation call refers to.</p></li>
 <li><p><strong>event_type</strong> (<em>Any</em>) – Event type</p></li>
-<li><p><strong>parameters</strong> (<em>Any</em>) – Event arguments</p></li>
+<li><p><strong>args</strong> – Event arguments</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1368,7 +1348,7 @@ The function can then react to that event and update the UI state accordingly.</
 <dd></dd></dl>
 
 <p>Wrapper function for calls to <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">()</span></code>. This function is called from the application side
-and will convert the event parameters accordingly</p>
+and will convert the event parameter accordingly</p>
 </section>
 <section id="gom-api-extensions-scriptedelement-finish">
 <h4>gom.api.extensions.ScriptedElement.finish<a class="headerlink" href="#gom-api-extensions-scriptedelement-finish" title="Link to this heading"></a></h4>
@@ -1462,7 +1442,7 @@ resulting values are then returned in the expected return format.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>   <span class="c1"># Create dialog and return a handle to it</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>  <span class="c1"># Initialize the dialog with the given arguments</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">)</span>  <span class="c1"># Show dialog and enter the dialog loop</span>
-<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>      <span class="c1"># Apply the final dialog values</span>
+<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>      <span class="c1"># Apply the final dialog values</span>
 </pre></div>
 </div>
 </section>
@@ -1722,19 +1702,16 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <section id="gom-api-extensions-inspections-curve">
 <h4>gom.api.extensions.inspections.Curve<a class="headerlink" href="#gom-api-extensions-inspections-curve" title="Link to this heading"></a></h4>
 <p>Scripted curve inspection</p>
-<p>Please see the base class <code class="docutils literal notranslate"><span class="pre">ScriptedInspection</span></code> for a discussion of the properties all scripted inspection types
-have in common.</p>
-<p><strong>Return value</strong></p>
-<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">self.compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the elements <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;actual_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>  <span class="o">//</span> <span class="n">Deviations</span>
     <span class="s2">&quot;nominal_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">Nominal</span> <span class="n">values</span>
-
      <span class="o">...</span><span class="ow">or</span> <span class="n">alternatively</span><span class="o">...</span>
-
     <span class="s2">&quot;nominal_value&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>        <span class="o">//</span> <span class="n">Alternative</span><span class="p">:</span> <span class="n">Single</span> <span class="n">common</span> <span class="n">nominal</span> <span class="n">value</span>
     <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Item</span><span class="p">,</span>    <span class="o">//</span> <span class="n">Inspected</span> <span class="n">element</span>
-    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                  <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>
+    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                   <span class="o">//</span> <span class="n">Unit</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="n">value</span>
+    <span class="s2">&quot;abbreviation&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>           <span class="o">//</span> <span class="n">Abbreviation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="nb">type</span> <span class="k">as</span> <span class="n">shown</span> <span class="ow">in</span> <span class="n">labels</span> <span class="n">etc</span><span class="o">.</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                  <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>    
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1742,15 +1719,14 @@ have in common.</p>
 <section id="gom-api-extensions-inspections-scalar">
 <h4>gom.api.extensions.inspections.Scalar<a class="headerlink" href="#gom-api-extensions-inspections-scalar" title="Link to this heading"></a></h4>
 <p>Scripted scalar inspection</p>
-<p>Please see the base class <code class="docutils literal notranslate"><span class="pre">ScriptedInspection</span></code> for a discussion of the properties all scripted inspection types
-have in common.</p>
-<p><strong>Return value</strong></p>
-<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">self.compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>           <span class="o">//</span> <span class="n">Nominal</span> <span class="n">value</span>
     <span class="s2">&quot;actual&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>            <span class="o">//</span> <span class="n">Actual</span> <span class="n">value</span>
     <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Item</span><span class="p">,</span> <span class="o">//</span> <span class="n">Inspected</span> <span class="n">element</span>
-    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>               <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>
+    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                <span class="o">//</span> <span class="n">Unit</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="n">value</span>
+    <span class="s2">&quot;abbreviation&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>        <span class="o">//</span> <span class="n">Abbreviation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="nb">type</span> <span class="k">as</span> <span class="n">shown</span> <span class="ow">in</span> <span class="n">labels</span> <span class="n">etc</span><span class="o">.</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>               <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1758,50 +1734,18 @@ have in common.</p>
 <section id="gom-api-extensions-inspections-scriptedinspection">
 <h4>gom.api.extensions.inspections.ScriptedInspection<a class="headerlink" href="#gom-api-extensions-inspections-scriptedinspection" title="Link to this heading"></a></h4>
 <p>This class is the base class for all scripted inspections</p>
-<p>Scripted inspections are used to inspect elements in the 3D view, like scalar, surface or curve inspections.
-There are specialized classes for each inspection type, like <code class="docutils literal notranslate"><span class="pre">Scalar</span></code>, <code class="docutils literal notranslate"><span class="pre">Surface</span></code> or <code class="docutils literal notranslate"><span class="pre">Curve</span></code>, which inherit from this
-class. The <code class="docutils literal notranslate"><span class="pre">ScriptedInspection</span></code> class is used to define the common properties of all scripted inspections.</p>
-<p><strong>The target element</strong></p>
-<p>The <code class="docutils literal notranslate"><span class="pre">self.compute</span> <span class="pre">()</span></code> function of every scripted inspection expects a <code class="docutils literal notranslate"><span class="pre">target_element</span></code> value which is the element
-which is inspected by the check. This inspected element is usually queried in the checks dialog, but can also be
-or depend on the currently selected element in the 3D view. So the return parameter of the <code class="docutils literal notranslate"><span class="pre">self.compute</span> <span class="pre">()</span></code>
-function looks like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">my_dialog</span><span class="o">.</span><span class="n">element_selector</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="c1"># The inspected element as selected in a dialog widget</span>
-    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                       <span class="c1"># Optional data, stored with the element</span>
-    <span class="o">...</span>                                                 <span class="c1"># Specific data required by the inspection type</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>To avoid background magic, the <code class="docutils literal notranslate"><span class="pre">target_element</span></code> must be explicitly returned by the <code class="docutils literal notranslate"><span class="pre">self.compute</span> <span class="pre">()</span></code> function and
-there is no automatic insertion of a possibly selected element. So if the check should inspect the currently
-selected element in the 3D view, this must be coded explicitly in the <code class="docutils literal notranslate"><span class="pre">self.compute</span> <span class="pre">()</span></code> function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.selection</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-    <span class="n">selected</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">get_selected_elements</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nb">len</span> <span class="p">(</span><span class="n">selected</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please select exactly one element to inspect&quot;</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">selected</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-        <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{},</span>                                      <span class="c1"># Optional data, stored with the element</span>
-        <span class="o">...</span>                                              <span class="c1"># Specific data required by the check type</span>
-    <span class="p">}</span>
-</pre></div>
-</div>
 <section id="gom-api-extensions-inspections-scriptedinspection-init">
 <h5>gom.api.extensions.inspections.ScriptedInspection.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-inspections-scriptedinspection-init" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.inspections.ScriptedInspection.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">element_type:</span> <span class="pre">str,</span> <span class="pre">dimension:</span> <span class="pre">str,</span> <span class="pre">abbreviation:</span> <span class="pre">str,</span> <span class="pre">help_id:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.inspections.ScriptedInspection.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">element_type:</span> <span class="pre">str,</span> <span class="pre">unit:</span> <span class="pre">str,</span> <span class="pre">abbreviation:</span> <span class="pre">str,</span> <span class="pre">help_id:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<em>str</em>) – Scripted inspection id string</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – Human readable name, will appear in menus</p></li>
 <li><p><strong>element_type</strong> (<em>str</em>) – Type of the generated element (inspection.scalar, inspection.surface, …)</p></li>
-<li><p><strong>dimension</strong> (<em>str</em>) – Dimension of the inspection value. See above for detailed explanation.</p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – Unit of the inspection value</p></li>
 <li><p><strong>abbreviation</strong> (<em>str</em>) – Abbreviation of the inspection type as shown in labels etc.</p></li>
 </ul>
 </dd>
@@ -1809,50 +1753,19 @@ selected element in the 3D view, this must be coded explicitly in the <code clas
 </dd></dl>
 
 <p>Constructor</p>
-<p><strong>Units and dimensions</strong></p>
-<p>In principle, the term</p>
-<ul class="simple">
-<li><p>‘dimension’ refers to a physical dimension which is measured, like ‘length’, ‘time’, ‘angle’, ‘force’, ‘pressure’, etc. while</p></li>
-<li><p>‘unit’ refers to a specific unit to quantify that dimension, like the units ‘inch’, ‘mm’, ‘m’, … for the dimension ‘length’.</p></li>
-</ul>
-<p>These two terms are often mixed up, but dimension describes the type of physical quantity, while unit describes the scale or standard
-used to measure it. When using scripts checks, it is important to understand that</p>
-<ul class="simple">
-<li><p>the ‘dimension’ of an element must be set explicitly in the script while</p></li>
-<li><p>all internal calculations are done in the <em>base unit</em> of that dimension (which is ‘mm’ for ‘length’, ‘s’ for ‘time’, etc.) and</p></li>
-<li><p>a setting in the ZEISS INSPECT preferences defines the <em>displayed unit</em> for that dimension, like ‘inch’ or ‘mm’ for ‘length’.</p></li>
-</ul>
-<p>So, for example, if a scripted check is computing a value with the dimension ‘angle’, the base unit of that dimension is always
-‘radian’. The expected values will be in the range [0, 2*pi] and the displayed unit will be transformed to the
-currently set unit in the preferences. The displayed unit is usually ‘degree’, so the computed value is transformed internally
-in the applications labels, tables, reports etc. to the range [0, 360] and displayed as such.</p>
-<p>The ids for the available dimensions can very over time and are hardcoded in the ZEISS INSPECT application. It is avised to
-use the <code class="docutils literal notranslate"><span class="pre">gom.api.scriptedelements.get_dimensions</span> <span class="pre">()</span></code> function to get a list of all available dimensions in the current version of the
-application and choose one of the returned ids as the <code class="docutils literal notranslate"><span class="pre">dimension</span></code> parameter in the constructor instead of relying to static
-dimension id lists:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.scriptedelements</span>
-
-<span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">scriptedelements</span><span class="o">.</span><span class="n">get_dimensions</span><span class="p">():</span>
-    <span class="n">info</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">scriptedelements</span><span class="o">.</span><span class="n">get_dimension_definition</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dimension id: </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">, name: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, units: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, default: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>Abbreviation</strong>:</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">abbreviation</span></code> parameter is a short string which is used to identify the inspection type in labels, menus, etc.</p>
 </section>
 </section>
 <section id="gom-api-extensions-inspections-surface">
 <h4>gom.api.extensions.inspections.Surface<a class="headerlink" href="#gom-api-extensions-inspections-surface" title="Link to this heading"></a></h4>
 <p>Scripted surface inspection</p>
-<p>Please see the base class <code class="docutils literal notranslate"><span class="pre">ScriptedInspection</span></code> for a discussion of the properties all scripted inspection types
-have in common.</p>
-<p><strong>Return value</strong></p>
-<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">self.compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;deviation_values&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">Deviations</span>
     <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>                             <span class="o">//</span> <span class="n">Nominal</span> <span class="n">value</span>
     <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Item</span><span class="p">,</span>                   <span class="o">//</span> <span class="n">Inspected</span> <span class="n">element</span>
-    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                 <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>
+    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                                  <span class="o">//</span> <span class="n">Unit</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="n">value</span>
+    <span class="s2">&quot;abbreviation&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>                          <span class="o">//</span> <span class="n">Abbreviation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">inspection</span> <span class="nb">type</span> <span class="k">as</span> <span class="n">shown</span> <span class="ow">in</span> <span class="n">labels</span> <span class="n">etc</span><span class="o">.</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                 <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2846,11 +2759,11 @@ testing purposes.</p>
 </dd></dl>
 
 </section>
-<section id="gom-api-introspection-function-description">
-<h4>gom.api.introspection.Function.description<a class="headerlink" href="#gom-api-introspection-function-description" title="Link to this heading"></a></h4>
+<section id="gom-api-introspection-function-descripion">
+<h4>gom.api.introspection.Function.descripion<a class="headerlink" href="#gom-api-introspection-function-descripion" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.introspection.Function.description():</span> <span class="pre">str</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.introspection.Function.descripion():</span> <span class="pre">str</span></span></dt>
 <dd><p>Returns the optional function description</p>
 <dl class="myst field-list simple">
 <dt class="field-odd">API version<span class="colon">:</span></dt>
@@ -3712,47 +3625,6 @@ elements. Please see the scripted element documentation for details about the un
 <p>API for handling scripted elements</p>
 <p>This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, …)
 It is used mostly internally by the scripted element framework.</p>
-<section id="gom-api-scriptedelements-get-dimension-definition">
-<h3>gom.api.scriptedelements.get_dimension_definition<a class="headerlink" href="#gom-api-scriptedelements-get-dimension-definition" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_dimension_definition(typename:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Return information about the given dimension</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> – Name of the dimension</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>A physical dimension (or just “dimension”) refers to the fundamental nature of what is measured - like length,
-time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
-from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
-millimeter, inch for length; or degree, radian for angle.</p>
-</section>
-<section id="gom-api-scriptedelements-get-dimensions">
-<h3>gom.api.scriptedelements.get_dimensions<a class="headerlink" href="#gom-api-scriptedelements-get-dimensions" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_dimensions():</span> <span class="pre">[str]</span></span></dt>
-<dd><p>Return available dimensions</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List of known dimensions</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
 <section id="gom-api-scriptedelements-get-inspection-definition">
 <h3>gom.api.scriptedelements.get_inspection_definition<a class="headerlink" href="#gom-api-scriptedelements-get-inspection-definition" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -3774,6 +3646,43 @@ millimeter, inch for length; or degree, radian for angle.</p>
 
 <p>This function queries in internal ‘scalar registry’ database for information about the
 inspection with the given type.</p>
+</section>
+<section id="gom-api-scriptedelements-get-unit-definition">
+<h3>gom.api.scriptedelements.get_unit_definition<a class="headerlink" href="#gom-api-scriptedelements-get-unit-definition" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_unit_definition(typename:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
+<dd><p>Return information about the given unit type</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Name of the unit type</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with relevant type information or an empty dictionary if the name does not refer to a unit class</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="gom-api-scriptedelements-get-units">
+<h3>gom.api.scriptedelements.get_units<a class="headerlink" href="#gom-api-scriptedelements-get-units" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_units():</span> <span class="pre">[str]</span></span></dt>
+<dd><p>Return available units</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of known units</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 <section id="gom-api-selection">
@@ -3996,19 +3905,19 @@ have been stopped.</p>
 </section>
 <section id="gom-api-settings">
 <h2>gom.api.settings<a class="headerlink" href="#gom-api-settings" title="Link to this heading"></a></h2>
-<p>API for storing app related settings persistently</p>
+<p>API for storing add-on related settings persistently</p>
 <p>This API allows reading/writing values into the application configuration permanently. The
 configuration is persistent and will survive application restarts. Also, it can be accessed
 via the applications preferences dialog.</p>
-<p>The configuration entries must be defined in the app’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file. This configuration
+<p>The configuration entries must be defined in the add-ons <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file. This configuration
 defined the available keys, the entry types and the entry properties. If the entry type can be
-represented by some widget, the setting entry will also be present in the application’s ‘preferences’
+represented by some widget, the setting entry will also be present in the applications ‘preferences’
 dialog and can be adapted interactively there.</p>
 <section id="id4">
 <h3>Example<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Settings API example&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Example app demonstrating usage of the settings API&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Example add-on demonstrating usage of the settings API&quot;</span><span class="p">,</span>
   <span class="s2">&quot;uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;3b515488-aa7b-4035-85e1-b9509db8af4f&quot;</span><span class="p">,</span>
   <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.2&quot;</span><span class="p">,</span>
   <span class="s2">&quot;settings&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -4065,8 +3974,8 @@ dialog and can be adapted interactively there.</p>
  <span class="p">}</span>
 </pre></div>
 </div>
-<p>This will lead to configuration entries in the application’s preferences. Given that the <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> is
-part of an app called ‘Settings API Example’, the application preferences will contain the following items
+<p>This will lead to configuration entries in the applications preferences. Given that the <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> is
+part of an add-on called ‘Settings API Example’, the application preferences will contain the following items
 (visible setting entries only):</p>
 <p><img alt="Settings level 1" src="../_images/settings_api_preferences_1.png" /></p>
 <p><img alt="Settings level 2" src="../_images/settings_api_preferences_2.png" /></p>
@@ -4105,7 +4014,7 @@ attribute determines what kind of files or directories can be selected.</p>
 <dd class="field-odd"><p>1</p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>key</strong> (<em>str</em>) – Configuration key. Must be a key as defined in the app’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p>
+<dd class="field-even"><p><strong>key</strong> (<em>str</em>) – Configuration key. Must be a key as defined in the add-ons <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Configuration value for that key</p>
@@ -4129,13 +4038,13 @@ are integer, double, string and bool.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.settings.list():</span> <span class="pre">list[str]</span></span></dt>
-<dd><p>List all available keys for the current app</p>
+<dd><p>List all available keys for the current add-on</p>
 <dl class="myst field-list simple">
 <dt class="field-odd">API version<span class="colon">:</span></dt>
 <dd class="field-odd"><p>1</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>List of all the keys in the settings which belong to the current app</p>
+<dd class="field-even"><p>List of all the keys in the settings which belong to the current add-on</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list[str]</p>
@@ -4143,8 +4052,8 @@ are integer, double, string and bool.</p>
 </dl>
 </dd></dl>
 
-<p>This function returns a list of all available keys in the settings for the current app.
-These keys are the same configuration keys are used in the <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file of that app.</p>
+<p>This function returns a list of all available keys in the settings for the current add-on.
+These keys are the same configuration keys are used in the <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file of that add-on.</p>
 </section>
 <section id="gom-api-settings-set">
 <h3>gom.api.settings.set<a class="headerlink" href="#gom-api-settings-set" title="Link to this heading"></a></h3>
@@ -4158,7 +4067,7 @@ These keys are the same configuration keys are used in the <code class="docutils
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>key</strong> (<em>str</em>) – Configuration key. Must be a key as defined in the app’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – Configuration key. Must be a key as defined in the add-ons <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p></li>
 <li><p><strong>value</strong> (<em>Any</em>) – Value to be written</p></li>
 </ul>
 </dd>
@@ -4406,7 +4315,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f7e91c34830>
+  <jinja2.runtime.BlockReference object at 0x7fd2c23c3310>
 
 
 </footer>
