@@ -459,7 +459,7 @@ Nevertheless, the vector can be number entirely different depending on active/in
 
 ```{caution}
 Usually, it is *not* possible to access arbitrary stages of other elements due to recalc restrictions !
-```
+```    
 
 #### gom.api.extensions.ScriptedCalculationElement.__init__
 
@@ -478,29 +478,6 @@ Usually, it is *not* possible to access arbitrary stages of other elements due t
 ```
 
 Constructor
-
-#### gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter
-
-```{py:function} gom.api.extensions.ScriptedCalculationElement.add_selected_element_parameter(self: Any, values: Dict[str, Any]): None
-
-:param values: Values map
-:type values: Dict[str, Any]
-```
-
-Adds the current selected element as the target element to the values map
-
-#### gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter
-
-```{py:function} gom.api.extensions.ScriptedCalculationElement.add_target_element_parameter(self: Any, values: Dict[str, Any], element: Any): None
-
-:param values: Values map
-:type values: Dict[str, Any]
-:param element: Element to be added
-:type element: Any
-```
-
-Adds an element as the target element to the parameters map in the
-appropriate fields
 
 #### gom.api.extensions.ScriptedCalculationElement.compute
 
@@ -567,6 +544,14 @@ The category of an element type is used to find the application side counterpart
 functionality implementation. For example, `scriptedelement.actual` links that element type the application
 counterpart which cares for scripted actual elements and handles its creation, editing, administration, ...
 
+#### gom.api.extensions.ScriptedElement.Attribute
+
+
+Attributes used in the dialog definition
+
+The attributes are used to define the dialog widgets and their behavior. A selected set of these
+attributes are listed here as a central reference and for unified constant value access.
+
 #### gom.api.extensions.ScriptedElement.Event
 
 
@@ -574,6 +559,14 @@ Event types passed to the `event ()` function
 
 - `DIALOG_INITIALIZE`: Sent when the dialog has been initialized and made visible
 - `DIALOG_CHANGED`:    A dialog widget value changed
+
+#### gom.api.extensions.ScriptedElement.WidgetType
+
+
+(Selected) widget types used in the dialog definition
+
+The widget types are used to define the dialog widgets and their behavior. A selected set of these
+widget types are listed here as a central reference and for unified constant value access.
 
 #### gom.api.extensions.ScriptedElement.__init__
 
@@ -608,11 +601,73 @@ in the service log file. It is used to forward errors from the C++ side to the P
 
 #### gom.api.extensions.ScriptedElement.apply_dialog
 
-```{py:function} gom.api.extensions.ScriptedElement.apply_dialog(self: Any, args: Any, values: Any): None
+```{py:function} gom.api.extensions.ScriptedElement.apply_dialog(self: Any, dlg: Any, result: Any): None
+
+:param dlg: Dialog handle as created via the `gom.api.dialog.create ()` function
+:type dlg: Any
+:param result: Dialog result values as returned from the `gom.api.dialog.show ()` function.
+:type result: Any
+:return: Resulting dialog parameters
+:rtype: None
 ```
 
 Apply dialog values to the dialog arguments. This function is used to read the dialog values
 back into the dialog arguments. See function `dialog ()` for a format description of the arguments.
+
+In its default implementation, the function performs the following tasks:
+
+- The dialog result contains values for all dialog widgets, including spacers, labels and other displaying only
+  widgets. These values are not directly relevant for the dialog arguments and are removed.
+- The name of the created element must be treated in a dedicated way. So the dialog results are scanned for
+  an entry named `name` which originates from an element name widget. If this argument is present, it is assumed
+  that it configured the dialog name, is removed from the general dialog result and passed as a special `name`
+  result instead.
+- The tolerance values are also treated in a dedicated way. If a dialog tolerance widget with the name `tolerance` 
+  is present, its value is extracted and included in the final result.
+
+So the dialog `result` parameters can look like this:
+
+```
+{'list': 'one', 'list_label': None, 'threshold': 1.0, 'threshold_label': None, 'name' :'Element 1', 'name_label': None}
+```
+
+This will be modified into a format which can be recorded as a script element creation command parameter set:
+
+```
+{'name': 'Element 1', 'values': {'list': 'one', 'threshold': 1.0}}
+```
+
+This function can be overloaded if necessary and if the parameters must be adapted before being applied:
+
+```
+def apply_dialog (self, dlg, result):
+    params = super ().apply_dialog (dlg, result)
+    # ... Adapt parameters...
+    return params
+```
+
+For example, if a check should support tolerances, the dialogs tolerance widget value must be present in a parameter called
+'tolerance'. So the `apply_dialog()` function can be tailored like this for that purpose:
+
+```
+def apply_dialog (self, dlg, result):
+    params = super ().apply_dialog (dlg, result)
+
+    params['name'] = dlg.name.value            # Read result directly from dialog object
+    params['tolerance'] = result['tolerance']  # Apply result from dialog result dictionary
+
+    return params
+```                
+
+This will result in a dictionary with the parameters which are then used in the elements creation command. When recorded, this could look
+like this:
+
+```
+gom.script.scriptedelements.create_actual (name='Element 1', values={'mode': 23, 'threshold': 1.0}, tolerance={'lower': -0.5, 'upper': +0.5})
+```
+
+The `values` part will be directly forwarded to the elements custom `compute ()` function, which the `name` and `tolerance` parameters
+are evaluated by the ZEISS INSPECT framework to apply the necessary settings automatically.        
 
 #### gom.api.extensions.ScriptedElement.check_list
 
@@ -671,7 +726,7 @@ The dialog arguments are passed as a JSON like map structure. The format is as f
 ```
 {
     "version": 1,
-    "name": "Element name",
+    "name": "Element 1",
     "values: {
         "widget1": value1,
         "widget2": value2
@@ -682,10 +737,13 @@ The dialog arguments are passed as a JSON like map structure. The format is as f
 
 - `version`: Version of the dialog structure. This is used to allow for future changes in the dialog
              structure without breaking existing scripts
-- `name`:    Human readable name of the element which is created or edited
+- `name`:    Human readable name of the element which is created or edited. This entry is inserted automatically
+             from the dialog widget if two conditions are met: The name of the dialog widget is 'name' and its
+             type is 'Element name'. So in principle, the dialog must be setup to contain an 'Element name' widget
+             named 'name' in an appropriate layout location and the rest then happens automatically.
 - `values`:  A map of widget names and their initial values. The widget names are the keys and the values
              are the initial or edited values for the widgets. This map is always present, but can be empty
-             for newly created elements. The element names are matching those in the user defined dialog, so
+             for newly created elements. The keys are matching the widget names in the user defined dialog, so
              the values can be set accordingly. As a default, use the function `initialize_dialog (args)` to
              setup all widgets from the args values.
 
@@ -696,8 +754,7 @@ and read back the generated values. So a typical dialog function will look like 
 def dialog (self, context, args):
     dlg = gom.api.dialog.create ('/dialogs/create_element.gdlg')
     self.initialize_dialog (dlg, args)
-    result = gom.api.dialog.show (dlg)
-    args = self.apply_dialog (args, gom.api.dialog.show (dlg))
+    args = self.apply_dialog (dlg, gom.api.dialog.show (dlg))
     return args
 ```
 
@@ -731,7 +788,8 @@ def dialog (self, context, args):
 :type context: Any
 :param event_type: Event type
 :type event_type: Any
-:param args: Event arguments
+:param parameters: Event arguments
+:type parameters: Any
 :return: `True` if the event requires a recomputation of the elements preview. Upon return, the framework will then trigger a call to the `compute ()` function and use its result for a preview update. In the case of `False`, no recomputation is triggered and the preview remains unchanged.
 :rtype: None
 ```
@@ -745,7 +803,7 @@ The function can then react to that event and update the UI state accordingly.
 ```
 
 Wrapper function for calls to `event ()`. This function is called from the application side
-and will convert the event parameter accordingly
+and will convert the event parameters accordingly
 
 #### gom.api.extensions.ScriptedElement.finish
 
@@ -819,7 +877,7 @@ This function is a shortcut for the following code:
 dlg = gom.api.dialog.create(context, url)   # Create dialog and return a handle to it
 self.initialize_dialog(context, dlg, args)  # Initialize the dialog with the given arguments
 result = gom.api.dialog.show(context, dlg)  # Show dialog and enter the dialog loop
-return self.apply_dialog(args, result)      # Apply the final dialog values
+return self.apply_dialog(dlg, result)      # Apply the final dialog values
 ```
 
 ### gom.api.extensions.actuals
@@ -1136,18 +1194,23 @@ Scripted actual volume segmentation element
 
 Scripted curve inspection
 
-The expected parameters from the elements `compute ()` function is a map with the following format:
+Please see the base class `ScriptedInspection` for a discussion of the properties all scripted inspection types
+have in common.
+
+**Return value**
+
+The expected parameters from the elements `self.compute ()` function is a map with the following format:
 
 ```
 {
     "actual_values": [float, ...]  // Deviations
     "nominal_values": [float, ...] // Nominal values
+
      ...or alternatively...
+
     "nominal_value": float,        // Alternative: Single common nominal value
     "target_element": gom.Item,    // Inspected element
-    "unit": str,                   // Unit of the inspection value
-    "abbreviation": str,           // Abbreviation of the inspection type as shown in labels etc.
-    "data": {...}                  // Optional element data, stored with the element    
+    "data": {...}                  // Optional element data, stored with the element
 }
 ```
 
@@ -1156,16 +1219,19 @@ The expected parameters from the elements `compute ()` function is a map with th
 
 Scripted scalar inspection
 
-The expected parameters from the element's `compute ()` function is a map with the following format:
+Please see the base class `ScriptedInspection` for a discussion of the properties all scripted inspection types
+have in common.
+
+**Return value**
+
+The expected parameters from the element's `self.compute ()` function is a map with the following format:
 
 ```
 {
     "nominal": float,           // Nominal value
     "actual": float,            // Actual value
     "target_element": gom.Item, // Inspected element
-    "unit": str,                // Unit of the inspection value
-    "abbreviation": str,        // Abbreviation of the inspection type as shown in labels etc.
-    "data": {...}               // Optional element data, stored with the element        
+    "data": {...}               // Optional element data, stored with the element
 }
 ```
 
@@ -1174,9 +1240,47 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 This class is the base class for all scripted inspections
 
+Scripted inspections are used to inspect elements in the 3D view, like scalar, surface or curve inspections.
+There are specialized classes for each inspection type, like `Scalar`, `Surface` or `Curve`, which inherit from this
+class. The `ScriptedInspection` class is used to define the common properties of all scripted inspections.
+
+**The target element**
+
+The `self.compute ()` function of every scripted inspection expects a `target_element` value which is the element
+which is inspected by the check. This inspected element is usually queried in the checks dialog, but can also be
+or depend on the currently selected element in the 3D view. So the return parameter of the `self.compute ()`
+function looks like this:
+
+```
+{
+    "target_element": my_dialog.element_selector.value, # The inspected element as selected in a dialog widget
+    "data": {...}                                       # Optional data, stored with the element
+    ...                                                 # Specific data required by the inspection type
+}
+```
+
+To avoid background magic, the `target_element` must be explicitly returned by the `self.compute ()` function and
+there is no automatic insertion of a possibly selected element. So if the check should inspect the currently
+selected element in the 3D view, this must be coded explicitly in the `self.compute ()` function:
+
+```
+import gom.api.selection
+
+def compute (self, context, values):
+    selected = gom.api.selection.get_selected_elements()
+    if len (selected) != 1:
+        raise ValueError("Please select exactly one element to inspect")
+
+    return {
+        "target_element": selected[0],
+        "data": {},                                      # Optional data, stored with the element
+        ...                                              # Specific data required by the check type
+    }
+```
+
 ##### gom.api.extensions.inspections.ScriptedInspection.__init__
 
-```{py:function} gom.api.extensions.inspections.ScriptedInspection.__init__(self: Any, id: str, description: str, element_type: str, unit: str, abbreviation: str, help_id: str): None
+```{py:function} gom.api.extensions.inspections.ScriptedInspection.__init__(self: Any, id: str, description: str, element_type: str, dimension: str, abbreviation: str, help_id: str): None
 
 :param id: Scripted inspection id string
 :type id: str
@@ -1184,29 +1288,94 @@ This class is the base class for all scripted inspections
 :type description: str
 :param element_type: Type of the generated element (inspection.scalar, inspection.surface, ...)
 :type element_type: str
-:param unit: Unit of the inspection value
-:type unit: str
+:param dimension: Dimension of the inspection value. See above for detailed explanation.
+:type dimension: str
 :param abbreviation: Abbreviation of the inspection type as shown in labels etc.
 :type abbreviation: str
 ```
 
 Constructor
 
+**Units and dimensions**
+
+In principle, the term
+
+* 'dimension' refers to a physical dimension which is measured, like 'length', 'time', 'angle', 'force', 'pressure', etc. while
+* 'unit' refers to a specific unit to quantify that dimension, like the units 'inch', 'mm', 'm', ... for the dimension 'length'.
+
+These two terms are often mixed up, but dimension describes the type of physical quantity, while unit describes the scale or standard
+used to measure it. When using scripts checks, it is important to understand that
+
+* the 'dimension' of an element must be set explicitly in the script while
+* all internal calculations are done in the *base unit* of that dimension (which is 'mm' for 'length', 's' for 'time', etc.) and
+* a setting in the ZEISS INSPECT preferences defines the *displayed unit* for that dimension, like 'inch' or 'mm' for 'length'.
+
+So, for example, if a scripted check is computing a value with the dimension 'angle', the base unit of that dimension is always
+'radian'. The expected values will be in the range [0, 2*pi] and the displayed unit will be transformed to the
+currently set unit in the preferences. The displayed unit is usually 'degree', so the computed value is transformed internally
+in the applications labels, tables, reports etc. to the range [0, 360] and displayed as such.
+
+The ids for the available dimensions can very over time and are hardcoded in the ZEISS INSPECT application. It is avised to
+use the `gom.api.scriptedelements.get_dimensions ()` function to get a list of all available dimensions in the current version of the
+application and choose one of the returned ids as the `dimension` parameter in the constructor instead of relying to static
+dimension id lists:
+
+```
+import gom.api.scriptedelements
+
+for id in gom.api.scriptedelements.get_dimensions():
+    info = gom.api.scriptedelements.get_dimension_definition(id)
+    print(f"Dimension id: {id}, name: {info['name']}, units: {info['units']}, default: {info['default']}")
+```
+
+**Abbreviation**
+
+The `abbreviation` parameter is a short string which is used to identify the inspection type in labels, menus, etc.
+
+**Tolerances**
+
+Inspections are supporting tolerances. A tolerance is a limit which defines the inspected value quality and is defined 
+right at the inspection element. For this, a special element dialog widget 'tolerance' is defined which returns a
+representation of the tolerance limits. When used, this widgets value must be forwarded via a special return value
+named 'tolerance'. This can best be done in a customized `apply_dialog()` function which is called to generate the 
+`dialog ()` function return dictionary from the dialogs result:
+
+```
+def apply_dialog (self, dlg, result):
+    params = super ().apply_dialog (dlg, result)
+
+    params['name'] = result['name']           # Dialog widget named 'name' sets the element name
+    params['tolerance'] = result['tolerance'] # Dialog widget named 'tolerance' sets tolerance values
+
+    #
+    # So the resulting dictionary is of the following format:
+    #
+    # {'name': 'Element 1', 'tolerance': {'lower': 0.1, 'upper': 0.2}, 'values': {'threshold': 0.5, 'mode:' 23}}
+    #
+    # This will lead to three parameters in the recorded check creating command with specific semantics.
+    #
+
+    return params
+```
+
 #### gom.api.extensions.inspections.Surface
 
 
 Scripted surface inspection
 
-The expected parameters from the element's `compute ()` function is a map with the following format:
+Please see the base class `ScriptedInspection` for a discussion of the properties all scripted inspection types
+have in common.
+
+**Return value**
+
+The expected parameters from the element's `self.compute ()` function is a map with the following format:
 
 ```
 {
     "deviation_values": [v: float, v: float, ...] // Deviations
     "nominal": float,                             // Nominal value
     "target_element": gom.Item,                   // Inspected element
-    "unit": str,                                  // Unit of the inspection value
-    "abbreviation": str,                          // Abbreviation of the inspection type as shown in labels etc.
-    "data": {...}                                 // Optional element data, stored with the element        
+    "data": {...}                                 // Optional element data, stored with the element
 }
 ```
 
@@ -2139,9 +2308,9 @@ Returns detailed information about the function arguments
 ```
 
 
-#### gom.api.introspection.Function.descripion
+#### gom.api.introspection.Function.description
 
-```{py:function} gom.api.introspection.Function.descripion(): str
+```{py:function} gom.api.introspection.Function.description(): str
 
 Returns the optional function description
 :API version: 1
@@ -2693,6 +2862,31 @@ API for handling scripted elements
 This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, ...)
 It is used mostly internally by the scripted element framework.
 
+### gom.api.scriptedelements.get_dimension_definition
+
+```{py:function} gom.api.scriptedelements.get_dimension_definition(typename: str): Any
+
+Return information about the given dimension
+:param name: Name of the dimension
+:return: Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension
+:rtype: Any
+```
+
+A physical dimension (or just "dimension") refers to the fundamental nature of what is measured - like length,
+time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
+from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
+millimeter, inch for length; or degree, radian for angle.
+
+### gom.api.scriptedelements.get_dimensions
+
+```{py:function} gom.api.scriptedelements.get_dimensions(): [str]
+
+Return available dimensions
+:return: List of known dimensions
+:rtype: [str]
+```
+
+
 ### gom.api.scriptedelements.get_inspection_definition
 
 ```{py:function} gom.api.scriptedelements.get_inspection_definition(typename: str): Any
@@ -2705,27 +2899,6 @@ Return information about the given scripted element type
 
 This function queries in internal 'scalar registry' database for information about the
 inspection with the given type.
-
-### gom.api.scriptedelements.get_unit_definition
-
-```{py:function} gom.api.scriptedelements.get_unit_definition(typename: str): Any
-
-Return information about the given unit type
-:param name: Name of the unit type
-:return: Dictionary with relevant type information or an empty dictionary if the name does not refer to a unit class
-:rtype: Any
-```
-
-
-### gom.api.scriptedelements.get_units
-
-```{py:function} gom.api.scriptedelements.get_units(): [str]
-
-Return available units
-:return: List of known units
-:rtype: [str]
-```
-
 
 ## gom.api.selection
 
@@ -2884,15 +3057,15 @@ for s in gom.api.services.get_services ():
 
 ## gom.api.settings
 
-API for storing add-on related settings persistently
+API for storing app related settings persistently
 
 This API allows reading/writing values into the application configuration permanently. The
 configuration is persistent and will survive application restarts. Also, it can be accessed
 via the applications preferences dialog.
 
-The configuration entries must be defined in the add-ons `metainfo.json` file. This configuration
+The configuration entries must be defined in the app's `metainfo.json` file. This configuration
 defined the available keys, the entry types and the entry properties. If the entry type can be
-represented by some widget, the setting entry will also be present in the applications 'preferences'
+represented by some widget, the setting entry will also be present in the application's 'preferences'
 dialog and can be adapted interactively there.
 
 ### Example
@@ -2900,7 +3073,7 @@ dialog and can be adapted interactively there.
 ```
 {
   "title": "Settings API example",
-  "description": "Example add-on demonstrating usage of the settings API",
+  "description": "Example app demonstrating usage of the settings API",
   "uuid": "3b515488-aa7b-4035-85e1-b9509db8af4f",
   "version": "1.0.2",
   "settings": [
@@ -2957,8 +3130,8 @@ dialog and can be adapted interactively there.
  }
 ```
 
-This will lead to configuration entries in the applications preferences. Given that the `metainfo.json` is
-part of an add-on called 'Settings API Example', the application preferences will contain the following items
+This will lead to configuration entries in the application's preferences. Given that the `metainfo.json` is
+part of an app called 'Settings API Example', the application preferences will contain the following items
 (visible setting entries only):
 
 ![Settings level 1](images/settings_api_preferences_1.png)
@@ -2994,7 +3167,7 @@ attribute determines what kind of files or directories can be selected.
 
 Read value from application settings
 :API version: 1
-:param key: Configuration key. Must be a key as defined in the add-ons `metainfo.json` file.
+:param key: Configuration key. Must be a key as defined in the app's `metainfo.json` file.
 :type key: str
 :return: Configuration value for that key
 :rtype: Any
@@ -3014,14 +3187,14 @@ h = gom.api.settings.get ('dialog.height')
 
 ```{py:function} gom.api.settings.list(): list[str]
 
-List all available keys for the current add-on
+List all available keys for the current app
 :API version: 1
-:return: List of all the keys in the settings which belong to the current add-on
+:return: List of all the keys in the settings which belong to the current app
 :rtype: list[str]
 ```
 
-This function returns a list of all available keys in the settings for the current add-on.
-These keys are the same configuration keys are used in the `metainfo.json` file of that add-on.
+This function returns a list of all available keys in the settings for the current app.
+These keys are the same configuration keys are used in the `metainfo.json` file of that app.
 
 ### gom.api.settings.set
 
@@ -3029,7 +3202,7 @@ These keys are the same configuration keys are used in the `metainfo.json` file 
 
 Write value into application settings
 :API version: 1
-:param key: Configuration key. Must be a key as defined in the add-ons `metainfo.json` file.
+:param key: Configuration key. Must be a key as defined in the app's `metainfo.json` file.
 :type key: str
 :param value: Value to be written
 :type value: Any
