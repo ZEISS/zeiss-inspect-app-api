@@ -1196,6 +1196,8 @@ widgets. These values are not directly relevant for the dialog arguments and are
 an entry named <code class="docutils literal notranslate"><span class="pre">name</span></code> which originates from an element name widget. If this argument is present, it is assumed
 that it configured the dialog name, is removed from the general dialog result and passed as a special <code class="docutils literal notranslate"><span class="pre">name</span></code>
 result instead.</p></li>
+<li><p>The tolerance values are also treated in a dedicated way. If a dialog tolerance widget with the name <code class="docutils literal notranslate"><span class="pre">tolerance</span></code>
+is present, its value is extracted and included in the final result.</p></li>
 </ul>
 <p>So the dialog <code class="docutils literal notranslate"><span class="pre">result</span></code> parameters can look like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;list_label&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;threshold_label&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span> <span class="p">:</span><span class="s1">&#39;Element 1&#39;</span><span class="p">,</span> <span class="s1">&#39;name_label&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
@@ -1212,6 +1214,24 @@ result instead.</p></li>
     <span class="k">return</span> <span class="n">params</span>
 </pre></div>
 </div>
+<p>For example, if a check should support tolerances, the dialogs tolerance widget value must be present in a parameter called
+‘tolerance’. So the <code class="docutils literal notranslate"><span class="pre">apply_dialog()</span></code> function can be tailored like this for that purpose:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">apply_dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="n">apply_dialog</span> <span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">value</span>            <span class="c1"># Read result directly from dialog object</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;tolerance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;tolerance&#39;</span><span class="p">]</span>  <span class="c1"># Apply result from dialog result dictionary</span>
+
+    <span class="k">return</span> <span class="n">params</span>
+</pre></div>
+</div>
+<p>This will result in a dictionary with the parameters which are then used in the elements creation command. When recorded, this could look
+like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">scriptedelements</span><span class="o">.</span><span class="n">create_actual</span> <span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Element 1&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span> <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span> <span class="n">tolerance</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;lower&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;upper&#39;</span><span class="p">:</span> <span class="o">+</span><span class="mf">0.5</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">values</span></code> part will be directly forwarded to the elements custom <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function, which the <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> parameters
+are evaluated by the ZEISS INSPECT framework to apply the necessary settings automatically.</p>
 </section>
 <section id="gom-api-extensions-scriptedelement-check-list">
 <h4>gom.api.extensions.ScriptedElement.check_list<a class="headerlink" href="#gom-api-extensions-scriptedelement-check-list" title="Link to this heading"></a></h4>
@@ -1837,8 +1857,31 @@ dimension id lists:</p>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dimension id: </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">, name: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, units: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, default: </span><span class="si">{</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Abbreviation</strong>:</p>
+<p><strong>Abbreviation</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">abbreviation</span></code> parameter is a short string which is used to identify the inspection type in labels, menus, etc.</p>
+<p><strong>Tolerances</strong></p>
+<p>Inspections are supporting tolerances. A tolerance is a limit which defines the inspected value quality and is defined
+right at the inspection element. For this, a special element dialog widget ‘tolerance’ is defined which returns a
+representation of the tolerance limits. When used, this widgets value must be forwarded via a special return value
+named ‘tolerance’. This can best be done in a customized <code class="docutils literal notranslate"><span class="pre">apply_dialog()</span></code> function which is called to generate the
+<code class="docutils literal notranslate"><span class="pre">dialog</span> <span class="pre">()</span></code> function return dictionary from the dialogs result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">apply_dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="n">apply_dialog</span> <span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>           <span class="c1"># Dialog widget named &#39;name&#39; sets the element name</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;tolerance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;tolerance&#39;</span><span class="p">]</span> <span class="c1"># Dialog widget named &#39;tolerance&#39; sets tolerance values</span>
+
+    <span class="c1">#</span>
+    <span class="c1"># So the resulting dictionary is of the following format:</span>
+    <span class="c1">#</span>
+    <span class="c1"># {&#39;name&#39;: &#39;Element 1&#39;, &#39;tolerance&#39;: {&#39;lower&#39;: 0.1, &#39;upper&#39;: 0.2}, &#39;values&#39;: {&#39;threshold&#39;: 0.5, &#39;mode:&#39; 23}}</span>
+    <span class="c1">#</span>
+    <span class="c1"># This will lead to three parameters in the recorded check creating command with specific semantics.</span>
+    <span class="c1">#</span>
+
+    <span class="k">return</span> <span class="n">params</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="gom-api-extensions-inspections-surface">
@@ -4406,7 +4449,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7faf8603b070>
+  <jinja2.runtime.BlockReference object at 0x7f86285047c0>
 
 
 </footer>

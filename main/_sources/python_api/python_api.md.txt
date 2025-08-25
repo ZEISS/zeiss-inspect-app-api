@@ -459,7 +459,7 @@ Nevertheless, the vector can be number entirely different depending on active/in
 
 ```{caution}
 Usually, it is *not* possible to access arbitrary stages of other elements due to recalc restrictions !
-```
+```    
 
 #### gom.api.extensions.ScriptedCalculationElement.__init__
 
@@ -622,6 +622,8 @@ In its default implementation, the function performs the following tasks:
   an entry named `name` which originates from an element name widget. If this argument is present, it is assumed
   that it configured the dialog name, is removed from the general dialog result and passed as a special `name`
   result instead.
+- The tolerance values are also treated in a dedicated way. If a dialog tolerance widget with the name `tolerance` 
+  is present, its value is extracted and included in the final result.
 
 So the dialog `result` parameters can look like this:
 
@@ -643,6 +645,29 @@ def apply_dialog (self, dlg, result):
     # ... Adapt parameters...
     return params
 ```
+
+For example, if a check should support tolerances, the dialogs tolerance widget value must be present in a parameter called
+'tolerance'. So the `apply_dialog()` function can be tailored like this for that purpose:
+
+```
+def apply_dialog (self, dlg, result):
+    params = super ().apply_dialog (dlg, result)
+
+    params['name'] = dlg.name.value            # Read result directly from dialog object
+    params['tolerance'] = result['tolerance']  # Apply result from dialog result dictionary
+
+    return params
+```                
+
+This will result in a dictionary with the parameters which are then used in the elements creation command. When recorded, this could look
+like this:
+
+```
+gom.script.scriptedelements.create_actual (name='Element 1', values={'mode': 23, 'threshold': 1.0}, tolerance={'lower': -0.5, 'upper': +0.5})
+```
+
+The `values` part will be directly forwarded to the elements custom `compute ()` function, which the `name` and `tolerance` parameters
+are evaluated by the ZEISS INSPECT framework to apply the necessary settings automatically.        
 
 #### gom.api.extensions.ScriptedElement.check_list
 
@@ -1303,9 +1328,35 @@ for id in gom.api.scriptedelements.get_dimensions():
     print(f"Dimension id: {id}, name: {info['name']}, units: {info['units']}, default: {info['default']}")
 ```
 
-**Abbreviation**:
+**Abbreviation**
 
 The `abbreviation` parameter is a short string which is used to identify the inspection type in labels, menus, etc.
+
+**Tolerances**
+
+Inspections are supporting tolerances. A tolerance is a limit which defines the inspected value quality and is defined 
+right at the inspection element. For this, a special element dialog widget 'tolerance' is defined which returns a
+representation of the tolerance limits. When used, this widgets value must be forwarded via a special return value
+named 'tolerance'. This can best be done in a customized `apply_dialog()` function which is called to generate the 
+`dialog ()` function return dictionary from the dialogs result:
+
+```
+def apply_dialog (self, dlg, result):
+    params = super ().apply_dialog (dlg, result)
+
+    params['name'] = result['name']           # Dialog widget named 'name' sets the element name
+    params['tolerance'] = result['tolerance'] # Dialog widget named 'tolerance' sets tolerance values
+
+    #
+    # So the resulting dictionary is of the following format:
+    #
+    # {'name': 'Element 1', 'tolerance': {'lower': 0.1, 'upper': 0.2}, 'values': {'threshold': 0.5, 'mode:' 23}}
+    #
+    # This will lead to three parameters in the recorded check creating command with specific semantics.
+    #
+
+    return params
+```
 
 #### gom.api.extensions.inspections.Surface
 
