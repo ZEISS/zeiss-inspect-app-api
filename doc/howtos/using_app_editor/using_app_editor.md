@@ -22,6 +22,9 @@ See the ZEISS Quality Tech Guide article [App Editor](https://techguide.zeiss.co
   * [Creating Apps in External Folders](#creating-apps-in-external-folders)
 
 ## App Editor Layout
+![App Editor Start Page](assets/start_page.png)
+
+The start page is shown if no content is selected in the App Explorer. You open the start page by clicking the empty space below the App Explorer contents.
 
 ![App Editor Layout](assets/01-App_Editor_Intro.png)
 
@@ -120,7 +123,15 @@ You insert a file selection dialog in your Python script by using RMB ► Insert
 
 A project must be opened to provide items in the Project Contents section. An App must be in editing mode to allow adding or removing contents. You copy or move contents between the Project Contents section and an App or between two Apps by drag&amp;drop. You remove content from an App with RMB ► Delete... Based on the content types, the App folder structure is maintained automatically.
 
-![Copying and Moving Contents](assets/add_on_editor_dnd.gif)
+![Copying and Moving Contents](assets/app_editor_dnd.gif)
+
+## Creating Project Content
+
+![Create Project Content](assets/create_project_content.png)
+
+The button "Create Project Content" allows to create content in your current project. Currently, creating UI configurations is the only option, but more items will be added later.
+
+With UI configurations, you can customize specific settings of the user interface, such as toolbars, shortcuts or the menu bar. See [ZEISS Quality Tech Guide: Create UI Configuration](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/cmd_sys_create_ui_configuration.html) for more information.
 
 ## Searching and Filtering
 
