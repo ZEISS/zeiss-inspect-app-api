@@ -12,7 +12,7 @@ Automated tests are important when writing Apps in Python because they help to e
 
 ## File structure
 
-For test discovery to work, the file and folder structure of App tests needs to adhere to the following conventions, which are similar to *pytest*'s [Conventions for Python test discovery](https://docs.pytest.org/en/7.2.x/explanation/goodpractices.html#conventions-for-python-test-discovery).
+For test discovery to work, the file and folder structure of App tests needs to adhere to the following conventions, which are similar to *pytest*'s [Conventions for Python test discovery](https://docs.pytest.org/en/stable/explanation/goodpractices.html#conventions-for-python-test-discovery).
 
 * Test script file names **start with `test_`**
 * Test scripts *only* contain **functions with the prefix `test_`**.
@@ -36,7 +36,7 @@ The following steps are required to write a new test script. The example code is
 1. Create a test script: Create a Python file with the convention test_*.py. 
    (Example: [/tests/test_data_interfaces_check_results](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/CheckResultsDataArray/scripts/tests/test_data_interfaces_check_results.py))
    
-2. Import the module or package to be tested: Import the module or package that you want to test.
+2. Import the module or package to be tested.
 
    ```python
    # Importing the example we want to test
@@ -67,7 +67,7 @@ That's all it takes to create a simple test, which can now be run.
 
 ## Running App tests
 
-To run App tests &ndash; either a single one or multiple/all tests of an App &ndash; you can use the integrated script editor or VSCode. You can also execute tests from a script.
+To run App tests &ndash; either a single one or multiple/all tests of an App &ndash; you can use the integrated App Explorer or VSCode. You can also execute tests from a script.
 
 ### Using the App Explorer
 
@@ -75,7 +75,7 @@ To run the tests of a specific test script, use the context menu and select "Run
 
 ![Executimg tests from App Explorer](assets/execute_tests_command.png)
 
-You can use this context also on higher levels of the file hierarchy, e.g. to execute all tests of a folder or of the complete App.
+You can use this context also on higher levels of the file hierarchy, e.g. to execute all tests in a folder or of the complete App.
 
 Results will be shown in the log of the script editor.
 
@@ -90,7 +90,7 @@ To use this feature, navigate to the "Testing" workspace of VSCode and select th
 
 ### From scripts
 
-You can use the `execute_addon_tests` command to run tests of an App. It takes the App UUID as mandatory argument. If solely given, all tests of the App are executed. You can also provide a list of test paths with the argument `test_paths` in form of relative paths inside the App. The suffix `#test_<...>` indicates, which test function to run. 
+You can use the `execute_addon_tests` command to run tests of an App. It takes the App UUID as mandatory argument. If solely given, all tests of the App are executed. You can also provide a list of test paths with the argument `test_paths` in form of relative paths inside the App. The suffix `#test_<...>` selects the test function to be run. 
 
 ```
 results = gom.script.sys.execute_addon_tests_draft(addon_uuid='cc4de73f-a8b9-4c01-8f45-141a74f29333')
@@ -106,7 +106,7 @@ This will give you `results` as a list of tuples (test name, success, error mess
 
 In the namespace `addon`, there are two classes: `addon.ArrayDataTest` and `addon.ElementTest`.
 
-These classes can help you to create test data and compare the data of the current test run with the saved data. An example usage is given in `test_data_interfaces_volume_section.py` of the <a href="../../python_examples/examples_overview.html#volumesectionimagedata">VolumeSectionImageData App</a>.
+These classes can help you to create test data and compare the data of the current test run with the saved reference data. An example usage is given in `test_data_interfaces_volume_section.py` of the <a href="../../python_examples/examples_overview.html#volumesectionimagedata">VolumeSectionImageData App</a>.
 
 ```
 from addon import ArrayDataTest, ElementTest
@@ -137,7 +137,7 @@ def test_volume_section():
 
 You can see, that `ElementTest` can be used to access element properties easily. `ArrayDataTest` is used for `numpy` array comparison.
 The path where test data is stored is supplied in the constructors (e.g. `ElementTest('test_data/data_interfaces_volume_section_tokens.dat')`).
-If a relative path is given, like here, a resource inside the App is created / compared with. You can also use absolute paths to a file on your disk, but this is not recommended since not everyone who installed your App will have access to this data.
+If a relative path is given &ndash; as in this example &ndash; a resource inside the App is created / compared with. You can also use absolute paths to a file on your disk, but this is not recommended since not everyone who installed your App will have access to this data.
 
 These classes will **create the test data** for you, if you run the test execution via "Run tests (create data)...".
 
@@ -245,71 +245,170 @@ which can be used together with the `with` statement ([https://docs.python.org/3
 Its `__init__` method expects a callback function. This callback function should take a dialog handle as the only parameter. The dialog handle may be used to manipulate the dialog (set the value of widgets, call the handler manually, etc).
 
 Interaction with the control buttons of the dialog is done via the return value of the callback:
-* If the dialog should be closed via the close button, the callback should return 'close'.
-* If the dialog should be closed via the cancel button (`BreakError`), the callback should return 'cancel'.
+* If the dialog shall be closed via the close button, the callback must return 'close'.
+* If the dialog shall be closed via the cancel button (`BreakError`), the callback must return 'cancel'.
 * If the dialog does not need to be closed by automatic control button interaction,
-  but will close itself by some other interaction, the callback should return `None`.
+  but will close itself by some other interaction, the callback must return `None`.
 
 ## Running App tests with code coverage
 
-Sometimes not only the test results, but also the amount of code covered by the test suite is of interest. The App [TemplateUnittestCoverage](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/TemplateUnittestCoverage/doc/Documentation.md) provides a template for running unit tests and generating a code coverage report.
+Sometimes not only the test results, but also the percentage of code covered by the test suite is of interest. The App [PytestTemplate](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/doc/Documentation.md) provides a template for unit testing and integration testing with code coverage.
 
-The test case structure is the same as described in the preceding sections, but to generate a coverage report, the tests must be run with the script [run_tests.py](https://github.com/ZeissIQS/AddOnExamples/blob/main/examples/TemplateUnittestCoverage/scripts/run_tests.py) while the App is in editing mode.
+Both unit testing and integration testing is done with [pytest](https://docs.pytest.org/en/stable/index.html) and the coverage extension [pytest-cov](https://pytest-cov.readthedocs.io/en/stable/). The App must be in editing mode or located in a connected folder (see [Using the App Editor](../using_app_editor/using_app_editor.md)) to allow access to its file structure.
 
-With the provided example, the test results are shown as follows:
+The test folder structure is the same as described in [File structure](#file-structure). The tests are executed with the test runners [run_unittests.py](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/scripts/tests/run_unittests.py) or [run_integrationtests.py](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/scripts/tests/run_integrationtests.py), respectively.
 
-```
-Test case folder: [...]/gom_edited_addons/d569d88b-a493-4298-ad4a-0875f5173ce1\scripts\tests
--- Project keywords --
-user_project='Test Project'
-user_inspector='Clouseau'
-F
-F.
-{'user_project': {'description': 'Project Name', 'value': 'Test Project'}, 'user_inspector': {'description': 'Inspector', 'value': 'Clouseau'}}
-.
-======================================================================
-FAIL: unittest.case.FunctionTestCase (test_blackbox)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "C:\Users\<USERID>\AppData\Roaming\gom\2023\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts\tests\test_blackbox.py", line 28, in test_blackbox
-    assert gom.app.project.get('user_project') == 'Test Projet' # intended to fail
-AssertionError
+The test runner
+* Configures the test setup
+* Sets up the pytest configuration
+* Uses pytest for test case discovery and test execution
 
-======================================================================
-FAIL: unittest.case.FunctionTestCase (test_fail)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "C:\Users\<USERID>\AppData\Roaming\gom\2023\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts\tests\test_fail.py", line 14, in test_fail
-    assert False
-AssertionError
+Pytest generates a test report and a coverage report.
 
-----------------------------------------------------------------------
-Ran 4 tests in 0.441s
+### Testing services with code coverage
 
-FAILED (failures=2)
-```
+ZEISS INSPECT [services](../using_services/using_services.md) are run in separate Python interpreter processes, therefore their code coverage cannot be measured with by the integration test runner using pytest-cov.
 
-The textual test coverage report is shown below:
+Instead, the Python decorator `@coverage` (see [app_utils/service_coverage.py](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/scripts/app_utils/service_coverage.py)) can be applied to a service function. Additionally, `"services-coverage": true` must be added to the App's `metainfo.json` file to enable service coverage. This way, a separate coverage data file (`.coverage.<service>`) is generated for each service Python file.
+
+Using the [Coverage.py command line tools](https://coverage.readthedocs.io/en/latest/cmd.html), coverage data from regular Python modules and services can be combined (see [Combining data files: coverage combine](https://coverage.readthedocs.io/en/latest/cmd.html#cmd-combine)) and converted into a report (e.g. in HTML format, see [HTML reporting: coverage html](https://coverage.readthedocs.io/en/latest/cmd.html#html-reporting-coverage-html)).
+
+### Example
+
+Integration test results from the example in [PytestTemplate](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/)
+
+#### Testrunner logfile `PytestTemplate\scripts\tests\log\pytest_sw2026.log`
 
 ```
-Name                                                                                                                                Stmts   Miss  Cover
--------------------------------------------------------------------------------------------------------------------------------------------------------
-C:\Users\<USERID>\AppData\Roaming\GOM\2023\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts\tests\test_blackbox.py        9      0   100%
-C:\Users\<USERID>\AppData\Roaming\GOM\2023\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts\tests\test_fail.py            3      0   100%
-C:\Users\<USERID>\AppData\Roaming\GOM\2023\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts\tests\test_pass.py            3      0   100%
-C:\Users\<USERID>\AppData\Roaming\GOM\2023\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts\tests\test_whitebox.py        6      0   100%
-C:\Users\<USERID>\AppData\Roaming\GOM\2023\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts\uut_project_keywords.py      19      1    95%
--------------------------------------------------------------------------------------------------------------------------------------------------------
-TOTAL                                                                                                                                  40      1    98%
+ZEISS INSPECT 2026 Testrunner Logfile, created 2025-08-29 11:50:12
 
-HTML coverage report:
-C:/Users/<USERID>/AppData/Roaming/gom/2023/gom_edited_addons/d569d88b-a493-4298-ad4a-0875f5173ce1\scripts\tests\coverage_html\index.html
+Test case folder: C:\Users\<USERID>\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests
+
+sys.path=
+[...]
+
+reports_path='reports'
+pytest_args=[...]
+
+============================= test session starts =============================
+platform win32 -- Python 3.9.22, pytest-8.4.1, pluggy-1.6.0 -- C:\Program Files\Zeiss\INSPECT\2026\python\python.exe
+cachedir: .pytest_cache
+metadata: {'Python': '3.9.22', 'Platform': 'Windows-10-10.0.22621-SP0', 'Packages': {'pytest': '8.4.1', 'pluggy': '1.6.0'}, 'Plugins': {'cov': '6.2.1', 'html': '4.1.1', 'metadata': '3.1.1'}}
+rootdir: C:\Users\<USERID>\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests
+configfile: pytest_integrationtest_coverage.ini
+plugins: cov-6.2.1, html-4.1.1, metadata-3.1.1
+collecting ... 
+collected 8 items                                                              
+
+scripts\tests\test_integration\test_blackbox.py::test_blackbox FAILED    [ 12%]
+scripts\tests\test_integration\test_dialog.py::test_dialog PASSED        [ 25%]
+scripts\tests\test_integration\test_fail.py::test_fail FAILED            [ 37%]
+scripts\tests\test_integration\test_pass.py::test_pass PASSED            [ 50%]
+scripts\tests\test_integration\test_scripted_element.py::test_scripted_circle PASSED [ 62%]
+scripts\tests\test_integration\test_service.py::test_reflect PASSED      [ 75%]
+scripts\tests\test_integration\test_whitebox.py::test_whitebox PASSED    [ 87%]
+scripts\tests\test_units\test_units.py::test_pass PASSED                 [100%]
+
+================================== FAILURES ===================================
+________________________________ test_blackbox ________________________________
+
+    def test_blackbox():
+        '''Executing the UUT as the entire script'''
+        gom.script.sys.close_project()
+        gom.script.sys.create_project()
+    
+        # Add-on relative path to UUT
+        uut_path = 'scripts/uut_project_keywords.py'
+    
+        # Get path of UUT
+        addon = gom.api.addons.get_current_addon()
+        uut_path = os.path.join(addon.get_file(), uut_path)
+    
+        # Run the UUT
+        gom.script.sys.execute_script(file=uut_path)
+    
+        # Check project state
+        assert gom.app.project.get('user_inspector') == 'Clouseau'
+>       assert gom.app.project.get('user_project') == 'Test Projet' # intended to fail
+E       AssertionError: assert 'Test Project' == 'Test Projet'
+E         
+E         - Test Projet
+E         + Test Project
+E         ?           +
+
+scripts\tests\test_integration\test_blackbox.py:32: AssertionError
+__________________________________ test_fail __________________________________
+
+    def test_fail():
+        """This test has no unit-under-test and always fails"""
+>       assert False
+E       assert False
+
+scripts\tests\test_integration\test_fail.py:15: AssertionError
+- generated xml file: C:\Users\<USERID>\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests\reports\junit\integrationtest-sw2026-results.xml -
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.9.22-final-0 _______________
+
+Coverage HTML written to dir C:\Users\<USERID>\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests\reports\cov\integrationtest-sw2026-coverage
+Coverage XML written to file C:\Users\<USERID>\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests\reports\cov\integrationtest-sw2026-coverage.xml
+============================== slowest durations ==============================
+16.52s call     test_integration/test_whitebox.py::test_whitebox
+6.33s call     test_integration/test_blackbox.py::test_blackbox
+6.27s call     test_integration/test_scripted_element.py::test_scripted_circle
+1.09s call     test_integration/test_service.py::test_reflect
+0.33s call     test_integration/test_dialog.py::test_dialog
+0.00s setup    test_units/test_units.py::test_pass
+0.00s setup    test_integration/test_blackbox.py::test_blackbox
+0.00s teardown test_integration/test_blackbox.py::test_blackbox
+0.00s teardown test_integration/test_whitebox.py::test_whitebox
+0.00s call     test_units/test_units.py::test_pass
+0.00s teardown test_units/test_units.py::test_pass
+0.00s teardown test_integration/test_service.py::test_reflect
+0.00s setup    test_integration/test_dialog.py::test_dialog
+0.00s teardown test_integration/test_pass.py::test_pass
+0.00s setup    test_integration/test_whitebox.py::test_whitebox
+0.00s teardown test_integration/test_scripted_element.py::test_scripted_circle
+0.00s setup    test_integration/test_fail.py::test_fail
+0.00s teardown test_integration/test_dialog.py::test_dialog
+0.00s setup    test_integration/test_service.py::test_reflect
+0.00s call     test_integration/test_pass.py::test_pass
+0.00s call     test_integration/test_fail.py::test_fail
+0.00s setup    test_integration/test_scripted_element.py::test_scripted_circle
+0.00s teardown test_integration/test_fail.py::test_fail
+0.00s setup    test_integration/test_pass.py::test_pass
+- Generated html report: file:///C:/Users/<USERID>/Documents/work/zeiss-inspect-app-examples/AppExamples/misc/PytestTemplate/scripts/tests/reports/html/integrationtest-sw2026-results.html -
+=========================== short test summary info ===========================
+FAILED scripts\tests\test_integration\test_blackbox.py::test_blackbox - AssertionError: assert 'Test Project' == 'Test Projet'
+  
+  - Test Projet
+  + Test Project
+  ?           +
+FAILED scripts\tests\test_integration\test_fail.py::test_fail - assert False
+======================== 2 failed, 6 passed in 30.70s =========================
+
+
+Test Report: file://C:\Users\<USERID>\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests\reports\html\integrationtest-sw2026-results.html
+Coverage Report: file://C:\Users\<USERID>\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests\reports\cov/integrationtest-coverage/index.html
 ```
 
-The HTML coverage report summary shows the same information:
+#### HTML test report `PytestTemplate\scripts\tests\reports\html\integrationtest-sw2025-results.html`
 
-![HTML coverage report, summary](assets/coverage-1.jpeg)
+![HTML test report](assets/test_report.png)
 
-Clicking a module shows a detailed report with code lines marked as run (green), missing (red) or excluded (gray). A code section (single line or begin of block) can be excluded from the coverage report with `# pragma: no cover`.
+#### HTML coverage report `PytestTemplate\scripts\tests\reports\cov\html_combined\index.html`
 
-![HTML coverage report, file based](assets/coverage-2.jpeg)
+```{note}
+The combined coverage report includes the coverage data for regular Python scripts (generated by pytest) and additional coverage data of ZEISS INSPECT services.
+```
+
+![HTML coverage report, summary](assets/coverage-1.png)
+
+Clicking a Python module shows a detailed report with code lines marked as run (green), missing (red) or excluded (gray). A code section (single line or begin of block) can be excluded from the coverage report with `# pragma: no cover`.
+
+![HTML coverage report, file based](assets/coverage-2.png)
+
+## Related
+
+* [pytest](https://docs.pytest.org/en/stable/index.html)
+* [pytest-cov](https://pytest-cov.readthedocs.io/en/stable/)
+* [PytestTemplate](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/)

@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Testing Apps &mdash; App Development Documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme_zeiss.css?v=7b4cc488" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme_zeiss.css?v=c4491741" />
 
   
     <link rel="canonical" href="https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/testing_apps/testing_apps.html" />
@@ -85,7 +85,17 @@
 <li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#running-app-tests-with-code-coverage">Running App tests with code coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-app-tests-with-code-coverage">Running App tests with code coverage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#testing-services-with-code-coverage">Testing services with code coverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#testrunner-logfile-pytesttemplate-scripts-tests-log-pytest-sw2026-log">Testrunner logfile <code class="docutils literal notranslate"><span class="pre">PytestTemplate\scripts\tests\log\pytest_sw2026.log</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#html-test-report-pytesttemplate-scripts-tests-reports-html-integrationtest-sw2025-results-html">HTML test report <code class="docutils literal notranslate"><span class="pre">PytestTemplate\scripts\tests\reports\html\integrationtest-sw2025-results.html</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#html-coverage-report-pytesttemplate-scripts-tests-reports-cov-html-combined-index-html">HTML coverage report <code class="docutils literal notranslate"><span class="pre">PytestTemplate\scripts\tests\reports\cov\html_combined\index.html</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#related">Related</a></li>
 </ul>
 </li>
 </ul>
@@ -153,7 +163,7 @@
 </section>
 <section id="file-structure">
 <h2>File structure<a class="headerlink" href="#file-structure" title="Link to this heading"></a></h2>
-<p>For test discovery to work, the file and folder structure of App tests needs to adhere to the following conventions, which are similar to <em>pytest</em>’s <a class="reference external" href="https://docs.pytest.org/en/7.2.x/explanation/goodpractices.html#conventions-for-python-test-discovery">Conventions for Python test discovery</a>.</p>
+<p>For test discovery to work, the file and folder structure of App tests needs to adhere to the following conventions, which are similar to <em>pytest</em>’s <a class="reference external" href="https://docs.pytest.org/en/stable/explanation/goodpractices.html#conventions-for-python-test-discovery">Conventions for Python test discovery</a>.</p>
 <ul class="simple">
 <li><p>Test script file names <strong>start with <code class="docutils literal notranslate"><span class="pre">test_</span></code></strong></p></li>
 <li><p>Test scripts <em>only</em> contain <strong>functions with the prefix <code class="docutils literal notranslate"><span class="pre">test_</span></code></strong>.</p>
@@ -163,10 +173,10 @@
 </li>
 <li><p>(optional, but recommended) All python test scripts reside in a separate <code class="docutils literal notranslate"><span class="pre">tests/</span></code> directory of your App’s top-level directory.</p></li>
 </ul>
-<figure class="align-center" id="id1">
+<figure class="align-center" id="id2">
 <img alt="../../_images/file_structure.png" src="../../_images/file_structure.png" />
 <figcaption>
-<p><span class="caption-text">Exemplary file structure.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Exemplary file structure.</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
@@ -180,7 +190,7 @@
 <ol class="arabic">
 <li><p>Create a test script: Create a Python file with the convention test_*.py.
 (Example: <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/CheckResultsDataArray/scripts/tests/test_data_interfaces_check_results.py">/tests/test_data_interfaces_check_results</a>)</p></li>
-<li><p>Import the module or package to be tested: Import the module or package that you want to test.</p>
+<li><p>Import the module or package to be tested.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing the example we want to test</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">check_results_data_array</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">example</span>
 </pre></div>
@@ -209,12 +219,12 @@ For more details, see also: <a class="reference internal" href="../../python_exa
 </section>
 <section id="running-app-tests">
 <h2>Running App tests<a class="headerlink" href="#running-app-tests" title="Link to this heading"></a></h2>
-<p>To run App tests – either a single one or multiple/all tests of an App – you can use the integrated script editor or VSCode. You can also execute tests from a script.</p>
+<p>To run App tests – either a single one or multiple/all tests of an App – you can use the integrated App Explorer or VSCode. You can also execute tests from a script.</p>
 <section id="using-the-app-explorer">
 <h3>Using the App Explorer<a class="headerlink" href="#using-the-app-explorer" title="Link to this heading"></a></h3>
 <p>To run the tests of a specific test script, use the context menu and select “Run tests…”.</p>
 <p><img alt="Executimg tests from App Explorer" src="../../_images/execute_tests_command.png" /></p>
-<p>You can use this context also on higher levels of the file hierarchy, e.g. to execute all tests of a folder or of the complete App.</p>
+<p>You can use this context also on higher levels of the file hierarchy, e.g. to execute all tests in a folder or of the complete App.</p>
 <p>Results will be shown in the log of the script editor.</p>
 <p><img alt="Test log" src="../../_images/test_log.png" /></p>
 </section>
@@ -226,7 +236,7 @@ To use this feature, navigate to the “Testing” workspace of VSCode and selec
 </section>
 <section id="from-scripts">
 <h3>From scripts<a class="headerlink" href="#from-scripts" title="Link to this heading"></a></h3>
-<p>You can use the <code class="docutils literal notranslate"><span class="pre">execute_addon_tests</span></code> command to run tests of an App. It takes the App UUID as mandatory argument. If solely given, all tests of the App are executed. You can also provide a list of test paths with the argument <code class="docutils literal notranslate"><span class="pre">test_paths</span></code> in form of relative paths inside the App. The suffix <code class="docutils literal notranslate"><span class="pre">#test_&lt;...&gt;</span></code> indicates, which test function to run.</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">execute_addon_tests</span></code> command to run tests of an App. It takes the App UUID as mandatory argument. If solely given, all tests of the App are executed. You can also provide a list of test paths with the argument <code class="docutils literal notranslate"><span class="pre">test_paths</span></code> in form of relative paths inside the App. The suffix <code class="docutils literal notranslate"><span class="pre">#test_&lt;...&gt;</span></code> selects the test function to be run.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests_draft</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">&#39;cc4de73f-a8b9-4c01-8f45-141a74f29333&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -240,7 +250,7 @@ To use this feature, navigate to the “Testing” workspace of VSCode and selec
 <section id="working-with-test-data">
 <h2>Working with test data<a class="headerlink" href="#working-with-test-data" title="Link to this heading"></a></h2>
 <p>In the namespace <code class="docutils literal notranslate"><span class="pre">addon</span></code>, there are two classes: <code class="docutils literal notranslate"><span class="pre">addon.ArrayDataTest</span></code> and <code class="docutils literal notranslate"><span class="pre">addon.ElementTest</span></code>.</p>
-<p>These classes can help you to create test data and compare the data of the current test run with the saved data. An example usage is given in <code class="docutils literal notranslate"><span class="pre">test_data_interfaces_volume_section.py</span></code> of the <a href="../../python_examples/examples_overview.html#volumesectionimagedata">VolumeSectionImageData App</a>.</p>
+<p>These classes can help you to create test data and compare the data of the current test run with the saved reference data. An example usage is given in <code class="docutils literal notranslate"><span class="pre">test_data_interfaces_volume_section.py</span></code> of the <a href="../../python_examples/examples_overview.html#volumesectionimagedata">VolumeSectionImageData App</a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">addon</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArrayDataTest</span><span class="p">,</span> <span class="n">ElementTest</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ExampleProjects.setup_project</span><span class="w"> </span><span class="kn">import</span> <span class="n">open_project</span>
 
@@ -269,7 +279,7 @@ To use this feature, navigate to the “Testing” workspace of VSCode and selec
 </div>
 <p>You can see, that <code class="docutils literal notranslate"><span class="pre">ElementTest</span></code> can be used to access element properties easily. <code class="docutils literal notranslate"><span class="pre">ArrayDataTest</span></code> is used for <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array comparison.
 The path where test data is stored is supplied in the constructors (e.g. <code class="docutils literal notranslate"><span class="pre">ElementTest('test_data/data_interfaces_volume_section_tokens.dat')</span></code>).
-If a relative path is given, like here, a resource inside the App is created / compared with. You can also use absolute paths to a file on your disk, but this is not recommended since not everyone who installed your App will have access to this data.</p>
+If a relative path is given – as in this example – a resource inside the App is created / compared with. You can also use absolute paths to a file on your disk, but this is not recommended since not everyone who installed your App will have access to this data.</p>
 <p>These classes will <strong>create the test data</strong> for you, if you run the test execution via “Run tests (create data)…”.</p>
 <p><img alt="Run test with creation of test data" src="../../_images/run_tests_create_data.png" /></p>
 <p>In a “normal” test run, data will be compared to the stored resources.</p>
@@ -367,67 +377,171 @@ which can be used together with the <code class="docutils literal notranslate"><
 <p>Its <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method expects a callback function. This callback function should take a dialog handle as the only parameter. The dialog handle may be used to manipulate the dialog (set the value of widgets, call the handler manually, etc).</p>
 <p>Interaction with the control buttons of the dialog is done via the return value of the callback:</p>
 <ul class="simple">
-<li><p>If the dialog should be closed via the close button, the callback should return ‘close’.</p></li>
-<li><p>If the dialog should be closed via the cancel button (<code class="docutils literal notranslate"><span class="pre">BreakError</span></code>), the callback should return ‘cancel’.</p></li>
+<li><p>If the dialog shall be closed via the close button, the callback must return ‘close’.</p></li>
+<li><p>If the dialog shall be closed via the cancel button (<code class="docutils literal notranslate"><span class="pre">BreakError</span></code>), the callback must return ‘cancel’.</p></li>
 <li><p>If the dialog does not need to be closed by automatic control button interaction,
-but will close itself by some other interaction, the callback should return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+but will close itself by some other interaction, the callback must return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 </ul>
 </section>
 </section>
 <section id="running-app-tests-with-code-coverage">
 <h2>Running App tests with code coverage<a class="headerlink" href="#running-app-tests-with-code-coverage" title="Link to this heading"></a></h2>
-<p>Sometimes not only the test results, but also the amount of code covered by the test suite is of interest. The App <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/TemplateUnittestCoverage/doc/Documentation.md">TemplateUnittestCoverage</a> provides a template for running unit tests and generating a code coverage report.</p>
-<p>The test case structure is the same as described in the preceding sections, but to generate a coverage report, the tests must be run with the script <a class="reference external" href="https://github.com/ZeissIQS/AddOnExamples/blob/main/examples/TemplateUnittestCoverage/scripts/run_tests.py">run_tests.py</a> while the App is in editing mode.</p>
-<p>With the provided example, the test results are shown as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Test</span> <span class="n">case</span> <span class="n">folder</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="o">/</span><span class="n">gom_edited_addons</span><span class="o">/</span><span class="n">d569d88b</span><span class="o">-</span><span class="n">a493</span><span class="o">-</span><span class="mi">4298</span><span class="o">-</span><span class="n">ad4a</span><span class="o">-</span><span class="mi">0875</span><span class="n">f5173ce1</span>\<span class="n">scripts</span>\<span class="n">tests</span>
-<span class="o">--</span> <span class="n">Project</span> <span class="n">keywords</span> <span class="o">--</span>
-<span class="n">user_project</span><span class="o">=</span><span class="s1">&#39;Test Project&#39;</span>
-<span class="n">user_inspector</span><span class="o">=</span><span class="s1">&#39;Clouseau&#39;</span>
-<span class="n">F</span>
-<span class="n">F</span><span class="o">.</span>
-<span class="p">{</span><span class="s1">&#39;user_project&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Project Name&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;Test Project&#39;</span><span class="p">},</span> <span class="s1">&#39;user_inspector&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Inspector&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;Clouseau&#39;</span><span class="p">}}</span>
-<span class="o">.</span>
-<span class="o">======================================================================</span>
-<span class="n">FAIL</span><span class="p">:</span> <span class="n">unittest</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">FunctionTestCase</span> <span class="p">(</span><span class="n">test_blackbox</span><span class="p">)</span>
-<span class="o">----------------------------------------------------------------------</span>
-<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s2">&quot;C:\Users\&lt;USERID&gt;\AppData\Roaming\gom</span><span class="se">\202</span><span class="s2">3\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts</span><span class="se">\t</span><span class="s2">ests</span><span class="se">\t</span><span class="s2">est_blackbox.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">28</span><span class="p">,</span> <span class="ow">in</span> <span class="n">test_blackbox</span>
-    <span class="k">assert</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;user_project&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Test Projet&#39;</span> <span class="c1"># intended to fail</span>
-<span class="ne">AssertionError</span>
+<p>Sometimes not only the test results, but also the percentage of code covered by the test suite is of interest. The App <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/doc/Documentation.md">PytestTemplate</a> provides a template for unit testing and integration testing with code coverage.</p>
+<p>Both unit testing and integration testing is done with <a class="reference external" href="https://docs.pytest.org/en/stable/index.html">pytest</a> and the coverage extension <a class="reference external" href="https://pytest-cov.readthedocs.io/en/stable/">pytest-cov</a>. The App must be in editing mode or located in a connected folder (see <a class="reference internal" href="../using_app_editor/using_app_editor.html"><span class="std std-doc">Using the App Editor</span></a>) to allow access to its file structure.</p>
+<p>The test folder structure is the same as described in <a class="reference internal" href="#file-structure">File structure</a>. The tests are executed with the test runners <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/scripts/tests/run_unittests.py">run_unittests.py</a> or <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/scripts/tests/run_integrationtests.py">run_integrationtests.py</a>, respectively.</p>
+<p>The test runner</p>
+<ul class="simple">
+<li><p>Configures the test setup</p></li>
+<li><p>Sets up the pytest configuration</p></li>
+<li><p>Uses pytest for test case discovery and test execution</p></li>
+</ul>
+<p>Pytest generates a test report and a coverage report.</p>
+<section id="testing-services-with-code-coverage">
+<h3>Testing services with code coverage<a class="headerlink" href="#testing-services-with-code-coverage" title="Link to this heading"></a></h3>
+<p>ZEISS INSPECT <a class="reference internal" href="../using_services/using_services.html"><span class="std std-doc">services</span></a> are run in separate Python interpreter processes, therefore their code coverage cannot be measured with by the integration test runner using pytest-cov.</p>
+<p>Instead, the Python decorator <code class="docutils literal notranslate"><span class="pre">&#64;coverage</span></code> (see <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/scripts/app_utils/service_coverage.py">app_utils/service_coverage.py</a>) can be applied to a service function. Additionally, <code class="docutils literal notranslate"><span class="pre">&quot;services-coverage&quot;:</span> <span class="pre">true</span></code> must be added to the App’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file to enable service coverage. This way, a separate coverage data file (<code class="docutils literal notranslate"><span class="pre">.coverage.&lt;service&gt;</span></code>) is generated for each service Python file.</p>
+<p>Using the <a class="reference external" href="https://coverage.readthedocs.io/en/latest/cmd.html">Coverage.py command line tools</a>, coverage data from regular Python modules and services can be combined (see <a class="reference external" href="https://coverage.readthedocs.io/en/latest/cmd.html#cmd-combine">Combining data files: coverage combine</a>) and converted into a report (e.g. in HTML format, see <a class="reference external" href="https://coverage.readthedocs.io/en/latest/cmd.html#html-reporting-coverage-html">HTML reporting: coverage html</a>).</p>
+</section>
+<section id="id1">
+<h3>Example<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Integration test results from the example in <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/">PytestTemplate</a></p>
+<section id="testrunner-logfile-pytesttemplate-scripts-tests-log-pytest-sw2026-log">
+<h4>Testrunner logfile <code class="docutils literal notranslate"><span class="pre">PytestTemplate\scripts\tests\log\pytest_sw2026.log</span></code><a class="headerlink" href="#testrunner-logfile-pytesttemplate-scripts-tests-log-pytest-sw2026-log" title="Link to this heading"></a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ZEISS INSPECT 2026 Testrunner Logfile, created 2025-08-29 11:50:12
 
-<span class="o">======================================================================</span>
-<span class="n">FAIL</span><span class="p">:</span> <span class="n">unittest</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">FunctionTestCase</span> <span class="p">(</span><span class="n">test_fail</span><span class="p">)</span>
-<span class="o">----------------------------------------------------------------------</span>
-<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s2">&quot;C:\Users\&lt;USERID&gt;\AppData\Roaming\gom</span><span class="se">\202</span><span class="s2">3\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts</span><span class="se">\t</span><span class="s2">ests</span><span class="se">\t</span><span class="s2">est_fail.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">14</span><span class="p">,</span> <span class="ow">in</span> <span class="n">test_fail</span>
-    <span class="k">assert</span> <span class="kc">False</span>
-<span class="ne">AssertionError</span>
+Test case folder: C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests
 
-<span class="o">----------------------------------------------------------------------</span>
-<span class="n">Ran</span> <span class="mi">4</span> <span class="n">tests</span> <span class="ow">in</span> <span class="mf">0.441</span><span class="n">s</span>
+sys.path=
+[...]
 
-<span class="n">FAILED</span> <span class="p">(</span><span class="n">failures</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+reports_path=&#39;reports&#39;
+pytest_args=[...]
+
+============================= test session starts =============================
+platform win32 -- Python 3.9.22, pytest-8.4.1, pluggy-1.6.0 -- C:\Program Files\Zeiss\INSPECT\2026\python\python.exe
+cachedir: .pytest_cache
+metadata: {&#39;Python&#39;: &#39;3.9.22&#39;, &#39;Platform&#39;: &#39;Windows-10-10.0.22621-SP0&#39;, &#39;Packages&#39;: {&#39;pytest&#39;: &#39;8.4.1&#39;, &#39;pluggy&#39;: &#39;1.6.0&#39;}, &#39;Plugins&#39;: {&#39;cov&#39;: &#39;6.2.1&#39;, &#39;html&#39;: &#39;4.1.1&#39;, &#39;metadata&#39;: &#39;3.1.1&#39;}}
+rootdir: C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests
+configfile: pytest_integrationtest_coverage.ini
+plugins: cov-6.2.1, html-4.1.1, metadata-3.1.1
+collecting ... 
+collected 8 items                                                              
+
+scripts\tests\test_integration\test_blackbox.py::test_blackbox FAILED    [ 12%]
+scripts\tests\test_integration\test_dialog.py::test_dialog PASSED        [ 25%]
+scripts\tests\test_integration\test_fail.py::test_fail FAILED            [ 37%]
+scripts\tests\test_integration\test_pass.py::test_pass PASSED            [ 50%]
+scripts\tests\test_integration\test_scripted_element.py::test_scripted_circle PASSED [ 62%]
+scripts\tests\test_integration\test_service.py::test_reflect PASSED      [ 75%]
+scripts\tests\test_integration\test_whitebox.py::test_whitebox PASSED    [ 87%]
+scripts\tests\test_units\test_units.py::test_pass PASSED                 [100%]
+
+================================== FAILURES ===================================
+________________________________ test_blackbox ________________________________
+
+    def test_blackbox():
+        &#39;&#39;&#39;Executing the UUT as the entire script&#39;&#39;&#39;
+        gom.script.sys.close_project()
+        gom.script.sys.create_project()
+    
+        # Add-on relative path to UUT
+        uut_path = &#39;scripts/uut_project_keywords.py&#39;
+    
+        # Get path of UUT
+        addon = gom.api.addons.get_current_addon()
+        uut_path = os.path.join(addon.get_file(), uut_path)
+    
+        # Run the UUT
+        gom.script.sys.execute_script(file=uut_path)
+    
+        # Check project state
+        assert gom.app.project.get(&#39;user_inspector&#39;) == &#39;Clouseau&#39;
+&gt;       assert gom.app.project.get(&#39;user_project&#39;) == &#39;Test Projet&#39; # intended to fail
+E       AssertionError: assert &#39;Test Project&#39; == &#39;Test Projet&#39;
+E         
+E         - Test Projet
+E         + Test Project
+E         ?           +
+
+scripts\tests\test_integration\test_blackbox.py:32: AssertionError
+__________________________________ test_fail __________________________________
+
+    def test_fail():
+        &quot;&quot;&quot;This test has no unit-under-test and always fails&quot;&quot;&quot;
+&gt;       assert False
+E       assert False
+
+scripts\tests\test_integration\test_fail.py:15: AssertionError
+- generated xml file: C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests\reports\junit\integrationtest-sw2026-results.xml -
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.9.22-final-0 _______________
+
+Coverage HTML written to dir C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests\reports\cov\integrationtest-sw2026-coverage
+Coverage XML written to file C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests\reports\cov\integrationtest-sw2026-coverage.xml
+============================== slowest durations ==============================
+16.52s call     test_integration/test_whitebox.py::test_whitebox
+6.33s call     test_integration/test_blackbox.py::test_blackbox
+6.27s call     test_integration/test_scripted_element.py::test_scripted_circle
+1.09s call     test_integration/test_service.py::test_reflect
+0.33s call     test_integration/test_dialog.py::test_dialog
+0.00s setup    test_units/test_units.py::test_pass
+0.00s setup    test_integration/test_blackbox.py::test_blackbox
+0.00s teardown test_integration/test_blackbox.py::test_blackbox
+0.00s teardown test_integration/test_whitebox.py::test_whitebox
+0.00s call     test_units/test_units.py::test_pass
+0.00s teardown test_units/test_units.py::test_pass
+0.00s teardown test_integration/test_service.py::test_reflect
+0.00s setup    test_integration/test_dialog.py::test_dialog
+0.00s teardown test_integration/test_pass.py::test_pass
+0.00s setup    test_integration/test_whitebox.py::test_whitebox
+0.00s teardown test_integration/test_scripted_element.py::test_scripted_circle
+0.00s setup    test_integration/test_fail.py::test_fail
+0.00s teardown test_integration/test_dialog.py::test_dialog
+0.00s setup    test_integration/test_service.py::test_reflect
+0.00s call     test_integration/test_pass.py::test_pass
+0.00s call     test_integration/test_fail.py::test_fail
+0.00s setup    test_integration/test_scripted_element.py::test_scripted_circle
+0.00s teardown test_integration/test_fail.py::test_fail
+0.00s setup    test_integration/test_pass.py::test_pass
+- Generated html report: file:///C:/Users/&lt;USERID&gt;/Documents/work/zeiss-inspect-app-examples/AppExamples/misc/PytestTemplate/scripts/tests/reports/html/integrationtest-sw2026-results.html -
+=========================== short test summary info ===========================
+FAILED scripts\tests\test_integration\test_blackbox.py::test_blackbox - AssertionError: assert &#39;Test Project&#39; == &#39;Test Projet&#39;
+  
+  - Test Projet
+  + Test Project
+  ?           +
+FAILED scripts\tests\test_integration\test_fail.py::test_fail - assert False
+======================== 2 failed, 6 passed in 30.70s =========================
+
+
+Test Report: file://C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests\reports\html\integrationtest-sw2026-results.html
+Coverage Report: file://C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests\reports\cov/integrationtest-coverage/index.html
 </pre></div>
 </div>
-<p>The textual test coverage report is shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Name</span>                                                                                                                                <span class="n">Stmts</span>   <span class="n">Miss</span>  <span class="n">Cover</span>
-<span class="o">-------------------------------------------------------------------------------------------------------------------------------------------------------</span>
-<span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="o">&lt;</span><span class="n">USERID</span><span class="o">&gt;</span>\<span class="n">AppData</span>\<span class="n">Roaming</span>\<span class="n">GOM</span>\<span class="mi">2023</span>\<span class="n">gom_edited_addons</span>\<span class="n">d569d88b</span><span class="o">-</span><span class="n">a493</span><span class="o">-</span><span class="mi">4298</span><span class="o">-</span><span class="n">ad4a</span><span class="o">-</span><span class="mi">0875</span><span class="n">f5173ce1</span>\<span class="n">scripts</span>\<span class="n">tests</span>\<span class="n">test_blackbox</span><span class="o">.</span><span class="n">py</span>        <span class="mi">9</span>      <span class="mi">0</span>   <span class="mi">100</span><span class="o">%</span>
-<span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="o">&lt;</span><span class="n">USERID</span><span class="o">&gt;</span>\<span class="n">AppData</span>\<span class="n">Roaming</span>\<span class="n">GOM</span>\<span class="mi">2023</span>\<span class="n">gom_edited_addons</span>\<span class="n">d569d88b</span><span class="o">-</span><span class="n">a493</span><span class="o">-</span><span class="mi">4298</span><span class="o">-</span><span class="n">ad4a</span><span class="o">-</span><span class="mi">0875</span><span class="n">f5173ce1</span>\<span class="n">scripts</span>\<span class="n">tests</span>\<span class="n">test_fail</span><span class="o">.</span><span class="n">py</span>            <span class="mi">3</span>      <span class="mi">0</span>   <span class="mi">100</span><span class="o">%</span>
-<span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="o">&lt;</span><span class="n">USERID</span><span class="o">&gt;</span>\<span class="n">AppData</span>\<span class="n">Roaming</span>\<span class="n">GOM</span>\<span class="mi">2023</span>\<span class="n">gom_edited_addons</span>\<span class="n">d569d88b</span><span class="o">-</span><span class="n">a493</span><span class="o">-</span><span class="mi">4298</span><span class="o">-</span><span class="n">ad4a</span><span class="o">-</span><span class="mi">0875</span><span class="n">f5173ce1</span>\<span class="n">scripts</span>\<span class="n">tests</span>\<span class="n">test_pass</span><span class="o">.</span><span class="n">py</span>            <span class="mi">3</span>      <span class="mi">0</span>   <span class="mi">100</span><span class="o">%</span>
-<span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="o">&lt;</span><span class="n">USERID</span><span class="o">&gt;</span>\<span class="n">AppData</span>\<span class="n">Roaming</span>\<span class="n">GOM</span>\<span class="mi">2023</span>\<span class="n">gom_edited_addons</span>\<span class="n">d569d88b</span><span class="o">-</span><span class="n">a493</span><span class="o">-</span><span class="mi">4298</span><span class="o">-</span><span class="n">ad4a</span><span class="o">-</span><span class="mi">0875</span><span class="n">f5173ce1</span>\<span class="n">scripts</span>\<span class="n">tests</span>\<span class="n">test_whitebox</span><span class="o">.</span><span class="n">py</span>        <span class="mi">6</span>      <span class="mi">0</span>   <span class="mi">100</span><span class="o">%</span>
-<span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="o">&lt;</span><span class="n">USERID</span><span class="o">&gt;</span>\<span class="n">AppData</span>\<span class="n">Roaming</span>\<span class="n">GOM</span>\<span class="mi">2023</span>\<span class="n">gom_edited_addons</span>\<span class="n">d569d88b</span><span class="o">-</span><span class="n">a493</span><span class="o">-</span><span class="mi">4298</span><span class="o">-</span><span class="n">ad4a</span><span class="o">-</span><span class="mi">0875</span><span class="n">f5173ce1</span>\<span class="n">scripts</span>\<span class="n">uut_project_keywords</span><span class="o">.</span><span class="n">py</span>      <span class="mi">19</span>      <span class="mi">1</span>    <span class="mi">95</span><span class="o">%</span>
-<span class="o">-------------------------------------------------------------------------------------------------------------------------------------------------------</span>
-<span class="n">TOTAL</span>                                                                                                                                  <span class="mi">40</span>      <span class="mi">1</span>    <span class="mi">98</span><span class="o">%</span>
-
-<span class="n">HTML</span> <span class="n">coverage</span> <span class="n">report</span><span class="p">:</span>
-<span class="n">C</span><span class="p">:</span><span class="o">/</span><span class="n">Users</span><span class="o">/&lt;</span><span class="n">USERID</span><span class="o">&gt;/</span><span class="n">AppData</span><span class="o">/</span><span class="n">Roaming</span><span class="o">/</span><span class="n">gom</span><span class="o">/</span><span class="mi">2023</span><span class="o">/</span><span class="n">gom_edited_addons</span><span class="o">/</span><span class="n">d569d88b</span><span class="o">-</span><span class="n">a493</span><span class="o">-</span><span class="mi">4298</span><span class="o">-</span><span class="n">ad4a</span><span class="o">-</span><span class="mi">0875</span><span class="n">f5173ce1</span>\<span class="n">scripts</span>\<span class="n">tests</span>\<span class="n">coverage_html</span>\<span class="n">index</span><span class="o">.</span><span class="n">html</span>
-</pre></div>
+</section>
+<section id="html-test-report-pytesttemplate-scripts-tests-reports-html-integrationtest-sw2025-results-html">
+<h4>HTML test report <code class="docutils literal notranslate"><span class="pre">PytestTemplate\scripts\tests\reports\html\integrationtest-sw2025-results.html</span></code><a class="headerlink" href="#html-test-report-pytesttemplate-scripts-tests-reports-html-integrationtest-sw2025-results-html" title="Link to this heading"></a></h4>
+<p><img alt="HTML test report" src="../../_images/test_report.png" /></p>
+</section>
+<section id="html-coverage-report-pytesttemplate-scripts-tests-reports-cov-html-combined-index-html">
+<h4>HTML coverage report <code class="docutils literal notranslate"><span class="pre">PytestTemplate\scripts\tests\reports\cov\html_combined\index.html</span></code><a class="headerlink" href="#html-coverage-report-pytesttemplate-scripts-tests-reports-cov-html-combined-index-html" title="Link to this heading"></a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The combined coverage report includes the coverage data for regular Python scripts (generated by pytest) and additional coverage data of ZEISS INSPECT services.</p>
 </div>
-<p>The HTML coverage report summary shows the same information:</p>
-<p><img alt="HTML coverage report, summary" src="../../_images/coverage-1.jpeg" /></p>
-<p>Clicking a module shows a detailed report with code lines marked as run (green), missing (red) or excluded (gray). A code section (single line or begin of block) can be excluded from the coverage report with <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">pragma:</span> <span class="pre">no</span> <span class="pre">cover</span></code>.</p>
-<p><img alt="HTML coverage report, file based" src="../../_images/coverage-2.jpeg" /></p>
+<p><img alt="HTML coverage report, summary" src="../../_images/coverage-1.png" /></p>
+<p>Clicking a Python module shows a detailed report with code lines marked as run (green), missing (red) or excluded (gray). A code section (single line or begin of block) can be excluded from the coverage report with <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">pragma:</span> <span class="pre">no</span> <span class="pre">cover</span></code>.</p>
+<p><img alt="HTML coverage report, file based" src="../../_images/coverage-2.png" /></p>
+</section>
+</section>
+</section>
+<section id="related">
+<h2>Related<a class="headerlink" href="#related" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.pytest.org/en/stable/index.html">pytest</a></p></li>
+<li><p><a class="reference external" href="https://pytest-cov.readthedocs.io/en/stable/">pytest-cov</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/">PytestTemplate</a></p></li>
+</ul>
 </section>
 </section>
 
@@ -453,7 +567,7 @@ but will close itself by some other interaction, the callback should return <cod
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f0c3d1555c0>
+  <jinja2.runtime.BlockReference object at 0x7f5369929ef0>
 
 
 </footer>
