@@ -400,7 +400,7 @@ but will close itself by some other interaction, the callback must return <code 
 <h3>Testing services with code coverage<a class="headerlink" href="#testing-services-with-code-coverage" title="Link to this heading"></a></h3>
 <p>ZEISS INSPECT <a class="reference internal" href="../using_services/using_services.html"><span class="std std-doc">services</span></a> are run in separate Python interpreter processes, therefore their code coverage cannot be measured with by the integration test runner using pytest-cov.</p>
 <p>Instead, the Python decorator <code class="docutils literal notranslate"><span class="pre">&#64;coverage</span></code> (see <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/scripts/app_utils/service_coverage.py">app_utils/service_coverage.py</a>) can be applied to a service function. Additionally, <code class="docutils literal notranslate"><span class="pre">&quot;services-coverage&quot;:</span> <span class="pre">true</span></code> must be added to the App’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file to enable service coverage. This way, a separate coverage data file (<code class="docutils literal notranslate"><span class="pre">.coverage.&lt;service&gt;</span></code>) is generated for each service Python file.</p>
-<p>Using the <a class="reference external" href="https://coverage.readthedocs.io/en/latest/cmd.html">Coverage.py command line tools</a>, coverage data from regular Python modules and services can be combined (see <a class="reference external" href="https://coverage.readthedocs.io/en/latest/cmd.html#cmd-combine">Combining data files: coverage combine</a>) and converted into a report (e.g. in HTML format, see <a class="reference external" href="https://coverage.readthedocs.io/en/latest/cmd.html#html-reporting-coverage-html">HTML reporting: coverage html</a>).</p>
+<p>Using the <a class="reference external" href="https://coverage.readthedocs.io/en/latest/commands/index.html">Coverage.py command line tools</a>, coverage data from regular Python modules and services can be combined (see <a class="reference external" href="https://coverage.readthedocs.io/en/latest/commands/cmd_combine.html">Combining data files: coverage combine</a>) and converted into a report (e.g. in HTML format, see <a class="reference external" href="https://coverage.readthedocs.io/en/latest/commands/cmd_html.html">HTML reporting: coverage html</a>).</p>
 </section>
 <section id="id1">
 <h3>Example<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
@@ -567,7 +567,7 @@ Coverage Report: file://C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspect-app
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fc8941f5ef0>
+  <jinja2.runtime.BlockReference object at 0x7f6e6ecf22e0>
 
 
 </footer>
