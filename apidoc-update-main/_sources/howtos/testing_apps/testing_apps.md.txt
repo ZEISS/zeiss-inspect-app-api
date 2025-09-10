@@ -271,7 +271,7 @@ ZEISS INSPECT [services](../using_services/using_services.md) are run in separat
 
 Instead, the Python decorator `@coverage` (see [app_utils/service_coverage.py](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PytestTemplate/scripts/app_utils/service_coverage.py)) can be applied to a service function. Additionally, `"services-coverage": true` must be added to the App's `metainfo.json` file to enable service coverage. This way, a separate coverage data file (`.coverage.<service>`) is generated for each service Python file.
 
-Using the [Coverage.py command line tools](https://coverage.readthedocs.io/en/latest/cmd.html), coverage data from regular Python modules and services can be combined (see [Combining data files: coverage combine](https://coverage.readthedocs.io/en/latest/cmd.html#cmd-combine)) and converted into a report (e.g. in HTML format, see [HTML reporting: coverage html](https://coverage.readthedocs.io/en/latest/cmd.html#html-reporting-coverage-html)).
+Using the [Coverage.py command line tools](https://coverage.readthedocs.io/en/latest/commands/index.html), coverage data from regular Python modules and services can be combined (see [Combining data files: coverage combine](https://coverage.readthedocs.io/en/latest/commands/cmd_combine.html)) and converted into a report (e.g. in HTML format, see [HTML reporting: coverage html](https://coverage.readthedocs.io/en/latest/commands/cmd_html.html)).
 
 ### Example
 
