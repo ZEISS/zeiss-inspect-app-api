@@ -1709,7 +1709,7 @@ creation requests depending on the mode of sequence command execution:
 **Element naming**
 
 Element names must be unique in a project. Also, the elements belonging to the same seqauence element group
-should be identifyable via their names. To assure this, the element names should be computed via the API
+should be identifiable via their names. To assure this, the element names should be computed via the API
 function `generate_element_name()'. Please see documentation of this function for details.
 
 ##### gom.api.extensions.sequence.ScriptedSequenceElement.generate_element_name
