@@ -1662,10 +1662,12 @@ Constructor
 
 ##### gom.api.extensions.sequence.ScriptedSequenceElement.create
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.create(self: Any, context: Any, args: Any): None
+```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.create(self: Any, context: Any, name: Any, args: Any): None
 
 :param context: The context of the sequence element
 :type context: Any
+:param name: Name of the leading element, extracted from the dialog.
+:type name: Any
 :param args: The arguments passed to the sequence element, usually from the configuration dialog
 :type args: Any
 :return: Dictionary describing the created sequence element. The fields here are: 'elements' - List of all created elements (including the leading element) 'leading' - 'Leading' element which represents the whole sequence
@@ -1676,6 +1678,8 @@ Function called to create the scripted sequence
 
 This function is called to create or edit the element of a scripted sequence. The
 parameters set in the `dialog` function are passed here as a parameter.
+
+**Constraints**
 
 In principle, this function is like a sub script calling the single create commands.
 Behind the scenes, the calls are handled a bit different than regular script command 
@@ -1701,6 +1705,59 @@ creation requests depending on the mode of sequence command execution:
   step, but marked as 'preview' and will not be part of the regular dependency graph or project.
   Afterwards, like in the 'edit' case, the parameters are collected and passed to the already 
   existing preview elements then to update these. 
+
+**Element naming**
+
+Element names must be unique in a project. Also, the elements belonging to the same seqauence element group
+should be identifiable via their names. To assure this, the element names should be computed via the API
+function `generate_element_name()'. Please see documentation of this function for details.
+
+##### gom.api.extensions.sequence.ScriptedSequenceElement.generate_element_name
+
+```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.generate_element_name(self: Any, leading_name: Any, basename: Any): None
+
+:param leading_name: Name of the leading element of the sequence element. This is usually the name as specified in the creation dialog.
+:type leading_name: Any
+:param basename: Base name for the element, like `Point` or `Line`. This name part will be extended by a running number to make it unique.
+:type basename: Any
+:return: Generated unique name
+:rtype: None
+```
+
+Generates a unique name for an element of the scripted sequence element
+
+This function generates a unique name for an element of the scripted sequence element. The
+name is based on the leading element of the sequence element, plus a base name and a running
+number.
+
+**Example**
+
+For a sequence element with id `Distance 1` and a base name `Point`, the generated names will be
+`Distance 1 ● Point 1`, `Distance 1 ● Point 2`, ...
+
+When implemented, the `create` function of the scripted sequence element should use this function
+to generate the names of the single elements:
+
+```python
+def create(self, context, name, args):
+
+    distance = args['distance']  # Distance from dialog
+
+    POINT_1 = gom.script.primitive.create_point(
+        name=self.generate_element_name(name, 'First point'),
+        point={'point': gom.Vec3d(0.0, 0.0, 0.0)})
+
+    POINT_2 = gom.script.primitive.create_point(
+        name=self.generate_element_name(name, 'Second point'),
+        point={'point': gom.Vec3d(distance, 0.0, 0.0)})
+
+    DISTANCE = gom.script.inspection.create_distance_by_2_points(
+        name=name,
+        point1=POINT_1,
+        point2=POINT_2)
+
+    return {'elements': [POINT_1, POINT_2, DISTANCE], 'leading': DISTANCE}
+```
 
 ### gom.api.extensions.views
 
