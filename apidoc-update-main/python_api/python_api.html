@@ -2193,6 +2193,27 @@ existing preview elements then to update these.</p></li>
 should be identifiable via their names. To assure this, the element names should be computed via the API
 function `generate_element_name()’. Please see documentation of this function for details.</p>
 </section>
+<section id="gom-api-extensions-sequence-scriptedsequenceelement-edit">
+<h5>gom.api.extensions.sequence.ScriptedSequenceElement.edit<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequenceelement-edit" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequenceElement.edit(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">elements:</span> <span class="pre">Any,</span> <span class="pre">args:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>Any</em>) – The context of the sequence element</p></li>
+<li><p><strong>elements</strong> (<em>Any</em>) – List of current elements of the sequence in the same order as created</p></li>
+<li><p><strong>args</strong> (<em>Any</em>) – The arguments passed to the sequence element, usually from the configuration dialog</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Function called to edit the scripted sequence</p>
+<p>This function is called when a scripted sequence is edited. It will receive the current
+elements of the sequence as well as the parameters set in the <code class="docutils literal notranslate"><span class="pre">dialog</span></code> function. The function
+must update the sequnece elements accordingly.gom</p>
+</section>
 <section id="gom-api-extensions-sequence-scriptedsequenceelement-generate-element-name">
 <h5>gom.api.extensions.sequence.ScriptedSequenceElement.generate_element_name<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequenceelement-generate-element-name" title="Link to this heading"></a></h5>
 <dl class="py function">
@@ -4506,7 +4527,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f1d5f07f3f0>
+  <jinja2.runtime.BlockReference object at 0x7f3d5e5b3230>
 
 
 </footer>
