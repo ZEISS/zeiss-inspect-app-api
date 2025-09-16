@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Set target branch
@@ -28,7 +28,7 @@ jobs:
           echo "Reviewers: ${REVIEWERS}"
           echo "reviewers=${REVIEWERS}" >> $GITHUB_OUTPUT
       - name: Create Pull Request
-        uses: devops-infra/action-pull-request@v0.6.0
+        uses: devops-infra/action-pull-request@v0.6.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           #source_branch: overview-update
