@@ -1712,6 +1712,24 @@ Element names must be unique in a project. Also, the elements belonging to the s
 should be identifiable via their names. To assure this, the element names should be computed via the API
 function `generate_element_name()'. Please see documentation of this function for details.
 
+##### gom.api.extensions.sequence.ScriptedSequenceElement.edit
+
+```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.edit(self: Any, context: Any, elements: Any, args: Any): None
+
+:param context: The context of the sequence element
+:type context: Any
+:param elements: List of current elements of the sequence in the same order as created
+:type elements: Any
+:param args: The arguments passed to the sequence element, usually from the configuration dialog
+:type args: Any
+```
+
+Function called to edit the scripted sequence
+
+This function is called when a scripted sequence is edited. It will receive the current
+elements of the sequence as well as the parameters set in the `dialog` function. The function
+must update the sequence elements accordingly.gom
+
 ##### gom.api.extensions.sequence.ScriptedSequenceElement.generate_element_name
 
 ```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.generate_element_name(self: Any, leading_name: Any, basename: Any): None
