@@ -203,7 +203,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-sequence">gom.api.extensions.sequence</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-sequence-scriptedsequenceelement">gom.api.extensions.sequence.ScriptedSequenceElement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-sequence-scriptedsequence">gom.api.extensions.sequence.ScriptedSequence</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-views">gom.api.extensions.views</a><ul>
@@ -2114,17 +2114,17 @@ have in common.</p>
 <h3>gom.api.extensions.sequence<a class="headerlink" href="#gom-api-extensions-sequence" title="Link to this heading"></a></h3>
 <p>Scripted sequence elements</p>
 <p>This module contains the base class for scripted sequence elements. A scripted sequence element
-combines a sequence of commands into one group. The group is treated as one single combined element
-with parts. The resulting cluster of elements can then be edited again as a altogether group, of the
+combines a sequence of commands into one sequence. The sequence is treated as one single combined element
+with parts. The resulting cluster of elements can then be edited again as a altogether sequence, of the
 single elements within can be edited separately.</p>
-<section id="gom-api-extensions-sequence-scriptedsequenceelement">
-<h4>gom.api.extensions.sequence.ScriptedSequenceElement<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequenceelement" title="Link to this heading"></a></h4>
+<section id="gom-api-extensions-sequence-scriptedsequence">
+<h4>gom.api.extensions.sequence.ScriptedSequence<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence" title="Link to this heading"></a></h4>
 <p>This class is used to define a scripted sequence element</p>
-<section id="gom-api-extensions-sequence-scriptedsequenceelement-init">
-<h5>gom.api.extensions.sequence.ScriptedSequenceElement.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequenceelement-init" title="Link to this heading"></a></h5>
+<section id="gom-api-extensions-sequence-scriptedsequence-init">
+<h5>gom.api.extensions.sequence.ScriptedSequence.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence-init" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequenceElement.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequence.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -2137,21 +2137,21 @@ single elements within can be edited separately.</p>
 
 <p>Constructor</p>
 </section>
-<section id="gom-api-extensions-sequence-scriptedsequenceelement-create">
-<h5>gom.api.extensions.sequence.ScriptedSequenceElement.create<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequenceelement-create" title="Link to this heading"></a></h5>
+<section id="gom-api-extensions-sequence-scriptedsequence-create">
+<h5>gom.api.extensions.sequence.ScriptedSequence.create<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence-create" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequenceElement.create(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">name:</span> <span class="pre">Any,</span> <span class="pre">args:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequence.create(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">name:</span> <span class="pre">Any,</span> <span class="pre">args:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<em>Any</em>) – The context of the sequence element</p></li>
+<li><p><strong>context</strong> (<em>Any</em>) – The context of the element</p></li>
 <li><p><strong>name</strong> (<em>Any</em>) – Name of the leading element, extracted from the dialog.</p></li>
-<li><p><strong>args</strong> (<em>Any</em>) – The arguments passed to the sequence element, usually from the configuration dialog</p></li>
+<li><p><strong>args</strong> (<em>Any</em>) – The arguments passed to the sequence, usually from the configuration dialog</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary describing the created sequence element. The fields here are: ‘elements’ - List of all created elements (including the leading element) ‘leading’ - ‘Leading’ element which represents the whole sequence</p>
+<dd class="field-even"><p>Dictionary describing the created element. The fields here are: <code class="docutils literal notranslate"><span class="pre">elements</span></code> - List of all created elements (including the leading element) <code class="docutils literal notranslate"><span class="pre">leading</span></code> - ‘Leading’ element which represents the whole sequence</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -2159,70 +2159,97 @@ single elements within can be edited separately.</p>
 </dl>
 </dd></dl>
 
-<p>Function called to create the scripted sequence</p>
-<p>This function is called to create or edit the element of a scripted sequence. The
-parameters set in the <code class="docutils literal notranslate"><span class="pre">dialog</span></code> function are passed here as a parameter.</p>
-<p><strong>Constraints</strong></p>
-<p>In principle, this function is like a sub script calling the single create commands.
-Behind the scenes, the calls are handled a bit different than regular script command
-calls to be able to build a component object at the end. In detail, the following rules
-apply:</p>
-<ul class="simple">
-<li><p>The order of elements must remain the same during object lifetime. So no parameter or
-external condition may change the element order.</p></li>
-<li><p>The number of elements must remain the same during object lifetime. No parameter or
-condition may affect the number of created elements.</p></li>
-<li><p>There may not be other glue code commands in the sequence. Only creation commands are allowed
-here. In principle, other glue code is allowed, including API calls.</p></li>
-</ul>
-<p>These limitations are required because behind the scenes, the scripting engine processes the
-creation requests depending on the mode of sequence command execution:</p>
-<ul class="simple">
-<li><p>For a simple creation process (like a scripted sequence creation command), the command list is
-executed like any other script.</p></li>
-<li><p>When an existing creation sequence is edited, the command list is <strong>not</strong> executed regularly.
-Instead, the command parameters are collected and will be passed to the already existing
-elements to adapt these.</p></li>
-<li><p>For preview computation, a combination of both modes is used: The objects are created in a first
-step, but marked as ‘preview’ and will not be part of the regular dependency graph or project.
-Afterwards, like in the ‘edit’ case, the parameters are collected and passed to the already
-existing preview elements then to update these.</p></li>
-</ul>
+<p>Function called to create a sequence of elements</p>
+<p><strong>Sequence creation</strong></p>
+<p>This function is called to create a sequence of elements initially. It can use the regular scripted
+creation commands to create the elements of that sequence and determine which of these elements is
+the ‘leading’ element of the sequence. The leading element is the one which represents the whole
+sequence in the sense that editing the sequence again is initialzed by editing the leading element or
+deleting the leading element deletes the whole sequence.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+
+  <span class="c1">#</span>
+  <span class="c1"># Extract parameters from the dialog</span>
+  <span class="c1">#</span>
+  <span class="n">distance</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span>
+
+  <span class="c1">#</span>
+  <span class="c1"># Create sequence via the regular creation commands. Here, two points and a distance</span>
+  <span class="c1"># between these points is created, with the distance being the leading element.</span>
+  <span class="c1">#</span>
+  <span class="n">POINT_1</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">primitive</span><span class="o">.</span><span class="n">create_point</span> <span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_element_name</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;First point&#39;</span><span class="p">),</span> 
+    <span class="n">point</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)})</span>
+
+  <span class="n">POINT_2</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">primitive</span><span class="o">.</span><span class="n">create_point</span> <span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_element_name</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Second point&#39;</span><span class="p">),</span> 
+    <span class="n">point</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span> <span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)})</span>
+
+  <span class="n">DISTANCE</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">inspection</span><span class="o">.</span><span class="n">create_distance_by_2_points</span> <span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span>
+    <span class="n">point1</span><span class="o">=</span><span class="n">POINT_1</span><span class="p">,</span> 
+    <span class="n">point2</span><span class="o">=</span><span class="n">POINT_2</span><span class="p">)</span>
+
+  <span class="c1">#</span>
+  <span class="c1"># Return created sequence elements and the leading element of that sequence</span>
+  <span class="c1">#</span>
+  <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;elements&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">POINT_1</span><span class="p">,</span> <span class="n">POINT_2</span><span class="p">,</span> <span class="n">DISTANCE</span><span class="p">],</span> <span class="s1">&#39;leading&#39;</span><span class="p">:</span> <span class="n">DISTANCE</span><span class="p">}</span>  
+</pre></div>
+</div>
 <p><strong>Element naming</strong></p>
-<p>Element names must be unique in a project. Also, the elements belonging to the same seqauence element group
-should be identifiable via their names. To assure this, the element names should be computed via the API
-function `generate_element_name()’. Please see documentation of this function for details.</p>
+<p>Element names must be unique within a project. Also, the elements belonging to the same sequence should be
+identifiable via their names. To assure this, the element names should be computed via the API function
+<code class="docutils literal notranslate"><span class="pre">generate_element_name()</span></code>. Please see documentation of this function for details.</p>
 </section>
-<section id="gom-api-extensions-sequence-scriptedsequenceelement-edit">
-<h5>gom.api.extensions.sequence.ScriptedSequenceElement.edit<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequenceelement-edit" title="Link to this heading"></a></h5>
+<section id="gom-api-extensions-sequence-scriptedsequence-edit">
+<h5>gom.api.extensions.sequence.ScriptedSequence.edit<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence-edit" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequenceElement.edit(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">elements:</span> <span class="pre">Any,</span> <span class="pre">args:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequence.edit(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">elements:</span> <span class="pre">Any,</span> <span class="pre">args:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<em>Any</em>) – The context of the sequence element</p></li>
-<li><p><strong>elements</strong> (<em>Any</em>) – List of current elements of the sequence in the same order as created</p></li>
-<li><p><strong>args</strong> (<em>Any</em>) – The arguments passed to the sequence element, usually from the configuration dialog</p></li>
+<li><p><strong>context</strong> (<em>Any</em>) – The context of the sequence</p></li>
+<li><p><strong>elements</strong> (<em>Any</em>) – List of current elements of the sequence in the same order as returned by the <code class="docutils literal notranslate"><span class="pre">create()</span></code> function</p></li>
+<li><p><strong>args</strong> (<em>Any</em>) – Creation arguments from the dialog</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <p>Function called to edit the scripted sequence</p>
-<p>This function is called when a scripted sequence is edited. It will receive the current
-elements of the sequence as well as the parameters set in the <code class="docutils literal notranslate"><span class="pre">dialog</span></code> function. The function
-must update the sequnece elements accordingly.gom</p>
+<p>This function is called when a scripted sequence is edited. It will receive the current sequence elements
+together with the current sequence creation dialog values and must reconfigure the sequence elements accordingly.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">edit</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">elements</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+
+  <span class="c1">#</span>
+  <span class="c1"># The &#39;elements&#39; parameter is a list containing the elements in the</span>
+  <span class="c1"># same order as returned by the &#39;create()&#39; function</span>
+  <span class="c1">#</span>
+  <span class="n">POINT_1</span><span class="p">,</span> <span class="n">POINT_2</span><span class="p">,</span> <span class="n">DISTANCE</span> <span class="o">=</span> <span class="n">elements</span>
+
+  <span class="c1">#</span>
+  <span class="c1"># Actual dialog parameters</span>
+  <span class="c1">#</span>
+  <span class="n">distance</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span>
+
+  <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">edit_creation_parameters</span> <span class="p">(</span>
+    <span class="n">element</span><span class="o">=</span><span class="n">POINT_2</span><span class="p">,</span> 
+    <span class="n">point</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span> <span class="p">(</span><span class="n">distance</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)})</span>        
+</pre></div>
+</div>
 </section>
-<section id="gom-api-extensions-sequence-scriptedsequenceelement-generate-element-name">
-<h5>gom.api.extensions.sequence.ScriptedSequenceElement.generate_element_name<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequenceelement-generate-element-name" title="Link to this heading"></a></h5>
+<section id="gom-api-extensions-sequence-scriptedsequence-generate-element-name">
+<h5>gom.api.extensions.sequence.ScriptedSequence.generate_element_name<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence-generate-element-name" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequenceElement.generate_element_name(self:</span> <span class="pre">Any,</span> <span class="pre">leading_name:</span> <span class="pre">Any,</span> <span class="pre">basename:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequence.generate_element_name(self:</span> <span class="pre">Any,</span> <span class="pre">leading_name:</span> <span class="pre">Any,</span> <span class="pre">basename:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>leading_name</strong> (<em>Any</em>) – Name of the leading element of the sequence element. This is usually the name as specified in the creation dialog.</p></li>
+<li><p><strong>leading_name</strong> (<em>Any</em>) – Name of the leading element of the sequence. This is usually the name as specified in the creation dialog.</p></li>
 <li><p><strong>basename</strong> (<em>Any</em>) – Base name for the element, like <code class="docutils literal notranslate"><span class="pre">Point</span></code> or <code class="docutils literal notranslate"><span class="pre">Line</span></code>. This name part will be extended by a running number to make it unique.</p></li>
 </ul>
 </dd>
@@ -2235,14 +2262,13 @@ must update the sequnece elements accordingly.gom</p>
 </dl>
 </dd></dl>
 
-<p>Generates a unique name for an element of the scripted sequence element</p>
-<p>This function generates a unique name for an element of the scripted sequence element. The
-name is based on the leading element of the sequence element, plus a base name and a running
-number.</p>
+<p>Generates a unique name for an element of the scripted sequence.</p>
+<p>This function generates a unique name for an element of the scripted sequence. The name is based
+on the leading element of the sequence, plus a base name and a running number.</p>
 <p><strong>Example</strong></p>
-<p>For a sequence element with id <code class="docutils literal notranslate"><span class="pre">Distance</span> <span class="pre">1</span></code> and a base name <code class="docutils literal notranslate"><span class="pre">Point</span></code>, the generated names will be
+<p>For a sequence with id <code class="docutils literal notranslate"><span class="pre">Distance</span> <span class="pre">1</span></code> and a base name <code class="docutils literal notranslate"><span class="pre">Point</span></code>, the generated names will be
 <code class="docutils literal notranslate"><span class="pre">Distance</span> <span class="pre">1</span> <span class="pre">●</span> <span class="pre">Point</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">Distance</span> <span class="pre">1</span> <span class="pre">●</span> <span class="pre">Point</span> <span class="pre">2</span></code>, …</p>
-<p>When implemented, the <code class="docutils literal notranslate"><span class="pre">create</span></code> function of the scripted sequence element should use this function
+<p>When implemented, the <code class="docutils literal notranslate"><span class="pre">create()</span></code> function of the scripted sequence should use this function
 to generate the names of the single elements:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
 
@@ -4527,7 +4553,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f3d5e5b3230>
+  <jinja2.runtime.BlockReference object at 0x7f5d596ffa80>
 
 
 </footer>
