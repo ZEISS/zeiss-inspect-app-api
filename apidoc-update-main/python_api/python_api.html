@@ -223,6 +223,35 @@
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-imaging-compute-point-from-pixels">gom.api.imaging.compute_point_from_pixels</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#gom-api-infoitem">gom.api.infoitem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-infoitem-structured">gom.api.infoitem.Structured</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-structured-add-double-shortcut">gom.api.infoitem.Structured.add_double_shortcut</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-structured-add-single-shortcut">gom.api.infoitem.Structured.add_single_shortcut</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-structured-clear">gom.api.infoitem.Structured.clear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-structured-get-configuration">gom.api.infoitem.Structured.get_configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-structured-get-mouse-buttons">gom.api.infoitem.Structured.get_mouse_buttons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-structured-set-always-visible">gom.api.infoitem.Structured.set_always_visible</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-structured-set-description">gom.api.infoitem.Structured.set_description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-structured-set-heading">gom.api.infoitem.Structured.set_heading</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-structured-set-warning">gom.api.infoitem.Structured.set_warning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-structured-show">gom.api.infoitem.Structured.show</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-infoitem-text">gom.api.infoitem.Text</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-text-clear">gom.api.infoitem.Text.clear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-text-get-configuration">gom.api.infoitem.Text.get_configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-text-set-always-visible">gom.api.infoitem.Text.set_always_visible</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-text-set-text">gom.api.infoitem.Text.set_text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-text-set-warning">gom.api.infoitem.Text.set_warning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-infoitem-text-show">gom.api.infoitem.Text.show</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-infoitem-create-structured">gom.api.infoitem.create_structured</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-infoitem-create-text">gom.api.infoitem.create_text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-infoitem-get-alignments">gom.api.infoitem.get_alignments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-infoitem-get-categories">gom.api.infoitem.get_categories</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-interpreter">gom.api.interpreter</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-interpreter-enter-multi-element-creation-scope">gom.api.interpreter.<strong>enter_multi_element_creation_scope</strong></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-interpreter-exit-multi-element-creation-scope">gom.api.interpreter.<strong>exit_multi_element_creation_scope</strong></a></li>
@@ -2794,6 +2823,493 @@ camera positions through the given pixels. The pixel coordinate system center is
 </div>
 </section>
 </section>
+<section id="gom-api-infoitem">
+<h2>gom.api.infoitem<a class="headerlink" href="#gom-api-infoitem" title="Link to this heading"></a></h2>
+<p>API for creating, configuring, and displaying info items</p>
+<p>This API provides functions and classes to create, configure, and display info items
+within the application’s graphical user interface. Info items can be shown as simple text
+or as structured content with headings, descriptions, and keyboard/mouse shortcuts.
+The API supports querying available categories and alignments, and allows dynamic control
+over the visibility, warning state, and content of each info item. Both plain text and
+structured info item types are supported, enabling flexible presentation of contextual
+information to the user.</p>
+<p><img alt="Info Item Example" src="../_images/info_item_api_1.png" /></p>
+<p>Info items can be positioned in five different alignments: top, center, bottom, top_right, and top_left.</p>
+<section id="gom-api-infoitem-structured">
+<h3>gom.api.infoitem.Structured<a class="headerlink" href="#gom-api-infoitem-structured" title="Link to this heading"></a></h3>
+<p>Class for displaying structured info items</p>
+<p>This class represents an info item that displays structured content within the application’s graphical user
+interface. Structured info items can include a heading (with optional icon and help id), a description, and one or
+more keyboard/mouse shortcuts. The class provides methods to set and update each of these fields, as well as to
+control visibility and warning state. Structured info items can be aligned in various positions and can use a larger
+font if specified.</p>
+<p><img alt="Info Item Structured Example" src="../_images/info_item_api_structured_1.png" /></p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.infoitem</span>
+
+<span class="n">item_structured</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">infoitem</span><span class="o">.</span><span class="n">create_structured</span><span class="p">(</span><span class="s1">&#39;INFO_GENERAL&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
+<span class="n">item_structured</span><span class="o">.</span><span class="n">set_heading</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;My Heading&quot;</span><span class="p">)</span>
+<span class="n">item_structured</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="s2">&quot;Description text&quot;</span><span class="p">)</span>
+<span class="n">item_structured</span><span class="o">.</span><span class="n">add_single_shortcut</span><span class="p">(</span><span class="n">keys</span><span class="o">=</span><span class="s2">&quot;ctrl+alt&quot;</span><span class="p">,</span> <span class="n">mouse</span><span class="o">=</span><span class="s2">&quot;left_button&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Shortcut description&quot;</span><span class="p">)</span>
+<span class="n">item_structured</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="gom-api-infoitem-structured-add-double-shortcut">
+<h4>gom.api.infoitem.Structured.add_double_shortcut<a class="headerlink" href="#gom-api-infoitem-structured-add-double-shortcut" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Structured.add_double_shortcut(keys1:</span> <span class="pre">str='',</span> <span class="pre">mouse1:</span> <span class="pre">str='',</span> <span class="pre">keys2:</span> <span class="pre">str='',</span> <span class="pre">mouse2:</span> <span class="pre">str='',</span> <span class="pre">description:</span> <span class="pre">str=''):</span> <span class="pre">None</span></span></dt>
+<dd><p>Add a double shortcut to this structured info item</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keys1</strong> (<em>str=''</em>) – The first key sequence</p></li>
+<li><p><strong>mouse1</strong> (<em>str=''</em>) – The first mouse button</p></li>
+<li><p><strong>keys2</strong> (<em>str=''</em>) – The second key sequence</p></li>
+<li><p><strong>mouse2</strong> (<em>str=''</em>) – The second mouse button</p></li>
+<li><p><strong>description</strong> (<em>str=''</em>) – The description of the shortcut</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Adds a shortcut consisting of two key sequence and/or mouse combinations, with an optional description.</p>
+<p>For detailed information about the format and rules for <code class="docutils literal notranslate"><span class="pre">keys1</span></code>, <code class="docutils literal notranslate"><span class="pre">keys2</span></code>, <code class="docutils literal notranslate"><span class="pre">mouse1</span></code>, and <code class="docutils literal notranslate"><span class="pre">mouse2</span></code>,
+see the documentation for <a href="#gom-api-infoitem-structured-add-single-shortcut"><code class="docutils literal notranslate"><span class="pre">add_single_shortcut</span></code></a>.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">item_structured</span><span class="o">.</span><span class="n">add_double_shortcut</span><span class="p">(</span><span class="n">keys1</span><span class="o">=</span><span class="s2">&quot;ctrl&quot;</span><span class="p">,</span> <span class="n">mouse1</span><span class="o">=</span><span class="s2">&quot;left_button&quot;</span><span class="p">,</span> <span class="n">keys2</span><span class="o">=</span><span class="s2">&quot;shift&quot;</span><span class="p">,</span> <span class="n">mouse2</span><span class="o">=</span><span class="s2">&quot;right_button&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Double shortcut example&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-infoitem-structured-add-single-shortcut">
+<h4>gom.api.infoitem.Structured.add_single_shortcut<a class="headerlink" href="#gom-api-infoitem-structured-add-single-shortcut" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Structured.add_single_shortcut(keys:</span> <span class="pre">str='',</span> <span class="pre">mouse:</span> <span class="pre">str='',</span> <span class="pre">description:</span> <span class="pre">str=''):</span> <span class="pre">None</span></span></dt>
+<dd><p>Add a single shortcut to this structured info item</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keys</strong> (<em>str=''</em>) – The key sequence</p></li>
+<li><p><strong>mouse</strong> (<em>str=''</em>) – The mouse button</p></li>
+<li><p><strong>description</strong> (<em>str=''</em>) – The description of the shortcut</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Adds a shortcut consisting of a key sequence and/or mouse button, with an optional description.</p>
+<p>The format and rules for the <code class="docutils literal notranslate"><span class="pre">keys</span></code> parameter are as follows:</p>
+<ul class="simple">
+<li><p>It may consist of zero or more modifier keys (<code class="docutils literal notranslate"><span class="pre">Ctrl</span></code>, <code class="docutils literal notranslate"><span class="pre">Shift</span></code>, <code class="docutils literal notranslate"><span class="pre">Alt</span></code>) and at most one regular key.</p></li>
+<li><p>For the complete list of keys, see the <a class="reference external" href="https://doc.qt.io/qt-6/qt.html#Key-enum">Qt::Key enum documentation</a>. Use
+the string after “Key_”, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;Key_F1&quot;</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;F1&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;Key_A&quot;</span></code> → <code class="docutils literal notranslate"><span class="pre">&quot;A&quot;</span></code>.</p></li>
+<li><p>Modifiers and the regular key are combined with <code class="docutils literal notranslate"><span class="pre">+</span></code>, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;Ctrl+Alt+S&quot;</span></code>.</p></li>
+<li><p>Key names are case-insensitive.</p></li>
+<li><p>You may specify only modifiers (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;Ctrl+Alt&quot;</span></code>), or leave <code class="docutils literal notranslate"><span class="pre">keys</span></code> empty to use only a mouse button.</p></li>
+</ul>
+<p>The list of available mouse buttons can be obtained using <a
+href="#gom-api-infoitem-structured-get-mouse-buttons"><code class="docutils literal notranslate"><span class="pre">item_structured.get_mouse_buttons()</span></code></a>.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">item_structured</span><span class="o">.</span><span class="n">add_single_shortcut</span><span class="p">(</span><span class="n">keys</span><span class="o">=</span><span class="s2">&quot;ctrl+alt&quot;</span><span class="p">,</span> <span class="n">mouse</span><span class="o">=</span><span class="s2">&quot;left_button&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Single shortcut example&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-infoitem-structured-clear">
+<h4>gom.api.infoitem.Structured.clear<a class="headerlink" href="#gom-api-infoitem-structured-clear" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Structured.clear():</span> <span class="pre">None</span></span></dt>
+<dd><p>Clear the content and hide this structured info item</p>
+</dd></dl>
+
+<p>Removes the content from the info item and hides it from the user interface.</p>
+</section>
+<section id="gom-api-infoitem-structured-get-configuration">
+<h4>gom.api.infoitem.Structured.get_configuration<a class="headerlink" href="#gom-api-infoitem-structured-get-configuration" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Structured.get_configuration():</span> <span class="pre">dict</span></span></dt>
+<dd><p>Return the current configuration of this structured info item as a dictionary</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing the configuration of the structured info item</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This method returns the current configuration and state of the structured info item as a dictionary.
+The configuration includes properties such as category, alignment, font size, warning state,
+always-visible state, heading, description, and shortcuts. This is mainly intended for debugging or
+inspection purposes.</p>
+</section>
+<section id="gom-api-infoitem-structured-get-mouse-buttons">
+<h4>gom.api.infoitem.Structured.get_mouse_buttons<a class="headerlink" href="#gom-api-infoitem-structured-get-mouse-buttons" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Structured.get_mouse_buttons():</span> <span class="pre">list[str]</span></span></dt>
+<dd><p>Return the list of all available mouse buttons</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of info category names as strings</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The structured info item supports the following mouse buttons: left_button, right_button, middle_button, and mouse_wheel.
+<img alt="Info Item Structured Example" src="../_images/info_item_api_structured_3.png" /></p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.infoitem</span>
+
+<span class="n">item_structured</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">infoitem</span><span class="o">.</span><span class="n">create_structured</span><span class="p">(</span><span class="s1">&#39;INFO_GENERAL&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">item_structured</span><span class="o">.</span><span class="n">get_mouse_buttons</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-infoitem-structured-set-always-visible">
+<h4>gom.api.infoitem.Structured.set_always_visible<a class="headerlink" href="#gom-api-infoitem-structured-set-always-visible" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Structured.set_always_visible(state:</span> <span class="pre">bool):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the always-visible state for this structured info item</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>bool</em>) – If true, the item is always visible; otherwise, it follows normal visibility rules.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Sets whether this info item should always be visible, regardless of its priority or other conditions.
+When set to true, the item will remain visible in the user interface at all times.</p>
+</section>
+<section id="gom-api-infoitem-structured-set-description">
+<h4>gom.api.infoitem.Structured.set_description<a class="headerlink" href="#gom-api-infoitem-structured-set-description" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Structured.set_description(description:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the description for this structured info item</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>description</strong> (<em>str</em>) – The description text to display</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Sets the description text for the structured info item.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">item_structured</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="s2">&quot;Description text&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-infoitem-structured-set-heading">
+<h4>gom.api.infoitem.Structured.set_heading<a class="headerlink" href="#gom-api-infoitem-structured-set-heading" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Structured.set_heading(icon:</span> <span class="pre">str='',</span> <span class="pre">text:</span> <span class="pre">str='',</span> <span class="pre">help_id:</span> <span class="pre">str=''):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the heading for this structured info item</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>icon</strong> (<em>str=''</em>) – The icon to display in the heading</p></li>
+<li><p><strong>text</strong> (<em>str=''</em>) – The heading text</p></li>
+<li><p><strong>help_id</strong> (<em>str=''</em>) – The help id associated with the heading</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Sets the heading icon, text, and help id for the structured info item.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icon</span></code> parameter supports multiple input formats</p>
+<ul class="simple">
+<li><p>Internal icon identifier from GIcon::Cache</p></li>
+<li><p>Complete AddOnUrl pointing to an icon file</p></li>
+<li><p>Path to an external file</p></li>
+<li><p>Base64-encoded QImage or QPixmap string</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use an internal icon name</span>
+<span class="n">item_structured</span><span class="o">.</span><span class="n">set_heading</span><span class="p">(</span><span class="n">icon</span><span class="o">=</span><span class="s2">&quot;zui_holy_placeholder&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;My Heading&quot;</span><span class="p">)</span>
+
+<span class="c1"># Use an AddOnUrl</span>
+<span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;acp:///&lt;addon_uuid&gt;/.../testicon.svg&quot;</span>
+<span class="n">item_structured</span><span class="o">.</span><span class="n">set_heading</span><span class="p">(</span><span class="n">icon</span><span class="o">=</span><span class="n">icon</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;My Heading&quot;</span><span class="p">)</span>
+
+<span class="c1"># Use an external file path</span>
+<span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;C:/icons/myicon.png&quot;</span>
+<span class="n">item_structured</span><span class="o">.</span><span class="n">set_heading</span><span class="p">(</span><span class="n">icon</span><span class="o">=</span><span class="n">icon</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;My Heading&quot;</span><span class="p">)</span>
+
+<span class="c1"># Use a base64-encoded string</span>
+<span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;iVBORw0KG....AAAAAK7QJANhcmnoAAAAAElFTkSuQmCC&quot;</span>
+<span class="n">item_structured</span><span class="o">.</span><span class="n">set_heading</span><span class="p">(</span><span class="n">icon</span><span class="o">=</span><span class="n">icon</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;My Heading&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-infoitem-structured-set-warning">
+<h4>gom.api.infoitem.Structured.set_warning<a class="headerlink" href="#gom-api-infoitem-structured-set-warning" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Structured.set_warning(state:</span> <span class="pre">bool):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the warning state for this structured info item</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>bool</em>) – If true, the item is marked as a warning; otherwise, it is shown normally.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Sets whether this info item should be displayed in a warning state. When set to true,
+the item will be visually highlighted as a warning in the user interface.</p>
+<p><img alt="Info Item Structured Example" src="../_images/info_item_api_structured_2.png" /></p>
+</section>
+<section id="gom-api-infoitem-structured-show">
+<h4>gom.api.infoitem.Structured.show<a class="headerlink" href="#gom-api-infoitem-structured-show" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Structured.show():</span> <span class="pre">None</span></span></dt>
+<dd><p>Show this structured info item in the user interface</p>
+</dd></dl>
+
+<p>Displays the structured info item in the application’s graphical user interface using the current content.</p>
+</section>
+</section>
+<section id="gom-api-infoitem-text">
+<h3>gom.api.infoitem.Text<a class="headerlink" href="#gom-api-infoitem-text" title="Link to this heading"></a></h3>
+<p>Class for displaying simple text info items</p>
+<p>This class represents an info item that displays plain text within the application’s graphical user interface.
+It provides methods to set the text content, control visibility, configure warning and always-visible states,
+and retrieve the current configuration. The text info item can be aligned in various positions and can use a larger
+font if specified.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.infoitem</span>
+
+<span class="n">item_text</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">infoitem</span><span class="o">.</span><span class="n">create_text</span><span class="p">(</span><span class="s1">&#39;INFO_WARNING&#39;</span><span class="p">,</span> <span class="s1">&#39;top_left&#39;</span><span class="p">)</span>
+<span class="n">item_text</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
+<span class="n">item_text</span><span class="o">.</span><span class="n">set_always_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">item_text</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="gom-api-infoitem-text-clear">
+<h4>gom.api.infoitem.Text.clear<a class="headerlink" href="#gom-api-infoitem-text-clear" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Text.clear():</span> <span class="pre">None</span></span></dt>
+<dd><p>Clear the content and hide this text info item</p>
+</dd></dl>
+
+<p>Removes the text content from the info item and hides it from the user interface.</p>
+</section>
+<section id="gom-api-infoitem-text-get-configuration">
+<h4>gom.api.infoitem.Text.get_configuration<a class="headerlink" href="#gom-api-infoitem-text-get-configuration" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Text.get_configuration():</span> <span class="pre">dict</span></span></dt>
+<dd><p>Return the current configuration of this text info item as a dictionary</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing the configuration of the text info item</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This method returns the current configuration and state of the text info item as a dictionary.
+The configuration includes properties such as category, alignment, font size, warning state,
+always-visible state, and the current text content. This is mainly intended for debugging or
+inspection purposes.</p>
+</section>
+<section id="gom-api-infoitem-text-set-always-visible">
+<h4>gom.api.infoitem.Text.set_always_visible<a class="headerlink" href="#gom-api-infoitem-text-set-always-visible" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Text.set_always_visible(state:</span> <span class="pre">bool):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the always-visible state for this text info item</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>bool</em>) – If true, the item is always visible; otherwise, it follows normal visibility rules.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Sets whether this info item should always be visible, regardless of its priority or other conditions.
+When set to true, the item will remain visible in the user interface at all times.</p>
+</section>
+<section id="gom-api-infoitem-text-set-text">
+<h4>gom.api.infoitem.Text.set_text<a class="headerlink" href="#gom-api-infoitem-text-set-text" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Text.set_text(text:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the text content for this info item</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The new text to display in the info item</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Sets the text that will be displayed by this info item. If the item is currently visible,
+the displayed content is updated immediately.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">item_text</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s2">&quot;New message&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-infoitem-text-set-warning">
+<h4>gom.api.infoitem.Text.set_warning<a class="headerlink" href="#gom-api-infoitem-text-set-warning" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Text.set_warning(state:</span> <span class="pre">bool):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the warning state for this text info item</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>bool</em>) – If true, the item is marked as a warning; otherwise, it is shown normally.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Sets whether this info item should be displayed in a warning state. When set to true,
+the item will be visually highlighted as a warning in the user interface.</p>
+<p><img alt="Info Item Structured Example" src="../_images/info_item_api_text_1.png" /></p>
+</section>
+<section id="gom-api-infoitem-text-show">
+<h4>gom.api.infoitem.Text.show<a class="headerlink" href="#gom-api-infoitem-text-show" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.Text.show():</span> <span class="pre">None</span></span></dt>
+<dd><p>Show this text info item in the user interface</p>
+</dd></dl>
+
+<p>Displays the text info item in the application’s graphical user interface using the current text content.</p>
+</section>
+</section>
+<section id="gom-api-infoitem-create-structured">
+<h3>gom.api.infoitem.create_structured<a class="headerlink" href="#gom-api-infoitem-create-structured" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.create_structured(category:</span> <span class="pre">str,</span> <span class="pre">alignment:</span> <span class="pre">str='',</span> <span class="pre">large_font:</span> <span class="pre">bool=False):</span> <span class="pre">gom.api.infoitem.Structured</span></span></dt>
+<dd><p>Create a new structured info item</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>category</strong> (<em>str</em>) – The info category for the item (required)</p></li>
+<li><p><strong>alignment</strong> (<em>str=''</em>) – The alignment for the item (optional, default: ‘bottom’)</p></li>
+<li><p><strong>large_font</strong> (<em>bool=False</em>) – Whether to use a large font (optional, default: False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created structured info item</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>gom.api.infoitem.Structured</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Creates and returns a new info item that displays structured content which can include a heading, description, and
+shortcuts.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.infoitem</span>
+
+<span class="n">item_structured</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">infoitem</span><span class="o">.</span><span class="n">create_structured</span><span class="p">(</span><span class="s1">&#39;INFO_GENERAL&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The list of available categories can be obtained using <a href="#gom-api-infoitem-get-categories"><code class="docutils literal notranslate"><span class="pre">gom.api.infoitem.get_categories</span></code></a>,
+and the list of available alignments can be obtained using <a href="#gom-api-infoitem-get-alignments"><code class="docutils literal notranslate"><span class="pre">gom.api.infoitem.get_alignments</span></code></a>.</p>
+</section>
+<section id="gom-api-infoitem-create-text">
+<h3>gom.api.infoitem.create_text<a class="headerlink" href="#gom-api-infoitem-create-text" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.create_text(category:</span> <span class="pre">str,</span> <span class="pre">alignment:</span> <span class="pre">str='',</span> <span class="pre">large_font:</span> <span class="pre">bool=False):</span> <span class="pre">gom.api.infoitem.Text</span></span></dt>
+<dd><p>Create a new text info item</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>category</strong> (<em>str</em>) – The info category for the item (required)</p></li>
+<li><p><strong>alignment</strong> (<em>str=''</em>) – The alignment for the item (optional, default: ‘bottom’)</p></li>
+<li><p><strong>large_font</strong> (<em>bool=False</em>) – Whether to use a large font (optional, default: False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created text info item</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>gom.api.infoitem.Text</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Creates and returns a new info item that displays plain text.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.infoitem</span>
+
+<span class="n">item_text</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">infoitem</span><span class="o">.</span><span class="n">create_text</span><span class="p">(</span><span class="s1">&#39;INFO_WARNING&#39;</span><span class="p">,</span> <span class="s1">&#39;top_left&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The list of available categories can be obtained using <a href="#gom-api-infoitem-get-categories"><code class="docutils literal notranslate"><span class="pre">gom.api.infoitem.get_categories</span></code></a>,
+and the list of available alignments can be obtained using <a href="#gom-api-infoitem-get-alignments"><code class="docutils literal notranslate"><span class="pre">gom.api.infoitem.get_alignments</span></code></a>.</p>
+</section>
+<section id="gom-api-infoitem-get-alignments">
+<h3>gom.api.infoitem.get_alignments<a class="headerlink" href="#gom-api-infoitem-get-alignments" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.get_alignments():</span> <span class="pre">list[str]</span></span></dt>
+<dd><p>Return the list of all available info alignments</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of alignment names as strings</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.infoitem</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">infoitem</span><span class="o">.</span><span class="n">get_alignments</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-infoitem-get-categories">
+<h3>gom.api.infoitem.get_categories<a class="headerlink" href="#gom-api-infoitem-get-categories" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.infoitem.get_categories():</span> <span class="pre">list[str]</span></span></dt>
+<dd><p>Return the list of all available info categories</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of info category names as strings</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.infoitem</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">infoitem</span><span class="o">.</span><span class="n">get_categories</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="gom-api-interpreter">
 <h2>gom.api.interpreter<a class="headerlink" href="#gom-api-interpreter" title="Link to this heading"></a></h2>
 <p>API for accessing python script interpreter properties</p>
@@ -4553,7 +5069,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f20877f72a0>
+  <jinja2.runtime.BlockReference object at 0x7fce28c7ac10>
 
 
 </footer>
