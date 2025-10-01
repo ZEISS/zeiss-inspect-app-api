@@ -1639,18 +1639,18 @@ The expected parameters from the element's `compute ()` function is a map with t
 Scripted sequence elements
 
 This module contains the base class for scripted sequence elements. A scripted sequence element
-combines a sequence of commands into one group. The group is treated as one single combined element
-with parts. The resulting cluster of elements can then be edited again as a altogether group, of the
+combines a sequence of commands into one sequence. The sequence is treated as one single combined element
+with parts. The resulting cluster of elements can then be edited again as a altogether sequence, of the
 single elements within can be edited separately.
 
-#### gom.api.extensions.sequence.ScriptedSequenceElement
+#### gom.api.extensions.sequence.ScriptedSequence
 
 
 This class is used to define a scripted sequence element
 
-##### gom.api.extensions.sequence.ScriptedSequenceElement.__init__
+##### gom.api.extensions.sequence.ScriptedSequence.__init__
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.__init__(self: Any, id: str, description: str): None
+```{py:function} gom.api.extensions.sequence.ScriptedSequence.__init__(self: Any, id: str, description: str): None
 
 :param id: Unique contribution id, like `special_point`
 :type id: str
@@ -1660,81 +1660,112 @@ This class is used to define a scripted sequence element
 
 Constructor
 
-##### gom.api.extensions.sequence.ScriptedSequenceElement.create
+##### gom.api.extensions.sequence.ScriptedSequence.create
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.create(self: Any, context: Any, name: Any, args: Any): None
+```{py:function} gom.api.extensions.sequence.ScriptedSequence.create(self: Any, context: Any, name: Any, args: Any): None
 
-:param context: The context of the sequence element
+:param context: The context of the element
 :type context: Any
 :param name: Name of the leading element, extracted from the dialog.
 :type name: Any
-:param args: The arguments passed to the sequence element, usually from the configuration dialog
+:param args: The arguments passed to the sequence, usually from the configuration dialog
 :type args: Any
-:return: Dictionary describing the created sequence element. The fields here are: 'elements' - List of all created elements (including the leading element) 'leading' - 'Leading' element which represents the whole sequence
+:return: Dictionary describing the created element. The fields here are: `elements` - List of all created elements (including the leading element) `leading` - 'Leading' element which represents the whole sequence
 :rtype: None
 ```
 
-Function called to create the scripted sequence
+Function called to create a sequence of elements
 
-This function is called to create or edit the element of a scripted sequence. The
-parameters set in the `dialog` function are passed here as a parameter.
+**Sequence creation**
 
-**Constraints**
+This function is called to create a sequence of elements initially. It can use the regular scripted
+creation commands to create the elements of that sequence and determine which of these elements is
+the 'leading' element of the sequence. The leading element is the one which represents the whole
+sequence in the sense that editing the sequence again is initialzed by editing the leading element or
+deleting the leading element deletes the whole sequence.
 
-In principle, this function is like a sub script calling the single create commands.
-Behind the scenes, the calls are handled a bit different than regular script command 
-calls to be able to build a component object at the end. In detail, the following rules
-apply:
+Example:
 
-- The order of elements must remain the same during object lifetime. So no parameter or
-  external condition may change the element order.
-- The number of elements must remain the same during object lifetime. No parameter or
-  condition may affect the number of created elements.
-- There may not be other glue code commands in the sequence. Only creation commands are allowed
-  here. In principle, other glue code is allowed, including API calls.
+```
+def create (self, context, name, args):
 
-These limitations are required because behind the scenes, the scripting engine processes the
-creation requests depending on the mode of sequence command execution:
+  #
+  # Extract parameters from the dialog
+  #
+  distance = args['distance']
 
-- For a simple creation process (like a scripted sequence creation command), the command list is
-  executed like any other script.
-- When an existing creation sequence is edited, the command list is **not** executed regularly.
-  Instead, the command parameters are collected and will be passed to the already existing 
-  elements to adapt these.
-- For preview computation, a combination of both modes is used: The objects are created in a first
-  step, but marked as 'preview' and will not be part of the regular dependency graph or project.
-  Afterwards, like in the 'edit' case, the parameters are collected and passed to the already 
-  existing preview elements then to update these. 
+  #
+  # Create sequence via the regular creation commands. Here, two points and a distance
+  # between these points is created, with the distance being the leading element.
+  #
+  POINT_1=gom.script.primitive.create_point (
+    name=self.generate_element_name (name, 'First point'), 
+    point={'point': gom.Vec3d (0.0, 0.0, 0.0)})
+
+  POINT_2=gom.script.primitive.create_point (
+    name=self.generate_element_name (name, 'Second point'), 
+    point={'point': gom.Vec3d (distance, 0.0, 0.0)})
+
+  DISTANCE=gom.script.inspection.create_distance_by_2_points (
+    name = name,
+    point1=POINT_1, 
+    point2=POINT_2)
+
+  #
+  # Return created sequence elements and the leading element of that sequence
+  #
+  return {'elements': [POINT_1, POINT_2, DISTANCE], 'leading': DISTANCE}  
+```
 
 **Element naming**
 
-Element names must be unique in a project. Also, the elements belonging to the same seqauence element group
-should be identifiable via their names. To assure this, the element names should be computed via the API
-function `generate_element_name()'. Please see documentation of this function for details.
+Element names must be unique within a project. Also, the elements belonging to the same sequence should be 
+identifiable via their names. To assure this, the element names should be computed via the API function 
+`generate_element_name()`. Please see documentation of this function for details.
 
-##### gom.api.extensions.sequence.ScriptedSequenceElement.edit
+##### gom.api.extensions.sequence.ScriptedSequence.edit
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.edit(self: Any, context: Any, elements: Any, args: Any): None
+```{py:function} gom.api.extensions.sequence.ScriptedSequence.edit(self: Any, context: Any, elements: Any, args: Any): None
 
-:param context: The context of the sequence element
+:param context: The context of the sequence
 :type context: Any
-:param elements: List of current elements of the sequence in the same order as created
+:param elements: List of current elements of the sequence in the same order as returned by the `create()` function
 :type elements: Any
-:param args: The arguments passed to the sequence element, usually from the configuration dialog
+:param args: Creation arguments from the dialog
 :type args: Any
 ```
 
 Function called to edit the scripted sequence
 
-This function is called when a scripted sequence is edited. It will receive the current
-elements of the sequence as well as the parameters set in the `dialog` function. The function
-must update the sequence elements accordingly.gom
+This function is called when a scripted sequence is edited. It will receive the current sequence elements
+together with the current sequence creation dialog values and must reconfigure the sequence elements accordingly.
 
-##### gom.api.extensions.sequence.ScriptedSequenceElement.generate_element_name
+Example:
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequenceElement.generate_element_name(self: Any, leading_name: Any, basename: Any): None
+```
+def edit (self, context, elements, args):
 
-:param leading_name: Name of the leading element of the sequence element. This is usually the name as specified in the creation dialog.
+  #
+  # The 'elements' parameter is a list containing the elements in the
+  # same order as returned by the 'create()' function
+  #
+  POINT_1, POINT_2, DISTANCE = elements
+
+  #
+  # Actual dialog parameters
+  #
+  distance = args['distance']
+
+  gom.script.sys.edit_creation_parameters (
+    element=POINT_2, 
+    point={'point': gom.Vec3d (distance, 0.0, 0.0)})        
+```
+
+##### gom.api.extensions.sequence.ScriptedSequence.generate_element_name
+
+```{py:function} gom.api.extensions.sequence.ScriptedSequence.generate_element_name(self: Any, leading_name: Any, basename: Any): None
+
+:param leading_name: Name of the leading element of the sequence. This is usually the name as specified in the creation dialog.
 :type leading_name: Any
 :param basename: Base name for the element, like `Point` or `Line`. This name part will be extended by a running number to make it unique.
 :type basename: Any
@@ -1742,18 +1773,17 @@ must update the sequence elements accordingly.gom
 :rtype: None
 ```
 
-Generates a unique name for an element of the scripted sequence element
+Generates a unique name for an element of the scripted sequence.
 
-This function generates a unique name for an element of the scripted sequence element. The
-name is based on the leading element of the sequence element, plus a base name and a running
-number.
+This function generates a unique name for an element of the scripted sequence. The name is based 
+on the leading element of the sequence, plus a base name and a running number.
 
 **Example**
 
-For a sequence element with id `Distance 1` and a base name `Point`, the generated names will be
+For a sequence with id `Distance 1` and a base name `Point`, the generated names will be
 `Distance 1 ● Point 1`, `Distance 1 ● Point 2`, ...
 
-When implemented, the `create` function of the scripted sequence element should use this function
+When implemented, the `create()` function of the scripted sequence should use this function
 to generate the names of the single elements:
 
 ```python
@@ -2236,6 +2266,424 @@ print (points)
 
 ```
 [[gom.Vec3d (-702.53, 1690.84, -22.37), 0.121], [gom.Vec3d (-638.25, 1627.62, -27.13), 0.137]]
+```
+
+## gom.api.infoitem
+
+API for creating, configuring, and displaying info items
+
+This API provides functions and classes to create, configure, and display info items
+within the application's graphical user interface. Info items can be shown as simple text
+or as structured content with headings, descriptions, and keyboard/mouse shortcuts.
+The API supports querying available categories and alignments, and allows dynamic control
+over the visibility, warning state, and content of each info item. Both plain text and
+structured info item types are supported, enabling flexible presentation of contextual
+information to the user.
+
+![Info Item Example](images/info_item_api_1.png)
+
+Info items can be positioned in five different alignments: top, center, bottom, top_right, and top_left.
+
+### gom.api.infoitem.Structured
+
+Class for displaying structured info items
+
+This class represents an info item that displays structured content within the application's graphical user
+interface. Structured info items can include a heading (with optional icon and help id), a description, and one or
+more keyboard/mouse shortcuts. The class provides methods to set and update each of these fields, as well as to
+control visibility and warning state. Structured info items can be aligned in various positions and can use a larger
+font if specified.
+
+![Info Item Structured Example](images/info_item_api_structured_1.png)
+
+**Example:**
+```
+import gom
+import gom.api.infoitem
+
+item_structured = gom.api.infoitem.create_structured('INFO_GENERAL', 'bottom')
+item_structured.set_heading(text="My Heading")
+item_structured.set_description("Description text")
+item_structured.add_single_shortcut(keys="ctrl+alt", mouse="left_button", description="Shortcut description")
+item_structured.show()
+```
+
+#### gom.api.infoitem.Structured.add_double_shortcut
+
+```{py:function} gom.api.infoitem.Structured.add_double_shortcut(keys1: str='', mouse1: str='', keys2: str='', mouse2: str='', description: str=''): None
+
+Add a double shortcut to this structured info item
+:param keys1: The first key sequence
+:type keys1: str=''
+:param mouse1: The first mouse button
+:type mouse1: str=''
+:param keys2: The second key sequence
+:type keys2: str=''
+:param mouse2: The second mouse button
+:type mouse2: str=''
+:param description: The description of the shortcut
+:type description: str=''
+```
+
+Adds a shortcut consisting of two key sequence and/or mouse combinations, with an optional description.
+
+For detailed information about the format and rules for `keys1`, `keys2`, `mouse1`, and `mouse2`,
+see the documentation for <a href="#gom-api-infoitem-structured-add-single-shortcut">`add_single_shortcut`</a>.
+
+**Example:**
+```
+item_structured.add_double_shortcut(keys1="ctrl", mouse1="left_button", keys2="shift", mouse2="right_button", description="Double shortcut example")
+```
+
+#### gom.api.infoitem.Structured.add_single_shortcut
+
+```{py:function} gom.api.infoitem.Structured.add_single_shortcut(keys: str='', mouse: str='', description: str=''): None
+
+Add a single shortcut to this structured info item
+:param keys: The key sequence
+:type keys: str=''
+:param mouse: The mouse button
+:type mouse: str=''
+:param description: The description of the shortcut
+:type description: str=''
+```
+
+Adds a shortcut consisting of a key sequence and/or mouse button, with an optional description.
+
+The format and rules for the `keys` parameter are as follows:
+- It may consist of zero or more modifier keys (`Ctrl`, `Shift`, `Alt`) and at most one regular key.
+- For the complete list of keys, see the [Qt::Key enum documentation](https://doc.qt.io/qt-6/qt.html#Key-enum). Use
+the string after "Key_", e.g., `"Key_F1"` → `"F1"`, `"Key_A"` → `"A"`.
+- Modifiers and the regular key are combined with `+`, e.g., `"Ctrl+Alt+S"`.
+- Key names are case-insensitive.
+- You may specify only modifiers (e.g., `"Ctrl+Alt"`), or leave `keys` empty to use only a mouse button.
+
+The list of available mouse buttons can be obtained using <a
+href="#gom-api-infoitem-structured-get-mouse-buttons">`item_structured.get_mouse_buttons()`</a>.
+
+**Example:**
+```
+item_structured.add_single_shortcut(keys="ctrl+alt", mouse="left_button", description="Single shortcut example")
+```
+
+#### gom.api.infoitem.Structured.clear
+
+```{py:function} gom.api.infoitem.Structured.clear(): None
+
+Clear the content and hide this structured info item
+```
+
+Removes the content from the info item and hides it from the user interface.
+
+#### gom.api.infoitem.Structured.get_configuration
+
+```{py:function} gom.api.infoitem.Structured.get_configuration(): dict
+
+Return the current configuration of this structured info item as a dictionary
+:return: Dictionary containing the configuration of the structured info item
+:rtype: dict
+```
+
+This method returns the current configuration and state of the structured info item as a dictionary.
+The configuration includes properties such as category, alignment, font size, warning state,
+always-visible state, heading, description, and shortcuts. This is mainly intended for debugging or
+inspection purposes.
+
+#### gom.api.infoitem.Structured.get_mouse_buttons
+
+```{py:function} gom.api.infoitem.Structured.get_mouse_buttons(): list[str]
+
+Return the list of all available mouse buttons
+:return: List of info category names as strings
+:rtype: list[str]
+```
+
+The structured info item supports the following mouse buttons: left_button, right_button, middle_button, and mouse_wheel.
+![Info Item Structured Example](images/info_item_api_structured_3.png)
+
+**Example:**
+```
+import gom
+import gom.api.infoitem
+
+item_structured = gom.api.infoitem.create_structured('INFO_GENERAL', 'bottom')
+print(item_structured.get_mouse_buttons())
+```
+
+#### gom.api.infoitem.Structured.set_always_visible
+
+```{py:function} gom.api.infoitem.Structured.set_always_visible(state: bool): None
+
+Set the always-visible state for this structured info item
+:param state: If true, the item is always visible; otherwise, it follows normal visibility rules.
+:type state: bool
+```
+
+Sets whether this info item should always be visible, regardless of its priority or other conditions.
+When set to true, the item will remain visible in the user interface at all times.
+
+#### gom.api.infoitem.Structured.set_description
+
+```{py:function} gom.api.infoitem.Structured.set_description(description: str): None
+
+Set the description for this structured info item
+:param description: The description text to display
+:type description: str
+```
+
+Sets the description text for the structured info item.
+
+**Example:**
+```
+item_structured.set_description("Description text")
+```
+
+#### gom.api.infoitem.Structured.set_heading
+
+```{py:function} gom.api.infoitem.Structured.set_heading(icon: str='', text: str='', help_id: str=''): None
+
+Set the heading for this structured info item
+:param icon: The icon to display in the heading
+:type icon: str=''
+:param text: The heading text
+:type text: str=''
+:param help_id: The help id associated with the heading
+:type help_id: str=''
+```
+
+Sets the heading icon, text, and help id for the structured info item.
+
+The `icon` parameter supports multiple input formats
+- Internal icon identifier from GIcon::Cache
+- Complete AddOnUrl pointing to an icon file
+- Path to an external file
+- Base64-encoded QImage or QPixmap string
+
+**Examples:**
+```python
+# Use an internal icon name
+item_structured.set_heading(icon="zui_holy_placeholder", text="My Heading")
+
+# Use an AddOnUrl
+icon = "acp:///<addon_uuid>/.../testicon.svg"
+item_structured.set_heading(icon=icon, text="My Heading")
+
+# Use an external file path
+icon = "C:/icons/myicon.png"
+item_structured.set_heading(icon=icon, text="My Heading")
+
+# Use a base64-encoded string
+icon = "iVBORw0KG....AAAAAK7QJANhcmnoAAAAAElFTkSuQmCC"
+item_structured.set_heading(icon=icon, text="My Heading")
+```
+
+#### gom.api.infoitem.Structured.set_warning
+
+```{py:function} gom.api.infoitem.Structured.set_warning(state: bool): None
+
+Set the warning state for this structured info item
+:param state: If true, the item is marked as a warning; otherwise, it is shown normally.
+:type state: bool
+```
+
+Sets whether this info item should be displayed in a warning state. When set to true,
+the item will be visually highlighted as a warning in the user interface.
+
+![Info Item Structured Example](images/info_item_api_structured_2.png)
+
+#### gom.api.infoitem.Structured.show
+
+```{py:function} gom.api.infoitem.Structured.show(): None
+
+Show this structured info item in the user interface
+```
+
+Displays the structured info item in the application's graphical user interface using the current content.
+
+### gom.api.infoitem.Text
+
+Class for displaying simple text info items
+
+This class represents an info item that displays plain text within the application's graphical user interface.
+It provides methods to set the text content, control visibility, configure warning and always-visible states,
+and retrieve the current configuration. The text info item can be aligned in various positions and can use a larger
+font if specified.
+
+**Example:**
+```
+import gom
+import gom.api.infoitem
+
+item_text = gom.api.infoitem.create_text('INFO_WARNING', 'top_left')
+item_text.set_text("Hello World")
+item_text.set_always_visible(True)
+item_text.show()
+```
+
+#### gom.api.infoitem.Text.clear
+
+```{py:function} gom.api.infoitem.Text.clear(): None
+
+Clear the content and hide this text info item
+```
+
+Removes the text content from the info item and hides it from the user interface.
+
+#### gom.api.infoitem.Text.get_configuration
+
+```{py:function} gom.api.infoitem.Text.get_configuration(): dict
+
+Return the current configuration of this text info item as a dictionary
+:return: Dictionary containing the configuration of the text info item
+:rtype: dict
+```
+
+This method returns the current configuration and state of the text info item as a dictionary.
+The configuration includes properties such as category, alignment, font size, warning state,
+always-visible state, and the current text content. This is mainly intended for debugging or
+inspection purposes.
+
+#### gom.api.infoitem.Text.set_always_visible
+
+```{py:function} gom.api.infoitem.Text.set_always_visible(state: bool): None
+
+Set the always-visible state for this text info item
+:param state: If true, the item is always visible; otherwise, it follows normal visibility rules.
+:type state: bool
+```
+
+Sets whether this info item should always be visible, regardless of its priority or other conditions.
+When set to true, the item will remain visible in the user interface at all times.
+
+#### gom.api.infoitem.Text.set_text
+
+```{py:function} gom.api.infoitem.Text.set_text(text: str): None
+
+Set the text content for this info item
+:param text: The new text to display in the info item
+:type text: str
+```
+
+Sets the text that will be displayed by this info item. If the item is currently visible,
+the displayed content is updated immediately.
+
+**Example:**
+```
+item_text.set_text("New message")
+```
+
+#### gom.api.infoitem.Text.set_warning
+
+```{py:function} gom.api.infoitem.Text.set_warning(state: bool): None
+
+Set the warning state for this text info item
+:param state: If true, the item is marked as a warning; otherwise, it is shown normally.
+:type state: bool
+```
+
+Sets whether this info item should be displayed in a warning state. When set to true,
+the item will be visually highlighted as a warning in the user interface.
+
+![Info Item Structured Example](images/info_item_api_text_1.png)
+
+#### gom.api.infoitem.Text.show
+
+```{py:function} gom.api.infoitem.Text.show(): None
+
+Show this text info item in the user interface
+```
+
+Displays the text info item in the application's graphical user interface using the current text content.
+
+### gom.api.infoitem.create_structured
+
+```{py:function} gom.api.infoitem.create_structured(category: str, alignment: str='', large_font: bool=False): gom.api.infoitem.Structured
+
+Create a new structured info item
+:param category: The info category for the item (required)
+:type category: str
+:param alignment: The alignment for the item (optional, default: 'bottom')
+:type alignment: str=''
+:param large_font: Whether to use a large font (optional, default: False)
+:type large_font: bool=False
+:return: The created structured info item
+:rtype: gom.api.infoitem.Structured
+```
+
+Creates and returns a new info item that displays structured content which can include a heading, description, and
+shortcuts.
+
+**Example:**
+```
+import gom
+import gom.api.infoitem
+
+item_structured = gom.api.infoitem.create_structured('INFO_GENERAL', 'bottom')
+```
+
+The list of available categories can be obtained using <a href="#gom-api-infoitem-get-categories">`gom.api.infoitem.get_categories`</a>,
+and the list of available alignments can be obtained using <a href="#gom-api-infoitem-get-alignments">`gom.api.infoitem.get_alignments`</a>.
+
+### gom.api.infoitem.create_text
+
+```{py:function} gom.api.infoitem.create_text(category: str, alignment: str='', large_font: bool=False): gom.api.infoitem.Text
+
+Create a new text info item
+:param category: The info category for the item (required)
+:type category: str
+:param alignment: The alignment for the item (optional, default: 'bottom')
+:type alignment: str=''
+:param large_font: Whether to use a large font (optional, default: False)
+:type large_font: bool=False
+:return: The created text info item
+:rtype: gom.api.infoitem.Text
+```
+
+Creates and returns a new info item that displays plain text.
+
+**Example:**
+```
+import gom
+import gom.api.infoitem
+
+item_text = gom.api.infoitem.create_text('INFO_WARNING', 'top_left')
+```
+
+The list of available categories can be obtained using <a href="#gom-api-infoitem-get-categories">`gom.api.infoitem.get_categories`</a>,
+and the list of available alignments can be obtained using <a href="#gom-api-infoitem-get-alignments">`gom.api.infoitem.get_alignments`</a>.
+
+### gom.api.infoitem.get_alignments
+
+```{py:function} gom.api.infoitem.get_alignments(): list[str]
+
+Return the list of all available info alignments
+:return: List of alignment names as strings
+:rtype: list[str]
+```
+
+**Example:**
+```
+import gom
+import gom.api.infoitem
+
+print(gom.api.infoitem.get_alignments())
+```
+
+### gom.api.infoitem.get_categories
+
+```{py:function} gom.api.infoitem.get_categories(): list[str]
+
+Return the list of all available info categories
+:return: List of info category names as strings
+:rtype: list[str]
+```
+
+**Example:**
+```
+import gom
+import gom.api.infoitem
+
+print(gom.api.infoitem.get_categories())
 ```
 
 ## gom.api.interpreter
