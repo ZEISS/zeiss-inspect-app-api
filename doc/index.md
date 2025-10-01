@@ -27,7 +27,7 @@ If you are new to Apps, you find some introductions in the ZEISS Quality Tech Gu
 
 * [Introduction to Apps](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/introduction_to_add-ons.html)
 * [How to Create a Basic App](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/how_to_create_a_basic_add_on.html)
-* [How to Create an Advanced App](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/how_to_create_an_advanced_add_on.html)
+* [How to Create an Advanced App](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/how_to_create_an_advanced_add_on.html)
 
 Check out the ZEISS INSPECT Apps news page!
 
