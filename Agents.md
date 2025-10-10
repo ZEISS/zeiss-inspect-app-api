@@ -186,6 +186,12 @@ Comprehensive examples organized by category (see separate examples repository),
 → Intermediate: "Using Additional Python GUI Libraries"
 → Refer to dialog_widgets examples
 
+**"How do I [use/create] a service?"**
+→ Use `gom.api.services` module
+→ Intermediate: "Using Services" how-to guide
+→ Explain relation between service scripts and `services` definition in `metainfo.json`
+→ Refer to ServiceExample
+
 **"How do I convert between 3D points and 2D pixels?"**
 → Use `gom.api.imaging.compute_pixels_from_point()` (3D → 2D)
 → Use `gom.api.imaging.compute_point_from_pixels()` (2D → 3D)
@@ -234,10 +240,13 @@ Comprehensive examples organized by category (see separate examples repository),
 - Specify: measurement, camera type, stage index
 
 ### Scripted Elements
-Three types:
+- Three types:
 1. **Scripted Actuals** - Custom geometric elements (surfaces, points, etc.)
 2. **Scripted Checks** - Custom inspection checks (scalar, curve, surface)
 3. **Scripted Diagrams** - Custom data visualizations
+- Scripted element type must be set in script's `.metainfo` file
+- Run in separate Python process
+- gom.script.* and gom.interactive.* commands cannot be used in a scripted element
 
 ### Coordinate Systems
 - Project coordinate system (3D)
