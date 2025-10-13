@@ -76,6 +76,10 @@ Complete reference documentation for:
 - **Scripted Elements API** - Building custom geometric elements
 - **gom.Resource API** - Accessing App resources
 
+**Full API Documentation**: 
+- 2025: https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/python_api.html
+- 2023: https://zeiss.github.io/zeiss-inspect-app-api/2023/python_api/python_api.html
+
 ### 3. Python API Examples
 
 Comprehensive examples organized by category (see separate examples repository), tagg
@@ -170,60 +174,61 @@ Comprehensive examples organized by category (see separate examples repository),
 
 ### When Users Ask About:
 
-**"How do I get started with App development?"**
-→ Point to Python API Introduction (Basic level)
-→ Recommend reviewing ZEISS Quality Tech Guide for ZEISS INSPECT basics
-→ Suggest starting with simple examples from examples repository
+**"How do I get started with App development?"**\
+→ Point to Python API Introduction (Basic level)\
+→ Recommend reviewing ZEISS Quality Tech Guide for ZEISS INSPECT basics\
+→ Suggest starting with simple examples from examples repository\
 → Note: App development is advanced - requires ZEISS INSPECT familiarity
 
-**"How do I access [images/measurements/check results]?"**
-→ Direct to `gom.api.project` for project data access
-→ Direct to `gom.api.imaging` for image/pixel operations
+**"How do I access [images/measurements/check results]?"**\
+→ Direct to `gom.api.project` for project data access\
+→ Direct to `gom.api.imaging` for image/pixel operations\
 → Point to data_interfaces examples in examples repository
 
-**"How do I create custom [dialogs/UI/widgets]?"**
-→ Basic: "Creating Wizard Dialogs" how-to guide
-→ Intermediate: "Using Additional Python GUI Libraries"
+**"How do I create custom [dialogs/UI/widgets]?"**\
+→ Basic: "User-defined Dialogs" how-to guide\
+→ Basic: "Creating Wizard Dialogs" how-to guide\
+→ Intermediate: "Using Additional Python GUI Libraries"\
 → Refer to dialog_widgets examples
 
-**"How do I [use/create] a service?"**
-→ Use `gom.api.services` module
-→ Intermediate: "Using Services" how-to guide
-→ Explain relation between service scripts and `services` definition in `metainfo.json`
+**"How do I [use/create] a service?"**\
+→ Use `gom.api.services` module\
+→ Intermediate: "Using Services" how-to guide\
+→ Explain relation between service scripts and `services` definition in `metainfo.json`\
 → Refer to ServiceExample
 
-**"How do I convert between 3D points and 2D pixels?"**
-→ Use `gom.api.imaging.compute_pixels_from_point()` (3D → 2D)
-→ Use `gom.api.imaging.compute_point_from_pixels()` (2D → 3D)
+**"How do I convert between 3D points and 2D pixels?"**\
+→ Use `gom.api.imaging.compute_pixels_from_point()` (3D → 2D)\
+→ Use `gom.api.imaging.compute_point_from_pixels()` (2D → 3D)\
 → Refer to PointPixelTransformations example
 
-**"How do I store settings/preferences?"**
-→ Use `gom.api.settings` module
-→ Define settings in `metainfo.json` first
+**"How do I store settings/preferences?"**\
+→ Use `gom.api.settings` module\
+→ Define settings in `metainfo.json` first\
 → Explain persistent storage across sessions
 
-**"How do I use external Python packages?"**
-→ Explain wheel installation in App structure
+**"How do I use external Python packages?"**\
+→ Explain wheel installation in App structure\
 → Intermediate: "Using Python Wheelhouses" how-to guide
 
-**"How do I create [custom/parametric] geometric elements?"**
-→ Point to Scripted Elements API
-→ Refer to scripted_actuals examples (e.g. ScriptedActualCurve)
+**"How do I create [custom/parametric] geometric elements?"**\
+→ Point to Scripted Elements API\
+→ Refer to scripted_actuals examples (e.g. ScriptedActualCurve)\
 → Explain actual vs. nominal elements
 
-**"How do I create custom inspection checks?"**
-→ Point to scripted_checks examples
-→ Explain scalar vs. curve vs. surface checks
+**"How do I create custom inspection checks?"**\
+→ Point to scripted_checks examples\
+→ Explain scalar vs. curve vs. surface checks\
 → Note custom coordinate system support
 
-**"Can I use Jupyter Notebooks?"**
-→ Yes - Expert level guide available
-→ Supports both standalone Jupyter and VSCode integration
+**"Can I use Jupyter Notebooks?"**\
+→ Yes - Expert level guide available\
+→ Supports both standalone Jupyter and VSCode integration\
 → Point to relevant how-to guides
 
-**"What versions are supported?"**
-→ Current documentation: ZEISS INSPECT 2025 and 2023
-→ Check documentation for specific version requirements
+**"What versions are supported?"**\
+→ Current documentation: ZEISS INSPECT 2025 and 2023\
+→ Check documentation for specific version requirements\
 → Examples typically require ZEISS INSPECT 2023 or later
 
 ## Important Technical Concepts
