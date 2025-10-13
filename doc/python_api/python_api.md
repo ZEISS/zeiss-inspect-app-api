@@ -574,12 +574,10 @@ widget types are listed here as a central reference and for unified constant val
 
 :param id: Unique contribution id, like `special_point`
 :type id: str
-:param category: Scripted element type id, like `scriptedelement.actual`
+:param category: Scripted element category id, like `scriptedelement.actual`
 :type category: str
 :param description: Human readable contribution description
 :type description: str
-:param category: Contribution category
-:type category: str
 ```
 
 Constructor
@@ -782,7 +780,7 @@ def dialog (self, context, args):
 
 #### gom.api.extensions.ScriptedElement.event
 
-```{py:function} gom.api.extensions.ScriptedElement.event(self: Any, context: Any, event_type: Any, parameters: Any): None
+```{py:function} gom.api.extensions.ScriptedElement.event(self: Any, context: Any, event_type: Any, parameters: Any): bool
 
 :param context: Script context object containing execution related parameters. This includes the stage this computation call refers to.
 :type context: Any
@@ -791,7 +789,7 @@ def dialog (self, context, args):
 :param parameters: Event arguments
 :type parameters: Any
 :return: `True` if the event requires a recomputation of the elements preview. Upon return, the framework will then trigger a call to the `compute ()` function and use its result for a preview update. In the case of `False`, no recomputation is triggered and the preview remains unchanged.
-:rtype: None
+:rtype: bool
 ```
 
 Contribution event handling function. This function is called when the contributions UI state changes.
@@ -799,7 +797,7 @@ The function can then react to that event and update the UI state accordingly.
 
 #### gom.api.extensions.ScriptedElement.event_handler
 
-```{py:function} gom.api.extensions.ScriptedElement.event_handler(self: Any, context: Any, event_type: Any, parameters: Any): None
+```{py:function} gom.api.extensions.ScriptedElement.event_handler(self: Any, context: Any, event_type: Any, parameters: Any): bool
 ```
 
 Wrapper function for calls to `event ()`. This function is called from the application side
@@ -844,10 +842,10 @@ widgets from the given arguments. The arguments are a map of widget names and th
 
 #### gom.api.extensions.ScriptedElement.is_visible
 
-```{py:function} gom.api.extensions.ScriptedElement.is_visible(self: Any, context: Any): None
+```{py:function} gom.api.extensions.ScriptedElement.is_visible(self: Any, context: Any): bool
 
 :return: `True` if the element is visible in the menus.
-:rtype: None
+:rtype: bool
 ```
 
 This function is called to check if the scripted element is visible in the menus. This is usually the case if
@@ -1681,7 +1679,7 @@ Function called to create a sequence of elements
 This function is called to create a sequence of elements initially. It can use the regular scripted
 creation commands to create the elements of that sequence and determine which of these elements is
 the 'leading' element of the sequence. The leading element is the one which represents the whole
-sequence in the sense that editing the sequence again is initialzed by editing the leading element or
+sequence in the sense that editing the sequence again is initialized by editing the leading element or
 deleting the leading element deletes the whole sequence.
 
 Example:
