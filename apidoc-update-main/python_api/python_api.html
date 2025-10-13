@@ -1165,9 +1165,8 @@ widget types are listed here as a central reference and for unified constant val
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<em>str</em>) – Unique contribution id, like <code class="docutils literal notranslate"><span class="pre">special_point</span></code></p></li>
-<li><p><strong>category</strong> (<em>str</em>) – Scripted element type id, like <code class="docutils literal notranslate"><span class="pre">scriptedelement.actual</span></code></p></li>
+<li><p><strong>category</strong> (<em>str</em>) – Scripted element category id, like <code class="docutils literal notranslate"><span class="pre">scriptedelement.actual</span></code></p></li>
 <li><p><strong>description</strong> (<em>str</em>) – Human readable contribution description</p></li>
-<li><p><strong>category</strong> – Contribution category</p></li>
 </ul>
 </dd>
 </dl>
@@ -1388,7 +1387,7 @@ creation, initialization and return the dialog values in the correct format in a
 <h4>gom.api.extensions.ScriptedElement.event<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.event(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">event_type:</span> <span class="pre">Any,</span> <span class="pre">parameters:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.event(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">event_type:</span> <span class="pre">Any,</span> <span class="pre">parameters:</span> <span class="pre">Any):</span> <span class="pre">bool</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1401,7 +1400,7 @@ creation, initialization and return the dialog values in the correct format in a
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the event requires a recomputation of the elements preview. Upon return, the framework will then trigger a call to the <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function and use its result for a preview update. In the case of <code class="docutils literal notranslate"><span class="pre">False</span></code>, no recomputation is triggered and the preview remains unchanged.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1413,7 +1412,7 @@ The function can then react to that event and update the UI state accordingly.</
 <h4>gom.api.extensions.ScriptedElement.event_handler<a class="headerlink" href="#gom-api-extensions-scriptedelement-event-handler" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.event_handler(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">event_type:</span> <span class="pre">Any,</span> <span class="pre">parameters:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.event_handler(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">event_type:</span> <span class="pre">Any,</span> <span class="pre">parameters:</span> <span class="pre">Any):</span> <span class="pre">bool</span></span></dt>
 <dd></dd></dl>
 
 <p>Wrapper function for calls to <code class="docutils literal notranslate"><span class="pre">event</span> <span class="pre">()</span></code>. This function is called from the application side
@@ -1473,13 +1472,13 @@ widgets from the given arguments. The arguments are a map of widget names and th
 <h4>gom.api.extensions.ScriptedElement.is_visible<a class="headerlink" href="#gom-api-extensions-scriptedelement-is-visible" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.is_visible(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.is_visible(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any):</span> <span class="pre">bool</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the element is visible in the menus.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dd class="field-even"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2193,7 +2192,7 @@ single elements within can be edited separately.</p>
 <p>This function is called to create a sequence of elements initially. It can use the regular scripted
 creation commands to create the elements of that sequence and determine which of these elements is
 the ‘leading’ element of the sequence. The leading element is the one which represents the whole
-sequence in the sense that editing the sequence again is initialzed by editing the leading element or
+sequence in the sense that editing the sequence again is initialized by editing the leading element or
 deleting the leading element deletes the whole sequence.</p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
@@ -5069,7 +5068,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f3f087b6ba0>
+  <jinja2.runtime.BlockReference object at 0x7f258c202900>
 
 
 </footer>
