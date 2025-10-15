@@ -75,7 +75,7 @@ If the script's name is not unique within all installed Apps and connected App f
 "C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -script "C:\temp\convert.py"
 ```
 
-### Passing parameters to a script
+#### Passing parameters to a script
 
 % https://forum.gom.com/topic/3520-start-zeiss-inspect-2023-addon-with-parameter/
 
@@ -110,6 +110,14 @@ To allow simple testing in the App editor during script development, you add the
 if 'variable_1' not in globals() or 'variable_2' not in globals():
 	variable_1 = 'default_value_1'
 	variable_2 = 'default_value_2'
+```
+
+#### Selecting a script from a specific App
+
+In case the script's name is not unique within the available Apps, you can select the desired App by passing its UUID:
+
+```
+"C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.myscript(app_uuid='6e2abfb2-48b5-4161-9967-f2e2a57c1eae')"
 ```
 
 ### Non-interactive script execution
