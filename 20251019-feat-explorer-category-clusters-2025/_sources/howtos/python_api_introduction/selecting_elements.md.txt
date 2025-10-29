@@ -271,6 +271,7 @@ gom.ElementSelection (
                                 'actual' | 
                                 'coordinate_systems' |
                                 'alignment' |
+								'clusters' |
                                 'reports' | 
                                 'stage_ranges' |
                                 'tags' | 
