@@ -1648,7 +1648,7 @@ This class is used to define a scripted sequence element
 
 ##### gom.api.extensions.sequence.ScriptedSequence.__init__
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequence.__init__(self: Any, id: str, description: str): None
+```{py:function} gom.api.extensions.sequence.ScriptedSequence.__init__(self: Any, id: str, description: str, properties: Dict[str, Any]): None
 
 :param id: Unique contribution id, like `special_point`
 :type id: str
@@ -1657,6 +1657,15 @@ This class is used to define a scripted sequence element
 ```
 
 Constructor
+
+*Properties*
+
+The following properties are supported for scripted sequence elements:
+- `edit_child_elements_separately` (bool): If set to `True`, the child elements of the sequence can be
+                                           edited separately and an "edit/creation" on a sequence child
+                                           element will open this single elements native edit dialog. If set to
+                                            `False`, editing a child element will edit the whole sequence
+                                            instead of the single element. Default is `True`.
 
 ##### gom.api.extensions.sequence.ScriptedSequence.create
 
