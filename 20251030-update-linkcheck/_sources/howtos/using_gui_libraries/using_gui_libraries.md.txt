@@ -1,6 +1,6 @@
 # Using an additional Python GUI library
 
-> Abstract: The App Editor and the Dialog Designer provide an easy and convenient way of adding a graphical user interface to your App &mdash; see <a href="../python_api_introduction/user_defined_dialogs.html">User-defined dialogs</a>. GUIs which are created this way seamlessly integrate into the look and feel of ZEISS INSPECT. However, there are reasons why using a separate Python GUI library might be preferred. This article gives a brief overview on use-cases, options and installation.
+> Abstract: The App Editor and the Dialog Designer provide an easy and convenient way of adding a graphical user interface to your App &mdash; see <a href="../user_defined_dialogs/user_defined_dialogs.html">User-defined dialogs</a>. GUIs which are created this way seamlessly integrate into the look and feel of ZEISS INSPECT. However, there are reasons why using a separate Python GUI library might be preferred. This article gives a brief overview on use-cases, options and installation.
 
 ## Use-cases
 
