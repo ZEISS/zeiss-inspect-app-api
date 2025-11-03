@@ -2152,7 +2152,7 @@ single elements within can be edited separately.</p>
 <h5>gom.api.extensions.sequence.ScriptedSequence.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence-init" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequence.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequence.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -2164,6 +2164,15 @@ single elements within can be edited separately.</p>
 </dd></dl>
 
 <p>Constructor</p>
+<p><em>Properties</em></p>
+<p>The following properties are supported for scripted sequence elements:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">edit_child_elements_separately</span></code> (bool): If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the child elements of the sequence can be
+edited separately and an “edit/creation” on a sequence child
+element will open this single elements native edit dialog. If set to
+<code class="docutils literal notranslate"><span class="pre">False</span></code>, editing a child element will edit the whole sequence
+instead of the single element. Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+</ul>
 </section>
 <section id="gom-api-extensions-sequence-scriptedsequence-create">
 <h5>gom.api.extensions.sequence.ScriptedSequence.create<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence-create" title="Link to this heading"></a></h5>
@@ -2316,6 +2325,62 @@ to generate the names of the single elements:</p>
         <span class="n">point2</span><span class="o">=</span><span class="n">POINT_2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;elements&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">POINT_1</span><span class="p">,</span> <span class="n">POINT_2</span><span class="p">,</span> <span class="n">DISTANCE</span><span class="p">],</span> <span class="s1">&#39;leading&#39;</span><span class="p">:</span> <span class="n">DISTANCE</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-extensions-sequence-scriptedsequence-on-edited">
+<h5>gom.api.extensions.sequence.ScriptedSequence.on_edited<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence-on-edited" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequence.on_edited(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">args:</span> <span class="pre">Any,</span> <span class="pre">parameters:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>Any</em>) – The context of the sequence</p></li>
+<li><p><strong>args</strong> (<em>Any</em>) – Current original creation arguments of the sequence</p></li>
+<li><p><strong>parameters</strong> (<em>Any</em>) – Edited parameters for each of the sequences elements in the order of creation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>New creation arguments for the whole sequence</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Called when an element of the sequence has been edited.</p>
+<p>This function can be used to forward edits of single elements of the sequence to the whole sequence.
+When a single element of the sequence is edited, this function is called with the current creation
+arguments of the sequence and the edited parameters of the single element. The function can then
+compute new creation arguments for the whole sequence and return these. The returned arguments
+will then be used to re-create the whole sequence via the <code class="docutils literal notranslate"><span class="pre">edit()</span></code> function.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+
+  <span class="n">distance</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span>
+  <span class="n">POINT_1</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">primitive</span><span class="o">.</span><span class="n">create_point</span> <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+  <span class="n">POINT_2</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">primitive</span><span class="o">.</span><span class="n">create_point</span> <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+  <span class="n">DISTANCE</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">inspection</span><span class="o">.</span><span class="n">create_distance_by_2_points</span> <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;elements&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">POINT_1</span><span class="p">,</span> <span class="n">POINT_2</span><span class="p">,</span> <span class="n">DISTANCE</span><span class="p">],</span> <span class="s1">&#39;leading&#39;</span><span class="p">:</span> <span class="n">DISTANCE</span><span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">on_edited</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+  <span class="c1">#</span>
+  <span class="c1"># &#39;parameters&#39; is a list of edited parameters for each of the</span>
+  <span class="c1"># sequence elements in the same order as created in &#39;create()&#39;</span>
+  <span class="c1">#</span>
+  <span class="n">POINT_1_PARAMS</span><span class="p">,</span> <span class="n">POINT_2_PARAMS</span><span class="p">,</span> <span class="n">DISTANCE_PARAMS</span> <span class="o">=</span> <span class="n">parameters</span>
+
+  <span class="c1">#</span>
+  <span class="c1"># If the &#39;POINT_2&#39;  element has been edited, extract the new distance</span>
+  <span class="c1"># value and adapt the creation arguments accordingly</span>
+  <span class="c1">#</span>
+  <span class="k">if</span> <span class="n">POINT_2_PARAMS</span><span class="p">:</span>
+    <span class="n">args</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">POINT_2_PARAMS</span><span class="p">[</span><span class="s1">&#39;point&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">point</span><span class="o">.</span><span class="n">x</span>
+
+  <span class="k">return</span> <span class="n">args</span>
 </pre></div>
 </div>
 </section>
@@ -5068,7 +5133,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fdacfe5f1c0>
+  <jinja2.runtime.BlockReference object at 0x7fc43ecf0440>
 
 
 </footer>
