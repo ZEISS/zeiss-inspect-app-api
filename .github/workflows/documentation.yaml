@@ -53,4 +53,4 @@ jobs:
         if: ${{ env.SUBDIR_NAME != 'merge' }}
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --user-agent "curl/8.4.0" --remap 'stackoverflow.com/questions/(\d+)/.* api.stackexchange.com/2.3/questions/$1?site=stackoverflow' --base . --verbose --no-progress '${{ env.SUBDIR_NAME }}/**/*.html'
+          args: --user-agent "curl/8.4.0" --remap 'stackoverflow.com/questions/(\d+)/.* api.stackexchange.com/2.3/questions/$1?site=stackoverflow' --verbose --no-progress '${{ env.SUBDIR_NAME }}/**/*.html'
