@@ -4,7 +4,7 @@
     <title>ZEISS INSPECT 2025 App Python API News</title>
     <link>https://zeiss.github.io/zeiss-inspect-app-api/2025/</link>
     <description></description>
-    <lastBuildDate>Mon, 03 Nov 2025 07:15:27 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 03 Nov 2025 07:22:47 GMT</lastBuildDate>
     <generator>sphinxcontrib-newsfeed</generator>
     <item>
       <title>Workflow Assistant</title>
@@ -78,7 +78,7 @@ More details can be found in &lt;a href="../howtos/using_scripted_diagrams/using
       <title>Testing Apps with dialogs</title>
       <link>https://zeiss.github.io/zeiss-inspect-app-api/2025/news/20241205-autodialogcontext.html</link>
       <description>&lt;div class="compound"&gt;
-&lt;p&gt;Did you know that you can test Apps with &lt;a href="../howtos/python_api_introduction/user_defined_dialogs.html"&gt;User-defined Dialogs&lt;/a&gt; non-interactively?&lt;/p&gt;
+&lt;p&gt;Did you know that you can test Apps with &lt;a href="../howtos/user_defined_dialogs/user_defined_dialogs.html"&gt;User-defined Dialogs&lt;/a&gt; non-interactively?&lt;/p&gt;
 &lt;p&gt;See &lt;a href="../howtos/testing_apps/testing_apps.html#testing-apps-with-dialogs"&gt;How-to: Testing Apps — Testing Apps with Dialogs&lt;/a&gt; for a detailed explanation.&lt;/p&gt;
 &lt;/div&gt;
 </description>
@@ -90,7 +90,7 @@ More details can be found in &lt;a href="../howtos/using_scripted_diagrams/using
       <link>https://zeiss.github.io/zeiss-inspect-app-api/2025/news/20241028-insert-file.html</link>
       <description>&lt;div class="compound"&gt;
 &lt;p&gt;&lt;img alt="Configure file selection dialog" src="../_images/configure_file_selection.png" /&gt;&lt;/p&gt;
-&lt;p&gt;With ZEISS INSPECT 2025, it is possible to add a dialog for selecting files or folders by using RMB ► Insert ► File… in the script editor. See &lt;a href="../howtos/python_api_introduction/file_selection_dialog.html"&gt;Selecting a file or folder&lt;/a&gt; for details. This serves as a shortcut to creating a &lt;a href="../howtos/python_api_introduction/user_defined_dialogs.html"&gt;User-defined dialog&lt;/a&gt; if only a single file widget is needed.&lt;/p&gt;
+&lt;p&gt;With ZEISS INSPECT 2025, it is possible to add a dialog for selecting files or folders by using RMB ► Insert ► File… in the script editor. See &lt;a href="../howtos/python_api_introduction/file_selection_dialog.html"&gt;Selecting a file or folder&lt;/a&gt; for details. This serves as a shortcut to creating a &lt;a href="../howtos/user_defined_dialogs/user_defined_dialogs.html"&gt;User-defined dialog&lt;/a&gt; if only a single file widget is needed.&lt;/p&gt;
 &lt;/div&gt;
 </description>
       <guid>https://zeiss.github.io/zeiss-inspect-app-api/2025/news/20241028-insert-file.html</guid>
@@ -161,7 +161,7 @@ More details can be found in &lt;a href="../howtos/using_scripted_diagrams/using
       <title>Using an additional Python GUI library</title>
       <link>https://zeiss.github.io/zeiss-inspect-app-api/2025/news/20240205-using-gui-libraries.html</link>
       <description>&lt;div class="compound"&gt;
-&lt;p&gt;The App Editor and the Dialog Designer provide an easy and convenient way of adding a graphical user interface to your App — see &lt;a href="../howtos/python_api_introduction/user_defined_dialogs.html"&gt;User-defined dialogs&lt;/a&gt;. GUIs which are created this way seamlessly integrate into the look and feel of ZEISS INSPECT. However, there are reasons why using a separate Python GUI library might be preferred. &lt;a href="../howtos/using_gui_libraries/using_gui_libraries.html"&gt;Using an additional Python GUI library&lt;/a&gt; gives a brief overview on use-cases, options and installation.&lt;/p&gt;
+&lt;p&gt;The App Editor and the Dialog Designer provide an easy and convenient way of adding a graphical user interface to your App — see &lt;a href="../howtos/user_defined_dialogs/user_defined_dialogs.html"&gt;User-defined dialogs&lt;/a&gt;. GUIs which are created this way seamlessly integrate into the look and feel of ZEISS INSPECT. However, there are reasons why using a separate Python GUI library might be preferred. &lt;a href="../howtos/using_gui_libraries/using_gui_libraries.html"&gt;Using an additional Python GUI library&lt;/a&gt; gives a brief overview on use-cases, options and installation.&lt;/p&gt;
 &lt;/div&gt;
 </description>
       <guid>https://zeiss.github.io/zeiss-inspect-app-api/2025/news/20240205-using-gui-libraries.html</guid>
