@@ -1648,7 +1648,7 @@ This class is used to define a scripted sequence element
 
 ##### gom.api.extensions.sequence.ScriptedSequence.__init__
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequence.__init__(self: Any, id: str, description: str): None
+```{py:function} gom.api.extensions.sequence.ScriptedSequence.__init__(self: Any, id: str, description: str, properties: Dict[str, Any]): None
 
 :param id: Unique contribution id, like `special_point`
 :type id: str
@@ -1657,6 +1657,15 @@ This class is used to define a scripted sequence element
 ```
 
 Constructor
+
+*Properties*
+
+The following properties are supported for scripted sequence elements:
+- `edit_child_elements_separately` (bool): If set to `True`, the child elements of the sequence can be
+                                           edited separately and an "edit/creation" on a sequence child
+                                           element will open this single elements native edit dialog. If set to
+                                            `False`, editing a child element will edit the whole sequence
+                                            instead of the single element. Default is `True`.
 
 ##### gom.api.extensions.sequence.ScriptedSequence.create
 
@@ -1803,6 +1812,57 @@ def create(self, context, name, args):
         point2=POINT_2)
 
     return {'elements': [POINT_1, POINT_2, DISTANCE], 'leading': DISTANCE}
+```
+
+##### gom.api.extensions.sequence.ScriptedSequence.on_edited
+
+```{py:function} gom.api.extensions.sequence.ScriptedSequence.on_edited(self: Any, context: Any, args: Any, parameters: Any): None
+
+:param context: The context of the sequence
+:type context: Any
+:param args: Current original creation arguments of the sequence
+:type args: Any
+:param parameters: Edited parameters for each of the sequences elements in the order of creation
+:type parameters: Any
+:return: New creation arguments for the whole sequence
+:rtype: None
+```
+
+Called when an element of the sequence has been edited.
+
+This function can be used to forward edits of single elements of the sequence to the whole sequence.
+When a single element of the sequence is edited, this function is called with the current creation
+arguments of the sequence and the edited parameters of the single element. The function can then
+compute new creation arguments for the whole sequence and return these. The returned arguments
+will then be used to re-create the whole sequence via the `edit()` function.
+
+Example:
+
+```
+def create (self, context, name, args):
+
+  distance = args['distance']
+  POINT_1 = gom.script.primitive.create_point (...)
+  POINT_2 = gom.script.primitive.create_point (...)
+  DISTANCE = gom.script.inspection.create_distance_by_2_points (...)
+
+  return {'elements': [POINT_1, POINT_2, DISTANCE], 'leading': DISTANCE}
+
+def on_edited (self, context, args, parameters):
+  #
+  # 'parameters' is a list of edited parameters for each of the
+  # sequence elements in the same order as created in 'create()'
+  #
+  POINT_1_PARAMS, POINT_2_PARAMS, DISTANCE_PARAMS = parameters
+
+  #
+  # If the 'POINT_2'  element has been edited, extract the new distance
+  # value and adapt the creation arguments accordingly
+  #
+  if POINT_2_PARAMS:
+    args['distance'] = POINT_2_PARAMS['point'].point.x
+
+  return args
 ```
 
 ### gom.api.extensions.views
