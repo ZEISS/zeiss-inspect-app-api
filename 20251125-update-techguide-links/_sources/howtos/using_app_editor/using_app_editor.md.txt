@@ -2,7 +2,7 @@
 
 With the App Editor, you write Python scripts, add/remove contents, create/edit, export and publish Apps.
 
-See the ZEISS Quality Tech Guide article [App Editor](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/cmd_sys_manage_add_ons.html) for more details.
+See the ZEISS Quality Tech Guide article [App Editor](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/cmd_sys_manage_add_ons.html) for more details.
 
 - [App Editor Layout](#app-editor-layout)
 - [Creating a new App](#creating-a-new-app)
