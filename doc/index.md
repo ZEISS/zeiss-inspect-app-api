@@ -41,7 +41,8 @@ Check out the ZEISS INSPECT Apps news page!
 ```{eval-rst}
 .. toctree::
    :hidden:
-   
+
+   news/20251125-release-2026
    news/20250804-workflow-assistant
    news/20250516-update-vscode
    news/20250123-gom-math
