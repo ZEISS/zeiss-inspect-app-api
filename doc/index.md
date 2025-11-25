@@ -1,33 +1,33 @@
 ---
 myst:
    html_meta:
-      "description": "ZEISS INSPECT 2025 App Python API Documentation"
+      "description": "ZEISS INSPECT 2026 App Python API Documentation"
       "keywords": "Metrology, ZEISS INSPECT, Python API, GOM API, Scripting, Add-ons, Apps, How-tos, Examples, Specification, Documentation"
 --- 
 
-# ZEISS INSPECT 2025 App Development Documentation 
+# ZEISS INSPECT 2026 App Development Documentation 
 
-Welcome to the [ZEISS INSPECT 2025 App](https://www.zeiss.com/metrology/en/software/zeiss-inspect/zeiss-inspect-apps.html) development documentation. With Apps, you will be able to customize and extend the functionality of your ZEISS INSPECT software. 
+Welcome to the [ZEISS INSPECT 2026 App](https://www.zeiss.com/metrology/en/software/zeiss-inspect/zeiss-inspect-apps.html) development documentation. With Apps, you will be able to customize and extend the functionality of your ZEISS INSPECT software. 
 You can include several template configurations from the software, as well as completely new workflows programmed in Python.
 
 ```{important}
 Creating Apps is a rather advanced topic, so you should be familiar with the basic inspection concept of ZEISS INSPECT beforehand. New to ZEISS INSPECT? You find an introduction in the ZEISS Quality Tech Guide:
 
-[Access Point: ZEISS INSPECT](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/access_point_gom_inspect.html)
+[Access Point: ZEISS INSPECT](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/access_point_gom_inspect.html)
 
 Or, depending on your application, you might be interested in the specific articles:
-* [Access Point: ZEISS INSPECT X-Ray](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/access_point_volume_inspect.html)
-* [Access Point: ZEISS INSPECT CMM](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/access_point_zeiss_inspect_cmm.html)
-* [Access Point: ZEISS INSPECT VMM](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/access_point_zeiss_inspect_vmm.html)
-* [Access Point: Airfoil Inspection](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/access_point_gom_blade_inspect.html)
+* [Access Point: ZEISS INSPECT X-Ray](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/access_point_volume_inspect.html)
+* [Access Point: ZEISS INSPECT CMM](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/access_point_zeiss_inspect_cmm.html)
+* [Access Point: ZEISS INSPECT VMM](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/access_point_zeiss_inspect_vmm.html)
+* [Access Point: Airfoil Inspection](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/access_point_gom_blade_inspect.html)
 * [Access Point: ZEISS CORRELATE](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/access_point_zeiss_inspect_correlate.html)
 
 ```
 If you are new to Apps, you find some introductions in the ZEISS Quality Tech Guide:
 
-* [Introduction to Apps](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/introduction_to_add-ons.html)
-* [How to Create a Basic App](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/how_to_create_a_basic_add_on.html)
-* [How to Create an Advanced App](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/how_to_create_an_advanced_add_on.html)
+* [Introduction to Apps](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/introduction_to_add-ons.html)
+* [How to Create a Basic App](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/how_to_create_a_basic_add_on.html)
+* [How to Create an Advanced App](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/how_to_create_an_advanced_add_on.html)
 
 Check out the ZEISS INSPECT Apps news page!
 
