@@ -1,7 +1,7 @@
 {
   "name": "zeiss-inspect-addon-api",
   "version": "0.1.1",
-  "description": "ZEISS INSPECT 2025 Add-on Python API Documentation",
+  "description": "ZEISS INSPECT 2025 App Development Documentation",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ZeissIQS/zeiss-inspect-addon-api.git"
