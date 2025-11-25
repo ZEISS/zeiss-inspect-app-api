@@ -348,6 +348,90 @@ for a in gom.api.addons.get_installed_addons ():
   print (a.get_id (), a.get_name ())
 ```
 
+## gom.api.contributions
+
+API for accessing the registered contributions (semantic extensions)
+
+This API enables access to the registered semantic extensions, called 'contributions'.
+Each contribution is a service based feature which extends an aspect of ZEISS INSPECT.
+The 'scripted inspection' contribution, for example, extends the inspection elements, while
+the 'scripted views' contribution extends the view system of ZEISS INSPECT.
+
+### gom.api.contributions.Contribution
+
+Class representing a single semantic contribution
+
+This class represents a semantic contribution. The properties of that contribution can be read and
+the contribution can be administered via that handle.
+
+#### gom.api.contributions.Contribution.get_category
+
+```{py:function} gom.api.contributions.Contribution.get_category(): str
+
+Return contribution category
+:API version: 1
+:return: Contribution category
+:rtype: str
+```
+
+The contribution category determines the type of the contribution or to which semantic
+concept of ZEISS INSPECT the contribution belongs to. If, for example, the contribution
+extends the view system of ZEISS INSPECT, the category is 'scriptedviews'.
+
+#### gom.api.contributions.Contribution.get_description
+
+```{py:function} gom.api.contributions.Contribution.get_description(): str
+
+Return human readable contribution name, as used in the UI
+:API version: 1
+:return: Human readable contribution name
+:rtype: str
+```
+
+
+#### gom.api.contributions.Contribution.get_endpoint
+
+```{py:function} gom.api.contributions.Contribution.get_endpoint(): str
+
+Return service endpoint this contribution belongs to
+:API version: 1
+:return: Service endpoint
+:rtype: str
+```
+
+As all contributions are service based, this function returns the service endpoint of
+the service the contribution belongs to.
+
+#### gom.api.contributions.Contribution.get_id
+
+```{py:function} gom.api.contributions.Contribution.get_id(): str
+
+unique contribution id
+:API version: 1
+:return: Unique contribution id which can be used to identify the contribution, e.g. in script commands
+:rtype: str
+```
+
+
+### gom.api.contributions.get_contributions
+
+```{py:function} gom.api.contributions.get_contributions(): [gom.api.contributions.Contribution]
+
+Return the list of all registered contributions
+:API version: 1
+:return: The list of all registered contributions
+:rtype: [gom.api.contributions.Contribution]
+```
+
+This function returns the list of registered contributions
+
+**Example:**
+
+```
+for c in gom.api.contributions.get_contributions ():
+  print (c.get_id (), c.get_description ())
+```
+
 ## gom.api.dialog
 
 API for handling dialogs
@@ -669,14 +753,13 @@ are evaluated by the ZEISS INSPECT framework to apply the necessary settings aut
 
 #### gom.api.extensions.ScriptedElement.check_list
 
-```{py:function} gom.api.extensions.ScriptedElement.check_list(self: Any, values: Dict[str, Any], key: str, value_type: type, length: int): None
+```{py:function} gom.api.extensions.ScriptedElement.check_list(self: Any, values: Dict[str, Any], key: str, expected: type, length: int): None
 
 :param values: Dictionary of values
 :type values: Dict[str, Any]
 :param key: Key of the value to check
 :type key: str
 :param value_type: Type each of the values is expected to have
-:type value_type: type
 :param length: Number of values expected in the tuple or 'None' if any length is allowed
 :type length: int
 ```
@@ -692,14 +775,13 @@ Check if a base element (an element the scripted element is constructed upon) is
 
 #### gom.api.extensions.ScriptedElement.check_value
 
-```{py:function} gom.api.extensions.ScriptedElement.check_value(self: Any, values: Dict[str, Any], key: str, value_type: type): None
+```{py:function} gom.api.extensions.ScriptedElement.check_value(self: Any, values: Dict[str, Any], key: str, expected: type): None
 
 :param values: Dictionary of values
 :type values: Dict[str, Any]
 :param key: Key of the value to check
 :type key: str
 :param value_type: Type the value is expected to have
-:type value_type: type
 ```
 
 Check a single value for expected properties
@@ -1646,6 +1728,38 @@ single elements within can be edited separately.
 
 This class is used to define a scripted sequence element
 
+*Concept*
+
+A scripted sequence element combines a sequence of commands into one sequence. The sequence is treated
+as one single combined element with sub elements. The resulting cluster of elements can then be edited again
+as a altogether sequence, of the single elements within can be edited separately.
+
+Each sequence consists of a 'leading element' and 'child elements'. The leading element represents the whole
+sequence in the sense that editing the sequence again is initialized by editing the leading element or deleting
+the leading element deletes the whole sequence. The child elements are the other elements of the sequence
+which belong to the sequence but are not the leading element.
+
+*Property access*
+
+As a sequence element is no native special element type in ZEISS INSPECT, but just a combination of regular elements,
+the API functions to query scripted elements can be used to query special sequence properties. For regular elements,
+this would be a 'keyword access', for the sequence various functions from the `gom.api.scriptedelements.ScriptedSequence` 
+contribution definition can be used.
+
+Example:
+
+```python
+from gom.api.extensions import ScriptedSequence
+
+# Given a leading element of a scripted sequence...
+leading_element = ... 
+
+# ...get all elements of the sequence and...
+elements = ScriptedSequence.get_sequence_elements(leading_element)
+
+# ...get all child elements of the sequence
+children = ScriptedSequence.get_child_elements(leading_element)    
+
 ##### gom.api.extensions.sequence.ScriptedSequence.__init__
 
 ```{py:function} gom.api.extensions.sequence.ScriptedSequence.__init__(self: Any, id: str, description: str, properties: Dict[str, Any]): None
@@ -1658,9 +1772,11 @@ This class is used to define a scripted sequence element
 
 Constructor
 
-*Properties*
+*Configuration*
 
-The following properties are supported for scripted sequence elements:
+The following properties are supported for scripted sequence elements. They can be passed in the
+contributions constructor via the `properties` dictionary and will be used to configure the behavior.
+
 - `edit_child_elements_separately` (bool): If set to `True`, the child elements of the sequence can be
                                            edited separately and an "edit/creation" on a sequence child
                                            element will open this single elements native edit dialog. If set to
@@ -1813,6 +1929,42 @@ def create(self, context, name, args):
 
     return {'elements': [POINT_1, POINT_2, DISTANCE], 'leading': DISTANCE}
 ```
+
+##### gom.api.extensions.sequence.ScriptedSequence.get_child_elements
+
+```{py:function} gom.api.extensions.sequence.ScriptedSequence.get_child_elements(leading_element: Any): Any
+
+:param leading_element: Leading element of the scripted sequence
+:type leading_element: Any
+:return: List of child elements of the scripted sequence
+:rtype: Any
+```
+
+Returns child elements of the scripted sequence for a given leading element.
+
+##### gom.api.extensions.sequence.ScriptedSequence.get_leading_element
+
+```{py:function} gom.api.extensions.sequence.ScriptedSequence.get_leading_element(child_element: Any): Any
+
+:param child_element: Child element of the scripted sequence
+:type child_element: Any
+:return: Leading element of the scripted sequence
+:rtype: Any
+```
+
+Returns leading element of the scripted sequence for a given child element.
+
+##### gom.api.extensions.sequence.ScriptedSequence.get_sequence_elements
+
+```{py:function} gom.api.extensions.sequence.ScriptedSequence.get_sequence_elements(leading_element: Any): Any
+
+:param leading_element: Leading element of the scripted sequence
+:type leading_element: Any
+:return: List of all elements of the scripted sequence in the order as created in the `create()` function
+:rtype: Any
+```
+
+Returns all elements of the scripted sequence for a given leading element.
 
 ##### gom.api.extensions.sequence.ScriptedSequence.on_edited
 
@@ -3468,6 +3620,37 @@ Return available dimensions
 ```
 
 
+### gom.api.scriptedelements.get_element_from_id
+
+```{py:function} gom.api.scriptedelements.get_element_from_id(element_id: str): Any
+
+Convert an internal id into a script element reference
+:param element_id: Internal id of the element to convert, usuall a uuid
+:type element_id: str
+:return: Script element reference
+:rtype: Any
+:throws: std::runtime_error if the element id is unknown
+```
+
+This function is used to convert ids which are representing elements into script element
+references which can be used in the scripting environment. It is used for internal purposes
+only and should be used with care. For example, in scripted sequences, the child elements of
+a leading sequence element are stored by their internal ids, in principle uuids. So when
+the child elements of a leading element are requested, the internal framework can use this
+function to convert the stored ids into script element references.
+
+### gom.api.scriptedelements.get_id_for_element
+
+```{py:function} gom.api.scriptedelements.get_id_for_element(element: Any): str
+
+Return internal id of the given element
+:param element: Element reference
+:type element: Any
+:return: Id of this element
+:rtype: str
+```
+
+
 ### gom.api.scriptedelements.get_inspection_definition
 
 ```{py:function} gom.api.scriptedelements.get_inspection_definition(typename: str): Any
@@ -3480,6 +3663,20 @@ Return information about the given scripted element type
 
 This function queries in internal 'scalar registry' database for information about the
 inspection with the given type.
+
+### gom.api.scriptedelements.get_instructions
+
+```{py:function} gom.api.scriptedelements.get_instructions(element: Any): Any
+
+Return recalculation instructions/commands for the given element
+:param element: Element to query
+:type element: Any
+:return: Recalculation instructions
+:rtype: Any
+```
+
+This function queries the recalculations instructions (commands) which are executed to recalc
+an element.
 
 ## gom.api.selection
 
