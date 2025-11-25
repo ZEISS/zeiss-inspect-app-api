@@ -12,9 +12,10 @@ myst:
 ```{eval-rst}
 .. feed::
    :rss: index.rss
-   :title: ZEISS INSPECT 2025 App Python API News
-   :link: https://zeiss.github.io/zeiss-inspect-app-api/2025/
+   :title: ZEISS INSPECT 2026 App Python API News
+   :link: https://zeiss.github.io/zeiss-inspect-app-api/2026/
 
+   20251125-release-2026
    20250804-workflow-assistant
    20250516-update-vscode
    20250123-gom-math
