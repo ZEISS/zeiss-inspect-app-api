@@ -229,7 +229,7 @@ Comprehensive examples organized by category (see separate examples repository),
 → Point to relevant how-to guides
 
 **"What versions are supported?"**\
-→ Current documentation: ZEISS INSPECT 2025 and 2023\
+→ Current documentation: ZEISS INSPECT 2026, 2025 and 2023\
 → Check documentation for specific version requirements\
 → Examples typically require ZEISS INSPECT 2023 or later
 
@@ -336,7 +336,7 @@ for addon in gom.api.addons.get_installed_addons():
 
 ## Version Compatibility
 
-- **Current Documentation**: 2025, 2023
+- **Current Documentation**: 2026, 2025, 2023
 - **API Versions**: Functions note minimum API version required
 - **Software Requirements**: Most examples require ZEISS INSPECT 2023+
 - Users should check specific example requirements
