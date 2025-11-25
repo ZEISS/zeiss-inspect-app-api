@@ -26,12 +26,13 @@ When users ask about ZEISS INSPECT App development, agents can assist with:
 ## Key Resources
 
 - **Repository**: https://github.com/ZEISS/zeiss-inspect-app-api
+- **Main Documentation (2026)**: https://zeiss.github.io/zeiss-inspect-app-api/2026/
 - **Main Documentation (2025)**: https://zeiss.github.io/zeiss-inspect-app-api/2025/
 - **Main Documentation (2023)**: https://zeiss.github.io/zeiss-inspect-app-api/2023/
 - **Main Documentation (2022)**: https://zeiss.github.io/gom-software-python-api/2022/
-- **App Examples**: https://zeiss.github.io/zeiss-inspect-app-api/2025/python_examples/examples_overview.html
+- **App Examples**: https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/examples_overview.html
 - **Example Apps Repository**: https://github.com/ZEISS/zeiss-inspect-app-examples
-- **ZEISS Quality Tech Guide**: https://techguide.zeiss.com/en/zeiss-inspect-2025/article/ZEISS_INSPECT.html
+- **ZEISS Quality Tech Guide**: https://techguide.zeiss.com/en/zeiss-inspect-2026/
 - **Apps News**: Check documentation for latest updates
 
 ## Documentation Structure
@@ -76,7 +77,8 @@ Complete reference documentation for:
 - **Scripted Elements API** - Building custom geometric elements
 - **gom.Resource API** - Accessing App resources
 
-**Full API Documentation**: 
+**Full API Documentation**:
+- 2026: https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/python_api.html
 - 2025: https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/python_api.html
 - 2023: https://zeiss.github.io/zeiss-inspect-app-api/2023/python_api/python_api.html
 
