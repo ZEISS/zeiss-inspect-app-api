@@ -3625,7 +3625,7 @@ Return available dimensions
 ```{py:function} gom.api.scriptedelements.get_element_from_id(element_id: str): Any
 
 Convert an internal id into a script element reference
-:param element_id: Internal id of the element to convert, usuall a uuid
+:param element_id: Internal id of the element to convert, usually a uuid
 :type element_id: str
 :return: Script element reference
 :rtype: Any
