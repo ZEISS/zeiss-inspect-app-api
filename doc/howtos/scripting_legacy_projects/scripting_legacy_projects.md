@@ -1,7 +1,7 @@
 ---
 myst:
    html_meta:
-      "description": "Python API for extending ZEISS INSPECT 2025 with Apps - Legacy Projects"
+      "description": "Python API for extending ZEISS INSPECT 2026 with Apps - Legacy Projects"
       "keywords": "Metrology, ZEISS INSPECT, Python API, GOM API, Scripting, Add-ons, Apps, How-tos, Partless Projects"
 ---
 # Scripting with legacy projects (part-less)
