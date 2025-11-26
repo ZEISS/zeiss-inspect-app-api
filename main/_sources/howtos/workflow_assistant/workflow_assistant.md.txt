@@ -1,6 +1,6 @@
 # Workflow Assistant
 
-> Abstract:  The **Workflow Assistant** helps you to find the most important functions for a specific measuring or inspection tasks. It can help you access the most frequently used functions faster. By default, you find the tab **Workflow Assistant** in the right docking area next to the tab **Properties** (see [Tech Guide &ndash; Workflow Assistant](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/view_workflow_assistant.html)).
+> Abstract:  The **Workflow Assistant** helps you to find the most important functions for a specific measuring or inspection tasks. It can help you access the most frequently used functions faster. By default, you find the tab **Workflow Assistant** in the right docking area next to the tab **Properties** (see [Tech Guide &ndash; Workflow Assistant](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/view_workflow_assistant.html)).
 
 ## Workflow Assistant Object Types
 
