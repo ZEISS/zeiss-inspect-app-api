@@ -123,6 +123,17 @@
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-installed-addons">gom.api.addons.get_installed_addons</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#gom-api-contributions">gom.api.contributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-contributions-contribution">gom.api.contributions.Contribution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-contributions-contribution-get-category">gom.api.contributions.Contribution.get_category</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-contributions-contribution-get-description">gom.api.contributions.Contribution.get_description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-contributions-contribution-get-endpoint">gom.api.contributions.Contribution.get_endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-contributions-contribution-get-id">gom.api.contributions.Contribution.get_id</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-contributions-get-contributions">gom.api.contributions.get_contributions</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-dialog">gom.api.dialog</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-dialog-create">gom.api.dialog.create</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-dialog-execute">gom.api.dialog.execute</a></li>
@@ -336,7 +347,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-scriptedelements">gom.api.scriptedelements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimension-definition">gom.api.scriptedelements.get_dimension_definition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimensions">gom.api.scriptedelements.get_dimensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-element-from-id">gom.api.scriptedelements.get_element_from_id</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-id-for-element">gom.api.scriptedelements.get_id_for_element</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-inspection-definition">gom.api.scriptedelements.get_inspection_definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-instructions">gom.api.scriptedelements.get_instructions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-selection">gom.api.selection</a><ul>
@@ -914,6 +928,131 @@ installed in the running instance.</p>
 </div>
 </section>
 </section>
+<section id="gom-api-contributions">
+<h2>gom.api.contributions<a class="headerlink" href="#gom-api-contributions" title="Link to this heading"></a></h2>
+<p>API for accessing the registered contributions (semantic extensions)</p>
+<p>This API enables access to the registered semantic extensions, called ‘contributions’.
+Each contribution is a service based feature which extends an aspect of ZEISS INSPECT.
+The ‘scripted inspection’ contribution, for example, extends the inspection elements, while
+the ‘scripted views’ contribution extends the view system of ZEISS INSPECT.</p>
+<section id="gom-api-contributions-contribution">
+<h3>gom.api.contributions.Contribution<a class="headerlink" href="#gom-api-contributions-contribution" title="Link to this heading"></a></h3>
+<p>Class representing a single semantic contribution</p>
+<p>This class represents a semantic contribution. The properties of that contribution can be read and
+the contribution can be administered via that handle.</p>
+<section id="gom-api-contributions-contribution-get-category">
+<h4>gom.api.contributions.Contribution.get_category<a class="headerlink" href="#gom-api-contributions-contribution-get-category" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.contributions.Contribution.get_category():</span> <span class="pre">str</span></span></dt>
+<dd><p>Return contribution category</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Contribution category</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The contribution category determines the type of the contribution or to which semantic
+concept of ZEISS INSPECT the contribution belongs to. If, for example, the contribution
+extends the view system of ZEISS INSPECT, the category is ‘scriptedviews’.</p>
+</section>
+<section id="gom-api-contributions-contribution-get-description">
+<h4>gom.api.contributions.Contribution.get_description<a class="headerlink" href="#gom-api-contributions-contribution-get-description" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.contributions.Contribution.get_description():</span> <span class="pre">str</span></span></dt>
+<dd><p>Return human readable contribution name, as used in the UI</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Human readable contribution name</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="gom-api-contributions-contribution-get-endpoint">
+<h4>gom.api.contributions.Contribution.get_endpoint<a class="headerlink" href="#gom-api-contributions-contribution-get-endpoint" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.contributions.Contribution.get_endpoint():</span> <span class="pre">str</span></span></dt>
+<dd><p>Return service endpoint this contribution belongs to</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Service endpoint</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>As all contributions are service based, this function returns the service endpoint of
+the service the contribution belongs to.</p>
+</section>
+<section id="gom-api-contributions-contribution-get-id">
+<h4>gom.api.contributions.Contribution.get_id<a class="headerlink" href="#gom-api-contributions-contribution-get-id" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.contributions.Contribution.get_id():</span> <span class="pre">str</span></span></dt>
+<dd><p>unique contribution id</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Unique contribution id which can be used to identify the contribution, e.g. in script commands</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="gom-api-contributions-get-contributions">
+<h3>gom.api.contributions.get_contributions<a class="headerlink" href="#gom-api-contributions-get-contributions" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.contributions.get_contributions():</span> <span class="pre">[gom.api.contributions.Contribution]</span></span></dt>
+<dd><p>Return the list of all registered contributions</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of all registered contributions</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>[gom.api.contributions.Contribution]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function returns the list of registered contributions</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">contributions</span><span class="o">.</span><span class="n">get_contributions</span> <span class="p">():</span>
+  <span class="nb">print</span> <span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get_id</span> <span class="p">(),</span> <span class="n">c</span><span class="o">.</span><span class="n">get_description</span> <span class="p">())</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="gom-api-dialog">
 <h2>gom.api.dialog<a class="headerlink" href="#gom-api-dialog" title="Link to this heading"></a></h2>
 <p>API for handling dialogs</p>
@@ -1265,13 +1404,13 @@ are evaluated by the ZEISS INSPECT framework to apply the necessary settings aut
 <h4>gom.api.extensions.ScriptedElement.check_list<a class="headerlink" href="#gom-api-extensions-scriptedelement-check-list" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.check_list(self:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">key:</span> <span class="pre">str,</span> <span class="pre">value_type:</span> <span class="pre">type,</span> <span class="pre">length:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.check_list(self:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">key:</span> <span class="pre">str,</span> <span class="pre">expected:</span> <span class="pre">type,</span> <span class="pre">length:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>values</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Dictionary of values</p></li>
 <li><p><strong>key</strong> (<em>str</em>) – Key of the value to check</p></li>
-<li><p><strong>value_type</strong> (<em>type</em>) – Type each of the values is expected to have</p></li>
+<li><p><strong>value_type</strong> – Type each of the values is expected to have</p></li>
 <li><p><strong>length</strong> (<em>int</em>) – Number of values expected in the tuple or ‘None’ if any length is allowed</p></li>
 </ul>
 </dd>
@@ -1293,13 +1432,13 @@ are evaluated by the ZEISS INSPECT framework to apply the necessary settings aut
 <h4>gom.api.extensions.ScriptedElement.check_value<a class="headerlink" href="#gom-api-extensions-scriptedelement-check-value" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.check_value(self:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">key:</span> <span class="pre">str,</span> <span class="pre">value_type:</span> <span class="pre">type):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.check_value(self:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">key:</span> <span class="pre">str,</span> <span class="pre">expected:</span> <span class="pre">type):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>values</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Dictionary of values</p></li>
 <li><p><strong>key</strong> (<em>str</em>) – Key of the value to check</p></li>
-<li><p><strong>value_type</strong> (<em>type</em>) – Type the value is expected to have</p></li>
+<li><p><strong>value_type</strong> – Type the value is expected to have</p></li>
 </ul>
 </dd>
 </dl>
@@ -2148,6 +2287,32 @@ single elements within can be edited separately.</p>
 <section id="gom-api-extensions-sequence-scriptedsequence">
 <h4>gom.api.extensions.sequence.ScriptedSequence<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence" title="Link to this heading"></a></h4>
 <p>This class is used to define a scripted sequence element</p>
+<p><em>Concept</em></p>
+<p>A scripted sequence element combines a sequence of commands into one sequence. The sequence is treated
+as one single combined element with sub elements. The resulting cluster of elements can then be edited again
+as a altogether sequence, of the single elements within can be edited separately.</p>
+<p>Each sequence consists of a ‘leading element’ and ‘child elements’. The leading element represents the whole
+sequence in the sense that editing the sequence again is initialized by editing the leading element or deleting
+the leading element deletes the whole sequence. The child elements are the other elements of the sequence
+which belong to the sequence but are not the leading element.</p>
+<p><em>Property access</em></p>
+<p>As a sequence element is no native special element type in ZEISS INSPECT, but just a combination of regular elements,
+the API functions to query scripted elements can be used to query special sequence properties. For regular elements,
+this would be a ‘keyword access’, for the sequence various functions from the <code class="docutils literal notranslate"><span class="pre">gom.api.scriptedelements.ScriptedSequence</span></code>
+contribution definition can be used.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gom.api.extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScriptedSequence</span>
+
+<span class="c1"># Given a leading element of a scripted sequence...</span>
+<span class="n">leading_element</span> <span class="o">=</span> <span class="o">...</span> 
+
+<span class="c1"># ...get all elements of the sequence and...</span>
+<span class="n">elements</span> <span class="o">=</span> <span class="n">ScriptedSequence</span><span class="o">.</span><span class="n">get_sequence_elements</span><span class="p">(</span><span class="n">leading_element</span><span class="p">)</span>
+
+<span class="c1"># ...get all child elements of the sequence</span>
+<span class="n">children</span> <span class="o">=</span> <span class="n">ScriptedSequence</span><span class="o">.</span><span class="n">get_child_elements</span><span class="p">(</span><span class="n">leading_element</span><span class="p">)</span>
+</pre></div>
+</div>
 <section id="gom-api-extensions-sequence-scriptedsequence-init">
 <h5>gom.api.extensions.sequence.ScriptedSequence.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence-init" title="Link to this heading"></a></h5>
 <dl class="py function">
@@ -2156,7 +2321,7 @@ single elements within can be edited separately.</p>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<em>str</em>) – Unique contribution id, like <code class="docutils literal notranslate"><span class="pre">special_point</span></code></p></li>
+<li><p><strong>id</strong> (<em>str</em>) – Unique contribution id, like ‘special_point’</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – Human readable contribution description</p></li>
 </ul>
 </dd>
@@ -2164,8 +2329,9 @@ single elements within can be edited separately.</p>
 </dd></dl>
 
 <p>Constructor</p>
-<p><em>Properties</em></p>
-<p>The following properties are supported for scripted sequence elements:</p>
+<p><em>Configuration</em></p>
+<p>The following properties are supported for scripted sequence elements. They can be passed in the
+contributions constructor via the <code class="docutils literal notranslate"><span class="pre">properties</span></code> dictionary and will be used to configure the behavior.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">edit_child_elements_separately</span></code> (bool): If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the child elements of the sequence can be
 edited separately and an “edit/creation” on a sequence child
@@ -2327,6 +2493,66 @@ to generate the names of the single elements:</p>
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;elements&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">POINT_1</span><span class="p">,</span> <span class="n">POINT_2</span><span class="p">,</span> <span class="n">DISTANCE</span><span class="p">],</span> <span class="s1">&#39;leading&#39;</span><span class="p">:</span> <span class="n">DISTANCE</span><span class="p">}</span>
 </pre></div>
 </div>
+</section>
+<section id="gom-api-extensions-sequence-scriptedsequence-get-child-elements">
+<h5>gom.api.extensions.sequence.ScriptedSequence.get_child_elements<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence-get-child-elements" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequence.get_child_elements(leading_element:</span> <span class="pre">Any):</span> <span class="pre">Any</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>leading_element</strong> (<em>Any</em>) – Leading element of the scripted sequence</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of child elements of the scripted sequence</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Returns child elements of the scripted sequence for a given leading element.</p>
+</section>
+<section id="gom-api-extensions-sequence-scriptedsequence-get-leading-element">
+<h5>gom.api.extensions.sequence.ScriptedSequence.get_leading_element<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence-get-leading-element" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequence.get_leading_element(child_element:</span> <span class="pre">Any):</span> <span class="pre">Any</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>child_element</strong> (<em>Any</em>) – Child element of the scripted sequence</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Leading element of the scripted sequence</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Returns leading element of the scripted sequence for a given child element.</p>
+</section>
+<section id="gom-api-extensions-sequence-scriptedsequence-get-sequence-elements">
+<h5>gom.api.extensions.sequence.ScriptedSequence.get_sequence_elements<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence-get-sequence-elements" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.sequence.ScriptedSequence.get_sequence_elements(leading_element:</span> <span class="pre">Any):</span> <span class="pre">Any</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>leading_element</strong> (<em>Any</em>) – Leading element of the scripted sequence</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all elements of the scripted sequence in the order as created in the <code class="docutils literal notranslate"><span class="pre">create()</span></code> function</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Returns all elements of the scripted sequence for a given leading element.</p>
 </section>
 <section id="gom-api-extensions-sequence-scriptedsequence-on-edited">
 <h5>gom.api.extensions.sequence.ScriptedSequence.on_edited<a class="headerlink" href="#gom-api-extensions-sequence-scriptedsequence-on-edited" title="Link to this heading"></a></h5>
@@ -4480,6 +4706,55 @@ millimeter, inch for length; or degree, radian for angle.</p>
 </dd></dl>
 
 </section>
+<section id="gom-api-scriptedelements-get-element-from-id">
+<h3>gom.api.scriptedelements.get_element_from_id<a class="headerlink" href="#gom-api-scriptedelements-get-element-from-id" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_element_from_id(element_id:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
+<dd><p>Convert an internal id into a script element reference</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>element_id</strong> (<em>str</em>) – Internal id of the element to convert, usually a uuid</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Script element reference</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p>std::runtime_error if the element id is unknown</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function is used to convert ids which are representing elements into script element
+references which can be used in the scripting environment. It is used for internal purposes
+only and should be used with care. For example, in scripted sequences, the child elements of
+a leading sequence element are stored by their internal ids, in principle uuids. So when
+the child elements of a leading element are requested, the internal framework can use this
+function to convert the stored ids into script element references.</p>
+</section>
+<section id="gom-api-scriptedelements-get-id-for-element">
+<h3>gom.api.scriptedelements.get_id_for_element<a class="headerlink" href="#gom-api-scriptedelements-get-id-for-element" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_id_for_element(element:</span> <span class="pre">Any):</span> <span class="pre">str</span></span></dt>
+<dd><p>Return internal id of the given element</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>element</strong> (<em>Any</em>) – Element reference</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Id of this element</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="gom-api-scriptedelements-get-inspection-definition">
 <h3>gom.api.scriptedelements.get_inspection_definition<a class="headerlink" href="#gom-api-scriptedelements-get-inspection-definition" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -4501,6 +4776,28 @@ millimeter, inch for length; or degree, radian for angle.</p>
 
 <p>This function queries in internal ‘scalar registry’ database for information about the
 inspection with the given type.</p>
+</section>
+<section id="gom-api-scriptedelements-get-instructions">
+<h3>gom.api.scriptedelements.get_instructions<a class="headerlink" href="#gom-api-scriptedelements-get-instructions" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_instructions(element:</span> <span class="pre">Any):</span> <span class="pre">Any</span></span></dt>
+<dd><p>Return recalculation instructions/commands for the given element</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>element</strong> (<em>Any</em>) – Element to query</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Recalculation instructions</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function queries the recalculations instructions (commands) which are executed to recalc
+an element.</p>
 </section>
 </section>
 <section id="gom-api-selection">
@@ -5133,7 +5430,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fc6049b0050>
+  <jinja2.runtime.BlockReference object at 0x7f28c7f8aac0>
 
 
 </footer>
