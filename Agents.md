@@ -26,12 +26,13 @@ When users ask about ZEISS INSPECT App development, agents can assist with:
 ## Key Resources
 
 - **Repository**: https://github.com/ZEISS/zeiss-inspect-app-api
+- **Main Documentation (2026)**: https://zeiss.github.io/zeiss-inspect-app-api/2026/
 - **Main Documentation (2025)**: https://zeiss.github.io/zeiss-inspect-app-api/2025/
 - **Main Documentation (2023)**: https://zeiss.github.io/zeiss-inspect-app-api/2023/
 - **Main Documentation (2022)**: https://zeiss.github.io/gom-software-python-api/2022/
-- **App Examples**: https://zeiss.github.io/zeiss-inspect-app-api/2025/python_examples/examples_overview.html
+- **App Examples**: https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/examples_overview.html
 - **Example Apps Repository**: https://github.com/ZEISS/zeiss-inspect-app-examples
-- **ZEISS Quality Tech Guide**: https://techguide.zeiss.com/en/zeiss-inspect-2025/article/ZEISS_INSPECT.html
+- **ZEISS Quality Tech Guide**: https://techguide.zeiss.com/en/zeiss-inspect-2026/
 - **Apps News**: Check documentation for latest updates
 
 ## Documentation Structure
@@ -76,7 +77,8 @@ Complete reference documentation for:
 - **Scripted Elements API** - Building custom geometric elements
 - **gom.Resource API** - Accessing App resources
 
-**Full API Documentation**: 
+**Full API Documentation**:
+- 2026: https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/python_api.html
 - 2025: https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/python_api.html
 - 2023: https://zeiss.github.io/zeiss-inspect-app-api/2023/python_api/python_api.html
 
@@ -227,7 +229,7 @@ Comprehensive examples organized by category (see separate examples repository),
 → Point to relevant how-to guides
 
 **"What versions are supported?"**\
-→ Current documentation: ZEISS INSPECT 2025 and 2023\
+→ Current documentation: ZEISS INSPECT 2026, 2025 and 2023\
 → Check documentation for specific version requirements\
 → Examples typically require ZEISS INSPECT 2023 or later
 
@@ -334,7 +336,7 @@ for addon in gom.api.addons.get_installed_addons():
 
 ## Version Compatibility
 
-- **Current Documentation**: 2025, 2023
+- **Current Documentation**: 2026, 2025, 2023
 - **API Versions**: Functions note minimum API version required
 - **Software Requirements**: Most examples require ZEISS INSPECT 2023+
 - Users should check specific example requirements
