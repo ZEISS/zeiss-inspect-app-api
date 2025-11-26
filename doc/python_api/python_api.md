@@ -1752,7 +1752,7 @@ Example:
 from gom.api.extensions import ScriptedSequence
 
 # Given a leading element of a scripted sequence...
-# leading_element = ... 
+leading_element = ... 
 
 # ...get all elements of the sequence and...
 elements = ScriptedSequence.get_sequence_elements(leading_element)
@@ -1764,7 +1764,7 @@ children = ScriptedSequence.get_child_elements(leading_element)
 
 ```{py:function} gom.api.extensions.sequence.ScriptedSequence.__init__(self: Any, id: str, description: str, properties: Dict[str, Any]): None
 
-:param id: Unique contribution id, like `special_point`
+:param id: Unique contribution id, like 'special_point'
 :type id: str
 :param description: Human readable contribution description
 :type description: str
