@@ -1758,7 +1758,8 @@ leading_element = ...
 elements = ScriptedSequence.get_sequence_elements(leading_element)
 
 # ...get all child elements of the sequence
-children = ScriptedSequence.get_child_elements(leading_element)    
+children = ScriptedSequence.get_child_elements(leading_element)
+```
 
 ##### gom.api.extensions.sequence.ScriptedSequence.__init__
 
