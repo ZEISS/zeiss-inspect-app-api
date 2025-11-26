@@ -4,13 +4,13 @@
     <title>ZEISS INSPECT 2026 App Development Documentation News</title>
     <link>https://zeiss.github.io/zeiss-inspect-app-api/2026/</link>
     <description></description>
-    <lastBuildDate>Wed, 26 Nov 2025 10:19:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 26 Nov 2025 10:23:38 GMT</lastBuildDate>
     <generator>sphinxcontrib-newsfeed</generator>
     <item>
       <title>User-defined dialogs and dialog widgets</title>
       <link>https://zeiss.github.io/zeiss-inspect-app-api/2026/news/20251126-update-dialog-widgets.html</link>
       <description>&lt;div class="compound"&gt;
-&lt;p&gt;The document ‘User-defined Dialogs’ has been restructured into separate sections for easier access:&lt;/p&gt;
+&lt;p&gt;The document &lt;strong&gt;User-defined Dialogs&lt;/strong&gt; has been restructured into separate sections for easier access:&lt;/p&gt;
 &lt;ul class="simple"&gt;
 &lt;li&gt;&lt;p&gt;&lt;a class="reference internal" href="../howtos/user_defined_dialogs/user_defined_dialogs.html"&gt;&lt;span class="doc std std-doc"&gt;User-defined Dialogs&lt;/span&gt;&lt;/a&gt;,&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a class="reference internal" href="../howtos/user_defined_dialogs/dialog_widgets.html"&gt;&lt;span class="doc std std-doc"&gt;Dialog widgets&lt;/span&gt;&lt;/a&gt; and&lt;/p&gt;&lt;/li&gt;

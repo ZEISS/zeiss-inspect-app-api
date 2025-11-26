@@ -5,7 +5,7 @@
    :date: 2025-11-26 11:30
 ```
 
-The document 'User-defined Dialogs' has been restructured into separate sections for easier access:
+The document **User-defined Dialogs** has been restructured into separate sections for easier access:
 * [User-defined Dialogs](../howtos/user_defined_dialogs/user_defined_dialogs),
 * [Dialog widgets](../howtos/user_defined_dialogs/dialog_widgets) and
 * [Executing dialogs](../howtos/user_defined_dialogs/executing_dialogs).
