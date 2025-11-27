@@ -8,5 +8,5 @@
 [Jupyter Notebook](http://jupyter.org) is popular in data science, machine learning, and education due to its interactive environment that combines code execution, text, and visualizations.
 It facilitates exploratory data analysis and real-time feedback, enhancing collaboration and reproducibility. Its supports multiple programming languages, including Python.
 
-The How-to articles [Using Jupyter Notebook](../using_jupyter_notebook/using_jupyter_notebook) and [Using Jupyter Notebook with VSCode](../using_jupyter_notebook/using_jupyter_and_vscode)
+The How-to articles [Using Jupyter Notebook](../howtos/using_jupyter_notebook/using_jupyter_notebook) and [Using Jupyter Notebook with VSCode](../howtos/using_jupyter_notebook/using_jupyter_and_vscode)
 show two differrent ways of running ZEISS INSPECT Python scripts interactively in Jupyter Notebook.
