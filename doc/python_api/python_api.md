@@ -1758,14 +1758,13 @@ leading_element = ...
 elements = ScriptedSequence.get_sequence_elements(leading_element)
 
 # ...get all child elements of the sequence
-children = ScriptedSequence.get_child_elements(leading_element)
-```
+children = ScriptedSequence.get_child_elements(leading_element)    
 
 ##### gom.api.extensions.sequence.ScriptedSequence.__init__
 
 ```{py:function} gom.api.extensions.sequence.ScriptedSequence.__init__(self: Any, id: str, description: str, properties: Dict[str, Any]): None
 
-:param id: Unique contribution id, like 'special_point'
+:param id: Unique contribution id, like `special_point`
 :type id: str
 :param description: Human readable contribution description
 :type description: str
@@ -3626,7 +3625,7 @@ Return available dimensions
 ```{py:function} gom.api.scriptedelements.get_element_from_id(element_id: str): Any
 
 Convert an internal id into a script element reference
-:param element_id: Internal id of the element to convert, usually a uuid
+:param element_id: Internal id of the element to convert, usuall a uuid
 :type element_id: str
 :return: Script element reference
 :rtype: Any
