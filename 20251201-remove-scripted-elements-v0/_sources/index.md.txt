@@ -98,7 +98,6 @@ Furthermore, we recommend following our How-to Guides to get you started.
 
    howtos/using_vscode_editor/using_vscode_editor
    howtos/app_documentation/app_documentation
-   howtos/scripted_elements/scripted_elements_toc
    howtos/python_api_introduction/using_script_resources
    howtos/stages/stages
    howtos/project_keywords/project_keywords
@@ -121,7 +120,6 @@ Furthermore, we recommend following our How-to Guides to get you started.
    howtos/adding_workspaces_to_apps/adding_workspaces_to_apps
    howtos/workflow_assistant/workflow_assistant
    howtos/using_services/using_services
-   howtos/using_scripted_diagrams/using_scripted_diagrams
    howtos/using_jupyter_notebook/using_jupyter_notebook
    howtos/using_jupyter_notebook/using_jupyter_and_vscode
    howtos/starting_options/starting_options
@@ -147,6 +145,5 @@ Available API functions are documented in the Specification.
    :caption: Python API Specification
 
    python_api/python_api
-   python_api/scripted_elements_api
    python_api/resource_api
 ```
