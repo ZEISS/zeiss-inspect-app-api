@@ -4,7 +4,7 @@
     <title>ZEISS INSPECT 2026 App Development Documentation News</title>
     <link>https://zeiss.github.io/zeiss-inspect-app-api/2026/</link>
     <description></description>
-    <lastBuildDate>Mon, 01 Dec 2025 08:36:21 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 01 Dec 2025 08:41:06 GMT</lastBuildDate>
     <generator>sphinxcontrib-newsfeed</generator>
     <item>
       <title>Using Jupyter Notebook with ZEISS INSPECT</title>
@@ -18,6 +18,32 @@ show two different ways of running ZEISS INSPECT Python scripts interactively in
 </description>
       <guid>https://zeiss.github.io/zeiss-inspect-app-api/2026/news/20251127-jupyter-notebook.html</guid>
       <pubDate>Thu, 27 Nov 2025 16:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>User-defined dialogs and dialog widgets</title>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/2026/news/20251126-update-dialog-widgets.html</link>
+      <description>&lt;div class="compound"&gt;
+&lt;p&gt;The document &lt;strong&gt;User-defined Dialogs&lt;/strong&gt; has been restructured into separate sections for easier access:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference internal" href="../howtos/user_defined_dialogs/user_defined_dialogs.html"&gt;&lt;span class="doc std std-doc"&gt;User-defined Dialogs&lt;/span&gt;&lt;/a&gt;,&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference internal" href="../howtos/user_defined_dialogs/dialog_widgets.html"&gt;&lt;span class="doc std std-doc"&gt;Dialog widgets&lt;/span&gt;&lt;/a&gt; and&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference internal" href="../howtos/user_defined_dialogs/executing_dialogs.html"&gt;&lt;span class="doc std std-doc"&gt;Executing dialogs&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Additionally, the widgets’ parameter documentation in &lt;a class="reference internal" href="../howtos/user_defined_dialogs/dialog_widgets.html"&gt;&lt;span class="doc std std-doc"&gt;Dialog widgets&lt;/span&gt;&lt;/a&gt; has been reworked to improve readability.&lt;/p&gt;
+&lt;p&gt;Furthermore, new dialog widgets have been added:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="../howtos/user_defined_dialogs/dialog_widgets.html#information-box-widget"&gt;Information box widget&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="../howtos/user_defined_dialogs/dialog_widgets.html#split-button-widget"&gt;Split button widget&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="../howtos/user_defined_dialogs/dialog_widgets.html#toggle-bar-widget"&gt;Toggle bar widget&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="../howtos/user_defined_dialogs/dialog_widgets.html#tab-layout-widget"&gt;Tab layout widget&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="../howtos/user_defined_dialogs/dialog_widgets.html#separator-layout-widget"&gt;Separator layout widget&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="../howtos/user_defined_dialogs/dialog_widgets.html#wizard-widget"&gt;Wizard widget&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="../howtos/user_defined_dialogs/dialog_widgets.html#file-drag-drop-area-widget"&gt;File drag&amp;amp;drop area widget&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/2026/news/20251126-update-dialog-widgets.html</guid>
+      <pubDate>Wed, 26 Nov 2025 11:30:00 GMT</pubDate>
     </item>
     <item>
       <title>ZEISS INSPECT 2026 Released</title>
