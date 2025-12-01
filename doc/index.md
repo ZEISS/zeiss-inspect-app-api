@@ -43,6 +43,7 @@ Check out the ZEISS INSPECT Apps news page!
    :hidden:
 
    news/20251127-jupyter-notebook
+   news/20251126-update-dialog-widgets
    news/20251125-release-2026
    news/20250804-workflow-assistant
    news/20250516-update-vscode
