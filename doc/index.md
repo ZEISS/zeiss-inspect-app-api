@@ -145,6 +145,5 @@ Available API functions are documented in the Specification.
    :caption: Python API Specification
 
    python_api/python_api
-   python_api/scripted_elements_api
    python_api/resource_api
 ```
