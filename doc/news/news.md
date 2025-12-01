@@ -16,6 +16,7 @@ myst:
    :link: https://zeiss.github.io/zeiss-inspect-app-api/2026/
 
    20251127-jupyter-notebook
+   20251126-update-dialog-widgets
    20251125-release-2026
    20250804-workflow-assistant
    20250516-update-vscode
