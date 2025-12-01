@@ -4,8 +4,21 @@
     <title>ZEISS INSPECT 2026 App Development Documentation News</title>
     <link>https://zeiss.github.io/zeiss-inspect-app-api/2026/</link>
     <description></description>
-    <lastBuildDate>Wed, 26 Nov 2025 10:30:03 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 01 Dec 2025 08:38:51 GMT</lastBuildDate>
     <generator>sphinxcontrib-newsfeed</generator>
+    <item>
+      <title>Using Jupyter Notebook with ZEISS INSPECT</title>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/2026/news/20251127-jupyter-notebook.html</link>
+      <description>&lt;div class="compound"&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://jupyter.org"&gt;Jupyter Notebook&lt;/a&gt; is popular in data science, machine learning, and education due to its interactive environment that combines code execution, text, and visualizations.
+It facilitates exploratory data analysis and real-time feedback, enhancing collaboration and reproducibility. Its supports multiple programming languages, including Python.&lt;/p&gt;
+&lt;p&gt;The How-to articles &lt;a class="reference internal" href="../howtos/using_jupyter_notebook/using_jupyter_notebook.html"&gt;&lt;span class="doc std std-doc"&gt;Using Jupyter Notebook&lt;/span&gt;&lt;/a&gt; and &lt;a class="reference internal" href="../howtos/using_jupyter_notebook/using_jupyter_and_vscode.html"&gt;&lt;span class="doc std std-doc"&gt;Using Jupyter Notebook with VSCode&lt;/span&gt;&lt;/a&gt;
+show two different ways of running ZEISS INSPECT Python scripts interactively in Jupyter Notebook.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/2026/news/20251127-jupyter-notebook.html</guid>
+      <pubDate>Thu, 27 Nov 2025 16:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>User-defined dialogs and dialog widgets</title>
       <link>https://zeiss.github.io/zeiss-inspect-app-api/2026/news/20251126-update-dialog-widgets.html</link>
