@@ -628,6 +628,57 @@ The category of an element type is used to find the application side counterpart
 functionality implementation. For example, `scriptedelement.actual` links that element type the application
 counterpart which cares for scripted actual elements and handles its creation, editing, administration, ...
 
+**Storing custom element data**
+
+In principle, each scripted element type consists of functions which will get input via function parameters and
+generate output by returning a value, usually a dictionary object with named entries. For example, if a scripted
+nominal command creates a nominal point, the `compute ()` function could return a dictionary like this:
+
+```
+{
+    'position': (x, y, z),
+    'normal':   (nx, ny, nz)
+}
+```
+
+This is defined in details with the respective element type documentation. The returned values are then stored
+in the project file and belong to the element. The keys of the returned dictionary are the data keys which are fixed
+for each element type and element specific.
+
+In addition to these fixed data keys, each scripted element can also store custom data entries. These entries
+are not predefined by the element type, but can be freely defined by the scripted element implementation. This is not a
+function result, it is more like an additional data storage which is associated with the element instance, for example
+for caching intermediate results, storing additional metadata, ... Thus, custom element data is accessed via the `context`
+object passed to each function. The context custom data is staged, so each stage has its own custom data storage, and the current
+stage is always the one used for data access
+
+Example:
+```
+def compute (self, context, values):
+    # Access custom data for the current stage.
+    if 'intermediate_result' in context.data:
+        intermediate_result = context.data['intermediate_result']
+
+    else:
+        # Compute intermediate result and write it to custom data for later reuse.
+        # The type is arbitrary, as long as it is serializable. Using a dictionary here
+        # is usually a good choice.
+        intermediate_result = ... # Compute intermediate result
+        context.data = {'intermediate_result': intermediate_result,
+                        'computed': True}
+
+    # Compute final result
+    result = ...
+    return result
+```
+
+The size of the data storage is not limited, but it should be kept in mind that all data must be serialized
+and stored in the project file. Therefore, large data structures should be avoided here. Also, calls to
+`context.data` can be relatively expensive due to serialization and deserialization, so frequent access
+should be avoided. Also, extremely large data structures may not be storable at all due to internal limits.
+
+The custom data can be cleared per stage by setting an empty dictionary to `context.data = {}`.
+
 #### gom.api.extensions.ScriptedElement.Attribute
 
 
@@ -1758,14 +1809,13 @@ leading_element = ...
 elements = ScriptedSequence.get_sequence_elements(leading_element)
 
 # ...get all child elements of the sequence
-children = ScriptedSequence.get_child_elements(leading_element)
-```
+children = ScriptedSequence.get_child_elements(leading_element)    
 
 ##### gom.api.extensions.sequence.ScriptedSequence.__init__
 
 ```{py:function} gom.api.extensions.sequence.ScriptedSequence.__init__(self: Any, id: str, description: str, properties: Dict[str, Any]): None
 
-:param id: Unique contribution id, like 'special_point'
+:param id: Unique contribution id, like `special_point`
 :type id: str
 :param description: Human readable contribution description
 :type description: str
@@ -3626,7 +3676,7 @@ Return available dimensions
 ```{py:function} gom.api.scriptedelements.get_element_from_id(element_id: str): Any
 
 Convert an internal id into a script element reference
-:param element_id: Internal id of the element to convert, usually a uuid
+:param element_id: Internal id of the element to convert, usuall a uuid
 :type element_id: str
 :return: Script element reference
 :rtype: Any
@@ -3995,6 +4045,57 @@ are integer, double, string and bool.
 ```
 gom.api.settings.set ('dialog.width', 640)
 gom.api.settings.set ('dialog.height', 480)
+```
+
+## gom.api.table
+
+API for table data handling
+
+This module provides utilities and API entry points to parse table templates (XML), map project inspection data into
+those templates, and produce a serializable view representation suitable for direct rendering by the UI.
+
+### gom.api.table.get_view_data
+
+```{py:function} gom.api.table.get_view_data(xml_data: str, mode: str): dict
+
+Generate table view data from an XML table template and the current project's inspection elements.
+:param xml_data: XML string containing the table template definition
+:type xml_data: str
+:param mode: Content mode: 'inspection', 'measurements', or 'alignments'
+:type mode: str
+:return: JSON formatted dictionary for rendering the table view
+:rtype: dict
+```
+
+Returns a GUI-ready table representation built from a table XML template and the active project.
+Call this API when you need a serializable table describing inspection elements for display in
+the UI. The result contains `headers` and `rows`; each row contains `cells` with resolved text
+and token data (icons, numbers, text, etc). Use the returned maps directly in JavaScript or UI code.
+
+- Token order and whitespace are preserved.
+- Icons are returned as data-uris (PNG) when available.
+- HTML-like fragments in cell text are sanitized.
+- When the template contains a dynamic check column, the function collects all scalar-check elements related to an
+inspection parent and expands the last header into one column per unique check type, filling missing values with
+empty cells.
+
+**Example of return value:**
+```json
+{
+   "headers": [ {"text":"Name", "alignment":"left", "font_style":{"family":"Arial","size":12}}, ... ],
+   "rows": [ {
+      "cells": [ {
+         "text":"Bolt A",
+         "values":[
+           {"type":"icon","value":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."},
+           {"type":"text","value":"Bolt A"}
+         ],
+         "alignment":"left",
+         "background_color":"#ffffff",
+         "font_style":{"family":"Arial","size":10}
+      }, ... ]
+   }, ... ]
+ }
 ```
 
 ## gom.api.testing
