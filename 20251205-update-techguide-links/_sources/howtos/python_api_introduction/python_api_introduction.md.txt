@@ -9,7 +9,7 @@ myst:
 
 Welcome to the ZEISS INSPECT Python API introduction. This is your starting point into App development for ZEISS INSPECT. Here you find out what you can do with Apps, how they work and how you create them.
 
-See [Introduction to Python Scripting](https://techguide.gom.com/en/zeiss-inspect-2025/article/introduction_to_python_scripting.html) if you are new to Python or the ZEISS INSPECT Python interface.
+See [Introduction to Python Scripting](https://techguide.gom.com/en/zeiss-inspect-2026/article/introduction_to_python_scripting.html) if you are new to Python or the ZEISS INSPECT Python interface.
 
 ## Creating projects
 
