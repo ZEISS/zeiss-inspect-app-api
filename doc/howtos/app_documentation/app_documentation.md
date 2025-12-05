@@ -144,7 +144,7 @@ You can create a link to a website providing App documentation by adding a JSON 
 
 {
     ...
-    "documentation": "https://zeiss.github.io/zeiss-inspect-app-api/2025/index.html",
+    "documentation": "https://zeiss.github.io/zeiss-inspect-app-api/2026/index.html",
     ...
 }
 ```
