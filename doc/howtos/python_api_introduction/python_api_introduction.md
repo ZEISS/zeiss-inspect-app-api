@@ -257,7 +257,7 @@ print(gom_math.Vec3d_mult_scalar(vector, multiplier))
 # gom.Vec3d (1.5, 3.0, 4.5)
 ```
 
-The Python files `gom_vec3d.py` and `gom_math.py` are located in `C:\Program Files\Zeiss\INSPECT\2025\lib\python\gom-python`.
+The Python files `gom_vec3d.py` and `gom_math.py` are located in `C:\Program Files\Zeiss\INSPECT\2026\lib\python\gom-python`.
 
 For more complex operations or efficient handling of large sets of data, the [NumPy](https://numpy.org/) package is recommended.
 
