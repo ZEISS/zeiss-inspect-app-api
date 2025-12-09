@@ -100,7 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="custom_checks.html">Custom checks</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../scripted_elements/scripted_elements_toc.html">Scripted elements v0 (deprecated)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripted_elements/scripted_elements_toc.html">Scripted elements (deprecated)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/using_script_resources.html">Using script resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stages/stages.html">Working with stages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../project_keywords/project_keywords.html">Project keywords handling</a></li>
@@ -226,13 +226,15 @@
 <dl class="simple myst">
 <dt>line 2…3:</dt><dd><p>Import custom element specific packages – <code class="docutils literal notranslate"><span class="pre">gom.api.extensions.nominals</span></code> for nominal elements and <code class="docutils literal notranslate"><span class="pre">gom.api.extensions.actuals</span></code> for actual elements.</p>
 </dd>
-<dt>line 4…7:</dt><dd><p>The class <code class="docutils literal notranslate"><span class="pre">MyGeometry</span></code> is inherited from <a href="../../python_api/python_api.html#gom-api-extensions-actuals-point">gom.api.extensions.actuals.Point</a>. The decorator <code class="docutils literal notranslate"><span class="pre">&#64;apicontribution</span></code> allows to register the class <code class="docutils literal notranslate"><span class="pre">MyGeometry</span></code> in the ZEISS INSPECT framework.</p>
+<dt>line 5…6:</dt><dd><p>The class <code class="docutils literal notranslate"><span class="pre">MinimalPointExample</span></code> is inherited from <a href="../../python_api/python_api.html#gom-api-extensions-actuals-point">gom.api.extensions.actuals.Point</a>. The decorator <code class="docutils literal notranslate"><span class="pre">&#64;apicontribution</span></code> allows to register the class <code class="docutils literal notranslate"><span class="pre">MyGeometry</span></code> in the ZEISS INSPECT framework.</p>
 </dd>
-<dt>line 8…9:</dt><dd><p>Constructor which calls the super class constructor with definition of unique contribution ID and (human readable) description.</p>
+<dt>line 8…9:</dt><dd><p>The constructor calls the super class constructor while setting a unique contribution ID and a (human readable) description.</p>
 </dd>
-<dt>line 11…12:</dt><dd><p>Dialog function which allows to show the dialog when the element is created or edited.</p>
+<dt>line 11…12:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">dialog()</span></code> method allows to show the dialog when a custom element is created or edited.</p>
 </dd>
-<dt>line 14ff:</dt><dd><p>Computation function which returns the element type specific dictionary of parameters. The dictionary <code class="docutils literal notranslate"><span class="pre">values</span></code> contains the dialog widgets’ object values. Numeric values are provided as strings, therefore a type conversion to <code class="docutils literal notranslate"><span class="pre">float</span></code> is done.</p>
+<dt>line 14…21:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">compute()</span></code> method returns an element type specific dictionary of parameters. The dictionary <code class="docutils literal notranslate"><span class="pre">values</span></code> contains the dialog widgets’ object values. Numeric values are provided as strings, therefore a type conversion to <code class="docutils literal notranslate"><span class="pre">float</span></code> is done.</p>
+</dd>
+<dt>line 23:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> is executed when the script is started as a service.</p>
 </dd>
 </dl>
 </section>
@@ -257,14 +259,14 @@
 </dd>
 <dt>line 4:</dt><dd><p>Service name</p>
 </dd>
-<dt>line 5:</dt><dd><p>Custom element’s Python script path</p>
+<dt>line 5:</dt><dd><p>Custom element’s Python script path, relative to the App’s <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> folder</p>
 </dd>
 </dl>
-<p>See <a class="reference internal" href="../using_services/using_services.html"><span class="std std-doc">service</span></a> for details.</p>
+<p>See <a class="reference internal" href="../using_services/using_services.html"><span class="std std-doc">Using service</span></a> for details.</p>
 <section id="start-the-service">
 <h3>Start the service<a class="headerlink" href="#start-the-service" title="Link to this heading"></a></h3>
 <p>Start the service using the Manage Services dialog (Apps ► Manage Services… in the ZEISS INSPECT main menu).</p>
-<p>See <a class="reference internal" href="../using_services/using_services.html"><span class="std std-doc">Using Services – Managing services</span></a> for details.</p>
+<p>See <a class="reference internal" href="../using_services/using_services.html#managing-services"><span class="std std-ref">Using services – Managing services</span></a> for details.</p>
 </section>
 <section id="create-custom-elements-interactively">
 <h3>Create custom elements interactively<a class="headerlink" href="#create-custom-elements-interactively" title="Link to this heading"></a></h3>
@@ -276,6 +278,7 @@
 </section>
 <section id="create-custom-elements-from-python-script">
 <h3>Create custom elements from Python script<a class="headerlink" href="#create-custom-elements-from-python-script" title="Link to this heading"></a></h3>
+<p>Create a custom element from a Python script by using function <code class="docutils literal notranslate"><span class="pre">gom.script.scriptedelements.create_actual_draft()</span></code> or <code class="docutils literal notranslate"><span class="pre">gom.script.scriptedelements.create_nominal_draft()</span></code>, respectively.</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Custom element creation from Python script – Custom actual circle element</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">center_x</span> <span class="o">=</span> <span class="mf">1.0</span>
@@ -449,13 +452,13 @@
 </div>
 </div>
 <dl class="simple myst">
-<dt>line 18…21:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">gom.api.dialog.create</span> <span class="pre">()</span></code> returns the dialog object (<code class="docutils literal notranslate"><span class="pre">dlg</span></code>), which allows to access the <code class="docutils literal notranslate"><span class="pre">volume_ele</span></code> widget object. For this purpose, the method <a href="../../python_api/python_api.html#gom-api-extensions-scriptedelement-show-dialog">show_dialog()</a> used in the previous examples has been replaced by a sequence of other method.</p>
+<dt>line 18…21:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">gom.api.dialog.create</span> <span class="pre">()</span></code> returns the dialog object (<code class="docutils literal notranslate"><span class="pre">dlg</span></code>), which allows to access the <code class="docutils literal notranslate"><span class="pre">volume_ele</span></code> widget object. For this purpose, the method <a href="../../python_api/python_api.html#gom-api-extensions-scriptedelement-show-dialog">show_dialog()</a> used in the previous examples has been replaced by a sequence of other methods.</p>
 </dd>
 </dl>
 </section>
 <section id="using-the-dialog-control-widget-and-event-handler">
 <h3>Using the dialog control widget and event handler<a class="headerlink" href="#using-the-dialog-control-widget-and-event-handler" title="Link to this heading"></a></h3>
-<p>In the context of custom elements, the <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#control-widget">Control widget</a> allows to show a message and to disable the ‘ok’ button in case any condition for creating an element is not met, e.g. not all parameters have been specified yet or the computation has failed for some reason.</p>
+<p>When implementing custom elements, the <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#control-widget">Control widget</a> allows to show messages and to disable the ‘ok’ button in case any condition for creating an element is not met, e.g. not all parameters have been specified yet or the computation has failed for some reason.</p>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Offset point example with dialog control widget and event handler</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nd">@apicontribution</span>
@@ -772,7 +775,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fb83e237070>
+  <jinja2.runtime.BlockReference object at 0x7f4aa329b230>
 
 
 </footer>
