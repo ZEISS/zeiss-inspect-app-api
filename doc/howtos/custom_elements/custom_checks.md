@@ -106,7 +106,7 @@ line 7..8:
 : The decorator `apicontribution` allows to register the `MyGeometry` class, which is derived from <a href="../../python_api/python_api.html#gom-api-extensions-inspections-scalar">gom.api.extensions.inspections.Scalar</a>, in the ZEISS INSPECT framework.
 
 line 8..14:
-: Constructor, which calls the super class contructor with definition of unique contribution ID, (human readable) description, dimension and abbreviation.
+: Constructor which calls the super class constructor with definition of unique contribution ID, (human readable) description, dimension and abbreviation.
 
 line 16ff:
 : Overloaded `dialog` method to apply an element filter (see <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#selection-element-widget">Selection element widget</a>) and to copy the dialog handle to a class member `dlg` for using in `event()`.
