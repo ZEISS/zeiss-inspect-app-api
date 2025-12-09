@@ -1,0 +1,790 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" sizes="16x16" type="image/png" href="../../_static/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom nominal/actual elements &mdash; App Development Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme_zeiss.css?v=c4491741" />
+
+  
+    <link rel="canonical" href="https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/custom_elements/custom_nominals_actuals.html" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Custom checks" href="custom_checks.html" />
+    <link rel="prev" title="Custom elements" href="custom_elements_toc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            App Development Documentation
+              <img src="../../_static/zeiss-logo-rgb.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../news/news.html">What’s New</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to Guides – Basic</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/python_api_introduction.html">ZEISS INSPECT Python API Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/selecting_elements.html">Selecting elements in scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_app_editor/using_app_editor.html">Using the App Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_file_format/app_file_format.html">App file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/file_selection_dialog.html">Selecting a file or folder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/user_defined_dialogs.html">User-defined Dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/dialog_widgets.html">Dialog widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/executing_dialogs.html">Executing dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripting_solutions/scripting_solutions.html">Scripting solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/faq.html">Frequently asked questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to Guides – Intermediate</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../using_vscode_editor/using_vscode_editor.html">Using Visual Studio Code as App editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_documentation/app_documentation.html">Documenting Apps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="custom_elements_toc.html">Custom elements</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Custom nominal/actual elements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#geometric-element-types">Geometric element types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-custom-element">Creating a custom element</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dialog-definition">Dialog definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-nominal-or-actual-element-script">Custom nominal or actual element script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#service-definition">Service definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#start-the-service">Start the service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-custom-elements-interactively">Create custom elements interactively</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-custom-elements-from-python-script">Create custom elements from Python script</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-implementation-patterns">Advanced implementation patterns</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#storing-optional-data-with-a-scripted-element">Storing optional data with a scripted element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#common-computation-function-for-actual-nominal-element">Common computation function for actual/nominal element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-log-messages">Creating log messages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-an-element-selection-filter">Using an element selection filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-the-dialog-control-widget-and-event-handler">Using the dialog control widget and event handler</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#service-related-issues">Service-Related Issues</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#element-creation-issues">Element Creation Issues</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#performance-issues">Performance Issues</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dialog-and-validation-issues">Dialog and Validation Issues</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#debugging-strategies">Debugging Strategies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="custom_checks.html">Custom checks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../scripted_elements/scripted_elements_toc.html">Scripted elements v0 (deprecated)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/using_script_resources.html">Using script resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stages/stages.html">Working with stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project_keywords/project_keywords.html">Project keywords handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../localization/localization.html">Localization of Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing_apps/testing_apps.html">Testing Apps</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to Guides – Expert</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/wizard_control.html">Wizard widget control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/creating_wizard_dialogs.html">Creating wizard dialogs (deprecated)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_gui_libraries/using_gui_libraries.html">Using an additional Python GUI library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_shared_environments/using_shared_environments.html">Using shared environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_wheelhouses/using_wheelhouses.html">Using Python wheelhouses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_workspaces_to_apps/adding_workspaces_to_apps.html">Adding workspaces to Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow_assistant/workflow_assistant.html">Workflow Assistant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_services/using_services.html">Using services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_scripted_diagrams/using_scripted_diagrams.html">Using scripted diagrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_jupyter_notebook/using_jupyter_notebook.html">Using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_jupyter_notebook/using_jupyter_and_vscode.html">Using Jupyter Notebook with VSCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../starting_options/starting_options.html">Software and script starting options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripting_legacy_projects/scripting_legacy_projects.html">Scripting with legacy projects (part-less)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_examples/index.html">Introduction to the Python API Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_examples/examples_overview.html">ZEISS INSPECT App Examples Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API Specification</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/python_api.html">ZEISS INSPECT App Python API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/scripted_elements_api.html">Scripted elements API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/resource_api.html">gom.Resource API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">App Development Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="custom_elements_toc.html">Custom elements</a></li>
+      <li class="breadcrumb-item active">Custom nominal/actual elements</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
+<section id="custom-nominal-actual-elements">
+<h1>Custom nominal/actual elements<a class="headerlink" href="#custom-nominal-actual-elements" title="Link to this heading"></a></h1>
+<p>This documentation describes the creation of custom nominal or actual elements in ZEISS INSPECT using the Python <a href="../../python_api/python_api.html#gom-api-extensions">Extensions API</a>.</p>
+<section id="geometric-element-types">
+<h2>Geometric element types<a class="headerlink" href="#geometric-element-types" title="Link to this heading"></a></h2>
+<p>A custom nominal or actual element is always of a certain geometric type, like a point, surface curve, mesh etc. After creation, a custom element can be used in the project like a predefined element, i.e. an element created by a predefined construction command.</p>
+<p>Custom elements can depend on predefined elements and vice versa. An element recomputation is triggered if a dependency changes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For some custom element types only the actual variant exists.</p>
+</div>
+</section>
+<section id="creating-a-custom-element">
+<h2>Creating a custom element<a class="headerlink" href="#creating-a-custom-element" title="Link to this heading"></a></h2>
+<p>To create a custom nominal or actual element, the general procedure is as follows:</p>
+<ol class="arabic simple">
+<li><p>If required, create a user-defined dialog for editing the element’s parameters.</p></li>
+<li><p>Create a script in the <a class="reference internal" href="../using_app_editor/using_app_editor.html"><span class="std std-doc">App Editor</span></a> or using <a class="reference internal" href="../using_vscode_editor/using_vscode_editor.html"><span class="std std-doc">Visual Studio Code</span></a>.</p></li>
+<li><p>Define a <a class="reference internal" href="../using_services/using_services.html"><span class="std std-doc">service</span></a> based on the custom element’s script.</p></li>
+<li><p>Start the custom element’s service via the Service Manager.</p></li>
+<li><p>Create the custom element, either manually or from Python code.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A dialog is not needed in cases where only non-interactive element creation is used.</p>
+</div>
+<section id="dialog-definition">
+<h3>Dialog definition<a class="headerlink" href="#dialog-definition" title="Link to this heading"></a></h3>
+<p>The dialog must be defined in a dialog file (*.gdlg) as described in <a class="reference internal" href="../user_defined_dialogs/user_defined_dialogs.html"><span class="std std-doc">User-defined Dialogs</span></a>.</p>
+<p>The dialog must contain an <a href="../user_defined_dialogs/dialog_widgets.html#element-name-widget">Element name widget</a> to set the custom element’s name. The element widget’s name must be set to <code class="docutils literal notranslate"><span class="pre">name</span></code> in the Dialog Editor.</p>
+<p><img alt="Set element widget name to 'name' in Dialog Editor" src="../../_images/element_widget_name.png" /></p>
+</section>
+<section id="custom-nominal-or-actual-element-script">
+<h3>Custom nominal or actual element script<a class="headerlink" href="#custom-nominal-or-actual-element-script" title="Link to this heading"></a></h3>
+<p>All custom nominal or actual elements are based on the <a href="../../python_api/python_api.html#gom-api-extensions">Extensions API</a>. More specifically, a custom nominal or actual element class is inherited from the <a href="../../python_api/python_api.html#gom-api-extensions-scriptedelement">ScriptedElement</a> base class.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Custom_Point.py – Minimal custom actual element example – Custom actual point</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="linenos"> 2</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.actuals</span>
+<span class="linenos"> 3</span><span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="nd">@apicontribution</span>
+<span class="linenos"> 6</span><span class="k">class</span><span class="w"> </span><span class="nc">MinimalPointExample</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">actuals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 9</span>        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_actual_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Actual Point&#39;</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<span class="linenos">12</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Point.gdlg&#39;</span><span class="p">)</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span>    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<span class="linenos">15</span>        <span class="k">return</span> <span class="p">{</span>
+<span class="linenos">16</span>            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span>
+<span class="linenos">17</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_x&#39;</span><span class="p">]),</span>
+<span class="linenos">18</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_y&#39;</span><span class="p">]),</span>
+<span class="linenos">19</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_z&#39;</span><span class="p">])</span>
+<span class="linenos">20</span>            <span class="p">)</span>
+<span class="linenos">21</span>        <span class="p">}</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="n">gom</span><span class="o">.</span><span class="n">run_api</span> <span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<dl class="simple myst">
+<dt>line 2…3:</dt><dd><p>Import custom element specific packages – <code class="docutils literal notranslate"><span class="pre">gom.api.extensions.nominals</span></code> for nominal elements and <code class="docutils literal notranslate"><span class="pre">gom.api.extensions.actuals</span></code> for actual elements.</p>
+</dd>
+<dt>line 4…7:</dt><dd><p>The class <code class="docutils literal notranslate"><span class="pre">MyGeometry</span></code> is inherited from <a href="../../python_api/python_api.html#gom-api-extensions-actuals-point">gom.api.extensions.actuals.Point</a>. The decorator <code class="docutils literal notranslate"><span class="pre">&#64;apicontribution</span></code> allows to register the class <code class="docutils literal notranslate"><span class="pre">MyGeometry</span></code> in the ZEISS INSPECT framework.</p>
+</dd>
+<dt>line 8…9:</dt><dd><p>Constructor which calls the super class constructor with definition of unique contribution ID and (human readable) description.</p>
+</dd>
+<dt>line 11…12:</dt><dd><p>Dialog function which allows to show the dialog when the element is created or edited.</p>
+</dd>
+<dt>line 14ff:</dt><dd><p>Computation function which returns the element type specific dictionary of parameters. The dictionary <code class="docutils literal notranslate"><span class="pre">values</span></code> contains the dialog widgets’ object values. Numeric values are provided as strings, therefore a type conversion to <code class="docutils literal notranslate"><span class="pre">float</span></code> is done.</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="service-definition">
+<h2>Service definition<a class="headerlink" href="#service-definition" title="Link to this heading"></a></h2>
+<p>Add the service definition to the App’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">metainfo.json – Minimal custom actual element example – Custom actual point</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="linenos">2</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">3</span><span class="w">        </span><span class="nt">&quot;endpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gom.api.point&quot;</span><span class="p">,</span>
+<span class="linenos">4</span><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Custom point&quot;</span><span class="p">,</span>
+<span class="linenos">5</span><span class="w">        </span><span class="nt">&quot;script&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Custom_Point.py&quot;</span>
+<span class="linenos">6</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">7</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<dl class="simple myst">
+<dt>line 3:</dt><dd><p>Service endpoint name</p>
+</dd>
+<dt>line 4:</dt><dd><p>Service name</p>
+</dd>
+<dt>line 5:</dt><dd><p>Custom element’s Python script path</p>
+</dd>
+</dl>
+<p>See <a class="reference internal" href="../using_services/using_services.html"><span class="std std-doc">service</span></a> for details.</p>
+<section id="start-the-service">
+<h3>Start the service<a class="headerlink" href="#start-the-service" title="Link to this heading"></a></h3>
+<p>Start the service using the Manage Services dialog (Apps ► Manage Services… in the ZEISS INSPECT main menu).</p>
+<p>See <a class="reference internal" href="../using_services/using_services.html"><span class="std std-doc">Using Services – Managing services</span></a> for details.</p>
+</section>
+<section id="create-custom-elements-interactively">
+<h3>Create custom elements interactively<a class="headerlink" href="#create-custom-elements-interactively" title="Link to this heading"></a></h3>
+<p>Create custom elements by selecting the appropriate item from the Construct ► Script-Based Elements menu.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The custom element’s service must be running for creating an element.</p>
+</div>
+</section>
+<section id="create-custom-elements-from-python-script">
+<h3>Create custom elements from Python script<a class="headerlink" href="#create-custom-elements-from-python-script" title="Link to this heading"></a></h3>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Custom element creation from Python script – Custom actual circle element</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">center_x</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="linenos"> 2</span><span class="n">center_y</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="linenos"> 3</span><span class="n">center_z</span> <span class="o">=</span> <span class="mf">3.0</span>
+<span class="linenos"> 4</span><span class="n">dir_x</span> <span class="o">=</span> <span class="mf">4.0</span>
+<span class="linenos"> 5</span><span class="n">dir_y</span> <span class="o">=</span> <span class="mf">5.0</span>
+<span class="linenos"> 6</span><span class="n">dir_z</span> <span class="o">=</span> <span class="mf">6.0</span>
+<span class="linenos"> 7</span><span class="n">radius</span> <span class="o">=</span> <span class="mf">42.0</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">scriptedelements</span><span class="o">.</span><span class="n">create_actual_draft</span> <span class="p">(</span>
+<span class="linenos">10</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">11</span><span class="sd">    Create a custom actual element</span>
+<span class="linenos">12</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">13</span>    <span class="c1"># Element ID as defined in its constructor</span>
+<span class="linenos">14</span>    <span class="n">contribution</span><span class="o">=</span><span class="s1">&#39;examples.custom_actual_circle&#39;</span><span class="p">,</span>
+<span class="linenos">15</span>    
+<span class="linenos">16</span>    <span class="c1"># Optional: Set element name explicitly, otherwise the name is set automatically </span>
+<span class="linenos">17</span>    <span class="c1"># name=&#39;Test Circle 1&#39;, </span>
+<span class="linenos">18</span>    
+<span class="linenos">19</span>    <span class="c1"># Set element type specific parameters</span>
+<span class="linenos">20</span>    <span class="n">values</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos">21</span>        <span class="s1">&#39;center_x&#39;</span><span class="p">:</span> <span class="n">center_x</span><span class="p">,</span> <span class="s1">&#39;center_y&#39;</span><span class="p">:</span> <span class="n">center_y</span><span class="p">,</span> <span class="s1">&#39;center_z&#39;</span><span class="p">:</span> <span class="n">center_z</span><span class="p">,</span>
+<span class="linenos">22</span>        <span class="s1">&#39;dir_x&#39;</span><span class="p">:</span> <span class="n">dir_x</span><span class="p">,</span> <span class="s1">&#39;dir_y&#39;</span><span class="p">:</span> <span class="n">dir_y</span><span class="p">,</span> <span class="s1">&#39;dir_z&#39;</span><span class="p">:</span> <span class="n">dir_z</span><span class="p">,</span> <span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="n">radius</span>
+<span class="linenos">23</span>    <span class="p">}</span>
+<span class="linenos">24</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The custom element’s service must be running for creating an element.</p>
+</div>
+</section>
+</section>
+<section id="advanced-implementation-patterns">
+<h2>Advanced implementation patterns<a class="headerlink" href="#advanced-implementation-patterns" title="Link to this heading"></a></h2>
+<section id="storing-optional-data-with-a-scripted-element">
+<h3>Storing optional data with a scripted element<a class="headerlink" href="#storing-optional-data-with-a-scripted-element" title="Link to this heading"></a></h3>
+<p>Additional data of any type can be stored using the <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter of the computation result.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Custom actual point with optional element data</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<span class="linenos">2</span>        <span class="k">return</span> <span class="p">{</span>
+<span class="linenos">3</span>            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span>
+<span class="linenos">4</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_x&#39;</span><span class="p">]),</span>
+<span class="linenos">5</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_y&#39;</span><span class="p">]),</span>
+<span class="linenos">6</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_z&#39;</span><span class="p">])</span>
+<span class="linenos">7</span>            <span class="p">),</span>
+<span class="linenos">8</span>            <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;A string as optional element data&quot;</span>
+<span class="linenos">9</span>        <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="common-computation-function-for-actual-nominal-element">
+<h3>Common computation function for actual/nominal element<a class="headerlink" href="#common-computation-function-for-actual-nominal-element" title="Link to this heading"></a></h3>
+<p>In case both an actual and a nominal custom element are implemented, using a common computation function is recommended to avoid duplicate code.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Custom actual/nominal point with common computation function</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="linenos"> 2</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.actuals</span>
+<span class="linenos"> 3</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.nominals</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="k">def</span><span class="w"> </span><span class="nf">generate_point_element</span><span class="p">(</span><span class="n">point_x</span><span class="p">,</span> <span class="n">point_y</span><span class="p">,</span> <span class="n">point_z</span><span class="p">):</span>
+<span class="linenos"> 8</span><span class="w">   </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 9</span><span class="sd">   Generates a point</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="sd">   Params: </span>
+<span class="linenos">12</span><span class="sd">   - point_x: x-coordinate</span>
+<span class="linenos">13</span><span class="sd">   - point_y: y-coordinate</span>
+<span class="linenos">14</span><span class="sd">   - point_z: z-coordinate</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span><span class="sd">   Returns:</span>
+<span class="linenos">17</span><span class="sd">   - Dictionary with point&#39;s coordinate:</span>
+<span class="linenos">18</span><span class="sd">   {</span>
+<span class="linenos">19</span><span class="sd">       &quot;value&quot;: (float(x-value), float(y-value), float(z-value))</span>
+<span class="linenos">20</span><span class="sd">   }</span>
+<span class="linenos">21</span><span class="sd">   &quot;&quot;&quot;</span>
+<span class="linenos">22</span>   <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos">23</span>       <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span>
+<span class="linenos">24</span>           <span class="nb">float</span><span class="p">(</span><span class="n">point_x</span><span class="p">),</span> 
+<span class="linenos">25</span>           <span class="nb">float</span><span class="p">(</span><span class="n">point_y</span><span class="p">),</span> 
+<span class="linenos">26</span>           <span class="nb">float</span><span class="p">(</span><span class="n">point_z</span><span class="p">)</span>
+<span class="linenos">27</span>       <span class="p">)</span>
+<span class="linenos">28</span>   <span class="p">}</span>
+<span class="linenos">29</span>   <span class="k">return</span> <span class="n">result</span>
+<span class="linenos">30</span>
+<span class="linenos">31</span><span class="nd">@apicontribution</span>
+<span class="linenos">32</span><span class="k">class</span><span class="w"> </span><span class="nc">MyActualPoint</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">actuals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
+<span class="linenos">33</span><span class="w">   </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">34</span><span class="sd">   Custom actual point element </span>
+<span class="linenos">35</span><span class="sd">   &quot;&quot;&quot;</span>
+<span class="linenos">36</span>   <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">37</span>       <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_actual_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Actual Point&#39;</span><span class="p">)</span>
+<span class="linenos">38</span>
+<span class="linenos">39</span>   <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<span class="linenos">40</span>       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Point.gdlg&#39;</span><span class="p">)</span>
+<span class="linenos">41</span>
+<span class="linenos">42</span>   <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<span class="linenos">43</span>       <span class="k">return</span> <span class="n">generate_point_element</span><span class="p">(</span>
+<span class="linenos">44</span>           <span class="n">point_x</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_x&#39;</span><span class="p">],</span> 
+<span class="linenos">45</span>           <span class="n">point_y</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_y&#39;</span><span class="p">],</span> 
+<span class="linenos">46</span>           <span class="n">point_z</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_z&#39;</span><span class="p">],</span>
+<span class="linenos">47</span>       <span class="p">)</span>
+<span class="linenos">48</span>
+<span class="linenos">49</span><span class="nd">@apicontribution</span>
+<span class="linenos">50</span><span class="k">class</span><span class="w"> </span><span class="nc">MyNominalPoint</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">nominals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
+<span class="linenos">51</span><span class="w">   </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">52</span><span class="sd">   Custom nominal point element </span>
+<span class="linenos">53</span><span class="sd">   &quot;&quot;&quot;</span>
+<span class="linenos">54</span>   <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">55</span>       <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_nominal_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Nominal Point&#39;</span><span class="p">)</span>
+<span class="linenos">56</span>   
+<span class="linenos">57</span>   <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<span class="linenos">58</span>       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Point.gdlg&#39;</span><span class="p">)</span>
+<span class="linenos">59</span>       
+<span class="linenos">60</span>   <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<span class="linenos">61</span>       <span class="k">return</span> <span class="n">generate_point_element</span><span class="p">(</span>
+<span class="linenos">62</span>           <span class="n">point_x</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_x&#39;</span><span class="p">],</span> 
+<span class="linenos">63</span>           <span class="n">point_y</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_y&#39;</span><span class="p">],</span> 
+<span class="linenos">64</span>           <span class="n">point_z</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_z&#39;</span><span class="p">],</span>
+<span class="linenos">65</span>       <span class="p">)</span>
+<span class="linenos">66</span>
+<span class="linenos">67</span><span class="n">gom</span><span class="o">.</span><span class="n">run_api</span> <span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="creating-log-messages">
+<h3>Creating log messages<a class="headerlink" href="#creating-log-messages" title="Link to this heading"></a></h3>
+<p>Log messages can be created by using the method <a href="../../python_api/python_api.html#gom-api-extensions-scriptedelement-add-log-message">add_log_message()</a>.</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Creating log messages</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<span class="linenos">2</span>   <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">values</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">3</span>   <span class="c1"># ...</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="using-an-element-selection-filter">
+<h3>Using an element selection filter<a class="headerlink" href="#using-an-element-selection-filter" title="Link to this heading"></a></h3>
+<p>Some elements are created from other elements, which are selected with a <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#selection-element-widget">Selection element widget</a>. This widget provides a few options for selecting a specific element type, but in some cases a dedicated filter function has to be applied.</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Selection element widget with filter function</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nd">@apicontribution</span>
+<span class="linenos"> 2</span><span class="k">class</span><span class="w"> </span><span class="nc">MyVolumeRegion</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">actuals</span><span class="o">.</span><span class="n">VolumeRegion</span><span class="p">):</span>
+<span class="linenos"> 3</span>  
+<span class="linenos"> 4</span>    <span class="c1"># ...</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span>    <span class="k">def</span><span class="w"> </span><span class="nf">element_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+<span class="linenos"> 7</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 8</span><span class="sd">        Element type filter - see Selection element widget documentation</span>
+<span class="linenos"> 9</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos">10</span>        <span class="k">try</span><span class="p">:</span>
+<span class="linenos">11</span>            <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;linked_volume&#39;</span><span class="p">:</span>
+<span class="linenos">12</span>                <span class="k">return</span> <span class="kc">True</span>
+<span class="linenos">13</span>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="linenos">14</span>            <span class="k">pass</span>
+<span class="linenos">15</span>        <span class="k">return</span> <span class="kc">False</span>
+<span class="linenos">16</span>            
+<span class="linenos">17</span>    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<span class="linenos">18</span>        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Volume_Region.gdlg&#39;</span><span class="p">)</span>
+<span class="linenos">19</span>        <span class="n">dlg</span><span class="o">.</span><span class="n">volume_ele</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">element_filter</span>
+<span class="linenos">20</span>        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+<span class="linenos">21</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<dl class="simple myst">
+<dt>line 18…21:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">gom.api.dialog.create</span> <span class="pre">()</span></code> returns the dialog object (<code class="docutils literal notranslate"><span class="pre">dlg</span></code>), which allows to access the <code class="docutils literal notranslate"><span class="pre">volume_ele</span></code> widget object. For this purpose, the method <a href="../../python_api/python_api.html#gom-api-extensions-scriptedelement-show-dialog">show_dialog()</a> used in the previous examples has been replaced by a sequence of other method.</p>
+</dd>
+</dl>
+</section>
+<section id="using-the-dialog-control-widget-and-event-handler">
+<h3>Using the dialog control widget and event handler<a class="headerlink" href="#using-the-dialog-control-widget-and-event-handler" title="Link to this heading"></a></h3>
+<p>In the context of custom elements, the <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#control-widget">Control widget</a> allows to show a message and to disable the ‘ok’ button in case any condition for creating an element is not met, e.g. not all parameters have been specified yet or the computation has failed for some reason.</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Offset point example with dialog control widget and event handler</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nd">@apicontribution</span>
+<span class="linenos"> 2</span><span class="k">class</span><span class="w"> </span><span class="nc">MyOffsetPoint</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">nominals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 4</span><span class="sd">    Provides a dialog handler for changing the control widget.</span>
+<span class="linenos"> 5</span><span class="sd">    Allows to show a computation error via the control widget&#39;s status and in ZEISS INSPECT&#39;s element properties. </span>
+<span class="linenos"> 6</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos"> 7</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 8</span>        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_nominal_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Nominal Point&#39;</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<span class="linenos">11</span>        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Point.gdlg&#39;</span><span class="p">)</span>
+<span class="linenos">12</span>        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+<span class="linenos">13</span>        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="p">))</span>
+<span class="linenos">14</span>        <span class="k">return</span> <span class="n">res</span>
+<span class="linenos">15</span>
+<span class="linenos">16</span>    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<span class="linenos">17</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">18</span>        <span class="k">return</span> <span class="n">generate_point_element</span><span class="p">(</span>
+<span class="linenos">19</span>            <span class="n">offset_x</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;offset_x&#39;</span><span class="p">],</span> 
+<span class="linenos">20</span>            <span class="n">offset_y</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;offset_y&#39;</span><span class="p">],</span> 
+<span class="linenos">21</span>            <span class="n">offset_z</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;offset_z&#39;</span><span class="p">],</span>
+<span class="linenos">22</span>            <span class="n">base</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span>
+<span class="linenos">23</span>        <span class="p">)</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span>    <span class="k">def</span><span class="w"> </span><span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event_type</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+<span class="linenos">26</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">event_type</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">27</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parameters</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">28</span>       
+<span class="linenos">29</span>        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">&#39;dialog::initialized&#39;</span><span class="p">:</span>
+<span class="linenos">30</span>            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="linenos">31</span>            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;Select base with &#39;center_coordinate&#39;!&quot;</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span>        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">&#39;dialog::changed&#39;</span><span class="p">:</span>
+<span class="linenos">34</span>            <span class="k">if</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">][</span><span class="s1">&#39;base&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> \
+<span class="linenos">35</span>                <span class="nb">hasattr</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">][</span><span class="s1">&#39;base&#39;</span><span class="p">],</span> <span class="s1">&#39;center_coordinate&#39;</span><span class="p">):</span>
+<span class="linenos">36</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">37</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="service-related-issues">
+<h3>Service-Related Issues<a class="headerlink" href="#service-related-issues" title="Link to this heading"></a></h3>
+<section id="service-won-t-start">
+<h4>Service Won’t Start<a class="headerlink" href="#service-won-t-start" title="Link to this heading"></a></h4>
+<p><strong>Symptoms:</strong></p>
+<ul class="simple">
+<li><p>Service appears in Manage Services dialog but shows “Stopped” status</p></li>
+<li><p>Error messages appear in ZEISS INSPECT Service Manager</p></li>
+<li><p>Custom elements don’t appear in any menus</p></li>
+</ul>
+<p><strong>Common Causes and Solutions:</strong></p>
+<ul>
+<li><p><strong>Python syntax errors</strong>: Check your element script for proper syntax, indentation, and balanced brackets</p></li>
+<li><p><strong>Missing imports</strong>: Ensure you have the correct imports:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.actuals</span>  <span class="c1"># or .nominals</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Missing decorator</strong>: Add <code class="docutils literal notranslate"><span class="pre">&#64;apicontribution</span></code> decorator before your class definition</p></li>
+<li><p><strong>Invalid service definition</strong>: Check <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> service configuration:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">    </span><span class="nt">&quot;endpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gom.api.myservice&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My Custom Element&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;script&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MyElement.py&quot;</span>
+<span class="p">}]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="custom-elements-don-t-appear-in-menu">
+<h4>Custom Elements Don’t Appear in Menu<a class="headerlink" href="#custom-elements-don-t-appear-in-menu" title="Link to this heading"></a></h4>
+<p><strong>Symptoms:</strong></p>
+<ul class="simple">
+<li><p>Service shows “Running” status</p></li>
+<li><p>No items appear in Construct → Script-Based Elements menu</p></li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li><p><strong>Verify inheritance</strong>: Ensure your class inherits from the correct base class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyPoint</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">actuals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>  <span class="c1"># Or Circle, Surface, etc.</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check element ID</strong>: Use a unique, descriptive ID in your constructor:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;mycompany.custom_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Point&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Endpoint conflicts</strong>: Ensure your service endpoint name is unique across all Apps</p></li>
+</ul>
+</section>
+</section>
+<section id="element-creation-issues">
+<h3>Element Creation Issues<a class="headerlink" href="#element-creation-issues" title="Link to this heading"></a></h3>
+<section id="dialog-doesn-t-open">
+<h4>Dialog Doesn’t Open<a class="headerlink" href="#dialog-doesn-t-open" title="Link to this heading"></a></h4>
+<p><strong>Symptoms:</strong></p>
+<ul class="simple">
+<li><p>Menu item appears but clicking does nothing</p></li>
+<li><p>No dialog window opens</p></li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li><p><strong>Check dialog path</strong>: Use correct path from App root:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/dialogs/mydialog.gdlg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Element Name widget</strong>: Ensure your dialog contains an Element Name widget with object name set to exactly <code class="docutils literal notranslate"><span class="pre">name</span></code></p></li>
+<li><p><strong>File existence</strong>: Verify the dialog file exists in your App’s <code class="docutils literal notranslate"><span class="pre">dialogs/</span></code> folder</p></li>
+</ul>
+</section>
+<section id="element-creation-fails">
+<h4>Element Creation Fails<a class="headerlink" href="#element-creation-fails" title="Link to this heading"></a></h4>
+<p><strong>Symptoms:</strong></p>
+<ul class="simple">
+<li><p>Dialog opens and accepts input</p></li>
+<li><p>Element appears with error state or creation fails entirely</p></li>
+</ul>
+<p><strong>Common Issues:</strong></p>
+<ul>
+<li><p><strong>Invalid return format</strong>: Ensure <code class="docutils literal notranslate"><span class="pre">compute()</span></code> method returns correct format:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Point elements</span>
+<span class="k">return</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)}</span>
+
+<span class="c1"># For Circle elements  </span>
+<span class="k">return</span> <span class="p">{</span>
+    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span>
+        <span class="s2">&quot;direction&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">),</span>
+        <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="n">r</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># etc.</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Type conversion errors</strong>: Convert dialog string inputs to appropriate types:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">])</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)}</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Invalid input: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Missing parameters</strong>: Validate all required parameters are provided:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">required_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">required_params</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing required parameter: </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="performance-issues">
+<h3>Performance Issues<a class="headerlink" href="#performance-issues" title="Link to this heading"></a></h3>
+<section id="slow-element-creation">
+<h4>Slow Element Creation<a class="headerlink" href="#slow-element-creation" title="Link to this heading"></a></h4>
+<p><strong>Symptoms:</strong></p>
+<ul class="simple">
+<li><p>Long delays when creating elements</p></li>
+<li><p>UI becomes unresponsive</p></li>
+<li><p>High CPU usage during element creation</p></li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li><p><strong>Optimize computations</strong>: Avoid heavy calculations in the <code class="docutils literal notranslate"><span class="pre">compute()</span></code> method</p></li>
+<li><p><strong>Cache element properties</strong>: Don’t repeatedly access the same element properties:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inefficient</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">base_element</span><span class="o">.</span><span class="n">center_coordinate</span><span class="o">.</span><span class="n">x</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">base_element</span><span class="o">.</span><span class="n">center_coordinate</span><span class="o">.</span><span class="n">y</span>
+
+<span class="c1"># Better</span>
+<span class="n">center</span> <span class="o">=</span> <span class="n">base_element</span><span class="o">.</span><span class="n">center_coordinate</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">center</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">center</span><span class="o">.</span><span class="n">y</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Simplify dialog events</strong>: Avoid complex calculations in dialog event handlers</p></li>
+</ul>
+</section>
+</section>
+<section id="dialog-and-validation-issues">
+<h3>Dialog and Validation Issues<a class="headerlink" href="#dialog-and-validation-issues" title="Link to this heading"></a></h3>
+<section id="dialog-control-problems">
+<h4>Dialog Control Problems<a class="headerlink" href="#dialog-control-problems" title="Link to this heading"></a></h4>
+<p><strong>Symptoms:</strong></p>
+<ul class="simple">
+<li><p>Cannot enable OK button</p></li>
+<li><p>Status messages don’t appear correctly</p></li>
+<li><p>Dialog validation fails</p></li>
+</ul>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li><p><strong>Implement event handling</strong>: Use the <code class="docutils literal notranslate"><span class="pre">event()</span></code> method to handle dialog state:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event_type</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">&#39;dialog::initialized&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;Please enter all required parameters&quot;</span>
+    
+    <span class="k">elif</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">&#39;dialog::changed&#39;</span><span class="p">:</span>
+        <span class="c1"># Validate inputs and enable/disable OK button</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_inputs</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="debugging-strategies">
+<h3>Debugging Strategies<a class="headerlink" href="#debugging-strategies" title="Link to this heading"></a></h3>
+<section id="enable-detailed-logging">
+<h4>Enable Detailed Logging<a class="headerlink" href="#enable-detailed-logging" title="Link to this heading"></a></h4>
+<p>Add logging to track execution and identify issues:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Starting computation with values: </span><span class="si">{</span><span class="n">values</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">your_computation_logic</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="s2">&quot;Computation completed successfully&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Computation failed: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span>
+</pre></div>
+</div>
+</section>
+<section id="check-console-output">
+<h4>Check Console Output<a class="headerlink" href="#check-console-output" title="Link to this heading"></a></h4>
+<p>Always monitor the ZEISS INSPECT Service Manager for:</p>
+<ul class="simple">
+<li><p>Python exceptions</p></li>
+<li><p>Import errors</p></li>
+<li><p>Service startup messages</p></li>
+<li><p>Custom log messages</p></li>
+</ul>
+</section>
+<section id="test-incrementally">
+<h4>Test Incrementally<a class="headerlink" href="#test-incrementally" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Start with the simplest possible element implementation</p></li>
+<li><p>Add one feature at a time</p></li>
+<li><p>Test each addition thoroughly before proceeding</p></li>
+<li><p>Use existing examples as reference templates</p></li>
+</ul>
+</section>
+<section id="validate-early-and-often">
+<h4>Validate Early and Often<a class="headerlink" href="#validate-early-and-often" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="c1"># Input validation</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No input values provided&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Type validation</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parameter &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; cannot be None&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Proceed with computation...</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../python_api/python_api.html#gom-api-scriptedelements"><span class="std std-ref">Extensions API – Scripted Elements</span></a></p></li>
+<li><p><a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-actuals"><span class="std std-ref">Extensions API – Actuals</span></a></p></li>
+<li><p><a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-nominals"><span class="std std-ref">Extensions API – Nominals</span></a></p></li>
+<li><p><a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-inspections"><span class="std std-ref">Extensions API – Inspections</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="custom_elements_toc.html" class="btn btn-neutral float-left" title="Custom elements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="custom_checks.html" class="btn btn-neutral float-right" title="Custom checks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Carl Zeiss GOM Metrology GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+  <p></p>
+  <div class="footer">
+    <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
+  </div>
+  <jinja2.runtime.BlockReference object at 0x7efebd903070>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
