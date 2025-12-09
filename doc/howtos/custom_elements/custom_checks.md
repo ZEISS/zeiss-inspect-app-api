@@ -103,7 +103,7 @@ line 2..5:
 : Import custom check specific packages.
 
 line 7..8:
-: The class `MinimalScalarCheck` is inherited from [gom.api.extensions.inspections.Scalar](../../python_api/python_api.html#gom-api-extensions-inspections-scalar). The decorator `@apicontribution` allows to register the class `MinimalScalarCheck` in the ZEISS INSPECT framework.
+: The class `MinimalScalarCheck` is inherited from [gom.api.extensions.inspections.Scalar](../../python_api/python_api.md#gomapiextensionsinspectionsscalar). The decorator `@apicontribution` allows to register the class `MinimalScalarCheck` in the ZEISS INSPECT framework.
 
 line 10..16:
 : The constructor calls the super class constructor while defining unique contribution ID, (human readable) description, dimension and abbreviation.
