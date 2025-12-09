@@ -232,15 +232,17 @@
 <dl class="simple myst">
 <dt>line 2…5:</dt><dd><p>Import custom check specific packages.</p>
 </dd>
-<dt>line 7…8:</dt><dd><p>The decorator <code class="docutils literal notranslate"><span class="pre">apicontribution</span></code> allows to register the <code class="docutils literal notranslate"><span class="pre">MyGeometry</span></code> class, which is derived from <a href="../../python_api/python_api.html#gom-api-extensions-inspections-scalar">gom.api.extensions.inspections.Scalar</a>, in the ZEISS INSPECT framework.</p>
+<dt>line 7…8:</dt><dd><p>The class <code class="docutils literal notranslate"><span class="pre">MinimalScalarCheck</span></code> is inherited from <a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-inspections-scalar"><span class="std std-ref">gom.api.extensions.inspections.Scalar</span></a>. The decorator <code class="docutils literal notranslate"><span class="pre">&#64;apicontribution</span></code> allows to register the class <code class="docutils literal notranslate"><span class="pre">MinimalScalarCheck</span></code> in the ZEISS INSPECT framework.</p>
 </dd>
-<dt>line 8…14:</dt><dd><p>Constructor which calls the super class constructor with definition of unique contribution ID, (human readable) description, dimension and abbreviation.</p>
+<dt>line 10…16:</dt><dd><p>The constructor calls the super class constructor while defining unique contribution ID, (human readable) description, dimension and abbreviation.</p>
 </dd>
-<dt>line 16ff:</dt><dd><p>Overloaded <code class="docutils literal notranslate"><span class="pre">dialog</span></code> method to apply an element filter (see <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#selection-element-widget">Selection element widget</a>) and to copy the dialog handle to a class member <code class="docutils literal notranslate"><span class="pre">dlg</span></code> for using in <code class="docutils literal notranslate"><span class="pre">event()</span></code>.</p>
+<dt>line 18…28:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">dialog()</span></code> method applies an element filter (see <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#selection-element-widget">Selection element widget</a>) and to copies the dialog handle to the member <code class="docutils literal notranslate"><span class="pre">dlg</span></code> for using in <code class="docutils literal notranslate"><span class="pre">event()</span></code>.</p>
 </dd>
-<dt>line 28ff:</dt><dd><p>Overloaded event() method for setting the custom check’s element name</p>
+<dt>line 30…39:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">event()</span></code> method for sets the custom check’s element name</p>
 </dd>
-<dt>line 39ff:</dt><dd><p>Computation function with constant actual and nominal values for demonstration purposes.</p>
+<dt>line 41…53:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">compute()</span></code> uses constant actual and nominal values for demonstration purposes.</p>
+</dd>
+<dt>line 55:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> is executed when the script is started as a service.</p>
 </dd>
 </dl>
 </section>
@@ -278,7 +280,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f4aa4821350>
+  <jinja2.runtime.BlockReference object at 0x7f8d624a5350>
 
 
 </footer>
