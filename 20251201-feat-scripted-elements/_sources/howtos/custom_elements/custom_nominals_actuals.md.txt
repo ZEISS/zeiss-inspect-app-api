@@ -72,17 +72,20 @@ gom.run_api ()
 line 2..3:
 : Import custom element specific packages &ndash; `gom.api.extensions.nominals` for nominal elements and `gom.api.extensions.actuals` for actual elements.
 
-line 4..7:
-: The class `MyGeometry` is inherited from <a href="../../python_api/python_api.html#gom-api-extensions-actuals-point">gom.api.extensions.actuals.Point</a>. The decorator `@apicontribution` allows to register the class `MyGeometry` in the ZEISS INSPECT framework.
+line 5..6:
+: The class `MinimalPointExample` is inherited from <a href="../../python_api/python_api.html#gom-api-extensions-actuals-point">gom.api.extensions.actuals.Point</a>. The decorator `@apicontribution` allows to register the class `MyGeometry` in the ZEISS INSPECT framework.
 
 line 8..9:
-: Constructor which calls the super class constructor with definition of unique contribution ID and (human readable) description.
+: The constructor calls the super class constructor while setting a unique contribution ID and a (human readable) description.
 
 line 11..12:
-: Dialog function which allows to show the dialog when the element is created or edited.
+: The `dialog()` method allows to show the dialog when a custom element is created or edited.
 
-line 14ff:
-: Computation function which returns the element type specific dictionary of parameters. The dictionary `values` contains the dialog widgets' object values. Numeric values are provided as strings, therefore a type conversion to `float` is done.
+line 14..21:
+: The `compute()` method returns an element type specific dictionary of parameters. The dictionary `values` contains the dialog widgets' object values. Numeric values are provided as strings, therefore a type conversion to `float` is done.
+
+line 23:
+: `gom.run_api()` is executed when the script is started as a service.
 
 ## Service definition
 
@@ -108,15 +111,15 @@ line 4:
 : Service name
 
 line 5:
-: Custom element's Python script path
+: Custom element's Python script path, relative to the App's `scripts/` folder
 
-See [service](../using_services/using_services.md) for details.
+See [Using service](../using_services/using_services.md) for details.
 
 ### Start the service
 
 Start the service using the Manage Services dialog (Apps ► Manage Services… in the ZEISS INSPECT main menu).
 
-See [Using Services &ndash; Managing services](../using_services/using_services.md) for details.
+See [Using services &ndash; Managing services](../using_services/using_services.md#managing-services) for details.
 
 ### Create custom elements interactively
 
@@ -127,6 +130,8 @@ The custom element's service must be running for creating an element.
 ```
 
 ### Create custom elements from Python script
+
+Create a custom element from a Python script by using function `gom.script.scriptedelements.create_actual_draft()` or `gom.script.scriptedelements.create_nominal_draft()`, respectively.
 
 ```{code-block} python
 :caption: Custom element creation from Python script &ndash; Custom actual circle element
@@ -305,11 +310,11 @@ class MyVolumeRegion (gom.api.extensions.actuals.VolumeRegion):
 ```
 
 line 18..21:
-: `gom.api.dialog.create ()` returns the dialog object (`dlg`), which allows to access the `volume_ele` widget object. For this purpose, the method <a href="../../python_api/python_api.html#gom-api-extensions-scriptedelement-show-dialog">show_dialog()</a> used in the previous examples has been replaced by a sequence of other method.
+: `gom.api.dialog.create ()` returns the dialog object (`dlg`), which allows to access the `volume_ele` widget object. For this purpose, the method <a href="../../python_api/python_api.html#gom-api-extensions-scriptedelement-show-dialog">show_dialog()</a> used in the previous examples has been replaced by a sequence of other methods.
 
 ### Using the dialog control widget and event handler
 
-In the context of custom elements, the <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#control-widget">Control widget</a> allows to show a message and to disable the 'ok' button in case any condition for creating an element is not met, e.g. not all parameters have been specified yet or the computation has failed for some reason.
+When implementing custom elements, the <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#control-widget">Control widget</a> allows to show messages and to disable the 'ok' button in case any condition for creating an element is not met, e.g. not all parameters have been specified yet or the computation has failed for some reason.
 
 ```{code-block} python
 :caption: Offset point example with dialog control widget and event handler
