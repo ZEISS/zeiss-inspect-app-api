@@ -73,7 +73,7 @@ line 2..3:
 : Import custom element specific packages &ndash; `gom.api.extensions.nominals` for nominal elements and `gom.api.extensions.actuals` for actual elements.
 
 line 5..6:
-: The class `MinimalPointExample` is inherited from <a href="../../python_api/python_api.html#gom-api-extensions-actuals-point">gom.api.extensions.actuals.Point</a>. The decorator `@apicontribution` allows to register the class `MyGeometry` in the ZEISS INSPECT framework.
+: The class `MinimalPointExample` is inherited from <a href="../../python_api/python_api.html#gom-api-extensions-actuals-point">gom.api.extensions.actuals.Point</a>. The decorator `@apicontribution` allows to register the class `MinimalPointExample` in the ZEISS INSPECT framework.
 
 line 8..9:
 : The constructor calls the super class constructor while setting a unique contribution ID and a (human readable) description.
