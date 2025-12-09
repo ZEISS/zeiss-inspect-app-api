@@ -19,7 +19,7 @@ download and install Python 3.9 from [www.python.org](https://www.python.org/).
 Install the zeiss-inspect-api Python wheel matching your ZEISS INSPECT version via command line:
 
 ```
-python -m pip install zeiss-inspect-api==2025.*
+python -m pip install zeiss-inspect-api==2026.*
 ```
 
 ### ZEISS INSPECT configuration
