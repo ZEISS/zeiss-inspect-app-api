@@ -2,7 +2,7 @@
 
 # Custom checks
 
-Custom checks always refer to a geometric target element, in most cases an actual element. Therefore the name of a check (or inspection) element is typically composed of the target element's name and an abbreviation indicating the check's purpose. For example, a radius check on the circle element 'Circle 1' could be named 'Circle1.R'
+Custom checks always refer to a geometric target element, in most cases an actual element. Therefore the name of a check (or inspection) element is typically composed of the target element's name and an abbreviation indicating the check's purpose. For example, a radius check on the circle element 'Circle 1' could be named 'Circle1.R'.
 
 Checks can be applied to
 
