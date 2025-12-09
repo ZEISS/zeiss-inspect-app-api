@@ -84,7 +84,7 @@ class MinimalScalarCheck (gom.api.extensions.inspections.Scalar):
 
     def compute (self, context, values):
         # ----------------------------------------------------
-        # --- insert your calculation  here ------------------
+        # --- insert your computation here -------------------
         # ----------------------------------------------------
         actual_result = 1.0
         nominal_result = 2.0
@@ -112,7 +112,7 @@ line 18..28:
 : The `dialog()` method applies an element filter (see <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#selection-element-widget">Selection element widget</a>) and to copies the dialog handle to the member `dlg` for using in `event()`.
 
 line 30..39:
-: The `event()` method sets the custom check's element name
+: The `event()` method sets the custom check's element name.
 
 line 41..53:
 : The `compute()` method uses constant actual and nominal values for demonstration purposes.
