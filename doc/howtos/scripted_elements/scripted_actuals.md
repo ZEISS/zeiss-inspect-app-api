@@ -1,4 +1,8 @@
-# Scripted actuals
+# Scripted actuals (deprecated)
+
+```{warning}
+The scripted elements API is deprecated and will be removed in the next ZEISS INSPECT version. Please use the new [Extensions API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/python_api.html#gom-api-extensions-scriptedelement) instead.
+```
 
 ![Scripted actual point in Explorer](assets/scripted_actual_explorer.png)
 

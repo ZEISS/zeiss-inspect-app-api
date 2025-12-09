@@ -1,4 +1,8 @@
-# Scripted checks
+# Scripted checks (deprecated)
+
+```{warning}
+The scripted elements API v0 is deprecated and will be removed in the next ZEISS INSPECT version. Please use the new [Extensions API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/python_api.html#gom-api-extensions-scriptedelement) instead.
+```
 
 ```{note}
   This section assumes that you are familiar with the basic concept of Scripted elements. If not, take a look at the [Introduction](scripted_elements_introduction.md) and [Scripted actuals](scripted_actuals.md) sections.

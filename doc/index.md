@@ -20,7 +20,7 @@ Or, depending on your application, you might be interested in the specific artic
 * [Access Point: ZEISS INSPECT CMM](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/access_point_zeiss_inspect_cmm.html)
 * [Access Point: ZEISS INSPECT VMM](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/access_point_zeiss_inspect_vmm.html)
 * [Access Point: Airfoil Inspection](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/access_point_gom_blade_inspect.html)
-* [Access Point: ZEISS CORRELATE](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/access_point_zeiss_inspect_correlate.html)
+* [Access Point: ZEISS CORRELATE](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/access_point_zeiss_inspect_correlate.html)
 
 ```
 If you are new to Apps, you find some introductions in the ZEISS Quality Tech Guide:
@@ -42,6 +42,8 @@ Check out the ZEISS INSPECT Apps news page!
 .. toctree::
    :hidden:
 
+   news/20251127-jupyter-notebook
+   news/20251126-update-dialog-widgets
    news/20251125-release-2026
    news/20250804-workflow-assistant
    news/20250516-update-vscode
@@ -98,6 +100,7 @@ Furthermore, we recommend following our How-to Guides to get you started.
 
    howtos/using_vscode_editor/using_vscode_editor
    howtos/app_documentation/app_documentation
+   howtos/custom_elements/custom_elements_toc
    howtos/scripted_elements/scripted_elements_toc
    howtos/python_api_introduction/using_script_resources
    howtos/stages/stages
