@@ -103,19 +103,22 @@ line 2..5:
 : Import custom check specific packages.
 
 line 7..8:
-: The decorator `apicontribution` allows to register the `MyGeometry` class, which is derived from <a href="../../python_api/python_api.html#gom-api-extensions-inspections-scalar">gom.api.extensions.inspections.Scalar</a>, in the ZEISS INSPECT framework.
+: The class `MinimalScalarCheck` is inherited from [gom.api.extensions.inspections.Scalar](../../python_api/python_api.html#gom-api-extensions-inspections-scalar). The decorator `@apicontribution` allows to register the class `MinimalScalarCheck` in the ZEISS INSPECT framework.
 
-line 8..14:
-: Constructor which calls the super class constructor with definition of unique contribution ID, (human readable) description, dimension and abbreviation.
+line 10..16:
+: The constructor calls the super class constructor while defining unique contribution ID, (human readable) description, dimension and abbreviation.
 
-line 16ff:
-: Overloaded `dialog` method to apply an element filter (see <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#selection-element-widget">Selection element widget</a>) and to copy the dialog handle to a class member `dlg` for using in `event()`.
+line 18..28:
+: The `dialog()` method applies an element filter (see <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#selection-element-widget">Selection element widget</a>) and to copies the dialog handle to the member `dlg` for using in `event()`.
 
-line 28ff:
-: Overloaded event() method for setting the custom check's element name
+line 30..39:
+: The `event()` method for sets the custom check's element name
 
-line 39ff:
-: Computation function with constant actual and nominal values for demonstration purposes.
+line 41..53:
+: The `compute()` uses constant actual and nominal values for demonstration purposes.
+
+line 55:
+: `gom.run_api()` is executed when the script is started as a service.
 
 ## References
 
