@@ -8,7 +8,7 @@ You normally start the ZEISS INSPECT application from the ZEISS Quality Suite. I
 * From the App Editor
 * Via App ► Execute Script
 * Via App ► Execute Script From File... 
-* From a customized entry in the menu bar (Script properties dialog ► Edit menu bar... - see [ZEISS Quality Tech Guide: How to Create an Advanced App](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/how_to_create_an_advanced_add_on.html) for details)
+* From a customized entry in the menu bar (Script properties dialog ► Edit menu bar... - see [ZEISS Quality Tech Guide: How to Create an Advanced App](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/how_to_create_an_advanced_add_on.html) for details)
 
 ## Starting a script from the Windows command line
 
@@ -17,7 +17,7 @@ You normally start the ZEISS INSPECT application from the ZEISS Quality Suite. I
 You start ZEISS INSPECT from the command line with
 
 ```
-"C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe"
+"C:\Program Files\Zeiss\INSPECT\2026\bin\ZEISS_INSPECT.exe"
 ```
 
 % https://forum.gom.com/topic/3130-license-key-is-not-seen-when-started-from-windows-task-scheduler/
@@ -26,13 +26,13 @@ You start ZEISS INSPECT from the command line with
 This will start the application with all available licenses. You can specify the desired licenses with the parameter `-license`, e.g.
 
 ```
-"C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -license volume
+"C:\Program Files\Zeiss\INSPECT\2026\bin\ZEISS_INSPECT.exe" -license volume
 ```
 
 By default, all licensed Apps with a valid license and all license-free Apps are visible in the application. This can be changed with the parameter `-packages`, which restricts the visible Apps to those listed by UUID:
 
 ```
-"C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -packages 36687b47-6ee0-448c-886a-eba02c9d0329,a8c6baec-c6ed-409d-a2dc-dd3d032db8bd
+"C:\Program Files\Zeiss\INSPECT\2026\bin\ZEISS_INSPECT.exe" -packages 36687b47-6ee0-448c-886a-eba02c9d0329,a8c6baec-c6ed-409d-a2dc-dd3d032db8bd
 ```
 
 You find the UUID in the App's `metainfo.json` file.
@@ -44,7 +44,7 @@ The initial appearance of the ZEISS INSPECT window can be set with the parameter
 The software configuration is stored in the file `%APPDATA%\GOM\<VERSION>\gomsoftware.cfg`. You can make a copy of the configuration created for a special purpose and later apply it with the parameter `-config`:
 
 ```
-"C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -config C:\temp\my_inspection.cfg
+"C:\Program Files\Zeiss\INSPECT\2026\bin\ZEISS_INSPECT.exe" -config C:\temp\my_inspection.cfg
 ```
 
 ```{caution}
@@ -58,13 +58,13 @@ You start ZEISS INSPECT and execute a script with `-eval "gom.script.userscript.
 Example: `<App_Folder>/scripts/tools/convert_mesh.py`
 
 ```
-"C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.tools__convert_mesh()"
+"C:\Program Files\Zeiss\INSPECT\2026\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.tools__convert_mesh()"
 ```
 
 `<scriptfolder>` can be omitted if the script is located in an App `scripts/` folder:
 
 ```
-"C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.convert_mesh()"
+"C:\Program Files\Zeiss\INSPECT\2026\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.convert_mesh()"
 ``` 
 
 % https://iqs-jira.zeiss.org/browse/SW2023-12585 -> -script <path>
@@ -72,7 +72,7 @@ Example: `<App_Folder>/scripts/tools/convert_mesh.py`
 If the script's name is not unique within all installed Apps and connected App folders, you can also execute the script by specifying its file path with the parameter `-script`:
 
 ```
-"C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -script "C:\temp\convert.py"
+"C:\Program Files\Zeiss\INSPECT\2026\bin\ZEISS_INSPECT.exe" -script "C:\temp\convert.py"
 ```
 
 #### Passing parameters to a script
@@ -82,7 +82,7 @@ If the script's name is not unique within all installed Apps and connected App f
 You can execute a script with parameters by passing a Python dictionary to it:
 
 ```
-"C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.myscript(parameters={'variable_1':'value_1','variable_2':'value_2'})"
+"C:\Program Files\Zeiss\INSPECT\2026\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.myscript(parameters={'variable_1':'value_1','variable_2':'value_2'})"
 ```
 
 In the script, you can access the variables directly by name:
@@ -117,7 +117,7 @@ if 'variable_1' not in globals() or 'variable_2' not in globals():
 In case the script's name is not unique within the available Apps, you can select the desired App by passing its UUID:
 
 ```
-"C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.myscript(app_uuid='6e2abfb2-48b5-4161-9967-f2e2a57c1eae')"
+"C:\Program Files\Zeiss\INSPECT\2026\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.myscript(app_uuid='6e2abfb2-48b5-4161-9967-f2e2a57c1eae')"
 ```
 
 ### Non-interactive script execution
@@ -140,7 +140,7 @@ gom.interactive.automation.execute_active_measurement_series (clear_measurement_
 
 % https://forum.gom.com/topic/1083-make-a-gom-script-run-automatically/
 
-1. Create a Windows shortcut of the application (e.g. `C:\\Program Files\\Zeiss\\INSPECT\\2023\\bin\\ZEISS_INSPECT.exe`)
+1. Create a Windows shortcut of the application (e.g. `C:\\Program Files\\Zeiss\\INSPECT\\2026\\bin\\ZEISS_INSPECT.exe`)
 
 ![ZEISS INSPECT shortcut](assets/ZEISS_INSPECT_shortcut.png)
 
@@ -167,13 +167,13 @@ You can create a batch file to start ZEISS INSPECT for executing a script. This 
 Create a batch file (e.g. `ZEISS_INSPECT_myscript.bat`) with a text editor and insert your command line:
 
 ```
-"C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.myscript(parameters={'variable_1':'value_1','variable_2':'value_2'})"
+"C:\Program Files\Zeiss\INSPECT\2026\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.myscript(parameters={'variable_1':'value_1','variable_2':'value_2'})"
 ```
 
 Executing this batch file will open a Command Prompt window. If this is not desired, start the application with the Windows `start` command:
 
 ```
-start \b "" "C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.myscript(parameters={'variable_1':'value_1','variable_2':'value_2'})"
+start \b "" "C:\Program Files\Zeiss\INSPECT\2026\bin\ZEISS_INSPECT.exe" -eval "gom.script.userscript.myscript(parameters={'variable_1':'value_1','variable_2':'value_2'})"
 ```
 
 `start \b` starts an application without opening a new Command Prompt window.
@@ -185,7 +185,7 @@ start \b "" "C:\Program Files\Zeiss\INSPECT\2023\bin\ZEISS_INSPECT.exe" -eval "g
 % https://forum.gom.com/topic/1534-how-to-call-a-gom-user-script-which-accepts-inputs-using-external-python-program/
 % https://forum.gom.com/topic/265-external-python-interpreter-issue/ -> Python subprocess - advanced
 
-ZEISS INSPECT comes with its own Python interpreter (`C:\Program Files\Zeiss\INSPECT\2023\python`) for executing scripts. You can use this Python installation - or an external Python installation - to start ZEISS INSPECT.
+ZEISS INSPECT comes with its own Python interpreter (`C:\Program Files\Zeiss\INSPECT\2026\python`) for executing scripts. You can use this Python installation - or an external Python installation - to start ZEISS INSPECT.
 
 ![ZEISS INSPECT Python file](assets/ZEISS_INSPECT_python.png)
 
@@ -194,7 +194,7 @@ Example: `ZEISS_INSPECT_myscript.py`
 ```{code-block} python
 import subprocess
 
-subprocess.run(["C:/Program Files/Zeiss/INSPECT/2023/bin/ZEISS_INSPECT.exe", "-eval", "gom.script.userscript.myscript(parameters={'variable_1':'value_1','variable_2':'value_2'})"], check=False)
+subprocess.run(["C:/Program Files/Zeiss/INSPECT/2026/bin/ZEISS_INSPECT.exe", "-eval", "gom.script.userscript.myscript(parameters={'variable_1':'value_1','variable_2':'value_2'})"], check=False)
 ```
 
 ```{note}
