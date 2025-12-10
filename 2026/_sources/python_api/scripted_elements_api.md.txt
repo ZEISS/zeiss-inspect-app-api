@@ -6,6 +6,10 @@
 
 # Scripted elements API
 
+```{warning}
+The **Scripted elements API** is deprecated and will be removed in the next ZEISS INSPECT version. Please use the new [Extensions API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/python_api.html#gom-api-extensions) for creating [Custom elements](../howtos/custom_elements/custom_elements_toc.md) instead.
+```
+
 This reference describes functions and data structures necessary for the implementation of "scripted elements".
 
 ```{seealso}
