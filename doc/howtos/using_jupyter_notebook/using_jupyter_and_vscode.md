@@ -50,7 +50,7 @@
 
       ![Open in Integrated Terminal](assets/vscode-open_in_terminal.png)
 
-   2. In the Terminal, activate the virtual environment and run `python -m pip install zeiss-inspect-api==2025.*`
+   2. In the Terminal, activate the virtual environment and run `python -m pip install zeiss-inspect-api==2026.*`
 
       ![](assets/vscode-install_zeiss-inspect-api.png)
 
