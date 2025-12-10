@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" sizes="16x16" type="image/png" href="../../_static/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creating and modifying scripted elements from scripts &mdash; App Development Documentation</title>
+  <title>Creating and modifying scripted elements from scripts (deprecated) &mdash; App Development Documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme_zeiss.css?v=c4491741" />
 
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Tokens on scripted elements" href="tokens_on_scripted_elements.html" />
-    <link rel="prev" title="Scripted checks" href="scripted_checks.html" /> 
+    <link rel="next" title="Tokens on scripted elements (deprecated)" href="tokens_on_scripted_elements.html" />
+    <link rel="prev" title="Scripted checks (deprecated)" href="scripted_checks.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -64,16 +64,17 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../using_vscode_editor/using_vscode_editor.html">Using Visual Studio Code as App editor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../app_documentation/app_documentation.html">Documenting Apps</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="scripted_elements_toc.html">Scripted elements</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="scripted_elements_introduction.html">Introduction to scripted elements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripted_actuals.html">Scripted actuals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scripted_checks.html">Scripted checks</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating and modifying scripted elements from scripts</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../custom_elements/custom_elements_toc.html">Custom elements</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="scripted_elements_toc.html">Scripted elements (deprecated)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scripted_elements_introduction.html">Introduction to scripted elements (deprecated)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripted_actuals.html">Scripted actuals (deprecated)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scripted_checks.html">Scripted checks (deprecated)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating and modifying scripted elements from scripts (deprecated)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#non-interactive-creation">Non-interactive creation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#non-interactive-modification">Non-interactive modification</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="tokens_on_scripted_elements.html">Tokens on scripted elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tokens_on_scripted_elements.html">Tokens on scripted elements (deprecated)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/using_script_resources.html">Using script resources</a></li>
@@ -124,8 +125,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="scripted_elements_toc.html">Scripted elements</a></li>
-      <li class="breadcrumb-item active">Creating and modifying scripted elements from scripts</li>
+          <li class="breadcrumb-item"><a href="scripted_elements_toc.html">Scripted elements (deprecated)</a></li>
+      <li class="breadcrumb-item active">Creating and modifying scripted elements from scripts (deprecated)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -134,8 +135,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="creating-and-modifying-scripted-elements-from-scripts">
-<h1>Creating and modifying scripted elements from scripts<a class="headerlink" href="#creating-and-modifying-scripted-elements-from-scripts" title="Link to this heading"></a></h1>
+  <section id="creating-and-modifying-scripted-elements-from-scripts-deprecated">
+<h1>Creating and modifying scripted elements from scripts (deprecated)<a class="headerlink" href="#creating-and-modifying-scripted-elements-from-scripts-deprecated" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The scripted elements API is deprecated and will be removed in the next ZEISS INSPECT version. Please use the new <a class="reference external" href="https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/python_api.html#gom-api-extensions-scriptedelement">Extensions API</a> instead.</p>
+</div>
 <section id="non-interactive-creation">
 <h2>Non-interactive creation<a class="headerlink" href="#non-interactive-creation" title="Link to this heading"></a></h2>
 <p>You use the command <code class="docutils literal notranslate"><span class="pre">gom.script.sys.create_element_by_script()</span></code> to create a scripted element from a script without opening its dialog. This example uses a <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/scripted_actuals/ScriptedActualDistance/doc/Documentation.md">scripted actual distance</a>:</p>
@@ -197,8 +202,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="scripted_checks.html" class="btn btn-neutral float-left" title="Scripted checks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tokens_on_scripted_elements.html" class="btn btn-neutral float-right" title="Tokens on scripted elements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="scripted_checks.html" class="btn btn-neutral float-left" title="Scripted checks (deprecated)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tokens_on_scripted_elements.html" class="btn btn-neutral float-right" title="Tokens on scripted elements (deprecated)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -215,7 +220,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f12d2582c10>
+  <jinja2.runtime.BlockReference object at 0x7fc46a633e00>
 
 
 </footer>

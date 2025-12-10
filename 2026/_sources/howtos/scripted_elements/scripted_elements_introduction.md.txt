@@ -1,4 +1,8 @@
-# Introduction to scripted elements
+# Introduction to scripted elements (deprecated)
+
+```{warning}
+The scripted elements API is deprecated and will be removed in the next ZEISS INSPECT version. Please use the new [Extensions API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/python_api.html#gom-api-extensions-scriptedelement) instead.
+```
 
 This documentation is intended to demonstrate the ability to create parametric elements in the ZEISS INSPECT Software using custom Python code.
 

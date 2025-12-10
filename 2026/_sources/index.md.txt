@@ -100,6 +100,7 @@ Furthermore, we recommend following our How-to Guides to get you started.
 
    howtos/using_vscode_editor/using_vscode_editor
    howtos/app_documentation/app_documentation
+   howtos/custom_elements/custom_elements_toc
    howtos/scripted_elements/scripted_elements_toc
    howtos/python_api_introduction/using_script_resources
    howtos/stages/stages
