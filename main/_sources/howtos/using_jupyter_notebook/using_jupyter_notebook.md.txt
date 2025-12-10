@@ -33,7 +33,7 @@ The following commands must be executed in the virtual environment `jupyter_env`
 Install the [ZEISS INSPECT API wheel](https://pypi.org/project/zeiss-inspect-api/):
 
 ```{code-block} powershell
-python -m pip install zeiss-inspect-api==2025.*
+python -m pip install zeiss-inspect-api==2026.*
 ```
 
 Install the [Jupyter metapackage](https://pypi.org/project/jupyter/) which provides Jupyter Notebook:
