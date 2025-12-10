@@ -628,6 +628,57 @@ The category of an element type is used to find the application side counterpart
 functionality implementation. For example, `scriptedelement.actual` links that element type the application
 counterpart which cares for scripted actual elements and handles its creation, editing, administration, ...
 
+**Storing custom element data**
+
+In principle, each scripted element type consists of functions which will get input via function parameters and
+generate output by returning a value, usually a dictionary object with named entries. For example, if a scripted
+nominal command creates a nominal point, the `compute ()` function could return a dictionary like this:
+
+```
+{
+    'position': (x, y, z),
+    'normal':   (nx, ny, nz)
+}
+```
+
+This is defined in details with the respective element type documentation. The returned values are then stored
+in the project file and belong to the element. The keys of the returned dictionary are the data keys which are fixed
+for each element type and element specific.
+
+In addition to these fixed data keys, each scripted element can also store custom data entries. These entries
+are not predefined by the element type, but can be freely defined by the scripted element implementation. This is not a
+function result, it is more like an additional data storage which is associated with the element instance, for example
+for caching intermediate results, storing additional metadata, ... Thus, custom element data is accessed via the `context`
+object passed to each function. The context custom data is staged, so each stage has its own custom data storage, and the current
+stage is always the one used for data access
+
+Example:
+```
+def compute (self, context, values):
+    # Access custom data for the current stage.
+    if 'intermediate_result' in context.data:
+        intermediate_result = context.data['intermediate_result']
+
+    else:
+        # Compute intermediate result and write it to custom data for later reuse.
+        # The type is arbitrary, as long as it is serializable. Using a dictionary here
+        # is usually a good choice.
+        intermediate_result = ... # Compute intermediate result
+        context.data = {'intermediate_result': intermediate_result,
+                        'computed': True}
+
+    # Compute final result
+    result = ...
+    return result
+```
+
+The size of the data storage is not limited, but it should be kept in mind that all data must be serialized
+and stored in the project file. Therefore, large data structures should be avoided here. Also, calls to
+`context.data` can be relatively expensive due to serialization and deserialization, so frequent access
+should be avoided. Also, extremely large data structures may not be storable at all due to internal limits.
+
+The custom data can be cleared per stage by setting an empty dictionary to `context.data = {}`.
+
 #### gom.api.extensions.ScriptedElement.Attribute
 
 
@@ -1265,6 +1316,274 @@ Scripted actual volume section element
 
 Scripted actual volume segmentation element
 
+### gom.api.extensions.diagrams
+
+Scripted diagrams
+
+The classes in this module enable the user to define scripted diagrams. A scripted diagram implements an 
+interface to transform element data into data that can be rendered by a corresponding Javascript renderer
+implementation in the diagram view.
+
+#### gom.api.extensions.diagrams.SVGDiagram
+
+
+Specialized contribution base for scripted diagrams that are displayed via the SVGDiagram renderer type provided by the Inspect app.
+
+Provides the helper functions 'finish_plot' and 'add_element_coord' to streamline the creation of the plot data for the SVGRenderer.
+
+In the most basic form, implement the 'plot' function to return a stringified svg plot. 
+Such data will automatically be sanitized to the full output format.
+
+For additional interactivity, implement the 'plot' function by returning data using the 'finish_plot(svg_string, overlay)' helper,
+where 'svg_string' is the stringified svg plot 
+and 'overlay' is a point overlay for interaction, that can be created using the 'add_element_coord' helper function.
+
+##### gom.api.extensions.diagrams.SVGDiagram.RenderConfigToken
+
+
+Token identifiers for the optional rendering configuration passed to the SVGDiagram renderer via Token.RENDER_CONFIG parameter
+
+"debug_logging" - Enable general logging (default: False)
+
+"debug_logging_trace" - Enable detailed result logging (default: False)
+
+"debug_performance" - Enable performance measuring during the (overlay) rendering process (default: False)
+
+"debug_always_show_overlay" - Always show the standard overlay with small black crosses (default: False)
+
+"debug_auto_generated_overlay_show" - Show the hitboxes of the auto generated overlay if available (default: False)
+
+"debug_nearest_point_show" - Show a small text with the uuid of the nearest element (default: False)
+
+"debug_nearest_point_x" - X-coordinate of nearest element text if enabled (default: 50)
+
+"debug_nearest_point_y" - Y-coordinate of nearest element text if enabled (default: 50)
+
+"debug_mouse_position_show" - Show a marker on the element nearest to the mouse (if in range) (default: True)
+
+"nearest_marker_shape" - Shape of the nearest element marker (default: "cross") (options: "cross", "square", "circle", "dot")
+
+"nearest_marker_color" - Color of the nearest element marker (default: automatic color from diagram view)
+
+"nearest_marker_size" - Size of the nearest element marker (default: 5)
+
+"disable_tooltips" - Disables all element tooltips of the diagram from being displayed (default: False)
+
+"disable_mouse_events" - Disables mouse (click) events from being processed (default: False)
+
+"custom_hash" - If defined, use this as a hash for the caching instead of a generated one (default: undefined)
+
+"auto_generated_overlay_use" - Automatically generate a overlay to determine the hitboxes of elements based on tagged svg groups (default: False)
+
+"overlay_tag_prefix" - Prefix of user defined tags to filter the svg by (default: "tag-" (Token.TAG_PREFIX))
+
+"overlay_tag_suffix" - Suffix of user defined tags to filter the svg by (default: "-tag" (Token.TAG_SUFFIX))
+
+"overlay_expand_hitboxes" - Expand every hitbox in the auto generated overlay by this number of pixels (default: 10)
+
+"overlay_use_mouse_position" - If TRUE, always use the mouse position instead of a point from the element coords if interacting via the auto generated overlay (default: False)
+
+"overlay_filter_method" - Select the SVG filtering method used to generated the overlay (default: "string-parser") (options: "string-parser", "dom-parser")
+
+"overlay_element_count" - Count of elements to be tracked by the overlay. (default: automatic)
+
+##### gom.api.extensions.diagrams.SVGDiagram.Token
+
+
+Token identifiers for the SVGDiagram renderer data format
+
+##### gom.api.extensions.diagrams.SVGDiagram.add_element_to_overlay
+
+```{py:function} gom.api.extensions.diagrams.SVGDiagram.add_element_to_overlay(self: Any, overlay: Dict[str, Dict[str, Any]], element_uuid: Any, interaction_point: Tuple[float, float], element_name: str, tooltip: Any, custom_interaction: Any): None
+
+:param overlay: Dict matching element uuids to the information about that element, that is returned with the added entry
+:type overlay: Dict[str, Dict[str, Any]]
+:param element_name: Optional readable element identification
+:type element_name: str
+:param element_uuid: 'uuid' of the element that is being added
+:type element_uuid: Any
+:param tooltip: Optional tooltip to be displayed when hovering the element
+:type tooltip: Any
+:param interaction_point: Interaction coordinates (x, y) for the element that is being added. Should be in relative coordinates to width and height of the plot (see matplotlib_tools - get_display_coords)
+:type interaction_point: Tuple[float, float]
+:param custom_interaction: Flag that, if set to any truthy value, calls the event function when the specific element is interacted with. Set for the specific interaction point (if given), globally for this element otherwise
+:type custom_interaction: Any
+:return: overlay, dictionary updated with new information for the given element
+:rtype: None
+```
+
+This function is called to add element information to the overlay interaction dictionary.
+Calling the function multiple times for the same element adds the interaction points to a list. 
+Other properties for the element are updated if new valid values are given.
+
+##### gom.api.extensions.diagrams.SVGDiagram.finish_plot
+
+```{py:function} gom.api.extensions.diagrams.SVGDiagram.finish_plot(self: Any, svg_string: str, overlay: List, render_config: Dict): None
+
+:param svg_string: List of element coordinates that is returned with the added entry
+:type svg_string: str
+:param overlay: Point overlay for interaction
+:type overlay: List
+:param render_config: Dictionary with optional render settings
+:type render_config: Dict
+:return: Dictionary with svg_string, overlay and diagram_id as keys
+:rtype: None
+```
+
+This function is called to help return plot data for the SVGDiagram renderer in the correct format.
+
+##### gom.api.extensions.diagrams.SVGDiagram.get_overlay_tag
+
+```{py:function} gom.api.extensions.diagrams.SVGDiagram.get_overlay_tag(self: Any, element_uuid: str): str
+
+:param element_uuid: 'uuid' of the element corresponding to the tag
+:type element_uuid: str
+```
+
+Get the tag for the automatic SVG overlay generation based on the element 'uuid'
+
+##### gom.api.extensions.diagrams.SVGDiagram.sanitize_plot_data
+
+```{py:function} gom.api.extensions.diagrams.SVGDiagram.sanitize_plot_data(self: Any, plot_data: Any): None
+```
+
+Sanitize the data returned by the user defined 'plot()' function.
+
+The SVGDiagram renderer expects a dictionary with fields 'svg_string', 'overlay' and 'diagram_id'.
+
+#### gom.api.extensions.diagrams.ScriptedDiagram
+
+
+This class is used to defined a polisher for a scripted diagram that processes a collection of raw 
+element (diagram) data into a format used by a Javascript based renderer.
+
+Implement the `plot ()` function to receive and polish diagram data that is marked with the corresponding contribution id.
+
+Optionally implement the `partitions ()` function to partition the full set of diagram data into subsets 
+that are rendered separately using the `plot ()` function.
+
+##### gom.api.extensions.diagrams.ScriptedDiagram.Token
+
+
+Token identifiers for the ScriptedDiagram data format
+
+##### gom.api.extensions.diagrams.ScriptedDiagram.__init__
+
+```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.__init__(self: Any, id: str, description: str, diagram_type: str, properties: Dict[str, Any], callables: Dict[str, Any]): None
+
+:param id: Unique contribution id, like `my.diagram.circles`
+:type id: str
+:param description: Human readable contribution description
+:type description: str
+:param diagram_type: Javascript renderer to use (leave empty to use renderer set by element)
+:type diagram_type: str
+:param properties: Additional properties for this contribution (optional)
+:type properties: Dict[str, Any]
+:param callables: Additional callables for this contribution (optional)
+:type callables: Dict[str, Any]
+```
+
+Constructor
+
+##### gom.api.extensions.diagrams.ScriptedDiagram.check_and_filter_partitions
+
+```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.check_and_filter_partitions(self: Any, partitions_in: List[List[int]], cnt_elements: int): None
+
+:param partitions_in: List of partitions to check
+:type partitions_in: List[List[int]]
+:param cnt_elements: Count of elements in full data set
+:type cnt_elements: int
+```
+
+Check a given set of partitions to ensure only valid partitions are included.
+
+For internal use only.
+
+##### gom.api.extensions.diagrams.ScriptedDiagram.event
+
+```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.event(self: Any, element_name: str, element_uuid: str, event_data: Any): None
+
+:param element_name: String containing the element identification (name)
+:type element_name: str
+:param element_uuid: String containing the element uuid for internal identification
+:type element_uuid: str
+:param event_data: Contains current mouse coordinates and button presses
+:type event_data: Any
+:return: Dictionary with finish_event(executable script: str, parameters: Any)
+:rtype: None
+```
+
+This function is called upon interaction with the diagram (except hover)
+The user can return a script to be executed when this function is called
+
+##### gom.api.extensions.diagrams.ScriptedDiagram.finish_event
+
+```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.finish_event(self: Any, cmd_script: str, params: Any): None
+
+:param cmd_script: Identification of the script command to be executed as a follow-up to this event
+:type cmd_script: str
+:param params: Optional Parameters to be passed to said script
+:type params: Any
+:return: Dictionary with {"cmd_script": cmd_script, "data_script": params}
+:rtype: None
+```
+
+This function is called to help return event data in the correct format
+
+##### gom.api.extensions.diagrams.ScriptedDiagram.partitions
+
+```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.partitions(self: Any, element_data: List[Dict[str, Any]]): None
+
+:param element_data: List of dictionaries containing scripted element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:type element_data: List[Dict[str, Any]]
+:return: List of Lists of int: each inner list represents one partition and contains the indices of the elements to be used for that partition
+:rtype: None
+```
+
+This function is called to determine the partitions to create multiple plots based on one element data set. 
+Each partition is defined by a list of indices of elements to be used. 
+Each data subset will be passed separately to the plot() function and be rendered as a separate diagram.
+The index of each partition will be available through the 'subplot' key in the view parameters of the plot() function call.
+
+@info Partitions may share elements
+
+##### gom.api.extensions.diagrams.ScriptedDiagram.plot
+
+```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.plot(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
+
+:param view: Dictionary with view canvas data and subplot index ('width' (int), 'height' (int), 'dpi' (float), 'font' (int), 'subplot' (int))
+:type view: Dict[str, Any]
+:param element_data: List of dictionaries containing scripted element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:type element_data: List[Dict[str, Any]]
+:return: Data that is passed to the corresponding Javascript diagram type for rendering
+:rtype: None
+```
+
+This function is called to create a plot based on a set of element data. 
+
+##### gom.api.extensions.diagrams.ScriptedDiagram.plot_all
+
+```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.plot_all(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
+
+:param view:: Dictionary with view canvas data ('width' (int), 'height' (int), 'dpi' (float), 'font' (int)) used for the diagrams of all partitions
+:param element_data: List of dictionaries containing scripted element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:type element_data: List[Dict[str, Any]]
+:return: List of dictionaries: each dictionary contains the keys 'plot' (the plot information for this partition) and 'indices' (the indices of the elements used for this partition)
+:rtype: None
+```
+
+Internal coordination function for the overall plot process.
+
+This functions calls the (potentially) user defined method 'partitions()' to determine
+the partitions of this diagram and then calls 'plot()' for each to data partition to generate a diagram.
+
+##### gom.api.extensions.diagrams.ScriptedDiagram.sanitize_plot_data
+
+```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.sanitize_plot_data(self: Any, plot_data: Any): None
+```
+
+This function is used to sanitize the output of the user defined 'plot' function
+
 ### gom.api.extensions.inspections
 
 
@@ -1748,7 +2067,7 @@ contribution definition can be used.
 
 Example:
 
-```python
+```
 from gom.api.extensions import ScriptedSequence
 
 # Given a leading element of a scripted sequence...
@@ -1758,14 +2077,14 @@ leading_element = ...
 elements = ScriptedSequence.get_sequence_elements(leading_element)
 
 # ...get all child elements of the sequence
-children = ScriptedSequence.get_child_elements(leading_element)
+children = ScriptedSequence.get_child_elements(leading_element)    
 ```
 
 ##### gom.api.extensions.sequence.ScriptedSequence.__init__
 
 ```{py:function} gom.api.extensions.sequence.ScriptedSequence.__init__(self: Any, id: str, description: str, properties: Dict[str, Any]): None
 
-:param id: Unique contribution id, like 'special_point'
+:param id: Unique contribution id, like `special_point`
 :type id: str
 :param description: Human readable contribution description
 :type description: str
@@ -3995,6 +4314,57 @@ are integer, double, string and bool.
 ```
 gom.api.settings.set ('dialog.width', 640)
 gom.api.settings.set ('dialog.height', 480)
+```
+
+## gom.api.table
+
+API for table data handling
+
+This module provides utilities and API entry points to parse table templates (XML), map project inspection data into
+those templates, and produce a serializable view representation suitable for direct rendering by the UI.
+
+### gom.api.table.get_view_data
+
+```{py:function} gom.api.table.get_view_data(xml_data: str, mode: str): dict
+
+Generate table view data from an XML table template and the current project's inspection elements.
+:param xml_data: XML string containing the table template definition
+:type xml_data: str
+:param mode: Content mode: 'inspection', 'measurements', or 'alignments'
+:type mode: str
+:return: JSON formatted dictionary for rendering the table view
+:rtype: dict
+```
+
+Returns a GUI-ready table representation built from a table XML template and the active project.
+Call this API when you need a serializable table describing inspection elements for display in
+the UI. The result contains `headers` and `rows`; each row contains `cells` with resolved text
+and token data (icons, numbers, text, etc). Use the returned maps directly in JavaScript or UI code.
+
+- Token order and whitespace are preserved.
+- Icons are returned as data-uris (PNG) when available.
+- HTML-like fragments in cell text are sanitized.
+- When the template contains a dynamic check column, the function collects all scalar-check elements related to an
+inspection parent and expands the last header into one column per unique check type, filling missing values with
+empty cells.
+
+**Example of return value:**
+```json
+{
+   "headers": [ {"text":"Name", "alignment":"left", "font_style":{"family":"Arial","size":12}}, "...":"" ],
+   "rows": [ {
+      "cells": [ {
+         "text":"Bolt A",
+         "values":[
+           {"type":"icon","value":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."},
+           {"type":"text","value":"Bolt A"}
+         ],
+         "alignment":"left",
+         "background_color":"#ffffff",
+         "font_style":{"family":"Arial","size":10}
+      }, "...":"" ]
+   }, "...":"" ]
+ }
 ```
 
 ## gom.api.testing
