@@ -42,6 +42,9 @@ myst_fence_as_directive = ["mermaid"]
 # Unfortunately, suppressing this only for a single file does not seem to work...
 suppress_warnings  = ['myst.header']
 
+# -- Options for mermaid
+mermaid_params = ['--backgroundColor', 'transparent']
+
 # -- Options for Jupyter Notebook --------------------------------------------
 jupyter_execute_notebooks = "off"
 
