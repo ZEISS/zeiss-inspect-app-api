@@ -43,7 +43,7 @@ myst_fence_as_directive = ["mermaid"]
 suppress_warnings  = ['myst.header']
 
 # -- Options for mermaid -----------------------------------------------------
-mermaid_params = ['-b', 'transparent']
+mermaid_params = ['-b', 'white']
 
 # -- Options for Jupyter Notebook --------------------------------------------
 jupyter_execute_notebooks = "off"
