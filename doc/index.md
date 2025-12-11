@@ -153,3 +153,12 @@ Available API functions are documented in the Specification.
    python_api/scripted_elements_api
    python_api/resource_api
 ```
+
+```{mermaid}
+
+    sequenceDiagram
+      participant Alice
+      participant Bob
+      Alice->John: Hello John, how are you?
+```
+
