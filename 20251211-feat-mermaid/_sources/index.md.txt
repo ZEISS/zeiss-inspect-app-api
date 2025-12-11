@@ -154,7 +154,7 @@ Available API functions are documented in the Specification.
    python_api/resource_api
 ```
 
-```{mermaid}
+```mermaid
 
     sequenceDiagram
       participant Alice
