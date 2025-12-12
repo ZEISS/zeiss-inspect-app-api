@@ -13,7 +13,15 @@ author = 'Carl Zeiss GOM Metrology GmbH'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['myst_parser', 'sphinx_rtd_theme', 'sphinx_favicon', 'sphinx.ext.githubpages', 'sphinx_sitemap', 'sphinxcontrib.newsfeed']
+extensions = [
+  'myst_parser',
+  'sphinx_rtd_theme',
+  'sphinx_favicon',
+  'sphinx.ext.githubpages',
+  'sphinx_sitemap',
+  'sphinxcontrib.newsfeed',
+  'sphinxcontrib.mermaid'
+]
 source_suffix = ['.rst', '.md']
 
 templates_path = ['_templates']
@@ -28,6 +36,7 @@ myst_enable_extensions = [
 ]
 
 myst_heading_anchors = 4
+myst_fence_as_directive = ["mermaid"]
 
 # Suppress the warning "WARNING: Non-consecutive header level increase" which commonly appears in python_api/python_api.md
 # Unfortunately, suppressing this only for a single file does not seem to work...
@@ -35,6 +44,9 @@ suppress_warnings  = ['myst.header']
 
 # -- Options for Jupyter Notebook --------------------------------------------
 jupyter_execute_notebooks = "off"
+
+# -- Options for mermaid -----------------------------------------------------
+mermaid_params = ['-backgroundColor', 'transparent']
 
 # -- Options for sitemap -----------------------------------------------------
 # https://sphinx-sitemap.readthedocs.io/en/latest/getting-started.html
