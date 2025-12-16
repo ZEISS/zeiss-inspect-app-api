@@ -48,7 +48,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [zeiss_part_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/python_api_introduction/python_api_introduction.html#access-element-properties)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_api_introduction/python_api_introduction.html#access-element-properties)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -73,7 +73,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [zeiss_part_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -98,7 +98,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [volume_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -795,7 +795,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     These are two examples for scripted actual points, which serve as an introduction to the concept of scripted actual elements.
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#point)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#point)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -817,7 +817,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     This is an example for a scripted actual 'point cloud' element.
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#point-cloud)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#point-cloud)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -839,7 +839,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     This is an example for a scripted actual 'section' element.
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#section)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#section)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -861,7 +861,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     This is an example for a scripted actual 'surface' element.
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#surface)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#surface)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -883,7 +883,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     This is an example for a scripted actual 'surface curve' element.
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#surface-curve)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#surface-curve)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -905,7 +905,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     This is an example for a scripted actual 'volume' element.
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#volume)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#volume)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -927,7 +927,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     This is an example for a scripted actual 'volume defects' element.
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#volume-defects)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#volume-defects)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -949,7 +949,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     This is an example for a scripted actual 'volume region' element.
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#volume-region)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#volume-region)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -971,7 +971,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     This is an example for a scripted actual 'volume section' element.
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#volume-section)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#volume-section)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -1018,7 +1018,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [zeiss_part_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#surface)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#surface)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -1047,7 +1047,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [zeiss_part_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_checks.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#scalar-curve)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_checks.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#scalar-curve)
 
 :Required Software:
     ZEISS INSPECT 2023
@@ -1097,7 +1097,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [zeiss_part_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_checks.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#scalar-surface)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_checks.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#scalar-surface)
 
 :Required Software:
     ZEISS INSPECT 2023
