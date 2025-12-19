@@ -17,4 +17,5 @@ The following How-to sections will introduce the concept of custom elements.
    
    custom_nominals_actuals
    custom_checks
+   custom_diagrams
 ```
