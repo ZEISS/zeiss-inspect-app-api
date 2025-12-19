@@ -147,7 +147,7 @@ or
 Interactions are implemented via
 
 Overlay
-: Mapping diagram view coordinates to diagram plot coordinates, providing a tooltip (ptional) or an event function (optioanl).
+: Mapping diagram view coordinates to diagram plot coordinates, providing a tooltip (optional) or an event function (optional).
 
 Events
 : Linking interactions with the diagram to callbacks.
