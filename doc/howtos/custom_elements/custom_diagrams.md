@@ -61,7 +61,7 @@ graph TB
     class MPL matplotlib
 ```
 
-The Application Layer provides raw data from [Custom nominal/actual elements](../custom_nominals_actuals.md) for displaying in a diagram. The Diagram API allows to create diagram data structures (e.g. SVG), optionally by using the [Matplotlib](https://matplotlib.org/) Python library. The Rendering Layer displays the diagram and handles user input for interactive diagrams.
+The Application Layer provides raw data from [Custom nominal/actual elements](custom_nominals_actuals.md) for displaying in a diagram. The Diagram API allows to create diagram data structures (e.g. SVG), optionally by using the [Matplotlib](https://matplotlib.org/) Python library. The Rendering Layer displays the diagram and handles user input for interactive diagrams.
 
 ```mermaid
 ---
@@ -304,7 +304,7 @@ In the following sections, you find
 * [Custom element](#custom-element) &ndash; An example custom element as diagram data source
 * [Basic Custom Diagram](#basic-custom-diagram) &ndash; A minimal example without interactivity
 * [Custom Diagram with Element Overlay](#custom-diagram-with-element-overlay) &ndash; An example with element overlay for interactivity
-* [Custom Diagram with Point Cloud Overlay](#scripted-diagram-with-point-cloud-overlay) &ndash; An example with point cloud overlay for interactivity
+* [Custom Diagram with Point Cloud Overlay](#custom-diagram-with-point-cloud-overlay) &ndash; An example with point cloud overlay for interactivity
 
 ### Custom Element
 
@@ -887,7 +887,7 @@ overlay = {
 
 ## References
 
-* [How-to: Custom Elements](custom_elements.md)
+* [How-to: Custom Elements](custom_elements_toc.md)
 * [How-to: Using Services](../using_services/using_services.md)
 * [Extensions API &ndash; Diagrams](../../python_api/python_api.md#gom-api-extensions-diagrams)
 * [Extensions APi &ndash; SVGDiagram](../../python_api/python_api.md#gomapiextensionsdiagramssvgdiagram)
