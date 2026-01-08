@@ -428,6 +428,8 @@ This function returns the list of registered contributions
 **Example:**
 
 ```
+import gom.api.contributions
+
 for c in gom.api.contributions.get_contributions ():
   print (c.get_id (), c.get_description ())
 ```
@@ -1201,9 +1203,9 @@ The expected parameters from the element's `compute ()` function is a map with t
 ```
 {
     "curves": [Curve],
-    "plane": Plane,
-    "cone": Cone,
-    "cylinder": Cylinder,
+    "plane": Plane,        // Optional
+    "cone": Cone,          // Optional
+    "cylinder": Cylinder,  // Optional
     "data": {...}          // Optional element data, stored with the element        
 }
 ```
@@ -1849,7 +1851,7 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 ```
 {
-    "point": (x: float, y: float, z: float),     // Base point of the cylinder
+    "center": (x: float, y: float, z: float),    // Base point of the cylinder
     "direction": (x: float, y: float, z: float), // Direction of the cylinder
     "radius": r: float,                          // Radius of the cylinder
     "data": {...}                                // Optional element data, stored with the element        
@@ -1881,7 +1883,7 @@ The expected parameters from the element's `compute ()` function is a map with t
 ```
 {
     "normal": (x: float, y: float, z: float), // Normal of the plane
-    "distance": d: float,                     // Distance of the plane
+    "point":  (x: float, y: float, z: float), // Base point of the plane
     "data": {...}                             // Optional element data, stored with the element        
 }
 ```
@@ -1890,9 +1892,10 @@ or
 
 ```
 {
-    "target": plane: Plane,  // Source plane point of this plane
-    "offset": offset: float, // Offset relative to the source place
-    "data": {...}            // Optional element data, stored with the element        
+    "point1": (x: float, y: float, z: float),  // Point 1 of the plane
+    "point2": (x: float, y: float, z: float),  // Point 2 of the plane
+    "point3": (x: float, y: float, z: float),  // Point 3 of the plane
+    "data": {...}                              // Optional element data, stored with the element        
 }
 ```
 
@@ -1963,9 +1966,9 @@ The expected parameters from the element's `compute ()` function is a map with t
 ```
 {
     "curves": [Curve],
-    "plane": Plane,
-    "cone": Cone,
-    "cylinder": Cylinder,
+    "plane": Plane,       // Optional
+    "cone": Cone,         // Optional
+    "cylinder": Cylinder, // Optional
     "data": {...}         // Optional element data, stored with the element        
 }
 ```
