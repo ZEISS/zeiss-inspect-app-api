@@ -499,6 +499,26 @@ Show previously created and configured dialog
 This function shows and executes previously created an configured dialog. The combination of
 'create' and 'show' in effect is the same as calling 'execute' directly.
 
+## gom.api.expressions
+
+API for reading and manipulation of the internal expression cache
+
+Internal functions for debugging and error analysis of the expression system.
+
+### gom.api.expressions.clear_expression_cache
+
+```{py:function} gom.api.expressions.clear_expression_cache(): None
+
+Clear the expression cache
+:API version: 1
+```
+
+This function clears the expression cache maintained by the expression system. It is means to
+be for debugging purposes. The expression cache is used to speed up repeated evaluations of the same
+expressions in labels, tables, auto names, ... and should usually be left alone, as it handles
+itself autonomously. For debugging tasks it can be useful to clear the cache to force re-evaluation
+of expressions nevertheless.
+
 ## gom.api.extensions
 
 API for script based functionality extensions
