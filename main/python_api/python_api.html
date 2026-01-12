@@ -140,6 +140,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-dialog-show">gom.api.dialog.show</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#gom-api-expressions">gom.api.expressions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-expressions-clear-expression-cache">gom.api.expressions.clear_expression_cache</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-extensions">gom.api.extensions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement">gom.api.extensions.ScriptedCalculationElement</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedcalculationelement-init">gom.api.extensions.ScriptedCalculationElement.<strong>init</strong></a></li>
@@ -1151,6 +1155,30 @@ contributions script context is mandatory for the function to work.</p>
 
 <p>This function shows and executes previously created an configured dialog. The combination of
 ‘create’ and ‘show’ in effect is the same as calling ‘execute’ directly.</p>
+</section>
+</section>
+<section id="gom-api-expressions">
+<h2>gom.api.expressions<a class="headerlink" href="#gom-api-expressions" title="Link to this heading"></a></h2>
+<p>API for reading and manipulation of the internal expression cache</p>
+<p>Internal functions for debugging and error analysis of the expression system.</p>
+<section id="gom-api-expressions-clear-expression-cache">
+<h3>gom.api.expressions.clear_expression_cache<a class="headerlink" href="#gom-api-expressions-clear-expression-cache" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.expressions.clear_expression_cache():</span> <span class="pre">None</span></span></dt>
+<dd><p>Clear the expression cache</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function clears the expression cache maintained by the expression system. It is means to
+be for debugging purposes. The expression cache is used to speed up repeated evaluations of the same
+expressions in labels, tables, auto names, … and should usually be left alone, as it handles
+itself autonomously. For debugging tasks it can be useful to clear the cache to force re-evaluation
+of expressions nevertheless.</p>
 </section>
 </section>
 <section id="gom-api-extensions">
@@ -5847,7 +5875,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f50741065f0>
+  <jinja2.runtime.BlockReference object at 0x7f3a9cfb00c0>
 
 
 </footer>
