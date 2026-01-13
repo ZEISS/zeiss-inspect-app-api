@@ -837,12 +837,8 @@ value          (unspecified/various)
 file           (string)
 : Selected file                                                                                                     
 
-type           (string)
-: File type: 'any' (any file), 'new' (not an existing file), 'file' (an existing file), 'multi_file' (multiple existing files), 'directory' (an existing directory)
-
-% Clarify this:
-% selection_type (string)
-% : File selector type (any, directory, executable, file, multi_file)
+selection_type	(string)
+: File selector type: 'any' (any file), 'new' (not an existing file), 'file' (an existing file), 'multi_file' (multiple existing files), 'directory' (an existing directory), 'save_file' (ask for confirmation before overwriting an existing file)
 
 title          (string)
 : File selector dialog title         
