@@ -837,12 +837,8 @@ value          (unspecified/various)
 file           (string)
 : Selected file                                                                                                     
 
-type           (string)
-: File type: 'any' (any file), 'new' (not an existing file), 'file' (an existing file), 'multi_file' (multiple existing files), 'directory' (an existing directory)
-
-% Clarify this:
-% selection_type (string)
-% : File selector type (any, directory, executable, file, multi_file)
+selection_type	(string)
+: File selector type: 'any' (any file), 'new' (not an existing file), 'file' (an existing file), 'multi_file' (multiple existing files), 'directory' (an existing directory), 'save_file' (ask for confirmation before overwriting an existing file)
 
 title          (string)
 : File selector dialog title         
@@ -1514,38 +1510,41 @@ max_length (string)
 
 The Tolerances widget is a group of input widgets which allows to configure all parameters related to tolerances.
 
-expanded       (boolean)
+expanded       			(boolean)
 : Widget is expanded
 
-mode           (string)
+mode           			(string)
 : Tolerance mode  ('no_tolerance', 'via_tolerance_table', 'from_cad', 'manual', 'from_element')
 
-upper          (double)
+upper          			(double)
 : Upper limit
 
-lower          (double)
+lower          			(double)
 : Lower limit
 
-use_upper      (boolean)
+use_upper      			(boolean)
 : Use upper limit
 
-use_lower      (boolean)
+use_lower      			(boolean)
 : Use lower limit
 
-use_warn_limit (boolean)
+use_warn_limit 			(boolean)
 : Use warning level
 
-upper_warn     (double)
+upper_warn     			(double)
 : Upper warn limit
 
-lower_warn     (double)
+lower_warn     			(double)
 : Lower warn limit
 
-link_limits    (boolean)
+link_limits    			(boolean)
 : Link limits
 
-unit           (string)
+unit           			(string)
 : Unit ID
+
+additional_precision	(integer)
+: Additional precision compared to default settings
 
 ```{important}
 The Tolerances widget's result data type depends on the input:
