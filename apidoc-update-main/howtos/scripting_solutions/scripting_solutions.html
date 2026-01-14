@@ -59,7 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/executing_dialogs.html">Executing dialogs</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Scripting solutions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#scripted-elements">Scripted elements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#scripted-checks">Scripted checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scripted-inspections">Scripted inspections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stages">Stages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dialog">Dialog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#element-selection">Element selection</a></li>
@@ -79,7 +79,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../using_vscode_editor/using_vscode_editor.html">Using Visual Studio Code as App editor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../app_documentation/app_documentation.html">Documenting Apps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../scripted_elements/scripted_elements_toc.html">Scripted elements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/using_script_resources.html">Using script resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stages/stages.html">Working with stages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../project_keywords/project_keywords.html">Project keywords handling</a></li>
@@ -96,7 +95,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../adding_workspaces_to_apps/adding_workspaces_to_apps.html">Adding workspaces to Apps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../workflow_assistant/workflow_assistant.html">Workflow Assistant</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_services/using_services.html">Using services</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../using_scripted_diagrams/using_scripted_diagrams.html">Using scripted diagrams</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_jupyter_notebook/using_jupyter_notebook.html">Using Jupyter Notebook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using_jupyter_notebook/using_jupyter_and_vscode.html">Using Jupyter Notebook with VSCode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../starting_options/starting_options.html">Software and script starting options</a></li>
@@ -110,7 +108,6 @@
 <p class="caption" role="heading"><span class="caption-text">Python API Specification</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../python_api/python_api.html">ZEISS INSPECT App Python API documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../python_api/scripted_elements_api.html">Scripted elements API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../python_api/resource_api.html">gom.Resource API</a></li>
 </ul>
 
@@ -151,22 +148,21 @@
 <dt class="field-even">Description<span class="colon">:</span></dt>
 <dd class="field-even"><p>Interactive creation of a geometrical element in an application specific way.</p>
 </dd>
-<dt class="field-odd">How-to<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a href="../scripted_elements/scripted_elements_toc.html">Scripted elements</a></p>
+</dl>
+<dl class="myst field-list simple">
+<dt class="field-odd">Example Documentation<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/README.md#scripted_actuals--building-custom-actual-elements-with-python-code">scripted_actuals</a></p>
 </dd>
-<dt class="field-even">Example Documentation<span class="colon">:</span></dt>
-<dd class="field-even"><p><a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/README.md#scripted_actuals--building-custom-actual-elements-with-python-code">scripted_actuals</a></p>
+<dt class="field-even">API Documentation<span class="colon">:</span></dt>
+<dd class="field-even"><p><a href="../../python_api/python_api.html#gom-api-extensions-scriptedelement">Scripted Elements API</a></p>
 </dd>
-<dt class="field-odd">API Documentation<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a href="../../python_api/scripted_elements_api.html">Scripted Elements API</a></p>
-</dd>
-<dt class="field-even">Keywords<span class="colon">:</span></dt>
-<dd class="field-even"><p>element, interactive, dialog, input, point, function, parameters, calculation</p>
+<dt class="field-odd">Keywords<span class="colon">:</span></dt>
+<dd class="field-odd"><p>element, interactive, dialog, input, point, function, parameters, calculation</p>
 </dd>
 </dl>
 </section>
-<section id="scripted-checks">
-<h2>Scripted checks<a class="headerlink" href="#scripted-checks" title="Link to this heading"></a></h2>
+<section id="scripted-inspections">
+<h2>Scripted inspections<a class="headerlink" href="#scripted-inspections" title="Link to this heading"></a></h2>
 <dl class="myst field-list simple">
 <dt class="field-odd">Template<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a href="../../python_examples/examples_overview.html#scripted-checks-building-custom-checks-with-python-code">scripted_checks</a></p>
@@ -174,17 +170,16 @@
 <dt class="field-even">Description<span class="colon">:</span></dt>
 <dd class="field-even"><p>Interactive creation of a geometrical element in an application specific way.</p>
 </dd>
-<dt class="field-odd">How-to<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a href="../scripted_elements/scripted_checks.html">Scripted checks</a></p>
+</dl>
+<dl class="myst field-list simple">
+<dt class="field-odd">Example Documentation<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/README.md#scripted_checks--building-custom-checks-with-python-code">scripted_checks</a></p>
 </dd>
-<dt class="field-even">Example Documentation<span class="colon">:</span></dt>
-<dd class="field-even"><p><a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/README.md#scripted_checks--building-custom-checks-with-python-code">scripted_checks</a></p>
+<dt class="field-even">API Documentation<span class="colon">:</span></dt>
+<dd class="field-even"><p><a href="../../python_api/python_api.html#gom-api-extensions-inspections">Scripted Elements API</a></p>
 </dd>
-<dt class="field-odd">API Documentation<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a href="../../python_api/scripted_elements_api.html#scripted-checks-return-values">Scripted Elements API</a></p>
-</dd>
-<dt class="field-even">Keywords<span class="colon">:</span></dt>
-<dd class="field-even"><p>scalar, curve, surface, inspection, check, comparison, tolerance</p>
+<dt class="field-odd">Keywords<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scalar, curve, surface, inspection, check, comparison, tolerance</p>
 </dd>
 </dl>
 </section>
@@ -399,7 +394,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fa230b66d60>
+  <jinja2.runtime.BlockReference object at 0x7f6f61d7c670>
 
 
 </footer>
