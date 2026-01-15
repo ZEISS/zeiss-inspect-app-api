@@ -1303,14 +1303,31 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 Scripted actual volume element
 
-The expected parameters from the element's `compute ()` function is a map with the following format:
+The expected parameters from the element's `compute ()` function is a map with the following formats:
 
 ```
 {
     'voxel_data': data: np.array (shape=(x, y, z), dtype=np.float32), // Voxels of the volume
-    'transformation': (x: float, y: float, z: float),                 // Transformation of the volume
-    "data": {...}                                      // Optional element data, stored with the element        
+    'transformation': (x: float, y: float, z: float),                 // Voxel size
+    "data": {...}                                                     // Optional element data, stored with the element        
 }
+```
+
+or
+
+```
+{
+    'voxel_data': data: np.array (shape=(x, y, z), dtype=np.float32), // Voxels of the volume
+    'transformation': gom.Mat4x4,                                     // Transformation matrix of the volume
+    "data": {...}                                                     // Optional element data, stored with the element        
+}
+
+# Format of the transformation matrix:
+
+[[ sx,  0,  0, tx],
+ [  0, sy,  0, ty],
+ [  0,  0, sz, tz],
+ [  0,  0,  0,  1]]
 ```
 
 #### gom.api.extensions.actuals.VolumeDefects
