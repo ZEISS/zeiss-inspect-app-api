@@ -1953,12 +1953,27 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <section id="gom-api-extensions-actuals-volume">
 <h4>gom.api.extensions.actuals.Volume<a class="headerlink" href="#gom-api-extensions-actuals-volume" title="Link to this heading"></a></h4>
 <p>Scripted actual volume element</p>
-<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following formats:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;voxel_data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="o">//</span> <span class="n">Voxels</span> <span class="n">of</span> <span class="n">the</span> <span class="n">volume</span>
-    <span class="s1">&#39;transformation&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span>                 <span class="o">//</span> <span class="n">Transformation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">volume</span>
-    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                      <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
+    <span class="s1">&#39;transformation&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span>                 <span class="o">//</span> <span class="n">Voxel</span> <span class="n">size</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                                     <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
 <span class="p">}</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;voxel_data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="o">//</span> <span class="n">Voxels</span> <span class="n">of</span> <span class="n">the</span> <span class="n">volume</span>
+    <span class="s1">&#39;transformation&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Mat4x4</span><span class="p">,</span>                                     <span class="o">//</span> <span class="n">Transformation</span> <span class="n">matrix</span> <span class="n">of</span> <span class="n">the</span> <span class="n">volume</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                                     <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
+<span class="p">}</span>
+
+<span class="c1"># Format of the transformation matrix:</span>
+
+<span class="p">[[</span> <span class="n">sx</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="n">tx</span><span class="p">],</span>
+ <span class="p">[</span>  <span class="mi">0</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="n">ty</span><span class="p">],</span>
+ <span class="p">[</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="n">sz</span><span class="p">,</span> <span class="n">tz</span><span class="p">],</span>
+ <span class="p">[</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">]]</span>
 </pre></div>
 </div>
 </section>
@@ -5872,7 +5887,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f907b56f700>
+  <jinja2.runtime.BlockReference object at 0x7f65bf63f690>
 
 
 </footer>
