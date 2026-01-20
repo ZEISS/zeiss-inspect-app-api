@@ -235,10 +235,14 @@ def generate_news_item_content(md_file, news_item):
         
         # Generate the MyST content with linked heading
         item_html = f"""
-<h2 class="news-item-title"><a class="feed-ref reference internal" href="{news_file_link}">{title}</a></h2>
+<section id="{anchor_id}">
+<h2>
+  <a class="feed-ref reference internal" href="{news_file_link}">{title}</a>
+  <a class="headerlink" href="#{anchor_id}" title="Link to this heading"></a>
+</h2>
 <p class="feed-meta">Published on <em class="feed-date">{date_str}</em></p>
-
 {cleaned_content}
+</section>
 """
         return item_html.strip()
         
