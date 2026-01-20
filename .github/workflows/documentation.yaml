@@ -12,7 +12,7 @@ jobs:
           python-version: '3.13' 
       - name: Install dependencies
         run: |
-          pip install sphinx==9.1.0 sphinx_rtd_theme==3.1.0 sphinx-favicon myst_parser==5.0.0 sphinx_sitemap sphinxcontrib.newsfeed
+          pip install sphinx==9.1.0 sphinx_rtd_theme==3.1.0 sphinx-favicon myst_parser==5.0.0 sphinx_sitemap
       - name: Sphinx build
         run: |
           sphinx-build -W --keep-going doc _build
@@ -22,6 +22,9 @@ jobs:
           else
             echo -e "\033[1;32mSphinx build PASSED\033[0m\n"
           fi
+      - name: Generate RSS feed
+        run: |
+          python doc/generate_rss.py
       - name: Insert RSS link into news page HTML header
         run: |
           sed -i 's|</head>|    <link rel="alternate" type="application/rss+xml" title="ZEISS INSPECT App Python API News Feed" href="../index.rss" />\n</head>|' _build/news/news.html
