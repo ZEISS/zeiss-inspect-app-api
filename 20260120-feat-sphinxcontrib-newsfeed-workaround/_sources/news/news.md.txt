@@ -15,8 +15,6 @@ myst:
 
 We are happy to announce that [ZEISS INSPECT 2026](https://www.zeiss.com/metrology/en/software/zeiss-inspect.html) has been released. Watch out for App development related enhancements and new features!
 
-[Read full article](news/20251125-release-2026.html)
-
 ---
 
 ## Workflow Assistant
@@ -29,8 +27,6 @@ The workflow assistant provides a new user interface for built-in ZEISS INSPECT 
 
 See <a href="../howtos/workflow_assistant/workflow_assistant.html">How-to Guides &ndash; Workflow Assistant</a> for more information and <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants">App Examples &ndash; Workflow Assistants</a> for an example.
 
-[Read full article](news/20250804-workflow-assistant.html)
-
 ---
 
 ## Update: Using Visual Studio Code as App Editor
@@ -40,8 +36,6 @@ See <a href="../howtos/workflow_assistant/workflow_assistant.html">How-to Guides
 The interface between ZEISS INSPECT and Visual Studio Code for App development and debugging has been re-implemented for enhanced reliability and additional features.
 
 See <a href="../howtos/using_vscode_editor/using_vscode_editor.html">Using Visual Studio Code as App editor</a> and <a href="../howtos/using_services/using_services.html#debugging-services">Using services &ndash; Debugging services</a> for details.
-
-[Read full article](news/20250516-update-vscode.html)
 
 ---
 
@@ -53,22 +47,15 @@ Did you know? Coordinates are often represented as `gom.Vec3d` objects in ZEISS 
 
 See <a href="../howtos/python_api_introduction/python_api_introduction.html#gom-vec3d-and-gom-math">ZEISS INSPECT Python API Introduction &mdash; `gom_vec3d` and `gom_math`</a> for details.
 
-[Read full article](news/20250123-gom-math.html)
-
 ---
 
 ## Link from App to external documentation
 
 *January 06, 2025*
 
-```{eval-rst}
-```
-
 ![App with help button, confirmation dialog and documentation web page](assets/documentation-button+dialog+webpage.png)
 
 ZEISS INSPECT 2025 allows to add a help button to App dialogs providing a web link to external documentation. See <a href="../howtos/app_documentation/app_documentation.html#link-to-external-documentation">Documenting Apps &mdash; Link to external documentation</a> for details.
-
-[Read full article](news/20250106-app-doc-link.html)
 
 ---
 
@@ -76,15 +63,10 @@ ZEISS INSPECT 2025 allows to add a help button to App dialogs providing a web li
 
 *December 17, 2024*
 
-```{eval-rst}
-```
-
 ![Scripted elements and scripted diagram](assets/scripted_diagram-histogram.png)
 
 Scripted diagrams have been added as a new feature in ZEISS INSPECT 2025. Scripted diagrams allow visualization of data provided by scripted elements in a very flexible way. 
 More details can be found in <a href="../howtos/using_scripted_diagrams/using_scripted_diagrams.html">Using scripted diagrams</a>.
-
-[Read full article](news/20241217-scripted-diagrams.html)
 
 ---
 
@@ -92,14 +74,9 @@ More details can be found in <a href="../howtos/using_scripted_diagrams/using_sc
 
 *December 12, 2024*
 
-```{eval-rst}
-```
-
 ![Manage services dialog](../howtos/using_services/assets/manage_services_dialog_small.png)
 
 In ZEISS INSPECT 2025, services have been introduced. A ZEISS INSPECT service is a Python script running continuously in the background, which exposes API functions to other scripts. Services can be distributed via Apps and can be used as computation kernels or callback targets. See <a href="../howtos/using_services/using_services.html">Using services</a> and <a href="../python_api/python_api.html#gom-api-services">Service API</a> for details.
-
-[Read full article](news/20241211-services.html)
 
 ---
 
@@ -107,14 +84,9 @@ In ZEISS INSPECT 2025, services have been introduced. A ZEISS INSPECT service is
 
 *December 05, 2024*
 
-```{eval-rst}
-```
-
 Did you know that you can test Apps with <a href="../howtos/user_defined_dialogs/user_defined_dialogs.html">User-defined Dialogs</a> non-interactively?
 
 See <a href="../howtos/testing_apps/testing_apps.html#testing-apps-with-dialogs">How-to: Testing Apps &mdash; Testing Apps with Dialogs</a> for a detailed explanation.
-
-[Read full article](news/20241205-autodialogcontext.html)
 
 ---
 
@@ -122,13 +94,9 @@ See <a href="../howtos/testing_apps/testing_apps.html#testing-apps-with-dialogs"
 
 *October 28, 2024*
 
-```{eval-rst}
-```
 ![Configure file selection dialog](../howtos/python_api_introduction/assets/configure_file_selection.png)
 
 With ZEISS INSPECT 2025, it is possible to add a dialog for selecting files or folders by using RMB ► Insert ► File... in the script editor. See <a href="../howtos/python_api_introduction/file_selection_dialog.html">Selecting a file or folder</a> for details. This serves as a shortcut to creating a <a href="../howtos/user_defined_dialogs/user_defined_dialogs.html">User-defined dialog</a> if only a single file widget is needed.
-
-[Read full article](news/20241028-insert-file.html)
 
 ---
 
@@ -136,12 +104,7 @@ With ZEISS INSPECT 2025, it is possible to add a dialog for selecting files or f
 
 *November 25, 2024*
 
-```{eval-rst}
-```
-
 We are happy to announce that [ZEISS INSPECT 2025](https://www.zeiss.com/metrology/en/software/zeiss-inspect.html) has been released. As always, you will find a multitude of new features and improvements. New App development related features will be presented here shortly.
-
-[Read full article](news/20241125-release-2025.html)
 
 ---
 
@@ -149,12 +112,7 @@ We are happy to announce that [ZEISS INSPECT 2025](https://www.zeiss.com/metrolo
 
 *March 15, 2024*
 
-```{eval-rst}
-```
-
 You have recorded script commands operating on groups of elements selected in the Explorer? The resulting `gom.ElementSelection()` seemed cryptic? You wonder how to access the selection? <a href="../howtos/python_api_introduction/selecting_elements.html">Selecting elements in scripts</a> provides an insight.
-
-[Read full article](news/20240315-element-selection.html)
 
 ---
 
@@ -162,14 +120,9 @@ You have recorded script commands operating on groups of elements selected in th
 
 *March 14, 2024*
 
-```{eval-rst}
-```
-
 Did you know that you can easily provide your App's user interface in multiple languages? See <a href="../howtos/localization/localization.html">Localization of Apps</a> for details.
 
 An updated version of the App 'Internationalization Tools' is now available in the ZQS Store.
-
-[Read full article](news/20240314-internationalization-tool-update.html)
 
 ---
 
@@ -177,12 +130,7 @@ An updated version of the App 'Internationalization Tools' is now available in t
 
 *March 07, 2024*
 
-```{eval-rst}
-```
-
 The FAQ article <a href="../howtos/faq/faq.html#how-can-i-access-the-coordinates-of-a-selection-on-a-mesh">How can I access the coordinates of a selection on a mesh?</a> explains how you can get the vertices, normals and triangles of parts of a mesh which have been selected interactively.
-
-[Read full article](news/20240307-mesh-selection.html)
 
 ---
 
@@ -190,12 +138,7 @@ The FAQ article <a href="../howtos/faq/faq.html#how-can-i-access-the-coordinates
 
 *March 07, 2024*
 
-```{eval-rst}
-```
-
 Please find the new article <a href="../howtos/faq/faq.html#how-do-i-use-a-c-net-library-in-an-app">How do I use a C# / .NET library in an App?</a> in the Frequently Asked Questions.
-
-[Read full article](news/20240307-csharp_dotnet.html)
 
 ---
 
@@ -203,12 +146,7 @@ Please find the new article <a href="../howtos/faq/faq.html#how-do-i-use-a-c-net
 
 *February 09, 2024*
 
-```{eval-rst}
-```
-
 The quality of Apps can be enhanced by thorough testing. Sometimes not only the test results, but also the amount of code covered by the test suite is of interest. This is addressed by the new section <a href="../howtos/testing_apps/testing_apps.html#running-app-tests-with-code-coverage">Running App tests with code coverage</a> of the chapter <a href="../howtos/testing_apps/testing_apps.html">Testing Apps</a>.
-
-[Read full article](news/20240209-test-coverage.html)
 
 ---
 
@@ -216,12 +154,7 @@ The quality of Apps can be enhanced by thorough testing. Sometimes not only the 
 
 *February 05, 2024*
 
-```{eval-rst}
-```
-
 The App Editor and the Dialog Designer provide an easy and convenient way of adding a graphical user interface to your App &mdash; see <a href="../howtos/user_defined_dialogs/user_defined_dialogs.html">User-defined dialogs</a>. GUIs which are created this way seamlessly integrate into the look and feel of ZEISS INSPECT. However, there are reasons why using a separate Python GUI library might be preferred. <a href="../howtos/using_gui_libraries/using_gui_libraries.html">Using an additional Python GUI library</a> gives a brief overview on use-cases, options and installation.
-
-[Read full article](news/20240205-using-gui-libraries.html)
 
 ---
 
@@ -229,12 +162,7 @@ The App Editor and the Dialog Designer provide an easy and convenient way of add
 
 *January 30, 2024*
 
-```{eval-rst}
-```
-
 Stages are used in ZEISS INSPECT for comparing inspection results of the same nominal part but different actual meshes. In ZEISS INSPECT Correlate, stages are used for 3D image series. <a href="../howtos/stages/stages.html">Working with stages</a> provides some basic information about using stages in Apps and shows typical applications of Python scripts for working with stages.
-
-[Read full article](news/20240130-working-with-stages.html)
 
 ---
 
@@ -242,14 +170,9 @@ Stages are used in ZEISS INSPECT for comparing inspection results of the same no
 
 *January 30, 2024*
 
-```{eval-rst}
-```
-
 In most cases, Python packages &mdash; also known as Python wheels &mdash; are installed as described in <a href="../howtos/using_app_editor/using_app_editor.html#installing-python-packages">Using the App Editor - Installing Python Packages</a>.
 
 In case this does not work, <a href="../howtos/using_wheelhouses/using_wheelhouses.html">Using Python wheelhouses</a> can provide a solution.
-
-[Read full article](news/20240130-using-wheelhouses.html)
 
 ---
 
@@ -257,12 +180,7 @@ In case this does not work, <a href="../howtos/using_wheelhouses/using_wheelhous
 
 *January 19, 2024*
 
-```{eval-rst}
-```
-
 Examples for all types of scripted actual elements have been added to <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/README.md#scripted_actuals--building-custom-actual-elements-with-python-code">App Examples - scripted actuals</a>. You might also want to review the basics in <a href="../howtos/scripted_elements/scripted_elements_toc.html">Scripted elements</a> or to read details in <a href="../python_api/scripted_elements_api.html">Scripted elements API</a>.
-
-[Read full article](news/20240119-scripted-elements-examples.html)
 
 ---
 
@@ -270,12 +188,7 @@ Examples for all types of scripted actual elements have been added to <a href="h
 
 *January 15, 2024*
 
-```{eval-rst}
-```
-
 There is a new page <a href="../howtos/starting_options/starting_options.html">HOW-TO GUIDES - Software and script starting options</a>, which deals with various ways to start ZEISS INSPECT and optionally execute a script.
-
-[Read full article](news/20240115-software-starting-options.html)
 
 ---
 
@@ -283,12 +196,7 @@ There is a new page <a href="../howtos/starting_options/starting_options.html">H
 
 *January 15, 2024*
 
-```{eval-rst}
-```
-
 There is a new section <a href="../howtos/project_keywords/project_keywords.html">HOW-TO GUIDES - Project keywords handling</a>. Project keywords can be used for storing meta information.
-
-[Read full article](news/20240115-project-keywords.html)
 
 ---
 
@@ -296,11 +204,18 @@ There is a new section <a href="../howtos/project_keywords/project_keywords.html
 
 *December 21, 2023*
 
-```{eval-rst}
-```
-
 There is a new section <a href="../howtos/faq/faq.html">HOW-TO GUIDES - Frequently asked questions</a> with contents from the [ZEISS Quality Forum](https://qualityforum.zeiss.com/), Tech Support and Development department.
 
-[Read full article](news/20231221-faq.html)
-
 ---
+
+## New API Examples 
+
+*December 15, 2023*
+
+## [reference_points_and_mesh_data](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/ReferencePointsAndMeshData/doc/Documentation.md)
+
+This example demonstrates how to access reference points in a measurement and meshes from Python.
+
+## [point_pixel_transformations](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PointPixelTransformations/doc/Documentation.md)
+
+This example addresses a fundamental topic of photogrammetry - transformation between 2D pixel coordinates in a measurement and a 3D point coordinate and vice versa.
