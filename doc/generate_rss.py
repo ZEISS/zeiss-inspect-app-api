@@ -225,13 +225,19 @@ def generate_news_item_content(md_file, news_item, is_last_item=False):
         title_match = re.search(r'^#\s+(.+?)$', content, re.MULTILINE)
         title = title_match.group(1) if title_match else news_item.replace('-', ' ').title()
         
+        # Generate anchor ID from title (lowercase, replace spaces/special chars with hyphens)
+        anchor_id = re.sub(r'[^a-zA-Z0-9\s]', '', title.lower()).replace(' ', '-')
+        
+        # Create link to individual news file with anchor
+        news_file_link = f"{news_item}.html#{anchor_id}"
+        
         # Clean content - remove feed-entry directive and first heading
         cleaned_content = clean_content_for_inclusion(content)
         
-        # Generate the MyST content - omit final separator for last item
+        # Generate the MyST content with linked heading - omit final separator for last item
         separator = "" if is_last_item else "\n\n---"
         item_html = f"""
-## {title}
+## <a class="feed-ref reference internal" href="{news_file_link}">{title}</a>
 
 *{date_str}*
 
