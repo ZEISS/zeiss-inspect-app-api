@@ -378,8 +378,10 @@ def main():
     news_dir = doc_dir / "news"
     news_md_file = news_dir / "news.md"
     
-    # Base URL for the site
-    base_url = "https://zeiss.github.io/zeiss-inspect-app-api/main/"
+    # Base URL for the site - use environment variable if available (for branch-specific URLs)
+    base_url = os.environ.get('GITHUB_PAGES_URL', 'https://zeiss.github.io/zeiss-inspect-app-api/main/')
+    if not base_url.endswith('/'):
+        base_url += '/'
     
     # Pre-processing mode: Update news.md with feed content AND generate RSS
     print("Pre-processing news.md...")
@@ -417,7 +419,7 @@ def main():
         rss_file = build_dir / "index.rss"
         build_dir.mkdir(exist_ok=True)
         generate_rss(items, rss_file, base_url)
-        print(f"Generated RSS feed with {len(items)} items")
+        print(f"Generated RSS feed with {len(items)} items at {base_url}index.rss")
     else:
         print("No valid news items could be parsed")
 
