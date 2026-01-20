@@ -237,9 +237,10 @@ def generate_news_item_content(md_file, news_item, is_last_item=False):
         # Generate the MyST content with linked heading - omit final separator for last item
         separator = "" if is_last_item else "\n\n---"
         item_html = f"""
-## <a class="feed-ref reference internal" href="{news_file_link}">{title}</a>
-
-*{date_str}*
+<div class="news-item-header">
+<h3 class="news-item-title"><a class="feed-ref reference internal" href="{news_file_link}">{title}</a></h3>
+<p class="feed-meta">Published on <em class="feed-date">{date_str}</em></p>
+</div>
 
 {cleaned_content}{separator}
 """
