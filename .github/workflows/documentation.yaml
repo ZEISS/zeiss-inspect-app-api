@@ -13,8 +13,12 @@ jobs:
       - name: Install dependencies
         run: |
           pip install sphinx==9.1.0 sphinx_rtd_theme==3.1.0 sphinx-favicon myst_parser==5.0.0 sphinx_sitemap
+      - name: Set branch name
+        id: branch
+        run: echo "SUBDIR_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
       - name: Process news and generate RSS feed
         run: |
+          export GITHUB_PAGES_URL="https://zeiss.github.io/zeiss-inspect-app-api/${{ env.SUBDIR_NAME }}/"
           python doc/generate_rss.py
       - name: Sphinx build
         run: |
@@ -28,9 +32,6 @@ jobs:
       - name: Insert RSS link into news page HTML header
         run: |
           sed -i 's|</head>|    <link rel="alternate" type="application/rss+xml" title="ZEISS INSPECT App Python API News Feed" href="../index.rss" />\n</head>|' _build/news/news.html
-      - name: Set branch name
-        id: branch
-        run: echo "SUBDIR_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
       - name: Replace main by 2026 in canonical link
         run: |
           find . -type f -name "*.html" -exec sed -i 's@<link rel="canonical" href="https://zeiss\.github\.io/zeiss-inspect-app-api/main/@<link rel="canonical" href="https://zeiss\.github\.io/zeiss-inspect-app-api/2026/@' {} +
