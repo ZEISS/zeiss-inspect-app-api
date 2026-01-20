@@ -187,8 +187,7 @@ def process_news_md_feed_directive(news_md_file, news_dir):
         for i, news_item in enumerate(news_items):
             md_file = news_dir / f"{news_item}.md"
             if md_file.exists():
-                is_last_item = (i == len(news_items) - 1)
-                item_content = generate_news_item_content(md_file, news_item, is_last_item)
+                item_content = generate_news_item_content(md_file, news_item)
                 if item_content:
                     news_content_lines.append(item_content)
         
@@ -205,7 +204,7 @@ def process_news_md_feed_directive(news_md_file, news_dir):
         print(f"Error processing news.md: {e}")
         return False
 
-def generate_news_item_content(md_file, news_item, is_last_item=False):
+def generate_news_item_content(md_file, news_item):
     """Generate MyST markdown content for a single news item"""
     try:
         content = md_file.read_text(encoding='utf-8')
@@ -234,15 +233,14 @@ def generate_news_item_content(md_file, news_item, is_last_item=False):
         # Clean content - remove feed-entry directive and first heading
         cleaned_content = clean_content_for_inclusion(content)
         
-        # Generate the MyST content with linked heading - omit final separator for last item
-        separator = "" if is_last_item else "\n\n---"
+        # Generate the MyST content with linked heading
         item_html = f"""
 <div class="news-item-header">
 <h3 class="news-item-title"><a class="feed-ref reference internal" href="{news_file_link}">{title}</a></h3>
 <p class="feed-meta">Published on <em class="feed-date">{date_str}</em></p>
 </div>
 
-{cleaned_content}{separator}
+{cleaned_content}
 """
         return item_html.strip()
         
