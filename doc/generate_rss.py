@@ -251,7 +251,7 @@ def generate_news_item_content(md_file, news_item, is_last_item=False):
         return None
 
 def clean_content_for_inclusion(content):
-    """Clean content for inclusion in news.md - remove comments and first heading"""
+    """Clean content for inclusion in news.md - remove comments, first heading, and convert remaining headings to HTML"""
     lines = content.split('\n')
     cleaned_lines = []
     skip_first_heading = True
@@ -267,9 +267,21 @@ def clean_content_for_inclusion(content):
         # Skip MyST comments (feed-entry)
         if stripped.startswith('%'):
             continue
-            
-        # Keep the line
-        cleaned_lines.append(line)
+        
+        # Convert markdown headings to HTML headings to prevent TOC entries
+        if stripped.startswith('### '):
+            heading_text = stripped[4:].strip()
+            cleaned_lines.append(f'<h4 class="news-subheading">{heading_text}</h4>')
+        elif stripped.startswith('## '):
+            heading_text = stripped[3:].strip()
+            cleaned_lines.append(f'<h4 class="news-subheading">{heading_text}</h4>')
+        elif stripped.startswith('# '):
+            # This shouldn't happen since we skip the first heading, but just in case
+            heading_text = stripped[2:].strip()
+            cleaned_lines.append(f'<h4 class="news-subheading">{heading_text}</h4>')
+        else:
+            # Keep the line as-is
+            cleaned_lines.append(line)
     
     # Join and clean up extra whitespace
     result = '\n'.join(cleaned_lines).strip()
