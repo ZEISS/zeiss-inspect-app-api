@@ -400,6 +400,19 @@ def main():
         sys.exit(1)
     print("Pre-processing complete")
     
+    # Print first 100 lines of news.md AFTER modification
+    print("\nFirst 100 lines of news.md (after processing):")
+    print("=" * 50)
+    try:
+        with open(news_md_file, 'r', encoding='utf-8') as f:
+            for i, line in enumerate(f, 1):
+                if i > 100:
+                    break
+                print(f"{i:3d}: {line.rstrip()}")
+    except Exception as e:
+        print(f"Error reading news.md: {e}")
+    print("=" * 50)
+    
     # THIRD: Generate RSS feed using the extracted items list
     print("Generating RSS feed...")
     
