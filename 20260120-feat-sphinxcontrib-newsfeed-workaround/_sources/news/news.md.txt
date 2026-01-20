@@ -237,10 +237,10 @@ There is a new section <a href="../howtos/faq/faq.html">HOW-TO GUIDES - Frequent
 <p class="feed-meta">Published on <em class="feed-date">2023-12-15 13:00</em></p>
 </div>
 
-## [reference_points_and_mesh_data](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/ReferencePointsAndMeshData/doc/Documentation.md)
+<h4 class="news-subheading">[reference_points_and_mesh_data](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/data_interfaces/ReferencePointsAndMeshData/doc/Documentation.md)</h4>
 
 This example demonstrates how to access reference points in a measurement and meshes from Python.
 
-## [point_pixel_transformations](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PointPixelTransformations/doc/Documentation.md)
+<h4 class="news-subheading">[point_pixel_transformations](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/PointPixelTransformations/doc/Documentation.md)</h4>
 
 This example addresses a fundamental topic of photogrammetry - transformation between 2D pixel coordinates in a measurement and a 3D point coordinate and vice versa.
