@@ -174,6 +174,161 @@ def extract_description(content):
     
     return description or "No description available."
 
+def process_news_md_feed_directive(news_md_file, news_dir):
+    """Replace the feed directive in news.md with actual news content"""
+    try:
+        content = news_md_file.read_text(encoding='utf-8')
+        
+        # Find the feed directive section
+        feed_match = re.search(r'(```\{eval-rst\}\s*\n\.\. feed::.*?```)', content, re.DOTALL)
+        if not feed_match:
+            print("No feed directive found in news.md")
+            return False
+        
+        feed_block = feed_match.group(1)
+        
+        # Extract news items from the directive
+        news_items = extract_feed_items_from_news_md(news_md_file)
+        
+        # Generate MyST markdown content for each news item
+        news_content_lines = []
+        for news_item in news_items:
+            md_file = news_dir / f"{news_item}.md"
+            if md_file.exists():
+                item_content = generate_news_item_content(md_file, news_item)
+                if item_content:
+                    news_content_lines.append(item_content)
+        
+        # Replace the feed directive with the actual content
+        replacement_content = "\n\n".join(news_content_lines)
+        new_content = content.replace(feed_block, replacement_content)
+        
+        # Write back to the file
+        news_md_file.write_text(new_content, encoding='utf-8')
+        print(f"Updated news.md with {len(news_content_lines)} news items")
+        return True
+        
+    except Exception as e:
+        print(f"Error processing news.md: {e}")
+        return False
+
+def generate_news_item_content(md_file, news_item):
+    """Generate MyST markdown content for a single news item"""
+    try:
+        content = md_file.read_text(encoding='utf-8')
+        
+        # Extract date from feed-entry directive or filename
+        feed_entry_date = extract_feed_entry_date(content)
+        if not feed_entry_date:
+            date_match = re.match(r'(\d{4})(\d{2})(\d{2})-', md_file.name)
+            if date_match:
+                year, month, day = date_match.groups()
+                feed_entry_date = datetime(int(year), int(month), int(day))
+        
+        # Format date
+        date_str = feed_entry_date.strftime("%B %d, %Y") if feed_entry_date else "Unknown date"
+        
+        # Extract title
+        title_match = re.search(r'^#\s+(.+?)$', content, re.MULTILINE)
+        title = title_match.group(1) if title_match else news_item.replace('-', ' ').title()
+        
+        # Clean content - remove feed-entry directive and first heading
+        cleaned_content = clean_content_for_inclusion(content)
+        
+        # Generate the MyST content
+        item_html = f"""
+## {title}
+
+*{date_str}*
+
+{cleaned_content}
+
+[Read full article](news/{news_item}.html)
+
+---
+"""
+        return item_html.strip()
+        
+    except Exception as e:
+        print(f"Error generating content for {md_file}: {e}")
+        return None
+
+def clean_content_for_inclusion(content):
+    """Clean content for inclusion in news.md - remove directives and first heading"""
+    lines = content.split('\n')
+    cleaned_lines = []
+    in_feed_entry = False
+    skip_first_heading = True
+    
+    for line in lines:
+        stripped = line.strip()
+        
+        # Skip first heading
+        if skip_first_heading and stripped.startswith('#'):
+            skip_first_heading = False
+            continue
+            
+        # Handle feed-entry directive blocks
+        if stripped.startswith('.. feed-entry::'):
+            in_feed_entry = True
+            continue
+        
+        # End of feed-entry block
+        if in_feed_entry and stripped and not line.startswith((' ', '\t')):
+            in_feed_entry = False
+        
+        if in_feed_entry:
+            continue
+            
+        # Keep the line
+        cleaned_lines.append(line)
+    
+    # Join and clean up extra whitespace
+    result = '\n'.join(cleaned_lines).strip()
+    
+    # Remove excessive blank lines
+    result = re.sub(r'\n\n\n+', '\n\n', result)
+    
+    return result
+    """Generate RSS XML from news items with rich descriptions"""
+    # Create RSS structure
+    rss = ET.Element("rss", version="2.0")
+    rss.set("xmlns:atom", "http://www.w3.org/2005/Atom")
+    
+    channel = ET.SubElement(rss, "channel")
+    
+    # Channel metadata
+    ET.SubElement(channel, "title").text = "ZEISS INSPECT App Python API News"
+    ET.SubElement(channel, "description").text = "Latest updates and news for ZEISS INSPECT App development"
+    ET.SubElement(channel, "link").text = base_url
+    ET.SubElement(channel, "language").text = "en-us"
+    ET.SubElement(channel, "lastBuildDate").text = datetime.now().strftime("%a, %d %b %Y %H:%M:%S GMT")
+    
+    # Atom self-reference
+    atom_link = ET.SubElement(channel, "atom:link")
+    atom_link.set("href", f"{base_url}index.rss")
+    atom_link.set("rel", "self")
+    atom_link.set("type", "application/rss+xml")
+    
+    # Add items
+    for item_data in items[:10]:  # Limit to 10 most recent items
+        item = ET.SubElement(channel, "item")
+        ET.SubElement(item, "title").text = item_data['title']
+        
+        # Create rich description with HTML escaping
+        description = html.escape(item_data['description'])
+        ET.SubElement(item, "description").text = description
+        
+        ET.SubElement(item, "link").text = f"{base_url}{item_data['link']}"
+        ET.SubElement(item, "guid").text = f"{base_url}{item_data['link']}"
+        ET.SubElement(item, "pubDate").text = item_data['date'].strftime("%a, %d %b %Y %H:%M:%S GMT")
+    
+    # Write XML file
+    tree = ET.ElementTree(rss)
+    ET.indent(tree, space="  ", level=0)  # Pretty print
+    tree.write(output_file, encoding="utf-8", xml_declaration=True)
+    print(f"Generated RSS feed: {output_file}")
+
 def generate_rss(items, output_file, base_url):
     """Generate RSS XML from news items with rich descriptions"""
     # Create RSS structure
@@ -215,6 +370,8 @@ def generate_rss(items, output_file, base_url):
     print(f"Generated RSS feed: {output_file}")
 
 def main():
+    import sys
+    
     # Get paths
     doc_dir = Path(__file__).parent
     build_dir = doc_dir.parent / "_build"
@@ -223,6 +380,16 @@ def main():
     
     # Base URL for the site
     base_url = "https://zeiss.github.io/zeiss-inspect-app-api/main/"
+    
+    # Pre-processing mode: Update news.md with feed content AND generate RSS
+    print("Pre-processing news.md...")
+    success = process_news_md_feed_directive(news_md_file, news_dir)
+    if not success:
+        sys.exit(1)
+    print("Pre-processing complete")
+    
+    # Generate RSS feed
+    print("Generating RSS feed...")
     
     # Extract news items from the feed directive in news.md
     news_items = extract_feed_items_from_news_md(news_md_file)
@@ -243,12 +410,12 @@ def main():
             print(f"Warning: News file {md_file} referenced in feed but not found")
     
     if items:
-        # Sort by date (most recent first) - though they should already be in order from news.md
+        # Sort by date (most recent first)
         items.sort(key=lambda x: x['date'], reverse=True)
         
         # Generate RSS file in build directory
         rss_file = build_dir / "index.rss"
-        build_dir.mkdir(exist_ok=True)  # Ensure build directory exists
+        build_dir.mkdir(exist_ok=True)
         generate_rss(items, rss_file, base_url)
         print(f"Generated RSS feed with {len(items)} items")
     else:
