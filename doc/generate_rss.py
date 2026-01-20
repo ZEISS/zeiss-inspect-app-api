@@ -218,8 +218,8 @@ def generate_news_item_content(md_file, news_item, is_last_item=False):
                 year, month, day = date_match.groups()
                 feed_entry_date = datetime(int(year), int(month), int(day))
         
-        # Format date
-        date_str = feed_entry_date.strftime("%B %d, %Y") if feed_entry_date else "Unknown date"
+        # Format date in original format (YYYY-MM-DD HH:MM)
+        date_str = feed_entry_date.strftime("%Y-%m-%d %H:%M") if feed_entry_date else "Unknown date"
         
         # Extract title
         title_match = re.search(r'^#\s+(.+?)$', content, re.MULTILINE)
