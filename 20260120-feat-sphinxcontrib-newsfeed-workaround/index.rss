@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ZEISS INSPECT App Python API News</title>
+    <description>Latest updates and news for ZEISS INSPECT App development</description>
+    <link>https://zeiss.github.io/zeiss-inspect-app-api/main/</link>
+    <language>en-us</language>
+    <atom:link href="https://zeiss.github.io/zeiss-inspect-app-api/main/index.rss" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ZEISS INSPECT 2026 Released</title>
+      <description>We are happy to announce that [ZEISS INSPECT 2026](https://www.zeiss.com/metrology/en/software/zeiss-inspect.html) has been released. Watch out for App development related enhancements and new feature...</description>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20251125-release-2026.html</link>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20251125-release-2026.html</guid>
+      <pubDate>Tue, 25 Nov 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Workflow Assistant</title>
+      <description>![Workflow Assistant](../howtos/workflow_assistant/assets/inspection-basic_inspections-diameter_inspections.png)</description>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20250804-workflow-assistant.html</link>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20250804-workflow-assistant.html</guid>
+      <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Update: Using Visual Studio Code as App Editor</title>
+      <description>The interface between ZEISS INSPECT and Visual Studio Code for App development and debugging has been re-implemented for enhanced reliability and additional features.</description>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20250516-update-vscode.html</link>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20250516-update-vscode.html</guid>
+      <pubDate>Fri, 16 May 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Using the 'gom_vec3d' and 'gom_math' modules</title>
+      <description>Did you know? Coordinates are often represented as `gom.Vec3d` objects in ZEISS INSPECT Apps. The `gom_math` module provides some functions for computations on `gom.Vec3d` objects.</description>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20250123-gom-math.html</link>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20250123-gom-math.html</guid>
+      <pubDate>Thu, 23 Jan 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Link from App to external documentation</title>
+      <description>.. feed-entry::</description>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20250106-app-doc-link.html</link>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20250106-app-doc-link.html</guid>
+      <pubDate>Mon, 06 Jan 2025 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Scripted Diagrams</title>
+      <description>.. feed-entry::</description>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20241217-scripted-diagrams.html</link>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20241217-scripted-diagrams.html</guid>
+      <pubDate>Tue, 17 Dec 2024 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Services</title>
+      <description>.. feed-entry::</description>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20241211-services.html</link>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20241211-services.html</guid>
+      <pubDate>Wed, 11 Dec 2024 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Testing Apps with dialogs</title>
+      <description>.. feed-entry::</description>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20241205-autodialogcontext.html</link>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20241205-autodialogcontext.html</guid>
+      <pubDate>Thu, 05 Dec 2024 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>ZEISS INSPECT 2025 Released</title>
+      <description>.. feed-entry::</description>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20241125-release-2025.html</link>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20241125-release-2025.html</guid>
+      <pubDate>Mon, 25 Nov 2024 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Inserting a file selection dialog into a script</title>
+      <description>.. feed-entry::</description>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20241028-insert-file.html</link>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/main/news/20241028-insert-file.html</guid>
+      <pubDate>Mon, 28 Oct 2024 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
