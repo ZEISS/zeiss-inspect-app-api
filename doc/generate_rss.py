@@ -83,10 +83,11 @@ def parse_news_file(md_file):
         return None
 
 def extract_feed_entry_date(content):
-    """Extract date from feed-entry directive if present"""
+    """Extract date from feed-entry comment if present"""
     try:
-        # Look for feed-entry directive with date
-        feed_entry_match = re.search(r'\.\. feed-entry::\s*\n\s*:date:\s*(.+)', content)
+        # Look for MyST comment with feed-entry data
+        # Format: % feed-entry: date: 2024-12-12 12:00
+        feed_entry_match = re.search(r'^%\s*feed-entry:\s*date:\s*(.+?)\s*$', content, re.MULTILINE)
         if feed_entry_match:
             date_str = feed_entry_match.group(1).strip()
             # Parse date string like "2025-01-06 11:00"
@@ -110,7 +111,6 @@ def extract_description(content):
     lines = content.split('\n')
     description_lines = []
     in_code_block = False
-    in_feed_entry = False
     found_content = False
     
     for line in lines:
@@ -120,16 +120,8 @@ def extract_description(content):
         if stripped.startswith('#'):
             continue
         
-        # Handle feed-entry directive blocks (RST)
-        if stripped.startswith('.. feed-entry::'):
-            in_feed_entry = True
-            continue
-        
-        # End of feed-entry block (when we hit a non-indented line after it)
-        if in_feed_entry and stripped and not line.startswith((' ', '\t')):
-            in_feed_entry = False
-        
-        if in_feed_entry:
+        # Skip MyST comments (feed-entry)
+        if stripped.startswith('%'):
             continue
             
         # Handle code blocks
@@ -243,8 +235,6 @@ def generate_news_item_content(md_file, news_item):
 
 {cleaned_content}
 
-[Read full article](news/{news_item}.html)
-
 ---
 """
         return item_html.strip()
@@ -254,10 +244,9 @@ def generate_news_item_content(md_file, news_item):
         return None
 
 def clean_content_for_inclusion(content):
-    """Clean content for inclusion in news.md - remove directives and first heading"""
+    """Clean content for inclusion in news.md - remove comments and first heading"""
     lines = content.split('\n')
     cleaned_lines = []
-    in_feed_entry = False
     skip_first_heading = True
     
     for line in lines:
@@ -268,16 +257,8 @@ def clean_content_for_inclusion(content):
             skip_first_heading = False
             continue
             
-        # Handle feed-entry directive blocks
-        if stripped.startswith('.. feed-entry::'):
-            in_feed_entry = True
-            continue
-        
-        # End of feed-entry block
-        if in_feed_entry and stripped and not line.startswith((' ', '\t')):
-            in_feed_entry = False
-        
-        if in_feed_entry:
+        # Skip MyST comments (feed-entry)
+        if stripped.startswith('%'):
             continue
             
         # Keep the line
@@ -290,6 +271,8 @@ def clean_content_for_inclusion(content):
     result = re.sub(r'\n\n\n+', '\n\n', result)
     
     return result
+
+def generate_rss(items, output_file, base_url):
     """Generate RSS XML from news items with rich descriptions"""
     # Create RSS structure
     rss = ET.Element("rss", version="2.0")
@@ -383,22 +366,25 @@ def main():
     if not base_url.endswith('/'):
         base_url += '/'
     
-    # Pre-processing mode: Update news.md with feed content AND generate RSS
+    # FIRST: Extract news items from the feed directive BEFORE modifying the file
+    print("Extracting news items list...")
+    news_items = extract_feed_items_from_news_md(news_md_file)
+    
+    if not news_items:
+        print("No news items found in news.md feed directive")
+        return
+    
+    print(f"Found {len(news_items)} news items")
+    
+    # SECOND: Pre-process news.md with feed content
     print("Pre-processing news.md...")
     success = process_news_md_feed_directive(news_md_file, news_dir)
     if not success:
         sys.exit(1)
     print("Pre-processing complete")
     
-    # Generate RSS feed
+    # THIRD: Generate RSS feed using the extracted items list
     print("Generating RSS feed...")
-    
-    # Extract news items from the feed directive in news.md
-    news_items = extract_feed_items_from_news_md(news_md_file)
-    
-    if not news_items:
-        print("No news items found in news.md feed directive")
-        return
     
     # Parse each news file
     items = []

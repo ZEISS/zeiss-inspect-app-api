@@ -1,9 +1,6 @@
 # Scripted Diagrams
 
-```{eval-rst}
-.. feed-entry::
-   :date: 2024-12-17 13:00
-```
+% feed-entry: date: 2024-12-17 13:00
 
 ![Scripted elements and scripted diagram](assets/scripted_diagram-histogram.png)
 
