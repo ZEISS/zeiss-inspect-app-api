@@ -12,14 +12,14 @@ myst:
 ---
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20251125-release-2026.html#zeiss-inspect-2026-released">ZEISS INSPECT 2026 Released</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20251125-release-2026.html#zeiss-inspect-2026-released">ZEISS INSPECT 2026 Released</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2025-11-25 11:00</em></p>
 </div>
 
 We are happy to announce that [ZEISS INSPECT 2026](https://www.zeiss.com/metrology/en/software/zeiss-inspect.html) has been released. Watch out for App development related enhancements and new features!
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20250804-workflow-assistant.html#workflow-assistant">Workflow Assistant</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20250804-workflow-assistant.html#workflow-assistant">Workflow Assistant</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2025-08-04 16:00</em></p>
 </div>
 
@@ -30,7 +30,7 @@ The workflow assistant provides a new user interface for built-in ZEISS INSPECT 
 See <a href="../howtos/workflow_assistant/workflow_assistant.html">How-to Guides &ndash; Workflow Assistant</a> for more information and <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/WorkflowAssistants">App Examples &ndash; Workflow Assistants</a> for an example.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20250516-update-vscode.html#update-using-visual-studio-code-as-app-editor">Update: Using Visual Studio Code as App Editor</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20250516-update-vscode.html#update-using-visual-studio-code-as-app-editor">Update: Using Visual Studio Code as App Editor</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2025-05-16 14:00</em></p>
 </div>
 
@@ -39,7 +39,7 @@ The interface between ZEISS INSPECT and Visual Studio Code for App development a
 See <a href="../howtos/using_vscode_editor/using_vscode_editor.html">Using Visual Studio Code as App editor</a> and <a href="../howtos/using_services/using_services.html#debugging-services">Using services &ndash; Debugging services</a> for details.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20250123-gom-math.html#using-the-gomvec3d-and-gommath-modules">Using the 'gom_vec3d' and 'gom_math' modules</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20250123-gom-math.html#using-the-gomvec3d-and-gommath-modules">Using the 'gom_vec3d' and 'gom_math' modules</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2025-01-23 11:00</em></p>
 </div>
 
@@ -48,7 +48,7 @@ Did you know? Coordinates are often represented as `gom.Vec3d` objects in ZEISS 
 See <a href="../howtos/python_api_introduction/python_api_introduction.html#gom-vec3d-and-gom-math">ZEISS INSPECT Python API Introduction &mdash; `gom_vec3d` and `gom_math`</a> for details.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20250106-app-doc-link.html#link-from-app-to-external-documentation">Link from App to external documentation</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20250106-app-doc-link.html#link-from-app-to-external-documentation">Link from App to external documentation</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2025-01-06 11:00</em></p>
 </div>
 
@@ -57,7 +57,7 @@ See <a href="../howtos/python_api_introduction/python_api_introduction.html#gom-
 ZEISS INSPECT 2025 allows to add a help button to App dialogs providing a web link to external documentation. See <a href="../howtos/app_documentation/app_documentation.html#link-to-external-documentation">Documenting Apps &mdash; Link to external documentation</a> for details.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20241217-scripted-diagrams.html#scripted-diagrams">Scripted Diagrams</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20241217-scripted-diagrams.html#scripted-diagrams">Scripted Diagrams</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-12-17 13:00</em></p>
 </div>
 
@@ -67,7 +67,7 @@ Scripted diagrams have been added as a new feature in ZEISS INSPECT 2025. Script
 More details can be found in <a href="../howtos/using_scripted_diagrams/using_scripted_diagrams.html">Using scripted diagrams</a>.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20241211-services.html#services">Services</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20241211-services.html#services">Services</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-12-12 12:00</em></p>
 </div>
 
@@ -76,7 +76,7 @@ More details can be found in <a href="../howtos/using_scripted_diagrams/using_sc
 In ZEISS INSPECT 2025, services have been introduced. A ZEISS INSPECT service is a Python script running continuously in the background, which exposes API functions to other scripts. Services can be distributed via Apps and can be used as computation kernels or callback targets. See <a href="../howtos/using_services/using_services.html">Using services</a> and <a href="../python_api/python_api.html#gom-api-services">Service API</a> for details.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20241205-autodialogcontext.html#testing-apps-with-dialogs">Testing Apps with dialogs</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20241205-autodialogcontext.html#testing-apps-with-dialogs">Testing Apps with dialogs</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-12-05 12:00</em></p>
 </div>
 
@@ -85,7 +85,7 @@ Did you know that you can test Apps with <a href="../howtos/user_defined_dialogs
 See <a href="../howtos/testing_apps/testing_apps.html#testing-apps-with-dialogs">How-to: Testing Apps &mdash; Testing Apps with Dialogs</a> for a detailed explanation.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20241028-insert-file.html#inserting-a-file-selection-dialog-into-a-script">Inserting a file selection dialog into a script</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20241028-insert-file.html#inserting-a-file-selection-dialog-into-a-script">Inserting a file selection dialog into a script</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-10-28 16:00</em></p>
 </div>
 
@@ -94,21 +94,21 @@ See <a href="../howtos/testing_apps/testing_apps.html#testing-apps-with-dialogs"
 With ZEISS INSPECT 2025, it is possible to add a dialog for selecting files or folders by using RMB ► Insert ► File... in the script editor. See <a href="../howtos/python_api_introduction/file_selection_dialog.html">Selecting a file or folder</a> for details. This serves as a shortcut to creating a <a href="../howtos/user_defined_dialogs/user_defined_dialogs.html">User-defined dialog</a> if only a single file widget is needed.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20241125-release-2025.html#zeiss-inspect-2025-released">ZEISS INSPECT 2025 Released</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20241125-release-2025.html#zeiss-inspect-2025-released">ZEISS INSPECT 2025 Released</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-11-25 11:00</em></p>
 </div>
 
 We are happy to announce that [ZEISS INSPECT 2025](https://www.zeiss.com/metrology/en/software/zeiss-inspect.html) has been released. As always, you will find a multitude of new features and improvements. New App development related features will be presented here shortly.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20240315-element-selection.html#selecting-elements-in-scripts">Selecting elements in scripts</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20240315-element-selection.html#selecting-elements-in-scripts">Selecting elements in scripts</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-03-15 09:00</em></p>
 </div>
 
 You have recorded script commands operating on groups of elements selected in the Explorer? The resulting `gom.ElementSelection()` seemed cryptic? You wonder how to access the selection? <a href="../howtos/python_api_introduction/selecting_elements.html">Selecting elements in scripts</a> provides an insight.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20240314-internationalization-tool-update.html#update-of-internationalization-tools-app">Update of Internationalization Tools App</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20240314-internationalization-tool-update.html#update-of-internationalization-tools-app">Update of Internationalization Tools App</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-03-14 15:30</em></p>
 </div>
 
@@ -117,42 +117,42 @@ Did you know that you can easily provide your App's user interface in multiple l
 An updated version of the App 'Internationalization Tools' is now available in the ZQS Store.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20240307-mesh-selection.html#how-can-i-access-the-coordinates-of-a-selection-on-a-mesh">How can I access the coordinates of a selection on a mesh?</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20240307-mesh-selection.html#how-can-i-access-the-coordinates-of-a-selection-on-a-mesh">How can I access the coordinates of a selection on a mesh?</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-03-07 10:00</em></p>
 </div>
 
 The FAQ article <a href="../howtos/faq/faq.html#how-can-i-access-the-coordinates-of-a-selection-on-a-mesh">How can I access the coordinates of a selection on a mesh?</a> explains how you can get the vertices, normals and triangles of parts of a mesh which have been selected interactively.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20240307-csharp_dotnet.html#how-do-i-use-a-c--net-library-in-an-app">How do I use a C# / .NET library in an App?</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20240307-csharp_dotnet.html#how-do-i-use-a-c--net-library-in-an-app">How do I use a C# / .NET library in an App?</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-03-07 10:00</em></p>
 </div>
 
 Please find the new article <a href="../howtos/faq/faq.html#how-do-i-use-a-c-net-library-in-an-app">How do I use a C# / .NET library in an App?</a> in the Frequently Asked Questions.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20240209-test-coverage.html#running-app-tests-with-code-coverage">Running App tests with code coverage</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20240209-test-coverage.html#running-app-tests-with-code-coverage">Running App tests with code coverage</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-02-09 16:00</em></p>
 </div>
 
 The quality of Apps can be enhanced by thorough testing. Sometimes not only the test results, but also the amount of code covered by the test suite is of interest. This is addressed by the new section <a href="../howtos/testing_apps/testing_apps.html#running-app-tests-with-code-coverage">Running App tests with code coverage</a> of the chapter <a href="../howtos/testing_apps/testing_apps.html">Testing Apps</a>.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20240205-using-gui-libraries.html#using-an-additional-python-gui-library">Using an additional Python GUI library</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20240205-using-gui-libraries.html#using-an-additional-python-gui-library">Using an additional Python GUI library</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-02-05 12:00</em></p>
 </div>
 
 The App Editor and the Dialog Designer provide an easy and convenient way of adding a graphical user interface to your App &mdash; see <a href="../howtos/user_defined_dialogs/user_defined_dialogs.html">User-defined dialogs</a>. GUIs which are created this way seamlessly integrate into the look and feel of ZEISS INSPECT. However, there are reasons why using a separate Python GUI library might be preferred. <a href="../howtos/using_gui_libraries/using_gui_libraries.html">Using an additional Python GUI library</a> gives a brief overview on use-cases, options and installation.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20240130-working-with-stages.html#working-with-stages">Working with stages</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20240130-working-with-stages.html#working-with-stages">Working with stages</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-01-30 11:30</em></p>
 </div>
 
 Stages are used in ZEISS INSPECT for comparing inspection results of the same nominal part but different actual meshes. In ZEISS INSPECT Correlate, stages are used for 3D image series. <a href="../howtos/stages/stages.html">Working with stages</a> provides some basic information about using stages in Apps and shows typical applications of Python scripts for working with stages.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20240130-using-wheelhouses.html#using-python-wheelhouses">Using Python wheelhouses</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20240130-using-wheelhouses.html#using-python-wheelhouses">Using Python wheelhouses</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-01-30 11:00</em></p>
 </div>
 
@@ -161,35 +161,35 @@ In most cases, Python packages &mdash; also known as Python wheels &mdash; are i
 In case this does not work, <a href="../howtos/using_wheelhouses/using_wheelhouses.html">Using Python wheelhouses</a> can provide a solution.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20240119-scripted-elements-examples.html#scripted-elements-examples">Scripted elements examples</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20240119-scripted-elements-examples.html#scripted-elements-examples">Scripted elements examples</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-01-19 15:00</em></p>
 </div>
 
 Examples for all types of scripted actual elements have been added to <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/README.md#scripted_actuals--building-custom-actual-elements-with-python-code">App Examples - scripted actuals</a>. You might also want to review the basics in <a href="../howtos/scripted_elements/scripted_elements_toc.html">Scripted elements</a> or to read details in <a href="../python_api/scripted_elements_api.html">Scripted elements API</a>.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20240115-software-starting-options.html#software-and-script-starting-options">Software and script starting options</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20240115-software-starting-options.html#software-and-script-starting-options">Software and script starting options</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-01-15 10:00</em></p>
 </div>
 
 There is a new page <a href="../howtos/starting_options/starting_options.html">HOW-TO GUIDES - Software and script starting options</a>, which deals with various ways to start ZEISS INSPECT and optionally execute a script.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20240115-project-keywords.html#project-keywords">Project Keywords</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20240115-project-keywords.html#project-keywords">Project Keywords</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2024-01-15 10:00</em></p>
 </div>
 
 There is a new section <a href="../howtos/project_keywords/project_keywords.html">HOW-TO GUIDES - Project keywords handling</a>. Project keywords can be used for storing meta information.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20231221-faq.html#frequently-asked-questions">Frequently Asked Questions</a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20231221-faq.html#frequently-asked-questions">Frequently Asked Questions</a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2023-12-21 10:00</em></p>
 </div>
 
 There is a new section <a href="../howtos/faq/faq.html">HOW-TO GUIDES - Frequently asked questions</a> with contents from the [ZEISS Quality Forum](https://qualityforum.zeiss.com/), Tech Support and Development department.
 
 <div class="news-item-header">
-<h3 class="news-item-title"><a class="feed-ref reference internal" href="20231215-api-examples.html#new-api-examples-">New API Examples </a></h3>
+<h2 class="news-item-title"><a class="feed-ref reference internal" href="20231215-api-examples.html#new-api-examples-">New API Examples </a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2023-12-15 13:00</em></p>
 </div>
 
