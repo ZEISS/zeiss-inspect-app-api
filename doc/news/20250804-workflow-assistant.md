@@ -1,10 +1,5 @@
 # Workflow Assistant
 
-```{eval-rst}
-.. feed-entry::
-   :date: 2025-08-04 16:00
-```
-
 ![Workflow Assistant](../howtos/workflow_assistant/assets/inspection-basic_inspections-diameter_inspections.png)
 
 The workflow assistant provides a new user interface for built-in ZEISS INSPECT commands or functions provided by Apps. It allows to organize these commands or functions in a user-friendly and efficient way.
