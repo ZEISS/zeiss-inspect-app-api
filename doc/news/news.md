@@ -9,6 +9,8 @@ myst:
 
 <a href="../index.rss">&#x200B;<i class="fa fa-rss-square"></i> Subscribe to RSS News Feed</a>
 
+---
+
 ```{eval-rst}
 .. feed::
    :rss: index.rss
