@@ -233,13 +233,12 @@ def generate_news_item_content(md_file, news_item):
         # Clean content - remove feed-entry directive and first heading
         cleaned_content = clean_content_for_inclusion(content)
         
-        # Generate the MyST content with linked heading
+        # Generate the MyST content with linked heading (HTML heading + Markdown content)
         item_html = f"""
-<h2>
-  <a class="feed-ref reference internal" href="{news_file_link}">{title}</a>
-  <a class="headerlink" href="#{anchor_id}" title="Link to this heading"></a>
-</h2>
-<p class="feed-meta">Published on <em class="feed-date">{date_str}</em></p>
+<h2><a class="feed-ref reference internal" href="{news_file_link}">{title}</a></h2>
+
+Published on *{date_str}*
+
 {cleaned_content}
 """
         return item_html.strip()
@@ -249,7 +248,7 @@ def generate_news_item_content(md_file, news_item):
         return None
 
 def clean_content_for_inclusion(content):
-    """Clean content for inclusion in news.md - remove comments, first heading, and convert remaining headings to HTML"""
+    """Clean content for inclusion in news.md - remove comments and first heading"""
     lines = content.split('\n')
     cleaned_lines = []
     skip_first_heading = True
@@ -265,21 +264,9 @@ def clean_content_for_inclusion(content):
         # Skip MyST comments (feed-entry)
         if stripped.startswith('%'):
             continue
-        
-        # Convert markdown headings to HTML headings to prevent TOC entries
-        if stripped.startswith('### '):
-            heading_text = stripped[4:].strip()
-            cleaned_lines.append(f'<h4 class="news-subheading">{heading_text}</h4>')
-        elif stripped.startswith('## '):
-            heading_text = stripped[3:].strip()
-            cleaned_lines.append(f'<h4 class="news-subheading">{heading_text}</h4>')
-        elif stripped.startswith('# '):
-            # This shouldn't happen since we skip the first heading, but just in case
-            heading_text = stripped[2:].strip()
-            cleaned_lines.append(f'<h4 class="news-subheading">{heading_text}</h4>')
-        else:
-            # Keep the line as-is
-            cleaned_lines.append(line)
+            
+        # Keep the line as-is
+        cleaned_lines.append(line)
     
     # Join and clean up extra whitespace
     result = '\n'.join(cleaned_lines).strip()
