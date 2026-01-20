@@ -18,8 +18,12 @@ jobs:
         run: echo "SUBDIR_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
       - name: Process news and generate RSS feed
         run: |
-          export GITHUB_PAGES_URL="https://zeiss.github.io/zeiss-inspect-app-api/${{ env.SUBDIR_NAME }}/"
+          export GITHUB_PAGES_URL="https://zeiss.github.io/zeiss-inspect-app-api/${SUBDIR_NAME}/"
           python doc/generate_rss.py
+          echo "RSS file generated:"
+          ls -la _build/index.rss || echo "RSS file not found in _build/"
+          echo "RSS file content (first 10 lines):"
+          head -10 _build/index.rss || echo "Cannot read RSS file"
       - name: Sphinx build
         run: |
           sphinx-build --keep-going doc _build
@@ -47,6 +51,12 @@ jobs:
         uses: actions/checkout@v5
         with:
           ref: gh-pages
+      - name: Verify RSS file deployment
+        run: |
+          echo "Checking for RSS file in gh-pages branch:"
+          ls -la ${SUBDIR_NAME}/index.rss || echo "RSS file not found at ${SUBDIR_NAME}/index.rss"
+          echo "Contents of ${SUBDIR_NAME}/ directory:"
+          ls -la ${SUBDIR_NAME}/ || echo "Directory ${SUBDIR_NAME}/ not found"
       # NOTE:
       # Targets behind login page cannot be checked!!!
       # * software-store.zeiss.com/products/apps/
