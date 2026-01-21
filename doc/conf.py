@@ -30,8 +30,6 @@ myst_enable_extensions = [
 
 myst_heading_anchors = 4
 
-autodoc_use_legacy_class_based = True
-
 # Suppress the warning "WARNING: Non-consecutive header level increase" which commonly appears in python_api/python_api.md
 # Unfortunately, suppressing this only for a single file does not seem to work...
 suppress_warnings  = ['myst.header']
