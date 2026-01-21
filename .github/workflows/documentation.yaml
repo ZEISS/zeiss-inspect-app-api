@@ -22,35 +22,3 @@ jobs:
           else
             echo -e "\033[1;32mSphinx build PASSED\033[0m\n"
           fi
-      - name: Insert RSS link into news page HTML header
-        run: |
-          sed -i 's|</head>|    <link rel="alternate" type="application/rss+xml" title="ZEISS INSPECT App Python API News Feed" href="../index.rss" />\n</head>|' _build/news/news.html
-      - name: Set branch name
-        id: branch
-        run: echo "SUBDIR_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
-      - name: Replace main by 2026 in canonical link
-        run: |
-          find . -type f -name "*.html" -exec sed -i 's@<link rel="canonical" href="https://zeiss\.github\.io/zeiss-inspect-app-api/main/@<link rel="canonical" href="https://zeiss\.github\.io/zeiss-inspect-app-api/2026/@' {} +
-      - name: Deploy
-        if: ${{ github.event_name != 'pull_request' }}
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _build/
-          destination_dir: ${{ env.SUBDIR_NAME }}
-          full_commit_message: Deploy documentation of '${{ env.SUBDIR_NAME }}' to GitHub Pages
-      - name: Checkout gh-pages
-        uses: actions/checkout@v5
-        with:
-          ref: gh-pages
-      # NOTE:
-      # Targets behind login page cannot be checked!!!
-      # * software-store.zeiss.com/products/apps/
-      # * techguide.zeiss.com
-      # * training.gom.com
-      - name: Linkcheck
-        id: lychee
-        if: ${{ env.SUBDIR_NAME != 'merge' }}
-        uses: lycheeverse/lychee-action@v2
-        with:
-          args: --user-agent "curl/8.4.0" --remap 'stackoverflow.com/questions/(\d+)/.* api.stackexchange.com/2.3/questions/$1?site=stackoverflow' --verbose --no-progress '${{ env.SUBDIR_NAME }}/**/*.html'
