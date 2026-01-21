@@ -16,7 +16,7 @@ jobs:
       - name: Sphinx build
         run: |
           sphinx-build --bug-report
-          sphinx-build --W doc _build
+          sphinx-build -W doc _build
           if [ $? -ne 0 ]; then
             echo -e "\033[1;31mSphinx build FAILED\033[0m\n"
             exit 1
