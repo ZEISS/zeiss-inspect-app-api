@@ -37,7 +37,7 @@ jobs:
           destination_dir: ${{ env.SUBDIR_NAME }}
           full_commit_message: Deploy documentation of '${{ env.SUBDIR_NAME }}' to GitHub Pages
       - name: Checkout gh-pages
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: gh-pages
       # NOTE:
