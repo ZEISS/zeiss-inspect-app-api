@@ -121,7 +121,7 @@ Add-on short / long descriptions can only be rendered as plain text without form
 See [markdown guide](https://www.markdownguide.org/basic-syntax/) for a brief description of the markdown format.
 ```
 
-See [ZEISS Quality Software Store &mdash; FileSelectionAndFiltering](https://software-store.zeiss.com/products/apps/FileSelectionAndFiltering) for example.
+See [ZEISS Quality Software Store &mdash; FileSelectionAndFiltering](https://software-store.zeiss.com/products/apps/file-selection-and-filtering) for example.
 
 ![ZEISS INSPECT Add-on editor with Markdown viewer](assets/markdown_editor_viewer.png)
 A markdown editor/viewer is integrated in the ZEISS INSPECT Add-on editor.
