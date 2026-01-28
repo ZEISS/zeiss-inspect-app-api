@@ -93,11 +93,11 @@ To use this feature, navigate to the "Testing" workspace of VSCode and select th
 You can use the `execute_addon_tests` command to run tests of an App. It takes the App UUID as mandatory argument. If solely given, all tests of the App are executed. You can also provide a list of test paths with the argument `test_paths` in form of relative paths inside the App. The suffix `#test_<...>` selects the test function to be run. 
 
 ```
-results = gom.script.sys.execute_addon_tests_draft(addon_uuid='cc4de73f-a8b9-4c01-8f45-141a74f29333')
+results = gom.script.sys.execute_addon_tests(addon_uuid='cc4de73f-a8b9-4c01-8f45-141a74f29333')
 ```
 
 ```
-results = gom.script.sys.execute_addon_tests_draft(addon_uuid='5f396cc9-7865-44a1-8a85-ed7c1689dd68', 
+results = gom.script.sys.execute_addon_tests(addon_uuid='5f396cc9-7865-44a1-8a85-ed7c1689dd68', 
 	test_paths=['/PythonApiExamples/tests/test_dialog_widgets_explorer_selection#test_explorer_selection'])
 ```
 This will give you `results` as a list of tuples (test name, success, error message), which you can use for further evaluation.
