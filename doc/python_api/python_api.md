@@ -462,6 +462,8 @@ This function is part of the scripted contribution framework. It can be used in 
 'dialog' functions to pop up user input dialogs, e.g. for creation commands. Passing of the
 contributions script context is mandatory for the function to work.
 
+\attention This function is not enabled outside of the custom elements scripted contribution framework.
+
 ### gom.api.dialog.execute
 
 ```{py:function} gom.api.dialog.execute(context: Any, url: str): Any
@@ -482,6 +484,8 @@ confirmed or cancelled.
 This function is part of the scripted contribution framework. It can be used in the scripts
 'dialog' functions to pop up user input dialogs, e.g. for creation commands. Passing of the
 contributions script context is mandatory for the function to work.
+
+\attention This function is not enabled outside of the custom elements scripted contribution framework.
 
 ### gom.api.dialog.show
 
