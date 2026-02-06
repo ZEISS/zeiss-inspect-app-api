@@ -4400,9 +4400,68 @@ API for table data handling
 This module provides utilities and API entry points to parse table templates (XML), map project inspection data into
 those templates, and produce a serializable view representation suitable for direct rendering by the UI.
 
-### gom.api.table.get_view_data
+### gom.api.table.close_view
 
-```{py:function} gom.api.table.get_view_data(xml_data: str, mode: str): dict
+```{py:function} gom.api.table.close_view(): bool
+
+Close the current table view and release resources
+:return: True if view was closed successfully
+:rtype: bool
+```
+
+Cleans up the in-memory view state. Should be called when
+the view is closed or no longer needed.
+
+**Example usage in Python:**
+```python
+success = gom.api.table.close_view()
+```
+
+### gom.api.table.create_view
+
+```{py:function} gom.api.table.create_view(xml_data: str, mode: str): dict
+
+Create a table view with initial data
+:param xml_data: XML string containing the table template definition
+:type xml_data: str
+:param mode: Content mode: 'inspection', 'measurements', or 'alignments'
+:type mode: str
+:return: Initial table view data (same format as get_view_data)
+:rtype: dict
+```
+
+Initializes the table view state and returns initial view data.
+This must be called before update_view. The view state stores
+the template container in memory to enable fast incremental updates.
+
+**Example usage in Python:**
+```python
+table_data = gom.api.table.create_view(xml_template, 'inspection')
+# table_data contains: {headers: [...], rows: [...]}
+```
+
+### gom.api.table.get_current_view_data
+
+```{py:function} gom.api.table.get_current_view_data(): dict
+
+Get the current table view data without regenerating
+:return: Current table view data (same format as get_view_data)
+:rtype: dict
+```
+
+Returns the last generated table view data stored in memory.
+This is useful for getting the current state without triggering
+a full regeneration of the table view.
+
+**Example usage in Python:**
+```python
+current_data = gom.api.table.get_current_view_data()
+# Returns the current state: {headers: [...], rows: [...]}
+```
+
+### gom.api.table.get_view_data_from_xml
+
+```{py:function} gom.api.table.get_view_data_from_xml(xml_data: str, mode: str): dict
 
 Generate table view data from an XML table template and the current project's inspection elements.
 :param xml_data: XML string containing the table template definition
@@ -4442,6 +4501,63 @@ empty cells.
       }, "...":"" ]
    }, "...":"" ]
  }
+```
+
+### gom.api.table.revert_view
+
+```{py:function} gom.api.table.revert_view(): dict
+
+Discard all changes and restore original table view
+:return: Original table view data (same format as get_view_data)
+:rtype: dict
+```
+
+Resets the view state to the original state by discarding
+all in-memory template modifications and reinitializing with
+the original XML template.
+
+**Example usage in Python:**
+```python
+# After making some edits...
+original_data = gom.api.table.revert_view()
+# All changes are discarded, view is reset to initial state
+```
+
+### gom.api.table.update_view
+
+```{py:function} gom.api.table.update_view(row: int, col: int, expression: str): dict
+
+Update a cell's expression and return refreshed table view
+:param row: Row index in the current table view (0-based)
+:type row: int
+:param col: Column index (0-based, excluding row number column in edit mode)
+:type col: int
+:param expression: New expression text to set for this cell
+:type expression: str
+:return: Full updated table view data (same format as get_view_data)
+:rtype: dict
+```
+
+Modifies the template element's expression text in the active view state,
+then regenerates the entire table view with updated token resolution.
+This is fast because the template is stored in memory (no XML parsing).
+
+**Important:** This regenerates the ENTIRE table because:
+- Elements can reference each other via TokenSource
+- Background colors can depend on other elements' values
+- Expression changes can affect multiple rows/cells
+
+**Note:** Changes are NOT saved to file until the host calls save.
+This only updates the in-memory template and regenerates the view.
+
+**Example usage in Python:**
+```python
+# Create view first
+table_data = gom.api.table.create_view(xml, 'inspection')
+
+# Update a cell
+updated_data = gom.api.table.update_view(0, 1, 'Point 1.y')
+# Returns full table with all cells re-resolved
 ```
 
 ## gom.api.testing
