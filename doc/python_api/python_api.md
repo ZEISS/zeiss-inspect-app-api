@@ -676,7 +676,9 @@ are not predefined by the element type, but can be freely defined by the scripte
 function result, it is more like an additional data storage which is associated with the element instance, for example
 for caching intermediate results, storing additional metadata, ... Thus, custom element data is accessed via the `context`
 object passed to each function. The context custom data is staged, so each stage has its own custom data storage, and the current
-stage is always the one used for data access
+stage is always the one used for data access. Also, the type written into the `context.data` field has to be a dictionary.
+Each entry in that dictionary is then stored as a separate custom data entry for the element and can be accessed via
+"element tokens" in scripts afterwards.
 
 Example:
 ```
@@ -698,12 +700,43 @@ def compute (self, context, values):
     return result
 ```
 
+When a scripted element has custom data set, these data entries can be accessed in scripts via element tokens.
+
+Example:
+```
+element = gom.script.project['Parts']['Part 1'].elements['My Scripted Element']
+intermediate_result = element.intermediate_result # Token name matches custom data key
+``` 
+
 The size of the data storage is not limited, but it should be kept in mind that all data must be serialized
 and stored in the project file. Therefore, large data structures should be avoided here. Also, calls to
 `context.data` can be relatively expensive due to serialization and deserialization, so frequent access
 should be avoided. Also, extremely large data structures may not be storable at all due to internal limits.
 
 The custom data can be cleared per stage by setting an empty dictionary to `context.data = {}`.
+
+For a more structured way or returning custom data, the result of the `compute ()` function can also
+contain a special `data` entry. This entry must be a dictionary and will be stored as custom data for
+that element and stage. This is a more explicit way of returning custom data compared to using the
+`context.data` field. Example:
+
+```
+def compute (self, context, values):
+    # Compute final result
+    result = ...
+
+    # Return custom data as part of the result
+    custom_data = {
+        'intermediate_result': ... # Some computed intermediate result
+    }
+
+    result['data'] = custom_data
+
+    return result
+```
+
+When a new custom data set in set, either via `context.data` or via the `data` entry in the result, all
+previous custom data entries for that stage are cleared and the whole new data set is stored instead.
 
 #### gom.api.extensions.ScriptedElement.Attribute
 
