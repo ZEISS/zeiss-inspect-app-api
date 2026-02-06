@@ -1331,7 +1331,9 @@ are not predefined by the element type, but can be freely defined by the scripte
 function result, it is more like an additional data storage which is associated with the element instance, for example
 for caching intermediate results, storing additional metadata, … Thus, custom element data is accessed via the <code class="docutils literal notranslate"><span class="pre">context</span></code>
 object passed to each function. The context custom data is staged, so each stage has its own custom data storage, and the current
-stage is always the one used for data access</p>
+stage is always the one used for data access. Also, the type written into the <code class="docutils literal notranslate"><span class="pre">context.data</span></code> field has to be a dictionary.
+Each entry in that dictionary is then stored as a separate custom data entry for the element and can be accessed via
+“element tokens” in scripts afterwards.</p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
     <span class="c1"># Access custom data for the current stage.</span>
@@ -1351,11 +1353,37 @@ stage is always the one used for data access</p>
     <span class="k">return</span> <span class="n">result</span>
 </pre></div>
 </div>
+<p>When a scripted element has custom data set, these data entries can be accessed in scripts via element tokens.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">project</span><span class="p">[</span><span class="s1">&#39;Parts&#39;</span><span class="p">][</span><span class="s1">&#39;Part 1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s1">&#39;My Scripted Element&#39;</span><span class="p">]</span>
+<span class="n">intermediate_result</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">intermediate_result</span> <span class="c1"># Token name matches custom data key</span>
+</pre></div>
+</div>
 <p>The size of the data storage is not limited, but it should be kept in mind that all data must be serialized
 and stored in the project file. Therefore, large data structures should be avoided here. Also, calls to
 <code class="docutils literal notranslate"><span class="pre">context.data</span></code> can be relatively expensive due to serialization and deserialization, so frequent access
 should be avoided. Also, extremely large data structures may not be storable at all due to internal limits.</p>
 <p>The custom data can be cleared per stage by setting an empty dictionary to <code class="docutils literal notranslate"><span class="pre">context.data</span> <span class="pre">=</span> <span class="pre">{}</span></code>.</p>
+<p>For a more structured way or returning custom data, the result of the <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function can also
+contain a special <code class="docutils literal notranslate"><span class="pre">data</span></code> entry. This entry must be a dictionary and will be stored as custom data for
+that element and stage. This is a more explicit way of returning custom data compared to using the
+<code class="docutils literal notranslate"><span class="pre">context.data</span></code> field. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="c1"># Compute final result</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="o">...</span>
+
+    <span class="c1"># Return custom data as part of the result</span>
+    <span class="n">custom_data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;intermediate_result&#39;</span><span class="p">:</span> <span class="o">...</span> <span class="c1"># Some computed intermediate result</span>
+    <span class="p">}</span>
+
+    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">custom_data</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>When a new custom data set in set, either via <code class="docutils literal notranslate"><span class="pre">context.data</span></code> or via the <code class="docutils literal notranslate"><span class="pre">data</span></code> entry in the result, all
+previous custom data entries for that stage are cleared and the whole new data set is stored instead.</p>
 <section id="gom-api-extensions-scriptedelement-attribute">
 <h4>gom.api.extensions.ScriptedElement.Attribute<a class="headerlink" href="#gom-api-extensions-scriptedelement-attribute" title="Link to this heading"></a></h4>
 <p>Attributes used in the dialog definition</p>
@@ -5889,7 +5917,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f04fd6adf60>
+  <jinja2.runtime.BlockReference object at 0x7f298546a2e0>
 
 
 </footer>
