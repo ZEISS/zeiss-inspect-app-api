@@ -74,7 +74,7 @@ Compute pixel coordinates from point coordinates
 ```
 
 This function is used to compute the location of a 3d point in a 2d image. This is a photogrammetric
-operation which will return a precise result. The input parameter is a list of tuples where each tuple consists
+operation which will return a precise result. The input parameter is a list of tupels where each tuple consists
 of a 3d point and and acquisition object. The acquisition object is then used to compute the location of the
 3d point in the referenced image. This might lead to multiple pixels as a result, so the return value is again
 a list containing 0 to n entries of pixel matches.
@@ -519,8 +519,8 @@ for a in gom.api.addons.get_installed_addons ():
 
 API for storing add-on related settings persistently
 
-This API allows reading/writing values into the application configuration permanently. The
-configuration is persistent and will survive application restarts. Also, it can be accessed
+This API allows reading/writing values into the application configuration permantly. The
+configuration is persistant and will survive application restarts. Also, it can be accessed
 via the applications preferences dialog.
 
 The configuration entries must be defined in the add-ons `metainfo.json` file. This configuration
