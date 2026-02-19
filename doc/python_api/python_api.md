@@ -3638,6 +3638,189 @@ for m in gom.api.introspection.modules ():
   print (m.name ())
 ```
 
+## gom.api.license
+
+API for checking license availability
+
+This API enables secure license checking using a nonce-based verification scheme.
+The license check result includes a cryptographically signed nonce that can be
+verified by the caller using the corresponding public key.
+
+### gom.api.license.LicenseCheckResult
+
+Result of a license availability check
+
+This class contains the result of a license check operation, including the
+availability status and a cryptographically signed nonce for verification.
+
+#### gom.api.license.LicenseCheckResult.get_encrypted_nonce
+
+```{py:function} gom.api.license.LicenseCheckResult.get_encrypted_nonce(): str
+
+Get the encrypted/signed nonce
+:API version: 1
+:return: The nonce encrypted/signed with the software's private key (only valid if the license is available), or an
+:rtype: str
+```
+
+This function returns the nonce that was provided during the check, encrypted
+(signed) with the software's private key. The caller can verify this signature
+using the corresponding public key to ensure the response authenticity.
+
+The nonce is only valid if the license is available; otherwise, an empty string is returned.
+
+#### Example (Python)
+
+```python
+import gom
+import secrets
+import base64
+from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.backends import default_backend
+
+# Load the public key (PEM format)
+public_key_pem = """-----BEGIN RSA PUBLIC KEY-----
+MIIBCgKCAQEAx1Z8PLdYxZ/hdYXrPqMDc5tx+ZbXuDMt1pHjVByg0gEhHDQBhync
+EReWMC6nNlQJcH4LzOH+WblnuTKK/myaXroO35v0UM6F9MmjpCM4Dj2SZOS+nG0z
+RoCJ/g1BgiKtyrgrDNXtbObRxuN4tNZW3jxhKalidZxCTzLGvimh90v4M9/Qtym9
+8OFaDFfB4ULZXXtsGvOhcukmKqaVsJOekCybQ2o9OuqXcuVCKoCGmPp31cmrxCfS
+JBTeXe5NoDxjdeQJA2rcnfb5/KjoHSnsrulx0n9P6q0L9Pq6/G7ZLU2a8jYOAuGk
+IVnaIx1OXhkmjpx9maUpp0kZeJmj5txPlwIDAQAB
+-----END RSA PUBLIC KEY-----"""
+
+public_key = serialization.load_pem_public_key(
+    public_key_pem.encode(),
+    backend=default_backend()
+)
+
+# Generate a random nonce
+nonce = str(secrets.randbits(128))
+
+# Check license
+result = gom.api.license.check_license('MyLicenseFeature', nonce)
+
+if result.is_available():
+    # Get the signed nonce
+    signed_nonce = result.get_encrypted_nonce()
+
+    # Verify the signature
+    try:
+        public_key.verify(
+            base64.b64decode(signed_nonce),
+            nonce.encode('utf-8'),
+            padding.PKCS1v15(),
+            hashes.SHA256()
+        )
+        print('License available and signature verified')
+    except Exception as e:
+        print(f'Signature verification failed: {e}')
+else:
+    print('License not available')
+```
+
+empty string if the license is not available
+
+#### gom.api.license.LicenseCheckResult.is_available
+
+```{py:function} gom.api.license.LicenseCheckResult.is_available(): bool
+
+Check if the requested license is available
+:API version: 1
+:return: True if the license is available, False otherwise
+:rtype: bool
+```
+
+This function returns whether the requested license is currently available
+in the system.
+
+### gom.api.license.check_license
+
+```{py:function} gom.api.license.check_license(license_name: str, nonce: str): gom.api.license.LicenseCheckResult
+
+Check if a specific license is available
+:API version: 1
+:param license_name: Name of the license feature to check
+:type license_name: str
+:param nonce: Random number (used once) for verification purposes
+:type nonce: str
+:return: LicenseCheckResult object containing availability status and signed nonce if license is available
+:rtype: gom.api.license.LicenseCheckResult
+```
+
+This function checks whether a specified license is currently available in the system.
+To ensure the authenticity of the response, the function requires a nonce (random number
+used once) which is returned encrypted/signed with the software's private key. The caller
+can verify this signature using the corresponding public key. This verification needs to be
+implemented by the caller to ensure the authenticity of the response and prevent spoofing.
+
+This implements a challenge-response authentication scheme to prevent replay attacks and
+ensure that the license check result is genuine.
+
+#### Example
+
+```python
+import gom
+import secrets
+
+# Generate a cryptographically secure random nonce
+nonce = str(secrets.randbits(128))
+
+# Check if license 'AdvancedMeasurement' is available
+result = gom.api.license.check_license('AdvancedMeasurement', nonce)
+
+if result.is_available():
+    print('License is available')
+    # For signature verification, see get_encrypted_nonce() documentation
+else:
+    print('License not available')
+```
+
+### gom.api.license.check_product_code
+
+```{py:function} gom.api.license.check_product_code(product_code_id: str, product_code_name: str, nonce: str): None
+
+Check if a specific product code is available
+:API version: 1
+:param product_code_id: ID of the product code to check
+:type product_code_id: str
+:param product_code_name: Name of the product code to check
+:type product_code_name: str
+:param nonce: Random number (used once) for verification purposes
+:type nonce: str
+:return: LicenseCheckResult object containing availability status and signed nonce if product code is available
+```
+
+gom.api.license.LicenseCheckResult
+
+This function checks whether a specified product code is currently available in the system.
+To ensure the authenticity of the response, the function requires a nonce (random number
+used once) which is returned encrypted/signed with the software's private key. The caller
+can verify this signature using the corresponding public key. This verification needs to be
+implemented by the caller to ensure the authenticity of the response and prevent spoofing.
+
+This implements a challenge-response authentication scheme to prevent replay attacks and
+ensure that the product code check result is genuine.
+
+#### Example
+
+```python
+import gom
+import secrets
+
+# Generate a cryptographically secure random nonce
+nonce = str(secrets.randbits(128))
+
+# Check if product code is available
+result = gom.api.license.check_product_code('12345', 'ProductName', nonce)
+
+if result.is_available():
+    print('Product code is available')
+    # For signature verification, see get_encrypted_nonce() documentation
+else:
+    print('Product code not available')
+```
+
 ## gom.api.progress
 
 API for accessing the progress bar in the main window
