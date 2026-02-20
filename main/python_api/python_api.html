@@ -313,9 +313,26 @@
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-introspection-modules">gom.api.introspection.modules</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#gom-api-license">gom.api.license</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-license-licensecheckresult">gom.api.license.LicenseCheckResult</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-license-licensecheckresult-get-encrypted-nonce">gom.api.license.LicenseCheckResult.get_encrypted_nonce</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-python">Example (Python)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-license-licensecheckresult-is-available">gom.api.license.LicenseCheckResult.is_available</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-license-check-license">gom.api.license.check_license</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-license-check-product-code">gom.api.license.check_product_code</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-progress">gom.api.progress</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-progress-progressbar">gom.api.progress.ProgressBar</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id3">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-progress-progressbar-finish-progress">gom.api.progress.ProgressBar.finish_progress</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-progress-progressbar-set-message">gom.api.progress.ProgressBar.set_message</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-progress-progressbar-set-progress">gom.api.progress.ProgressBar.set_progress</a></li>
@@ -379,7 +396,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-settings">gom.api.settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id4">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#types">Types</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#file-selector">File selector</a></li>
 </ul>
@@ -3068,8 +3085,8 @@ view code can be part of an app, which shared its id space with other apps insta
 It is advised to use a reverse domain name notation for the id, e.g. <code class="docutils literal notranslate"><span class="pre">com.mycompany.myapp.myview</span></code>.</p>
 <p><strong>Implementation</strong></p>
 <p>A very simple example for a scripted view API contribution can look like this:</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Example of a simple scripted view definition</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Example of a simple scripted view definition</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.views</span>
 
@@ -3105,8 +3122,8 @@ It is advised to use a reverse domain name notation for the id, e.g. <code class
 </ul>
 <p>The JavaScript renderer can call the <code class="docutils literal notranslate"><span class="pre">get_data</span></code> function to get the data to visualize in a custom way
 via the <code class="docutils literal notranslate"><span class="pre">gom.bridge</span></code> object:</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Accessing data via the scripting bridge from Python</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Accessing data via the scripting bridge from Python</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">renderer</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">gom</span><span class="p">.</span><span class="nx">bridge</span><span class="p">.</span><span class="nx">get_data</span><span class="p">();</span>
 <span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">text</span><span class="p">);</span>
@@ -3118,8 +3135,8 @@ via the <code class="docutils literal notranslate"><span class="pre">gom.bridge<
 <p>The JavaScript renderer can emit events which can then be processed by the python side. There are a few system
 events, but the renderer itself can produce custom events. The <code class="docutils literal notranslate"><span class="pre">event</span></code> instance method is called by the JavaScript
 renderer in effect in case of en event. It can be overwritten in custom scripted view implementations:</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Example of a scripted view with event handling</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Example of a scripted view with event handling</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
 <span class="nd">@apicontribution</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MyScriptedView</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">ScriptedView</span><span class="p">):</span>
@@ -3131,8 +3148,8 @@ renderer in effect in case of en event. It can be overwritten in custom scripted
 </div>
 </div>
 <p>On the JavaScript side, the event can be emitted like this:</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Emitting events from the JavaScript renderer</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Emitting events from the JavaScript renderer</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">renderer</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">gom</span><span class="p">.</span><span class="nx">emitEvent</span><span class="p">(</span><span class="s1">&#39;my::custom::event&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
 <span class="p">}</span>
@@ -3152,8 +3169,8 @@ started.</p>
 <p>JavaScript bundles can be creates in various ways, for example via a webpack build. Without going too much into
 detail about the node.js/npm foundations, the following example shows how to create a simple ‘react’ module bundle
 using node.js and webpack.</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Example of a package.json file for bundle creation</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Example of a package.json file for bundle creation</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;app-module-bundle&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;App module bundle&quot;</span><span class="p">,</span>
@@ -3174,8 +3191,8 @@ using node.js and webpack.</p>
 </div>
 </div>
 <p>Then, a <code class="docutils literal notranslate"><span class="pre">webpack.config.js</span></code> like the following has to be added:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Example of a webpack.config.js file for bundle creation</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Example of a webpack.config.js file for bundle creation</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
@@ -4576,6 +4593,219 @@ testing purposes.</p>
 </div>
 </section>
 </section>
+<section id="gom-api-license">
+<h2>gom.api.license<a class="headerlink" href="#gom-api-license" title="Link to this heading"></a></h2>
+<p>API for checking license availability</p>
+<p>This API enables secure license checking using a nonce-based verification scheme.
+The license check result includes a cryptographically signed nonce that can be
+verified by the caller using the corresponding public key.</p>
+<section id="gom-api-license-licensecheckresult">
+<h3>gom.api.license.LicenseCheckResult<a class="headerlink" href="#gom-api-license-licensecheckresult" title="Link to this heading"></a></h3>
+<p>Result of a license availability check</p>
+<p>This class contains the result of a license check operation, including the
+availability status and a cryptographically signed nonce for verification.</p>
+<section id="gom-api-license-licensecheckresult-get-encrypted-nonce">
+<h4>gom.api.license.LicenseCheckResult.get_encrypted_nonce<a class="headerlink" href="#gom-api-license-licensecheckresult-get-encrypted-nonce" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.license.LicenseCheckResult.get_encrypted_nonce():</span> <span class="pre">str</span></span></dt>
+<dd><p>Get the encrypted/signed nonce</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The nonce encrypted/signed with the software’s private key (only valid if the license is available), or an</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function returns the nonce that was provided during the check, encrypted
+(signed) with the software’s private key. The caller can verify this signature
+using the corresponding public key to ensure the response authenticity.</p>
+<p>The nonce is only valid if the license is available; otherwise, an empty string is returned.</p>
+</section>
+<section id="example-python">
+<h4>Example (Python)<a class="headerlink" href="#example-python" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">secrets</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cryptography.hazmat.primitives</span><span class="w"> </span><span class="kn">import</span> <span class="n">hashes</span><span class="p">,</span> <span class="n">serialization</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cryptography.hazmat.primitives.asymmetric</span><span class="w"> </span><span class="kn">import</span> <span class="n">padding</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cryptography.hazmat.backends</span><span class="w"> </span><span class="kn">import</span> <span class="n">default_backend</span>
+
+<span class="c1"># Load the public key (PEM format)</span>
+<span class="n">public_key_pem</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;-----BEGIN RSA PUBLIC KEY-----</span>
+<span class="s2">MIIBCgKCAQEAx1Z8PLdYxZ/hdYXrPqMDc5tx+ZbXuDMt1pHjVByg0gEhHDQBhync</span>
+<span class="s2">EReWMC6nNlQJcH4LzOH+WblnuTKK/myaXroO35v0UM6F9MmjpCM4Dj2SZOS+nG0z</span>
+<span class="s2">RoCJ/g1BgiKtyrgrDNXtbObRxuN4tNZW3jxhKalidZxCTzLGvimh90v4M9/Qtym9</span>
+<span class="s2">8OFaDFfB4ULZXXtsGvOhcukmKqaVsJOekCybQ2o9OuqXcuVCKoCGmPp31cmrxCfS</span>
+<span class="s2">JBTeXe5NoDxjdeQJA2rcnfb5/KjoHSnsrulx0n9P6q0L9Pq6/G7ZLU2a8jYOAuGk</span>
+<span class="s2">IVnaIx1OXhkmjpx9maUpp0kZeJmj5txPlwIDAQAB</span>
+<span class="s2">-----END RSA PUBLIC KEY-----&quot;&quot;&quot;</span>
+
+<span class="n">public_key</span> <span class="o">=</span> <span class="n">serialization</span><span class="o">.</span><span class="n">load_pem_public_key</span><span class="p">(</span>
+    <span class="n">public_key_pem</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span>
+    <span class="n">backend</span><span class="o">=</span><span class="n">default_backend</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># Generate a random nonce</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">secrets</span><span class="o">.</span><span class="n">randbits</span><span class="p">(</span><span class="mi">128</span><span class="p">))</span>
+
+<span class="c1"># Check license</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">license</span><span class="o">.</span><span class="n">check_license</span><span class="p">(</span><span class="s1">&#39;MyLicenseFeature&#39;</span><span class="p">,</span> <span class="n">nonce</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="c1"># Get the signed nonce</span>
+    <span class="n">signed_nonce</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get_encrypted_nonce</span><span class="p">()</span>
+
+    <span class="c1"># Verify the signature</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">public_key</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span>
+            <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">signed_nonce</span><span class="p">),</span>
+            <span class="n">nonce</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+            <span class="n">padding</span><span class="o">.</span><span class="n">PKCS1v15</span><span class="p">(),</span>
+            <span class="n">hashes</span><span class="o">.</span><span class="n">SHA256</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;License available and signature verified&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Signature verification failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;License not available&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>empty string if the license is not available</p>
+</section>
+<section id="gom-api-license-licensecheckresult-is-available">
+<h4>gom.api.license.LicenseCheckResult.is_available<a class="headerlink" href="#gom-api-license-licensecheckresult-is-available" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.license.LicenseCheckResult.is_available():</span> <span class="pre">bool</span></span></dt>
+<dd><p>Check if the requested license is available</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the license is available, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function returns whether the requested license is currently available
+in the system.</p>
+</section>
+</section>
+<section id="gom-api-license-check-license">
+<h3>gom.api.license.check_license<a class="headerlink" href="#gom-api-license-check-license" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.license.check_license(license_name:</span> <span class="pre">str,</span> <span class="pre">nonce:</span> <span class="pre">str):</span> <span class="pre">gom.api.license.LicenseCheckResult</span></span></dt>
+<dd><p>Check if a specific license is available</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>license_name</strong> (<em>str</em>) – Name of the license feature to check</p></li>
+<li><p><strong>nonce</strong> (<em>str</em>) – Random number (used once) for verification purposes</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>LicenseCheckResult object containing availability status and signed nonce if license is available</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>gom.api.license.LicenseCheckResult</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function checks whether a specified license is currently available in the system.
+To ensure the authenticity of the response, the function requires a nonce (random number
+used once) which is returned encrypted/signed with the software’s private key. The caller
+can verify this signature using the corresponding public key. This verification needs to be
+implemented by the caller to ensure the authenticity of the response and prevent spoofing.</p>
+<p>This implements a challenge-response authentication scheme to prevent replay attacks and
+ensure that the license check result is genuine.</p>
+<section id="id3">
+<h4>Example<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">secrets</span>
+
+<span class="c1"># Generate a cryptographically secure random nonce</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">secrets</span><span class="o">.</span><span class="n">randbits</span><span class="p">(</span><span class="mi">128</span><span class="p">))</span>
+
+<span class="c1"># Check if license &#39;AdvancedMeasurement&#39; is available</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">license</span><span class="o">.</span><span class="n">check_license</span><span class="p">(</span><span class="s1">&#39;AdvancedMeasurement&#39;</span><span class="p">,</span> <span class="n">nonce</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;License is available&#39;</span><span class="p">)</span>
+    <span class="c1"># For signature verification, see get_encrypted_nonce() documentation</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;License not available&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="gom-api-license-check-product-code">
+<h3>gom.api.license.check_product_code<a class="headerlink" href="#gom-api-license-check-product-code" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.license.check_product_code(product_code_id:</span> <span class="pre">str,</span> <span class="pre">product_code_name:</span> <span class="pre">str,</span> <span class="pre">nonce:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Check if a specific product code is available</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>product_code_id</strong> (<em>str</em>) – ID of the product code to check</p></li>
+<li><p><strong>product_code_name</strong> (<em>str</em>) – Name of the product code to check</p></li>
+<li><p><strong>nonce</strong> (<em>str</em>) – Random number (used once) for verification purposes</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>LicenseCheckResult object containing availability status and signed nonce if product code is available</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>gom.api.license.LicenseCheckResult</p>
+<p>This function checks whether a specified product code is currently available in the system.
+To ensure the authenticity of the response, the function requires a nonce (random number
+used once) which is returned encrypted/signed with the software’s private key. The caller
+can verify this signature using the corresponding public key. This verification needs to be
+implemented by the caller to ensure the authenticity of the response and prevent spoofing.</p>
+<p>This implements a challenge-response authentication scheme to prevent replay attacks and
+ensure that the product code check result is genuine.</p>
+<section id="id4">
+<h4>Example<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">secrets</span>
+
+<span class="c1"># Generate a cryptographically secure random nonce</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">secrets</span><span class="o">.</span><span class="n">randbits</span><span class="p">(</span><span class="mi">128</span><span class="p">))</span>
+
+<span class="c1"># Check if product code is available</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">license</span><span class="o">.</span><span class="n">check_product_code</span><span class="p">(</span><span class="s1">&#39;12345&#39;</span><span class="p">,</span> <span class="s1">&#39;ProductName&#39;</span><span class="p">,</span> <span class="n">nonce</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Product code is available&#39;</span><span class="p">)</span>
+    <span class="c1"># For signature verification, see get_encrypted_nonce() documentation</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Product code not available&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
 <section id="gom-api-progress">
 <h2>gom.api.progress<a class="headerlink" href="#gom-api-progress" title="Link to this heading"></a></h2>
 <p>API for accessing the progress bar in the main window</p>
@@ -4584,8 +4814,8 @@ testing purposes.</p>
 <h3>gom.api.progress.ProgressBar<a class="headerlink" href="#gom-api-progress-progressbar" title="Link to this heading"></a></h3>
 <p>Class representing the ProgressBar</p>
 <p>This class is meant to be used with the Python ‘with’ statement</p>
-<section id="id3">
-<h4>Example<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
+<section id="id5">
+<h4>Example<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.progress</span>
 
 <span class="k">with</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">ProgressBar</span><span class="p">()</span> <span class="k">as</span> <span class="n">bar</span><span class="p">:</span>
@@ -5461,8 +5691,8 @@ via the applications preferences dialog.</p>
 defined the available keys, the entry types and the entry properties. If the entry type can be
 represented by some widget, the setting entry will also be present in the application’s ‘preferences’
 dialog and can be adapted interactively there.</p>
-<section id="id4">
-<h3>Example<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="id6">
+<h3>Example<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Settings API example&quot;</span><span class="p">,</span>
   <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Example app demonstrating usage of the settings API&quot;</span><span class="p">,</span>
@@ -6071,7 +6301,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fe8eb8ea3c0>
+  <jinja2.runtime.BlockReference object at 0x7fda555a2510>
 
 
 </footer>
