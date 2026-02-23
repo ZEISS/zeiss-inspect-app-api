@@ -4374,6 +4374,36 @@ The function will return immediately, the service instances are starting in the 
 The `get_status ()` function can be used to poll the status until the service has been started.
 ```
 
+#### gom.api.services.Service.start_and_wait
+
+```{py:function} gom.api.services.Service.start_and_wait(timeout: int): bool
+
+Start service and wait until it is running
+:API version: 1
+:param timeout: Timeout in milliseconds. If the service does not reach RUNNING state within this time, the function returns `false`. Defaults to 30000 (30 seconds).
+:type timeout: int
+:return: `true` if the service has been started successfully, `false` if a timeout occurred.
+:rtype: bool
+:throws: Exception if the service cannot be started (e.g. no script set, already running)
+```
+
+This function will start a script interpreter executing the service script as an API endpoint
+and block until the service reaches the RUNNING state or a timeout occurs.
+
+Unlike `start ()`, this function does not return immediately. Instead it enters a local event
+loop and waits for all service runner instances to report back their configuration. This is
+useful for scripts which need to call service functions right after starting the service.
+
+**Example:**
+
+```
+service = get_service ('gom.api.my_service')
+if service.start_and_wait (timeout=10000):
+  print ('Service is running')
+else:
+  print ('Service startup timed out')
+```
+
 #### gom.api.services.Service.stop
 
 ```{py:function} gom.api.services.Service.stop(): None

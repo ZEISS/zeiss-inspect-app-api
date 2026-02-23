@@ -389,6 +389,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-number-of-instances">gom.api.services.Service.get_number_of_instances</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-status">gom.api.services.Service.get_status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-start">gom.api.services.Service.start</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-start-and-wait">gom.api.services.Service.start_and_wait</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-stop">gom.api.services.Service.stop</a></li>
 </ul>
 </li>
@@ -5628,6 +5629,45 @@ per service, the service counts as RUNNING not before all of these instances hav
 The <code class="docutils literal notranslate"><span class="pre">get_status</span> <span class="pre">()</span></code> function can be used to poll the status until the service has been started.</p>
 </div>
 </section>
+<section id="gom-api-services-service-start-and-wait">
+<h4>gom.api.services.Service.start_and_wait<a class="headerlink" href="#gom-api-services-service-start-and-wait" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.services.Service.start_and_wait(timeout:</span> <span class="pre">int):</span> <span class="pre">bool</span></span></dt>
+<dd><p>Start service and wait until it is running</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>timeout</strong> (<em>int</em>) – Timeout in milliseconds. If the service does not reach RUNNING state within this time, the function returns <code class="docutils literal notranslate"><span class="pre">false</span></code>. Defaults to 30000 (30 seconds).</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the service has been started successfully, <code class="docutils literal notranslate"><span class="pre">false</span></code> if a timeout occurred.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Exception if the service cannot be started (e.g. no script set, already running)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function will start a script interpreter executing the service script as an API endpoint
+and block until the service reaches the RUNNING state or a timeout occurs.</p>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">()</span></code>, this function does not return immediately. Instead it enters a local event
+loop and waits for all service runner instances to report back their configuration. This is
+useful for scripts which need to call service functions right after starting the service.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">service</span> <span class="o">=</span> <span class="n">get_service</span> <span class="p">(</span><span class="s1">&#39;gom.api.my_service&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">service</span><span class="o">.</span><span class="n">start_and_wait</span> <span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
+  <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Service is running&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Service startup timed out&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 <section id="gom-api-services-service-stop">
 <h4>gom.api.services.Service.stop<a class="headerlink" href="#gom-api-services-service-stop" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -6301,7 +6341,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fda555a2510>
+  <jinja2.runtime.BlockReference object at 0x7fd2a3f65010>
 
 
 </footer>
