@@ -408,12 +408,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-table">gom.api.table</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-table-close-view">gom.api.table.close_view</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-table-create-view">gom.api.table.create_view</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-table-get-current-view-data">gom.api.table.get_current_view_data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-table-get-view-data-from-xml">gom.api.table.get_view_data_from_xml</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-table-revert-view">gom.api.table.revert_view</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-table-update-view">gom.api.table.update_view</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-table-contenteditor">gom.api.table.ContentEditor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-edit-cell">gom.api.table.ContentEditor.edit_cell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-data-id">gom.api.table.ContentEditor.get_data_id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-properties">gom.api.table.ContentEditor.get_properties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-render-data">gom.api.table.ContentEditor.get_render_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-revert">gom.api.table.ContentEditor.revert</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-table-create-content-editor-data-adapter">gom.api.table.create_content_editor_data_adapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-table-get-content-editor-data-adapter">gom.api.table.get_content_editor_data_adapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-table-get-render-data-from-xml">gom.api.table.get_render_data_from_xml</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-testing">gom.api.testing</a><ul>
@@ -5906,69 +5911,82 @@ are integer, double, string and bool.</p>
 <p>API for table data handling</p>
 <p>This module provides utilities and API entry points to parse table templates (XML), map project inspection data into
 those templates, and produce a serializable view representation suitable for direct rendering by the UI.</p>
-<section id="gom-api-table-close-view">
-<h3>gom.api.table.close_view<a class="headerlink" href="#gom-api-table-close-view" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.table.close_view():</span> <span class="pre">bool</span></span></dt>
-<dd><p>Close the current table view and release resources</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True if view was closed successfully</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
+<section id="gom-api-table-contenteditor">
+<h3>gom.api.table.ContentEditor<a class="headerlink" href="#gom-api-table-contenteditor" title="Link to this heading"></a></h3>
+<p>ContentEditorDataAdapter class for managing table render data</p>
+<p>The ContentEditorDataAdapter is designed to manage the render data for the table content editor. It communicates with
+the frontend, and ensures that edits are properly synchronized and validated.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.table</span>
 
-<p>Cleans up the in-memory view state. Should be called when
-the view is closed or no longer needed.</p>
-<p><strong>Example usage in Python:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">success</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">close_view</span><span class="p">()</span>
+<span class="n">properties</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># JSON string with initial properties and XML template</span>
+<span class="n">adapter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">create_content_editor_data_adapter</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;inspection&quot;</span><span class="p">)</span>
+<span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>  <span class="c1"># Get initial render data for rendering</span>
+<span class="n">adapter</span><span class="o">.</span><span class="n">edit_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;New Expression&quot;</span><span class="p">)</span>
+<span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>  <span class="c1"># Get updated render data for rendering</span>
 </pre></div>
 </div>
-</section>
-<section id="gom-api-table-create-view">
-<h3>gom.api.table.create_view<a class="headerlink" href="#gom-api-table-create-view" title="Link to this heading"></a></h3>
+<section id="gom-api-table-contenteditor-edit-cell">
+<h4>gom.api.table.ContentEditor.edit_cell<a class="headerlink" href="#gom-api-table-contenteditor-edit-cell" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.table.create_view(xml_data:</span> <span class="pre">str,</span> <span class="pre">mode:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
-<dd><p>Create a table view with initial data</p>
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.edit_cell(row:</span> <span class="pre">int,</span> <span class="pre">col:</span> <span class="pre">int,</span> <span class="pre">expression:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
+<dd><p>Update a cell’s expression and refreshed render data</p>
 <dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>xml_data</strong> (<em>str</em>) – XML string containing the table template definition</p></li>
-<li><p><strong>mode</strong> (<em>str</em>) – Content mode: ‘inspection’, ‘measurements’, or ‘alignments’</p></li>
+<li><p><strong>row</strong> (<em>int</em>) – Row index in the current table (0-based)</p></li>
+<li><p><strong>col</strong> (<em>int</em>) – Column index (0-based)</p></li>
+<li><p><strong>expression</strong> (<em>str</em>) – New expression text to set for this cell</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Initial table view data (same format as get_view_data)</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
 
-<p>Initializes the table view state and returns initial view data.
-This must be called before update_view. The view state stores
-the template container in memory to enable fast incremental updates.</p>
+<p>Modifies the template element’s expression text in the active template container based on the provided row and
+column, then regenerates the entire table render data to reflect this change.</p>
+<p><strong>Important:</strong> This regenerates the ENTIRE table because:</p>
+<ul class="simple">
+<li><p>Elements can reference each other via TokenSource</p></li>
+<li><p>Background colors can depend on other elements’ values</p></li>
+<li><p>Expression changes can affect multiple rows/cells</p></li>
+</ul>
+<p><strong>Note:</strong> Changes are NOT saved to file until the host calls save.
+This only updates the in-memory template and regenerates the view.</p>
 <p><strong>Example usage in Python:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table_data</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">create_view</span><span class="p">(</span><span class="n">xml_template</span><span class="p">,</span> <span class="s1">&#39;inspection&#39;</span><span class="p">)</span>
-<span class="c1"># table_data contains: {headers: [...], rows: [...]}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adapter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">create_content_editor_data_adapter</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;inspection&quot;</span><span class="p">)</span>
+<span class="n">adapter</span><span class="o">.</span><span class="n">edit_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Point 1.y&#39;</span><span class="p">)</span>
+<span class="n">updated_data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
-<section id="gom-api-table-get-current-view-data">
-<h3>gom.api.table.get_current_view_data<a class="headerlink" href="#gom-api-table-get-current-view-data" title="Link to this heading"></a></h3>
+<section id="gom-api-table-contenteditor-get-data-id">
+<h4>gom.api.table.ContentEditor.get_data_id<a class="headerlink" href="#gom-api-table-contenteditor-get-data-id" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.table.get_current_view_data():</span> <span class="pre">dict</span></span></dt>
-<dd><p>Get the current table view data without regenerating</p>
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.get_data_id():</span> <span class="pre">str</span></span></dt>
+<dd><p>Get the unique data ID for this ContentEditorDataAdapter instance</p>
 <dl class="myst field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Current table view data (same format as get_view_data)</p>
+<dd class="field-odd"><p>Unique data ID as a string</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="gom-api-table-contenteditor-get-properties">
+<h4>gom.api.table.ContentEditor.get_properties<a class="headerlink" href="#gom-api-table-contenteditor-get-properties" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.get_properties():</span> <span class="pre">dict</span></span></dt>
+<dd><p>Get the properties with the current XML data</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary of properties with the latest XML data in the “data” field.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>dict</p>
@@ -5976,21 +5994,112 @@ the template container in memory to enable fast incremental updates.</p>
 </dl>
 </dd></dl>
 
-<p>Returns the last generated table view data stored in memory.
-This is useful for getting the current state without triggering
-a full regeneration of the table view.</p>
+<p>This method returns the properties of the current table content, including the updated “data” field which contains
+the current XML data as a string.</p>
 <p><strong>Example usage in Python:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">current_data</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">get_current_view_data</span><span class="p">()</span>
-<span class="c1"># Returns the current state: {headers: [...], rows: [...]}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adapter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">create_content_editor_data_adapter</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;inspection&quot;</span><span class="p">)</span>
+<span class="n">properties</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_properties</span><span class="p">()</span>
+<span class="c1"># properties is: {&quot;data&quot;: &quot;&lt;xml&gt;...&lt;/xml&gt;&quot;, &quot;version&quot;: &quot;1.0&quot;, ...}</span>
 </pre></div>
 </div>
 </section>
-<section id="gom-api-table-get-view-data-from-xml">
-<h3>gom.api.table.get_view_data_from_xml<a class="headerlink" href="#gom-api-table-get-view-data-from-xml" title="Link to this heading"></a></h3>
+<section id="gom-api-table-contenteditor-get-render-data">
+<h4>gom.api.table.ContentEditor.get_render_data<a class="headerlink" href="#gom-api-table-contenteditor-get-render-data" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.table.get_view_data_from_xml(xml_data:</span> <span class="pre">str,</span> <span class="pre">mode:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
-<dd><p>Generate table view data from an XML table template and the current project’s inspection elements.</p>
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.get_render_data():</span> <span class="pre">dict</span></span></dt>
+<dd><p>Get the current table render data</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>JSON formatted dictionary for rendering the table content editor</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Returns the last generated table render data stored in memory.</p>
+</section>
+<section id="gom-api-table-contenteditor-revert">
+<h4>gom.api.table.ContentEditor.revert<a class="headerlink" href="#gom-api-table-contenteditor-revert" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.revert():</span> <span class="pre">None</span></span></dt>
+<dd><p>Revert all unsaved changes and restore original render data</p>
+</dd></dl>
+
+<p><strong>Example usage in Python:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adapter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">create_content_editor_data_adapter</span><span class="p">(</span><span class="n">properties_json</span><span class="p">,</span> <span class="s1">&#39;inspection&#39;</span><span class="p">)</span>
+<span class="n">adapter</span><span class="o">.</span><span class="n">revert</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="gom-api-table-create-content-editor-data-adapter">
+<h3>gom.api.table.create_content_editor_data_adapter<a class="headerlink" href="#gom-api-table-create-content-editor-data-adapter" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.create_content_editor_data_adapter(properties_json:</span> <span class="pre">str,</span> <span class="pre">mode:</span> <span class="pre">str='inspection'):</span> <span class="pre">gom.api.table.ContentEditor</span></span></dt>
+<dd><p>Create a render data adapter instance for the table content editor</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>properties_json</strong> (<em>str</em>) – JSON string containing table template properties and XML data</p></li>
+<li><p><strong>mode</strong> (<em>str='inspection'</em>) – Table mode: ‘inspection’, ‘measurements’, or ‘alignments’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ContentEditorDataAdapter instance initialized with the provided properties and mode</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>gom.api.table.ContentEditor</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p>Exception if callback registration fails or properties are invalid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Creates and returns a ContentEditorDataAdapter object. The adapter can be used to manage the render data for the table
+content editor.</p>
+<p><strong>Example usage in Python:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adapter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">create_content_editor_data_adapter</span><span class="p">(</span><span class="n">properties_json</span><span class="p">,</span> <span class="s1">&#39;inspection&#39;</span><span class="p">)</span>
+<span class="n">data_id</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_data_id</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-table-get-content-editor-data-adapter">
+<h3>gom.api.table.get_content_editor_data_adapter<a class="headerlink" href="#gom-api-table-get-content-editor-data-adapter" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.get_content_editor_data_adapter(data_id:</span> <span class="pre">str):</span> <span class="pre">gom.api.table.ContentEditor</span></span></dt>
+<dd><p>Get the render data adapter instance for the table content editor by data ID</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data_id</strong> (<em>str</em>) – The data ID</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ContentEditorDataAdapter instance associated with the data ID</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>gom.api.table.ContentEditor</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p>Exception if the data_id does not exist in the registry.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="gom-api-table-get-render-data-from-xml">
+<h3>gom.api.table.get_render_data_from_xml<a class="headerlink" href="#gom-api-table-get-render-data-from-xml" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.get_render_data_from_xml(xml_data:</span> <span class="pre">str,</span> <span class="pre">mode:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
+<dd><p>Generate table render data from an XML table template</p>
 <dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -6035,76 +6144,6 @@ empty cells.</p></li>
 <span class="w">      </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;...&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="p">]</span>
 <span class="w">   </span><span class="p">},</span><span class="w"> </span><span class="nt">&quot;...&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="p">]</span>
 <span class="w"> </span><span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="gom-api-table-revert-view">
-<h3>gom.api.table.revert_view<a class="headerlink" href="#gom-api-table-revert-view" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.table.revert_view():</span> <span class="pre">dict</span></span></dt>
-<dd><p>Discard all changes and restore original table view</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Original table view data (same format as get_view_data)</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>Resets the view state to the original state by discarding
-all in-memory template modifications and reinitializing with
-the original XML template.</p>
-<p><strong>Example usage in Python:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># After making some edits...</span>
-<span class="n">original_data</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">revert_view</span><span class="p">()</span>
-<span class="c1"># All changes are discarded, view is reset to initial state</span>
-</pre></div>
-</div>
-</section>
-<section id="gom-api-table-update-view">
-<h3>gom.api.table.update_view<a class="headerlink" href="#gom-api-table-update-view" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.table.update_view(row:</span> <span class="pre">int,</span> <span class="pre">col:</span> <span class="pre">int,</span> <span class="pre">expression:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
-<dd><p>Update a cell’s expression and return refreshed table view</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>row</strong> (<em>int</em>) – Row index in the current table view (0-based)</p></li>
-<li><p><strong>col</strong> (<em>int</em>) – Column index (0-based, excluding row number column in edit mode)</p></li>
-<li><p><strong>expression</strong> (<em>str</em>) – New expression text to set for this cell</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Full updated table view data (same format as get_view_data)</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>Modifies the template element’s expression text in the active view state,
-then regenerates the entire table view with updated token resolution.
-This is fast because the template is stored in memory (no XML parsing).</p>
-<p><strong>Important:</strong> This regenerates the ENTIRE table because:</p>
-<ul class="simple">
-<li><p>Elements can reference each other via TokenSource</p></li>
-<li><p>Background colors can depend on other elements’ values</p></li>
-<li><p>Expression changes can affect multiple rows/cells</p></li>
-</ul>
-<p><strong>Note:</strong> Changes are NOT saved to file until the host calls save.
-This only updates the in-memory template and regenerates the view.</p>
-<p><strong>Example usage in Python:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create view first</span>
-<span class="n">table_data</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">create_view</span><span class="p">(</span><span class="n">xml</span><span class="p">,</span> <span class="s1">&#39;inspection&#39;</span><span class="p">)</span>
-
-<span class="c1"># Update a cell</span>
-<span class="n">updated_data</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">update_view</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Point 1.y&#39;</span><span class="p">)</span>
-<span class="c1"># Returns full table with all cells re-resolved</span>
 </pre></div>
 </div>
 </section>
@@ -6341,7 +6380,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f28f756cf30>
+  <jinja2.runtime.BlockReference object at 0x7f1029e5a660>
 
 
 </footer>
