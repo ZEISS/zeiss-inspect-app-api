@@ -88,7 +88,6 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#starting-jupyter-notebook">Starting Jupyter Notebook</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-a-notebook">Creating a Notebook</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#using-user-defined-dialogs-in-a-notebook">Using user-defined dialogs in a Notebook</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#related">Related</a></li>
 </ul>
 </li>
@@ -220,32 +219,6 @@
 </li>
 </ul>
 </section>
-<section id="using-user-defined-dialogs-in-a-notebook">
-<h2>Using user-defined dialogs in a Notebook<a class="headerlink" href="#using-user-defined-dialogs-in-a-notebook" title="Link to this heading"></a></h2>
-<p>When creating <a class="reference internal" href="../user_defined_dialogs/user_defined_dialogs.html"><span class="std std-doc">user-defined dialogs</span></a> in an App using<br />
-<code class="docutils literal notranslate"><span class="pre">DIALOG=gom.script.sys.create_user_defined_dialog</span> <span class="pre">(file='dialog.gdlg')</span></code><br />
-or<br />
-<code class="docutils literal notranslate"><span class="pre">RESULT=gom.script.sys.execute_user_defined_dialog</span> <span class="pre">(file='dialog.gdlg')</span></code>,<br />
-the dialog file is given relative to the App’s <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> folder.</p>
-<p>To allow loading of dialog files relative to the current working directory – i.e. where the current Notebook (<code class="docutils literal notranslate"><span class="pre">*.ipynb</span></code>) file is located – you must include the following patch:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Workaround for finding dialog files in current Notebook&#39;s folder</span>
-
-<span class="c1"># Define the wrapper function</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">patched_create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="c1"># Prepend the path to the file</span>
-    <span class="n">new_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">file</span><span class="p">)</span>
-    
-    <span class="c1"># Call the original function with the modified file path</span>
-    <span class="k">return</span> <span class="n">original_create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">new_file</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="c1"># Store the original function</span>
-<span class="n">original_create_user_defined_dialog</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span>
-
-<span class="c1"># Replace the original function with the patched version</span>
-<span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="o">=</span> <span class="n">patched_create_user_defined_dialog</span>
-</pre></div>
-</div>
-</section>
 <section id="related">
 <h2>Related<a class="headerlink" href="#related" title="Link to this heading"></a></h2>
 <ul class="simple">
@@ -279,7 +252,7 @@ the dialog file is given relative to the App’s <code class="docutils literal n
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f845be626d0>
+  <jinja2.runtime.BlockReference object at 0x7fc68c6271c0>
 
 
 </footer>
