@@ -4613,70 +4613,152 @@ API for table data handling
 This module provides utilities and API entry points to parse table templates (XML), map project inspection data into
 those templates, and produce a serializable view representation suitable for direct rendering by the UI.
 
-### gom.api.table.close_view
+### gom.api.table.ContentEditor
 
-```{py:function} gom.api.table.close_view(): bool
+ContentEditorDataAdapter class for managing table render data
 
-Close the current table view and release resources
-:return: True if view was closed successfully
-:rtype: bool
+The ContentEditorDataAdapter is designed to manage the render data for the table content editor. It communicates with
+the frontend, and ensures that edits are properly synchronized and validated.
+
+**Example:**
+```python
+import gom
+import gom.api.table
+
+properties = ...  # JSON string with initial properties and XML template
+adapter = gom.api.table.create_content_editor_data_adapter(properties, mode="inspection")
+adapter.get_render_data()  # Get initial render data for rendering
+adapter.edit_cell(0, 1, "New Expression")
+adapter.get_render_data()  # Get updated render data for rendering
 ```
 
-Cleans up the in-memory view state. Should be called when
-the view is closed or no longer needed.
+#### gom.api.table.ContentEditor.edit_cell
+
+```{py:function} gom.api.table.ContentEditor.edit_cell(row: int, col: int, expression: str): dict
+
+Update a cell's expression and refreshed render data
+:param row: Row index in the current table (0-based)
+:type row: int
+:param col: Column index (0-based)
+:type col: int
+:param expression: New expression text to set for this cell
+:type expression: str
+```
+
+Modifies the template element's expression text in the active template container based on the provided row and
+column, then regenerates the entire table render data to reflect this change.
+
+**Important:** This regenerates the ENTIRE table because:
+- Elements can reference each other via TokenSource
+- Background colors can depend on other elements' values
+- Expression changes can affect multiple rows/cells
+
+**Note:** Changes are NOT saved to file until the host calls save.
+This only updates the in-memory template and regenerates the view.
 
 **Example usage in Python:**
 ```python
-success = gom.api.table.close_view()
+adapter = gom.api.table.create_content_editor_data_adapter(properties, mode="inspection")
+adapter.edit_cell(0, 1, 'Point 1.y')
+updated_data = adapter.get_render_data()
 ```
 
-### gom.api.table.create_view
+#### gom.api.table.ContentEditor.get_data_id
 
-```{py:function} gom.api.table.create_view(xml_data: str, mode: str): dict
+```{py:function} gom.api.table.ContentEditor.get_data_id(): str
 
-Create a table view with initial data
-:param xml_data: XML string containing the table template definition
-:type xml_data: str
-:param mode: Content mode: 'inspection', 'measurements', or 'alignments'
-:type mode: str
-:return: Initial table view data (same format as get_view_data)
+Get the unique data ID for this ContentEditorDataAdapter instance
+:return: Unique data ID as a string
+:rtype: str
+```
+
+
+#### gom.api.table.ContentEditor.get_properties
+
+```{py:function} gom.api.table.ContentEditor.get_properties(): dict
+
+Get the properties with the current XML data
+:return: A dictionary of properties with the latest XML data in the "data" field.
 :rtype: dict
 ```
 
-Initializes the table view state and returns initial view data.
-This must be called before update_view. The view state stores
-the template container in memory to enable fast incremental updates.
+This method returns the properties of the current table content, including the updated "data" field which contains
+the current XML data as a string.
 
 **Example usage in Python:**
 ```python
-table_data = gom.api.table.create_view(xml_template, 'inspection')
-# table_data contains: {headers: [...], rows: [...]}
+adapter = gom.api.table.create_content_editor_data_adapter(properties, mode="inspection")
+properties = adapter.get_properties()
+# properties is: {"data": "<xml>...</xml>", "version": "1.0", ...}
 ```
 
-### gom.api.table.get_current_view_data
+#### gom.api.table.ContentEditor.get_render_data
 
-```{py:function} gom.api.table.get_current_view_data(): dict
+```{py:function} gom.api.table.ContentEditor.get_render_data(): dict
 
-Get the current table view data without regenerating
-:return: Current table view data (same format as get_view_data)
+Get the current table render data
+:return: JSON formatted dictionary for rendering the table content editor
 :rtype: dict
 ```
 
-Returns the last generated table view data stored in memory.
-This is useful for getting the current state without triggering
-a full regeneration of the table view.
+Returns the last generated table render data stored in memory.
+
+#### gom.api.table.ContentEditor.revert
+
+```{py:function} gom.api.table.ContentEditor.revert(): None
+
+Revert all unsaved changes and restore original render data
+```
 
 **Example usage in Python:**
 ```python
-current_data = gom.api.table.get_current_view_data()
-# Returns the current state: {headers: [...], rows: [...]}
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+adapter.revert()
+data = adapter.get_render_data()
 ```
 
-### gom.api.table.get_view_data_from_xml
+### gom.api.table.create_content_editor_data_adapter
 
-```{py:function} gom.api.table.get_view_data_from_xml(xml_data: str, mode: str): dict
+```{py:function} gom.api.table.create_content_editor_data_adapter(properties_json: str, mode: str='inspection'): gom.api.table.ContentEditor
 
-Generate table view data from an XML table template and the current project's inspection elements.
+Create a render data adapter instance for the table content editor
+:param properties_json: JSON string containing table template properties and XML data
+:type properties_json: str
+:param mode: Table mode: 'inspection', 'measurements', or 'alignments'
+:type mode: str='inspection'
+:return: ContentEditorDataAdapter instance initialized with the provided properties and mode
+:rtype: gom.api.table.ContentEditor
+:throws: Exception if callback registration fails or properties are invalid.
+```
+
+Creates and returns a ContentEditorDataAdapter object. The adapter can be used to manage the render data for the table
+content editor.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+data_id = adapter.get_data_id()
+data = adapter.get_render_data()
+```
+
+### gom.api.table.get_content_editor_data_adapter
+
+```{py:function} gom.api.table.get_content_editor_data_adapter(data_id: str): gom.api.table.ContentEditor
+
+Get the render data adapter instance for the table content editor by data ID
+:param data_id: The data ID
+:type data_id: str
+:return: ContentEditorDataAdapter instance associated with the data ID
+:rtype: gom.api.table.ContentEditor
+:throws: Exception if the data_id does not exist in the registry.
+```
+
+
+### gom.api.table.get_render_data_from_xml
+
+```{py:function} gom.api.table.get_render_data_from_xml(xml_data: str, mode: str): dict
+
+Generate table render data from an XML table template
 :param xml_data: XML string containing the table template definition
 :type xml_data: str
 :param mode: Content mode: 'inspection', 'measurements', or 'alignments'
@@ -4714,63 +4796,6 @@ empty cells.
       }, "...":"" ]
    }, "...":"" ]
  }
-```
-
-### gom.api.table.revert_view
-
-```{py:function} gom.api.table.revert_view(): dict
-
-Discard all changes and restore original table view
-:return: Original table view data (same format as get_view_data)
-:rtype: dict
-```
-
-Resets the view state to the original state by discarding
-all in-memory template modifications and reinitializing with
-the original XML template.
-
-**Example usage in Python:**
-```python
-# After making some edits...
-original_data = gom.api.table.revert_view()
-# All changes are discarded, view is reset to initial state
-```
-
-### gom.api.table.update_view
-
-```{py:function} gom.api.table.update_view(row: int, col: int, expression: str): dict
-
-Update a cell's expression and return refreshed table view
-:param row: Row index in the current table view (0-based)
-:type row: int
-:param col: Column index (0-based, excluding row number column in edit mode)
-:type col: int
-:param expression: New expression text to set for this cell
-:type expression: str
-:return: Full updated table view data (same format as get_view_data)
-:rtype: dict
-```
-
-Modifies the template element's expression text in the active view state,
-then regenerates the entire table view with updated token resolution.
-This is fast because the template is stored in memory (no XML parsing).
-
-**Important:** This regenerates the ENTIRE table because:
-- Elements can reference each other via TokenSource
-- Background colors can depend on other elements' values
-- Expression changes can affect multiple rows/cells
-
-**Note:** Changes are NOT saved to file until the host calls save.
-This only updates the in-memory template and regenerates the view.
-
-**Example usage in Python:**
-```python
-# Create view first
-table_data = gom.api.table.create_view(xml, 'inspection')
-
-# Update a cell
-updated_data = gom.api.table.update_view(0, 1, 'Point 1.y')
-# Returns full table with all cells re-resolved
 ```
 
 ## gom.api.testing
