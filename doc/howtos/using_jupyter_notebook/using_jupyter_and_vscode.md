@@ -75,10 +75,6 @@
 
    ![Test running API commands](assets/vscode-run_api.png)
 
-```{seealso}
-[Using user-defined dialogs in a Notebook](using_jupyter_notebook.md#using-user-defined-dialogs-in-a-notebook)
-```
-
 ## Related
 
 * [Using Jupyter Notebook](using_jupyter_notebook)
