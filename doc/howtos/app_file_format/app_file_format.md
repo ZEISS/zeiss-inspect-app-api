@@ -222,7 +222,7 @@ Most elements of the script `.metainfo` file are available via the 'Edit Propert
 
 - **multicreation_script**: `Boolean` &ndash; Reserved for ZEISS internal use. Default: `false`.
 
-- **script_element_type**: `String` &ndash; <a href="../scripted_elements/scripted_actuals.html">Scripted actual element</a> type
+- **script_element_type**: `String` &ndash; <a href="https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html">Scripted actual element</a> type
     - `none`
     - `circle`
     - `cone`
@@ -239,7 +239,7 @@ Most elements of the script `.metainfo` file are available via the 'Edit Propert
     - `volume_region`
     - `volume_section`
 
-- **script_check_type**: `String`  &ndash; <a href="../scripted_elements/scripted_checks.html">Scripted checks</a> type
+- **script_check_type**: `String`  &ndash; <a href="https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_checks.html">Scripted checks</a> type
     - `scalar`
     - `scalar_curve`
     - `scalar_surface`
