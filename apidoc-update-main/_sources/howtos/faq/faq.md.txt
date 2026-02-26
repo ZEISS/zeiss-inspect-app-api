@@ -231,7 +231,7 @@ print(selection)
 #  [-4.00649288e+01  2.07525728e+01  7.25684079e-02]]]
 ```
 
-This can be used to create a <a href="../../python_api/scripted_elements_api.html#surface">scripted surface element</a> from a selection.
+This can be used to create a <a href="https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#surface">scripted surface element</a> from a selection.
 
 ```{warning}
 The triangles returned by `gom.app.project.parts['<part name>'].actual.selection.triangle` are provided as indices to vertices of the global mesh. The helper function [localize_triangles](assets/localize_triangles.py) remaps these indices to vertices of the local (selected) mesh.
