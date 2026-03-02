@@ -2599,17 +2599,17 @@ Event types passed to the `event ()` function
 
 ```{py:function} gom.api.extensions.views.ScriptedCanvas.__init__(self: Any, id: str, description: str, renderer: str, functions: List[Any], properties: Dict[str, Any], bundle: str): None
 
-:param id: Globally unique scripted view id string
+:param id: Globally unique scripted view id string. (REQUIRED)
 :type id: str
-:param description: Human readable name, will appear in menus etc.
+:param description: Human readable name, will appear in menus etc. (REQUIRED)
 :type description: str
-:param renderer: Path to the JavaScript renderer script
+:param renderer: Path to the JavaScript renderer script. (REQUIRED)
 :type renderer: str
-:param functions: List of functions that can be called by the JavaScript renderer
+:param functions: List of functions that can be called by the JavaScript renderer. (OPTIONAL, default: []).
 :type functions: List[Any]
-:param properties: Additional properties
+:param properties: Additional properties. (OPTIONAL, default: {}) - `custom_preload`: Small JS file injected before the renderer starts (helpers / polyfills). - `stylesheet`: Path to the CSS stylesheet for the renderer.
 :type properties: Dict[str, Any]
-:param bundle: Packages NPM bundle this scripted view related on
+:param bundle: Packages NPM bundle this scripted view related on. (OPTIONAL, default: None).
 :type bundle: str
 ```
 
@@ -2624,6 +2624,30 @@ Data types that can be returned by get_data_types () and are used to determine t
 - `JSON`: Load data as JSON format, i.e., as a 'dict'
 - `STRING`: Load data as plain string
 - `BYTES`: Load data as pure bytes array
+
+##### gom.api.extensions.views.ScriptedEditor.__init__
+
+```{py:function} gom.api.extensions.views.ScriptedEditor.__init__(self: Any, id: str, content_category: str, description: str, bundle: str, stylesheet: str, functions: List[Any], signals: List[str], properties: Dict[str, Any]): None
+
+:param id: Globally unique scripted view id string. (REQUIRED)
+:type id: str
+:param content_category: Category of App Content this editor is related to. (REQUIRED)
+:type content_category: str
+:param description: Human readable name, will appear in menus etc. (REQUIRED)
+:type description: str
+:param bundle: Packages NPM bundle this scripted view related on. (REQUIRED)
+:type bundle: str
+:param stylesheet: Path to the CSS stylesheet for this editor. (OPTIONAL, default: "")
+:type stylesheet: str
+:param functions: List of functions that can be called by the JavaScript renderer. (OPTIONAL, default: [])
+:type functions: List[Any]
+:param signals: List of signals that can be emitted by the JavaScript renderer. (OPTIONAL, default: [])
+:type signals: List[str]
+:param properties: Additional properties. (OPTIONAL, default: {}) - `custom_preload`: Small JS file injected before the renderer starts (helpers / polyfills). - `save_timeout_ms`: Editor save debounce timeout in milliseconds. (default: 1000ms) - `stylesheet`: Path to the CSS stylesheet for this editor.
+:type properties: Dict[str, Any]
+```
+
+Constructor
 
 ##### gom.api.extensions.views.ScriptedEditor.extract_data
 
@@ -2671,6 +2695,28 @@ Determine the loading type for each app content file.
 
 Prepare JSON style data from app contents.
 
+##### gom.api.extensions.views.ScriptedUtilityView.__init__
+
+```{py:function} gom.api.extensions.views.ScriptedUtilityView.__init__(self: Any, id: str, description: str, bundle: str, stylesheet: str, functions: List[Any], signals: List[str], properties: Dict[str, Any]): None
+
+:param id: Globally unique scripted view id string. (REQUIRED)
+:type id: str
+:param description: Human readable name, will appear in menus etc. (REQUIRED)
+:type description: str
+:param bundle: Packages NPM bundle this scripted view related on. (REQUIRED)
+:type bundle: str
+:param stylesheet: Path to the CSS stylesheet for this editor. (OPTIONAL, default: "")
+:type stylesheet: str
+:param functions: List of functions that can be called by the JavaScript renderer. (OPTIONAL, default: [])
+:type functions: List[Any]
+:param signals: List of signals that can be emitted by the JavaScript renderer. (OPTIONAL, default: [])
+:type signals: List[str]
+:param properties: Additional properties. (OPTIONAL, default: {}) - `custom_preload`: Small JS file injected before the renderer starts (helpers / polyfills). - `stylesheet`: Path to the CSS stylesheet for this view.
+:type properties: Dict[str, Any]
+```
+
+Constructor
+
 ##### gom.api.extensions.views.ScriptedView.Event
 
 
@@ -2691,16 +2737,20 @@ Identifier for SW signals that the view can be connected to
 
 ```{py:function} gom.api.extensions.views.ScriptedView.__init__(self: Any, id: str, viewtype: str, description: str, functions: List[Any], properties: Dict[str, Any], callables: Dict[str, Any], signals: List[str]): None
 
-:param id: Globally unique scripted view id string
+:param id: Globally unique scripted view id string (REQUIRED)
 :type id: str
-:param description: Human readable name, will appear in menus etc.
+:param viewtype: Type of the scripted view. Supported values are 'canvas', 'editor' and 'utility'. (REQUIRED)
+:type viewtype: str
+:param description: Human readable name, will appear in menus etc. (REQUIRED)
 :type description: str
-:param renderer: Path to the JavaScript renderer script
-:param functions: List of functions that can be called by the JavaScript renderer
+:param functions: List of functions that can be called by the JavaScript renderer (OPTIONAL, default: []).
 :type functions: List[Any]
-:param properties: Additional properties
+:param properties: Additional properties (OPTIONAL, default: {}).
 :type properties: Dict[str, Any]
-:param bundle: Packages NPM bundle this scripted view related on
+:param callables: Dict of callables that can be called by the JavaScript renderer (OPTIONAL, default: {}).
+:type callables: Dict[str, Any]
+:param signals: List of system signals the view wants to receive (e.g. 'signal::data') (OPTIONAL, default: []).
+:type signals: List[str]
 ```
 
 Constructor
