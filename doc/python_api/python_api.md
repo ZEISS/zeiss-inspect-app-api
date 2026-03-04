@@ -2643,7 +2643,7 @@ Data types that can be returned by get_data_types () and are used to determine t
 :type functions: List[Any]
 :param signals: List of signals that can be emitted by the JavaScript renderer. (OPTIONAL, default: [])
 :type signals: List[str]
-:param properties: Additional properties. (OPTIONAL, default: {}) - `custom_preload`: Small JS file injected before the renderer starts (helpers / polyfills). - `save_timeout_ms`: Editor save debounce timeout in milliseconds. (default: 1000ms) - `stylesheet`: Path to the CSS stylesheet for this editor.
+:param properties: Additional properties. (OPTIONAL, default: {}) - `custom_preload`: Small JS file injected before the renderer starts (helpers / polyfills). - `save_timeout_ms`: Editor save debounce timeout in milliseconds. (default: 1000ms)
 :type properties: Dict[str, Any]
 ```
 
@@ -2711,7 +2711,7 @@ Prepare JSON style data from app contents.
 :type functions: List[Any]
 :param signals: List of signals that can be emitted by the JavaScript renderer. (OPTIONAL, default: [])
 :type signals: List[str]
-:param properties: Additional properties. (OPTIONAL, default: {}) - `custom_preload`: Small JS file injected before the renderer starts (helpers / polyfills). - `stylesheet`: Path to the CSS stylesheet for this view.
+:param properties: Additional properties. (OPTIONAL, default: {}) - `custom_preload`: Small JS file injected before the renderer starts (helpers / polyfills).
 :type properties: Dict[str, Any]
 ```
 
