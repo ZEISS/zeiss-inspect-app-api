@@ -130,6 +130,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-contributions-get-contributions">gom.api.contributions.get_contributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-diagram-get-element-data">gom.api.diagram.get_element_data</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-dialog">gom.api.dialog</a><ul>
@@ -155,7 +156,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-event">gom.api.extensions.ScriptedElement.Event</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-widgettype">gom.api.extensions.ScriptedElement.WidgetType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-init">gom.api.extensions.ScriptedElement.<strong>init</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-add-diagram-data">gom.api.extensions.ScriptedElement.add_diagram_data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-add-log-message">gom.api.extensions.ScriptedElement.add_log_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-add-view-data">gom.api.extensions.ScriptedElement.add_view_data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-apply-dialog">gom.api.extensions.ScriptedElement.apply_dialog</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-check-list">gom.api.extensions.ScriptedElement.check_list</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-scriptedelement-check-target-element">gom.api.extensions.ScriptedElement.check_target_element</a></li>
@@ -193,6 +196,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams">gom.api.extensions.diagrams</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagramview">gom.api.extensions.diagrams.CustomDiagramView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-svgdiagram">gom.api.extensions.diagrams.SVGDiagram</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-scripteddiagram">gom.api.extensions.diagrams.ScriptedDiagram</a></li>
 </ul>
@@ -1092,6 +1096,26 @@ the service the contribution belongs to.</p>
 </pre></div>
 </div>
 </section>
+<section id="gom-api-diagram-get-element-data">
+<h3>gom.api.diagram.get_element_data<a class="headerlink" href="#gom-api-diagram-get-element-data" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.diagram.get_element_data(element_property:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
+<dd><p>Collect Element render data for a set of diagram views</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>element_properties</strong> – Optional element_property for identifying element data to be collected</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>QVariantMap containing collected element and view data</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 <section id="gom-api-dialog">
 <h2>gom.api.dialog<a class="headerlink" href="#gom-api-dialog" title="Link to this heading"></a></h2>
@@ -1450,6 +1474,25 @@ widget types are listed here as a central reference and for unified constant val
 
 <p>Constructor</p>
 </section>
+<section id="gom-api-extensions-scriptedelement-add-diagram-data">
+<h4>gom.api.extensions.ScriptedElement.add_diagram_data<a class="headerlink" href="#gom-api-extensions-scriptedelement-add-diagram-data" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.add_diagram_data(self:</span> <span class="pre">Any,</span> <span class="pre">diagram_data:</span> <span class="pre">List,</span> <span class="pre">diagram_id:</span> <span class="pre">str,</span> <span class="pre">service_id:</span> <span class="pre">str,</span> <span class="pre">element_data:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>diagram_data</strong> (<em>List</em>) – List that the data entry is appended to</p></li>
+<li><p><strong>diagram_id</strong> (<em>str</em>) – Id of the diagram the data is passed to (i.e. SVGDiagram)</p></li>
+<li><p><strong>service_id</strong> (<em>str</em>) – Service id of the diagram contribution</p></li>
+<li><p><strong>element_data</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Data that is provided to the diagram</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Adds a diagram data entry to a list provided as an input parameter</p>
+</section>
 <section id="gom-api-extensions-scriptedelement-add-log-message">
 <h4>gom.api.extensions.ScriptedElement.add_log_message<a class="headerlink" href="#gom-api-extensions-scriptedelement-add-log-message" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -1468,6 +1511,24 @@ widget types are listed here as a central reference and for unified constant val
 
 <p>Add a log message to the service log. The message will be logged with the given level and appear
 in the service log file. It is used to forward errors from the C++ side to the Python side.</p>
+</section>
+<section id="gom-api-extensions-scriptedelement-add-view-data">
+<h4>gom.api.extensions.ScriptedElement.add_view_data<a class="headerlink" href="#gom-api-extensions-scriptedelement-add-view-data" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.ScriptedElement.add_view_data(self:</span> <span class="pre">Any,</span> <span class="pre">view_data:</span> <span class="pre">List,</span> <span class="pre">element_property:</span> <span class="pre">str,</span> <span class="pre">element_data:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>view_data</strong> (<em>List</em>) – List that the data entry is appended to</p></li>
+<li><p><strong>element_property</strong> (<em>str</em>) – String that corresponds to the properties accepted by diagram view(s)</p></li>
+<li><p><strong>element_data</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Data that is provided to the diagram view(s)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Adds a diagram view data entry to a list provided as an input parameter</p>
 </section>
 <section id="gom-api-extensions-scriptedelement-apply-dialog">
 <h4>gom.api.extensions.ScriptedElement.apply_dialog<a class="headerlink" href="#gom-api-extensions-scriptedelement-apply-dialog" title="Link to this heading"></a></h4>
@@ -2062,6 +2123,139 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <p>The classes in this module enable the user to define scripted diagrams. A scripted diagram implements an
 interface to transform element data into data that can be rendered by a corresponding Javascript renderer
 implementation in the diagram view.</p>
+<section id="gom-api-extensions-diagrams-customdiagramview">
+<h4>gom.api.extensions.diagrams.CustomDiagramView<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview" title="Link to this heading"></a></h4>
+<p>Integration class for scripted diagram in the scripted view framework.
+For now, scripted diagram functionality is copied. TODO: Avoid code duplication and use composition for example.gom</p>
+<section id="gom-api-extensions-diagrams-customdiagramview-init">
+<h5>gom.api.extensions.diagrams.CustomDiagramView.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-init" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">bundle:</span> <span class="pre">str,</span> <span class="pre">stylesheet:</span> <span class="pre">str,</span> <span class="pre">supported_properties:</span> <span class="pre">List[str],</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">signals:</span> <span class="pre">List[str],</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
+<dd></dd></dl>
+
+</section>
+<section id="gom-api-extensions-diagrams-customdiagramview-event">
+<h5>gom.api.extensions.diagrams.CustomDiagramView.event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-event" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.event(self:</span> <span class="pre">Any,</span> <span class="pre">element_name:</span> <span class="pre">str,</span> <span class="pre">element_uuid:</span> <span class="pre">str,</span> <span class="pre">event_data:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>element_name</strong> (<em>str</em>) – String containing the element identification (name)</p></li>
+<li><p><strong>element_uuid</strong> (<em>str</em>) – String containing the element uuid for internal identification</p></li>
+<li><p><strong>event_data</strong> (<em>Any</em>) – Contains current mouse coordinates and button presses</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with finish_event(executable script: str, parameters: Any)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function is called upon interaction with the diagram (except hover)
+The user can return a script to be executed when this function is called</p>
+</section>
+<section id="gom-api-extensions-diagrams-customdiagramview-finish-event">
+<h5>gom.api.extensions.diagrams.CustomDiagramView.finish_event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-finish-event" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.finish_event(self:</span> <span class="pre">Any,</span> <span class="pre">cmd_script:</span> <span class="pre">str,</span> <span class="pre">params:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmd_script</strong> (<em>str</em>) – Identification of the script command to be executed as a follow-up to this event</p></li>
+<li><p><strong>data_script</strong> – Optional Parameters to be passed to said script</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with {“cmd_script”: cmd_script, “data_script”: params}</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function is called to help return event data in the correct format</p>
+</section>
+<section id="gom-api-extensions-diagrams-customdiagramview-partitions">
+<h5>gom.api.extensions.diagrams.CustomDiagramView.partitions<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-partitions" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.partitions(self:</span> <span class="pre">Any,</span> <span class="pre">element_data:</span> <span class="pre">List[Dict[str,</span> <span class="pre">Any]]):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>element_data</strong> (<em>List</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – List of dictionaries containing scripted element references and context data (‘element’ (object), ‘data’ (dict), ‘type’ (str))</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of Lists of int: each inner list represents one partition and contains the indices of the elements to be used for that partition</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function is called to determine the partitions to create multiple plots based on one element data set.
+Each partition is defined by a list of indices of elements to be used.
+Each data subset will be passed separately to the plot() function and be rendered as a separate diagram.
+The index of each partition will be available through the ‘subplot’ key in the view parameters of the plot() function call.</p>
+<p>&#64;info Partitions may share elements</p>
+</section>
+<section id="gom-api-extensions-diagrams-customdiagramview-plot">
+<h5>gom.api.extensions.diagrams.CustomDiagramView.plot<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-plot" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.plot(self:</span> <span class="pre">Any,</span> <span class="pre">view:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">element_data:</span> <span class="pre">List[Dict[str,</span> <span class="pre">Any]]):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>view</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Dictionary with view canvas data and subplot index (‘width’ (int), ‘height’ (int), ‘dpi’ (float), ‘font’ (int), ‘subplot’ (int))</p></li>
+<li><p><strong>element_data</strong> (<em>List</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – List of dictionaries containing scripted element references and context data (‘element’ (object), ‘data’ (dict), ‘type’ (str))</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Data that is passed to the corresponding Javascript diagram type for rendering</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function is called to create a plot based on a set of element data.</p>
+</section>
+<section id="gom-api-extensions-diagrams-customdiagramview-plot-all">
+<h5>gom.api.extensions.diagrams.CustomDiagramView.plot_all<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-plot-all" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.plot_all(self:</span> <span class="pre">Any,</span> <span class="pre">view:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">element_data:</span> <span class="pre">List[Dict[str,</span> <span class="pre">Any]]):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>view</strong> – : Dictionary with view canvas data (‘width’ (int), ‘height’ (int), ‘dpi’ (float), ‘font’ (int)) used for the diagrams of all partitions</p></li>
+<li><p><strong>element_data</strong> (<em>List</em><em>[</em><em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – List of dictionaries containing scripted element references and context data (‘element’ (object), ‘data’ (dict), ‘type’ (str))</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of dictionaries: each dictionary contains the keys ‘plot’ (the plot information for this partition) and ‘indices’ (the indices of the elements used for this partition)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Internal coordination function for the overall plot process.</p>
+<p>This functions calls the (potentially) user defined method ‘partitions()’ to determine
+the partitions of this diagram and then calls ‘plot()’ for each to data partition to generate a diagram.</p>
+</section>
+</section>
 <section id="gom-api-extensions-diagrams-svgdiagram">
 <h4>gom.api.extensions.diagrams.SVGDiagram<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram" title="Link to this heading"></a></h4>
 <p>Specialized contribution base for scripted diagrams that are displayed via the SVGDiagram renderer type provided by the Inspect app.</p>
@@ -2262,7 +2456,7 @@ The user can return a script to be executed when this function is called</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cmd_script</strong> (<em>str</em>) – Identification of the script command to be executed as a follow-up to this event</p></li>
-<li><p><strong>params</strong> (<em>Any</em>) – Optional Parameters to be passed to said script</p></li>
+<li><p><strong>data_script</strong> – Optional Parameters to be passed to said script</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -6426,7 +6620,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7efc8f3504b0>
+  <jinja2.runtime.BlockReference object at 0x7ff5b44dac10>
 
 
 </footer>
