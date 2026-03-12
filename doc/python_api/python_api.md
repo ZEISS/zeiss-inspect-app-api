@@ -434,6 +434,17 @@ for c in gom.api.contributions.get_contributions ():
   print (c.get_id (), c.get_description ())
 ```
 
+### gom.api.diagram.get_element_data
+
+```{py:function} gom.api.diagram.get_element_data(element_property: str): dict
+
+Collect Element render data for a set of diagram views
+:param element_properties: Optional element_property for identifying element data to be collected
+:return: QVariantMap containing collected element and view data
+:rtype: dict
+```
+
+
 ## gom.api.dialog
 
 API for handling dialogs
@@ -776,6 +787,22 @@ widget types are listed here as a central reference and for unified constant val
 
 Constructor
 
+#### gom.api.extensions.ScriptedElement.add_diagram_data
+
+```{py:function} gom.api.extensions.ScriptedElement.add_diagram_data(self: Any, diagram_data: List, diagram_id: str, service_id: str, element_data: Dict[str, Any]): None
+
+:param diagram_data: List that the data entry is appended to
+:type diagram_data: List
+:param diagram_id: Id of the diagram the data is passed to (i.e. SVGDiagram)
+:type diagram_id: str
+:param service_id: Service id of the diagram contribution
+:type service_id: str
+:param element_data: Data that is provided to the diagram
+:type element_data: Dict[str, Any]
+```
+
+Adds a diagram data entry to a list provided as an input parameter
+
 #### gom.api.extensions.ScriptedElement.add_log_message
 
 ```{py:function} gom.api.extensions.ScriptedElement.add_log_message(self: Any, context: Any, level: Any, message: Any): None
@@ -790,6 +817,20 @@ Constructor
 
 Add a log message to the service log. The message will be logged with the given level and appear
 in the service log file. It is used to forward errors from the C++ side to the Python side.
+
+#### gom.api.extensions.ScriptedElement.add_view_data
+
+```{py:function} gom.api.extensions.ScriptedElement.add_view_data(self: Any, view_data: List, element_property: str, element_data: Dict[str, Any]): None
+
+:param view_data: List that the data entry is appended to
+:type view_data: List
+:param element_property: String that corresponds to the properties accepted by diagram view(s)
+:type element_property: str
+:param element_data: Data that is provided to the diagram view(s)
+:type element_data: Dict[str, Any]
+```
+
+Adds a diagram view data entry to a list provided as an input parameter
 
 #### gom.api.extensions.ScriptedElement.apply_dialog
 
@@ -1400,6 +1441,96 @@ The classes in this module enable the user to define scripted diagrams. A script
 interface to transform element data into data that can be rendered by a corresponding Javascript renderer
 implementation in the diagram view.
 
+#### gom.api.extensions.diagrams.CustomDiagramView
+
+
+Integration class for scripted diagram in the scripted view framework. 
+For now, scripted diagram functionality is copied. TODO: Avoid code duplication and use composition for example.gom
+
+##### gom.api.extensions.diagrams.CustomDiagramView.__init__
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagramView.__init__(self: Any, id: str, description: str, bundle: str, stylesheet: str, supported_properties: List[str], functions: List[Any], signals: List[str], properties: Dict[str, Any]): None
+```
+
+        
+
+##### gom.api.extensions.diagrams.CustomDiagramView.event
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagramView.event(self: Any, element_name: str, element_uuid: str, event_data: Any): None
+
+:param element_name: String containing the element identification (name)
+:type element_name: str
+:param element_uuid: String containing the element uuid for internal identification
+:type element_uuid: str
+:param event_data: Contains current mouse coordinates and button presses
+:type event_data: Any
+:return: Dictionary with finish_event(executable script: str, parameters: Any)
+:rtype: None
+```
+
+This function is called upon interaction with the diagram (except hover)
+The user can return a script to be executed when this function is called
+
+##### gom.api.extensions.diagrams.CustomDiagramView.finish_event
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagramView.finish_event(self: Any, cmd_script: str, params: Any): None
+
+:param cmd_script: Identification of the script command to be executed as a follow-up to this event
+:type cmd_script: str
+:param data_script: Optional Parameters to be passed to said script
+:return: Dictionary with {"cmd_script": cmd_script, "data_script": params}
+:rtype: None
+```
+
+This function is called to help return event data in the correct format
+
+##### gom.api.extensions.diagrams.CustomDiagramView.partitions
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagramView.partitions(self: Any, element_data: List[Dict[str, Any]]): None
+
+:param element_data: List of dictionaries containing scripted element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:type element_data: List[Dict[str, Any]]
+:return: List of Lists of int: each inner list represents one partition and contains the indices of the elements to be used for that partition
+:rtype: None
+```
+
+This function is called to determine the partitions to create multiple plots based on one element data set. 
+Each partition is defined by a list of indices of elements to be used. 
+Each data subset will be passed separately to the plot() function and be rendered as a separate diagram.
+The index of each partition will be available through the 'subplot' key in the view parameters of the plot() function call.
+
+@info Partitions may share elements
+
+##### gom.api.extensions.diagrams.CustomDiagramView.plot
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagramView.plot(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
+
+:param view: Dictionary with view canvas data and subplot index ('width' (int), 'height' (int), 'dpi' (float), 'font' (int), 'subplot' (int))
+:type view: Dict[str, Any]
+:param element_data: List of dictionaries containing scripted element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:type element_data: List[Dict[str, Any]]
+:return: Data that is passed to the corresponding Javascript diagram type for rendering
+:rtype: None
+```
+
+This function is called to create a plot based on a set of element data. 
+
+##### gom.api.extensions.diagrams.CustomDiagramView.plot_all
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagramView.plot_all(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
+
+:param view:: Dictionary with view canvas data ('width' (int), 'height' (int), 'dpi' (float), 'font' (int)) used for the diagrams of all partitions
+:param element_data: List of dictionaries containing scripted element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:type element_data: List[Dict[str, Any]]
+:return: List of dictionaries: each dictionary contains the keys 'plot' (the plot information for this partition) and 'indices' (the indices of the elements used for this partition)
+:rtype: None
+```
+
+Internal coordination function for the overall plot process.
+
+This functions calls the (potentially) user defined method 'partitions()' to determine
+the partitions of this diagram and then calls 'plot()' for each to data partition to generate a diagram.
+
 #### gom.api.extensions.diagrams.SVGDiagram
 
 
@@ -1598,8 +1729,7 @@ The user can return a script to be executed when this function is called
 
 :param cmd_script: Identification of the script command to be executed as a follow-up to this event
 :type cmd_script: str
-:param params: Optional Parameters to be passed to said script
-:type params: Any
+:param data_script: Optional Parameters to be passed to said script
 :return: Dictionary with {"cmd_script": cmd_script, "data_script": params}
 :rtype: None
 ```
