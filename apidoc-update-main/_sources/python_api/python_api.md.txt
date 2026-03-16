@@ -4465,6 +4465,88 @@ This API enables access to the script based API endpoint implementations, called
 Each service is a script which is started in a server mode and adds various functions and
 endpoints to the ZEISS Inspect API.
 
+**Setting up a service script (decorator-based)**
+
+Decorate functions you want to export with `@apifunction` and define contributions for specific
+subsystems with `@apicontribution`, e.g., definitions for custom elements. Both are discovered
+automatically when `gom.run_api()` is called.
+
+*Service script (`service.py`):*
+
+```
+import gom
+import gom.api.extensions.actuals
+from gom import apifunction, apicontribution
+
+@apifunction
+def multiply(value: float, factor: float) -> float:
+    return value * factor
+
+@apicontribution
+class MyPointContribution(gom.api.extensions.actuals.Point):
+
+    def __init__(self):
+        super ().__init__ (id='examples.custom_actual_point', description='Custom Actual Point')
+
+    def dialog (self, context, args):
+     return self.show_dialog (context, args, '/dialogs/Custom_Point.gdlg')
+
+    def compute (self, context, values):
+        return {
+            "value": (
+                float(values['point_x']),
+                float(values['point_y']),
+                float(values['point_z'])
+            )
+        }
+
+gom.run_api()
+```
+
+*Calling the service from another script:*
+
+```
+import gom
+import gom.api.my_service
+
+result = gom.api.my_service.multiply(6.0, 7.0)
+# result == 42.0
+```
+
+**Setting up a service script (explicit registration)**
+
+When a service imports functions or contribution classes from other modules, those imports
+would generally be picked up by the decorator scan and registered unintentionally. Pass
+the `functions` and `contributions` lists directly to `gom.run_api()` to register only
+the intended items explicitly.
+If functions or contributions are registered explicitly, the decorator-based discovery is
+skipped entirely for the respective items.
+
+```
+import gom
+import gom.api.extensions.actuals
+from my_other_script import other_multiply
+
+class MyPointContribution(gom.api.extensions.actuals.Point):
+
+    def __init__(self):
+        super ().__init__ (id='examples.custom_actual_point', description='Custom Actual Point')
+
+    def dialog (self, context, args):
+     return self.show_dialog (context, args, '/dialogs/Custom_Point.gdlg')
+
+    def compute (self, context, values):
+        return {
+            "value": (
+                float(values['point_x']),
+                float(values['point_y']),
+                float(values['point_z'])
+            )
+        }
+
+gom.run_api(functions=[other_multiply], contributions=[MyPointContribution])
+```
+
 ### gom.api.services.Service
 
 Class representing a single API service
@@ -4611,7 +4693,7 @@ Return the list of all running and not running services
 :rtype: [gom.api.services.Service]
 ```
 
-This function returns the listof registered services
+This function returns the list of registered services
 
 **Example:**
 
@@ -4933,6 +5015,23 @@ Get the render data adapter instance for the table content editor by data ID
 :throws: Exception if the data_id does not exist in the registry.
 ```
 
+
+### gom.api.table.get_functions
+
+```{py:function} gom.api.table.get_functions(): dict
+
+Get the list of all available expression functions grouped by category
+:return: Dictionary with key "categories" → list of category objects
+:rtype: dict
+```
+
+Returns a dictionary with a "categories" key containing an ordered list of function
+categories. Each category entry has a "name" (translated, human-readable) and a
+"functions" list. Each function entry contains:
+
+- **name**: the function identifier as used in expressions (e.g. "abs")
+- **description**: a short human-readable description
+- **template**: a ready-to-insert call template (e.g. "abs (VALUE)")
 
 ### gom.api.table.get_render_data_from_xml
 

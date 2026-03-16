@@ -422,6 +422,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-table-create-content-editor-data-adapter">gom.api.table.create_content_editor_data_adapter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-table-get-content-editor-data-adapter">gom.api.table.get_content_editor_data_adapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-table-get-functions">gom.api.table.get_functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-table-get-render-data-from-xml">gom.api.table.get_render_data_from_xml</a></li>
 </ul>
 </li>
@@ -5740,6 +5741,79 @@ So the function is covering the very basic per element selection only.</p>
 <p>This API enables access to the script based API endpoint implementations, called ‘services’.
 Each service is a script which is started in a server mode and adds various functions and
 endpoints to the ZEISS Inspect API.</p>
+<p><strong>Setting up a service script (decorator-based)</strong></p>
+<p>Decorate functions you want to export with <code class="docutils literal notranslate"><span class="pre">&#64;apifunction</span></code> and define contributions for specific
+subsystems with <code class="docutils literal notranslate"><span class="pre">&#64;apicontribution</span></code>, e.g., definitions for custom elements. Both are discovered
+automatically when <code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> is called.</p>
+<p><em>Service script (<code class="docutils literal notranslate"><span class="pre">service.py</span></code>):</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.actuals</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apifunction</span><span class="p">,</span> <span class="n">apicontribution</span>
+
+<span class="nd">@apifunction</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">multiply</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="o">*</span> <span class="n">factor</span>
+
+<span class="nd">@apicontribution</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyPointContribution</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">actuals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_actual_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Actual Point&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Point.gdlg&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_x&#39;</span><span class="p">]),</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_y&#39;</span><span class="p">]),</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_z&#39;</span><span class="p">])</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+
+<span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><em>Calling the service from another script:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.my_service</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">my_service</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">)</span>
+<span class="c1"># result == 42.0</span>
+</pre></div>
+</div>
+<p><strong>Setting up a service script (explicit registration)</strong></p>
+<p>When a service imports functions or contribution classes from other modules, those imports
+would generally be picked up by the decorator scan and registered unintentionally. Pass
+the <code class="docutils literal notranslate"><span class="pre">functions</span></code> and <code class="docutils literal notranslate"><span class="pre">contributions</span></code> lists directly to <code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> to register only
+the intended items explicitly.
+If functions or contributions are registered explicitly, the decorator-based discovery is
+skipped entirely for the respective items.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.actuals</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">my_other_script</span><span class="w"> </span><span class="kn">import</span> <span class="n">other_multiply</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyPointContribution</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">actuals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_actual_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Actual Point&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Point.gdlg&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_x&#39;</span><span class="p">]),</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_y&#39;</span><span class="p">]),</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_z&#39;</span><span class="p">])</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+
+<span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">(</span><span class="n">functions</span><span class="o">=</span><span class="p">[</span><span class="n">other_multiply</span><span class="p">],</span> <span class="n">contributions</span><span class="o">=</span><span class="p">[</span><span class="n">MyPointContribution</span><span class="p">])</span>
+</pre></div>
+</div>
 <section id="gom-api-services-service">
 <h3>gom.api.services.Service<a class="headerlink" href="#gom-api-services-service" title="Link to this heading"></a></h3>
 <p>Class representing a single API service</p>
@@ -5955,7 +6029,7 @@ have been stopped.</p>
 </dl>
 </dd></dl>
 
-<p>This function returns the listof registered services</p>
+<p>This function returns the list of registered services</p>
 <p><strong>Example:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">get_services</span> <span class="p">():</span>
   <span class="nb">print</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get_name</span> <span class="p">())</span>
@@ -6334,6 +6408,31 @@ content editor.</p>
 </dd></dl>
 
 </section>
+<section id="gom-api-table-get-functions">
+<h3>gom.api.table.get_functions<a class="headerlink" href="#gom-api-table-get-functions" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.get_functions():</span> <span class="pre">dict</span></span></dt>
+<dd><p>Get the list of all available expression functions grouped by category</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary with key “categories” → list of category objects</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Returns a dictionary with a “categories” key containing an ordered list of function
+categories. Each category entry has a “name” (translated, human-readable) and a
+“functions” list. Each function entry contains:</p>
+<ul class="simple">
+<li><p><strong>name</strong>: the function identifier as used in expressions (e.g. “abs”)</p></li>
+<li><p><strong>description</strong>: a short human-readable description</p></li>
+<li><p><strong>template</strong>: a ready-to-insert call template (e.g. “abs (VALUE)”)</p></li>
+</ul>
+</section>
 <section id="gom-api-table-get-render-data-from-xml">
 <h3>gom.api.table.get_render_data_from_xml<a class="headerlink" href="#gom-api-table-get-render-data-from-xml" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -6620,7 +6719,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7ff5b44dac10>
+  <jinja2.runtime.BlockReference object at 0x7f2277528440>
 
 
 </footer>
