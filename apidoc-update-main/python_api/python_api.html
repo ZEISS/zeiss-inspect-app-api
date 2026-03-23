@@ -411,12 +411,27 @@
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-settings-set">gom.api.settings.set</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#gom-api-smart-principle">gom.api.smart_principle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate">gom.api.smart_principle.StrategyTemplate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate-init">gom.api.smart_principle.StrategyTemplate.<strong>init</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate-add-strategy">gom.api.smart_principle.StrategyTemplate.add_strategy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate-is-enabled">gom.api.smart_principle.StrategyTemplate.is_enabled</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate-is-visible">gom.api.smart_principle.StrategyTemplate.is_visible</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-table">gom.api.table</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-table-contenteditor">gom.api.table.ContentEditor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-delete-column">gom.api.table.ContentEditor.delete_column</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-delete-row">gom.api.table.ContentEditor.delete_row</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-edit-cell">gom.api.table.ContentEditor.edit_cell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-edit-header">gom.api.table.ContentEditor.edit_header</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-data-id">gom.api.table.ContentEditor.get_data_id</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-properties">gom.api.table.ContentEditor.get_properties</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-render-data">gom.api.table.ContentEditor.get_render_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-insert-column">gom.api.table.ContentEditor.insert_column</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-insert-row">gom.api.table.ContentEditor.insert_row</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-revert">gom.api.table.ContentEditor.revert</a></li>
 </ul>
 </li>
@@ -6220,6 +6235,118 @@ are integer, double, string and bool.</p>
 </div>
 </section>
 </section>
+<section id="gom-api-smart-principle">
+<h2>gom.api.smart_principle<a class="headerlink" href="#gom-api-smart-principle" title="Link to this heading"></a></h2>
+<p>API for script based functionality of Smart Principle</p>
+<section id="gom-api-smart-principle-strategytemplate">
+<h3>gom.api.smart_principle.StrategyTemplate<a class="headerlink" href="#gom-api-smart-principle-strategytemplate" title="Link to this heading"></a></h3>
+<p>This class is used to define a Smart Principle strategy template.</p>
+<p><em>Concept</em></p>
+<p>A strategy template contributes one selectable strategy entry to the
+Smart Principle dialog. It defines when the strategy is visible, when it
+can be applied, and how the creation sequence is extended once selected.</p>
+<p>Services that use the prefix ‘gom.api.smart_principle.strategy_templates.’
+in their endpoint name are automatically started when Smart Principle is used.</p>
+<section id="gom-api-smart-principle-strategytemplate-init">
+<h4>gom.api.smart_principle.StrategyTemplate.<strong>init</strong><a class="headerlink" href="#gom-api-smart-principle-strategytemplate-init" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.smart_principle.StrategyTemplate.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">strategy_id:</span> <span class="pre">str,</span> <span class="pre">strategy_icon:</span> <span class="pre">str,</span> <span class="pre">strategy_name:</span> <span class="pre">str,</span> <span class="pre">strategy_description:</span> <span class="pre">str,</span> <span class="pre">default_element_name:</span> <span class="pre">str,</span> <span class="pre">signature:</span> <span class="pre">dict,</span> <span class="pre">licensing:</span> <span class="pre">dict,</span> <span class="pre">callables:</span> <span class="pre">dict,</span> <span class="pre">properties:</span> <span class="pre">dict):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>strategy_id</strong> (<em>str</em>) – Unique strategy identifier suffix used to build the contribution id.</p></li>
+<li><p><strong>strategy_icon</strong> (<em>str</em>) – Icon resource id shown in the Smart Principle dialog.</p></li>
+<li><p><strong>strategy_name</strong> (<em>str</em>) – Localized strategy name shown in the Smart Principle dialog.</p></li>
+<li><p><strong>strategy_description</strong> (<em>str</em>) – Localized strategy description shown in the Smart Principle dialog.</p></li>
+<li><p><strong>default_element_name</strong> (<em>str</em>) – Default naming template used for newly created strategy elements.</p></li>
+<li><p><strong>signature</strong> (<em>dict</em>) – Signature metadata used by Smart Principle to match existing sequence commands and command arguments to this strategy template.</p></li>
+<li><p><strong>licensing</strong> (<em>dict</em>) – Licensing metadata declaring required products/licenses. This uses the same format as already used in app licenses.</p></li>
+<li><p><strong>callables</strong> (<em>dict</em>) – Additional callable contribution entries merged with the default strategy callables.</p></li>
+<li><p><strong>properties</strong> (<em>dict</em>) – Additional contribution properties merged with the default strategy properties.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Constructor</p>
+<p>The constructor registers the strategy contribution and merges optional
+callable and property extensions with the default strategy interface.</p>
+</section>
+<section id="gom-api-smart-principle-strategytemplate-add-strategy">
+<h4>gom.api.smart_principle.StrategyTemplate.add_strategy<a class="headerlink" href="#gom-api-smart-principle-strategytemplate-add-strategy" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.smart_principle.StrategyTemplate.add_strategy(self:</span> <span class="pre">Any,</span> <span class="pre">nominal_element:</span> <span class="pre">Any,</span> <span class="pre">old_creation_sequence:</span> <span class="pre">list):</span> <span class="pre">list</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nominal_element</strong> (<em>Any</em>) – Selected nominal element for which the strategy is applied.</p></li>
+<li><p><strong>old_creation_sequence</strong> (<em>list</em>) – Existing creation sequence to be extended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated creation sequence.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Function called to add strategy-specific commands to the sequence.</p>
+<p>This function receives the current sequence and must return the updated
+sequence containing all commands required for this strategy.</p>
+</section>
+<section id="gom-api-smart-principle-strategytemplate-is-enabled">
+<h4>gom.api.smart_principle.StrategyTemplate.is_enabled<a class="headerlink" href="#gom-api-smart-principle-strategytemplate-is-enabled" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.smart_principle.StrategyTemplate.is_enabled(self:</span> <span class="pre">Any,</span> <span class="pre">nominal_element:</span> <span class="pre">Any,</span> <span class="pre">creation_sequence:</span> <span class="pre">list):</span> <span class="pre">bool</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nominal_element</strong> (<em>Any</em>) – Selected nominal element in Smart Principle.</p></li>
+<li><p><strong>creation_sequence</strong> (<em>list</em>) – Current creation sequence state.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the strategy can be applied, otherwise False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Function called to check if the strategy is enabled.</p>
+<p>This function is used to evaluate whether the strategy can currently be
+applied for the selected nominal element and creation sequence state.</p>
+</section>
+<section id="gom-api-smart-principle-strategytemplate-is-visible">
+<h4>gom.api.smart_principle.StrategyTemplate.is_visible<a class="headerlink" href="#gom-api-smart-principle-strategytemplate-is-visible" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.smart_principle.StrategyTemplate.is_visible(self:</span> <span class="pre">Any,</span> <span class="pre">nominal_element:</span> <span class="pre">Any):</span> <span class="pre">bool</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nominal_element</strong> (<em>Any</em>) – Selected nominal element in Smart Principle.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the strategy is visible, otherwise False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Function called to check if the strategy is visible.</p>
+<p>This function is used by Smart Principle to determine whether the
+strategy should be listed for the selected nominal element.</p>
+</section>
+</section>
+</section>
 <section id="gom-api-table">
 <h2>gom.api.table<a class="headerlink" href="#gom-api-table" title="Link to this heading"></a></h2>
 <p>API for table data handling</p>
@@ -6241,18 +6368,50 @@ the frontend, and ensures that edits are properly synchronized and validated.</p
 <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>  <span class="c1"># Get updated render data for rendering</span>
 </pre></div>
 </div>
+<section id="gom-api-table-contenteditor-delete-column">
+<h4>gom.api.table.ContentEditor.delete_column<a class="headerlink" href="#gom-api-table-contenteditor-delete-column" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.delete_column(col:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
+<dd><p>Delete the column at the specified index</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>col</strong> (<em>int</em>) – Column index (0-based)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Removes the column from the template container (all element templates and the
+header row). The operation is rejected if only a single column remains.</p>
+</section>
+<section id="gom-api-table-contenteditor-delete-row">
+<h4>gom.api.table.ContentEditor.delete_row<a class="headerlink" href="#gom-api-table-contenteditor-delete-row" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.delete_row(row:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
+<dd><p>Delete the template sub-row that corresponds to the given view row</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>int</em>) – Row index (0-based)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Only view rows that are marked as extra (i.e. template rows beyond the first)
+may be deleted. Attempting to delete the base template row (index 0) raises an error.</p>
+</section>
 <section id="gom-api-table-contenteditor-edit-cell">
 <h4>gom.api.table.ContentEditor.edit_cell<a class="headerlink" href="#gom-api-table-contenteditor-edit-cell" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.edit_cell(row:</span> <span class="pre">int,</span> <span class="pre">col:</span> <span class="pre">int,</span> <span class="pre">expression:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.edit_cell(row:</span> <span class="pre">int,</span> <span class="pre">col:</span> <span class="pre">int,</span> <span class="pre">expression:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
 <dd><p>Update a cell’s expression and refreshed render data</p>
 <dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>row</strong> (<em>int</em>) – Row index in the current table (0-based)</p></li>
 <li><p><strong>col</strong> (<em>int</em>) – Column index (0-based)</p></li>
-<li><p><strong>expression</strong> (<em>str</em>) – New expression text to set for this cell</p></li>
+<li><p><strong>expression</strong> (<em>str</em>) – New text/expression to set for the header</p></li>
 </ul>
 </dd>
 </dl>
@@ -6271,6 +6430,32 @@ This only updates the in-memory template and regenerates the view.</p>
 <p><strong>Example usage in Python:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adapter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">create_content_editor_data_adapter</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;inspection&quot;</span><span class="p">)</span>
 <span class="n">adapter</span><span class="o">.</span><span class="n">edit_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Point 1.y&#39;</span><span class="p">)</span>
+<span class="n">updated_data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-table-contenteditor-edit-header">
+<h4>gom.api.table.ContentEditor.edit_header<a class="headerlink" href="#gom-api-table-contenteditor-edit-header" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.edit_header(col:</span> <span class="pre">int,</span> <span class="pre">expression:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Update a header’s display text and regenerate render data</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>int</em>) – Column index (0-based)</p></li>
+<li><p><strong>expression</strong> (<em>str</em>) – New text/expression to set for the header</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Modifies the header at the given column index in the active template container,
+then regenerates the entire table render data to reflect the change.</p>
+<p><strong>Note:</strong> Changes are NOT saved to file until the host calls save.</p>
+<p><strong>Example usage in Python:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adapter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">create_content_editor_data_adapter</span><span class="p">(</span><span class="n">properties_json</span><span class="p">,</span> <span class="s1">&#39;inspection&#39;</span><span class="p">)</span>
+<span class="n">adapter</span><span class="o">.</span><span class="n">edit_header</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;New Header Name&#39;</span><span class="p">)</span>
 <span class="n">updated_data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -6334,6 +6519,46 @@ the current XML data as a string.</p>
 </dd></dl>
 
 <p>Returns the last generated table render data stored in memory.</p>
+</section>
+<section id="gom-api-table-contenteditor-insert-column">
+<h4>gom.api.table.ContentEditor.insert_column<a class="headerlink" href="#gom-api-table-contenteditor-insert-column" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.insert_column(col:</span> <span class="pre">int,</span> <span class="pre">position:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Insert a new column before or after the specified column index</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>int</em>) – Column index (0-based)</p></li>
+<li><p><strong>position</strong> (<em>str</em>) – ‘before’ to insert to the left, ‘after’ to insert to the right</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Inserts a new empty column into the template container (affecting all element
+templates and the header row). After insertion the entire table render data
+is regenerated.</p>
+</section>
+<section id="gom-api-table-contenteditor-insert-row">
+<h4>gom.api.table.ContentEditor.insert_row<a class="headerlink" href="#gom-api-table-contenteditor-insert-row" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.insert_row(row:</span> <span class="pre">int,</span> <span class="pre">position:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Insert a new template row before or after the specified view row</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – Row index (0-based)</p></li>
+<li><p><strong>position</strong> (<em>str</em>) – ‘before’ to insert above, ‘after’ to insert below</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Each view row belongs to an element group and carries an internal template-row index.
+This method inserts a new empty template row into the element-type template at
+the calculated position, so the new row appears within the same element group.</p>
 </section>
 <section id="gom-api-table-contenteditor-revert">
 <h4>gom.api.table.ContentEditor.revert<a class="headerlink" href="#gom-api-table-contenteditor-revert" title="Link to this heading"></a></h4>
@@ -6719,7 +6944,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f84f8150440>
+  <jinja2.runtime.BlockReference object at 0x7fd81fff7000>
 
 
 </footer>
