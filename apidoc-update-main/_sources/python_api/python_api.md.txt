@@ -1272,6 +1272,29 @@ The expected parameters from the element's `compute ()` function is a map with t
 }
 ```
 
+#### gom.api.extensions.actuals.ProbeMeasuredCurve
+
+
+Scripted actual probe measured curve element
+
+The expected parameters from the element's `compute ()` function is a map with the following format:
+
+```
+{
+    "curves": [Curve], // List of curves
+    "data": {...}      // Optional element data, stored with the element        
+}
+```
+
+The format of the `Curve` object is:
+
+```
+{
+    "points": [(x: float, y: float, z: float), ...]
+    "radii": [r: float, ...]
+}
+```
+
 #### gom.api.extensions.actuals.ScriptedActual
 
 

@@ -181,6 +181,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-plane">gom.api.extensions.actuals.Plane</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-point">gom.api.extensions.actuals.Point</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-pointcloud">gom.api.extensions.actuals.PointCloud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-probemeasuredcurve">gom.api.extensions.actuals.ProbeMeasuredCurve</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-scriptedactual">gom.api.extensions.actuals.ScriptedActual</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-section">gom.api.extensions.actuals.Section</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-surface">gom.api.extensions.actuals.Surface</a></li>
@@ -1992,6 +1993,24 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
     <span class="s2">&quot;points&quot;</span><span class="p">:</span>  <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">points</span>
     <span class="s2">&quot;normals&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="k">for</span> <span class="n">each</span> <span class="n">point</span>
     <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                     <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-extensions-actuals-probemeasuredcurve">
+<h4>gom.api.extensions.actuals.ProbeMeasuredCurve<a class="headerlink" href="#gom-api-extensions-actuals-probemeasuredcurve" title="Link to this heading"></a></h4>
+<p>Scripted actual probe measured curve element</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">Curve</span><span class="p">],</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">curves</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>      <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The format of the <code class="docutils literal notranslate"><span class="pre">Curve</span></code> object is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>
+    <span class="s2">&quot;radii&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -6944,7 +6963,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fd81fff7000>
+  <jinja2.runtime.BlockReference object at 0x7f901793b070>
 
 
 </footer>
