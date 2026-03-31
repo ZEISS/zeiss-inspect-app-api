@@ -4644,6 +4644,24 @@ service process startup or running the global service initialization code (model
 per service, the service counts as RUNNING not before all of these instances have been initialized !
 - STOPPING: Service is currently shutting down,
 
+#### gom.api.services.Service.set_number_of_instances
+
+```{py:function} gom.api.services.Service.set_number_of_instances(number_of_instances: int): None
+
+Set the number of API instances (processes) the service runs in parallel
+:API version: 1
+:param number_of_instances: Number of API process instances to run in parallel (minimum: 1)
+:type number_of_instances: int
+```
+
+This function sets the number of API process instances which will be started in parallel when
+the service is started. A higher number of instances allows the service to process multiple
+requests simultaneously, which can improve performance for computationally intensive tasks.
+
+The configured value is persisted in the application configuration and will be used the next
+time the service is started. If the service is already running, you need to stop and restart
+it for the new setting to take effect.
+
 #### gom.api.services.Service.start
 
 ```{py:function} gom.api.services.Service.start(): None

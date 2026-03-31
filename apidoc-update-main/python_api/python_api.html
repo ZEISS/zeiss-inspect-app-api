@@ -393,6 +393,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-name">gom.api.services.Service.get_name</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-number-of-instances">gom.api.services.Service.get_number_of_instances</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-status">gom.api.services.Service.get_status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-set-number-of-instances">gom.api.services.Service.set_number_of_instances</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-start">gom.api.services.Service.start</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-start-and-wait">gom.api.services.Service.start_and_wait</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-stop">gom.api.services.Service.stop</a></li>
@@ -5962,6 +5963,29 @@ per service, the service counts as RUNNING not before all of these instances hav
 <li><p>STOPPING: Service is currently shutting down,</p></li>
 </ul>
 </section>
+<section id="gom-api-services-service-set-number-of-instances">
+<h4>gom.api.services.Service.set_number_of_instances<a class="headerlink" href="#gom-api-services-service-set-number-of-instances" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.services.Service.set_number_of_instances(number_of_instances:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the number of API instances (processes) the service runs in parallel</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>number_of_instances</strong> (<em>int</em>) – Number of API process instances to run in parallel (minimum: 1)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function sets the number of API process instances which will be started in parallel when
+the service is started. A higher number of instances allows the service to process multiple
+requests simultaneously, which can improve performance for computationally intensive tasks.</p>
+<p>The configured value is persisted in the application configuration and will be used the next
+time the service is started. If the service is already running, you need to stop and restart
+it for the new setting to take effect.</p>
+</section>
 <section id="gom-api-services-service-start">
 <h4>gom.api.services.Service.start<a class="headerlink" href="#gom-api-services-service-start" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -6963,7 +6987,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fd7fe878d00>
+  <jinja2.runtime.BlockReference object at 0x7fc19b698130>
 
 
 </footer>
