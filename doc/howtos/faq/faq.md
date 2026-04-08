@@ -115,7 +115,7 @@ You are changing the pre-installed Python environment at your own risk!
 
 ## How do I fix a `unicode error` when trying to access a file?  
 
-An error message such as `SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position xx: truncated \UXXXXXXXX escape` is cause by backslashes in a file system path. Always use forward slashes instead. See also [ZEISS Quality Tech Guide: How Do I Select and Filter Files in Python Scripts](https://techguide.zeiss.com/en/zeiss-inspect-2025/article/how_to_select_and_filter_files_in_python_scripts.html).
+An error message such as `SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position xx: truncated \UXXXXXXXX escape` is cause by backslashes in a file system path. Always use forward slashes instead. See also [ZEISS Quality Tech Guide: How Do I Select and Filter Files in Python Scripts](https://techguide.zeiss.com/en/zeiss-inspect-2026/article/how_to_select_and_filter_files_in_python_scripts.html).
 
 ## How can I update the Apps after changes made outside of ZEISS INSPECT?
 
