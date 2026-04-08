@@ -32,11 +32,11 @@
 :How-to: <a href="../user_defined_dialogs/user_defined_dialogs.html">User-defined dialogs</a>
 :Keywords: dialog, gui, graphical user interface, widgets, window, input, output, display
 
-## Element ion
+## Element selection
 
 :Description:  elements from the Explorer.
-:How-to: <a href="../python_api_introduction/ing_elements.html">ing elements in scripts</a>
-:Keywords: element, ion, choice, choose, search, find
+:How-to: <a href="../python_api_introduction/ing_elements.html">Selecting elements in scripts</a>
+:Keywords: element, selection, choice, choose, search, find
 
 ## Settings
 
