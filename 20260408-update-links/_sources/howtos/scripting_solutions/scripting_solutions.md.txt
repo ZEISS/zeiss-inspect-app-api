@@ -34,7 +34,7 @@
 
 ## Element selection
 
-:Description: Selecting elements from the Explorer.
+:Description: Select elements from the Explorer.
 :How-to: <a href="../python_api_introduction/selecting_elements.html">Selecting elements in scripts</a>
 :Keywords: element, selection, choice, choose, search, find
 
