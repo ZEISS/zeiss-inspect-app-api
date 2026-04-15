@@ -139,6 +139,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-dialog-show">gom.api.dialog.show</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#gom-api-experimental">gom.api.experimental</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-experimental-create-dialog">gom.api.experimental.create_dialog</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-expressions">gom.api.expressions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-expressions-clear-expression-cache">gom.api.expressions.clear_expression_cache</a></li>
 </ul>
@@ -1224,6 +1228,31 @@ contributions script context is mandatory for the function to work.</p>
 
 <p>This function shows and executes previously created an configured dialog. The combination of
 ‘create’ and ‘show’ in effect is the same as calling ‘execute’ directly.</p>
+</section>
+</section>
+<section id="gom-api-experimental">
+<h2>gom.api.experimental<a class="headerlink" href="#gom-api-experimental" title="Link to this heading"></a></h2>
+<p>API for experimental functionality</p>
+<p>This API is experimental and can change at any time.</p>
+<section id="gom-api-experimental-create-dialog">
+<h3>gom.api.experimental.create_dialog<a class="headerlink" href="#gom-api-experimental-create-dialog" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.experimental.create_dialog(url:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
+<dd><p>Create a dialog, but do not execute it yet</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>str</em>) – URL of the dialog definition (*.gdlg file)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dialog handle which can be used to set up the dialog before executing it</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 <section id="gom-api-expressions">
@@ -6987,7 +7016,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7ff9a6128210>
+  <jinja2.runtime.BlockReference object at 0x7f31b25a7e00>
 
 
 </footer>
