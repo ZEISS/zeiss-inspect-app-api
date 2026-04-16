@@ -438,7 +438,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-render-data">gom.api.table.ContentEditor.get_render_data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-insert-column">gom.api.table.ContentEditor.insert_column</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-insert-row">gom.api.table.ContentEditor.insert_row</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-merge-cells">gom.api.table.ContentEditor.merge_cells</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-revert">gom.api.table.ContentEditor.revert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-split-cell">gom.api.table.ContentEditor.split_cell</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-table-create-content-editor-data-adapter">gom.api.table.create_content_editor_data_adapter</a></li>
@@ -6632,6 +6634,28 @@ is regenerated.</p>
 This method inserts a new empty template row into the element-type template at
 the calculated position, so the new row appears within the same element group.</p>
 </section>
+<section id="gom-api-table-contenteditor-merge-cells">
+<h4>gom.api.table.ContentEditor.merge_cells<a class="headerlink" href="#gom-api-table-contenteditor-merge-cells" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.merge_cells(row_start:</span> <span class="pre">int,</span> <span class="pre">col_start:</span> <span class="pre">int,</span> <span class="pre">row_end:</span> <span class="pre">int,</span> <span class="pre">col_end:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
+<dd><p>Merge a rectangular block of cells in the element-type template</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row_start</strong> (<em>int</em>) – First view row of the merge block (0-based)</p></li>
+<li><p><strong>col_start</strong> (<em>int</em>) – First column of the merge block (0-based)</p></li>
+<li><p><strong>row_end</strong> (<em>int</em>) – Last view row of the merge block (inclusive)</p></li>
+<li><p><strong>col_end</strong> (<em>int</em>) – Last column of the merge block (inclusive)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>All view rows in [row_start, row_end] must belong to the same element (same element group).
+The corresponding template rows and columns are merged: the top-left cell receives the
+combined row_span / col_span, and all other cells inside the block are cleared.</p>
+</section>
 <section id="gom-api-table-contenteditor-revert">
 <h4>gom.api.table.ContentEditor.revert<a class="headerlink" href="#gom-api-table-contenteditor-revert" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -6646,6 +6670,26 @@ the calculated position, so the new row appears within the same element group.</
 <span class="n">data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>
 </pre></div>
 </div>
+</section>
+<section id="gom-api-table-contenteditor-split-cell">
+<h4>gom.api.table.ContentEditor.split_cell<a class="headerlink" href="#gom-api-table-contenteditor-split-cell" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.split_cell(row:</span> <span class="pre">int,</span> <span class="pre">col:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
+<dd><p>Split a merged cell back to individual cells</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – View row index (0-based)</p></li>
+<li><p><strong>col</strong> (<em>int</em>) – Column index (0-based)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Resets the row_span and col_span of the template element at the given view
+coordinates to 1, effectively un-merging it.  All previously covered cells
+remain empty but regain their individual grid positions.</p>
 </section>
 </section>
 <section id="gom-api-table-create-content-editor-data-adapter">
@@ -7016,7 +7060,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f31b25a7e00>
+  <jinja2.runtime.BlockReference object at 0x7fa04bb90670>
 
 
 </footer>

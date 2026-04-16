@@ -5198,6 +5198,25 @@ Each view row belongs to an element group and carries an internal template-row i
 This method inserts a new empty template row into the element-type template at
 the calculated position, so the new row appears within the same element group.
 
+#### gom.api.table.ContentEditor.merge_cells
+
+```{py:function} gom.api.table.ContentEditor.merge_cells(row_start: int, col_start: int, row_end: int, col_end: int): None
+
+Merge a rectangular block of cells in the element-type template
+:param row_start: First view row of the merge block (0-based)
+:type row_start: int
+:param col_start: First column of the merge block (0-based)
+:type col_start: int
+:param row_end: Last view row of the merge block (inclusive)
+:type row_end: int
+:param col_end: Last column of the merge block (inclusive)
+:type col_end: int
+```
+
+All view rows in [row_start, row_end] must belong to the same element (same element group).
+The corresponding template rows and columns are merged: the top-left cell receives the
+combined row_span / col_span, and all other cells inside the block are cleared.
+
 #### gom.api.table.ContentEditor.revert
 
 ```{py:function} gom.api.table.ContentEditor.revert(): None
@@ -5211,6 +5230,21 @@ adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'ins
 adapter.revert()
 data = adapter.get_render_data()
 ```
+
+#### gom.api.table.ContentEditor.split_cell
+
+```{py:function} gom.api.table.ContentEditor.split_cell(row: int, col: int): None
+
+Split a merged cell back to individual cells
+:param row: View row index (0-based)
+:type row: int
+:param col: Column index (0-based)
+:type col: int
+```
+
+Resets the row_span and col_span of the template element at the given view
+coordinates to 1, effectively un-merging it.  All previously covered cells
+remain empty but regain their individual grid positions.
 
 ### gom.api.table.create_content_editor_data_adapter
 
