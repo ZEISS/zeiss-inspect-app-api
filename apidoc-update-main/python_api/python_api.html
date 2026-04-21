@@ -438,9 +438,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-render-data">gom.api.table.ContentEditor.get_render_data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-insert-column">gom.api.table.ContentEditor.insert_column</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-insert-row">gom.api.table.ContentEditor.insert_row</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-merge-cells">gom.api.table.ContentEditor.merge_cells</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-revert">gom.api.table.ContentEditor.revert</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-split-cell">gom.api.table.ContentEditor.split_cell</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-table-create-content-editor-data-adapter">gom.api.table.create_content_editor_data_adapter</a></li>
@@ -2170,6 +2168,30 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <section id="gom-api-extensions-actuals-volumedefects2d">
 <h4>gom.api.extensions.actuals.VolumeDefects2d<a class="headerlink" href="#gom-api-extensions-actuals-volumedefects2d" title="Link to this heading"></a></h4>
 <p>Scripted actual 2d volume defects element</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with one of the
+following formats:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="c1"># Defect-related contours</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                           <span class="c1"># Optional element data, stored with the element</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>                 <span class="c1"># Defect-related contours</span>
+    <span class="s2">&quot;outer_contours&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>         <span class="c1"># Optional outer hull contours</span>
+    <span class="s2">&quot;curves_normals&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>         <span class="c1"># Optional normals for &#39;curves&#39;</span>
+    <span class="s2">&quot;outer_contours_normals&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="c1"># Optional normals for &#39;outer_contours&#39;</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                                           <span class="c1"># Optional element data, stored with the element</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Valid combinations are <code class="docutils literal notranslate"><span class="pre">curves</span></code> alone, <code class="docutils literal notranslate"><span class="pre">curves</span></code> with <code class="docutils literal notranslate"><span class="pre">outer_contours</span></code>, and both variants with
+optional <code class="docutils literal notranslate"><span class="pre">curves_normals</span></code> and <code class="docutils literal notranslate"><span class="pre">outer_contours_normals</span></code>. If normals are omitted for a contour set,
+they are derived automatically. When no defect normals are provided, each curve is treated as an
+independent defect. When defect normals are provided, the first contour of a defect must point
+outward and following internal contours must alternate orientation, starting inward. Each normals
+list must match the structure and vertex count of its corresponding contour list.</p>
 </section>
 <section id="gom-api-extensions-actuals-volumeregion">
 <h4>gom.api.extensions.actuals.VolumeRegion<a class="headerlink" href="#gom-api-extensions-actuals-volumeregion" title="Link to this heading"></a></h4>
@@ -6634,28 +6656,6 @@ is regenerated.</p>
 This method inserts a new empty template row into the element-type template at
 the calculated position, so the new row appears within the same element group.</p>
 </section>
-<section id="gom-api-table-contenteditor-merge-cells">
-<h4>gom.api.table.ContentEditor.merge_cells<a class="headerlink" href="#gom-api-table-contenteditor-merge-cells" title="Link to this heading"></a></h4>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.merge_cells(row_start:</span> <span class="pre">int,</span> <span class="pre">col_start:</span> <span class="pre">int,</span> <span class="pre">row_end:</span> <span class="pre">int,</span> <span class="pre">col_end:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
-<dd><p>Merge a rectangular block of cells in the element-type template</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>row_start</strong> (<em>int</em>) – First view row of the merge block (0-based)</p></li>
-<li><p><strong>col_start</strong> (<em>int</em>) – First column of the merge block (0-based)</p></li>
-<li><p><strong>row_end</strong> (<em>int</em>) – Last view row of the merge block (inclusive)</p></li>
-<li><p><strong>col_end</strong> (<em>int</em>) – Last column of the merge block (inclusive)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<p>All view rows in [row_start, row_end] must belong to the same element (same element group).
-The corresponding template rows and columns are merged: the top-left cell receives the
-combined row_span / col_span, and all other cells inside the block are cleared.</p>
-</section>
 <section id="gom-api-table-contenteditor-revert">
 <h4>gom.api.table.ContentEditor.revert<a class="headerlink" href="#gom-api-table-contenteditor-revert" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -6670,26 +6670,6 @@ combined row_span / col_span, and all other cells inside the block are cleared.<
 <span class="n">data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>
 </pre></div>
 </div>
-</section>
-<section id="gom-api-table-contenteditor-split-cell">
-<h4>gom.api.table.ContentEditor.split_cell<a class="headerlink" href="#gom-api-table-contenteditor-split-cell" title="Link to this heading"></a></h4>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.split_cell(row:</span> <span class="pre">int,</span> <span class="pre">col:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
-<dd><p>Split a merged cell back to individual cells</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>row</strong> (<em>int</em>) – View row index (0-based)</p></li>
-<li><p><strong>col</strong> (<em>int</em>) – Column index (0-based)</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<p>Resets the row_span and col_span of the template element at the given view
-coordinates to 1, effectively un-merging it.  All previously covered cells
-remain empty but regain their individual grid positions.</p>
 </section>
 </section>
 <section id="gom-api-table-create-content-editor-data-adapter">
@@ -7060,7 +7040,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f6d947d8670>
+  <jinja2.runtime.BlockReference object at 0x7fd4f32932a0>
 
 
 </footer>
