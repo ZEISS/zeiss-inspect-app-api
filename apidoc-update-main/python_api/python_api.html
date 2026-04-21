@@ -2170,6 +2170,30 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <section id="gom-api-extensions-actuals-volumedefects2d">
 <h4>gom.api.extensions.actuals.VolumeDefects2d<a class="headerlink" href="#gom-api-extensions-actuals-volumedefects2d" title="Link to this heading"></a></h4>
 <p>Scripted actual 2d volume defects element</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with one of the
+following formats:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="c1"># Defect-related contours</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                           <span class="c1"># Optional element data, stored with the element</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>                 <span class="c1"># Defect-related contours</span>
+    <span class="s2">&quot;outer_contours&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>         <span class="c1"># Optional outer hull contours</span>
+    <span class="s2">&quot;curves_normals&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>         <span class="c1"># Optional normals for &#39;curves&#39;</span>
+    <span class="s2">&quot;outer_contours_normals&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="c1"># Optional normals for &#39;outer_contours&#39;</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                                           <span class="c1"># Optional element data, stored with the element</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Valid combinations are <code class="docutils literal notranslate"><span class="pre">curves</span></code> alone, <code class="docutils literal notranslate"><span class="pre">curves</span></code> with <code class="docutils literal notranslate"><span class="pre">outer_contours</span></code>, and both variants with
+optional <code class="docutils literal notranslate"><span class="pre">curves_normals</span></code> and <code class="docutils literal notranslate"><span class="pre">outer_contours_normals</span></code>. If normals are omitted for a contour set,
+they are derived automatically. When no defect normals are provided, each curve is treated as an
+independent defect. When defect normals are provided, the first contour of a defect must point
+outward and following internal contours must alternate orientation, starting inward. Each normals
+list must match the structure and vertex count of its corresponding contour list.</p>
 </section>
 <section id="gom-api-extensions-actuals-volumeregion">
 <h4>gom.api.extensions.actuals.VolumeRegion<a class="headerlink" href="#gom-api-extensions-actuals-volumeregion" title="Link to this heading"></a></h4>
@@ -7060,7 +7084,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fcf0b798670>
+  <jinja2.runtime.BlockReference object at 0x7f55b4e6d9b0>
 
 
 </footer>

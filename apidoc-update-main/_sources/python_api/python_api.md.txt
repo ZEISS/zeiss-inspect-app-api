@@ -1459,6 +1459,35 @@ Scripted actual volume defects element
 
 Scripted actual 2d volume defects element
 
+The expected parameters from the element's `compute ()` function is a map with one of the
+following formats:
+
+```python
+{
+    "curves": [[(x: float, y: float, z: float), ...], ...], # Defect-related contours
+    "data": {...}                                           # Optional element data, stored with the element
+}
+```
+
+or
+
+```python
+{
+    "curves": [[(x: float, y: float, z: float), ...], ...],                 # Defect-related contours
+    "outer_contours": [[(x: float, y: float, z: float), ...], ...],         # Optional outer hull contours
+    "curves_normals": [[(x: float, y: float, z: float), ...], ...],         # Optional normals for 'curves'
+    "outer_contours_normals": [[(x: float, y: float, z: float), ...], ...], # Optional normals for 'outer_contours'
+    "data": {...}                                                           # Optional element data, stored with the element
+}
+```
+
+Valid combinations are `curves` alone, `curves` with `outer_contours`, and both variants with
+optional `curves_normals` and `outer_contours_normals`. If normals are omitted for a contour set,
+they are derived automatically. When no defect normals are provided, each curve is treated as an
+independent defect. When defect normals are provided, the first contour of a defect must point
+outward and following internal contours must alternate orientation, starting inward. Each normals
+list must match the structure and vertex count of its corresponding contour list.
+
 #### gom.api.extensions.actuals.VolumeRegion
 
 
