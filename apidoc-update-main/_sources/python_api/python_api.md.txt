@@ -1459,35 +1459,6 @@ Scripted actual volume defects element
 
 Scripted actual 2d volume defects element
 
-The expected parameters from the element's `compute ()` function is a map with one of the
-following formats:
-
-```python
-{
-    "curves": [[(x: float, y: float, z: float), ...], ...], # Defect-related contours
-    "data": {...}                                           # Optional element data, stored with the element
-}
-```
-
-or
-
-```python
-{
-    "curves": [[(x: float, y: float, z: float), ...], ...],                 # Defect-related contours
-    "outer_contours": [[(x: float, y: float, z: float), ...], ...],         # Optional outer hull contours
-    "curves_normals": [[(x: float, y: float, z: float), ...], ...],         # Optional normals for 'curves'
-    "outer_contours_normals": [[(x: float, y: float, z: float), ...], ...], # Optional normals for 'outer_contours'
-    "data": {...}                                                           # Optional element data, stored with the element
-}
-```
-
-Valid combinations are `curves` alone, `curves` with `outer_contours`, and both variants with
-optional `curves_normals` and `outer_contours_normals`. If normals are omitted for a contour set,
-they are derived automatically. When no defect normals are provided, each curve is treated as an
-independent defect. When defect normals are provided, the first contour of a defect must point
-outward and following internal contours must alternate orientation, starting inward. Each normals
-list must match the structure and vertex count of its corresponding contour list.
-
 #### gom.api.extensions.actuals.VolumeRegion
 
 
@@ -5227,6 +5198,25 @@ Each view row belongs to an element group and carries an internal template-row i
 This method inserts a new empty template row into the element-type template at
 the calculated position, so the new row appears within the same element group.
 
+#### gom.api.table.ContentEditor.merge_cells
+
+```{py:function} gom.api.table.ContentEditor.merge_cells(row_start: int, col_start: int, row_end: int, col_end: int): None
+
+Merge a rectangular block of cells in the element-type template
+:param row_start: First view row of the merge block (0-based)
+:type row_start: int
+:param col_start: First column of the merge block (0-based)
+:type col_start: int
+:param row_end: Last view row of the merge block (inclusive)
+:type row_end: int
+:param col_end: Last column of the merge block (inclusive)
+:type col_end: int
+```
+
+All view rows in [row_start, row_end] must belong to the same element (same element group).
+The corresponding template rows and columns are merged: the top-left cell receives the
+combined row_span / col_span, and all other cells inside the block are cleared.
+
 #### gom.api.table.ContentEditor.revert
 
 ```{py:function} gom.api.table.ContentEditor.revert(): None
@@ -5240,6 +5230,21 @@ adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'ins
 adapter.revert()
 data = adapter.get_render_data()
 ```
+
+#### gom.api.table.ContentEditor.split_cell
+
+```{py:function} gom.api.table.ContentEditor.split_cell(row: int, col: int): None
+
+Split a merged cell back to individual cells
+:param row: View row index (0-based)
+:type row: int
+:param col: Column index (0-based)
+:type col: int
+```
+
+Resets the row_span and col_span of the template element at the given view
+coordinates to 1, effectively un-merging it.  All previously covered cells
+remain empty but regain their individual grid positions.
 
 ### gom.api.table.create_content_editor_data_adapter
 
