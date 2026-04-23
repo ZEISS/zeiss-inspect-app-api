@@ -144,17 +144,15 @@
 </section>
 <section id="using-a-specific-python-version-in-an-app">
 <h2>Using a specific Python version in an App<a class="headerlink" href="#using-a-specific-python-version-in-an-app" title="Link to this heading"></a></h2>
-<p>To select a specific Python version (instead of the default) in an App:</p>
-<p>In the App’s properties:</p>
+<p>To select a specific Python version (instead of the default) in an App – in the App’s properties:</p>
 <ul class="simple">
-<li><p>Go to “Further Properties”</p></li>
+<li><p>Go to “Further properties”</p></li>
 <li><p>Add “Python version”</p></li>
-<li><p>Enter the desired Python version specification , e.g. “3.12.x”. <a class="reference external" href="https://docs.npmjs.com/about-semantic-versioning">npm semantic versioning syntax</a> is supported.</p></li>
+<li><p>Provide the desired Python version specification , e.g. “3.12.x”. <a class="reference external" href="https://docs.npmjs.com/about-semantic-versioning">npm semantic versioning syntax</a> is supported.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Alternatively, you can add the Python version specification directly to <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code>:</p>
-<p><code class="docutils literal notranslate"><span class="pre">&quot;python-version&quot;:</span> <span class="pre">&quot;3.12.x&quot;</span></code></p>
+<p>Alternatively, you can add the Python version specification directly to <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code>: <code class="docutils literal notranslate"><span class="pre">&quot;python-version&quot;:</span> <span class="pre">&quot;3.12.x&quot;</span></code></p>
 </div>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
@@ -168,7 +166,7 @@
 <p>The Python distribution must have the package <code class="docutils literal notranslate"><span class="pre">websocket-client</span></code> installed!</p>
 </div>
 <ol class="arabic">
-<li><p>Download “Python install manager” from https://www.python.org/downloads/</p></li>
+<li><p>Download “Python install manager” from <a class="reference external" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p></li>
 <li><p>Download the desired Python version</p>
 <p>Example:</p>
 <div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="n">pymanager</span> <span class="n">install</span> <span class="n">3</span><span class="p">.</span><span class="n">12</span><span class="p">.</span><span class="n">7</span><span class="p">-</span><span class="n">64</span> <span class="p">-</span><span class="n">-target</span> <span class="p">.\</span><span class="n">python-dist</span>
@@ -190,7 +188,7 @@
 </li>
 <li><p>Create a new App (e.g. ‘Python 3.12.7’)</p></li>
 <li><p>Find the App’s uuid in its <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code></p></li>
-<li><p>Go to the App’s directory in <code class="docutils literal notranslate"><span class="pre">%APPDATA%\gom\2027\gom_edited_addons\</span></code></p></li>
+<li><p>Go to the App’s directory in <code class="docutils literal notranslate"><span class="pre">%APPDATA%\gom\2027\gom_edited_addons\&lt;uuid&gt;</span></code></p></li>
 <li><p>In the App’s directory, copy the Python archive into a <code class="docutils literal notranslate"><span class="pre">python\&lt;python_version&gt;\</span></code> directory</p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gom_edited_addons</span>\<span class="o">&lt;</span><span class="n">uuid</span><span class="o">&gt;</span>\
@@ -203,9 +201,10 @@
 </pre></div>
 </div>
 </li>
-<li><p>Click the ‘Refresh’ button in the App Editor</p></li>
-</ol>
+<li><p>Click the ‘Refresh’ button in the App Editor</p>
 <p>The new Python interpreter is now unpacked into <code class="docutils literal notranslate"><span class="pre">%APPDATA%\gom\2027\gom_python_interpreters\&lt;uuid&gt;</span></code> (same uuid as the App which provided the Python archive).</p>
+</li>
+</ol>
 <p>You can finalize and export your Python interpreter App as usual.</p>
 </section>
 <section id="creating-a-software-bill-of-materials-sbom">
@@ -214,7 +213,7 @@
 <p class="admonition-title">Note</p>
 <p>An SBOM is a structured list of the software components included in a package, including third-party and transitive dependencies. Its purpose is to make the contents of the package transparent so vendors, customers, and security teams know exactly what was shipped.</p>
 </div>
-<p>A CycloneDX SBOM for the custom Python interpreter app consists of two parts:</p>
+<p>A CycloneDX SBOM for the custom Python interpreter App consists of two parts:</p>
 <ul class="simple">
 <li><p>The <strong>packages BOM</strong>: lists all pip-installed packages and their licenses.</p></li>
 <li><p>The <strong>Python distribution BOM</strong>: describes the CPython runtime itself.</p></li>
@@ -321,7 +320,7 @@ Otherwise the BOM will also contain <code class="docutils literal notranslate"><
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f12356813d0>
+  <jinja2.runtime.BlockReference object at 0x7f866542d2d0>
 
 
 </footer>
