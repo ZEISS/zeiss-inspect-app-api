@@ -514,6 +514,24 @@ Show previously created and configured dialog
 This function shows and executes previously created an configured dialog. The combination of
 'create' and 'show' in effect is the same as calling 'execute' directly.
 
+## gom.api.experimental
+
+API for experimental functionality
+
+This API is experimental and can change at any time.
+
+### gom.api.experimental.create_dialog
+
+```{py:function} gom.api.experimental.create_dialog(url: str): Any
+
+Create a dialog, but do not execute it yet
+:param url: URL of the dialog definition (*.gdlg file)
+:type url: str
+:return: Dialog handle which can be used to set up the dialog before executing it
+:rtype: Any
+```
+
+
 ## gom.api.expressions
 
 API for reading and manipulation of the internal expression cache
@@ -1272,6 +1290,29 @@ The expected parameters from the element's `compute ()` function is a map with t
 }
 ```
 
+#### gom.api.extensions.actuals.ProbeMeasuredCurve
+
+
+Scripted actual probe measured curve element
+
+The expected parameters from the element's `compute ()` function is a map with the following format:
+
+```
+{
+    "curves": [Curve], // List of curves
+    "data": {...}      // Optional element data, stored with the element        
+}
+```
+
+The format of the `Curve` object is:
+
+```
+{
+    "points": [(x: float, y: float, z: float), ...]
+    "radii": [r: float, ...]
+}
+```
+
 #### gom.api.extensions.actuals.ScriptedActual
 
 
@@ -1417,6 +1458,35 @@ Scripted actual volume defects element
 
 
 Scripted actual 2d volume defects element
+
+The expected parameters from the element's `compute ()` function is a map with one of the
+following formats:
+
+```python
+{
+    "curves": [[(x: float, y: float, z: float), ...], ...], # Defect-related contours
+    "data": {...}                                           # Optional element data, stored with the element
+}
+```
+
+or
+
+```python
+{
+    "curves": [[(x: float, y: float, z: float), ...], ...],                 # Defect-related contours
+    "outer_contours": [[(x: float, y: float, z: float), ...], ...],         # Optional outer hull contours
+    "curves_normals": [[(x: float, y: float, z: float), ...], ...],         # Optional normals for 'curves'
+    "outer_contours_normals": [[(x: float, y: float, z: float), ...], ...], # Optional normals for 'outer_contours'
+    "data": {...}                                                           # Optional element data, stored with the element
+}
+```
+
+Valid combinations are `curves` alone, `curves` with `outer_contours`, and both variants with
+optional `curves_normals` and `outer_contours_normals`. If normals are omitted for a contour set,
+they are derived automatically. When no defect normals are provided, each curve is treated as an
+independent defect. When defect normals are provided, the first contour of a defect must point
+outward and following internal contours must alternate orientation, starting inward. Each normals
+list must match the structure and vertex count of its corresponding contour list.
 
 #### gom.api.extensions.actuals.VolumeRegion
 
@@ -4465,6 +4535,88 @@ This API enables access to the script based API endpoint implementations, called
 Each service is a script which is started in a server mode and adds various functions and
 endpoints to the ZEISS Inspect API.
 
+**Setting up a service script (decorator-based)**
+
+Decorate functions you want to export with `@apifunction` and define contributions for specific
+subsystems with `@apicontribution`, e.g., definitions for custom elements. Both are discovered
+automatically when `gom.run_api()` is called.
+
+*Service script (`service.py`):*
+
+```
+import gom
+import gom.api.extensions.actuals
+from gom import apifunction, apicontribution
+
+@apifunction
+def multiply(value: float, factor: float) -> float:
+    return value * factor
+
+@apicontribution
+class MyPointContribution(gom.api.extensions.actuals.Point):
+
+    def __init__(self):
+        super ().__init__ (id='examples.custom_actual_point', description='Custom Actual Point')
+
+    def dialog (self, context, args):
+     return self.show_dialog (context, args, '/dialogs/Custom_Point.gdlg')
+
+    def compute (self, context, values):
+        return {
+            "value": (
+                float(values['point_x']),
+                float(values['point_y']),
+                float(values['point_z'])
+            )
+        }
+
+gom.run_api()
+```
+
+*Calling the service from another script:*
+
+```
+import gom
+import gom.api.my_service
+
+result = gom.api.my_service.multiply(6.0, 7.0)
+# result == 42.0
+```
+
+**Setting up a service script (explicit registration)**
+
+When a service imports functions or contribution classes from other modules, those imports
+would generally be picked up by the decorator scan and registered unintentionally. Pass
+the `functions` and `contributions` lists directly to `gom.run_api()` to register only
+the intended items explicitly.
+If functions or contributions are registered explicitly, the decorator-based discovery is
+skipped entirely for the respective items.
+
+```
+import gom
+import gom.api.extensions.actuals
+from my_other_script import other_multiply
+
+class MyPointContribution(gom.api.extensions.actuals.Point):
+
+    def __init__(self):
+        super ().__init__ (id='examples.custom_actual_point', description='Custom Actual Point')
+
+    def dialog (self, context, args):
+     return self.show_dialog (context, args, '/dialogs/Custom_Point.gdlg')
+
+    def compute (self, context, values):
+        return {
+            "value": (
+                float(values['point_x']),
+                float(values['point_y']),
+                float(values['point_z'])
+            )
+        }
+
+gom.run_api(functions=[other_multiply], contributions=[MyPointContribution])
+```
+
 ### gom.api.services.Service
 
 Class representing a single API service
@@ -4539,6 +4691,24 @@ service process startup or running the global service initialization code (model
 per service, the service counts as RUNNING not before all of these instances have been initialized !
 - STOPPING: Service is currently shutting down,
 
+#### gom.api.services.Service.set_number_of_instances
+
+```{py:function} gom.api.services.Service.set_number_of_instances(number_of_instances: int): None
+
+Set the number of API instances (processes) the service runs in parallel
+:API version: 1
+:param number_of_instances: Number of API process instances to run in parallel (minimum: 1)
+:type number_of_instances: int
+```
+
+This function sets the number of API process instances which will be started in parallel when
+the service is started. A higher number of instances allows the service to process multiple
+requests simultaneously, which can improve performance for computationally intensive tasks.
+
+The configured value is persisted in the application configuration and will be used the next
+time the service is started. If the service is already running, you need to stop and restart
+it for the new setting to take effect.
+
 #### gom.api.services.Service.start
 
 ```{py:function} gom.api.services.Service.start(): None
@@ -4611,7 +4781,7 @@ Return the list of all running and not running services
 :rtype: [gom.api.services.Service]
 ```
 
-This function returns the listof registered services
+This function returns the list of registered services
 
 **Example:**
 
@@ -4786,6 +4956,103 @@ gom.api.settings.set ('dialog.width', 640)
 gom.api.settings.set ('dialog.height', 480)
 ```
 
+## gom.api.smart_principle
+
+API for script based functionality of Smart Principle
+
+
+### gom.api.smart_principle.StrategyTemplate
+
+
+This class is used to define a Smart Principle strategy template.
+
+*Concept*
+
+A strategy template contributes one selectable strategy entry to the
+Smart Principle dialog. It defines when the strategy is visible, when it
+can be applied, and how the creation sequence is extended once selected.
+
+Services that use the prefix 'gom.api.smart_principle.strategy_templates.' 
+in their endpoint name are automatically started when Smart Principle is used.
+
+#### gom.api.smart_principle.StrategyTemplate.__init__
+
+```{py:function} gom.api.smart_principle.StrategyTemplate.__init__(self: Any, strategy_id: str, strategy_icon: str, strategy_name: str, strategy_description: str, default_element_name: str, signature: dict, licensing: dict, callables: dict, properties: dict): None
+
+:param strategy_id: Unique strategy identifier suffix used to build the contribution id.
+:type strategy_id: str
+:param strategy_icon: Icon resource id shown in the Smart Principle dialog.
+:type strategy_icon: str
+:param strategy_name: Localized strategy name shown in the Smart Principle dialog.
+:type strategy_name: str
+:param strategy_description: Localized strategy description shown in the Smart Principle dialog.
+:type strategy_description: str
+:param default_element_name: Default naming template used for newly created strategy elements.
+:type default_element_name: str
+:param signature: Signature metadata used by Smart Principle to match existing sequence commands and command arguments to this strategy template.
+:type signature: dict
+:param licensing: Licensing metadata declaring required products/licenses. This uses the same format as already used in app licenses.
+:type licensing: dict
+:param callables: Additional callable contribution entries merged with the default strategy callables.
+:type callables: dict
+:param properties: Additional contribution properties merged with the default strategy properties.
+:type properties: dict
+```
+
+Constructor
+
+The constructor registers the strategy contribution and merges optional
+callable and property extensions with the default strategy interface.
+
+#### gom.api.smart_principle.StrategyTemplate.add_strategy
+
+```{py:function} gom.api.smart_principle.StrategyTemplate.add_strategy(self: Any, nominal_element: Any, old_creation_sequence: list): list
+
+:param nominal_element: Selected nominal element for which the strategy is applied.
+:type nominal_element: Any
+:param old_creation_sequence: Existing creation sequence to be extended.
+:type old_creation_sequence: list
+:return: Updated creation sequence.
+:rtype: list
+```
+
+Function called to add strategy-specific commands to the sequence.
+
+This function receives the current sequence and must return the updated
+sequence containing all commands required for this strategy.
+
+#### gom.api.smart_principle.StrategyTemplate.is_enabled
+
+```{py:function} gom.api.smart_principle.StrategyTemplate.is_enabled(self: Any, nominal_element: Any, creation_sequence: list): bool
+
+:param nominal_element: Selected nominal element in Smart Principle.
+:type nominal_element: Any
+:param creation_sequence: Current creation sequence state.
+:type creation_sequence: list
+:return: True if the strategy can be applied, otherwise False.
+:rtype: bool
+```
+
+Function called to check if the strategy is enabled.
+
+This function is used to evaluate whether the strategy can currently be
+applied for the selected nominal element and creation sequence state.
+
+#### gom.api.smart_principle.StrategyTemplate.is_visible
+
+```{py:function} gom.api.smart_principle.StrategyTemplate.is_visible(self: Any, nominal_element: Any): bool
+
+:param nominal_element: Selected nominal element in Smart Principle.
+:type nominal_element: Any
+:return: True if the strategy is visible, otherwise False.
+:rtype: bool
+```
+
+Function called to check if the strategy is visible.
+
+This function is used by Smart Principle to determine whether the
+strategy should be listed for the selected nominal element.
+
 ## gom.api.table
 
 API for table data handling
@@ -4812,16 +5079,40 @@ adapter.edit_cell(0, 1, "New Expression")
 adapter.get_render_data()  # Get updated render data for rendering
 ```
 
+#### gom.api.table.ContentEditor.delete_column
+
+```{py:function} gom.api.table.ContentEditor.delete_column(col: int): None
+
+Delete the column at the specified index
+:param col: Column index (0-based)
+:type col: int
+```
+
+Removes the column from the template container (all element templates and the
+header row). The operation is rejected if only a single column remains.
+
+#### gom.api.table.ContentEditor.delete_row
+
+```{py:function} gom.api.table.ContentEditor.delete_row(row: int): None
+
+Delete the template sub-row that corresponds to the given view row
+:param row: Row index (0-based)
+:type row: int
+```
+
+Only view rows that are marked as extra (i.e. template rows beyond the first)
+may be deleted. Attempting to delete the base template row (index 0) raises an error.
+
 #### gom.api.table.ContentEditor.edit_cell
 
-```{py:function} gom.api.table.ContentEditor.edit_cell(row: int, col: int, expression: str): dict
+```{py:function} gom.api.table.ContentEditor.edit_cell(row: int, col: int, expression: str): None
 
 Update a cell's expression and refreshed render data
 :param row: Row index in the current table (0-based)
 :type row: int
 :param col: Column index (0-based)
 :type col: int
-:param expression: New expression text to set for this cell
+:param expression: New text/expression to set for the header
 :type expression: str
 ```
 
@@ -4840,6 +5131,29 @@ This only updates the in-memory template and regenerates the view.
 ```python
 adapter = gom.api.table.create_content_editor_data_adapter(properties, mode="inspection")
 adapter.edit_cell(0, 1, 'Point 1.y')
+updated_data = adapter.get_render_data()
+```
+
+#### gom.api.table.ContentEditor.edit_header
+
+```{py:function} gom.api.table.ContentEditor.edit_header(col: int, expression: str): None
+
+Update a header's display text and regenerate render data
+:param col: Column index (0-based)
+:type col: int
+:param expression: New text/expression to set for the header
+:type expression: str
+```
+
+Modifies the header at the given column index in the active template container,
+then regenerates the entire table render data to reflect the change.
+
+**Note:** Changes are NOT saved to file until the host calls save.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+adapter.edit_header(0, 'New Header Name')
 updated_data = adapter.get_render_data()
 ```
 
@@ -4883,6 +5197,55 @@ Get the current table render data
 
 Returns the last generated table render data stored in memory.
 
+#### gom.api.table.ContentEditor.insert_column
+
+```{py:function} gom.api.table.ContentEditor.insert_column(col: int, position: str): None
+
+Insert a new column before or after the specified column index
+:param col: Column index (0-based)
+:type col: int
+:param position: 'before' to insert to the left, 'after' to insert to the right
+:type position: str
+```
+
+Inserts a new empty column into the template container (affecting all element
+templates and the header row). After insertion the entire table render data
+is regenerated.
+
+#### gom.api.table.ContentEditor.insert_row
+
+```{py:function} gom.api.table.ContentEditor.insert_row(row: int, position: str): None
+
+Insert a new template row before or after the specified view row
+:param row: Row index (0-based)
+:type row: int
+:param position: 'before' to insert above, 'after' to insert below
+:type position: str
+```
+
+Each view row belongs to an element group and carries an internal template-row index.
+This method inserts a new empty template row into the element-type template at
+the calculated position, so the new row appears within the same element group.
+
+#### gom.api.table.ContentEditor.merge_cells
+
+```{py:function} gom.api.table.ContentEditor.merge_cells(row_start: int, col_start: int, row_end: int, col_end: int): None
+
+Merge a rectangular block of cells in the element-type template
+:param row_start: First view row of the merge block (0-based)
+:type row_start: int
+:param col_start: First column of the merge block (0-based)
+:type col_start: int
+:param row_end: Last view row of the merge block (inclusive)
+:type row_end: int
+:param col_end: Last column of the merge block (inclusive)
+:type col_end: int
+```
+
+All view rows in [row_start, row_end] must belong to the same element (same element group).
+The corresponding template rows and columns are merged: the top-left cell receives the
+combined row_span / col_span, and all other cells inside the block are cleared.
+
 #### gom.api.table.ContentEditor.revert
 
 ```{py:function} gom.api.table.ContentEditor.revert(): None
@@ -4896,6 +5259,21 @@ adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'ins
 adapter.revert()
 data = adapter.get_render_data()
 ```
+
+#### gom.api.table.ContentEditor.split_cell
+
+```{py:function} gom.api.table.ContentEditor.split_cell(row: int, col: int): None
+
+Split a merged cell back to individual cells
+:param row: View row index (0-based)
+:type row: int
+:param col: Column index (0-based)
+:type col: int
+```
+
+Resets the row_span and col_span of the template element at the given view
+coordinates to 1, effectively un-merging it.  All previously covered cells
+remain empty but regain their individual grid positions.
 
 ### gom.api.table.create_content_editor_data_adapter
 
@@ -4933,6 +5311,23 @@ Get the render data adapter instance for the table content editor by data ID
 :throws: Exception if the data_id does not exist in the registry.
 ```
 
+
+### gom.api.table.get_functions
+
+```{py:function} gom.api.table.get_functions(): dict
+
+Get the list of all available expression functions grouped by category
+:return: Dictionary with key "categories" → list of category objects
+:rtype: dict
+```
+
+Returns a dictionary with a "categories" key containing an ordered list of function
+categories. Each category entry has a "name" (translated, human-readable) and a
+"functions" list. Each function entry contains:
+
+- **name**: the function identifier as used in expressions (e.g. "abs")
+- **description**: a short human-readable description
+- **template**: a ready-to-insert call template (e.g. "abs (VALUE)")
 
 ### gom.api.table.get_render_data_from_xml
 
