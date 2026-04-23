@@ -125,7 +125,7 @@ Furthermore, we recommend following our How-to Guides to get you started.
    howtos/using_jupyter_notebook/using_jupyter_notebook
    howtos/using_jupyter_notebook/using_jupyter_and_vscode
    howtos/starting_options/starting_options
-   howtos/python_versions
+   howtos/python_versions/python_versions
    howtos/scripting_legacy_projects/scripting_legacy_projects
 ```
 
