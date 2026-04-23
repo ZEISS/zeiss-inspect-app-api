@@ -179,6 +179,6 @@ The resulting `python-3.12.7-64-sbom.json` covers both the Python runtime and al
 
 ## See also
 
-* [Where are Apps located in the file system?](../faq/faq.html#where-are-apps-located-in-the-file-system)
+* [Where are Apps located in the file system?](../faq/faq.md#where-are-apps-located-in-the-file-system)
 * [CycloneDX Python (`cyclonedx-bom`)](https://github.com/CycloneDX/cyclonedx-python)
 * [CycloneDX CLI](https://github.com/CycloneDX/cyclonedx-cli)
