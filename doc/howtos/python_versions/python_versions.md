@@ -10,17 +10,13 @@ You can add Python interpreters by adding the path to an existing Python install
 
 ## Using a specific Python version in an App
 
-To select a specific Python version (instead of the default) in an App:
-
-In the App's properties:
-* Go to "Further Properties"
+To select a specific Python version (instead of the default) in an App &ndash; in the App's properties:
+* Go to "Further properties"
 * Add "Python version"
-* Enter the desired Python version specification , e.g. "3.12.x". [npm semantic versioning syntax](https://docs.npmjs.com/about-semantic-versioning) is supported.
+* Provide the desired Python version specification , e.g. "3.12.x". [npm semantic versioning syntax](https://docs.npmjs.com/about-semantic-versioning) is supported.
 
 ```{note}
-Alternatively, you can add the Python version specification directly to `metainfo.json`:
-
-`"python-version": "3.12.x"`
+Alternatively, you can add the Python version specification directly to `metainfo.json`: `"python-version": "3.12.x"`
 ``` 
 
 ```{caution}
@@ -33,7 +29,7 @@ Alternatively, you can add the Python version specification directly to `metainf
 The Python distribution must have the package `websocket-client` installed!
 ```
 
-1. Download "Python install manager" from https://www.python.org/downloads/
+1. Download "Python install manager" from [https://www.python.org/downloads/](https://www.python.org/downloads/)
 
 2. Download the desired Python version
 
@@ -61,7 +57,7 @@ The Python distribution must have the package `websocket-client` installed!
 
 7. Find the App's uuid in its `metainfo.json`
 
-8. Go to the App's directory in `%APPDATA%\gom\2027\gom_edited_addons\`
+8. Go to the App's directory in `%APPDATA%\gom\2027\gom_edited_addons\<uuid>`
 
 9. In the App's directory, copy the Python archive into a `python\<python_version>\` directory
 
@@ -78,7 +74,7 @@ The Python distribution must have the package `websocket-client` installed!
 
 10. Click the 'Refresh' button in the App Editor
 
-   The new Python interpreter is now unpacked into `%APPDATA%\gom\2027\gom_python_interpreters\<uuid>` (same uuid as the App which provided the Python archive).
+    The new Python interpreter is now unpacked into `%APPDATA%\gom\2027\gom_python_interpreters\<uuid>` (same uuid as the App which provided the Python archive).
 
 You can finalize and export your Python interpreter App as usual.
 
@@ -88,7 +84,7 @@ You can finalize and export your Python interpreter App as usual.
 An SBOM is a structured list of the software components included in a package, including third-party and transitive dependencies. Its purpose is to make the contents of the package transparent so vendors, customers, and security teams know exactly what was shipped.
 ```
 
-A CycloneDX SBOM for the custom Python interpreter app consists of two parts:
+A CycloneDX SBOM for the custom Python interpreter App consists of two parts:
 
 * The **packages BOM**: lists all pip-installed packages and their licenses.
 * The **Python distribution BOM**: describes the CPython runtime itself.
