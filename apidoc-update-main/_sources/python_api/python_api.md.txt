@@ -628,9 +628,11 @@ Constructor
 :type values: Any
 ```
 
-This function is called for a single stage value is to be computed. The input values from the
-associated dialog function are passed as `kwargs` parameters - one value as one specific
-parameter named as the associated input widget.
+Legacy single-stage computation function. Kept for backward compatibility.
+
+New implementations should override `compute_stage ()` instead. This function
+is called by the default implementation of `compute_stage ()` if that method
+is not overridden.
 
 #### gom.api.extensions.ScriptedCalculationElement.compute_stage
 
@@ -642,9 +644,12 @@ parameter named as the associated input widget.
 :type values: Any
 ```
 
-This function is called for a single stage value is to be computed. The input values from the
+This function is called when a single stage value is to be computed. The input values from the
 associated dialog function are passed as `kwargs` parameters - one value as one specific
 parameter named as the associated input widget.
+
+By default, this function delegates to `compute ()` for backward compatibility with older
+implementations. Override this method in new implementations instead of `compute ()`.
 
 #### gom.api.extensions.ScriptedCalculationElement.compute_stages
 
@@ -4747,7 +4752,7 @@ useful for scripts which need to call service functions right after starting the
 **Example:**
 
 ```
-service = get_service ('gom.api.my_service')
+service = gom.api.services.get_service ('gom.api.my_service')
 if service.start_and_wait (timeout=10000):
   print ('Service is running')
 else:
@@ -4769,6 +4774,32 @@ if needed.
 The function will return immediately, the service instances will be stopped asynchronously.
 The 'get_status ()' function can be used to poll the service status until all service instances
 have been stopped.
+```
+
+### gom.api.services.get_service
+
+```{py:function} gom.api.services.get_service(endpoint: str): gom.api.services.Service
+
+Return the service registered for the given endpoint
+:API version: 1
+:param endpoint: API endpoint of the service to retrieve, e.g. 'gom.api.my_service'
+:type endpoint: str
+:return: Service object for that endpoint
+:rtype: gom.api.services.Service
+:throws: Exception if no service with the given endpoint is registered
+```
+
+This function returns the service object for the given API endpoint. An exception is
+thrown if no service with that endpoint is registered.
+
+**Example:**
+
+```
+service = gom.api.services.get_service ('gom.api.my_service')
+if service.start_and_wait (timeout=10000):
+  print ('Service is running')
+else:
+  print ('Service startup timed out')
 ```
 
 ### gom.api.services.get_services
