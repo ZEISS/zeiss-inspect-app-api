@@ -139,6 +139,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-dialog-show">gom.api.dialog.show</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#gom-api-experimental">gom.api.experimental</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-experimental-create-dialog">gom.api.experimental.create_dialog</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-expressions">gom.api.expressions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-expressions-clear-expression-cache">gom.api.expressions.clear_expression_cache</a></li>
 </ul>
@@ -181,6 +185,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-plane">gom.api.extensions.actuals.Plane</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-point">gom.api.extensions.actuals.Point</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-pointcloud">gom.api.extensions.actuals.PointCloud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-probemeasuredcurve">gom.api.extensions.actuals.ProbeMeasuredCurve</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-scriptedactual">gom.api.extensions.actuals.ScriptedActual</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-section">gom.api.extensions.actuals.Section</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-surface">gom.api.extensions.actuals.Surface</a></li>
@@ -392,6 +397,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-name">gom.api.services.Service.get_name</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-number-of-instances">gom.api.services.Service.get_number_of_instances</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-status">gom.api.services.Service.get_status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-set-number-of-instances">gom.api.services.Service.set_number_of_instances</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-start">gom.api.services.Service.start</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-start-and-wait">gom.api.services.Service.start_and_wait</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-stop">gom.api.services.Service.stop</a></li>
@@ -411,17 +417,35 @@
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-settings-set">gom.api.settings.set</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#gom-api-smart-principle">gom.api.smart_principle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate">gom.api.smart_principle.StrategyTemplate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate-init">gom.api.smart_principle.StrategyTemplate.<strong>init</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate-add-strategy">gom.api.smart_principle.StrategyTemplate.add_strategy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate-is-enabled">gom.api.smart_principle.StrategyTemplate.is_enabled</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate-is-visible">gom.api.smart_principle.StrategyTemplate.is_visible</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-table">gom.api.table</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-table-contenteditor">gom.api.table.ContentEditor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-delete-column">gom.api.table.ContentEditor.delete_column</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-delete-row">gom.api.table.ContentEditor.delete_row</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-edit-cell">gom.api.table.ContentEditor.edit_cell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-edit-header">gom.api.table.ContentEditor.edit_header</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-data-id">gom.api.table.ContentEditor.get_data_id</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-properties">gom.api.table.ContentEditor.get_properties</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-render-data">gom.api.table.ContentEditor.get_render_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-insert-column">gom.api.table.ContentEditor.insert_column</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-insert-row">gom.api.table.ContentEditor.insert_row</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-merge-cells">gom.api.table.ContentEditor.merge_cells</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-revert">gom.api.table.ContentEditor.revert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-split-cell">gom.api.table.ContentEditor.split_cell</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-table-create-content-editor-data-adapter">gom.api.table.create_content_editor_data_adapter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-table-get-content-editor-data-adapter">gom.api.table.get_content_editor_data_adapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-table-get-functions">gom.api.table.get_functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-table-get-render-data-from-xml">gom.api.table.get_render_data_from_xml</a></li>
 </ul>
 </li>
@@ -1208,6 +1232,31 @@ contributions script context is mandatory for the function to work.</p>
 ‘create’ and ‘show’ in effect is the same as calling ‘execute’ directly.</p>
 </section>
 </section>
+<section id="gom-api-experimental">
+<h2>gom.api.experimental<a class="headerlink" href="#gom-api-experimental" title="Link to this heading"></a></h2>
+<p>API for experimental functionality</p>
+<p>This API is experimental and can change at any time.</p>
+<section id="gom-api-experimental-create-dialog">
+<h3>gom.api.experimental.create_dialog<a class="headerlink" href="#gom-api-experimental-create-dialog" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.experimental.create_dialog(url:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
+<dd><p>Create a dialog, but do not execute it yet</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>str</em>) – URL of the dialog definition (*.gdlg file)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dialog handle which can be used to set up the dialog before executing it</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
 <section id="gom-api-expressions">
 <h2>gom.api.expressions<a class="headerlink" href="#gom-api-expressions" title="Link to this heading"></a></h2>
 <p>API for reading and manipulation of the internal expression cache</p>
@@ -1980,6 +2029,24 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 </pre></div>
 </div>
 </section>
+<section id="gom-api-extensions-actuals-probemeasuredcurve">
+<h4>gom.api.extensions.actuals.ProbeMeasuredCurve<a class="headerlink" href="#gom-api-extensions-actuals-probemeasuredcurve" title="Link to this heading"></a></h4>
+<p>Scripted actual probe measured curve element</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with the following format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">Curve</span><span class="p">],</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">curves</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>      <span class="o">//</span> <span class="n">Optional</span> <span class="n">element</span> <span class="n">data</span><span class="p">,</span> <span class="n">stored</span> <span class="k">with</span> <span class="n">the</span> <span class="n">element</span>        
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The format of the <code class="docutils literal notranslate"><span class="pre">Curve</span></code> object is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;points&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>
+    <span class="s2">&quot;radii&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 <section id="gom-api-extensions-actuals-scriptedactual">
 <h4>gom.api.extensions.actuals.ScriptedActual<a class="headerlink" href="#gom-api-extensions-actuals-scriptedactual" title="Link to this heading"></a></h4>
 <p>This class is the base class for all scripted actuals</p>
@@ -2103,6 +2170,30 @@ actuals in the ZEISS INSPECT software and will enable the user to create script 
 <section id="gom-api-extensions-actuals-volumedefects2d">
 <h4>gom.api.extensions.actuals.VolumeDefects2d<a class="headerlink" href="#gom-api-extensions-actuals-volumedefects2d" title="Link to this heading"></a></h4>
 <p>Scripted actual 2d volume defects element</p>
+<p>The expected parameters from the element’s <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function is a map with one of the
+following formats:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="c1"># Defect-related contours</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                           <span class="c1"># Optional element data, stored with the element</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;curves&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>                 <span class="c1"># Defect-related contours</span>
+    <span class="s2">&quot;outer_contours&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>         <span class="c1"># Optional outer hull contours</span>
+    <span class="s2">&quot;curves_normals&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span>         <span class="c1"># Optional normals for &#39;curves&#39;</span>
+    <span class="s2">&quot;outer_contours_normals&quot;</span><span class="p">:</span> <span class="p">[[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="c1"># Optional normals for &#39;outer_contours&#39;</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>                                                           <span class="c1"># Optional element data, stored with the element</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Valid combinations are <code class="docutils literal notranslate"><span class="pre">curves</span></code> alone, <code class="docutils literal notranslate"><span class="pre">curves</span></code> with <code class="docutils literal notranslate"><span class="pre">outer_contours</span></code>, and both variants with
+optional <code class="docutils literal notranslate"><span class="pre">curves_normals</span></code> and <code class="docutils literal notranslate"><span class="pre">outer_contours_normals</span></code>. If normals are omitted for a contour set,
+they are derived automatically. When no defect normals are provided, each curve is treated as an
+independent defect. When defect normals are provided, the first contour of a defect must point
+outward and following internal contours must alternate orientation, starting inward. Each normals
+list must match the structure and vertex count of its corresponding contour list.</p>
 </section>
 <section id="gom-api-extensions-actuals-volumeregion">
 <h4>gom.api.extensions.actuals.VolumeRegion<a class="headerlink" href="#gom-api-extensions-actuals-volumeregion" title="Link to this heading"></a></h4>
@@ -5740,6 +5831,79 @@ So the function is covering the very basic per element selection only.</p>
 <p>This API enables access to the script based API endpoint implementations, called ‘services’.
 Each service is a script which is started in a server mode and adds various functions and
 endpoints to the ZEISS Inspect API.</p>
+<p><strong>Setting up a service script (decorator-based)</strong></p>
+<p>Decorate functions you want to export with <code class="docutils literal notranslate"><span class="pre">&#64;apifunction</span></code> and define contributions for specific
+subsystems with <code class="docutils literal notranslate"><span class="pre">&#64;apicontribution</span></code>, e.g., definitions for custom elements. Both are discovered
+automatically when <code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> is called.</p>
+<p><em>Service script (<code class="docutils literal notranslate"><span class="pre">service.py</span></code>):</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.actuals</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apifunction</span><span class="p">,</span> <span class="n">apicontribution</span>
+
+<span class="nd">@apifunction</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">multiply</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="o">*</span> <span class="n">factor</span>
+
+<span class="nd">@apicontribution</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyPointContribution</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">actuals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_actual_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Actual Point&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Point.gdlg&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_x&#39;</span><span class="p">]),</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_y&#39;</span><span class="p">]),</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_z&#39;</span><span class="p">])</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+
+<span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><em>Calling the service from another script:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.my_service</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">my_service</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">)</span>
+<span class="c1"># result == 42.0</span>
+</pre></div>
+</div>
+<p><strong>Setting up a service script (explicit registration)</strong></p>
+<p>When a service imports functions or contribution classes from other modules, those imports
+would generally be picked up by the decorator scan and registered unintentionally. Pass
+the <code class="docutils literal notranslate"><span class="pre">functions</span></code> and <code class="docutils literal notranslate"><span class="pre">contributions</span></code> lists directly to <code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> to register only
+the intended items explicitly.
+If functions or contributions are registered explicitly, the decorator-based discovery is
+skipped entirely for the respective items.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.actuals</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">my_other_script</span><span class="w"> </span><span class="kn">import</span> <span class="n">other_multiply</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyPointContribution</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">actuals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_actual_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Actual Point&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Point.gdlg&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_x&#39;</span><span class="p">]),</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_y&#39;</span><span class="p">]),</span>
+                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_z&#39;</span><span class="p">])</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+
+<span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">(</span><span class="n">functions</span><span class="o">=</span><span class="p">[</span><span class="n">other_multiply</span><span class="p">],</span> <span class="n">contributions</span><span class="o">=</span><span class="p">[</span><span class="n">MyPointContribution</span><span class="p">])</span>
+</pre></div>
+</div>
 <section id="gom-api-services-service">
 <h3>gom.api.services.Service<a class="headerlink" href="#gom-api-services-service" title="Link to this heading"></a></h3>
 <p>Class representing a single API service</p>
@@ -5854,6 +6018,29 @@ per service, the service counts as RUNNING not before all of these instances hav
 <li><p>STOPPING: Service is currently shutting down,</p></li>
 </ul>
 </section>
+<section id="gom-api-services-service-set-number-of-instances">
+<h4>gom.api.services.Service.set_number_of_instances<a class="headerlink" href="#gom-api-services-service-set-number-of-instances" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.services.Service.set_number_of_instances(number_of_instances:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the number of API instances (processes) the service runs in parallel</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>number_of_instances</strong> (<em>int</em>) – Number of API process instances to run in parallel (minimum: 1)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function sets the number of API process instances which will be started in parallel when
+the service is started. A higher number of instances allows the service to process multiple
+requests simultaneously, which can improve performance for computationally intensive tasks.</p>
+<p>The configured value is persisted in the application configuration and will be used the next
+time the service is started. If the service is already running, you need to stop and restart
+it for the new setting to take effect.</p>
+</section>
 <section id="gom-api-services-service-start">
 <h4>gom.api.services.Service.start<a class="headerlink" href="#gom-api-services-service-start" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -5955,7 +6142,7 @@ have been stopped.</p>
 </dl>
 </dd></dl>
 
-<p>This function returns the listof registered services</p>
+<p>This function returns the list of registered services</p>
 <p><strong>Example:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">get_services</span> <span class="p">():</span>
   <span class="nb">print</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get_name</span> <span class="p">())</span>
@@ -6146,6 +6333,118 @@ are integer, double, string and bool.</p>
 </div>
 </section>
 </section>
+<section id="gom-api-smart-principle">
+<h2>gom.api.smart_principle<a class="headerlink" href="#gom-api-smart-principle" title="Link to this heading"></a></h2>
+<p>API for script based functionality of Smart Principle</p>
+<section id="gom-api-smart-principle-strategytemplate">
+<h3>gom.api.smart_principle.StrategyTemplate<a class="headerlink" href="#gom-api-smart-principle-strategytemplate" title="Link to this heading"></a></h3>
+<p>This class is used to define a Smart Principle strategy template.</p>
+<p><em>Concept</em></p>
+<p>A strategy template contributes one selectable strategy entry to the
+Smart Principle dialog. It defines when the strategy is visible, when it
+can be applied, and how the creation sequence is extended once selected.</p>
+<p>Services that use the prefix ‘gom.api.smart_principle.strategy_templates.’
+in their endpoint name are automatically started when Smart Principle is used.</p>
+<section id="gom-api-smart-principle-strategytemplate-init">
+<h4>gom.api.smart_principle.StrategyTemplate.<strong>init</strong><a class="headerlink" href="#gom-api-smart-principle-strategytemplate-init" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.smart_principle.StrategyTemplate.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">strategy_id:</span> <span class="pre">str,</span> <span class="pre">strategy_icon:</span> <span class="pre">str,</span> <span class="pre">strategy_name:</span> <span class="pre">str,</span> <span class="pre">strategy_description:</span> <span class="pre">str,</span> <span class="pre">default_element_name:</span> <span class="pre">str,</span> <span class="pre">signature:</span> <span class="pre">dict,</span> <span class="pre">licensing:</span> <span class="pre">dict,</span> <span class="pre">callables:</span> <span class="pre">dict,</span> <span class="pre">properties:</span> <span class="pre">dict):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>strategy_id</strong> (<em>str</em>) – Unique strategy identifier suffix used to build the contribution id.</p></li>
+<li><p><strong>strategy_icon</strong> (<em>str</em>) – Icon resource id shown in the Smart Principle dialog.</p></li>
+<li><p><strong>strategy_name</strong> (<em>str</em>) – Localized strategy name shown in the Smart Principle dialog.</p></li>
+<li><p><strong>strategy_description</strong> (<em>str</em>) – Localized strategy description shown in the Smart Principle dialog.</p></li>
+<li><p><strong>default_element_name</strong> (<em>str</em>) – Default naming template used for newly created strategy elements.</p></li>
+<li><p><strong>signature</strong> (<em>dict</em>) – Signature metadata used by Smart Principle to match existing sequence commands and command arguments to this strategy template.</p></li>
+<li><p><strong>licensing</strong> (<em>dict</em>) – Licensing metadata declaring required products/licenses. This uses the same format as already used in app licenses.</p></li>
+<li><p><strong>callables</strong> (<em>dict</em>) – Additional callable contribution entries merged with the default strategy callables.</p></li>
+<li><p><strong>properties</strong> (<em>dict</em>) – Additional contribution properties merged with the default strategy properties.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Constructor</p>
+<p>The constructor registers the strategy contribution and merges optional
+callable and property extensions with the default strategy interface.</p>
+</section>
+<section id="gom-api-smart-principle-strategytemplate-add-strategy">
+<h4>gom.api.smart_principle.StrategyTemplate.add_strategy<a class="headerlink" href="#gom-api-smart-principle-strategytemplate-add-strategy" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.smart_principle.StrategyTemplate.add_strategy(self:</span> <span class="pre">Any,</span> <span class="pre">nominal_element:</span> <span class="pre">Any,</span> <span class="pre">old_creation_sequence:</span> <span class="pre">list):</span> <span class="pre">list</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nominal_element</strong> (<em>Any</em>) – Selected nominal element for which the strategy is applied.</p></li>
+<li><p><strong>old_creation_sequence</strong> (<em>list</em>) – Existing creation sequence to be extended.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Updated creation sequence.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Function called to add strategy-specific commands to the sequence.</p>
+<p>This function receives the current sequence and must return the updated
+sequence containing all commands required for this strategy.</p>
+</section>
+<section id="gom-api-smart-principle-strategytemplate-is-enabled">
+<h4>gom.api.smart_principle.StrategyTemplate.is_enabled<a class="headerlink" href="#gom-api-smart-principle-strategytemplate-is-enabled" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.smart_principle.StrategyTemplate.is_enabled(self:</span> <span class="pre">Any,</span> <span class="pre">nominal_element:</span> <span class="pre">Any,</span> <span class="pre">creation_sequence:</span> <span class="pre">list):</span> <span class="pre">bool</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nominal_element</strong> (<em>Any</em>) – Selected nominal element in Smart Principle.</p></li>
+<li><p><strong>creation_sequence</strong> (<em>list</em>) – Current creation sequence state.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the strategy can be applied, otherwise False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Function called to check if the strategy is enabled.</p>
+<p>This function is used to evaluate whether the strategy can currently be
+applied for the selected nominal element and creation sequence state.</p>
+</section>
+<section id="gom-api-smart-principle-strategytemplate-is-visible">
+<h4>gom.api.smart_principle.StrategyTemplate.is_visible<a class="headerlink" href="#gom-api-smart-principle-strategytemplate-is-visible" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.smart_principle.StrategyTemplate.is_visible(self:</span> <span class="pre">Any,</span> <span class="pre">nominal_element:</span> <span class="pre">Any):</span> <span class="pre">bool</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nominal_element</strong> (<em>Any</em>) – Selected nominal element in Smart Principle.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the strategy is visible, otherwise False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Function called to check if the strategy is visible.</p>
+<p>This function is used by Smart Principle to determine whether the
+strategy should be listed for the selected nominal element.</p>
+</section>
+</section>
+</section>
 <section id="gom-api-table">
 <h2>gom.api.table<a class="headerlink" href="#gom-api-table" title="Link to this heading"></a></h2>
 <p>API for table data handling</p>
@@ -6167,18 +6466,50 @@ the frontend, and ensures that edits are properly synchronized and validated.</p
 <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>  <span class="c1"># Get updated render data for rendering</span>
 </pre></div>
 </div>
+<section id="gom-api-table-contenteditor-delete-column">
+<h4>gom.api.table.ContentEditor.delete_column<a class="headerlink" href="#gom-api-table-contenteditor-delete-column" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.delete_column(col:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
+<dd><p>Delete the column at the specified index</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>col</strong> (<em>int</em>) – Column index (0-based)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Removes the column from the template container (all element templates and the
+header row). The operation is rejected if only a single column remains.</p>
+</section>
+<section id="gom-api-table-contenteditor-delete-row">
+<h4>gom.api.table.ContentEditor.delete_row<a class="headerlink" href="#gom-api-table-contenteditor-delete-row" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.delete_row(row:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
+<dd><p>Delete the template sub-row that corresponds to the given view row</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row</strong> (<em>int</em>) – Row index (0-based)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Only view rows that are marked as extra (i.e. template rows beyond the first)
+may be deleted. Attempting to delete the base template row (index 0) raises an error.</p>
+</section>
 <section id="gom-api-table-contenteditor-edit-cell">
 <h4>gom.api.table.ContentEditor.edit_cell<a class="headerlink" href="#gom-api-table-contenteditor-edit-cell" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.edit_cell(row:</span> <span class="pre">int,</span> <span class="pre">col:</span> <span class="pre">int,</span> <span class="pre">expression:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.edit_cell(row:</span> <span class="pre">int,</span> <span class="pre">col:</span> <span class="pre">int,</span> <span class="pre">expression:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
 <dd><p>Update a cell’s expression and refreshed render data</p>
 <dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>row</strong> (<em>int</em>) – Row index in the current table (0-based)</p></li>
 <li><p><strong>col</strong> (<em>int</em>) – Column index (0-based)</p></li>
-<li><p><strong>expression</strong> (<em>str</em>) – New expression text to set for this cell</p></li>
+<li><p><strong>expression</strong> (<em>str</em>) – New text/expression to set for the header</p></li>
 </ul>
 </dd>
 </dl>
@@ -6197,6 +6528,32 @@ This only updates the in-memory template and regenerates the view.</p>
 <p><strong>Example usage in Python:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adapter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">create_content_editor_data_adapter</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;inspection&quot;</span><span class="p">)</span>
 <span class="n">adapter</span><span class="o">.</span><span class="n">edit_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Point 1.y&#39;</span><span class="p">)</span>
+<span class="n">updated_data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-table-contenteditor-edit-header">
+<h4>gom.api.table.ContentEditor.edit_header<a class="headerlink" href="#gom-api-table-contenteditor-edit-header" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.edit_header(col:</span> <span class="pre">int,</span> <span class="pre">expression:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Update a header’s display text and regenerate render data</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>int</em>) – Column index (0-based)</p></li>
+<li><p><strong>expression</strong> (<em>str</em>) – New text/expression to set for the header</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Modifies the header at the given column index in the active template container,
+then regenerates the entire table render data to reflect the change.</p>
+<p><strong>Note:</strong> Changes are NOT saved to file until the host calls save.</p>
+<p><strong>Example usage in Python:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adapter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">create_content_editor_data_adapter</span><span class="p">(</span><span class="n">properties_json</span><span class="p">,</span> <span class="s1">&#39;inspection&#39;</span><span class="p">)</span>
+<span class="n">adapter</span><span class="o">.</span><span class="n">edit_header</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;New Header Name&#39;</span><span class="p">)</span>
 <span class="n">updated_data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -6261,6 +6618,68 @@ the current XML data as a string.</p>
 
 <p>Returns the last generated table render data stored in memory.</p>
 </section>
+<section id="gom-api-table-contenteditor-insert-column">
+<h4>gom.api.table.ContentEditor.insert_column<a class="headerlink" href="#gom-api-table-contenteditor-insert-column" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.insert_column(col:</span> <span class="pre">int,</span> <span class="pre">position:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Insert a new column before or after the specified column index</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>int</em>) – Column index (0-based)</p></li>
+<li><p><strong>position</strong> (<em>str</em>) – ‘before’ to insert to the left, ‘after’ to insert to the right</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Inserts a new empty column into the template container (affecting all element
+templates and the header row). After insertion the entire table render data
+is regenerated.</p>
+</section>
+<section id="gom-api-table-contenteditor-insert-row">
+<h4>gom.api.table.ContentEditor.insert_row<a class="headerlink" href="#gom-api-table-contenteditor-insert-row" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.insert_row(row:</span> <span class="pre">int,</span> <span class="pre">position:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Insert a new template row before or after the specified view row</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – Row index (0-based)</p></li>
+<li><p><strong>position</strong> (<em>str</em>) – ‘before’ to insert above, ‘after’ to insert below</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Each view row belongs to an element group and carries an internal template-row index.
+This method inserts a new empty template row into the element-type template at
+the calculated position, so the new row appears within the same element group.</p>
+</section>
+<section id="gom-api-table-contenteditor-merge-cells">
+<h4>gom.api.table.ContentEditor.merge_cells<a class="headerlink" href="#gom-api-table-contenteditor-merge-cells" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.merge_cells(row_start:</span> <span class="pre">int,</span> <span class="pre">col_start:</span> <span class="pre">int,</span> <span class="pre">row_end:</span> <span class="pre">int,</span> <span class="pre">col_end:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
+<dd><p>Merge a rectangular block of cells in the element-type template</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row_start</strong> (<em>int</em>) – First view row of the merge block (0-based)</p></li>
+<li><p><strong>col_start</strong> (<em>int</em>) – First column of the merge block (0-based)</p></li>
+<li><p><strong>row_end</strong> (<em>int</em>) – Last view row of the merge block (inclusive)</p></li>
+<li><p><strong>col_end</strong> (<em>int</em>) – Last column of the merge block (inclusive)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>All view rows in [row_start, row_end] must belong to the same element (same element group).
+The corresponding template rows and columns are merged: the top-left cell receives the
+combined row_span / col_span, and all other cells inside the block are cleared.</p>
+</section>
 <section id="gom-api-table-contenteditor-revert">
 <h4>gom.api.table.ContentEditor.revert<a class="headerlink" href="#gom-api-table-contenteditor-revert" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -6275,6 +6694,26 @@ the current XML data as a string.</p>
 <span class="n">data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>
 </pre></div>
 </div>
+</section>
+<section id="gom-api-table-contenteditor-split-cell">
+<h4>gom.api.table.ContentEditor.split_cell<a class="headerlink" href="#gom-api-table-contenteditor-split-cell" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.split_cell(row:</span> <span class="pre">int,</span> <span class="pre">col:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
+<dd><p>Split a merged cell back to individual cells</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – View row index (0-based)</p></li>
+<li><p><strong>col</strong> (<em>int</em>) – Column index (0-based)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Resets the row_span and col_span of the template element at the given view
+coordinates to 1, effectively un-merging it.  All previously covered cells
+remain empty but regain their individual grid positions.</p>
 </section>
 </section>
 <section id="gom-api-table-create-content-editor-data-adapter">
@@ -6333,6 +6772,31 @@ content editor.</p>
 </dl>
 </dd></dl>
 
+</section>
+<section id="gom-api-table-get-functions">
+<h3>gom.api.table.get_functions<a class="headerlink" href="#gom-api-table-get-functions" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.get_functions():</span> <span class="pre">dict</span></span></dt>
+<dd><p>Get the list of all available expression functions grouped by category</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary with key “categories” → list of category objects</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Returns a dictionary with a “categories” key containing an ordered list of function
+categories. Each category entry has a “name” (translated, human-readable) and a
+“functions” list. Each function entry contains:</p>
+<ul class="simple">
+<li><p><strong>name</strong>: the function identifier as used in expressions (e.g. “abs”)</p></li>
+<li><p><strong>description</strong>: a short human-readable description</p></li>
+<li><p><strong>template</strong>: a ready-to-insert call template (e.g. “abs (VALUE)”)</p></li>
+</ul>
 </section>
 <section id="gom-api-table-get-render-data-from-xml">
 <h3>gom.api.table.get_render_data_from_xml<a class="headerlink" href="#gom-api-table-get-render-data-from-xml" title="Link to this heading"></a></h3>
@@ -6620,7 +7084,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f4d5fde1e80>
+  <jinja2.runtime.BlockReference object at 0x7f02a3ed99b0>
 
 
 </footer>
