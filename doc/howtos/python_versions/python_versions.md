@@ -1,4 +1,4 @@
-![New in Version 2027](https://img.shields.io/badge/New-Version_2026-yellow)
+![New in Version 2027](https://img.shields.io/badge/New-Version_2027-yellow)
 
 # Adding and using specific Python versions
 
