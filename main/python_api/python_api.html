@@ -403,6 +403,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-stop">gom.api.services.Service.stop</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-services-get-service">gom.api.services.get_service</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-services-get-services">gom.api.services.get_services</a></li>
 </ul>
 </li>
@@ -1356,9 +1357,10 @@ Nevertheless, the vector can be number entirely different depending on active/in
 </dl>
 </dd></dl>
 
-<p>This function is called for a single stage value is to be computed. The input values from the
-associated dialog function are passed as <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> parameters - one value as one specific
-parameter named as the associated input widget.</p>
+<p>Legacy single-stage computation function. Kept for backward compatibility.</p>
+<p>New implementations should override <code class="docutils literal notranslate"><span class="pre">compute_stage</span> <span class="pre">()</span></code> instead. This function
+is called by the default implementation of <code class="docutils literal notranslate"><span class="pre">compute_stage</span> <span class="pre">()</span></code> if that method
+is not overridden.</p>
 </section>
 <section id="gom-api-extensions-scriptedcalculationelement-compute-stage">
 <h4>gom.api.extensions.ScriptedCalculationElement.compute_stage<a class="headerlink" href="#gom-api-extensions-scriptedcalculationelement-compute-stage" title="Link to this heading"></a></h4>
@@ -1375,9 +1377,11 @@ parameter named as the associated input widget.</p>
 </dl>
 </dd></dl>
 
-<p>This function is called for a single stage value is to be computed. The input values from the
+<p>This function is called when a single stage value is to be computed. The input values from the
 associated dialog function are passed as <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> parameters - one value as one specific
 parameter named as the associated input widget.</p>
+<p>By default, this function delegates to <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> for backward compatibility with older
+implementations. Override this method in new implementations instead of <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code>.</p>
 </section>
 <section id="gom-api-extensions-scriptedcalculationelement-compute-stages">
 <h4>gom.api.extensions.ScriptedCalculationElement.compute_stages<a class="headerlink" href="#gom-api-extensions-scriptedcalculationelement-compute-stages" title="Link to this heading"></a></h4>
@@ -6092,7 +6096,7 @@ and block until the service reaches the RUNNING state or a timeout occurs.</p>
 loop and waits for all service runner instances to report back their configuration. This is
 useful for scripts which need to call service functions right after starting the service.</p>
 <p><strong>Example:</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">service</span> <span class="o">=</span> <span class="n">get_service</span> <span class="p">(</span><span class="s1">&#39;gom.api.my_service&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">service</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">get_service</span> <span class="p">(</span><span class="s1">&#39;gom.api.my_service&#39;</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">service</span><span class="o">.</span><span class="n">start_and_wait</span> <span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
   <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Service is running&#39;</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
@@ -6122,6 +6126,42 @@ The ‘get_status ()’ function can be used to poll the service status until al
 have been stopped.</p>
 </div>
 </section>
+</section>
+<section id="gom-api-services-get-service">
+<h3>gom.api.services.get_service<a class="headerlink" href="#gom-api-services-get-service" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.services.get_service(endpoint:</span> <span class="pre">str):</span> <span class="pre">gom.api.services.Service</span></span></dt>
+<dd><p>Return the service registered for the given endpoint</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>endpoint</strong> (<em>str</em>) – API endpoint of the service to retrieve, e.g. ‘gom.api.my_service’</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Service object for that endpoint</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>gom.api.services.Service</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Exception if no service with the given endpoint is registered</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function returns the service object for the given API endpoint. An exception is
+thrown if no service with that endpoint is registered.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">service</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">get_service</span> <span class="p">(</span><span class="s1">&#39;gom.api.my_service&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">service</span><span class="o">.</span><span class="n">start_and_wait</span> <span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
+  <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Service is running&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Service startup timed out&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="gom-api-services-get-services">
 <h3>gom.api.services.get_services<a class="headerlink" href="#gom-api-services-get-services" title="Link to this heading"></a></h3>
@@ -7084,7 +7124,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f02a3ed99b0>
+  <jinja2.runtime.BlockReference object at 0x7fb3d8e61a90>
 
 
 </footer>
