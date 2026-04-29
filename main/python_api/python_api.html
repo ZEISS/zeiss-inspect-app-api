@@ -435,6 +435,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-delete-row">gom.api.table.ContentEditor.delete_row</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-edit-cell">gom.api.table.ContentEditor.edit_cell</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-edit-header">gom.api.table.ContentEditor.edit_header</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-background-color-expressions">gom.api.table.ContentEditor.get_background_color_expressions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-data-id">gom.api.table.ContentEditor.get_data_id</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-properties">gom.api.table.ContentEditor.get_properties</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-get-render-data">gom.api.table.ContentEditor.get_render_data</a></li>
@@ -442,6 +443,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-insert-row">gom.api.table.ContentEditor.insert_row</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-merge-cells">gom.api.table.ContentEditor.merge_cells</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-revert">gom.api.table.ContentEditor.revert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-set-alignment">gom.api.table.ContentEditor.set_alignment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-set-background-color">gom.api.table.ContentEditor.set_background_color</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-set-background-color-expression">gom.api.table.ContentEditor.set_background_color_expression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-set-font-style">gom.api.table.ContentEditor.set_font_style</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-split-cell">gom.api.table.ContentEditor.split_cell</a></li>
 </ul>
 </li>
@@ -6599,6 +6604,39 @@ then regenerates the entire table render data to reflect the change.</p>
 </pre></div>
 </div>
 </section>
+<section id="gom-api-table-contenteditor-get-background-color-expressions">
+<h4>gom.api.table.ContentEditor.get_background_color_expressions<a class="headerlink" href="#gom-api-table-contenteditor-get-background-color-expressions" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.get_background_color_expressions(row:</span> <span class="pre">int,</span> <span class="pre">col:</span> <span class="pre">int):</span> <span class="pre">list</span></span></dt>
+<dd><p>Return the list of expression-based color choices available for the given data cell.</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> (<em>int</em>) – Display-row index (0-based, as in the current sort order).</p></li>
+<li><p><strong>col</strong> (<em>int</em>) – Column index (0-based).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>QVariantList of QVariantMap entries with keys “label” and “expression_id”.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The expressions are derived from the element’s token interface.  Only tokens whose
+trait type is a tolerance type (or a MinMaxValue attribute that is a tolerance type)
+are returned, because those are the only ones that carry a meaningful color encoding.</p>
+<p>Each entry in the returned list is a dict:</p>
+<ul class="simple">
+<li><p>“label”         (str) — human-readable description, e.g. “Worst-case (result_worst_case)”</p></li>
+<li><p>“expression_id” (str) — expression string suitable for setBackgroundColorExpression,
+e.g. “color(result_worst_case)”</p></li>
+</ul>
+<p>Returns an empty list when the cell element has no applicable tokens.</p>
+</section>
 <section id="gom-api-table-contenteditor-get-data-id">
 <h4>gom.api.table.ContentEditor.get_data_id<a class="headerlink" href="#gom-api-table-contenteditor-get-data-id" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -6735,6 +6773,123 @@ combined row_span / col_span, and all other cells inside the block are cleared.<
 <span class="n">data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>
 </pre></div>
 </div>
+</section>
+<section id="gom-api-table-contenteditor-set-alignment">
+<h4>gom.api.table.ContentEditor.set_alignment<a class="headerlink" href="#gom-api-table-contenteditor-set-alignment" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.set_alignment(alignment:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Apply alignment settings to one or more cells/headers in a single efficient operation</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>alignment</strong> (<em>str</em>) – JSON-encoded array of alignment objects as described above.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><code class="docutils literal notranslate"><span class="pre">alignment</span></code> must be a JSON-encoded array where each element is an object with the following keys:</p>
+<ul class="simple">
+<li><p>“is_header” (bool) — when true the entry targets a header cell</p></li>
+<li><p>“row” (int) — data row index (ignored when “is_header” is true)</p></li>
+<li><p>“col” (int) — column index</p></li>
+<li><p>“alignment” (str) — one of “left”, “center”, or “right”</p></li>
+</ul>
+<p>All specified alignment settings are applied to the adapter’s in-memory template, and the cached
+render data is regenerated exactly once afterwards.</p>
+<p>Notes for callers:</p>
+<ul class="simple">
+<li><p>The API mutates the in-memory template only; persisting changes requires the host to call save.</p></li>
+<li><p>The batch is not transactional: errors mid-iteration leave partial changes applied.</p></li>
+<li><p>Out-of-range indices or other validation failures result in Exceptions from the helpers.</p></li>
+</ul>
+</section>
+<section id="gom-api-table-contenteditor-set-background-color">
+<h4>gom.api.table.ContentEditor.set_background_color<a class="headerlink" href="#gom-api-table-contenteditor-set-background-color" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.set_background_color(background_color:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Apply a fixed background color (or clear it) to one or more data cells in a single operation.</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>background_color</strong> (<em>str</em>) – JSON-encoded array of change descriptors as described above.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Only non-header data cells are supported.  Background color on header cells is intentionally
+excluded to match the behaviour of the traditional table cell editor dialog.</p>
+<p><code class="docutils literal notranslate"><span class="pre">background_color</span></code> must be a JSON-encoded array where each element is an object with:</p>
+<ul class="simple">
+<li><p>“row” (int)    — data row index (0-based)</p></li>
+<li><p>“col” (int)    — column index (0-based)</p></li>
+<li><p>“color” (str)  — CSS color string, e.g. “#rrggbb” or “rgba(r,g,b,a)”.
+An empty string or missing key clears the background color (COLOR_NONE).</p></li>
+</ul>
+<p>All changes are applied to the in-memory template and render data is regenerated exactly once.</p>
+<p>Example payload:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="nt">&quot;row&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;col&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#ff0000&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;row&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;col&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">}]</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-table-contenteditor-set-background-color-expression">
+<h4>gom.api.table.ContentEditor.set_background_color_expression<a class="headerlink" href="#gom-api-table-contenteditor-set-background-color-expression" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.set_background_color_expression(background_color_expression:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Apply an expression-based (dynamic) background color to one or more data cells.</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>background_color_expression</strong> (<em>str</em>) – JSON-encoded array of change descriptors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><code class="docutils literal notranslate"><span class="pre">background_color_expression</span></code> must be a JSON-encoded array where each element is an object with:</p>
+<ul class="simple">
+<li><p>“row” (int)        — data row index (0-based)</p></li>
+<li><p>“col” (int)        — column index (0-based)</p></li>
+<li><p>“expression” (str) — expression identifier, e.g. “color(result_worst_case)”.
+An empty string clears the background color (COLOR_NONE).</p></li>
+</ul>
+<p>Example payload:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="nt">&quot;row&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;col&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;expression&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;color(result_worst_case)&quot;</span><span class="p">}]</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-table-contenteditor-set-font-style">
+<h4>gom.api.table.ContentEditor.set_font_style<a class="headerlink" href="#gom-api-table-contenteditor-set-font-style" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.set_font_style(font_style:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Apply one or more font-style settings in a single efficient operation</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>font_style</strong> (<em>str</em>) – JSON-encoded array of font style objects as described above.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><code class="docutils literal notranslate"><span class="pre">font_style</span></code> must be a JSON-encoded array where each element is an object
+with the following keys:</p>
+<ul class="simple">
+<li><p>“is_header” (bool) — when true the entry targets a header cell</p></li>
+<li><p>“row” (int) — data row index (ignored when “is_header” is true)</p></li>
+<li><p>“col” (int) — column index</p></li>
+<li><p>“bold”, “italic”, “underline” (bool)</p></li>
+</ul>
+<p>All specified font style settings are applied to the adapter’s in-memory template, and
+the cached render data is regenerated exactly once afterwards.</p>
+<p>Notes for callers:</p>
+<ul class="simple">
+<li><p>The API mutates the in-memory template only; persisting changes to disk or
+the host’s storage must be handled by the host application.</p></li>
+<li><p>The batch is not transactional: if an invalid index or other error causes an
+Exception during iteration, changes applied before the error remain in
+effect. Callers requiring atomicity should validate inputs beforehand or
+implement an explicit undo/save pattern.</p></li>
+<li><p>Out-of-range indices or other validation failures will result in Exceptions
+thrown by the underlying helper methods.</p></li>
+</ul>
 </section>
 <section id="gom-api-table-contenteditor-split-cell">
 <h4>gom.api.table.ContentEditor.split_cell<a class="headerlink" href="#gom-api-table-contenteditor-split-cell" title="Link to this heading"></a></h4>
@@ -7125,7 +7280,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f32c9f8f070>
+  <jinja2.runtime.BlockReference object at 0x7fd473571160>
 
 
 </footer>
