@@ -5188,6 +5188,30 @@ adapter.edit_header(0, 'New Header Name')
 updated_data = adapter.get_render_data()
 ```
 
+#### gom.api.table.ContentEditor.get_background_color_expressions
+
+```{py:function} gom.api.table.ContentEditor.get_background_color_expressions(row: int, col: int): list
+
+Return the list of expression-based color choices available for the given data cell.
+:param row: Display-row index (0-based, as in the current sort order).
+:type row: int
+:param col: Column index (0-based).
+:type col: int
+:return: QVariantList of QVariantMap entries with keys "label" and "expression_id".
+:rtype: list
+```
+
+The expressions are derived from the element's token interface.  Only tokens whose
+trait type is a tolerance type (or a MinMaxValue attribute that is a tolerance type)
+are returned, because those are the only ones that carry a meaningful color encoding.
+
+Each entry in the returned list is a dict:
+- "label"         (str) — human-readable description, e.g. "Worst-case (result_worst_case)"
+- "expression_id" (str) — expression string suitable for setBackgroundColorExpression,
+e.g. "color(result_worst_case)"
+
+Returns an empty list when the cell element has no applicable tokens.
+
 #### gom.api.table.ContentEditor.get_data_id
 
 ```{py:function} gom.api.table.ContentEditor.get_data_id(): str
@@ -5290,6 +5314,103 @@ adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'ins
 adapter.revert()
 data = adapter.get_render_data()
 ```
+
+#### gom.api.table.ContentEditor.set_alignment
+
+```{py:function} gom.api.table.ContentEditor.set_alignment(alignment: str): None
+
+Apply alignment settings to one or more cells/headers in a single efficient operation
+:param alignment: JSON-encoded array of alignment objects as described above.
+:type alignment: str
+```
+
+`alignment` must be a JSON-encoded array where each element is an object with the following keys:
+- "is_header" (bool) — when true the entry targets a header cell
+- "row" (int) — data row index (ignored when "is_header" is true)
+- "col" (int) — column index
+- "alignment" (str) — one of "left", "center", or "right"
+
+All specified alignment settings are applied to the adapter's in-memory template, and the cached
+render data is regenerated exactly once afterwards.
+
+Notes for callers:
+- The API mutates the in-memory template only; persisting changes requires the host to call save.
+- The batch is not transactional: errors mid-iteration leave partial changes applied.
+- Out-of-range indices or other validation failures result in Exceptions from the helpers.
+
+#### gom.api.table.ContentEditor.set_background_color
+
+```{py:function} gom.api.table.ContentEditor.set_background_color(background_color: str): None
+
+Apply a fixed background color (or clear it) to one or more data cells in a single operation.
+:param background_color: JSON-encoded array of change descriptors as described above.
+:type background_color: str
+```
+
+Only non-header data cells are supported.  Background color on header cells is intentionally
+excluded to match the behaviour of the traditional table cell editor dialog.
+
+`background_color` must be a JSON-encoded array where each element is an object with:
+- "row" (int)    — data row index (0-based)
+- "col" (int)    — column index (0-based)
+- "color" (str)  — CSS color string, e.g. "#rrggbb" or "rgba(r,g,b,a)".
+An empty string or missing key clears the background color (COLOR_NONE).
+
+All changes are applied to the in-memory template and render data is regenerated exactly once.
+
+Example payload:
+```json
+[{"row": 0, "col": 1, "color": "#ff0000"}, {"row": 2, "col": 0, "color": ""}]
+```
+
+#### gom.api.table.ContentEditor.set_background_color_expression
+
+```{py:function} gom.api.table.ContentEditor.set_background_color_expression(background_color_expression: str): None
+
+Apply an expression-based (dynamic) background color to one or more data cells.
+:param background_color_expression: JSON-encoded array of change descriptors.
+:type background_color_expression: str
+```
+
+`background_color_expression` must be a JSON-encoded array where each element is an object with:
+- "row" (int)        — data row index (0-based)
+- "col" (int)        — column index (0-based)
+- "expression" (str) — expression identifier, e.g. "color(result_worst_case)".
+An empty string clears the background color (COLOR_NONE).
+
+Example payload:
+```json
+[{"row": 0, "col": 1, "expression": "color(result_worst_case)"}]
+```
+
+#### gom.api.table.ContentEditor.set_font_style
+
+```{py:function} gom.api.table.ContentEditor.set_font_style(font_style: str): None
+
+Apply one or more font-style settings in a single efficient operation
+:param font_style: JSON-encoded array of font style objects as described above.
+:type font_style: str
+```
+
+`font_style` must be a JSON-encoded array where each element is an object
+with the following keys:
+- "is_header" (bool) — when true the entry targets a header cell
+- "row" (int) — data row index (ignored when "is_header" is true)
+- "col" (int) — column index
+- "bold", "italic", "underline" (bool)
+
+All specified font style settings are applied to the adapter's in-memory template, and
+the cached render data is regenerated exactly once afterwards.
+
+Notes for callers:
+- The API mutates the in-memory template only; persisting changes to disk or
+the host's storage must be handled by the host application.
+- The batch is not transactional: if an invalid index or other error causes an
+Exception during iteration, changes applied before the error remain in
+effect. Callers requiring atomicity should validate inputs beforehand or
+implement an explicit undo/save pattern.
+- Out-of-range indices or other validation failures will result in Exceptions
+thrown by the underlying helper methods.
 
 #### gom.api.table.ContentEditor.split_cell
 
