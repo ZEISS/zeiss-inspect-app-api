@@ -4894,6 +4894,20 @@ dialog and can be adapted interactively there.
      "type": "file",
      "mode": "any",
      "visible": true
+   },
+   {
+     "name": "dialog.color",
+     "description": "Default RGBA color",
+     "value": "#FF0000FF",
+     "type": "color",
+     "visible": true
+   },
+   {
+     "name": "dialog.rgb",
+     "description": "Default RGB color",
+     "value": "#00aaaa",
+     "type": "color",
+     "visible": true
    }
   ]
  }
@@ -4950,6 +4964,27 @@ are integer, double, string and bool.
 ```
 w = gom.api.settings.get ('dialog.width')
 h = gom.api.settings.get ('dialog.height')
+```
+
+### gom.api.settings.get_description
+
+```{py:function} gom.api.settings.get_description(key: str): str
+
+Read the description of an application settings entry
+:API version: 1
+:param key: Configuration key. Must be a key as defined in the app's `metainfo.json` file.
+:type key: str
+:return: Description string of the settings entry
+:rtype: str
+```
+
+This function returns the description of the settings entry identified by the given key.
+The description is defined in the app's `metainfo.json` file.
+
+**Example**
+
+```
+desc = gom.api.settings.get_description ('dialog.width')
 ```
 
 ### gom.api.settings.list
