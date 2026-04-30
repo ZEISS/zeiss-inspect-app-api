@@ -415,6 +415,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-settings-get">gom.api.settings.get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-settings-get-description">gom.api.settings.get_description</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-settings-list">gom.api.settings.list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-settings-set">gom.api.settings.set</a></li>
 </ul>
@@ -6265,6 +6266,20 @@ dialog and can be adapted interactively there.</p>
      <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
      <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;any&quot;</span><span class="p">,</span>
      <span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="n">true</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;dialog.color&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Default RGBA color&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;#FF0000FF&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="n">true</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+     <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;dialog.rgb&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Default RGB color&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;#00aaaa&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="n">true</span>
    <span class="p">}</span>
   <span class="p">]</span>
  <span class="p">}</span>
@@ -6326,6 +6341,35 @@ are integer, double, string and bool.</p>
 <p><strong>Example</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span> <span class="p">(</span><span class="s1">&#39;dialog.width&#39;</span><span class="p">)</span>
 <span class="n">h</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span> <span class="p">(</span><span class="s1">&#39;dialog.height&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-settings-get-description">
+<h3>gom.api.settings.get_description<a class="headerlink" href="#gom-api-settings-get-description" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.settings.get_description(key:</span> <span class="pre">str):</span> <span class="pre">str</span></span></dt>
+<dd><p>Read the description of an application settings entry</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>key</strong> (<em>str</em>) – Configuration key. Must be a key as defined in the app’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Description string of the settings entry</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function returns the description of the settings entry identified by the given key.
+The description is defined in the app’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">desc</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get_description</span> <span class="p">(</span><span class="s1">&#39;dialog.width&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -7280,7 +7324,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7ff132891160>
+  <jinja2.runtime.BlockReference object at 0x7fd7897ae7b0>
 
 
 </footer>
