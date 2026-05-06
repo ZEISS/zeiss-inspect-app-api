@@ -1,5 +1,5 @@
 ---
-mode: agent
+agent: agent
 description: "Update GitHub Actions to latest major versions across all version branches (main, 2023, 2025, 2026), creating update branches and PRs for any changes needed."
 tools:
   - run_in_terminal
