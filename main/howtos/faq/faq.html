@@ -85,7 +85,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-can-i-obtain-the-measurement-quality">How can I obtain the measurement quality?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-can-i-get-the-ct-scanner-s-system-status-including-cathode-operation-time">How can I get the CT scanner’s system status — including cathode operation time?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#can-i-use-the-python-package-pdfplumber-in-an-app">Can I use the Python package <code class="docutils literal notranslate"><span class="pre">pdfplumber</span></code> in an App?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#can-i-use-the-python-package-pywin32-in-an-app">Can I use the Python package <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> in an App?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#can-i-use-the-python-package-pywin32-in-an-app">Can I use the Python package <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> in an App?</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#root-cause">Root cause</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workaround">Workaround</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-the-pywin32-wheel">Installing the pywin32 wheel</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#can-i-use-xlwings-in-an-app">Can I use <code class="docutils literal notranslate"><span class="pre">xlwings</span></code> in an App?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-use-a-c-net-library-in-an-app">How do I use a C# / .NET library in an App?</a></li>
 </ul>
@@ -496,14 +501,96 @@ where <code class="docutils literal notranslate"><span class="pre">%APPDATA</spa
 </section>
 <section id="can-i-use-the-python-package-pywin32-in-an-app">
 <h2>Can I use the Python package <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> in an App?<a class="headerlink" href="#can-i-use-the-python-package-pywin32-in-an-app" title="Link to this heading"></a></h2>
-<p>As reported in several <a class="reference external" href="https://github.com/mhammond/pywin32/issues">pywin32 issues</a>, installing <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> fails in many cases. The ZEISS INSPECT Python environment is affected, too.
-<code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError:</span> <span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">'pywintypes'</span></code> is also caused by a missing or failed  <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> installation.</p>
-<p>Some Python packages (such as <a class="reference internal" href="#can-i-use-xlwings-in-an-app">xlwings</a>) require pywin32.</p>
+<p>Yes, but <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> requires a workaround due to a limitation in ZEISS INSPECT’s wheel cache.</p>
+<section id="root-cause">
+<h3>Root cause<a class="headerlink" href="#root-cause" title="Link to this heading"></a></h3>
+<p>ZEISS INSPECT installs Python wheels into a cache folder but does <strong>not</strong> process <code class="docutils literal notranslate"><span class="pre">.pth</span></code> files in that directory. Since <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> relies on <code class="docutils literal notranslate"><span class="pre">pywin32.pth</span></code> to:</p>
+<ol class="arabic simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">win32\</span></code>, <code class="docutils literal notranslate"><span class="pre">win32\lib\</span></code>, <code class="docutils literal notranslate"><span class="pre">Pythonwin\</span></code> to <code class="docutils literal notranslate"><span class="pre">sys.path</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">pywin32_bootstrap.py</span></code>, which calls <code class="docutils literal notranslate"><span class="pre">os.add_dll_directory()</span></code> on <code class="docutils literal notranslate"><span class="pre">pywin32_system32\</span></code> (containing <code class="docutils literal notranslate"><span class="pre">pywintypes&lt;VER&gt;.dll</span></code>, <code class="docutils literal notranslate"><span class="pre">pythoncom&lt;VER&gt;.dll</span></code>)</p></li>
+</ol>
+<p>…a plain <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">win32api</span></code> or <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">pywintypes</span></code> fails with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">ModuleNotFoundError</span><span class="p">:</span> <span class="n">No</span> <span class="n">module</span> <span class="n">named</span> <span class="s1">&#39;pywintypes&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="workaround">
+<h3>Workaround<a class="headerlink" href="#workaround" title="Link to this heading"></a></h3>
+<p>Call a setup function <strong>before</strong> any <code class="docutils literal notranslate"><span class="pre">pywin32</span></code>-dependent import. The function replicates what <code class="docutils literal notranslate"><span class="pre">pywin32.pth</span></code> and <code class="docutils literal notranslate"><span class="pre">pywin32_bootstrap.py</span></code> would normally do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.addons</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">setup_pywin32</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set up pywin32 DLL path and sys.path entries manually,</span>
+<span class="sd">    because ZEISS INSPECT&#39;s wheel cache does not process .pth files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s1">&#39;pywintypes&#39;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+        <span class="k">return</span>  <span class="c1"># already set up</span>
+
+    <span class="n">addon</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">get_current_addon</span><span class="p">()</span>
+
+    <span class="c1"># Find pywin32 wheel filename from the App&#39;s scripts/modules/ folder</span>
+    <span class="k">if</span> <span class="n">addon</span><span class="o">.</span><span class="n">is_edited</span><span class="p">():</span>
+        <span class="n">addon_dir</span> <span class="o">=</span> <span class="n">addon</span><span class="o">.</span><span class="n">get_file</span><span class="p">()</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">addon_dir</span><span class="p">,</span> <span class="s1">&#39;scripts&#39;</span><span class="p">,</span> <span class="s1">&#39;modules&#39;</span><span class="p">,</span> <span class="s1">&#39;pywin32-*.whl&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">addon</span><span class="o">.</span><span class="n">get_file_list</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;scripts/modules/pywin32-&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.whl&#39;</span><span class="p">)</span>
+        <span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;pywin32 wheel not found in App&#39;s scripts/modules/&quot;</span><span class="p">)</span>
+
+    <span class="n">wheel_stem</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Locate the wheel cache directory (glob handles any ZEISS INSPECT version)</span>
+    <span class="n">cache_dirs</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;APPDATA&#39;</span><span class="p">],</span> <span class="s1">&#39;gom&#39;</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;gom_python_wheel_cache&#39;</span><span class="p">,</span> <span class="n">wheel_stem</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">cache_dirs</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pywin32 wheel cache directory not found for: </span><span class="si">{</span><span class="n">wheel_stem</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">cache_dir</span> <span class="o">=</span> <span class="n">cache_dirs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># 1. Add DLL search path for pywintypes&lt;VER&gt;.dll and pythoncom&lt;VER&gt;.dll</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">add_dll_directory</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span> <span class="s1">&#39;pywin32_system32&#39;</span><span class="p">))</span>
+
+    <span class="c1"># 2. Add win32, win32\lib, Pythonwin to sys.path</span>
+    <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;win32&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;win32&#39;</span><span class="p">,</span> <span class="s1">&#39;lib&#39;</span><span class="p">),</span> <span class="s1">&#39;Pythonwin&#39;</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">,</span> <span class="n">sub</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+
+<span class="c1"># Call setup_pywin32() BEFORE any pywin32-dependent import</span>
+<span class="n">setup_pywin32</span><span class="p">()</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">win32api</span>  <span class="c1"># now works</span>
+</pre></div>
+</div>
+</section>
+<section id="installing-the-pywin32-wheel">
+<h3>Installing the pywin32 wheel<a class="headerlink" href="#installing-the-pywin32-wheel" title="Link to this heading"></a></h3>
+<p>Install <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> into the App’s <code class="docutils literal notranslate"><span class="pre">scripts/modules/</span></code> folder using the App Editor’s <a class="reference internal" href="../using_app_editor/using_app_editor.html#installing-python-packages"><span class="std std-ref">Install Python Packages</span></a> dialog (RMB on the <code class="docutils literal notranslate"><span class="pre">scripts</span></code> or <code class="docutils literal notranslate"><span class="pre">modules</span></code> folder ► Install Python Packages…). The App Editor automatically selects the wheel compatible with the Python version used by ZEISS INSPECT.</p>
+<p>See also the <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/Pywin32Example" target="_blank" rel="noopener noreferrer">Pywin32Example</a> App example.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some Python packages (such as <a class="reference internal" href="#can-i-use-xlwings-in-an-app">xlwings</a>) require <code class="docutils literal notranslate"><span class="pre">pywin32</span></code>.</p>
+</div>
+</section>
 </section>
 <section id="can-i-use-xlwings-in-an-app">
 <h2>Can I use <code class="docutils literal notranslate"><span class="pre">xlwings</span></code> in an App?<a class="headerlink" href="#can-i-use-xlwings-in-an-app" title="Link to this heading"></a></h2>
-<p>Basically no, because <a class="reference external" href="https://pypi.org/project/xlwings/">xlwings</a> depends on <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> — see <a class="reference internal" href="#can-i-use-the-python-package-pywin32-in-an-app">Can I use the Python package <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> in an App?</a>.</p>
-<p>If compatibility to <code class="docutils literal notranslate"><span class="pre">xlwings</span></code> is not required, you might want to use <a class="reference external" href="https://pypi.org/project/openpyxl/">openpyxl</a> instead (see <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/ExcelExample/doc/Documentation.md">Excel import/export example</a>).</p>
+<p><a class="reference external" href="https://pypi.org/project/xlwings/">xlwings</a> depends on <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> for Windows COM automation. With the workaround described in <a class="reference internal" href="#can-i-use-the-python-package-pywin32-in-an-app">Can I use the Python package <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> in an App?</a>, <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> can be made available, so <code class="docutils literal notranslate"><span class="pre">xlwings</span></code> <em>may</em> work — provided that <strong>Microsoft Excel is installed</strong> on the same machine.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">xlwings</span></code> requires Microsoft Excel. If Excel is not installed, <code class="docutils literal notranslate"><span class="pre">xlwings</span></code> will fail regardless of the <code class="docutils literal notranslate"><span class="pre">pywin32</span></code> setup.</p>
+</div>
+<p>If Excel compatibility is not required, <a class="reference external" href="https://pypi.org/project/openpyxl/">openpyxl</a> is the recommended alternative for reading and writing Excel files (see <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/ExcelExample/doc/Documentation.md">Excel import/export example</a>).</p>
 </section>
 <section id="how-do-i-use-a-c-net-library-in-an-app">
 <h2>How do I use a C# / .NET library in an App?<a class="headerlink" href="#how-do-i-use-a-c-net-library-in-an-app" title="Link to this heading"></a></h2>
@@ -593,7 +680,7 @@ where <code class="docutils literal notranslate"><span class="pre">%APPDATA</spa
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f38a1aebd50>
+  <jinja2.runtime.BlockReference object at 0x7f61d29dfe50>
 
 
 </footer>
