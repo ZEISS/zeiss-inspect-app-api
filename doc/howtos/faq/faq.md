@@ -374,16 +374,100 @@ Yes, [pdfplumber](https://pypi.org/project/pdfplumber/) can be installed with th
 
 ## Can I use the Python package `pywin32` in an App?
 
-As reported in several [pywin32 issues](https://github.com/mhammond/pywin32/issues), installing `pywin32` fails in many cases. The ZEISS INSPECT Python environment is affected, too.
-`ModuleNotFoundError: No module named 'pywintypes'` is also caused by a missing or failed  `pywin32` installation.
+Yes, but `pywin32` requires a workaround due to a limitation in ZEISS INSPECT's wheel cache.
 
-Some Python packages (such as [xlwings](#can-i-use-xlwings-in-an-app)) require pywin32.
+### Root cause
+
+ZEISS INSPECT installs Python wheels into a cache folder but does **not** process `.pth` files in that directory. Since `pywin32` relies on `pywin32.pth` to:
+
+1. Add `win32\`, `win32\lib\`, `Pythonwin\` to `sys.path`
+2. Run `pywin32_bootstrap.py`, which calls `os.add_dll_directory()` on `pywin32_system32\` (containing `pywintypes<VER>.dll`, `pythoncom<VER>.dll`)
+
+…a plain `import win32api` or `import pywintypes` fails with:
+
+```
+ModuleNotFoundError: No module named 'pywintypes'
+```
+
+### Workaround
+
+Call a setup function **before** any `pywin32`-dependent import. The function replicates what `pywin32.pth` and `pywin32_bootstrap.py` would normally do:
+
+```{code-block} python
+import gom
+import gom.api.addons
+import glob
+import os
+import sys
+
+def setup_pywin32():
+    """
+    Set up pywin32 DLL path and sys.path entries manually,
+    because ZEISS INSPECT's wheel cache does not process .pth files.
+    """
+    if 'pywintypes' in sys.modules:
+        return  # already set up
+
+    addon = gom.api.addons.get_current_addon()
+
+    # Find pywin32 wheel filename from the App's scripts/modules/ folder
+    if addon.is_edited():
+        addon_dir = addon.get_file()
+        matches = glob.glob(os.path.join(addon_dir, 'scripts', 'modules', 'pywin32-*.whl'))
+    else:
+        matches = [
+            f for f in addon.get_file_list()
+            if 'scripts/modules/pywin32-' in f.replace('\\', '/') and f.endswith('.whl')
+        ]
+
+    if not matches:
+        raise RuntimeError("pywin32 wheel not found in App's scripts/modules/")
+
+    wheel_stem = os.path.splitext(os.path.basename(matches[0]))[0]
+
+    # Locate the wheel cache directory (glob handles any ZEISS INSPECT version)
+    cache_dirs = glob.glob(
+        os.path.join(os.environ['APPDATA'], 'gom', '*', 'gom_python_wheel_cache', wheel_stem)
+    )
+    if not cache_dirs:
+        raise RuntimeError(f"pywin32 wheel cache directory not found for: {wheel_stem}")
+
+    cache_dir = cache_dirs[0]
+
+    # 1. Add DLL search path for pywintypes<VER>.dll and pythoncom<VER>.dll
+    os.add_dll_directory(os.path.join(cache_dir, 'pywin32_system32'))
+
+    # 2. Add win32, win32\lib, Pythonwin to sys.path
+    for sub in ('win32', os.path.join('win32', 'lib'), 'Pythonwin'):
+        p = os.path.join(cache_dir, sub)
+        if p not in sys.path:
+            sys.path.insert(0, p)
+
+# Call setup_pywin32() BEFORE any pywin32-dependent import
+setup_pywin32()
+
+import win32api  # now works
+```
+
+### Installing the pywin32 wheel
+
+Install `pywin32` into the App's `scripts/modules/` folder using the App Editor's [Install Python Packages](../using_app_editor/using_app_editor.md#installing-python-packages) dialog (RMB on the `scripts` or `modules` folder ► Install Python Packages…). The App Editor automatically selects the wheel compatible with the Python version used by ZEISS INSPECT.
+
+See also the <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/misc/Pywin32Example" target="_blank" rel="noopener noreferrer">Pywin32Example</a> App example.
+
+```{note}
+Some Python packages (such as [xlwings](#can-i-use-xlwings-in-an-app)) require `pywin32`.
+```
 
 ## Can I use `xlwings` in an App?
 
-Basically no, because [xlwings](https://pypi.org/project/xlwings/) depends on `pywin32` &mdash; see [Can I use the Python package `pywin32` in an App?](#can-i-use-the-python-package-pywin32-in-an-app).
+[xlwings](https://pypi.org/project/xlwings/) depends on `pywin32` for Windows COM automation. With the workaround described in [Can I use the Python package `pywin32` in an App?](#can-i-use-the-python-package-pywin32-in-an-app), `pywin32` can be made available, so `xlwings` *may* work — provided that **Microsoft Excel is installed** on the same machine.
 
-If compatibility to `xlwings` is not required, you might want to use [openpyxl](https://pypi.org/project/openpyxl/) instead (see <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/ExcelExample/doc/Documentation.md">Excel import/export example</a>).
+```{note}
+`xlwings` requires Microsoft Excel. If Excel is not installed, `xlwings` will fail regardless of the `pywin32` setup.
+```
+
+If Excel compatibility is not required, [openpyxl](https://pypi.org/project/openpyxl/) is the recommended alternative for reading and writing Excel files (see <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/ExcelExample/doc/Documentation.md">Excel import/export example</a>).
 
 ## How do I use a C# / .NET library in an App?
 
