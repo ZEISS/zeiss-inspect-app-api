@@ -376,7 +376,7 @@ Return contribution category
 
 The contribution category determines the type of the contribution or to which semantic
 concept of ZEISS INSPECT the contribution belongs to. If, for example, the contribution
-extends the view system of ZEISS INSPECT, the category is 'scriptedviews'.
+extends the view system of ZEISS INSPECT, the category is 'customviews'.
 
 #### gom.api.contributions.Contribution.get_description
 
@@ -433,6 +433,146 @@ import gom.api.contributions
 for c in gom.api.contributions.get_contributions ():
   print (c.get_id (), c.get_description ())
 ```
+
+## gom.api.custom_checks_util
+
+Tool functions for custom checks
+
+
+### gom.api.custom_checks_util.is_curve_checkable
+
+```{py:function} gom.api.custom_checks_util.is_curve_checkable(element: gom.Object): bool
+
+Checks if the referenced element is suitable for inspection with a curve check
+:API version: 1
+:param element: Element reference to check
+:type element: gom.Object
+:return: 'true' if the element is checkable like a curve
+:rtype: bool
+```
+
+This function checks if the given element can be inspected like a curve in the context of custom
+elements. Please see the custom element documentation for details about the underlying scheme.
+
+### gom.api.custom_checks_util.is_scalar_checkable
+
+```{py:function} gom.api.custom_checks_util.is_scalar_checkable(element: gom.Object): bool
+
+Checks if the referenced element is suitable for inspection with a scalar check
+:API version: 1
+:param element: Element reference to check
+:type element: gom.Object
+:return: 'true' if the element is checkable like a scalar value
+:rtype: bool
+```
+
+This function checks if the given element can be inspected like a scalar value in the context of custom
+elements. Please see the custom element documentation for details about the underlying scheme.
+
+### gom.api.custom_checks_util.is_surface_checkable
+
+```{py:function} gom.api.custom_checks_util.is_surface_checkable(element: gom.Object): bool
+
+Checks if the referenced element is suitable for inspection with a surface check
+:API version: 1
+:param element: Element reference to check
+:type element: gom.Object
+:return: 'true' if the element is checkable like a surface
+:rtype: bool
+```
+
+This function checks if the given element can be inspected like a surface in the context of custom
+elements. Please see the custom element documentation for details about the underlying scheme.
+
+## gom.api.customelements
+
+API for handling custom elements
+
+This API defines various functions for handling custom elements (actuals, inspections, nominal, diagrams, ...)
+It is used mostly internally by the custom element framework.
+
+### gom.api.customelements.get_dimension_definition
+
+```{py:function} gom.api.customelements.get_dimension_definition(typename: str): Any
+
+Return information about the given dimension
+:param name: Name of the dimension
+:return: Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension
+:rtype: Any
+```
+
+A physical dimension (or just "dimension") refers to the fundamental nature of what is measured - like length,
+time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
+from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
+millimeter, inch for length; or degree, radian for angle.
+
+### gom.api.customelements.get_dimensions
+
+```{py:function} gom.api.customelements.get_dimensions(): [str]
+
+Return available dimensions
+:return: List of known dimensions
+:rtype: [str]
+```
+
+
+### gom.api.customelements.get_element_from_id
+
+```{py:function} gom.api.customelements.get_element_from_id(element_id: str): Any
+
+Convert an internal id into a script element reference
+:param element_id: Internal id of the element to convert, usually a uuid
+:type element_id: str
+:return: Script element reference
+:rtype: Any
+:throws: std::runtime_error if the element id is unknown
+```
+
+This function is used to convert ids which are representing elements into script element
+references which can be used in the scripting environment. It is used for internal purposes
+only and should be used with care. For example, in custom sequences, the child elements of
+a leading sequence element are stored by their internal ids, in principle uuids. So when
+the child elements of a leading element are requested, the internal framework can use this
+function to convert the stored ids into script element references.
+
+### gom.api.customelements.get_id_for_element
+
+```{py:function} gom.api.customelements.get_id_for_element(element: Any): str
+
+Return internal id of the given element
+:param element: Element reference
+:type element: Any
+:return: Id of this element
+:rtype: str
+```
+
+
+### gom.api.customelements.get_inspection_definition
+
+```{py:function} gom.api.customelements.get_inspection_definition(typename: str): Any
+
+Return information about the given custom element type
+:param type_name: Type name of the inspection to query
+:return: Dictionary with relevant type information or an empty dictionary if the type is unknown
+:rtype: Any
+```
+
+This function queries in internal 'scalar registry' database for information about the
+inspection with the given type.
+
+### gom.api.customelements.get_instructions
+
+```{py:function} gom.api.customelements.get_instructions(element: Any): Any
+
+Return recalculation instructions/commands for the given element
+:param element: Element to query
+:type element: Any
+:return: Recalculation instructions
+:rtype: Any
+```
+
+This function queries the recalculations instructions (commands) which are executed to recalc
+an element.
 
 ### gom.api.diagram.get_element_data
 
@@ -559,18 +699,18 @@ API for script based functionality extensions
 This API enables the user to define various element classes which can be used to extend the functionality of
 ZEISS INSPECT.
 
-### gom.api.extensions.ScriptedCalculationElement
+### gom.api.extensions.CustomCalculationElement
 
 
-This class is used to define a scripted calculation element which calculated its own data. It is used as a
-base class for scripted actual, nominals and checks.
+This class is used to define a custom calculation element which calculated its own data. It is used as a
+base class for custom actual, nominals and checks.
 
 **Working with stages**
 
-Each scripted element must be computed for one or more stages. In the case of a preview or
+Each custom element must be computed for one or more stages. In the case of a preview or
 for simple project setups, computation is usually done for a single stage only. In case of
 a recalc, computation for many stages is usually required. To support both cases and keep it
-simple for beginners, the scripted elements are using two computation functions:
+simple for beginners, the custom elements are using two computation functions:
 
 - `compute ()`:       Computes the result for one single stage only. If nothing else is implemented,
                       this function will be called for each stage one by one and return the computed
@@ -598,15 +738,15 @@ Nevertheless, the vector can be number entirely different depending on active/in
 
 ```{caution}
 Usually, it is *not* possible to access arbitrary stages of other elements due to recalc restrictions !
-```    
+```
 
-#### gom.api.extensions.ScriptedCalculationElement.__init__
+#### gom.api.extensions.CustomCalculationElement.__init__
 
-```{py:function} gom.api.extensions.ScriptedCalculationElement.__init__(self: Any, id: str, category: str, description: str, element_type: str, callables: Any, properties: Any): None
+```{py:function} gom.api.extensions.CustomCalculationElement.__init__(self: Any, id: str, category: str, description: str, element_type: str, callables: Any, properties: Any): None
 
 :param id: Unique contribution id, like `special_point`
 :type id: str
-:param category: Scripted element type id, like `scriptedelement.actual`
+:param category: Custom element type id, like `customelement.actual`
 :type category: str
 :param description: Human readable contribution description
 :type description: str
@@ -618,9 +758,9 @@ Usually, it is *not* possible to access arbitrary stages of other elements due t
 
 Constructor
 
-#### gom.api.extensions.ScriptedCalculationElement.compute
+#### gom.api.extensions.CustomCalculationElement.compute
 
-```{py:function} gom.api.extensions.ScriptedCalculationElement.compute(self: Any, context: Any, values: Any): None
+```{py:function} gom.api.extensions.CustomCalculationElement.compute(self: Any, context: Any, values: Any): None
 
 :param context: Script context object containing execution related parameters. This includes the stage this computation call refers to.
 :type context: Any
@@ -634,9 +774,9 @@ New implementations should override `compute_stage ()` instead. This function
 is called by the default implementation of `compute_stage ()` if that method
 is not overridden.
 
-#### gom.api.extensions.ScriptedCalculationElement.compute_stage
+#### gom.api.extensions.CustomCalculationElement.compute_stage
 
-```{py:function} gom.api.extensions.ScriptedCalculationElement.compute_stage(self: Any, context: Any, values: Any): None
+```{py:function} gom.api.extensions.CustomCalculationElement.compute_stage(self: Any, context: Any, values: Any): None
 
 :param context: Script context object containing execution related parameters. This includes the stage this computation call refers to.
 :type context: Any
@@ -651,9 +791,9 @@ parameter named as the associated input widget.
 By default, this function delegates to `compute ()` for backward compatibility with older
 implementations. Override this method in new implementations instead of `compute ()`.
 
-#### gom.api.extensions.ScriptedCalculationElement.compute_stages
+#### gom.api.extensions.CustomCalculationElement.compute_stages
 
-```{py:function} gom.api.extensions.ScriptedCalculationElement.compute_stages(self: Any, context: Any, values: Any): None
+```{py:function} gom.api.extensions.CustomCalculationElement.compute_stages(self: Any, context: Any, values: Any): None
 
 :param context: Script context object containing execution related parameters. This includes the stage this computation call refers to.
 :type context: Any
@@ -661,18 +801,18 @@ implementations. Override this method in new implementations instead of `compute
 :type values: Any
 ```
 
-This function is called to compute multiple stages of the scripted element. The expected result is 
+This function is called to compute multiple stages of the custom element. The expected result is
 a vector of the same length as the number of stages.
 
-The function is calling the `compute ()` function of the scripted element for each stage by default.
+The function is calling the `compute ()` function of the custom element for each stage by default.
 For a more efficient implementation, it can be overwritten and bulk compute many stages at once.
 
-### gom.api.extensions.ScriptedElement
+### gom.api.extensions.CustomElement
 
 
-Base class for all scripted elements
+Base class for all custom elements
 
-This class is the base class for all scripted element types . A scripted element is a user defined
+This class is the base class for all custom element types . A custom element is a user defined
 element type where configuration and computation are happening entirely in a Python script, so user
 defined behavior and visualization can be implemented.
 
@@ -685,13 +825,13 @@ grouping dots and underscores.
 **Element category**
 
 The category of an element type is used to find the application side counterpart which cares for the
-functionality implementation. For example, `scriptedelement.actual` links that element type the application
-counterpart which cares for scripted actual elements and handles its creation, editing, administration, ...
+functionality implementation. For example, `customelement.actual` links that element type the application
+counterpart which cares for custom actual elements and handles its creation, editing, administration, ...
 
 **Storing custom element data**
 
-In principle, each scripted element type consists of functions which will get input via function parameters and
-generate output by returning a value, usually a dictionary object with named entries. For example, if a scripted
+In principle, each custom element type consists of functions which will get input via function parameters and
+generate output by returning a value, usually a dictionary object with named entries. For example, if a custom
 nominal command creates a nominal point, the `compute ()` function could return a dictionary like this:
 
 ```
@@ -705,8 +845,8 @@ This is defined in details with the respective element type documentation. The r
 in the project file and belong to the element. The keys of the returned dictionary are the data keys which are fixed
 for each element type and element specific.
 
-In addition to these fixed data keys, each scripted element can also store custom data entries. These entries
-are not predefined by the element type, but can be freely defined by the scripted element implementation. This is not a
+In addition to these fixed data keys, each custom element can also store custom data entries. These entries
+are not predefined by the element type, but can be freely defined by the custom element implementation. This is not a
 function result, it is more like an additional data storage which is associated with the element instance, for example
 for caching intermediate results, storing additional metadata, ... Thus, custom element data is accessed via the `context`
 object passed to each function. The context custom data is staged, so each stage has its own custom data storage, and the current
@@ -734,13 +874,13 @@ def compute (self, context, values):
     return result
 ```
 
-When a scripted element has custom data set, these data entries can be accessed in scripts via element tokens.
+When a custom element has custom data set, these data entries can be accessed in scripts via element tokens.
 
 Example:
 ```
-element = gom.script.project['Parts']['Part 1'].elements['My Scripted Element']
+element = gom.script.project['Parts']['Part 1'].elements['My custom element']
 intermediate_result = element.intermediate_result # Token name matches custom data key
-``` 
+```
 
 The size of the data storage is not limited, but it should be kept in mind that all data must be serialized
 and stored in the project file. Therefore, large data structures should be avoided here. Also, calls to
@@ -772,7 +912,7 @@ def compute (self, context, values):
 When a new custom data set in set, either via `context.data` or via the `data` entry in the result, all
 previous custom data entries for that stage are cleared and the whole new data set is stored instead.
 
-#### gom.api.extensions.ScriptedElement.Attribute
+#### gom.api.extensions.CustomElement.Attribute
 
 
 Attributes used in the dialog definition
@@ -780,7 +920,7 @@ Attributes used in the dialog definition
 The attributes are used to define the dialog widgets and their behavior. A selected set of these
 attributes are listed here as a central reference and for unified constant value access.
 
-#### gom.api.extensions.ScriptedElement.Event
+#### gom.api.extensions.CustomElement.Event
 
 
 Event types passed to the `event ()` function
@@ -788,7 +928,7 @@ Event types passed to the `event ()` function
 - `DIALOG_INITIALIZE`: Sent when the dialog has been initialized and made visible
 - `DIALOG_CHANGED`:    A dialog widget value changed
 
-#### gom.api.extensions.ScriptedElement.WidgetType
+#### gom.api.extensions.CustomElement.WidgetType
 
 
 (Selected) widget types used in the dialog definition
@@ -796,13 +936,13 @@ Event types passed to the `event ()` function
 The widget types are used to define the dialog widgets and their behavior. A selected set of these
 widget types are listed here as a central reference and for unified constant value access.
 
-#### gom.api.extensions.ScriptedElement.__init__
+#### gom.api.extensions.CustomElement.__init__
 
-```{py:function} gom.api.extensions.ScriptedElement.__init__(self: Any, id: str, category: str, description: str, callables: Any, properties: Any): None
+```{py:function} gom.api.extensions.CustomElement.__init__(self: Any, id: str, category: str, description: str, callables: Any, properties: Any): None
 
 :param id: Unique contribution id, like `special_point`
 :type id: str
-:param category: Scripted element category id, like `scriptedelement.actual`
+:param category: Custom element category id, like `customelement.actual`
 :type category: str
 :param description: Human readable contribution description
 :type description: str
@@ -810,9 +950,31 @@ widget types are listed here as a central reference and for unified constant val
 
 Constructor
 
-#### gom.api.extensions.ScriptedElement.add_diagram_data
+#### gom.api.extensions.CustomElement._dialog_callable
 
-```{py:function} gom.api.extensions.ScriptedElement.add_diagram_data(self: Any, diagram_data: List, diagram_id: str, service_id: str, element_data: Dict[str, Any]): None
+```{py:function} gom.api.extensions.CustomElement._dialog_callable(self: Any, context: Any, args: Any): None
+
+:param context: Script context object.
+:type context: Any
+:param args: Dialog execution arguments (version, name, values, …).
+:type args: Any
+:return: The result of `dialog()`, or `args` unchanged when `dialog()` returns `None`.
+:rtype: None
+```
+
+Internal wrapper that calls the user-defined `dialog()` method and handles a `None`
+return value.
+
+When a contribution overrides `dialog()` with `pass` (or otherwise returns `None`),
+it signals "no interactive dialog needed — proceed with the input arguments unchanged."
+The C++ side requires a valid `QVariantMap` as the dialog result, so returning `None`
+would cause a type-conversion error. This wrapper converts `None` transparently into
+the unmodified input `args`, preserving the "no dialog" semantic without breaking the
+C++/Python contract.
+
+#### gom.api.extensions.CustomElement.add_diagram_data
+
+```{py:function} gom.api.extensions.CustomElement.add_diagram_data(self: Any, diagram_data: List, diagram_id: str, service_id: str, element_data: Dict[str, Any]): None
 
 :param diagram_data: List that the data entry is appended to
 :type diagram_data: List
@@ -826,9 +988,9 @@ Constructor
 
 Adds a diagram data entry to a list provided as an input parameter
 
-#### gom.api.extensions.ScriptedElement.add_log_message
+#### gom.api.extensions.CustomElement.add_log_message
 
-```{py:function} gom.api.extensions.ScriptedElement.add_log_message(self: Any, context: Any, level: Any, message: Any): None
+```{py:function} gom.api.extensions.CustomElement.add_log_message(self: Any, context: Any, level: Any, message: Any): None
 
 :param context: Script context object containing execution related parameters.
 :type context: Any
@@ -841,9 +1003,9 @@ Adds a diagram data entry to a list provided as an input parameter
 Add a log message to the service log. The message will be logged with the given level and appear
 in the service log file. It is used to forward errors from the C++ side to the Python side.
 
-#### gom.api.extensions.ScriptedElement.add_view_data
+#### gom.api.extensions.CustomElement.add_view_data
 
-```{py:function} gom.api.extensions.ScriptedElement.add_view_data(self: Any, view_data: List, element_property: str, element_data: Dict[str, Any]): None
+```{py:function} gom.api.extensions.CustomElement.add_view_data(self: Any, view_data: List, element_property: str, element_data: Dict[str, Any]): None
 
 :param view_data: List that the data entry is appended to
 :type view_data: List
@@ -855,9 +1017,9 @@ in the service log file. It is used to forward errors from the C++ side to the P
 
 Adds a diagram view data entry to a list provided as an input parameter
 
-#### gom.api.extensions.ScriptedElement.apply_dialog
+#### gom.api.extensions.CustomElement.apply_dialog
 
-```{py:function} gom.api.extensions.ScriptedElement.apply_dialog(self: Any, dlg: Any, result: Any): None
+```{py:function} gom.api.extensions.CustomElement.apply_dialog(self: Any, dlg: Any, result: Any): None
 
 :param dlg: Dialog handle as created via the `gom.api.dialog.create ()` function
 :type dlg: Any
@@ -878,7 +1040,7 @@ In its default implementation, the function performs the following tasks:
   an entry named `name` which originates from an element name widget. If this argument is present, it is assumed
   that it configured the dialog name, is removed from the general dialog result and passed as a special `name`
   result instead.
-- The tolerance values are also treated in a dedicated way. If a dialog tolerance widget with the name `tolerance` 
+- The tolerance values are also treated in a dedicated way. If a dialog tolerance widget with the name `tolerance`
   is present, its value is extracted and included in the final result.
 
 So the dialog `result` parameters can look like this:
@@ -913,21 +1075,21 @@ def apply_dialog (self, dlg, result):
     params['tolerance'] = result['tolerance']  # Apply result from dialog result dictionary
 
     return params
-```                
+```
 
 This will result in a dictionary with the parameters which are then used in the elements creation command. When recorded, this could look
 like this:
 
 ```
-gom.script.scriptedelements.create_actual (name='Element 1', values={'mode': 23, 'threshold': 1.0}, tolerance={'lower': -0.5, 'upper': +0.5})
+gom.script.customelements.create_actual (name='Element 1', values={'mode': 23, 'threshold': 1.0}, tolerance={'lower': -0.5, 'upper': +0.5})
 ```
 
 The `values` part will be directly forwarded to the elements custom `compute ()` function, which the `name` and `tolerance` parameters
-are evaluated by the ZEISS INSPECT framework to apply the necessary settings automatically.        
+are evaluated by the ZEISS INSPECT framework to apply the necessary settings automatically.
 
-#### gom.api.extensions.ScriptedElement.check_list
+#### gom.api.extensions.CustomElement.check_list
 
-```{py:function} gom.api.extensions.ScriptedElement.check_list(self: Any, values: Dict[str, Any], key: str, expected: type, length: int): None
+```{py:function} gom.api.extensions.CustomElement.check_list(self: Any, values: Dict[str, Any], key: str, expected: type, length: int): None
 
 :param values: Dictionary of values
 :type values: Dict[str, Any]
@@ -940,16 +1102,16 @@ are evaluated by the ZEISS INSPECT framework to apply the necessary settings aut
 
 Check tuple result for expected properties
 
-#### gom.api.extensions.ScriptedElement.check_target_element
+#### gom.api.extensions.CustomElement.check_target_element
 
-```{py:function} gom.api.extensions.ScriptedElement.check_target_element(self: Any, values: Dict[str, Any]): None
+```{py:function} gom.api.extensions.CustomElement.check_target_element(self: Any, values: Dict[str, Any]): None
 ```
 
-Check if a base element (an element the scripted element is constructed upon) is present in the values map
+Check if a base element (an element the custom element is constructed upon) is present in the values map
 
-#### gom.api.extensions.ScriptedElement.check_value
+#### gom.api.extensions.CustomElement.check_value
 
-```{py:function} gom.api.extensions.ScriptedElement.check_value(self: Any, values: Dict[str, Any], key: str, expected: type): None
+```{py:function} gom.api.extensions.CustomElement.check_value(self: Any, values: Dict[str, Any], key: str, expected: type): None
 
 :param values: Dictionary of values
 :type values: Dict[str, Any]
@@ -960,9 +1122,9 @@ Check if a base element (an element the scripted element is constructed upon) is
 
 Check a single value for expected properties
 
-#### gom.api.extensions.ScriptedElement.dialog
+#### gom.api.extensions.CustomElement.dialog
 
-```{py:function} gom.api.extensions.ScriptedElement.dialog(self: Any, context: Any, args: Any): None
+```{py:function} gom.api.extensions.CustomElement.dialog(self: Any, context: Any, args: Any): None
 
 :param context: Script context object containing execution related parameters.
 :type context: Any
@@ -972,7 +1134,7 @@ Check a single value for expected properties
 :rtype: None
 ```
 
-This function is called to create the dialog for the scripted element. The dialog is used to
+This function is called to create the dialog for the custom element. The dialog is used to
 configure the element and to provide input values for the computation.
 
 The dialog arguments are passed as a JSON like map structure. The format is as follows:
@@ -1034,9 +1196,9 @@ def dialog (self, context, args):
     return self.show_dialog (context, args, '/dialogs/create_element.gdlg')
 ```
 
-#### gom.api.extensions.ScriptedElement.event
+#### gom.api.extensions.CustomElement.event
 
-```{py:function} gom.api.extensions.ScriptedElement.event(self: Any, context: Any, event_type: Any, parameters: Any): bool
+```{py:function} gom.api.extensions.CustomElement.event(self: Any, context: Any, event_type: Any, parameters: Any): bool
 
 :param context: Script context object containing execution related parameters. This includes the stage this computation call refers to.
 :type context: Any
@@ -1051,24 +1213,24 @@ def dialog (self, context, args):
 Contribution event handling function. This function is called when the contributions UI state changes.
 The function can then react to that event and update the UI state accordingly.
 
-#### gom.api.extensions.ScriptedElement.event_handler
+#### gom.api.extensions.CustomElement.event_handler
 
-```{py:function} gom.api.extensions.ScriptedElement.event_handler(self: Any, context: Any, event_type: Any, parameters: Any): bool
+```{py:function} gom.api.extensions.CustomElement.event_handler(self: Any, context: Any, event_type: Any, parameters: Any): bool
 ```
 
 Wrapper function for calls to `event ()`. This function is called from the application side
 and will convert the event parameters accordingly
 
-#### gom.api.extensions.ScriptedElement.finish
+#### gom.api.extensions.CustomElement.finish
 
-```{py:function} gom.api.extensions.ScriptedElement.finish(self: Any, context: Any, results_states_map: Any): None
+```{py:function} gom.api.extensions.CustomElement.finish(self: Any, context: Any, results_states_map: Any): None
 
 :return: results_states_map
 :rtype: None
 ```
 
 This function is called to compile diagram data. It can then later be collected by
-scripted diagrams and displayed. 
+custom diagrams and displayed.
 
 The default option is to simply pass the results and states,
 so this function must be overwritten to utilize other diagrams.
@@ -1079,9 +1241,9 @@ self.add_diagram_data(diagram_data=diagram_data, diagram_id="SVGDiagram",
                       service_id="gom.api.endpoint.example.py", element_data=results_states_map["results"][0])
 results_states_map["diagram_data"] = diagram_data
 
-#### gom.api.extensions.ScriptedElement.initialize_dialog
+#### gom.api.extensions.CustomElement.initialize_dialog
 
-```{py:function} gom.api.extensions.ScriptedElement.initialize_dialog(self: Any, context: Any, dlg: Any, args: Any): bool
+```{py:function} gom.api.extensions.CustomElement.initialize_dialog(self: Any, context: Any, dlg: Any, args: Any): bool
 
 :param context: Script context object containing execution related parameters.
 :type context: Any
@@ -1096,22 +1258,22 @@ results_states_map["diagram_data"] = diagram_data
 Initializes the dialog from the given arguments. This function is used to setup the dialog
 widgets from the given arguments. The arguments are a map of widget names and their values.
 
-#### gom.api.extensions.ScriptedElement.is_visible
+#### gom.api.extensions.CustomElement.is_visible
 
-```{py:function} gom.api.extensions.ScriptedElement.is_visible(self: Any, context: Any): bool
+```{py:function} gom.api.extensions.CustomElement.is_visible(self: Any, context: Any): bool
 
 :return: `True` if the element is visible in the menus.
 :rtype: bool
 ```
 
-This function is called to check if the scripted element is visible in the menus. This is usually the case if
+This function is called to check if the custom element is visible in the menus. This is usually the case if
 the selections and other precautions are setup and the user then shall be enabled to create or edit the element.
 
 The default state is `True`, so this function must be overwritten to add granularity to the elements visibility.
 
-#### gom.api.extensions.ScriptedElement.show_dialog
+#### gom.api.extensions.CustomElement.show_dialog
 
-```{py:function} gom.api.extensions.ScriptedElement.show_dialog(self: Any, context: Any, args: Any, url: Any): None
+```{py:function} gom.api.extensions.CustomElement.show_dialog(self: Any, context: Any, args: Any, url: Any): None
 
 :param context: Script context object containing execution related parameters.
 :type context: Any
@@ -1134,17 +1296,27 @@ result = gom.api.dialog.show(context, dlg)  # Show dialog and enter the dialog l
 return self.apply_dialog(dlg, result)      # Apply the final dialog values
 ```
 
+### gom.api.extensions.ScriptedCalculationElement
+
+
+Deprecated alias for CustomCalculationElement. Use CustomCalculationElement instead.
+
+### gom.api.extensions.ScriptedElement
+
+
+Deprecated alias for CustomElement. Use CustomElement instead.
+
 ### gom.api.extensions.actuals
 
-Scripted actual elements
+Custom actual elements
 
-The classes in this module are used to define scripted actual elements. These elements are used to generate
+The classes in this module are used to define custom actual elements. These elements are used to generate
 actuals in the ZEISS INSPECT software and will enable the user to create script defined element types.
 
 #### gom.api.extensions.actuals.Circle
 
 
-Scripted actual circle element
+Custom actual circle element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -1160,7 +1332,7 @@ The expected parameters from the element's `compute ()` function is a map with t
 #### gom.api.extensions.actuals.Cone
 
 
-Scripted actual cone element
+Custom actual cone element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -1177,7 +1349,7 @@ The expected parameters from the element's `compute ()` function is a map with t
 #### gom.api.extensions.actuals.Curve
 
 
-Scripted actual curve element
+Custom actual curve element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -1185,7 +1357,7 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     "plane": p: Plane, // Plane of the curve (optional)
     "curves": [Curve], // List of curves
-    "data": {...}      // Optional element data, stored with the element        
+    "data": {...}      // Optional element data, stored with the element
 }
 ```
 
@@ -1199,10 +1371,29 @@ The format of the `Curve` object is:
 
 See the `Plane` element for the formats of the plane object.
 
+#### gom.api.extensions.actuals.CustomActual
+
+
+This class is the base class for all custom actuals
+
+##### gom.api.extensions.actuals.CustomActual.__init__
+
+```{py:function} gom.api.extensions.actuals.CustomActual.__init__(self: Any, id: str, description: str, element_type: str, help_id: str): None
+
+:param id: Custom actual id string
+:type id: str
+:param description: Human readable name, will appear in menus
+:type description: str
+:param element_type: Type of the generated element (point, line, ...)
+:type element_type: str
+```
+
+Constructor
+
 #### gom.api.extensions.actuals.Cylinder
 
 
-Scripted actual cylinder element
+Custom actual cylinder element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -1218,7 +1409,7 @@ The expected parameters from the element's `compute ()` function is a map with t
 #### gom.api.extensions.actuals.Distance
 
 
-Scripted actual distance element
+Custom actual distance element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -1233,7 +1424,7 @@ The expected parameters from the element's `compute ()` function is a map with t
 #### gom.api.extensions.actuals.Plane
 
 
-Scripted actual plane element
+Custom actual plane element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -1241,18 +1432,18 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     "normal": (x: float, y: float, z: float), // Normal direction of the plane
     "point": (x: float, y: float, z: float),  // One point of the plane
-    "data": {...}                             // Optional element data, stored with the element        
+    "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
-or 
+or
 
 ```
 {
     "point1": (x: float, y: float, z: float), // Point 1 of the plane
     "point2": (x: float, y: float, z: float), // Point 2 of the plane
     "point3": (x: float, y: float, z: float), // Point 3 of the plane
-    "data": {...}                             // Optional element data, stored with the element        
+    "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
@@ -1269,7 +1460,7 @@ or
 #### gom.api.extensions.actuals.Point
 
 
-Scripted actual point element
+Custom actual point element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -1283,7 +1474,7 @@ The expected parameters from the element's `compute ()` function is a map with t
 #### gom.api.extensions.actuals.PointCloud
 
 
-Scripted actual point cloud element
+Custom actual point cloud element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -1291,21 +1482,21 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     "points":  [(x: float, y: float, z: float), ...], // List of points
     "normals": [(x: float, y: float, z: float), ...], // List of normals for each point
-    "data": {...}                                     // Optional element data, stored with the element        
+    "data": {...}                                     // Optional element data, stored with the element
 }
 ```
 
 #### gom.api.extensions.actuals.ProbeMeasuredCurve
 
 
-Scripted actual probe measured curve element
+Custom actual probe measured curve element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
     "curves": [Curve], // List of curves
-    "data": {...}      // Optional element data, stored with the element        
+    "data": {...}      // Optional element data, stored with the element
 }
 ```
 
@@ -1321,26 +1512,31 @@ The format of the `Curve` object is:
 #### gom.api.extensions.actuals.ScriptedActual
 
 
-This class is the base class for all scripted actuals
+Deprecated alias for CustomActual. Use CustomActual instead.
 
-##### gom.api.extensions.actuals.ScriptedActual.__init__
+##### gom.api.extensions.actuals.ScriptedActual.compute_stage
 
-```{py:function} gom.api.extensions.actuals.ScriptedActual.__init__(self: Any, id: str, description: str, element_type: str, help_id: str): None
+```{py:function} gom.api.extensions.actuals.ScriptedActual.compute_stage(self: Any, context: Any, values: Any): None
 
-:param id: Scripted actual id string
-:type id: str
-:param description: Human readable name, will appear in menus
-:type description: str
-:param element_type: Type of the generated element (point, line, ...)
-:type element_type: str
+:param context: Script context object for the current stage.
+:type context: Any
+:param values: Dialog widget values dictionary.
+:type values: Any
+:return: Result of `compute()`, forwarded unchanged.
+:rtype: None
 ```
 
-Constructor
+Delegate single-stage computation to the user-supplied `compute()` method.
+
+Legacy add-ons that derive from 'ScriptedActual' are expected to implement
+`compute()` only (the pre-rename contract). This implementation satisfies the
+abstract `compute_stage()` requirement of `CustomCalculationElement` while
+keeping the user-visible API unchanged.
 
 #### gom.api.extensions.actuals.Section
 
 
-Scripted actual section element
+Custom actual section element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -1350,7 +1546,7 @@ The expected parameters from the element's `compute ()` function is a map with t
     "plane": Plane,        // Optional
     "cone": Cone,          // Optional
     "cylinder": Cylinder,  // Optional
-    "data": {...}          // Optional element data, stored with the element        
+    "data": {...}          // Optional element data, stored with the element
 }
 ```
 
@@ -1368,7 +1564,7 @@ See the `Plane`, `Cone` and `Cylinder` element for the formats of the plane, con
 #### gom.api.extensions.actuals.Surface
 
 
-Scripted actual surface element
+Custom actual surface element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -1376,21 +1572,21 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     "vertices":  [(x: float, y: float, z: float), ...], // List of vertices
     "triangles": [(i1: int, i2: int, i3: int), ...],    // List of triangles (vertices' indices)
-    "data": {...}                                       // Optional element data, stored with the element        
+    "data": {...}                                       // Optional element data, stored with the element
 }
 ```
 
 #### gom.api.extensions.actuals.SurfaceCurve
 
 
-Scripted actual surface curve element
+Custom actual surface curve element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
     "curves": [Curve], // Curve definition
-    "data": {...}      // Optional element data, stored with the element        
+    "data": {...}      // Optional element data, stored with the element
 }
 ```
 
@@ -1406,26 +1602,26 @@ The format of the `Curve` object is:
 #### gom.api.extensions.actuals.SurfaceDefects
 
 
-Scripted actual surface defects element
+Custom actual surface defects element
 
 #### gom.api.extensions.actuals.ValueElement
 
 
-Scripted actual value element
+Custom actual value element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
     "value": v: float, // Value of the element
-    "data": {...}      // Optional element data, stored with the element        
+    "data": {...}      // Optional element data, stored with the element
 }
 ```
 
 #### gom.api.extensions.actuals.Volume
 
 
-Scripted actual volume element
+Custom actual volume element
 
 The expected parameters from the element's `compute ()` function is a map with the following formats:
 
@@ -1433,7 +1629,7 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     'voxel_data': data: np.array (shape=(x, y, z), dtype=np.float32), // Voxels of the volume
     'transformation': (x: float, y: float, z: float),                 // Voxel size
-    "data": {...}                                                     // Optional element data, stored with the element        
+    "data": {...}                                                     // Optional element data, stored with the element
 }
 ```
 
@@ -1443,7 +1639,7 @@ or
 {
     'voxel_data': data: np.array (shape=(x, y, z), dtype=np.float32), // Voxels of the volume
     'transformation': gom.Mat4x4,                                     // Transformation matrix of the volume
-    "data": {...}                                                     // Optional element data, stored with the element        
+    "data": {...}                                                     // Optional element data, stored with the element
 }
 
 # Format of the transformation matrix:
@@ -1457,12 +1653,12 @@ or
 #### gom.api.extensions.actuals.VolumeDefects
 
 
-Scripted actual volume defects element
+Custom actual volume defects element
 
 #### gom.api.extensions.actuals.VolumeDefects2d
 
 
-Scripted actual 2d volume defects element
+Custom actual 2d volume defects element
 
 The expected parameters from the element's `compute ()` function is a map with one of the
 following formats:
@@ -1496,38 +1692,169 @@ list must match the structure and vertex count of its corresponding contour list
 #### gom.api.extensions.actuals.VolumeRegion
 
 
-Scripted actual volume region element
+Custom actual volume region element
 
 #### gom.api.extensions.actuals.VolumeSection
 
 
-Scripted actual volume section element
+Custom actual volume section element
 
 #### gom.api.extensions.actuals.VolumeSegmentation
 
 
-Scripted actual volume segmentation element
+Custom actual volume segmentation element
 
 ### gom.api.extensions.diagrams
 
-Scripted diagrams
+Custom diagrams
 
-The classes in this module enable the user to define scripted diagrams. A scripted diagram implements an 
+The classes in this module enable the user to define custom diagrams. A custom diagram implements an
 interface to transform element data into data that can be rendered by a corresponding Javascript renderer
 implementation in the diagram view.
+
+#### gom.api.extensions.diagrams.CustomDiagram
+
+
+This class is used to defined a polisher for a custom diagram that processes a collection of raw
+element (diagram) data into a format used by a Javascript based renderer.
+
+Implement the `plot ()` function to receive and polish diagram data that is marked with the corresponding contribution id.
+
+Optionally implement the `partitions ()` function to partition the full set of diagram data into subsets
+that are rendered separately using the `plot ()` function.
+
+##### gom.api.extensions.diagrams.CustomDiagram.Token
+
+
+Token identifiers for the CustomDiagram data format
+
+##### gom.api.extensions.diagrams.CustomDiagram.__init__
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagram.__init__(self: Any, id: str, description: str, diagram_type: str, properties: Dict[str, Any], callables: Dict[str, Any]): None
+
+:param id: Unique contribution id, like `my.diagram.circles`
+:type id: str
+:param description: Human readable contribution description
+:type description: str
+:param diagram_type: Javascript renderer to use (leave empty to use renderer set by element)
+:type diagram_type: str
+:param properties: Additional properties for this contribution (optional)
+:type properties: Dict[str, Any]
+:param callables: Additional callables for this contribution (optional)
+:type callables: Dict[str, Any]
+```
+
+Constructor
+
+##### gom.api.extensions.diagrams.CustomDiagram.check_and_filter_partitions
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagram.check_and_filter_partitions(self: Any, partitions_in: List[List[int]], cnt_elements: int): None
+
+:param partitions_in: List of partitions to check
+:type partitions_in: List[List[int]]
+:param cnt_elements: Count of elements in full data set
+:type cnt_elements: int
+```
+
+Check a given set of partitions to ensure only valid partitions are included.
+
+For internal use only.
+
+##### gom.api.extensions.diagrams.CustomDiagram.event
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagram.event(self: Any, element_name: str, element_uuid: str, event_data: Any): None
+
+:param element_name: String containing the element identification (name)
+:type element_name: str
+:param element_uuid: String containing the element uuid for internal identification
+:type element_uuid: str
+:param event_data: Contains current mouse coordinates and button presses
+:type event_data: Any
+:return: Dictionary with finish_event(executable script: str, parameters: Any)
+:rtype: None
+```
+
+This function is called upon interaction with the diagram (except hover)
+The user can return a script to be executed when this function is called
+
+##### gom.api.extensions.diagrams.CustomDiagram.finish_event
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagram.finish_event(self: Any, cmd_script: str, params: Any): None
+
+:param cmd_script: Identification of the script command to be executed as a follow-up to this event
+:type cmd_script: str
+:param data_script: Optional Parameters to be passed to said script
+:return: Dictionary with {"cmd_script": cmd_script, "data_script": params}
+:rtype: None
+```
+
+This function is called to help return event data in the correct format
+
+##### gom.api.extensions.diagrams.CustomDiagram.partitions
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagram.partitions(self: Any, element_data: List[Dict[str, Any]]): None
+
+:param element_data: List of dictionaries containing custom element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:type element_data: List[Dict[str, Any]]
+:return: List of Lists of int: each inner list represents one partition and contains the indices of the elements to be used for that partition
+:rtype: None
+```
+
+This function is called to determine the partitions to create multiple plots based on one element data set.
+Each partition is defined by a list of indices of elements to be used.
+Each data subset will be passed separately to the plot() function and be rendered as a separate diagram.
+The index of each partition will be available through the 'subplot' key in the view parameters of the plot() function call.
+
+@info Partitions may share elements
+
+##### gom.api.extensions.diagrams.CustomDiagram.plot
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagram.plot(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
+
+:param view: Dictionary with view canvas data and subplot index ('width' (int), 'height' (int), 'dpi' (float), 'font' (int), 'subplot' (int))
+:type view: Dict[str, Any]
+:param element_data: List of dictionaries containing custom element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:type element_data: List[Dict[str, Any]]
+:return: Data that is passed to the corresponding Javascript diagram type for rendering
+:rtype: None
+```
+
+This function is called to create a plot based on a set of element data.
+
+##### gom.api.extensions.diagrams.CustomDiagram.plot_all
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagram.plot_all(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
+
+:param view:: Dictionary with view canvas data ('width' (int), 'height' (int), 'dpi' (float), 'font' (int)) used for the diagrams of all partitions
+:param element_data: List of dictionaries containing custom element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:type element_data: List[Dict[str, Any]]
+:return: List of dictionaries: each dictionary contains the keys 'plot' (the plot information for this partition) and 'indices' (the indices of the elements used for this partition)
+:rtype: None
+```
+
+Internal coordination function for the overall plot process.
+
+This functions calls the (potentially) user defined method 'partitions()' to determine
+the partitions of this diagram and then calls 'plot()' for each to data partition to generate a diagram.
+
+##### gom.api.extensions.diagrams.CustomDiagram.sanitize_plot_data
+
+```{py:function} gom.api.extensions.diagrams.CustomDiagram.sanitize_plot_data(self: Any, plot_data: Any): None
+```
+
+This function is used to sanitize the output of the user defined 'plot' function
 
 #### gom.api.extensions.diagrams.CustomDiagramView
 
 
-Integration class for scripted diagram in the scripted view framework. 
-For now, scripted diagram functionality is copied. TODO: Avoid code duplication and use composition for example.gom
+Integration class for custom diagram in the custom view framework.
+For now, custom diagram functionality is copied. TODO: Avoid code duplication and use composition for example.gom
 
 ##### gom.api.extensions.diagrams.CustomDiagramView.__init__
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagramView.__init__(self: Any, id: str, description: str, bundle: str, stylesheet: str, supported_properties: List[str], functions: List[Any], signals: List[str], properties: Dict[str, Any]): None
 ```
 
-        
 
 ##### gom.api.extensions.diagrams.CustomDiagramView.event
 
@@ -1563,14 +1890,14 @@ This function is called to help return event data in the correct format
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagramView.partitions(self: Any, element_data: List[Dict[str, Any]]): None
 
-:param element_data: List of dictionaries containing scripted element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:param element_data: List of dictionaries containing custom element references and context data ('element' (object), 'data' (dict), 'type' (str))
 :type element_data: List[Dict[str, Any]]
 :return: List of Lists of int: each inner list represents one partition and contains the indices of the elements to be used for that partition
 :rtype: None
 ```
 
-This function is called to determine the partitions to create multiple plots based on one element data set. 
-Each partition is defined by a list of indices of elements to be used. 
+This function is called to determine the partitions to create multiple plots based on one element data set.
+Each partition is defined by a list of indices of elements to be used.
 Each data subset will be passed separately to the plot() function and be rendered as a separate diagram.
 The index of each partition will be available through the 'subplot' key in the view parameters of the plot() function call.
 
@@ -1582,20 +1909,20 @@ The index of each partition will be available through the 'subplot' key in the v
 
 :param view: Dictionary with view canvas data and subplot index ('width' (int), 'height' (int), 'dpi' (float), 'font' (int), 'subplot' (int))
 :type view: Dict[str, Any]
-:param element_data: List of dictionaries containing scripted element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:param element_data: List of dictionaries containing custom element references and context data ('element' (object), 'data' (dict), 'type' (str))
 :type element_data: List[Dict[str, Any]]
 :return: Data that is passed to the corresponding Javascript diagram type for rendering
 :rtype: None
 ```
 
-This function is called to create a plot based on a set of element data. 
+This function is called to create a plot based on a set of element data.
 
 ##### gom.api.extensions.diagrams.CustomDiagramView.plot_all
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagramView.plot_all(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
 
 :param view:: Dictionary with view canvas data ('width' (int), 'height' (int), 'dpi' (float), 'font' (int)) used for the diagrams of all partitions
-:param element_data: List of dictionaries containing scripted element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:param element_data: List of dictionaries containing custom element references and context data ('element' (object), 'data' (dict), 'type' (str))
 :type element_data: List[Dict[str, Any]]
 :return: List of dictionaries: each dictionary contains the keys 'plot' (the plot information for this partition) and 'indices' (the indices of the elements used for this partition)
 :rtype: None
@@ -1609,15 +1936,15 @@ the partitions of this diagram and then calls 'plot()' for each to data partitio
 #### gom.api.extensions.diagrams.SVGDiagram
 
 
-Specialized contribution base for scripted diagrams that are displayed via the SVGDiagram renderer type provided by the Inspect app.
+Specialized contribution base for custom diagrams that are displayed via the SVGDiagram renderer type provided by the Inspect app.
 
 Provides the helper functions 'finish_plot' and 'add_element_coord' to streamline the creation of the plot data for the SVGRenderer.
 
-In the most basic form, implement the 'plot' function to return a stringified svg plot. 
+In the most basic form, implement the 'plot' function to return a stringified svg plot.
 Such data will automatically be sanitized to the full output format.
 
 For additional interactivity, implement the 'plot' function by returning data using the 'finish_plot(svg_string, overlay)' helper,
-where 'svg_string' is the stringified svg plot 
+where 'svg_string' is the stringified svg plot
 and 'overlay' is a point overlay for interaction, that can be created using the 'add_element_coord' helper function.
 
 ##### gom.api.extensions.diagrams.SVGDiagram.RenderConfigToken
@@ -1695,7 +2022,7 @@ Token identifiers for the SVGDiagram renderer data format
 ```
 
 This function is called to add element information to the overlay interaction dictionary.
-Calling the function multiple times for the same element adds the interaction points to a list. 
+Calling the function multiple times for the same element adds the interaction points to a list.
 Other properties for the element are updated if new valid values are given.
 
 ##### gom.api.extensions.diagrams.SVGDiagram.finish_plot
@@ -1736,134 +2063,7 @@ The SVGDiagram renderer expects a dictionary with fields 'svg_string', 'overlay'
 #### gom.api.extensions.diagrams.ScriptedDiagram
 
 
-This class is used to defined a polisher for a scripted diagram that processes a collection of raw 
-element (diagram) data into a format used by a Javascript based renderer.
-
-Implement the `plot ()` function to receive and polish diagram data that is marked with the corresponding contribution id.
-
-Optionally implement the `partitions ()` function to partition the full set of diagram data into subsets 
-that are rendered separately using the `plot ()` function.
-
-##### gom.api.extensions.diagrams.ScriptedDiagram.Token
-
-
-Token identifiers for the ScriptedDiagram data format
-
-##### gom.api.extensions.diagrams.ScriptedDiagram.__init__
-
-```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.__init__(self: Any, id: str, description: str, diagram_type: str, properties: Dict[str, Any], callables: Dict[str, Any]): None
-
-:param id: Unique contribution id, like `my.diagram.circles`
-:type id: str
-:param description: Human readable contribution description
-:type description: str
-:param diagram_type: Javascript renderer to use (leave empty to use renderer set by element)
-:type diagram_type: str
-:param properties: Additional properties for this contribution (optional)
-:type properties: Dict[str, Any]
-:param callables: Additional callables for this contribution (optional)
-:type callables: Dict[str, Any]
-```
-
-Constructor
-
-##### gom.api.extensions.diagrams.ScriptedDiagram.check_and_filter_partitions
-
-```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.check_and_filter_partitions(self: Any, partitions_in: List[List[int]], cnt_elements: int): None
-
-:param partitions_in: List of partitions to check
-:type partitions_in: List[List[int]]
-:param cnt_elements: Count of elements in full data set
-:type cnt_elements: int
-```
-
-Check a given set of partitions to ensure only valid partitions are included.
-
-For internal use only.
-
-##### gom.api.extensions.diagrams.ScriptedDiagram.event
-
-```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.event(self: Any, element_name: str, element_uuid: str, event_data: Any): None
-
-:param element_name: String containing the element identification (name)
-:type element_name: str
-:param element_uuid: String containing the element uuid for internal identification
-:type element_uuid: str
-:param event_data: Contains current mouse coordinates and button presses
-:type event_data: Any
-:return: Dictionary with finish_event(executable script: str, parameters: Any)
-:rtype: None
-```
-
-This function is called upon interaction with the diagram (except hover)
-The user can return a script to be executed when this function is called
-
-##### gom.api.extensions.diagrams.ScriptedDiagram.finish_event
-
-```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.finish_event(self: Any, cmd_script: str, params: Any): None
-
-:param cmd_script: Identification of the script command to be executed as a follow-up to this event
-:type cmd_script: str
-:param data_script: Optional Parameters to be passed to said script
-:return: Dictionary with {"cmd_script": cmd_script, "data_script": params}
-:rtype: None
-```
-
-This function is called to help return event data in the correct format
-
-##### gom.api.extensions.diagrams.ScriptedDiagram.partitions
-
-```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.partitions(self: Any, element_data: List[Dict[str, Any]]): None
-
-:param element_data: List of dictionaries containing scripted element references and context data ('element' (object), 'data' (dict), 'type' (str))
-:type element_data: List[Dict[str, Any]]
-:return: List of Lists of int: each inner list represents one partition and contains the indices of the elements to be used for that partition
-:rtype: None
-```
-
-This function is called to determine the partitions to create multiple plots based on one element data set. 
-Each partition is defined by a list of indices of elements to be used. 
-Each data subset will be passed separately to the plot() function and be rendered as a separate diagram.
-The index of each partition will be available through the 'subplot' key in the view parameters of the plot() function call.
-
-@info Partitions may share elements
-
-##### gom.api.extensions.diagrams.ScriptedDiagram.plot
-
-```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.plot(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
-
-:param view: Dictionary with view canvas data and subplot index ('width' (int), 'height' (int), 'dpi' (float), 'font' (int), 'subplot' (int))
-:type view: Dict[str, Any]
-:param element_data: List of dictionaries containing scripted element references and context data ('element' (object), 'data' (dict), 'type' (str))
-:type element_data: List[Dict[str, Any]]
-:return: Data that is passed to the corresponding Javascript diagram type for rendering
-:rtype: None
-```
-
-This function is called to create a plot based on a set of element data. 
-
-##### gom.api.extensions.diagrams.ScriptedDiagram.plot_all
-
-```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.plot_all(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
-
-:param view:: Dictionary with view canvas data ('width' (int), 'height' (int), 'dpi' (float), 'font' (int)) used for the diagrams of all partitions
-:param element_data: List of dictionaries containing scripted element references and context data ('element' (object), 'data' (dict), 'type' (str))
-:type element_data: List[Dict[str, Any]]
-:return: List of dictionaries: each dictionary contains the keys 'plot' (the plot information for this partition) and 'indices' (the indices of the elements used for this partition)
-:rtype: None
-```
-
-Internal coordination function for the overall plot process.
-
-This functions calls the (potentially) user defined method 'partitions()' to determine
-the partitions of this diagram and then calls 'plot()' for each to data partition to generate a diagram.
-
-##### gom.api.extensions.diagrams.ScriptedDiagram.sanitize_plot_data
-
-```{py:function} gom.api.extensions.diagrams.ScriptedDiagram.sanitize_plot_data(self: Any, plot_data: Any): None
-```
-
-This function is used to sanitize the output of the user defined 'plot' function
+Deprecated alias for CustomDiagram. Use CustomDiagram instead.
 
 ### gom.api.extensions.inspections
 
@@ -1872,9 +2072,9 @@ This function is used to sanitize the output of the user defined 'plot' function
 #### gom.api.extensions.inspections.Curve
 
 
-Scripted curve inspection
+Custom curve inspection
 
-Please see the base class `ScriptedInspection` for a discussion of the properties all scripted inspection types
+Please see the base class `CustomInspection` for a discussion of the properties all custom inspection types
 have in common.
 
 **Return value**
@@ -1894,41 +2094,18 @@ The expected parameters from the elements `self.compute ()` function is a map wi
 }
 ```
 
-#### gom.api.extensions.inspections.Scalar
+#### gom.api.extensions.inspections.CustomInspection
 
 
-Scripted scalar inspection
+This class is the base class for all custom inspections
 
-Please see the base class `ScriptedInspection` for a discussion of the properties all scripted inspection types
-have in common.
-
-**Return value**
-
-The expected parameters from the element's `self.compute ()` function is a map with the following format:
-
-```
-{
-    "nominal": float,           // Nominal value
-    "actual": float,            // Actual value
-    "target_element": gom.Item, // Inspected element
-    "data": {...}               // Optional element data, stored with the element
-}
-```
-
-#### gom.api.extensions.inspections.ScriptedInspection
-
-
-This class is the base class for all scripted inspections
-
-Scripted inspections are used to inspect elements in the 3D view, like scalar, surface or curve inspections.
+Custom inspections are used to inspect elements in the 3D view, like scalar, surface or curve inspections.
 There are specialized classes for each inspection type, like `Scalar`, `Surface` or `Curve`, which inherit from this
-class. The `ScriptedInspection` class is used to define the common properties of all scripted inspections.
+class. The `CustomInspection` class is used to define the common properties of all custom inspections.
 
 **The target element**
 
-The `self.compute ()` function of every scripted inspection expects a `target_element` value which is the element
-which is inspected by the check. This inspected element is usually queried in the checks dialog, but can also be
-or depend on the currently selected element in the 3D view. So the return parameter of the `self.compute ()`
+    The `self.compute ()` function of every custom inspection expects a `target_element` value which is the element
 function looks like this:
 
 ```
@@ -1958,11 +2135,11 @@ def compute (self, context, values):
     }
 ```
 
-##### gom.api.extensions.inspections.ScriptedInspection.__init__
+##### gom.api.extensions.inspections.CustomInspection.__init__
 
-```{py:function} gom.api.extensions.inspections.ScriptedInspection.__init__(self: Any, id: str, description: str, element_type: str, dimension: str, abbreviation: str, help_id: str): None
+```{py:function} gom.api.extensions.inspections.CustomInspection.__init__(self: Any, id: str, description: str, element_type: str, dimension: str, abbreviation: str, help_id: str): None
 
-:param id: Scripted inspection id string
+:param id: Custom inspection id string
 :type id: str
 :param description: Human readable name, will appear in menus
 :type description: str
@@ -1990,21 +2167,21 @@ used to measure it. When using scripts checks, it is important to understand tha
 * all internal calculations are done in the *base unit* of that dimension (which is 'mm' for 'length', 's' for 'time', etc.) and
 * a setting in the ZEISS INSPECT preferences defines the *displayed unit* for that dimension, like 'inch' or 'mm' for 'length'.
 
-So, for example, if a scripted check is computing a value with the dimension 'angle', the base unit of that dimension is always
+So, for example, if a custom inspection is computing a value with the dimension 'angle', the base unit of that dimension is always
 'radian'. The expected values will be in the range [0, 2*pi] and the displayed unit will be transformed to the
 currently set unit in the preferences. The displayed unit is usually 'degree', so the computed value is transformed internally
 in the applications labels, tables, reports etc. to the range [0, 360] and displayed as such.
 
 The ids for the available dimensions can very over time and are hardcoded in the ZEISS INSPECT application. It is avised to
-use the `gom.api.scriptedelements.get_dimensions ()` function to get a list of all available dimensions in the current version of the
+use the `gom.api.customelements.get_dimensions ()` function to get a list of all available dimensions in the current version of the
 application and choose one of the returned ids as the `dimension` parameter in the constructor instead of relying to static
 dimension id lists:
 
 ```
-import gom.api.scriptedelements
+import gom.api.customelements
 
-for id in gom.api.scriptedelements.get_dimensions():
-    info = gom.api.scriptedelements.get_dimension_definition(id)
+for id in gom.api.customelements.get_dimensions():
+    info = gom.api.customelements.get_dimension_definition(id)
     print(f"Dimension id: {id}, name: {info['name']}, units: {info['units']}, default: {info['default']}")
 ```
 
@@ -2014,10 +2191,10 @@ The `abbreviation` parameter is a short string which is used to identify the ins
 
 **Tolerances**
 
-Inspections are supporting tolerances. A tolerance is a limit which defines the inspected value quality and is defined 
+Inspections are supporting tolerances. A tolerance is a limit which defines the inspected value quality and is defined
 right at the inspection element. For this, a special element dialog widget 'tolerance' is defined which returns a
 representation of the tolerance limits. When used, this widgets value must be forwarded via a special return value
-named 'tolerance'. This can best be done in a customized `apply_dialog()` function which is called to generate the 
+named 'tolerance'. This can best be done in a customized `apply_dialog()` function which is called to generate the
 `dialog ()` function return dictionary from the dialogs result:
 
 ```
@@ -2038,12 +2215,38 @@ def apply_dialog (self, dlg, result):
     return params
 ```
 
+#### gom.api.extensions.inspections.Scalar
+
+
+Custom scalar inspection
+
+Please see the base class `CustomInspection` for a discussion of the properties all custom inspection types
+have in common.
+
+**Return value**
+
+The expected parameters from the element's `self.compute ()` function is a map with the following format:
+
+```
+{
+    "nominal": float,           // Nominal value
+    "actual": float,            // Actual value
+    "target_element": gom.Item, // Inspected element
+    "data": {...}               // Optional element data, stored with the element
+}
+```
+
+#### gom.api.extensions.inspections.ScriptedInspection
+
+
+Deprecated alias for CustomInspection. Use CustomInspection instead.
+
 #### gom.api.extensions.inspections.Surface
 
 
-Scripted surface inspection
+Custom surface inspection
 
-Please see the base class `ScriptedInspection` for a discussion of the properties all scripted inspection types
+Please see the base class `CustomInspection` for a discussion of the properties all custom inspection types
 have in common.
 
 **Return value**
@@ -2066,7 +2269,7 @@ The expected parameters from the element's `self.compute ()` function is a map w
 #### gom.api.extensions.nominals.Circle
 
 
-Scripted nominal circle element
+Custom nominal circle element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -2075,14 +2278,14 @@ The expected parameters from the element's `compute ()` function is a map with t
     "center"   : (x: float, y: float, z: float), // Centerpoint of the circle
     "direction": (x: float, y: float, z: float), // Direction/normal of the circle
     "radius"   : r: float,                       // Radius of the circle
-    "data": {...}                                // Optional element data, stored with the element        
+    "data": {...}                                // Optional element data, stored with the element
 }
 ```
 
 #### gom.api.extensions.nominals.Cone
 
 
-Scripted nominal cone element
+Custom nominal cone element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -2092,14 +2295,14 @@ The expected parameters from the element's `compute ()` function is a map with t
     "radius1": r1: float,                     // Radius of the first circle
     "point2": (x: float, y: float, z: float), // Second point of the cone (circle center)
     "radius2": r2: float,                     // Radius of the second circle
-    "data": {...}                             // Optional element data, stored with the element        
+    "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
 #### gom.api.extensions.nominals.Curve
 
 
-Scripted nominal curve element
+Custom nominal curve element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -2107,7 +2310,7 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     "plane": p: Plane  // Plane of the curve (optional)
     "curves": [Curve], // List of curves
-    "data": {...}      // Optional element data, stored with the element        
+    "data": {...}      // Optional element data, stored with the element
 }
 ```
 
@@ -2121,10 +2324,29 @@ The format of the `Curve` object is:
 
 See the `Plane` element for the formats of the plane object.
 
+#### gom.api.extensions.nominals.CustomNominal
+
+
+This class is the base class for all custom nominals
+
+##### gom.api.extensions.nominals.CustomNominal.__init__
+
+```{py:function} gom.api.extensions.nominals.CustomNominal.__init__(self: Any, id: str, description: str, element_type: str, help_id: str): None
+
+:param id: Custom nominal id string
+:type id: str
+:param description: Human readable name, will appear in menus
+:type description: str
+:param element_type: Type of the generated element (point, line, ...)
+:type element_type: str
+```
+
+Constructor
+
 #### gom.api.extensions.nominals.Cylinder
 
 
-Scripted nominal cylinder element
+Custom nominal cylinder element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -2133,14 +2355,14 @@ The expected parameters from the element's `compute ()` function is a map with t
     "center": (x: float, y: float, z: float),    // Base point of the cylinder
     "direction": (x: float, y: float, z: float), // Direction of the cylinder
     "radius": r: float,                          // Radius of the cylinder
-    "data": {...}                                // Optional element data, stored with the element        
+    "data": {...}                                // Optional element data, stored with the element
 }
 ```
 
 #### gom.api.extensions.nominals.Distance
 
 
-Scripted nominal distance element
+Custom nominal distance element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -2148,14 +2370,14 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     "point1": (x: float, y: float, z: float), // First point of the distance
     "point2": (x: float, y: float, z: float), // Second point of the distance
-    "data": {...}                             // Optional element data, stored with the element       
+    "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
 #### gom.api.extensions.nominals.Plane
 
 
-Scripted nominal plane element
+Custom nominal plane element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -2163,18 +2385,18 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     "normal": (x: float, y: float, z: float), // Normal of the plane
     "point":  (x: float, y: float, z: float), // Base point of the plane
-    "data": {...}                             // Optional element data, stored with the element        
+    "data": {...}                             // Optional element data, stored with the element
 }
 ```
 
-or 
+or
 
 ```
 {
     "point1": (x: float, y: float, z: float),  // Point 1 of the plane
     "point2": (x: float, y: float, z: float),  // Point 2 of the plane
     "point3": (x: float, y: float, z: float),  // Point 3 of the plane
-    "data": {...}                              // Optional element data, stored with the element        
+    "data": {...}                              // Optional element data, stored with the element
 }
 ```
 
@@ -2190,21 +2412,21 @@ or
 #### gom.api.extensions.nominals.Point
 
 
-Scripted nominal point element
+Custom nominal point element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
     "value": (x: float, y: float, z: float), // The point in 3D space.
-    "data": {...}                            // Optional element data, stored with the element        
+    "data": {...}                            // Optional element data, stored with the element
 }
 ```
 
 #### gom.api.extensions.nominals.PointCloud
 
 
-Scripted nominal point cloud element
+Custom nominal point cloud element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -2212,33 +2434,38 @@ The expected parameters from the element's `compute ()` function is a map with t
 {
     "points":  [(x: float, y: float, z: float), ...], // List of points
     "normals": [(x: float, y: float, z: float), ...], // List of normals for each point
-    "data": {...}                                     // Optional element data, stored with the element        
+    "data": {...}                                     // Optional element data, stored with the element
 }
 ```
 
 #### gom.api.extensions.nominals.ScriptedNominal
 
 
-This class is the base class for all scripted nominals
+Deprecated alias for CustomNominal. Use CustomNominal instead.
 
-##### gom.api.extensions.nominals.ScriptedNominal.__init__
+##### gom.api.extensions.nominals.ScriptedNominal.compute_stage
 
-```{py:function} gom.api.extensions.nominals.ScriptedNominal.__init__(self: Any, id: str, description: str, element_type: str, help_id: str): None
+```{py:function} gom.api.extensions.nominals.ScriptedNominal.compute_stage(self: Any, context: Any, values: Any): None
 
-:param id: Scripted nominal id string
-:type id: str
-:param description: Human readable name, will appear in menus
-:type description: str
-:param element_type: Type of the generated element (point, line, ...)
-:type element_type: str
+:param context: Script context object for the current stage.
+:type context: Any
+:param values: Dialog widget values dictionary.
+:type values: Any
+:return: Result of `compute()`, forwarded unchanged.
+:rtype: None
 ```
 
-Constructor
+Delegate single-stage computation to the user-supplied `compute()` method.
+
+Legacy add-ons that derive from 'ScriptedNominal' are expected to implement
+`compute()` only (the pre-rename contract). This implementation satisfies the
+abstract `compute_stage()` requirement of `CustomCalculationElement` while
+keeping the user-visible API unchanged.
 
 #### gom.api.extensions.nominals.Section
 
 
-Scripted nominal section element
+Custom nominal section element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -2248,7 +2475,7 @@ The expected parameters from the element's `compute ()` function is a map with t
     "plane": Plane,       // Optional
     "cone": Cone,         // Optional
     "cylinder": Cylinder, // Optional
-    "data": {...}         // Optional element data, stored with the element        
+    "data": {...}         // Optional element data, stored with the element
 }
 ```
 
@@ -2266,7 +2493,7 @@ See the `Plane`, `Cone` and `Cylinder` element for the formats of the plane, con
 #### gom.api.extensions.nominals.Surface
 
 
-Scripted nominal surface element
+Custom nominal surface element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
@@ -2281,14 +2508,14 @@ The expected parameters from the element's `compute ()` function is a map with t
 #### gom.api.extensions.nominals.SurfaceCurve
 
 
-Scripted nominal surface curve element
+Custom nominal surface curve element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
     "curves": [Curve], // Curves
-    "data": {...}      // Optional element data, stored with the element        
+    "data": {...}      // Optional element data, stored with the element
 }
 ```
 
@@ -2304,34 +2531,34 @@ The format of the `Curve` object is:
 #### gom.api.extensions.nominals.ValueElement
 
 
-Scripted nominal value element
+Custom nominal value element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```
 {
     "value": v: float, // Value of the element
-    "data": {...}      // Optional element data, stored with the element        
+    "data": {...}      // Optional element data, stored with the element
 }
 ```
 
 ### gom.api.extensions.sequence
 
-Scripted sequence elements
+Custom sequence elements
 
-This module contains the base class for scripted sequence elements. A scripted sequence element
+This module contains the base class for custom sequence elements. A custom sequence element
 combines a sequence of commands into one sequence. The sequence is treated as one single combined element
 with parts. The resulting cluster of elements can then be edited again as a altogether sequence, of the
 single elements within can be edited separately.
 
-#### gom.api.extensions.sequence.ScriptedSequence
+#### gom.api.extensions.sequence.CustomSequence
 
 
-This class is used to define a scripted sequence element
+This class is used to define a custom sequence element
 
 *Concept*
 
-A scripted sequence element combines a sequence of commands into one sequence. The sequence is treated
+A custom sequence element combines a sequence of commands into one sequence. The sequence is treated
 as one single combined element with sub elements. The resulting cluster of elements can then be edited again
 as a altogether sequence, of the single elements within can be edited separately.
 
@@ -2343,28 +2570,28 @@ which belong to the sequence but are not the leading element.
 *Property access*
 
 As a sequence element is no native special element type in ZEISS INSPECT, but just a combination of regular elements,
-the API functions to query scripted elements can be used to query special sequence properties. For regular elements,
-this would be a 'keyword access', for the sequence various functions from the `gom.api.scriptedelements.ScriptedSequence` 
+the API functions to query custom elements can be used to query special sequence properties. For regular elements,
+this would be a 'keyword access', for the sequence various functions from the `gom.api.customelements.CustomSequence`
 contribution definition can be used.
 
 Example:
 
 ```
-from gom.api.extensions import ScriptedSequence
+from gom.api.extensions import CustomSequence
 
-# Given a leading element of a scripted sequence...
-leading_element = ... 
+# Given a leading element of a custom sequence...
+leading_element = ...
 
 # ...get all elements of the sequence and...
-elements = ScriptedSequence.get_sequence_elements(leading_element)
+elements = CustomSequence.get_sequence_elements(leading_element)
 
 # ...get all child elements of the sequence
-children = ScriptedSequence.get_child_elements(leading_element)    
+children = CustomSequence.get_child_elements(leading_element)
 ```
 
-##### gom.api.extensions.sequence.ScriptedSequence.__init__
+##### gom.api.extensions.sequence.CustomSequence.__init__
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequence.__init__(self: Any, id: str, description: str, properties: Dict[str, Any]): None
+```{py:function} gom.api.extensions.sequence.CustomSequence.__init__(self: Any, id: str, description: str, properties: Dict[str, Any]): None
 
 :param id: Unique contribution id, like `special_point`
 :type id: str
@@ -2376,7 +2603,7 @@ Constructor
 
 *Configuration*
 
-The following properties are supported for scripted sequence elements. They can be passed in the
+The following properties are supported for custom sequence elements. They can be passed in the
 contributions constructor via the `properties` dictionary and will be used to configure the behavior.
 
 - `edit_child_elements_separately` (bool): If set to `True`, the child elements of the sequence can be
@@ -2385,9 +2612,9 @@ contributions constructor via the `properties` dictionary and will be used to co
                                             `False`, editing a child element will edit the whole sequence
                                             instead of the single element. Default is `True`.
 
-##### gom.api.extensions.sequence.ScriptedSequence.create
+##### gom.api.extensions.sequence.CustomSequence.create
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequence.create(self: Any, context: Any, name: Any, args: Any): None
+```{py:function} gom.api.extensions.sequence.CustomSequence.create(self: Any, context: Any, name: Any, args: Any): None
 
 :param context: The context of the element
 :type context: Any
@@ -2403,7 +2630,7 @@ Function called to create a sequence of elements
 
 **Sequence creation**
 
-This function is called to create a sequence of elements initially. It can use the regular scripted
+This function is called to create a sequence of elements initially. It can use the regular custom
 creation commands to create the elements of that sequence and determine which of these elements is
 the 'leading' element of the sequence. The leading element is the one which represents the whole
 sequence in the sense that editing the sequence again is initialized by editing the leading element or
@@ -2424,33 +2651,33 @@ def create (self, context, name, args):
   # between these points is created, with the distance being the leading element.
   #
   POINT_1=gom.script.primitive.create_point (
-    name=self.generate_element_name (name, 'First point'), 
+    name=self.generate_element_name (name, 'First point'),
     point={'point': gom.Vec3d (0.0, 0.0, 0.0)})
 
   POINT_2=gom.script.primitive.create_point (
-    name=self.generate_element_name (name, 'Second point'), 
+    name=self.generate_element_name (name, 'Second point'),
     point={'point': gom.Vec3d (distance, 0.0, 0.0)})
 
   DISTANCE=gom.script.inspection.create_distance_by_2_points (
     name = name,
-    point1=POINT_1, 
+    point1=POINT_1,
     point2=POINT_2)
 
   #
   # Return created sequence elements and the leading element of that sequence
   #
-  return {'elements': [POINT_1, POINT_2, DISTANCE], 'leading': DISTANCE}  
+  return {'elements': [POINT_1, POINT_2, DISTANCE], 'leading': DISTANCE}
 ```
 
 **Element naming**
 
-Element names must be unique within a project. Also, the elements belonging to the same sequence should be 
-identifiable via their names. To assure this, the element names should be computed via the API function 
+Element names must be unique within a project. Also, the elements belonging to the same sequence should be
+identifiable via their names. To assure this, the element names should be computed via the API function
 `generate_element_name()`. Please see documentation of this function for details.
 
-##### gom.api.extensions.sequence.ScriptedSequence.edit
+##### gom.api.extensions.sequence.CustomSequence.edit
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequence.edit(self: Any, context: Any, elements: Any, args: Any): None
+```{py:function} gom.api.extensions.sequence.CustomSequence.edit(self: Any, context: Any, elements: Any, args: Any): None
 
 :param context: The context of the sequence
 :type context: Any
@@ -2460,9 +2687,9 @@ identifiable via their names. To assure this, the element names should be comput
 :type args: Any
 ```
 
-Function called to edit the scripted sequence
+Function called to edit the custom sequence
 
-This function is called when a scripted sequence is edited. It will receive the current sequence elements
+This function is called when a custom sequence is edited. It will receive the current sequence elements
 together with the current sequence creation dialog values and must reconfigure the sequence elements accordingly.
 
 Example:
@@ -2482,13 +2709,13 @@ def edit (self, context, elements, args):
   distance = args['distance']
 
   gom.script.sys.edit_creation_parameters (
-    element=POINT_2, 
-    point={'point': gom.Vec3d (distance, 0.0, 0.0)})        
+    element=POINT_2,
+    point={'point': gom.Vec3d (distance, 0.0, 0.0)})
 ```
 
-##### gom.api.extensions.sequence.ScriptedSequence.generate_element_name
+##### gom.api.extensions.sequence.CustomSequence.generate_element_name
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequence.generate_element_name(self: Any, leading_name: Any, basename: Any): None
+```{py:function} gom.api.extensions.sequence.CustomSequence.generate_element_name(self: Any, leading_name: Any, basename: Any): None
 
 :param leading_name: Name of the leading element of the sequence. This is usually the name as specified in the creation dialog.
 :type leading_name: Any
@@ -2498,9 +2725,9 @@ def edit (self, context, elements, args):
 :rtype: None
 ```
 
-Generates a unique name for an element of the scripted sequence.
+Generates a unique name for an element of the custom sequence.
 
-This function generates a unique name for an element of the scripted sequence. The name is based 
+This function generates a unique name for an element of the custom sequence. The name is based
 on the leading element of the sequence, plus a base name and a running number.
 
 **Example**
@@ -2508,7 +2735,7 @@ on the leading element of the sequence, plus a base name and a running number.
 For a sequence with id `Distance 1` and a base name `Point`, the generated names will be
 `Distance 1 ● Point 1`, `Distance 1 ● Point 2`, ...
 
-When implemented, the `create()` function of the scripted sequence should use this function
+When implemented, the `create()` function of the custom sequence should use this function
 to generate the names of the single elements:
 
 ```python
@@ -2532,45 +2759,45 @@ def create(self, context, name, args):
     return {'elements': [POINT_1, POINT_2, DISTANCE], 'leading': DISTANCE}
 ```
 
-##### gom.api.extensions.sequence.ScriptedSequence.get_child_elements
+##### gom.api.extensions.sequence.CustomSequence.get_child_elements
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequence.get_child_elements(leading_element: Any): Any
+```{py:function} gom.api.extensions.sequence.CustomSequence.get_child_elements(leading_element: Any): Any
 
-:param leading_element: Leading element of the scripted sequence
+:param leading_element: Leading element of the custom sequence
 :type leading_element: Any
-:return: List of child elements of the scripted sequence
+:return: List of child elements of the custom sequence
 :rtype: Any
 ```
 
-Returns child elements of the scripted sequence for a given leading element.
+Returns child elements of the custom sequence for a given leading element.
 
-##### gom.api.extensions.sequence.ScriptedSequence.get_leading_element
+##### gom.api.extensions.sequence.CustomSequence.get_leading_element
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequence.get_leading_element(child_element: Any): Any
+```{py:function} gom.api.extensions.sequence.CustomSequence.get_leading_element(child_element: Any): Any
 
-:param child_element: Child element of the scripted sequence
+:param child_element: Child element of the custom sequence
 :type child_element: Any
-:return: Leading element of the scripted sequence
+:return: Leading element of the custom sequence
 :rtype: Any
 ```
 
-Returns leading element of the scripted sequence for a given child element.
+Returns leading element of the custom sequence for a given child element.
 
-##### gom.api.extensions.sequence.ScriptedSequence.get_sequence_elements
+##### gom.api.extensions.sequence.CustomSequence.get_sequence_elements
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequence.get_sequence_elements(leading_element: Any): Any
+```{py:function} gom.api.extensions.sequence.CustomSequence.get_sequence_elements(leading_element: Any): Any
 
-:param leading_element: Leading element of the scripted sequence
+:param leading_element: Leading element of the custom sequence
 :type leading_element: Any
-:return: List of all elements of the scripted sequence in the order as created in the `create()` function
+:return: List of all elements of the custom sequence in the order as created in the `create()` function
 :rtype: Any
 ```
 
-Returns all elements of the scripted sequence for a given leading element.
+Returns all elements of the custom sequence for a given leading element.
 
-##### gom.api.extensions.sequence.ScriptedSequence.on_edited
+##### gom.api.extensions.sequence.CustomSequence.on_edited
 
-```{py:function} gom.api.extensions.sequence.ScriptedSequence.on_edited(self: Any, context: Any, args: Any, parameters: Any): None
+```{py:function} gom.api.extensions.sequence.CustomSequence.on_edited(self: Any, context: Any, args: Any, parameters: Any): None
 
 :param context: The context of the sequence
 :type context: Any
@@ -2619,40 +2846,45 @@ def on_edited (self, context, args, parameters):
   return args
 ```
 
+#### gom.api.extensions.sequence.ScriptedSequence
+
+
+Deprecated alias for CustomSequence. Use CustomSequence instead.
+
 ### gom.api.extensions.views
 
-Scripted views
+Custom views
 
-The classes in this module enable the user to define scripted views. A scripted view implements a model/view
-pair, where a Python script fetches data from the ZEISS INSPECT application (model part) and a JavaScript 
+The classes in this module enable the user to define custom views. A custom view implements a model/view
+pair, where a Python script fetches data from the ZEISS INSPECT application (model part) and a JavaScript
 renderer visualizes it in a custom way (view part) inside of a native ZEISS INSPECT view. Also, events can be
 emitted from the JavaScript renderer and processed by the Python script.
 
-#### gom.api.extensions.views.ScriptedCanvas
+#### gom.api.extensions.views.CustomCanvas
 
-This class is the base class for all scripted views
+This class is the base class for all custom views
 
-A scripted view is a view that is embedded into the native ZEISS INSPECT application, but
+A custom view is a view that is embedded into the native ZEISS INSPECT application, but
 its content is rendered by a JavaScript renderer fetching its data from a Python service. Both
 these parts form a model/view pair where the model (the python script) fetches and processes
 the data from the ZEISS INSPECT application, while the view (the JavaScript renderer) visualizes
 it in a custom way.
 
-The purpose of the `ScriptedView` class now on the one hand is to provide the model, on the other
+The purpose of the `CustomView` class now on the one hand is to provide the model, on the other
 hand to bring both parts together.
 
 **Identification**
 
-A scripted view is identified by its `id` string. This string must be globally unique, as the scripted
+A custom view is identified by its `id` string. This string must be globally unique, as the custom
 view code can be part of an app, which shared its id space with other apps installed on the same system.
 It is advised to use a reverse domain name notation for the id, e.g. `com.mycompany.myapp.myview`.
 
 **Implementation**
 
-A very simple example for a scripted view API contribution can look like this:
+A very simple example for a custom view API contribution can look like this:
 
 ```{code-block} python
-:caption: Example of a simple scripted view definition
+:caption: Example of a simple custom view definition
 
 import gom
 import gom.api.extensions.views
@@ -2660,29 +2892,29 @@ import gom.api.extensions.views
 from gom import apicontribution
 
 @apicontribution
-class MyScriptedView (gom.api.extensions.views.ScriptedView):
+class MyCustomView (gom.api.extensions.views.CustomView):
 
     def __init__(self):
-        super().__init__(id='com.zeiss.testing.scriptedview',
-                         description='My Scripted View',
+        super().__init__(id='com.zeiss.testing.customview',
+                         description='My Custom View',
                          renderer='renderers/MyRenderer.js',
                          functions=[
                              self.get_data
                          ],
-                         bundle='npms/MyScriptedView.js')
+                         bundle='npms/MyCustomView.js')
 
     def get_data(self):
         return {
             'text': 'Hello World'
         }
 
-gom.run_api ())    
+gom.run_api ())
 ```
 
-Here, the scripted view
+Here, the custom view
 
-- has the id `com.zeiss.testing.scriptedview`
-- is named `My Scripted View` in menus etc.
+- has the id `com.zeiss.testing.customview`
+- is named `My Custom View` in menus etc.
 - exposes the class function `get_data` as a callable function to the JavaScript renderer
 - uses the renderer script `renderers/MyRenderer.js` to visualize the data.
 
@@ -2700,16 +2932,16 @@ function renderer () {
 
 **Event handling**
 
-The JavaScript renderer can emit events which can then be processed by the python side. There are a few system 
-events, but the renderer itself can produce custom events. The `event` instance method is called by the JavaScript 
-renderer in effect in case of en event. It can be overwritten in custom scripted view implementations:
+The JavaScript renderer can emit events which can then be processed by the python side. There are a few system
+events, but the renderer itself can produce custom events. The `event` instance method is called by the JavaScript
+renderer in effect in case of en event. It can be overwritten in custom custom view implementations:
 
 ```{code-block} python
-:caption: Example of a scripted view with event handling
+:caption: Example of a custom view with event handling
 
 ...
 @apicontribution
-class MyScriptedView (gom.api.extensions.views.ScriptedView):
+class MyCustomView (gom.api.extensions.views.CustomView):
     ...
     def event(self, event: str, args: Any):
         if event == self.Event.INITIALIZED:
@@ -2755,7 +2987,7 @@ using node.js and webpack.
     "dependencies": {
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-scripts": "^5.0.1"            
+        "react-scripts": "^5.0.1"
     },
     "devDependencies": {
         "webpack": "^5.88.2",
@@ -2787,24 +3019,24 @@ module.exports = {
     optimization: {
         minimize: true
     }
-};    
+};
 ```
 
 Please refer to the `node.js` and `webpack` documentation for more details on how to create a bundle. Additionally,
-have a look into the app examples for a more detailed example as a starting point for your own scripted views.
+have a look into the app examples for a more detailed example as a starting point for your own custom views.
 
-##### gom.api.extensions.views.ScriptedCanvas.Event
+##### gom.api.extensions.views.CustomCanvas.Event
 
 
 Event types passed to the `event ()` function
 
 - `INITIALIZED`: Sent when the view has been initialized
 
-##### gom.api.extensions.views.ScriptedCanvas.__init__
+##### gom.api.extensions.views.CustomCanvas.__init__
 
-```{py:function} gom.api.extensions.views.ScriptedCanvas.__init__(self: Any, id: str, description: str, renderer: str, functions: List[Any], properties: Dict[str, Any], bundle: str): None
+```{py:function} gom.api.extensions.views.CustomCanvas.__init__(self: Any, id: str, description: str, renderer: str, functions: List[Any], properties: Dict[str, Any], bundle: str): None
 
-:param id: Globally unique scripted view id string. (REQUIRED)
+:param id: Globally unique custom view id string. (REQUIRED)
 :type id: str
 :param description: Human readable name, will appear in menus etc. (REQUIRED)
 :type description: str
@@ -2814,13 +3046,13 @@ Event types passed to the `event ()` function
 :type functions: List[Any]
 :param properties: Additional properties. (OPTIONAL, default: {}) - `custom_preload`: Small JS file injected before the renderer starts (helpers / polyfills). - `stylesheet`: Path to the CSS stylesheet for the renderer.
 :type properties: Dict[str, Any]
-:param bundle: Packages NPM bundle this scripted view related on. (OPTIONAL, default: None).
+:param bundle: Packages NPM bundle this custom view related on. (OPTIONAL, default: None).
 :type bundle: str
 ```
 
 Constructor
 
-##### gom.api.extensions.views.ScriptedEditor.DataTypes
+##### gom.api.extensions.views.CustomEditor.DataTypes
 
 
 Data types that can be returned by get_data_types () and are used to determine the load mechanism for each file of an app content
@@ -2830,17 +3062,17 @@ Data types that can be returned by get_data_types () and are used to determine t
 - `STRING`: Load data as plain string
 - `BYTES`: Load data as pure bytes array
 
-##### gom.api.extensions.views.ScriptedEditor.__init__
+##### gom.api.extensions.views.CustomEditor.__init__
 
-```{py:function} gom.api.extensions.views.ScriptedEditor.__init__(self: Any, id: str, content_category: str, description: str, bundle: str, stylesheet: str, functions: List[Any], signals: List[str], properties: Dict[str, Any]): None
+```{py:function} gom.api.extensions.views.CustomEditor.__init__(self: Any, id: str, content_category: str, description: str, bundle: str, stylesheet: str, functions: List[Any], signals: List[str], properties: Dict[str, Any]): None
 
-:param id: Globally unique scripted view id string. (REQUIRED)
+:param id: Globally unique custom view id string. (REQUIRED)
 :type id: str
 :param content_category: Category of App Content this editor is related to. (REQUIRED)
 :type content_category: str
 :param description: Human readable name, will appear in menus etc. (REQUIRED)
 :type description: str
-:param bundle: Packages NPM bundle this scripted view related on. (REQUIRED)
+:param bundle: Packages NPM bundle this custom view related on. (REQUIRED)
 :type bundle: str
 :param stylesheet: Path to the CSS stylesheet for this editor. (OPTIONAL, default: "")
 :type stylesheet: str
@@ -2854,9 +3086,9 @@ Data types that can be returned by get_data_types () and are used to determine t
 
 Constructor
 
-##### gom.api.extensions.views.ScriptedEditor.extract_data
+##### gom.api.extensions.views.CustomEditor.extract_data
 
-```{py:function} gom.api.extensions.views.ScriptedEditor.extract_data(self: Any, content: str, json: List[Any]): None
+```{py:function} gom.api.extensions.views.CustomEditor.extract_data(self: Any, content: str, json: List[Any]): None
 
 :param content: Name of App Content
 :type content: str
@@ -2870,9 +3102,9 @@ Inverse of self.prepare_data()
 
 This function processes the data generated by the editor and returns it in a format that can be saved to the files.
 
-##### gom.api.extensions.views.ScriptedEditor.get_data_types
+##### gom.api.extensions.views.CustomEditor.get_data_types
 
-```{py:function} gom.api.extensions.views.ScriptedEditor.get_data_types(self: Any, content: str, files: List[str]): None
+```{py:function} gom.api.extensions.views.CustomEditor.get_data_types(self: Any, content: str, files: List[str]): None
 
 :param content: Name of App Content
 :type content: str
@@ -2884,9 +3116,9 @@ This function processes the data generated by the editor and returns it in a for
 
 Determine the loading type for each app content file.
 
-##### gom.api.extensions.views.ScriptedEditor.prepare_data
+##### gom.api.extensions.views.CustomEditor.prepare_data
 
-```{py:function} gom.api.extensions.views.ScriptedEditor.prepare_data(self: Any, content: str, data: List[tuple[str, Any]], readonly: bool): None
+```{py:function} gom.api.extensions.views.CustomEditor.prepare_data(self: Any, content: str, data: List[tuple[str, Any]], readonly: bool): None
 
 :param content: Name of App Content
 :type content: str
@@ -2900,15 +3132,15 @@ Determine the loading type for each app content file.
 
 Prepare JSON style data from app contents.
 
-##### gom.api.extensions.views.ScriptedUtilityView.__init__
+##### gom.api.extensions.views.CustomUtilityView.__init__
 
-```{py:function} gom.api.extensions.views.ScriptedUtilityView.__init__(self: Any, id: str, description: str, bundle: str, stylesheet: str, functions: List[Any], signals: List[str], properties: Dict[str, Any]): None
+```{py:function} gom.api.extensions.views.CustomUtilityView.__init__(self: Any, id: str, description: str, bundle: str, stylesheet: str, functions: List[Any], signals: List[str], properties: Dict[str, Any]): None
 
-:param id: Globally unique scripted view id string. (REQUIRED)
+:param id: Globally unique custom view id string. (REQUIRED)
 :type id: str
 :param description: Human readable name, will appear in menus etc. (REQUIRED)
 :type description: str
-:param bundle: Packages NPM bundle this scripted view related on. (REQUIRED)
+:param bundle: Packages NPM bundle this custom view related on. (REQUIRED)
 :type bundle: str
 :param stylesheet: Path to the CSS stylesheet for this editor. (OPTIONAL, default: "")
 :type stylesheet: str
@@ -2922,14 +3154,14 @@ Prepare JSON style data from app contents.
 
 Constructor
 
-##### gom.api.extensions.views.ScriptedView.Event
+##### gom.api.extensions.views.CustomView.Event
 
 
 Event types passed to the `event ()` function
 
 - `INITIALIZED`: Sent when the view has been initialized
 
-##### gom.api.extensions.views.ScriptedView.Signal
+##### gom.api.extensions.views.CustomView.Signal
 
 
 Identifier for SW signals that the view can be connected to
@@ -2938,13 +3170,13 @@ Identifier for SW signals that the view can be connected to
 - `SELECTION_CHANGED`: Emitted when the selection in the Project explorer changes
 - `CONFIG_CHANGED`: Emitted when the software preferences are applied
 
-##### gom.api.extensions.views.ScriptedView.__init__
+##### gom.api.extensions.views.CustomView.__init__
 
-```{py:function} gom.api.extensions.views.ScriptedView.__init__(self: Any, id: str, viewtype: str, description: str, functions: List[Any], properties: Dict[str, Any], callables: Dict[str, Any], signals: List[str]): None
+```{py:function} gom.api.extensions.views.CustomView.__init__(self: Any, id: str, viewtype: str, description: str, functions: List[Any], properties: Dict[str, Any], callables: Dict[str, Any], signals: List[str]): None
 
-:param id: Globally unique scripted view id string (REQUIRED)
+:param id: Globally unique custom view id string (REQUIRED)
 :type id: str
-:param viewtype: Type of the scripted view. Supported values are 'canvas', 'editor' and 'utility'. (REQUIRED)
+:param viewtype: Type of the custom view. Supported values are 'canvas', 'editor' and 'utility'. (REQUIRED)
 :type viewtype: str
 :param description: Human readable name, will appear in menus etc. (REQUIRED)
 :type description: str
@@ -2960,9 +3192,9 @@ Identifier for SW signals that the view can be connected to
 
 Constructor
 
-##### gom.api.extensions.views.ScriptedView.event
+##### gom.api.extensions.views.CustomView.event
 
-```{py:function} gom.api.extensions.views.ScriptedView.event(self: Any, event: str, args: Any): None
+```{py:function} gom.api.extensions.views.CustomView.event(self: Any, event: str, args: Any): None
 
 Event handler
 :param event: Event name
@@ -2972,6 +3204,21 @@ Event handler
 ```
 
 This method is called by the JavaScript renderer when an event is triggered.
+
+#### gom.api.extensions.views.ScriptedCanvas
+
+
+Deprecated alias for CustomCanvas. Use CustomCanvas instead.
+
+#### gom.api.extensions.views.ScriptedEditor
+
+
+Deprecated alias for CustomEditor. Use CustomEditor instead.
+
+#### gom.api.extensions.views.ScriptedView
+
+
+Deprecated alias for CustomView. Use CustomView instead.
 
 ## gom.api.imaging
 
