@@ -909,7 +909,7 @@ def compute (self, context, values):
     return result
 ```
 
-When a new custom data set in set, either via `context.data` or via the `data` entry in the result, all
+When a new custom data set is set, either via `context.data` or via the `data` entry in the result, all
 previous custom data entries for that stage are cleared and the whole new data set is stored instead.
 
 #### gom.api.extensions.CustomElement.Attribute
@@ -1236,10 +1236,12 @@ The default option is to simply pass the results and states,
 so this function must be overwritten to utilize other diagrams.
 
 Example:
+```
 diagram_data = []
 self.add_diagram_data(diagram_data=diagram_data, diagram_id="SVGDiagram",
                       service_id="gom.api.endpoint.example.py", element_data=results_states_map["results"][0])
 results_states_map["diagram_data"] = diagram_data
+```
 
 #### gom.api.extensions.CustomElement.initialize_dialog
 
@@ -1267,7 +1269,7 @@ widgets from the given arguments. The arguments are a map of widget names and th
 ```
 
 This function is called to check if the custom element is visible in the menus. This is usually the case if
-the selections and other precautions are setup and the user then shall be enabled to create or edit the element.
+the selections and other preconditions are setup and the user then shall be enabled to create or edit the element.
 
 The default state is `True`, so this function must be overwritten to add granularity to the elements visibility.
 
@@ -1299,12 +1301,12 @@ return self.apply_dialog(dlg, result)      # Apply the final dialog values
 ### gom.api.extensions.ScriptedCalculationElement
 
 
-Deprecated alias for CustomCalculationElement. Use CustomCalculationElement instead.
+Deprecated alias for `CustomCalculationElement`. Use `CustomCalculationElement` instead.
 
 ### gom.api.extensions.ScriptedElement
 
 
-Deprecated alias for CustomElement. Use CustomElement instead.
+Deprecated alias for `CustomElement`. Use `CustomElement` instead.
 
 ### gom.api.extensions.actuals
 
@@ -1512,7 +1514,7 @@ The format of the `Curve` object is:
 #### gom.api.extensions.actuals.ScriptedActual
 
 
-Deprecated alias for CustomActual. Use CustomActual instead.
+Deprecated alias for `CustomActual`. Use `CustomActual` instead.
 
 ##### gom.api.extensions.actuals.ScriptedActual.compute_stage
 
@@ -1802,10 +1804,10 @@ This function is called to help return event data in the correct format
 
 This function is called to determine the partitions to create multiple plots based on one element data set.
 Each partition is defined by a list of indices of elements to be used.
-Each data subset will be passed separately to the plot() function and be rendered as a separate diagram.
-The index of each partition will be available through the 'subplot' key in the view parameters of the plot() function call.
+Each data subset will be passed separately to the `plot()` function and be rendered as a separate diagram.
+The index of each partition will be available through the 'subplot' key in the view parameters of the `plot()` function call.
 
-@info Partitions may share elements
+@note Partitions may share elements
 
 ##### gom.api.extensions.diagrams.CustomDiagram.plot
 
@@ -1834,8 +1836,8 @@ This function is called to create a plot based on a set of element data.
 
 Internal coordination function for the overall plot process.
 
-This functions calls the (potentially) user defined method 'partitions()' to determine
-the partitions of this diagram and then calls 'plot()' for each to data partition to generate a diagram.
+This functions calls the (potentially) user defined method `partitions()` to determine
+the partitions of this diagram and then calls `plot()` for each to data partition to generate a diagram.
 
 ##### gom.api.extensions.diagrams.CustomDiagram.sanitize_plot_data
 
@@ -1848,13 +1850,31 @@ This function is used to sanitize the output of the user defined 'plot' function
 
 
 Integration class for custom diagram in the custom view framework.
-For now, custom diagram functionality is copied. TODO: Avoid code duplication and use composition for example.gom
+For now, custom diagram functionality is copied. 
 
 ##### gom.api.extensions.diagrams.CustomDiagramView.__init__
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagramView.__init__(self: Any, id: str, description: str, bundle: str, stylesheet: str, supported_properties: List[str], functions: List[Any], signals: List[str], properties: Dict[str, Any]): None
+
+:param id: Unique contribution id, like `my.diagram.circles`
+:type id: str
+:param description: Human readable contribution description
+:type description: str
+:param bundle: Name of the bundle where the diagram view is defined (used for diagram type identification)
+:type bundle: str
+:param stylesheet: Optional stylesheet for the diagram view
+:type stylesheet: str
+:param supported_properties: List of supported properties for this diagram view (optional, used for validation and documentation purposes)
+:type supported_properties: List[str]
+:param functions: List of additional functions for this diagram view (optional)
+:type functions: List[Any]
+:param signals: List of additional signals for this diagram view (optional)
+:type signals: List[str]
+:param properties: Additional properties for this contribution (optional)
+:type properties: Dict[str, Any]
 ```
 
+Constructor
 
 ##### gom.api.extensions.diagrams.CustomDiagramView.event
 
@@ -1866,7 +1886,7 @@ For now, custom diagram functionality is copied. TODO: Avoid code duplication an
 :type element_uuid: str
 :param event_data: Contains current mouse coordinates and button presses
 :type event_data: Any
-:return: Dictionary with finish_event(executable script: str, parameters: Any)
+:return: Dictionary with `finish_event(executable script: str, parameters: Any)`
 :rtype: None
 ```
 
@@ -1901,7 +1921,7 @@ Each partition is defined by a list of indices of elements to be used.
 Each data subset will be passed separately to the plot() function and be rendered as a separate diagram.
 The index of each partition will be available through the 'subplot' key in the view parameters of the plot() function call.
 
-@info Partitions may share elements
+@note Partitions may share elements
 
 ##### gom.api.extensions.diagrams.CustomDiagramView.plot
 
@@ -1938,14 +1958,14 @@ the partitions of this diagram and then calls 'plot()' for each to data partitio
 
 Specialized contribution base for custom diagrams that are displayed via the SVGDiagram renderer type provided by the Inspect app.
 
-Provides the helper functions 'finish_plot' and 'add_element_coord' to streamline the creation of the plot data for the SVGRenderer.
+Provides the helper functions `finish_plot` and `add_element_coord` to streamline the creation of the plot data for the SVGRenderer.
 
-In the most basic form, implement the 'plot' function to return a stringified svg plot.
+In the most basic form, implement the `plot` function to return a stringified svg plot.
 Such data will automatically be sanitized to the full output format.
 
-For additional interactivity, implement the 'plot' function by returning data using the 'finish_plot(svg_string, overlay)' helper,
-where 'svg_string' is the stringified svg plot
-and 'overlay' is a point overlay for interaction, that can be created using the 'add_element_coord' helper function.
+For additional interactivity, implement the `plot` function by returning data using the `finish_plot(svg_string, overlay)` helper,
+where `svg_string` is the stringified svg plot
+and `overlay` is a point overlay for interaction, that can be created using the `add_element_coord` helper function.
 
 ##### gom.api.extensions.diagrams.SVGDiagram.RenderConfigToken
 
@@ -2045,25 +2065,25 @@ This function is called to help return plot data for the SVGDiagram renderer in 
 
 ```{py:function} gom.api.extensions.diagrams.SVGDiagram.get_overlay_tag(self: Any, element_uuid: str): str
 
-:param element_uuid: 'uuid' of the element corresponding to the tag
+:param element_uuid: `uuid` of the element corresponding to the tag
 :type element_uuid: str
 ```
 
-Get the tag for the automatic SVG overlay generation based on the element 'uuid'
+Get the tag for the automatic SVG overlay generation based on the element `uuid`
 
 ##### gom.api.extensions.diagrams.SVGDiagram.sanitize_plot_data
 
 ```{py:function} gom.api.extensions.diagrams.SVGDiagram.sanitize_plot_data(self: Any, plot_data: Any): None
 ```
 
-Sanitize the data returned by the user defined 'plot()' function.
+Sanitize the data returned by the user defined `plot()` function.
 
-The SVGDiagram renderer expects a dictionary with fields 'svg_string', 'overlay' and 'diagram_id'.
+The SVGDiagram renderer expects a dictionary with fields `svg_string`, `overlay` and `diagram_id`.
 
 #### gom.api.extensions.diagrams.ScriptedDiagram
 
 
-Deprecated alias for CustomDiagram. Use CustomDiagram instead.
+Deprecated alias for `CustomDiagram`. Use `CustomDiagram` instead.
 
 ### gom.api.extensions.inspections
 
@@ -2239,7 +2259,7 @@ The expected parameters from the element's `self.compute ()` function is a map w
 #### gom.api.extensions.inspections.ScriptedInspection
 
 
-Deprecated alias for CustomInspection. Use CustomInspection instead.
+Deprecated alias for `CustomInspection`. Use `CustomInspection` instead.
 
 #### gom.api.extensions.inspections.Surface
 
@@ -2441,7 +2461,7 @@ The expected parameters from the element's `compute ()` function is a map with t
 #### gom.api.extensions.nominals.ScriptedNominal
 
 
-Deprecated alias for CustomNominal. Use CustomNominal instead.
+Deprecated alias for `CustomNominal`. Use `CustomNominal` instead.
 
 ##### gom.api.extensions.nominals.ScriptedNominal.compute_stage
 
@@ -2546,10 +2566,10 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 Custom sequence elements
 
-This module contains the base class for custom sequence elements. A custom sequence element
-combines a sequence of commands into one sequence. The sequence is treated as one single combined element
-with parts. The resulting cluster of elements can then be edited again as a altogether sequence, of the
-single elements within can be edited separately.
+This module contains the base class for custom sequence elements. A custom sequence element combines a sequence 
+of commands into a single unit. The sequence is treated as one combined element with named parts. The resulting 
+cluster of elements can then be edited as a whole sequence, or each of its individual parts can be edited 
+separately.
 
 #### gom.api.extensions.sequence.CustomSequence
 
@@ -2849,7 +2869,7 @@ def on_edited (self, context, args, parameters):
 #### gom.api.extensions.sequence.ScriptedSequence
 
 
-Deprecated alias for CustomSequence. Use CustomSequence instead.
+Deprecated alias for `CustomSequence`. Use `CustomSequence` instead.
 
 ### gom.api.extensions.views
 
@@ -2866,17 +2886,17 @@ This class is the base class for all custom views
 
 A custom view is a view that is embedded into the native ZEISS INSPECT application, but
 its content is rendered by a JavaScript renderer fetching its data from a Python service. Both
-these parts form a model/view pair where the model (the python script) fetches and processes
+parts form a model/view pair where the model (the python script) fetches and processes
 the data from the ZEISS INSPECT application, while the view (the JavaScript renderer) visualizes
 it in a custom way.
 
-The purpose of the `CustomView` class now on the one hand is to provide the model, on the other
+The purpose of the `CustomView` class on the one hand is to provide the model, on the other
 hand to bring both parts together.
 
 **Identification**
 
 A custom view is identified by its `id` string. This string must be globally unique, as the custom
-view code can be part of an app, which shared its id space with other apps installed on the same system.
+view code can be part of an app, which shares its id space with other apps installed on the same system.
 It is advised to use a reverse domain name notation for the id, e.g. `com.mycompany.myapp.myview`.
 
 **Implementation**
@@ -2932,9 +2952,9 @@ function renderer () {
 
 **Event handling**
 
-The JavaScript renderer can emit events which can then be processed by the python side. There are a few system
-events, but the renderer itself can produce custom events. The `event` instance method is called by the JavaScript
-renderer in effect in case of en event. It can be overwritten in custom custom view implementations:
+The JavaScript renderer can emit events which can then be processed by the Python side. There are a few system
+events, but the renderer itself can produce custom events. The `event` instance method is called by the active 
+JavaScript renderer when an event occurs. It can be overwritten in custom custom view implementations:
 
 ```{code-block} python
 :caption: Example of a custom view with event handling
@@ -2961,18 +2981,18 @@ function renderer () {
 **Using 3rd party modules**
 
 ```{caution}
-Please be aware of the necessary FOSS and copyright issues when using 3rd party modules in your apps !
+Please be aware of the relevant FOSS and copyright issues when using third-party modules in your apps !
 ```
 
-JavaScript strongly related to 3rd party modules, for example from node.js. The `bundle` property
+JavaScript is strongly related to 3rd party modules, for example from node.js. The `bundle` property
 allows to specify a NPM bundle that is used by the JavaScript renderer. The bundle must be present
 as a single file in the `npms` folder of the app. The JavaScript renderer can use this bundle to load 3rd party
 modules. If present, that bundle will be inserted into the JavaScript engine before the renderer process is
 started.
 
-JavaScript bundles can be creates in various ways, for example via a webpack build. Without going too much into
-detail about the node.js/npm foundations, the following example shows how to create a simple 'react' module bundle
-using node.js and webpack.
+JavaScript bundles can be created in various ways, for example via a webpack build. Without going too much into
+detail about the Node.js/npm foundations, the following example shows how to create a simple `react` module bundle
+using Node.js and webpack.
 
 ```{code-block} json
 :caption: Example of a package.json file for bundle creation
@@ -3055,10 +3075,10 @@ Constructor
 ##### gom.api.extensions.views.CustomEditor.DataTypes
 
 
-Data types that can be returned by get_data_types () and are used to determine the load mechanism for each file of an app content
+Data types returned by `get_data_types ()` that determine the load mechanism for each file in an app's content
 
 - `NONE`: Do **not** load data from the file
-- `JSON`: Load data as JSON format, i.e., as a 'dict'
+- `JSON`: Load data as JSON format, i.e., as a `dict`
 - `STRING`: Load data as plain string
 - `BYTES`: Load data as pure bytes array
 
@@ -3208,17 +3228,17 @@ This method is called by the JavaScript renderer when an event is triggered.
 #### gom.api.extensions.views.ScriptedCanvas
 
 
-Deprecated alias for CustomCanvas. Use CustomCanvas instead.
+Deprecated alias for `CustomCanvas`. Use `CustomCanvas` instead.
 
 #### gom.api.extensions.views.ScriptedEditor
 
 
-Deprecated alias for CustomEditor. Use CustomEditor instead.
+Deprecated alias for `CustomEditor`. Use `CustomEditor` instead.
 
 #### gom.api.extensions.views.ScriptedView
 
 
-Deprecated alias for CustomView. Use CustomView instead.
+Deprecated alias for `CustomView`. Use `CustomView` instead.
 
 ## gom.api.imaging
 
