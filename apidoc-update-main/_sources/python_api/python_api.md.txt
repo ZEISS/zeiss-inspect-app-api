@@ -4998,12 +4998,12 @@ The `get_status ()` function can be used to poll the status until the service ha
 
 #### gom.api.services.Service.start_and_wait
 
-```{py:function} gom.api.services.Service.start_and_wait(timeout: int): bool
+```{py:function} gom.api.services.Service.start_and_wait(timeout: int = 30000): bool
 
 Start service and wait until it is running
 :API version: 1
-:param timeout: Timeout in milliseconds. If the service does not reach RUNNING state within this time, the function returns `false`. Defaults to 30000 (30 seconds).
-:type timeout: int
+:param timeout: Timeout in milliseconds. If the service does not reach RUNNING state within this time, the function returns `false`. Defaults to 30000 (30 seconds) if omitted or negative.
+:type timeout: int = 30000
 :return: `true` if the service has been started successfully, `false` if a timeout occurred.
 :rtype: bool
 :throws: Exception if the service cannot be started (e.g. no script set, already running)
