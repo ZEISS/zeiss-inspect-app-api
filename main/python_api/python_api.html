@@ -447,6 +447,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-smart-principle">gom.api.smart_principle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-smart-principle-customeditdialog">gom.api.smart_principle.CustomEditDialog</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-smart-principle-customeditdialog-init">gom.api.smart_principle.CustomEditDialog.<strong>init</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-smart-principle-customeditdialog-create-dialog">gom.api.smart_principle.CustomEditDialog.create_dialog</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate">gom.api.smart_principle.StrategyTemplate</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate-init">gom.api.smart_principle.StrategyTemplate.<strong>init</strong></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-smart-principle-strategytemplate-add-strategy">gom.api.smart_principle.StrategyTemplate.add_strategy</a></li>
@@ -6462,14 +6467,14 @@ The <code class="docutils literal notranslate"><span class="pre">get_status</spa
 <h4>gom.api.services.Service.start_and_wait<a class="headerlink" href="#gom-api-services-service-start-and-wait" title="Link to this heading"></a></h4>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.services.Service.start_and_wait(timeout:</span> <span class="pre">int):</span> <span class="pre">bool</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.services.Service.start_and_wait(timeout:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">30000):</span> <span class="pre">bool</span></span></dt>
 <dd><p>Start service and wait until it is running</p>
 <dl class="myst field-list simple">
 <dt class="field-odd">API version<span class="colon">:</span></dt>
 <dd class="field-odd"><p>1</p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>timeout</strong> (<em>int</em>) – Timeout in milliseconds. If the service does not reach RUNNING state within this time, the function returns <code class="docutils literal notranslate"><span class="pre">false</span></code>. Defaults to 30000 (30 seconds).</p>
+<dd class="field-even"><p><strong>timeout</strong> (<em>int = 30000</em>) – Timeout in milliseconds. If the service does not reach RUNNING state within this time, the function returns <code class="docutils literal notranslate"><span class="pre">false</span></code>. Defaults to 30000 (30 seconds) if omitted or negative.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the service has been started successfully, <code class="docutils literal notranslate"><span class="pre">false</span></code> if a timeout occurred.</p>
@@ -6812,6 +6817,73 @@ are integer, double, string and bool.</p>
 <section id="gom-api-smart-principle">
 <h2>gom.api.smart_principle<a class="headerlink" href="#gom-api-smart-principle" title="Link to this heading"></a></h2>
 <p>API for script based functionality of Smart Principle</p>
+<section id="gom-api-smart-principle-customeditdialog">
+<h3>gom.api.smart_principle.CustomEditDialog<a class="headerlink" href="#gom-api-smart-principle-customeditdialog" title="Link to this heading"></a></h3>
+<p>This class is used to define a custom edit dialog for Smart Principle.</p>
+<p><strong>Implementation</strong></p>
+<p>A very simple example for a custom view API contribution can look like this:</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Example of a simple custom edit dialog</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.experimental</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.smart_principle</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
+
+<span class="nd">@apicontribution</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyCustomEditDialog</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">smart_principle</span><span class="o">.</span><span class="n">CustomEditDialog</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;com.zeiss.my.customdialog&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">create_dialog</span><span class="p">(</span><span class="s2">&quot;my_dialog.gdlg&quot;</span><span class="p">)</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">dlg</span>
+
+<span class="n">gom</span><span class="o">.</span><span class="n">run_api</span> <span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<section id="gom-api-smart-principle-customeditdialog-init">
+<h4>gom.api.smart_principle.CustomEditDialog.<strong>init</strong><a class="headerlink" href="#gom-api-smart-principle-customeditdialog-init" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.smart_principle.CustomEditDialog.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">callables:</span> <span class="pre">dict,</span> <span class="pre">properties:</span> <span class="pre">dict):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – Unique contribution id, like <code class="docutils literal notranslate"><span class="pre">my.custom.dialog</span></code></p></li>
+<li><p><strong>callables</strong> (<em>dict</em>) – Additional callables for this contribution (optional)</p></li>
+<li><p><strong>properties</strong> (<em>dict</em>) – Additional properties for this contribution (optional)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Constructor</p>
+</section>
+<section id="gom-api-smart-principle-customeditdialog-create-dialog">
+<h4>gom.api.smart_principle.CustomEditDialog.create_dialog<a class="headerlink" href="#gom-api-smart-principle-customeditdialog-create-dialog" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.smart_principle.CustomEditDialog.create_dialog(self:</span> <span class="pre">Any,</span> <span class="pre">ctx:</span> <span class="pre">gom.SmartPrincipleScriptedWidgetContext):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ctx</strong> (<em>gom.SmartPrincipleScriptedWidgetContext</em>) – A context object that provides all functions for getting and setting of sequence step parameters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The handle of the dialog.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Creates and initializes the dialog instance.</p>
+</section>
+</section>
 <section id="gom-api-smart-principle-strategytemplate">
 <h3>gom.api.smart_principle.StrategyTemplate<a class="headerlink" href="#gom-api-smart-principle-strategytemplate" title="Link to this heading"></a></h3>
 <p>This class is used to define a Smart Principle strategy template.</p>
@@ -7710,7 +7782,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f2fa5c6e5f0>
+  <jinja2.runtime.BlockReference object at 0x7f6cb6fb64a0>
 
 
 </footer>
