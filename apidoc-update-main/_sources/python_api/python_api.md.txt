@@ -4722,37 +4722,6 @@ Return available dimensions
 ```
 
 
-### gom.api.scriptedelements.get_element_from_id
-
-```{py:function} gom.api.scriptedelements.get_element_from_id(element_id: str): Any
-
-Convert an internal id into a script element reference
-:param element_id: Internal id of the element to convert, usually a uuid
-:type element_id: str
-:return: Script element reference
-:rtype: Any
-:throws: std::runtime_error if the element id is unknown
-```
-
-This function is used to convert ids which are representing elements into script element
-references which can be used in the scripting environment. It is used for internal purposes
-only and should be used with care. For example, in scripted sequences, the child elements of
-a leading sequence element are stored by their internal ids, in principle uuids. So when
-the child elements of a leading element are requested, the internal framework can use this
-function to convert the stored ids into script element references.
-
-### gom.api.scriptedelements.get_id_for_element
-
-```{py:function} gom.api.scriptedelements.get_id_for_element(element: Any): str
-
-Return internal id of the given element
-:param element: Element reference
-:type element: Any
-:return: Id of this element
-:rtype: str
-```
-
-
 ### gom.api.scriptedelements.get_inspection_definition
 
 ```{py:function} gom.api.scriptedelements.get_inspection_definition(typename: str): Any
@@ -4765,20 +4734,6 @@ Return information about the given scripted element type
 
 This function queries in internal 'scalar registry' database for information about the
 inspection with the given type.
-
-### gom.api.scriptedelements.get_instructions
-
-```{py:function} gom.api.scriptedelements.get_instructions(element: Any): Any
-
-Return recalculation instructions/commands for the given element
-:param element: Element to query
-:type element: Any
-:return: Recalculation instructions
-:rtype: Any
-```
-
-This function queries the recalculations instructions (commands) which are executed to recalc
-an element.
 
 ## gom.api.selection
 

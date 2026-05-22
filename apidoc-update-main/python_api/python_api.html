@@ -407,10 +407,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-scriptedelements">gom.api.scriptedelements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimension-definition">gom.api.scriptedelements.get_dimension_definition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimensions">gom.api.scriptedelements.get_dimensions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-element-from-id">gom.api.scriptedelements.get_element_from_id</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-id-for-element">gom.api.scriptedelements.get_id_for_element</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-inspection-definition">gom.api.scriptedelements.get_inspection_definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-instructions">gom.api.scriptedelements.get_instructions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-selection">gom.api.selection</a><ul>
@@ -6108,55 +6105,6 @@ millimeter, inch for length; or degree, radian for angle.</p>
 </dd></dl>
 
 </section>
-<section id="gom-api-scriptedelements-get-element-from-id">
-<h3>gom.api.scriptedelements.get_element_from_id<a class="headerlink" href="#gom-api-scriptedelements-get-element-from-id" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_element_from_id(element_id:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Convert an internal id into a script element reference</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>element_id</strong> (<em>str</em>) – Internal id of the element to convert, usually a uuid</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Script element reference</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-<dt class="field-even">Throws<span class="colon">:</span></dt>
-<dd class="field-even"><p>std::runtime_error if the element id is unknown</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function is used to convert ids which are representing elements into script element
-references which can be used in the scripting environment. It is used for internal purposes
-only and should be used with care. For example, in scripted sequences, the child elements of
-a leading sequence element are stored by their internal ids, in principle uuids. So when
-the child elements of a leading element are requested, the internal framework can use this
-function to convert the stored ids into script element references.</p>
-</section>
-<section id="gom-api-scriptedelements-get-id-for-element">
-<h3>gom.api.scriptedelements.get_id_for_element<a class="headerlink" href="#gom-api-scriptedelements-get-id-for-element" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_id_for_element(element:</span> <span class="pre">Any):</span> <span class="pre">str</span></span></dt>
-<dd><p>Return internal id of the given element</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>element</strong> (<em>Any</em>) – Element reference</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Id of this element</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
 <section id="gom-api-scriptedelements-get-inspection-definition">
 <h3>gom.api.scriptedelements.get_inspection_definition<a class="headerlink" href="#gom-api-scriptedelements-get-inspection-definition" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -6178,28 +6126,6 @@ function to convert the stored ids into script element references.</p>
 
 <p>This function queries in internal ‘scalar registry’ database for information about the
 inspection with the given type.</p>
-</section>
-<section id="gom-api-scriptedelements-get-instructions">
-<h3>gom.api.scriptedelements.get_instructions<a class="headerlink" href="#gom-api-scriptedelements-get-instructions" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_instructions(element:</span> <span class="pre">Any):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Return recalculation instructions/commands for the given element</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>element</strong> (<em>Any</em>) – Element to query</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Recalculation instructions</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function queries the recalculations instructions (commands) which are executed to recalc
-an element.</p>
 </section>
 </section>
 <section id="gom-api-selection">
@@ -7782,7 +7708,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7ff6ec7524a0>
+  <jinja2.runtime.BlockReference object at 0x7f52096e3690>
 
 
 </footer>
