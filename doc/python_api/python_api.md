@@ -4998,12 +4998,12 @@ The `get_status ()` function can be used to poll the status until the service ha
 
 #### gom.api.services.Service.start_and_wait
 
-```{py:function} gom.api.services.Service.start_and_wait(timeout: int): bool
+```{py:function} gom.api.services.Service.start_and_wait(timeout: int = 30000): bool
 
 Start service and wait until it is running
 :API version: 1
-:param timeout: Timeout in milliseconds. If the service does not reach RUNNING state within this time, the function returns `false`. Defaults to 30000 (30 seconds).
-:type timeout: int
+:param timeout: Timeout in milliseconds. If the service does not reach RUNNING state within this time, the function returns `false`. Defaults to 30000 (30 seconds) if omitted or negative.
+:type timeout: int = 30000
 :return: `true` if the service has been started successfully, `false` if a timeout occurred.
 :rtype: bool
 :throws: Exception if the service cannot be started (e.g. no script set, already running)
@@ -5293,6 +5293,64 @@ gom.api.settings.set ('dialog.height', 480)
 
 API for script based functionality of Smart Principle
 
+
+### gom.api.smart_principle.CustomEditDialog
+
+
+This class is used to define a custom edit dialog for Smart Principle.
+
+**Implementation**
+
+A very simple example for a custom view API contribution can look like this:
+
+```{code-block} python
+:caption: Example of a simple custom edit dialog
+
+import gom
+import gom.api.experimental
+import gom.api.smart_principle
+
+from gom import apicontribution
+
+@apicontribution
+class MyCustomEditDialog (gom.api.smart_principle.CustomEditDialog):
+
+    def __init__(self):
+        super().__init__(id='com.zeiss.my.customdialog')
+
+    def create_dialog(self, ctx):
+        dlg = gom.api.experimental.create_dialog("my_dialog.gdlg")
+        ...
+        return dlg
+
+gom.run_api ()
+```
+
+#### gom.api.smart_principle.CustomEditDialog.__init__
+
+```{py:function} gom.api.smart_principle.CustomEditDialog.__init__(self: Any, id: str, callables: dict, properties: dict): None
+
+:param id: Unique contribution id, like `my.custom.dialog`
+:type id: str
+:param callables: Additional callables for this contribution (optional)
+:type callables: dict
+:param properties: Additional properties for this contribution (optional)
+:type properties: dict
+```
+
+Constructor
+
+#### gom.api.smart_principle.CustomEditDialog.create_dialog
+
+```{py:function} gom.api.smart_principle.CustomEditDialog.create_dialog(self: Any, ctx: gom.SmartPrincipleScriptedWidgetContext): None
+
+:param ctx: A context object that provides all functions for getting and setting of sequence step parameters.
+:type ctx: gom.SmartPrincipleScriptedWidgetContext
+:return: The handle of the dialog.
+:rtype: None
+```
+
+Creates and initializes the dialog instance.
 
 ### gom.api.smart_principle.StrategyTemplate
 
