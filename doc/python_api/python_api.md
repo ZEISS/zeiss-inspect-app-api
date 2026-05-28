@@ -285,6 +285,33 @@ An add-on can modify only its own content ! Access to other add-ons is not permi
 function with care, as the result is permanent !
 ```
 
+### gom.api.addons.add_external_folder
+
+```{py:function} gom.api.addons.add_external_folder(dir: str): bool
+
+Register an external folder as a script source folder
+:API version: 1
+:param dir: Absolute path to an existing directory to register as an external folder
+:type dir: str
+:return: `true` if the directory was found and the symbolic link was created successfully; `false` if the path does not point to an existing directory or link creation failed
+:rtype: bool
+```
+
+The folder is registered by creating a symbolic link in the user configuration directory.
+After registration, the content manager is updated and the folder's App Contents are available to the application.
+
+**Example:**
+
+```
+import gom
+
+result = gom.api.addons.add_external_folder ('C:/my_scripts')
+if result:
+    print ('External folder registered successfully')
+else:
+    print ('Registration failed: directory may not exist')
+```
+
 ### gom.api.addons.get_addon
 
 ```{py:function} gom.api.addons.get_addon(id: UUID): gom.api.addons.AddOn
@@ -346,6 +373,34 @@ installed in the running instance.
 ```
 for a in gom.api.addons.get_installed_addons ():
   print (a.get_id (), a.get_name ())
+```
+
+### gom.api.addons.remove_external_folder
+
+```{py:function} gom.api.addons.remove_external_folder(dir: str): bool
+
+Unregister a previously registered external folder
+:API version: 1
+:param dir: Absolute path or base name of the external folder to unregister
+:type dir: str
+:return: `true` if a matching symbolic link was found and removed successfully; `false` if no registered folder with that name exists
+:rtype: bool
+```
+
+Removes the symbolic link for the given folder from the user configuration directory.
+After removal, the content manager is updated and the folder's App Contents are no longer
+available to the application.
+
+**Example:**
+
+```
+import gom
+
+result = gom.api.addons.remove_external_folder ('C:/my_scripts')
+if result:
+    print ('External folder unregistered successfully')
+else:
+    print ('Unregistration failed: folder was not registered')
 ```
 
 ## gom.api.contributions
@@ -4722,37 +4777,6 @@ Return available dimensions
 ```
 
 
-### gom.api.scriptedelements.get_element_from_id
-
-```{py:function} gom.api.scriptedelements.get_element_from_id(element_id: str): Any
-
-Convert an internal id into a script element reference
-:param element_id: Internal id of the element to convert, usually a uuid
-:type element_id: str
-:return: Script element reference
-:rtype: Any
-:throws: std::runtime_error if the element id is unknown
-```
-
-This function is used to convert ids which are representing elements into script element
-references which can be used in the scripting environment. It is used for internal purposes
-only and should be used with care. For example, in scripted sequences, the child elements of
-a leading sequence element are stored by their internal ids, in principle uuids. So when
-the child elements of a leading element are requested, the internal framework can use this
-function to convert the stored ids into script element references.
-
-### gom.api.scriptedelements.get_id_for_element
-
-```{py:function} gom.api.scriptedelements.get_id_for_element(element: Any): str
-
-Return internal id of the given element
-:param element: Element reference
-:type element: Any
-:return: Id of this element
-:rtype: str
-```
-
-
 ### gom.api.scriptedelements.get_inspection_definition
 
 ```{py:function} gom.api.scriptedelements.get_inspection_definition(typename: str): Any
@@ -4765,20 +4789,6 @@ Return information about the given scripted element type
 
 This function queries in internal 'scalar registry' database for information about the
 inspection with the given type.
-
-### gom.api.scriptedelements.get_instructions
-
-```{py:function} gom.api.scriptedelements.get_instructions(element: Any): Any
-
-Return recalculation instructions/commands for the given element
-:param element: Element to query
-:type element: Any
-:return: Recalculation instructions
-:rtype: Any
-```
-
-This function queries the recalculations instructions (commands) which are executed to recalc
-an element.
 
 ## gom.api.selection
 
