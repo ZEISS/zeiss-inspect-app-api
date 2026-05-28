@@ -285,6 +285,33 @@ An add-on can modify only its own content ! Access to other add-ons is not permi
 function with care, as the result is permanent !
 ```
 
+### gom.api.addons.add_external_folder
+
+```{py:function} gom.api.addons.add_external_folder(dir: str): bool
+
+Register an external folder as a script source folder
+:API version: 1
+:param dir: Absolute path to an existing directory to register as an external folder
+:type dir: str
+:return: `true` if the directory was found and the symbolic link was created successfully; `false` if the path does not point to an existing directory or link creation failed
+:rtype: bool
+```
+
+The folder is registered by creating a symbolic link in the user configuration directory.
+After registration, the content manager is updated and the folder's App Contents are available to the application.
+
+**Example:**
+
+```
+import gom
+
+result = gom.api.addons.add_external_folder ('C:/my_scripts')
+if result:
+    print ('External folder registered successfully')
+else:
+    print ('Registration failed: directory may not exist')
+```
+
 ### gom.api.addons.get_addon
 
 ```{py:function} gom.api.addons.get_addon(id: UUID): gom.api.addons.AddOn
@@ -346,6 +373,34 @@ installed in the running instance.
 ```
 for a in gom.api.addons.get_installed_addons ():
   print (a.get_id (), a.get_name ())
+```
+
+### gom.api.addons.remove_external_folder
+
+```{py:function} gom.api.addons.remove_external_folder(dir: str): bool
+
+Unregister a previously registered external folder
+:API version: 1
+:param dir: Absolute path or base name of the external folder to unregister
+:type dir: str
+:return: `true` if a matching symbolic link was found and removed successfully; `false` if no registered folder with that name exists
+:rtype: bool
+```
+
+Removes the symbolic link for the given folder from the user configuration directory.
+After removal, the content manager is updated and the folder's App Contents are no longer
+available to the application.
+
+**Example:**
+
+```
+import gom
+
+result = gom.api.addons.remove_external_folder ('C:/my_scripts')
+if result:
+    print ('External folder unregistered successfully')
+else:
+    print ('Unregistration failed: folder was not registered')
 ```
 
 ## gom.api.contributions

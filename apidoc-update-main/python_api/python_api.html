@@ -117,9 +117,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-write">gom.api.addons.AddOn.write</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-add-external-folder">gom.api.addons.add_external_folder</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-addon">gom.api.addons.get_addon</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-current-addon">gom.api.addons.get_current_addon</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-installed-addons">gom.api.addons.get_installed_addons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-remove-external-folder">gom.api.addons.remove_external_folder</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-contributions">gom.api.contributions</a><ul>
@@ -942,6 +944,41 @@ function with care, as the result is permanent !</p>
 </div>
 </section>
 </section>
+<section id="gom-api-addons-add-external-folder">
+<h3>gom.api.addons.add_external_folder<a class="headerlink" href="#gom-api-addons-add-external-folder" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.addons.add_external_folder(dir:</span> <span class="pre">str):</span> <span class="pre">bool</span></span></dt>
+<dd><p>Register an external folder as a script source folder</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dir</strong> (<em>str</em>) – Absolute path to an existing directory to register as an external folder</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the directory was found and the symbolic link was created successfully; <code class="docutils literal notranslate"><span class="pre">false</span></code> if the path does not point to an existing directory or link creation failed</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The folder is registered by creating a symbolic link in the user configuration directory.
+After registration, the content manager is updated and the folder’s App Contents are available to the application.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">add_external_folder</span> <span class="p">(</span><span class="s1">&#39;C:/my_scripts&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;External folder registered successfully&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Registration failed: directory may not exist&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 <section id="gom-api-addons-get-addon">
 <h3>gom.api.addons.get_addon<a class="headerlink" href="#gom-api-addons-get-addon" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -1026,6 +1063,42 @@ installed in the running instance.</p>
 <p><strong>Example:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">get_installed_addons</span> <span class="p">():</span>
   <span class="nb">print</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">get_id</span> <span class="p">(),</span> <span class="n">a</span><span class="o">.</span><span class="n">get_name</span> <span class="p">())</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-addons-remove-external-folder">
+<h3>gom.api.addons.remove_external_folder<a class="headerlink" href="#gom-api-addons-remove-external-folder" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.addons.remove_external_folder(dir:</span> <span class="pre">str):</span> <span class="pre">bool</span></span></dt>
+<dd><p>Unregister a previously registered external folder</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dir</strong> (<em>str</em>) – Absolute path or base name of the external folder to unregister</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if a matching symbolic link was found and removed successfully; <code class="docutils literal notranslate"><span class="pre">false</span></code> if no registered folder with that name exists</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Removes the symbolic link for the given folder from the user configuration directory.
+After removal, the content manager is updated and the folder’s App Contents are no longer
+available to the application.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">remove_external_folder</span> <span class="p">(</span><span class="s1">&#39;C:/my_scripts&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;External folder unregistered successfully&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Unregistration failed: folder was not registered&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -7708,7 +7781,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f397bf21da0>
+  <jinja2.runtime.BlockReference object at 0x7fd757b6f9a0>
 
 
 </footer>
