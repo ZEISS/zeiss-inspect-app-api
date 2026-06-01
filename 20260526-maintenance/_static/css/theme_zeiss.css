@@ -14,17 +14,11 @@
  * Fonts
  ******************************************************************************/
 
-/* Use font "ZEISS Frutiger Next W1G" */
-@font-face {
-	font-family: "Frutiger Next";
-	src: url("https://www.zeiss.com/etc.clientlibs/zeiss-aem-app/jupiter/clientlibs/jupiter-components.app/resources/assets/fonts/ZEISSFrutigerNextUI-Reg.woff2") format("woff2"),
-	url("https://www.zeiss.com/etc.clientlibs/zeiss-aem-app/jupiter/clientlibs/jupiter-components.app/resources/assets/fonts/ZEISSFrutigerNextUI-Italic.woff2") format("woff2"),
-    url("https://www.zeiss.com/etc.clientlibs/zeiss-aem-app/jupiter/clientlibs/jupiter-components.app/resources/assets/fonts/ZEISSFrutigerNextUI-Medium.woff2") format("woff2"),
-	url("https://www.zeiss.com/etc.clientlibs/zeiss-aem-app/jupiter/clientlibs/jupiter-components.app/resources/assets/fonts/ZEISSFrutigerNextUI-Bold.woff2") format("woff2");
-}
+/* Use font "Noto Sans" */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap');
 
 :root {
-    --font-family-frutiger: "Frutiger Next", "Helvetica Neue", Helvetica, Verdana, Arial, sans-serif;
+    --font-family-frutiger: "Noto Sans", "Helvetica Neue", Helvetica, Verdana, Arial, sans-serif;
 }
 
 html, body, .rst-content .toctree-wrapper>p.caption, h1, h2, h3, h4, h5, h6, legend {
