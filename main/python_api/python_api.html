@@ -117,9 +117,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-write">gom.api.addons.AddOn.write</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-add-external-folder">gom.api.addons.add_external_folder</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-addon">gom.api.addons.get_addon</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-current-addon">gom.api.addons.get_current_addon</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-installed-addons">gom.api.addons.get_installed_addons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-remove-external-folder">gom.api.addons.remove_external_folder</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-contributions">gom.api.contributions</a><ul>
@@ -407,10 +409,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-scriptedelements">gom.api.scriptedelements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimension-definition">gom.api.scriptedelements.get_dimension_definition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimensions">gom.api.scriptedelements.get_dimensions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-element-from-id">gom.api.scriptedelements.get_element_from_id</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-id-for-element">gom.api.scriptedelements.get_id_for_element</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-inspection-definition">gom.api.scriptedelements.get_inspection_definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-instructions">gom.api.scriptedelements.get_instructions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-selection">gom.api.selection</a><ul>
@@ -945,6 +944,41 @@ function with care, as the result is permanent !</p>
 </div>
 </section>
 </section>
+<section id="gom-api-addons-add-external-folder">
+<h3>gom.api.addons.add_external_folder<a class="headerlink" href="#gom-api-addons-add-external-folder" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.addons.add_external_folder(dir:</span> <span class="pre">str):</span> <span class="pre">bool</span></span></dt>
+<dd><p>Register an external folder as a script source folder</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dir</strong> (<em>str</em>) – Absolute path to an existing directory to register as an external folder</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the directory was found and the symbolic link was created successfully; <code class="docutils literal notranslate"><span class="pre">false</span></code> if the path does not point to an existing directory or link creation failed</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The folder is registered by creating a symbolic link in the user configuration directory.
+After registration, the content manager is updated and the folder’s App Contents are available to the application.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">add_external_folder</span> <span class="p">(</span><span class="s1">&#39;C:/my_scripts&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;External folder registered successfully&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Registration failed: directory may not exist&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 <section id="gom-api-addons-get-addon">
 <h3>gom.api.addons.get_addon<a class="headerlink" href="#gom-api-addons-get-addon" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -1029,6 +1063,42 @@ installed in the running instance.</p>
 <p><strong>Example:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">get_installed_addons</span> <span class="p">():</span>
   <span class="nb">print</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">get_id</span> <span class="p">(),</span> <span class="n">a</span><span class="o">.</span><span class="n">get_name</span> <span class="p">())</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-addons-remove-external-folder">
+<h3>gom.api.addons.remove_external_folder<a class="headerlink" href="#gom-api-addons-remove-external-folder" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.addons.remove_external_folder(dir:</span> <span class="pre">str):</span> <span class="pre">bool</span></span></dt>
+<dd><p>Unregister a previously registered external folder</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dir</strong> (<em>str</em>) – Absolute path or base name of the external folder to unregister</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if a matching symbolic link was found and removed successfully; <code class="docutils literal notranslate"><span class="pre">false</span></code> if no registered folder with that name exists</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Removes the symbolic link for the given folder from the user configuration directory.
+After removal, the content manager is updated and the folder’s App Contents are no longer
+available to the application.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">remove_external_folder</span> <span class="p">(</span><span class="s1">&#39;C:/my_scripts&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;External folder unregistered successfully&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Unregistration failed: folder was not registered&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -6108,55 +6178,6 @@ millimeter, inch for length; or degree, radian for angle.</p>
 </dd></dl>
 
 </section>
-<section id="gom-api-scriptedelements-get-element-from-id">
-<h3>gom.api.scriptedelements.get_element_from_id<a class="headerlink" href="#gom-api-scriptedelements-get-element-from-id" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_element_from_id(element_id:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Convert an internal id into a script element reference</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>element_id</strong> (<em>str</em>) – Internal id of the element to convert, usually a uuid</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Script element reference</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-<dt class="field-even">Throws<span class="colon">:</span></dt>
-<dd class="field-even"><p>std::runtime_error if the element id is unknown</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function is used to convert ids which are representing elements into script element
-references which can be used in the scripting environment. It is used for internal purposes
-only and should be used with care. For example, in scripted sequences, the child elements of
-a leading sequence element are stored by their internal ids, in principle uuids. So when
-the child elements of a leading element are requested, the internal framework can use this
-function to convert the stored ids into script element references.</p>
-</section>
-<section id="gom-api-scriptedelements-get-id-for-element">
-<h3>gom.api.scriptedelements.get_id_for_element<a class="headerlink" href="#gom-api-scriptedelements-get-id-for-element" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_id_for_element(element:</span> <span class="pre">Any):</span> <span class="pre">str</span></span></dt>
-<dd><p>Return internal id of the given element</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>element</strong> (<em>Any</em>) – Element reference</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Id of this element</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
 <section id="gom-api-scriptedelements-get-inspection-definition">
 <h3>gom.api.scriptedelements.get_inspection_definition<a class="headerlink" href="#gom-api-scriptedelements-get-inspection-definition" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -6178,28 +6199,6 @@ function to convert the stored ids into script element references.</p>
 
 <p>This function queries in internal ‘scalar registry’ database for information about the
 inspection with the given type.</p>
-</section>
-<section id="gom-api-scriptedelements-get-instructions">
-<h3>gom.api.scriptedelements.get_instructions<a class="headerlink" href="#gom-api-scriptedelements-get-instructions" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_instructions(element:</span> <span class="pre">Any):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Return recalculation instructions/commands for the given element</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>element</strong> (<em>Any</em>) – Element to query</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Recalculation instructions</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function queries the recalculations instructions (commands) which are executed to recalc
-an element.</p>
 </section>
 </section>
 <section id="gom-api-selection">
@@ -7782,7 +7781,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f6cb6fb64a0>
+  <jinja2.runtime.BlockReference object at 0x7f81509339a0>
 
 
 </footer>
