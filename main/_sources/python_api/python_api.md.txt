@@ -727,6 +727,124 @@ Create a dialog, but do not execute it yet
 ```
 
 
+## gom.api.expression
+
+General-purpose expression language metadata API
+
+This module provides access to the ZEISS INSPECT expression language primitives —
+symbols, functions, and element-level tokens — independently of any specific UI
+component. It can be used from table editors, formula bars, dialog widgets,
+diagram views, or any other context that needs to enumerate what can be typed
+into an expression field.
+
+**Example:**
+```python
+import gom.api.expression
+
+# List symbols (GPS, Greek, Math, ...)
+symbols = gom.api.expression.get_symbols()
+
+# List built-in functions (abs, sin, if, ...)
+functions = gom.api.expression.get_functions()
+
+# List tokens available on a specific element
+import gom.api.selection
+selected = gom.api.selection.get_selected_elements()
+tokens = gom.api.expression.get_tokens(selected[0])
+```
+
+### gom.api.expression.get_functions
+
+```{py:function} gom.api.expression.get_functions(): dict
+
+Return all available global built-in expression functions grouped by category.
+:return: Dictionary with key "categories" → list of category objects, each with "name" (str) and "functions" (list).
+:rtype: dict
+```
+
+Returns a dictionary with a "categories" key containing an ordered list of function
+categories. Each category entry has a "name" (translated, human-readable) and a
+"functions" list. Each function entry contains:
+
+- **name**: the function identifier as used in expressions (e.g. "abs")
+- **description**: a short human-readable description
+- **template**: a ready-to-insert call template (e.g. "abs (VALUE)")
+
+Internal, obsolete, and vendor-specific functions are excluded.
+
+### gom.api.expression.get_symbols
+
+```{py:function} gom.api.expression.get_symbols(): dict
+
+Return all expression symbols grouped by category.
+:return: Dict with key "categories" → list of category objects, each with "name" (str) and "symbols" (list).
+:rtype: dict
+```
+
+Returns symbols that can be inserted into any expression field, organized into
+four categories:
+- GPS (GD&T tolerance symbols)
+- Greek alphabet
+- Mathematical symbols
+- Other (currency, arrows, typographic characters, etc.)
+
+Each symbol entry contains:
+- "token"       (str) — the expression token string,
+e.g. "__TOM_SYMBOL_GPS_STRAIGHTNESS__"
+- "description" (str) — translated display name
+- "glyph"       (str) — Unicode glyph character(s) for visual rendering
+(empty for GPS symbols that require a proprietary font)
+
+### gom.api.expression.get_tokens
+
+```{py:function} gom.api.expression.get_tokens(element: Any): dict
+
+Return all expression tokens available for the given element, grouped by category.
+:param element: Any project element reference (e.g. from the return value of `gom.api.selection.get_selected_elements()` or `gom.api.customelements.get_element_from_id()`).
+:type element: Any
+:return: Dict with keys "categories" and "data_array_categories".
+:rtype: dict
+```
+
+Accepts any project element reference and returns the tokens that can be inserted into
+expression fields (formula bars, table cells, diagram captions, etc.) for that element.
+Two token sources are provided:
+- Element-level tokens (e.g. name, measurement results, tolerances)
+- Data-array tokens   (e.g. point cloud coordinates, normals)
+Internal and icon tokens are excluded in both cases.
+
+The returned dict has two keys:
+- "categories"            — ordered list of element-level token categories
+(shown as "Keywords" in expression editors).
+- "data_array_categories" — ordered list of data-array token categories
+(shown as "Data arrays" in expression editors).
+
+Each category entry has:
+- "name"    (str)  — translated category label (e.g. "Element info", "Results")
+- "tokens"  (list) — list of token entries, each with:
+- "token"       (str)  — raw token expression string (e.g. "result_worst_case")
+- "label"       (str)  — human-readable display name
+- "has_index"   (bool) — whether the token supports [n] index notation
+- "sub_tokens"  (list) — optional; for tokens with dot-notation sub-attributes
+(e.g. "application_build_information.version").
+Each sub-token entry has "token", "label", "has_index".
+
+Returns empty category lists when the element is invalid or has no available tokens.
+
+**Example usage in Python:**
+```python
+import gom.api.expression
+import gom.api.selection
+
+selected = gom.api.selection.get_selected_elements()
+if selected:
+    tokens = gom.api.expression.get_tokens(selected[0])
+    for category in tokens['categories']:
+        print(category['name'])
+        for t in category['tokens']:
+            print(' ', t['token'], '-', t['label'])
+```
+
 ## gom.api.expressions
 
 API for reading and manipulation of the internal expression cache
@@ -751,14 +869,145 @@ of expressions nevertheless.
 
 API for script based functionality extensions
 
-This API enables the user to define various element classes which can be used to extend the functionality of
-ZEISS INSPECT.
+This API enables the user to define custom element types that extend the functionality of ZEISS INSPECT.
+Custom elements are fully user-defined: their configuration, computation, and visualization are implemented
+entirely in Python. They integrate seamlessly into the application's element model, appearing in menus, the
+explorer, labels, reports, and the 3D view just like built-in elements.
+
+#### Architecture overview
+
+The custom element system is organized as a class hierarchy of base classes. Each category of custom element
+inherits from one of the base classes in this module:
+
+```
+CustomElement                           Base for all custom elements (dialog, event, visibility)
+├── CustomCalculationElement            Adds computation lifecycle (compute, stages)
+│   ├── actuals.CustomActual            Custom actual element types (Point, Surface, PointCloud, …)
+│   ├── nominals.CustomNominal          Custom nominal element types (Point, Surface, …)
+│   └── inspections.CustomInspection    Custom inspection/check types (Scalar, Surface, Curve)
+└── sequence.CustomSequence             Groups multiple elements into one editable sequence
+
+CustomDiagram                           Transforms element data for diagram rendering
+├── diagrams.SVGDiagram                 SVG-based interactive diagram
+└── diagrams.CustomDiagramView          Diagram integrated in the custom view framework
+```
+
+Each category has its own submodule (``gom.api.extensions.actuals``, ``gom.api.extensions.nominals``, etc.)
+with concrete element classes that define the expected ``compute()`` return value format for each geometry type.
+
+#### Lifecycle of a custom calculation element
+
+The lifecycle of a custom calculation element (actual, nominal, or inspection) follows these steps:
+
+1. **Registration** — The element class is registered as a *contribution* using the ``@apicontribution``
+   decorator and ``gom.run_api()``. This makes it available in the ZEISS INSPECT menus.
+
+2. **Dialog** — When the user creates or edits an element, ``dialog()`` is called. It displays a
+   configuration dialog and returns the user's input as a parameter dictionary.
+
+3. **Compute** — After dialog confirmation (and during recalculation), ``compute_stage()`` is called for
+   each stage. The function receives the dialog values and returns the computed result (e.g., a point
+   coordinate, a surface mesh, or inspection deviations).
+
+4. **Event** — While the dialog is open, ``event()`` is called on UI changes (widget value changed, dialog
+   initialized). Returning ``True`` triggers a preview recomputation.
+
+5. **Storage** — The returned result dictionary is stored in the project file. The keys are element-type
+   specific (e.g., ``'value'`` for a point, ``'vertices'``/``'triangles'`` for a surface). An optional
+   ``'data'`` key stores arbitrary custom data alongside the element.
+
+#### Minimal example
+
+A simple custom actual point element can be defined as follows::
+
+    import gom
+    import gom.api.extensions.actuals
+    from gom import apicontribution
+
+    @apicontribution
+    class MyPoint(gom.api.extensions.actuals.Point):
+
+        def __init__(self):
+            super().__init__(id='example.my_point', description='My Custom Point')
+
+        def dialog(self, context, args):
+            return self.show_dialog(context, args, '/dialogs/my_point.gdlg')
+
+        def compute_stage(self, context, values):
+            return {
+                'value': (
+                    float(values['x']),
+                    float(values['y']),
+                    float(values['z'])
+                )
+            }
+
+    gom.run_api()
+
+The element class inherits from ``gom.api.extensions.actuals.Point``, which sets the correct category
+and element type automatically. The ``dialog()`` method uses the built-in ``show_dialog()`` helper to
+display a ``.gdlg`` dialog file and return the values. The ``compute_stage()`` method computes a 3D point
+from the dialog values and returns it in the format expected by the ``Point`` type.
+
+#### Element categories
+
+The following categories are available for custom calculation elements:
+
+- **Actuals** (``gom.api.extensions.actuals``): Computed elements based on measurement data or algorithms
+  (Point, Distance, Circle, Cone, Cylinder, Plane, ValueElement, Curve, SurfaceCurve, Section,
+  ProbeMeasuredCurve, PointCloud, Surface, SurfaceDefects, Volume, VolumeDefects, VolumeDefects2d, …)
+
+- **Nominals** (``gom.api.extensions.nominals``): Reference/target geometry elements
+  (Point, Distance, Circle, Cone, Cylinder, Plane, ValueElement, Curve, SurfaceCurve, Section, PointCloud,
+  Surface)
+
+- **Inspections** (``gom.api.extensions.inspections``): Check elements that compare actual vs. nominal
+  (Scalar, Surface, Curve). Inspections require a ``target_element`` and use physical dimensions and units.
+
+- **Sequences** (``gom.api.extensions.sequence``): Grouped element creation that bundles multiple elements
+  into one editable unit.
+
+- **Diagrams** (``gom.api.extensions.diagrams``): Custom diagram renderers for visualizing element data
+  (SVGDiagram, CustomDiagramView).
+
+Each concrete element class documents the expected return value format of its ``compute()`` function.
 
 ### gom.api.extensions.CustomCalculationElement
 
 
-This class is used to define a custom calculation element which calculated its own data. It is used as a
-base class for custom actual, nominals and checks.
+This class is used to define a custom calculation element which computes its own data. It is used as a
+base class for custom actuals, nominals, and checks.
+
+Custom calculation elements extend ``CustomElement`` with a computation lifecycle: the element receives input
+values from the dialog and produces a result dictionary. The application stores this result in the project file
+and uses it for visualization, reporting, and further calculations.
+
+**Subclasses**
+
+Do not inherit from ``CustomCalculationElement`` directly. Instead, use one of the concrete subclasses:
+
+- ``actuals.CustomActual`` and its element classes (``actuals.Point``, ``actuals.Surface``, …)
+- ``nominals.CustomNominal`` and its element classes (``nominals.Point``, ``nominals.Surface``, …)
+- ``inspections.CustomInspection`` and its element classes (``inspections.Scalar``, ``inspections.Surface``,
+  ``inspections.Curve``)
+
+Each of these classes sets the correct category and element type automatically and documents the expected
+return value format.
+
+**Computation methods**
+
+This class provides three computation methods with different levels of control:
+
+- ``compute_stage(context, values)``: **Recommended for new implementations.** Computes the result for a single
+  stage. Override this method in your element class. The default implementation delegates to ``compute()``
+  for backward compatibility.
+
+- ``compute(context, values)``: **Legacy single-stage method.** Kept for backward compatibility with older
+  implementations. New code should override ``compute_stage()`` instead.
+
+- ``compute_stages(context, values)``: Computes results for all stages at once. The default implementation
+  iterates over all stages and calls ``compute_stage()`` for each one. Override this method only if you need
+  bulk computation across stages for performance reasons (e.g., vectorized NumPy operations).
 
 **Working with stages**
 
@@ -767,29 +1016,59 @@ for simple project setups, computation is usually done for a single stage only. 
 a recalc, computation for many stages is usually required. To support both cases and keep it
 simple for beginners, the custom elements are using two computation functions:
 
-- `compute ()`:       Computes the result for one single stage only. If nothing else is implemented,
-                      this function will be called for each stage one by one and return the computed
-                      value for that stage only. The stage for which the computation is performed is
-                      passed via the function's script context, but does usually not matter as all input
-                      values are already associated with that single stage.
-- `compute_stages ()`: Computes the results for many (all) stages at once. The value parameters are
-                       always vectors of the same size, one entry per stage. This is the case even if
-                       there is just one stage in the project. The result is expected to be a result
-                       vector of the same size as these stage vectors. The script context passed to that
-                       function will contain a list of stages of equal size matching the value's stage
-                       ordering.
+- ``compute_stage()``: Computes the result for one single stage only. If nothing else is implemented,
+  this function will be called for each stage one by one and return the computed value for that stage only.
+  The stage for which the computation is performed is passed via the function's script context, but does
+  usually not matter as all input values are already associated with that single stage.
+- ``compute_stages()``: Computes the results for many (all) stages at once. The value parameters are always
+  vectors of the same size, one entry per stage. This is the case even if there is just one stage in the
+  project. The result is expected to be a result vector of the same size as these stage vectors. The script
+  context passed to that function will contain a list of stages of equal size matching the value's stage
+  ordering.
 
-So for a project with stages, it is usually sufficient to just implement `compute ()`. For increased
-performance or parallelization, `compute_stages ()` can then be implemented as a second step.
+So for a project with stages, it is usually sufficient to just implement ``compute_stage()``. For increased
+performance or parallelization, ``compute_stages()`` can then be implemented as a second step.
+
+Example for a simple single-stage computation:
+
+```
+def compute_stage (self, context, values):
+    x = float(values['x'])
+    y = float(values['y'])
+    z = float(values['z'])
+    return {'value': (x, y, z)}
+```
+
+Example for a bulk multi-stage computation (advanced):
+
+```
+def compute_stages (self, context, values):
+    # 'values' contains one entry per stage for each widget.
+    # Process all stages at once for performance.
+    results = []
+    states = []
+    for stage in context.stages:
+        context.stage = stage
+        try:
+            results.append({'value': (float(values['x']), float(values['y']), float(values['z']))})
+            states.append(True)
+        except Exception as e:
+            results.append((str(e), traceback.format_exc()))
+            states.append(False)
+        finally:
+            context.stage = None
+    return {'results': results, 'states': states}
+```
 
 **Stage indexing**
 
 Stages are represented by an integer index. No item reference or other resolvable types like
-`gom.script.project[...].stages['Stage #1']` are used because it is assumed that reaching over stage borders into
-other stages' data domain will lead to incorrect or missing dependencies. Instead, if vectorized data or data tensors
-are fetched, the stage sorting within that object will match that stages vector in the context. In the best case, the
-stage vector is just a consecutive range of numbers `(0, 1, 2, 3, ...)` which match the index in a staged tensor.
-Nevertheless, the vector can be number entirely different depending on active/inactive stages, stage sorting, ...
+``gom.script.project[...].stages['Stage #1']`` are used because it is assumed that reaching over stage borders
+into other stages' data domain will lead to incorrect or missing dependencies. Instead, if vectorized data or
+data tensors are fetched, the stage sorting within that object will match that stages vector in the context. In
+the best case, the stage vector is just a consecutive range of numbers ``(0, 1, 2, 3, ...)`` which match the
+index in a staged tensor. Nevertheless, the vector can be numbered entirely different depending on
+active/inactive stages, stage sorting, ...
 
 ```{caution}
 Usually, it is *not* possible to access arbitrary stages of other elements due to recalc restrictions !
@@ -867,9 +1146,27 @@ For a more efficient implementation, it can be overwritten and bulk compute many
 
 Base class for all custom elements
 
-This class is the base class for all custom element types . A custom element is a user defined
-element type where configuration and computation are happening entirely in a Python script, so user
-defined behavior and visualization can be implemented.
+This class is the base class for all custom element types. A custom element is a user-defined
+element type where configuration and computation are happening entirely in a Python script, so user-defined
+behavior and visualization can be implemented.
+
+Custom elements are registered as *contributions* using the ``@apicontribution`` decorator. Each element
+is instantiated once at service startup. The ZEISS INSPECT application then calls the element's methods
+as needed: ``dialog()`` for interactive configuration, ``compute_stage()`` for result computation, and
+``event()`` for UI state changes during dialog interaction.
+
+**Class hierarchy**
+
+``CustomElement`` is the root of the custom element hierarchy. It provides the dialog, event handling, and
+visibility infrastructure that all custom elements share. The following subclasses extend it for specific
+purposes:
+
+- ``CustomCalculationElement``: Adds a computation lifecycle with stage support. This is the base for all
+  elements that produce computed results (actuals, nominals, inspections).
+- ``sequence.CustomSequence``: Groups multiple element creation commands into one editable sequence.
+
+Concrete element types (e.g., ``actuals.Point``, ``inspections.Scalar``) further specialize these base
+classes and define the expected ``compute()`` return value format.
 
 **Element id**
 
@@ -1198,7 +1495,7 @@ The dialog arguments are passed as a JSON like map structure. The format is as f
 {
     "version": 1,
     "name": "Element 1",
-    "values: {
+    "values": {
         "widget1": value1,
         "widget2": value2
         ...
@@ -1215,17 +1512,17 @@ The dialog arguments are passed as a JSON like map structure. The format is as f
 - `values`:  A map of widget names and their initial values. The widget names are the keys and the values
              are the initial or edited values for the widgets. This map is always present, but can be empty
              for newly created elements. The keys are matching the widget names in the user defined dialog, so
-             the values can be set accordingly. As a default, use the function `initialize_dialog (args)` to
+             the values can be set accordingly. As a default, use the function `initialize_dialog (context, dlg, args)` to
              setup all widgets from the args values.
 
-The helper functions `initialize_dialog ()` and `apply_dialog ()` can be used to initialize the dialog directly.
+The helper functions `initialize_dialog ()` and `apply_dialog ()` can be used to initialize the dialog directly
 and read back the generated values. So a typical dialog function will look like this:
 
 ```
 def dialog (self, context, args):
-    dlg = gom.api.dialog.create ('/dialogs/create_element.gdlg')
-    self.initialize_dialog (dlg, args)
-    args = self.apply_dialog (dlg, gom.api.dialog.show (dlg))
+    dlg = gom.api.dialog.create (context, '/dialogs/create_element.gdlg')
+    self.initialize_dialog (context, dlg, args)
+    args = self.apply_dialog (dlg, gom.api.dialog.show (context, dlg))
     return args
 ```
 
@@ -1235,7 +1532,7 @@ the filter can be applied like this:
 
 ```
 def dialog (self, context, args):
-    dlg = gom.api.dialog.create ('/dialogs/create_element.gdlg')
+    dlg = gom.api.dialog.create (context, '/dialogs/create_element.gdlg')
     dlg.element.filter = self.element_filter
     ...
 
@@ -1535,12 +1832,39 @@ Custom actual point cloud element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
-```
+```python
 {
     "points":  [(x: float, y: float, z: float), ...], // List of points
     "normals": [(x: float, y: float, z: float), ...], // List of normals for each point
     "data": {...}                                     // Optional element data, stored with the element
 }
+```
+
+The `points` and `normals` lists must have the same length — each normal corresponds to the point at
+the same index.
+
+**Example**
+
+```python
+import numpy as np
+
+def compute (self, context, values):
+    # Generate a point cloud on a hemisphere
+    points = []
+    normals = []
+
+    for phi in np.linspace (0, 2 * np.pi, 36):
+        for theta in np.linspace (0, np.pi / 2, 10):
+            x = np.cos (phi) * np.sin (theta)
+            y = np.sin (phi) * np.sin (theta)
+            z = np.cos (theta)
+            points.append ((x * 10.0, y * 10.0, z * 10.0))
+            normals.append ((x, y, z))
+
+    return {
+        "points":  points,
+        "normals": normals
+    }
 ```
 
 #### gom.api.extensions.actuals.ProbeMeasuredCurve
@@ -1625,12 +1949,36 @@ Custom actual surface element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
-```
+```python
 {
     "vertices":  [(x: float, y: float, z: float), ...], // List of vertices
-    "triangles": [(i1: int, i2: int, i3: int), ...],    // List of triangles (vertices' indices)
+    "triangles": [(i1: int, i2: int, i3: int), ...],    // List of triangles (vertex indices, 0-based)
     "data": {...}                                       // Optional element data, stored with the element
 }
+```
+
+The `triangles` list contains triplets of indices into the `vertices` list, defining the surface mesh.
+
+**Example**
+
+```python
+def compute (self, context, values):
+    # A simple quad surface made of two triangles
+    vertices = [
+        (0.0, 0.0, 0.0),
+        (10.0, 0.0, 0.0),
+        (10.0, 10.0, 0.0),
+        (0.0, 10.0, 0.0)
+    ]
+    triangles = [
+        (0, 1, 2),
+        (0, 2, 3)
+    ]
+
+    return {
+        "vertices":  vertices,
+        "triangles": triangles
+    }
 ```
 
 #### gom.api.extensions.actuals.SurfaceCurve
@@ -1661,6 +2009,79 @@ The format of the `Curve` object is:
 
 Custom actual surface defects element
 
+A surface defects element represents a set of defect regions on a surface mesh. The defects are
+described as triangle meshes, where each defect is a separate mesh consisting of vertices and
+triangles. An optional outer hull mesh can be provided as a reference surface for the defect
+computation.
+
+The expected parameters from the element's `compute ()` function is a map with the following format:
+
+```python
+{
+    "vertices":  [                                              # List of vertex arrays, one per defect
+        [(x: float, y: float, z: float), ...],                 # Vertices of defect 1
+        [(x: float, y: float, z: float), ...],                 # Vertices of defect 2
+        ...
+    ],
+    "triangles": [                                              # List of triangle arrays, one per defect
+        [(i0: int, i1: int, i2: int), ...],                    # Triangles of defect 1 (vertex indices)
+        [(i0: int, i1: int, i2: int), ...],                    # Triangles of defect 2 (vertex indices)
+        ...
+    ],
+    "data": {...}                                               # Optional element data, stored with the element
+}
+```
+
+The number of vertex arrays and triangle arrays must be equal — each pair defines one defect mesh.
+Triangle indices refer to the vertices within the same defect (0-based).
+
+**Outer hull**
+
+An optional outer hull can be provided in two ways:
+
+1. As a reference to an existing element:
+
+```python
+{
+    "vertices": [...],
+    "triangles": [...],
+    "outer_hull": gom.app.project.actual_elements['My Surface'],  # Reference to an existing surface element
+}
+```
+
+2. As explicit mesh data:
+
+```python
+{
+    "vertices": [...],
+    "triangles": [...],
+    "outer_hull_vertices":  [(x: float, y: float, z: float), ...],  # Outer hull vertices
+    "outer_hull_triangles": [(i0: int, i1: int, i2: int), ...],     # Outer hull triangles (vertex indices)
+}
+```
+
+If no outer hull is provided, the defects are treated as standalone defect meshes.
+
+**Example**
+
+```python
+import numpy as np
+
+def compute (self, context, values):
+    # A single triangular defect
+    vertices = [
+        [(10.0, 0.0, 0.0), (11.0, 0.0, 0.0), (10.5, 1.0, 0.0)]
+    ]
+    triangles = [
+        [(0, 1, 2)]
+    ]
+
+    return {
+        "vertices": vertices,
+        "triangles": triangles
+    }
+```
+
 #### gom.api.extensions.actuals.ValueElement
 
 
@@ -1680,31 +2101,78 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 Custom actual volume element
 
-The expected parameters from the element's `compute ()` function is a map with the following formats:
+A volume element represents a 3D voxel dataset. The voxels are provided as a 3D NumPy array,
+and the volume's position and scale in 3D space is defined by a transformation — either as a
+simple voxel size vector or a full 4x4 transformation matrix.
 
-```
+The expected parameters from the element's `compute ()` function is a map with one of the following formats:
+
+**Format 1: Voxel size as a 3D vector**
+
+```python
 {
-    'voxel_data': data: np.array (shape=(x, y, z), dtype=np.float32), // Voxels of the volume
-    'transformation': (x: float, y: float, z: float),                 // Voxel size
-    "data": {...}                                                     // Optional element data, stored with the element
+    'voxel_data':      np.array (shape=(z, y, x), dtype=...),  # 3D voxel data
+    'transformation':  (sx: float, sy: float, sz: float),      # Voxel size per axis
+    "data": {...}                                               # Optional element data, stored with the element
 }
 ```
 
-or
+**Format 2: Full transformation matrix**
+
+```python
+{
+    'voxel_data':      np.array (shape=(z, y, x), dtype=...),  # 3D voxel data
+    'transformation':  gom.Mat4x4,                              # 4x4 transformation matrix
+    "data": {...}                                               # Optional element data, stored with the element
+}
+```
+
+The transformation matrix format is:
 
 ```
-{
-    'voxel_data': data: np.array (shape=(x, y, z), dtype=np.float32), // Voxels of the volume
-    'transformation': gom.Mat4x4,                                     // Transformation matrix of the volume
-    "data": {...}                                                     // Optional element data, stored with the element
-}
-
-# Format of the transformation matrix:
-
 [[ sx,  0,  0, tx],
  [  0, sy,  0, ty],
  [  0,  0, sz, tz],
  [  0,  0,  0,  1]]
+```
+
+**Supported voxel data types**
+
+The `voxel_data` array can use the following NumPy dtypes:
+`uint8`, `uint16`, `uint32`, `int8`, `int16`, `int32`, `float32`, `float64`.
+
+**Array shape convention**
+
+The shape `(z, y, x)` follows NumPy convention where the z-axis (depth) is the slowest-varying
+dimension and the x-axis is the fastest-varying dimension.
+
+**Constraints**
+
+- When using a voxel size vector, none of the axis values may be zero.
+- When using a transformation matrix, the determinant must not be zero (the matrix must not be singular).
+
+**Example**
+
+```python
+import numpy as np
+
+def compute (self, context, values):
+    # Create a 100x100x100 volume with 0.1 mm voxel size
+    voxels = np.zeros ((100, 100, 100), dtype=np.float32)
+
+    # Fill a sphere in the center
+    center = np.array ([50, 50, 50])
+    for z in range (100):
+        for y in range (100):
+            for x in range (100):
+                dist = np.sqrt ((x - center[0])**2 + (y - center[1])**2 + (z - center[2])**2)
+                if dist < 30:
+                    voxels[z, y, x] = 1.0
+
+    return {
+        'voxel_data':     voxels,
+        'transformation': (0.1, 0.1, 0.1)  # 0.1 mm voxel size in each direction
+    }
 ```
 
 #### gom.api.extensions.actuals.VolumeDefects
@@ -1712,73 +2180,448 @@ or
 
 Custom actual volume defects element
 
+A volume defects element represents a set of defect regions within a volumetric dataset. Like
+`SurfaceDefects`, the defects are described as triangle meshes — each defect is a separate mesh
+consisting of vertices and triangles. An optional outer hull provides the reference surface for
+the defect analysis.
+
+The expected parameters from the element's `compute ()` function is a map with the following format:
+
+```python
+{
+    "vertices":  [                                              # List of vertex arrays, one per defect
+        [(x: float, y: float, z: float), ...],                 # Vertices of defect 1
+        [(x: float, y: float, z: float), ...],                 # Vertices of defect 2
+        ...
+    ],
+    "triangles": [                                              # List of triangle arrays, one per defect
+        [(i0: int, i1: int, i2: int), ...],                    # Triangles of defect 1 (vertex indices)
+        [(i0: int, i1: int, i2: int), ...],                    # Triangles of defect 2 (vertex indices)
+        ...
+    ],
+    "data": {...}                                               # Optional element data, stored with the element
+}
+```
+
+The number of vertex arrays and triangle arrays must be equal — each pair defines one defect mesh.
+Triangle indices refer to the vertices within the same defect (0-based).
+
+**Outer hull**
+
+An optional outer hull can be provided in two ways:
+
+1. As a reference to an existing element:
+
+```python
+{
+    "vertices": [...],
+    "triangles": [...],
+    "outer_hull": gom.app.project.actual_elements['My Volume Mesh'],  # Reference to an existing element
+}
+```
+
+2. As explicit mesh data:
+
+```python
+{
+    "vertices": [...],
+    "triangles": [...],
+    "outer_hull_vertices":  [(x: float, y: float, z: float), ...],  # Outer hull vertices
+    "outer_hull_triangles": [(i0: int, i1: int, i2: int), ...],     # Outer hull triangles (vertex indices)
+}
+```
+
+If no outer hull is provided, the defects are treated as standalone defect meshes.
+
+**Example**
+
+```python
+import numpy as np
+
+def compute (self, context, values):
+    # A single tetrahedral defect inside a volume
+    vertices = [
+        [(5.0, 5.0, 5.0), (6.0, 5.0, 5.0), (5.5, 6.0, 5.0), (5.5, 5.5, 6.0)]
+    ]
+    triangles = [
+        [(0, 1, 2), (0, 1, 3), (0, 2, 3), (1, 2, 3)]
+    ]
+
+    return {
+        "vertices": vertices,
+        "triangles": triangles
+    }
+```
+
 #### gom.api.extensions.actuals.VolumeDefects2d
 
 
 Custom actual 2d volume defects element
 
-The expected parameters from the element's `compute ()` function is a map with one of the
-following formats:
+A 2D volume defects element represents defect contours that lie in a common plane. All contours
+must be coplanar. Optional outer hull contours and per-vertex normals can be provided for more
+precise defect characterization.
+
+The expected parameters from the element's `compute ()` function is a map with the following format:
 
 ```python
 {
-    "curves": [[(x: float, y: float, z: float), ...], ...], # Defect-related contours
-    "data": {...}                                           # Optional element data, stored with the element
+    "curves":                  [[(x: float, y: float, z: float), ...], ...],  # Defect contours (required)
+    "outer_contours":          [[(x: float, y: float, z: float), ...], ...],  # Outer hull contours (required, use [] if none)
+    "curves_normals":          [[(x: float, y: float, z: float), ...], ...],  # Optional normals for 'curves'
+    "outer_contours_normals":  [[(x: float, y: float, z: float), ...], ...],  # Optional normals for 'outer_contours'
+    "data": {...}                                                              # Optional element data, stored with the element
 }
 ```
 
-or
+**Important:** Both `curves` and `outer_contours` must always be present in the returned dictionary.
+If no outer hull contours are needed, pass an empty list `[]` for `outer_contours`.
+
+**Normals**
+
+The `curves_normals` and `outer_contours_normals` fields are optional. If omitted, normals are
+derived automatically. When provided:
+
+- Each normals list must match the structure and vertex count of its corresponding contour list.
+- Normals must not contain zero-length vectors.
+- Normals must lie in the defect plane (perpendicular component within tolerance is rejected).
+
+When no defect normals are provided, each curve is treated as an independent defect. When defect
+normals are provided, the first contour of a defect must point outward and following internal
+contours must alternate orientation, starting inward.
+
+**Constraints**
+
+- All contour points (from both `curves` and `outer_contours`) must be coplanar.
+- At least one of `curves` or `outer_contours` must be non-empty.
+
+**Example**
 
 ```python
-{
-    "curves": [[(x: float, y: float, z: float), ...], ...],                 # Defect-related contours
-    "outer_contours": [[(x: float, y: float, z: float), ...], ...],         # Optional outer hull contours
-    "curves_normals": [[(x: float, y: float, z: float), ...], ...],         # Optional normals for 'curves'
-    "outer_contours_normals": [[(x: float, y: float, z: float), ...], ...], # Optional normals for 'outer_contours'
-    "data": {...}                                                           # Optional element data, stored with the element
-}
-```
+import numpy as np
 
-Valid combinations are `curves` alone, `curves` with `outer_contours`, and both variants with
-optional `curves_normals` and `outer_contours_normals`. If normals are omitted for a contour set,
-they are derived automatically. When no defect normals are provided, each curve is treated as an
-independent defect. When defect normals are provided, the first contour of a defect must point
-outward and following internal contours must alternate orientation, starting inward. Each normals
-list must match the structure and vertex count of its corresponding contour list.
+def compute (self, context, values):
+    # A rectangular defect contour in the XY plane at z=5
+    defect = [
+        (10.0, 10.0, 5.0), (20.0, 10.0, 5.0),
+        (20.0, 20.0, 5.0), (10.0, 20.0, 5.0),
+        (10.0, 10.0, 5.0)  # Closed contour
+    ]
+
+    return {
+        "curves":          [defect],
+        "outer_contours":  []       # No outer hull contours
+    }
+```
 
 #### gom.api.extensions.actuals.VolumeRegion
 
 
 Custom actual volume region element
 
+A volume region element defines a sub-region within a linked volume. The region is specified as a
+3D binary mask of type `uint8`, where non-zero voxels belong to the region. The mask does not need
+to cover the full volume — an offset specifies where the mask is placed within the parent volume's
+voxel grid.
+
+The expected parameters from the element's `compute ()` function is a map with the following format:
+
+```python
+{
+    "voxel_data":      np.array (dtype=np.uint8, shape=(z, y, x)),  # Region mask (non-zero = inside region)
+    "offset":          (ox: float, oy: float, oz: float),           # Offset in voxel coordinates
+    "volume_element":  gom.Item,                                    # Reference to the source volume element
+    "data": {...}                                                   # Optional element data, stored with the element
+}
+```
+
+**Constraints**
+
+- `voxel_data` must be a 3D array of dtype `uint8`. The shape `(z, y, x)` follows NumPy convention
+  where z is the slowest-varying dimension.
+- `offset` specifies the position of the region within the parent volume in voxel coordinates.
+  The offset values are rounded to the nearest integer internally and must be non-negative.
+- The region (offset + size) must not exceed the dimensions of the referenced volume.
+- `volume_element` must be a reference to a linked volume element in the project.
+
+**Example**
+
+```python
+import numpy as np
+
+def compute (self, context, values):
+    volume = values['volume']  # Reference to a linked volume element from a dialog widget
+
+    # Define a 50x50x50 voxel region starting at offset (10, 20, 30)
+    region = np.ones ((50, 50, 50), dtype=np.uint8)
+
+    return {
+        "voxel_data":     region,
+        "offset":         (10.0, 20.0, 30.0),
+        "volume_element": volume
+    }
+```
+
 #### gom.api.extensions.actuals.VolumeSection
 
 
 Custom actual volume section element
+
+A volume section element represents a 2D cross-section through volumetric data. The section is
+defined as a 2D image of floating-point pixel values, optionally positioned in 3D space by a
+transformation matrix.
+
+The expected parameters from the element's `compute ()` function is a map with the following format:
+
+```python
+{
+    "pixel_data":      np.array (dtype=np.float32, shape=(height, width)),  # 2D section pixel data
+    "transformation":  gom.Mat4x4,                                          # Optional: 4x4 transformation matrix
+    "data": {...}                                                           # Optional element data, stored with the element
+}
+```
+
+**Parameters**
+
+- `pixel_data` (required): A 2D NumPy array of dtype `float32` with shape `(height, width)`.
+  Each pixel value represents the reconstructed grey value at that position in the section plane.
+- `transformation` (optional): A 4x4 transformation matrix (`gom.Mat4x4`) that positions and
+  orients the section plane in 3D space. If omitted, the section is placed at the origin.
+  The matrix format is:
+
+  ```
+  [[ sx,  0,  0, tx],
+   [  0, sy,  0, ty],
+   [  0,  0, sz, tz],
+   [  0,  0,  0,  1]]
+  ```
+
+**Example**
+
+```python
+import numpy as np
+
+def compute (self, context, values):
+    # Create a 256x256 section with a gradient pattern
+    pixel_data = np.zeros ((256, 256), dtype=np.float32)
+    for y in range (256):
+        for x in range (256):
+            pixel_data[y, x] = float (x + y) / 512.0
+
+    return {
+        "pixel_data": pixel_data
+    }
+```
 
 #### gom.api.extensions.actuals.VolumeSegmentation
 
 
 Custom actual volume segmentation element
 
+A volume segmentation element partitions a linked volume into labeled segments. Each voxel is
+assigned a segment label (an integer from 0 to `number_of_segments - 1`). The segmentation labels
+are provided as a 3D NumPy array of type `uint8` with the same dimensions as the referenced volume.
+
+The expected parameters from the element's `compute ()` function is a map with the following format:
+
+```python
+{
+    "segmentation_labels": np.array (dtype=np.uint8, shape=(z, y, x)),  # Segment label per voxel
+    "number_of_segments":  n: int,                                      # Number of distinct segments (2-8)
+    "volume_element":      gom.Item,                                    # Reference to the source volume element
+    "data": {...}                                                       # Optional element data, stored with the element
+}
+```
+
+**Constraints**
+
+- `segmentation_labels` must be a 3D array of dtype `uint8`.
+- The array shape `(z, y, x)` must match the voxel dimensions of the referenced volume element.
+  Note that the NumPy shape convention is `(z, y, x)` — the z-axis is the slowest-varying dimension.
+- `number_of_segments` must be between 2 and 8 (inclusive).
+- `volume_element` must be a reference to a linked volume element in the project.
+
+**Example**
+
+```python
+import numpy as np
+
+def compute (self, context, values):
+    volume = values['volume']  # Reference to a linked volume element from a dialog widget
+    volume_data = np.array (volume.data.voxel_data)
+
+    # Simple threshold segmentation into 2 segments
+    labels = np.zeros (volume_data.shape, dtype=np.uint8)
+    labels[volume_data > 128] = 1
+
+    return {
+        "segmentation_labels": labels,
+        "number_of_segments":  2,
+        "volume_element":      volume
+    }
+```
+
 ### gom.api.extensions.diagrams
 
 Custom diagrams
 
-The classes in this module enable the user to define custom diagrams. A custom diagram implements an
-interface to transform element data into data that can be rendered by a corresponding Javascript renderer
-implementation in the diagram view.
+Custom diagrams allow apps to render arbitrary, interactive diagrams inside ZEISS INSPECT
+diagram views. A custom diagram is a Python service contribution that transforms
+element data into a format consumable by a JavaScript renderer running in the
+diagram view's embedded web engine.
+
+Architecture overview
+---------------------
+
+The custom diagram system follows a three-layer pipeline:
+
+```mermaid
+flowchart TD
+    A["**Custom Element** (Python service)<br/>finish() attaches diagram payloads<br/>via add_diagram_data()"]
+    --> B["**Custom Diagram** (Python service)<br/>CustomDiagram / SVGDiagram<br/>plot() transforms element data<br/>into renderer-specific output"]
+    --> C["**JavaScript Renderer** (diagram view)<br/>Renders into the HTML canvas<br/>Handles hover, click and tooltip"]
+```
+
+Getting started
+---------------
+
+1. **Create a custom element** that produces diagram data in its ``finish()`` method:
+
+   ```python
+   def finish(self, context, results_states_map):
+       diagram_data = []
+       self.add_diagram_data(
+           diagram_data=diagram_data,
+           diagram_id='SVGDiagram',
+           service_id='gom.api.endpoint.my_service',
+           element_data=results_states_map['results'][0],
+       )
+       results_states_map['diagram_data'] = diagram_data
+   ```
+
+2. **Create a custom diagram contribution** that implements ``plot()``:
+
+   ```python
+   import gom
+   from gom import apicontribution
+   from gom.api.extensions.diagrams import SVGDiagram
+   from gom.api.extensions.diagrams.matplotlib_tools import setup_plot, create_svg
+   import matplotlib.pyplot as plt
+
+   @apicontribution
+   class MyDiagram(SVGDiagram):
+
+       def __init__(self):
+           super().__init__(
+               id='my.app.diagram',
+               description='My Custom Diagram',
+           )
+
+       def plot(self, view, element_data):
+           fig = setup_plot(plt, view, adjust_dpi=True)
+           ax = fig.add_subplot(111)
+
+           for entry in element_data:
+               data = entry['data']
+               ax.plot(data['x_values'], data['y_values'])
+
+           return create_svg(plt, view)
+
+   gom.run_api()
+   ```
+
+3. **Register both as services** in the app's ``metainfo.json`` so they are
+   started automatically.
+
+Key classes
+-----------
+
+``CustomDiagram``
+    Abstract base class for custom diagram contributions. Subclass this when you
+    need full control over the renderer type and output format.
+
+``SVGDiagram``
+    Specialized base for diagrams rendered as SVG. Provides helper functions
+    (``finish_plot``, ``add_element_to_overlay``, ``get_overlay_tag``) and automatic
+    output sanitization. This is the recommended starting point for most diagrams.
+
+``CustomDiagramView``
+    Integration class bridging custom diagrams into the custom view framework.
+    Used for advanced diagram views with dedicated JavaScript bundles.
+
+Helper module
+-------------
+
+``gom.api.extensions.diagrams.matplotlib_tools``
+    Provides ``setup_plot()`` and ``create_svg()`` for matplotlib-based SVG generation.
+    Handles DPI scaling, figure sizing, and SVG export so the output fits cleanly
+    into the diagram view canvas and report snapshots.
 
 #### gom.api.extensions.diagrams.CustomDiagram
 
 
-This class is used to defined a polisher for a custom diagram that processes a collection of raw
-element (diagram) data into a format used by a Javascript based renderer.
+Abstract base class for custom diagram contributions.
 
-Implement the `plot ()` function to receive and polish diagram data that is marked with the corresponding contribution id.
+A custom diagram is a Python service contribution that receives element data from one or more
+custom elements and transforms it into a format suitable for a JavaScript renderer in the
+diagram view. The typical data flow is:
 
-Optionally implement the `partitions ()` function to partition the full set of diagram data into subsets
-that are rendered separately using the `plot ()` function.
+1. A custom element's ``finish()`` method calls ``add_diagram_data()`` to attach diagram
+   payloads (including a ``diagram_id`` specifying the renderer type and a ``service_id``
+   identifying this diagram contribution).
+2. The framework collects all diagram data entries for the active diagram view, groups
+   them by contribution, and calls ``plot_all()`` on the matching ``CustomDiagram`` instance.
+3. ``plot_all()`` determines partitions via ``partitions()``, then calls ``plot()`` once
+   per partition with the corresponding subset of element data.
+4. The return value of ``plot()`` is forwarded to the JavaScript renderer for display.
+
+Subclassing guide
+-----------------
+
+- **Required**: Override ``plot(view, element_data)`` to transform element data into
+  renderer-specific output. The ``view`` dictionary provides canvas dimensions and font
+  settings. The ``element_data`` list contains one dictionary per element with keys
+  ``'element'`` (the element reference), ``'data'`` (the custom data dict), and ``'type'``
+  (the element type string).
+
+- **Optional**: Override ``partitions(element_data)`` to split the element data into
+  multiple subsets. Each subset is rendered as a separate diagram (subplot). The default
+  implementation returns a single partition containing all elements.
+
+- **Optional**: Override ``event(element_name, element_uuid, event_data)`` to handle
+  user interactions (clicks) on the diagram. Return ``finish_event(cmd_script, params)``
+  to trigger execution of a follow-up script command.
+
+For SVG-based diagrams, prefer subclassing ``SVGDiagram`` instead — it provides
+additional helpers for SVG output, interactive overlays, and automatic output sanitization.
+
+Example
+-------
+
+```python
+import gom
+from gom import apicontribution
+from gom.api.extensions.diagrams import CustomDiagram
+
+@apicontribution
+class MyRawDiagram(CustomDiagram):
+
+    def __init__(self):
+        super().__init__(
+            id='my.app.raw_diagram',
+            description='Raw Data Diagram',
+            diagram_type='MyCustomRenderer',
+        )
+
+    def plot(self, view, element_data):
+        # Transform element data into renderer-specific format
+        return {
+            'labels': [e['element'].name for e in element_data],
+            'values': [e['data']['value'] for e in element_data],
+        }
+
+gom.run_api()
+```
 
 ##### gom.api.extensions.diagrams.CustomDiagram.Token
 
@@ -1821,91 +2664,139 @@ For internal use only.
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagram.event(self: Any, element_name: str, element_uuid: str, event_data: Any): None
 
-:param element_name: String containing the element identification (name)
+:param element_name: Human-readable element name (e.g., ``'Point 1'``).
 :type element_name: str
-:param element_uuid: String containing the element uuid for internal identification
+:param element_uuid: Internal UUID string identifying the element.
 :type element_uuid: str
-:param event_data: Contains current mouse coordinates and button presses
+:param event_data: Dictionary with mouse event details including coordinates and button state.
 :type event_data: Any
-:return: Dictionary with finish_event(executable script: str, parameters: Any)
+:return: ``None`` to ignore the event, or a dictionary produced by ``finish_event(cmd_script, params)`` to trigger a follow-up script command.
 :rtype: None
 ```
 
-This function is called upon interaction with the diagram (except hover)
-The user can return a script to be executed when this function is called
+Handle user interaction with the diagram (clicks, but not hover).
+
+Override this method to react to click events on diagram elements. The method
+receives the name and UUID of the element that was interacted with, plus details
+about the mouse event. Use ``finish_event()`` to return a follow-up script command.
+
+Example:
+
+```python
+def event(self, element_name, element_uuid, event_data):
+    return self.finish_event('my_click_handler', {'uuid': element_uuid})
+```
 
 ##### gom.api.extensions.diagrams.CustomDiagram.finish_event
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagram.finish_event(self: Any, cmd_script: str, params: Any): None
 
-:param cmd_script: Identification of the script command to be executed as a follow-up to this event
+:param cmd_script: Identifier of the script command to execute as a follow-up to the diagram interaction event.
 :type cmd_script: str
-:param data_script: Optional Parameters to be passed to said script
-:return: Dictionary with {"cmd_script": cmd_script, "data_script": params}
+:param params: Optional parameters to pass to the script command. Can be any JSON-serializable value.
+:type params: Any
+:return: Dictionary ``{'cmd_script': cmd_script, 'data_script': params}``.
 :rtype: None
 ```
 
-This function is called to help return event data in the correct format
+Build the return dictionary for ``event()`` in the format expected by the framework.
+
+Example:
+
+```python
+def event(self, element_name, element_uuid, event_data):
+    return self.finish_event('my_click_handler', {'uuid': element_uuid})
+```
 
 ##### gom.api.extensions.diagrams.CustomDiagram.partitions
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagram.partitions(self: Any, element_data: List[Dict[str, Any]]): None
 
-:param element_data: List of dictionaries containing custom element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:param element_data: List of element data dictionaries (same format as in ``plot()``).
 :type element_data: List[Dict[str, Any]]
-:return: List of Lists of int: each inner list represents one partition and contains the indices of the elements to be used for that partition
+:return: List of lists of int. Each inner list contains element indices for one partition. Partitions may share elements (i.e., the same index can appear in multiple partitions).
 :rtype: None
 ```
 
-This function is called to determine the partitions to create multiple plots based on one element data set.
-Each partition is defined by a list of indices of elements to be used.
-Each data subset will be passed separately to the `plot()` function and be rendered as a separate diagram.
-The index of each partition will be available through the 'subplot' key in the view parameters of the `plot()` function call.
+Determine how to split element data into multiple subplots.
 
-@note Partitions may share elements
+Override this method to render multiple separate diagrams from a single set of
+element data. Each partition is a list of indices into ``element_data``. The
+framework calls ``plot()`` once per partition, passing only the elements at the
+specified indices. The partition's zero-based index is available as
+``view['subplot']`` inside ``plot()``.
+
+The default implementation returns a single partition containing all elements,
+resulting in one diagram.
+
+Example — split elements by type into separate subplots:
+
+```python
+def partitions(self, element_data):
+    by_type = {}
+    for i, entry in enumerate(element_data):
+        by_type.setdefault(entry['type'], []).append(i)
+    return list(by_type.values())
+```
 
 ##### gom.api.extensions.diagrams.CustomDiagram.plot
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagram.plot(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
 
-:param view: Dictionary with view canvas data and subplot index ('width' (int), 'height' (int), 'dpi' (float), 'font' (int), 'subplot' (int))
+:param view: Dictionary with canvas dimensions and rendering context: - ``'width'`` (int): Canvas width in pixels. - ``'height'`` (int): Canvas height in pixels. - ``'dpi'`` (float): Display resolution (dots per inch). - ``'font'`` (dict): Font settings with at least ``'size'`` (int). - ``'subplot'`` (int): Zero-based index of the current partition, as determined by ``partitions()``. Always ``0`` if partitions are not used.
 :type view: Dict[str, Any]
-:param element_data: List of dictionaries containing custom element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:param element_data: List of element data dictionaries. Each dictionary contains: - ``'element'`` (object): Reference to the ZEISS INSPECT element. Can be used to query element properties like ``element.name``. - ``'data'`` (dict): The custom data dictionary as returned by the element's ``finish()`` method via ``add_diagram_data()``. - ``'type'`` (str): The element type identifier string.
 :type element_data: List[Dict[str, Any]]
-:return: Data that is passed to the corresponding Javascript diagram type for rendering
+:return: Data forwarded to the JavaScript renderer's ``render2d()`` method. The expected format depends on the ``diagram_type``. For ``SVGDiagram``, return either a raw SVG string or a dictionary produced by ``finish_plot()``.
 :rtype: None
 ```
 
-This function is called to create a plot based on a set of element data.
+Transform element data into renderer-specific output for one partition.
+
+This is the main method to override. It is called once per partition (or once for
+all elements if ``partitions()`` is not overridden).
 
 ##### gom.api.extensions.diagrams.CustomDiagram.plot_all
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagram.plot_all(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
 
-:param view:: Dictionary with view canvas data ('width' (int), 'height' (int), 'dpi' (float), 'font' (int)) used for the diagrams of all partitions
-:param element_data: List of dictionaries containing custom element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:param view: Dictionary with canvas dimensions and rendering context: - ``'width'`` (int): Canvas width in pixels. - ``'height'`` (int): Canvas height in pixels. - ``'dpi'`` (float): Display resolution. - ``'font'`` (dict): Font settings with at least ``'size'`` (int).
+:type view: Dict[str, Any]
+:param element_data: List of element data dictionaries, each containing: - ``'element'`` (object): Reference to the ZEISS INSPECT element. - ``'data'`` (dict): Custom data from the element's ``finish()``. - ``'type'`` (str): Element type identifier string.
 :type element_data: List[Dict[str, Any]]
-:return: List of dictionaries: each dictionary contains the keys 'plot' (the plot information for this partition) and 'indices' (the indices of the elements used for this partition)
+:return: List of dictionaries, each with keys ``'plot'`` (the plot data for one partition) and ``'indices'`` (the element indices used for that partition).
 :rtype: None
 ```
 
 Internal coordination function for the overall plot process.
 
-This functions calls the (potentially) user defined method `partitions()` to determine
-the partitions of this diagram and then calls `plot()` for each to data partition to generate a diagram.
+Calls ``partitions()`` to determine data subsets, then calls ``plot()`` once per
+partition to produce the final diagram output. Users should not call or override
+this method — override ``plot()`` and optionally ``partitions()`` instead.
 
 ##### gom.api.extensions.diagrams.CustomDiagram.sanitize_plot_data
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagram.sanitize_plot_data(self: Any, plot_data: Any): None
 ```
 
-This function is used to sanitize the output of the user defined 'plot' function
+Sanitize the output of the user-defined ``plot()`` function.
+
+The base implementation returns the data unchanged. ``SVGDiagram`` overrides this
+to normalize raw SVG strings into the full dictionary format expected by its
+JavaScript renderer.
 
 #### gom.api.extensions.diagrams.CustomDiagramView
 
 
-Integration class for custom diagram in the custom view framework.
-For now, custom diagram functionality is copied. 
+Integration class for custom diagrams in the custom view framework.
+
+``CustomDiagramView`` bridges the custom view system and the diagram pipeline.
+It exposes a ``plot()`` / ``event()`` interface similar to ``CustomDiagram``, but
+operates within the custom view lifecycle instead of the standalone diagram
+contribution system.
+
+@note This class currently duplicates parts of the ``CustomDiagram`` interface.
+      Prefer ``CustomDiagram`` or ``SVGDiagram`` for new diagram contributions.
 
 ##### gom.api.extensions.diagrams.CustomDiagramView.__init__
 
@@ -1935,18 +2826,19 @@ Constructor
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagramView.event(self: Any, element_name: str, element_uuid: str, event_data: Any): None
 
-:param element_name: String containing the element identification (name)
+:param element_name: Human-readable element name.
 :type element_name: str
-:param element_uuid: String containing the element uuid for internal identification
+:param element_uuid: Internal UUID string identifying the element.
 :type element_uuid: str
-:param event_data: Contains current mouse coordinates and button presses
+:param event_data: Dictionary with mouse event details.
 :type event_data: Any
-:return: Dictionary with `finish_event(executable script: str, parameters: Any)`
+:return: ``None`` or a follow-up command dictionary.
 :rtype: None
 ```
 
-This function is called upon interaction with the diagram (except hover)
-The user can return a script to be executed when this function is called
+Handle user interaction with the diagram (clicks, but not hover).
+
+See ``CustomDiagram.event()`` for a detailed description of the parameters.
 
 ##### gom.api.extensions.diagrams.CustomDiagramView.finish_event
 
@@ -1982,45 +2874,93 @@ The index of each partition will be available through the 'subplot' key in the v
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagramView.plot(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
 
-:param view: Dictionary with view canvas data and subplot index ('width' (int), 'height' (int), 'dpi' (float), 'font' (int), 'subplot' (int))
+:param view: Dictionary with canvas dimensions and rendering context.
 :type view: Dict[str, Any]
-:param element_data: List of dictionaries containing custom element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:param element_data: List of element data dictionaries.
 :type element_data: List[Dict[str, Any]]
-:return: Data that is passed to the corresponding Javascript diagram type for rendering
+:return: Data forwarded to the JavaScript renderer.
 :rtype: None
 ```
 
-This function is called to create a plot based on a set of element data.
+Transform element data into renderer-specific output.
+
+Override this method to generate the diagram. See ``CustomDiagram.plot()`` for
+a detailed description of the parameters and return value.
 
 ##### gom.api.extensions.diagrams.CustomDiagramView.plot_all
 
 ```{py:function} gom.api.extensions.diagrams.CustomDiagramView.plot_all(self: Any, view: Dict[str, Any], element_data: List[Dict[str, Any]]): None
 
-:param view:: Dictionary with view canvas data ('width' (int), 'height' (int), 'dpi' (float), 'font' (int)) used for the diagrams of all partitions
-:param element_data: List of dictionaries containing custom element references and context data ('element' (object), 'data' (dict), 'type' (str))
+:param view: Dictionary with canvas dimensions (``'width'``, ``'height'``, ``'dpi'``, ``'font'``).
+:type view: Dict[str, Any]
+:param element_data: List of element data dictionaries.
 :type element_data: List[Dict[str, Any]]
-:return: List of dictionaries: each dictionary contains the keys 'plot' (the plot information for this partition) and 'indices' (the indices of the elements used for this partition)
+:return: Single-entry list containing the plot data and element indices.
 :rtype: None
 ```
 
 Internal coordination function for the overall plot process.
 
-This functions calls the (potentially) user defined method 'partitions()' to determine
-the partitions of this diagram and then calls 'plot()' for each to data partition to generate a diagram.
+Calls ``plot()`` with the full element data set and wraps the result into
+the list format expected by the diagram renderer.
 
 #### gom.api.extensions.diagrams.SVGDiagram
 
 
-Specialized contribution base for custom diagrams that are displayed via the SVGDiagram renderer type provided by the Inspect app.
+Specialized base class for custom diagrams rendered as SVG images.
 
-Provides the helper functions `finish_plot` and `add_element_coord` to streamline the creation of the plot data for the SVGRenderer.
+``SVGDiagram`` extends ``CustomDiagram`` with helpers for the built-in
+``SVGDiagram`` JavaScript renderer that ships with ZEISS INSPECT. It is the
+recommended base class when diagrams are generated as SVG (for example via
+matplotlib).
 
-In the most basic form, implement the `plot` function to return a stringified svg plot.
-Such data will automatically be sanitized to the full output format.
+Features
+--------
 
-For additional interactivity, implement the `plot` function by returning data using the `finish_plot(svg_string, overlay)` helper,
-where `svg_string` is the stringified svg plot
-and `overlay` is a point overlay for interaction, that can be created using the `add_element_coord` helper function.
+- **Automatic output sanitization:** ``plot()`` can return a raw SVG string
+  *or* a dictionary produced by ``finish_plot()``. Raw strings are wrapped
+  into the expected dictionary format automatically.
+- **Point overlay for interactivity:** Use ``add_element_to_overlay()`` to
+  register element positions (relative coordinates) so the renderer can
+  highlight nearest elements and dispatch click events.
+- **Auto-generated overlay:** Set ``RenderConfigToken.AUTO_GENERATED_OVERLAY_USE``
+  to ``True`` and wrap each element's SVG group with the tag returned by
+  ``get_overlay_tag(element_uuid)``. The renderer will automatically extract
+  bounding boxes from the tagged SVG groups.
+- **Render configuration:** Pass a ``render_config`` dictionary to
+  ``finish_plot()`` to control debug overlays, marker styles, tooltips, and
+  caching. See ``RenderConfigToken`` for the full list of options.
+
+Getting Started
+---------------
+
+```python
+import gom
+from gom import apicontribution
+from gom.api.extensions.diagrams import SVGDiagram
+from gom.api.extensions.diagrams.matplotlib_tools import setup_plot, create_svg
+import matplotlib
+matplotlib.use('agg')  # non-interactive backend
+import matplotlib.pyplot as plt
+
+@apicontribution
+class MyBarChart(SVGDiagram):
+
+    def __init__(self):
+        super().__init__(
+            id='my.app.bar_chart',
+            description='Bar Chart',
+        )
+
+    def plot(self, view, element_data):
+        fig, ax = setup_plot(plt, view)
+        names  = [e['element'].name for e in element_data]
+        values = [e['data']['value'] for e in element_data]
+        ax.bar(names, values)
+        return create_svg(plt, view)
+
+gom.run_api()
+```
 
 ##### gom.api.extensions.diagrams.SVGDiagram.RenderConfigToken
 
@@ -2080,60 +3020,123 @@ Token identifiers for the SVGDiagram renderer data format
 
 ```{py:function} gom.api.extensions.diagrams.SVGDiagram.add_element_to_overlay(self: Any, overlay: Dict[str, Dict[str, Any]], element_uuid: Any, interaction_point: Tuple[float, float], element_name: str, tooltip: Any, custom_interaction: Any): None
 
-:param overlay: Dict matching element uuids to the information about that element, that is returned with the added entry
+:param overlay: Overlay dictionary that is being built up. Pass an empty ``{}`` dict on first call.
 :type overlay: Dict[str, Dict[str, Any]]
-:param element_name: Optional readable element identification
-:type element_name: str
-:param element_uuid: 'uuid' of the element that is being added
+:param element_uuid: UUID of the element to register. If falsy, the call is a no-op.
 :type element_uuid: Any
-:param tooltip: Optional tooltip to be displayed when hovering the element
-:type tooltip: Any
-:param interaction_point: Interaction coordinates (x, y) for the element that is being added. Should be in relative coordinates to width and height of the plot (see matplotlib_tools - get_display_coords)
+:param interaction_point: ``(x, y)`` tuple in **relative coordinates** (0.0–1.0) with respect to the plot's ``width`` and ``height``. Use ``matplotlib_tools.get_display_coords()`` to convert data coordinates to relative coordinates.
 :type interaction_point: Tuple[float, float]
-:param custom_interaction: Flag that, if set to any truthy value, calls the event function when the specific element is interacted with. Set for the specific interaction point (if given), globally for this element otherwise
+:param element_name: Human-readable element name shown in the tooltip.
+:type element_name: str
+:param tooltip: Tooltip text displayed when hovering the element.
+:type tooltip: Any
+:param custom_interaction: If set to any truthy value, the ``event()`` method is called when this element is clicked. Applied to the specific interaction point if one is given, or globally for this element otherwise.
 :type custom_interaction: Any
-:return: overlay, dictionary updated with new information for the given element
+:return: The same ``overlay`` dictionary, updated in-place.
 :rtype: None
 ```
 
-This function is called to add element information to the overlay interaction dictionary.
-Calling the function multiple times for the same element adds the interaction points to a list.
-Other properties for the element are updated if new valid values are given.
+Register an element in the point-based interaction overlay.
+
+Call this method once per element (or multiple times for different interaction
+points of the same element) to build the ``overlay`` dictionary that is passed
+to ``finish_plot()``. The renderer uses the overlay to determine which element
+is closest to the mouse cursor and to dispatch click events.
+
+Calling the function multiple times for the **same** ``element_uuid`` appends
+additional interaction points. Other properties (``element_name``, ``tooltip``)
+are updated if new non-empty values are provided.
+
+Example:
+
+```python
+overlay = {}
+for entry in element_data:
+    uuid = entry['element'].get('uuid')
+    self.add_element_to_overlay(
+        overlay, uuid, (rel_x, rel_y),
+        element_name=entry['element'].name,
+        tooltip=f"{entry['element'].name}: {entry['data']['value']}",
+    )
+return self.finish_plot(svg, overlay)
+```
 
 ##### gom.api.extensions.diagrams.SVGDiagram.finish_plot
 
 ```{py:function} gom.api.extensions.diagrams.SVGDiagram.finish_plot(self: Any, svg_string: str, overlay: List, render_config: Dict): None
 
-:param svg_string: List of element coordinates that is returned with the added entry
+:param svg_string: SVG markup string representing the plot (e.g., the output of ``matplotlib_tools.create_svg()``).
 :type svg_string: str
-:param overlay: Point overlay for interaction
+:param overlay: Point overlay dictionary for interactivity, built via ``add_element_to_overlay()``. Defaults to an empty list (no interactive overlay).
 :type overlay: List
-:param render_config: Dictionary with optional render settings
+:param render_config: Optional dictionary with renderer settings. See ``RenderConfigToken`` for available keys.
 :type render_config: Dict
-:return: Dictionary with svg_string, overlay and diagram_id as keys
+:return: Dictionary with keys ``'svg_string'``, ``'overlay'``, ``'render_config'``, and ``'diagram_id'``.
 :rtype: None
 ```
 
-This function is called to help return plot data for the SVGDiagram renderer in the correct format.
+Build the plot result dictionary in the format expected by the SVGDiagram renderer.
+
+Call this from ``plot()`` to produce a well-formed return value. If ``plot()``
+returns a raw SVG string instead, ``sanitize_plot_data()`` calls this method
+internally.
+
+Example:
+
+```python
+def plot(self, view, element_data):
+    fig, ax = setup_plot(plt, view)
+    # ... draw plot ...
+    svg = create_svg(plt, view)
+    overlay = {}
+    for e in element_data:
+        self.add_element_to_overlay(
+            overlay, e['element'].get('uuid'), (x, y),
+            element_name=e['element'].name)
+    return self.finish_plot(svg, overlay)
+```
 
 ##### gom.api.extensions.diagrams.SVGDiagram.get_overlay_tag
 
 ```{py:function} gom.api.extensions.diagrams.SVGDiagram.get_overlay_tag(self: Any, element_uuid: str): str
 
-:param element_uuid: `uuid` of the element corresponding to the tag
+:param element_uuid: UUID of the element.
 :type element_uuid: str
+:return: Tag string in the format ``'tag-<element_uuid>-tag'``.
+:rtype: str
 ```
 
-Get the tag for the automatic SVG overlay generation based on the element `uuid`
+Build the SVG group tag for the auto-generated overlay feature.
+
+When ``RenderConfigToken.AUTO_GENERATED_OVERLAY_USE`` is enabled, the renderer
+scans the SVG markup for groups whose ``id`` attribute matches the pattern
+``tag-<uuid>-tag``. Wrap each element's SVG content in a ``<g>`` tag with this
+id to let the renderer automatically compute hitboxes.
+
+Example:
+
+```python
+# Inside matplotlib drawing code
+with plt.rc_context():
+    group_id = self.get_overlay_tag(uuid)
+    ax.bar(..., gid=group_id)
+```
 
 ##### gom.api.extensions.diagrams.SVGDiagram.sanitize_plot_data
 
 ```{py:function} gom.api.extensions.diagrams.SVGDiagram.sanitize_plot_data(self: Any, plot_data: Any): None
 ```
 
-Sanitize the data returned by the user defined `plot()` function.
+Normalize the ``plot()`` return value into the dictionary format expected by the
+SVGDiagram JavaScript renderer.
 
-The SVGDiagram renderer expects a dictionary with fields `svg_string`, `overlay` and `diagram_id`.
+- If ``plot_data`` is a raw SVG string, it is wrapped via ``finish_plot()``.
+- If it is a dictionary without a ``'svg_string'`` key, it is treated as raw data.
+- Otherwise, missing keys (``'overlay'``, ``'diagram_id'``) are filled in
+  automatically.
+
+Users do not need to call this method directly — it is invoked internally by
+``plot_all()`` after each call to ``plot()``.
 
 #### gom.api.extensions.diagrams.ScriptedDiagram
 
@@ -2149,84 +3152,254 @@ Deprecated alias for `CustomDiagram`. Use `CustomDiagram` instead.
 
 Custom curve inspection
 
+A curve inspection computes point-wise deviation values along a curve element. Each point on the
+target curve receives an individual actual value, and a corresponding nominal value is provided
+either per-point or as a single common reference. This inspection type is used for section curve
+analysis, profile checks, or any measurement where deviations are distributed along a 1D path.
+
+The number of actual values must match the number of points in the target curve element. The
+framework maps each value in the ``"actual_values"`` list to the corresponding curve point by index.
+The point order is determined by the target element's internal representation.
+
 Please see the base class `CustomInspection` for a discussion of the properties all custom inspection types
-have in common.
+have in common, including target element handling, dimensions, tolerances, and the element lifecycle.
 
 **Return value**
 
-The expected parameters from the elements `self.compute ()` function is a map with the following format:
+The `compute()` function must return a dictionary with the following keys. Two formats are supported
+for specifying nominal values — choose the one that fits your use case:
+
+**Format A: Per-point nominal values**
+
+Use this format when each curve point has an individual nominal value:
 
 ```
 {
-    "actual_values": [float, ...]  // Deviations
-    "nominal_values": [float, ...] // Nominal values
-
-     ...or alternatively...
-
-    "nominal_value": float,        // Alternative: Single common nominal value
-    "target_element": gom.Item,    // Inspected element
-    "data": {...}                  // Optional element data, stored with the element
+    "actual_values": [float, ...],    # Per-point actual values (one per curve point)
+    "nominal_values": [float, ...],   # Per-point nominal values (same length as actual_values)
+    "target_element": gom.Item,       # The curve element being inspected
+    "data": {...}                     # Optional: custom data stored with the element
 }
 ```
+
+**Format B: Common nominal value**
+
+Use this format when all curve points share the same nominal value:
+
+```
+{
+    "actual_values": [float, ...],    # Per-point actual values (one per curve point)
+    "nominal_value": float,           # Single nominal value applied to all points
+    "target_element": gom.Item,       # The curve element being inspected
+    "data": {...}                     # Optional: custom data stored with the element
+}
+```
+
+**Key descriptions:**
+
+- ``"actual_values"`` — A list or tuple of `float` values, one per curve point. Each value represents
+  the actual (measured) value at that point, in the base unit of the chosen dimension. The length
+  must match the number of points in the target curve element.
+- ``"nominal_values"`` — (Format A) A list or tuple of `float` values of the same length as
+  ``"actual_values"``. Each entry is the nominal reference value for the corresponding curve point.
+- ``"nominal_value"`` — (Format B) A single `float` used as the nominal reference for all curve points.
+  This is a convenience shorthand for the common case where all points share the same nominal.
+- ``"target_element"`` — The curve element being inspected. Must be a `gom.Item`.
+- ``"data"`` — Optional dictionary for persisting custom metadata with the element.
+
+The framework computes the per-point deviation as ``actual_values[i] - nominal_values[i]``
+(or ``actual_values[i] - nominal_value`` in Format B) automatically.
+
+**Note:** You must provide either ``"nominal_values"`` (list) or ``"nominal_value"`` (scalar), but
+not both. If ``"nominal_value"`` cannot be parsed as a single float, the framework falls back to
+expecting ``"nominal_values"`` as a list.
+
+**Minimal example**
+
+```
+import gom
+import gom.api.extensions.inspections
+from gom import apicontribution
+
+@apicontribution
+class SectionDeviationCheck(gom.api.extensions.inspections.Curve):
+
+    def __init__(self):
+        super().__init__(
+            id='examples.section_deviation',
+            description='Section Deviation Check',
+            dimension='length',
+            abbreviation='SecDev'
+        )
+
+    def dialog(self, context, args):
+        return self.show_dialog(context, args, '/dialogs/section_check.gdlg')
+
+    def compute(self, context, values):
+        target = values['slct_element']
+        # Compute per-point actual values along the curve
+        actuals = [compute_actual(point) for point in target.data.coordinate]
+        return {
+            "actual_values": actuals,
+            "nominal_value": 0.0,  # All points share the same nominal (e.g. zero deviation)
+            "target_element": target,
+        }
+
+gom.run_api()
+```
+
+**Caveat:** The actual values list must have exactly as many entries as the target curve has points.
+If per-point nominals are used, ``"nominal_values"`` must also have the same length. A length mismatch
+will cause a runtime error.
+
+##### gom.api.extensions.inspections.Curve.__init__
+
+```{py:function} gom.api.extensions.inspections.Curve.__init__(self: Any, id: str, description: str, dimension: str, abbreviation: str, help_id: str): None
+
+:param id: Unique inspection id string (e.g. ``"mycompany.section_deviation"``).
+:type id: str
+:param description: Human readable name displayed in menus (e.g. ``"Section Deviation Check"``).
+:type description: str
+:param dimension: Physical dimension of the inspection values (e.g. ``"length"``). Use `gom.api.customelements.get_dimensions()` to query valid identifiers.
+:type dimension: str
+:param abbreviation: Short abbreviation for element names and labels (e.g. ``"SecDev"``).
+:type abbreviation: str
+:param help_id: Optional help page identifier. Defaults to ``None``.
+:type help_id: str
+```
+
+Constructor for a custom curve inspection
+
+Creates a curve inspection element type that computes per-point actual values along a curve.
 
 #### gom.api.extensions.inspections.CustomInspection
 
 
-This class is the base class for all custom inspections
+Base class for all custom inspections
 
-Custom inspections are used to inspect elements in the 3D view, like scalar, surface or curve inspections.
-There are specialized classes for each inspection type, like `Scalar`, `Surface` or `Curve`, which inherit from this
-class. The `CustomInspection` class is used to define the common properties of all custom inspections.
+Custom inspections are used to inspect elements in the 3D view. They compute deviation values
+between nominal and actual measurements on geometric elements. There are three specialized
+subclasses for the supported inspection types:
+
+- `Scalar` — inspects a single scalar property (e.g. a circle's radius, a distance, an angle).
+- `Surface` — inspects point-wise deviations on a surface (one deviation value per surface point).
+- `Curve` — inspects point-wise deviations along a curve (one deviation value per curve point).
+
+Each subclass inherits from `CustomInspection` and defines its own expected return value format
+from the `compute()` function. This base class defines the common properties shared by all
+inspection types: the element identity, dimension, abbreviation, and the target element concept.
+
+**Lifecycle overview**
+
+A custom inspection follows this lifecycle:
+
+1. The class is registered via the `@apicontribution` decorator when the script is started as a service.
+2. When the user creates a new inspection, `dialog()` is called to present the configuration UI.
+3. After the dialog is confirmed, `compute()` (or `compute_stages()`) is called to calculate the
+   inspection result for each measurement stage.
+4. The framework stores the result and displays the inspection in labels, tables, reports, and the 3D view.
+5. On recalculation, `compute()` / `compute_stages()` is called again for the affected stages.
 
 **The target element**
 
-    The `self.compute ()` function of every custom inspection expects a `target_element` value which is the element
-function looks like this:
+Every custom inspection must reference a *target element* — the geometric element being inspected
+(e.g. a mesh, a curve, a circle). The `compute()` function must explicitly return this element
+in a key named `"target_element"`. There is no automatic insertion of any selected element; the
+script is fully in control of which element is inspected.
+
+Typically, the target element is selected by the user in the inspection's dialog via a selection
+element widget, and then forwarded in the `compute()` return value:
 
 ```
-{
-    "target_element": my_dialog.element_selector.value, # The inspected element as selected in a dialog widget
-    "data": {...}                                       # Optional data, stored with the element
-    ...                                                 # Specific data required by the inspection type
-}
+def compute(self, context, values):
+    return {
+        "target_element": values['slct_element'],  # From a dialog selection widget
+        "nominal": 1.0,
+        "actual": 1.2,
+    }
 ```
 
-To avoid background magic, the `target_element` must be explicitly returned by the `self.compute ()` function and
-there is no automatic insertion of a possibly selected element. So if the check should inspect the currently
-selected element in the 3D view, this must be coded explicitly in the `self.compute ()` function:
+If the check should inspect the currently selected element in the 3D view instead, this must be
+coded explicitly:
 
 ```
 import gom.api.selection
 
-def compute (self, context, values):
+def compute(self, context, values):
     selected = gom.api.selection.get_selected_elements()
-    if len (selected) != 1:
+    if len(selected) != 1:
         raise ValueError("Please select exactly one element to inspect")
 
     return {
         "target_element": selected[0],
-        "data": {},                                      # Optional data, stored with the element
-        ...                                              # Specific data required by the check type
+        "nominal": 1.0,
+        "actual": 1.2,
     }
 ```
+
+**Optional custom data**
+
+All inspection types support an optional `"data"` key in the `compute()` return dictionary. This
+dictionary is stored with the element and can be used to persist arbitrary metadata, intermediate
+results, or configuration. See the `CustomElement` base class documentation for details on custom
+data access via element tokens.
+
+```
+return {
+    "target_element": values['slct_element'],
+    "nominal": 1.0,
+    "actual": 1.2,
+    "data": {"computation_method": "least_squares", "iteration_count": 5}
+}
+```
+
+**Element filter functions**
+
+When using a selection element widget in the dialog, an element filter function can be attached
+to restrict which elements the user can select. This is done by assigning a filter callable to
+the widget's `filter` property:
+
+```
+def dialog(self, context, args):
+    dlg = gom.api.dialog.create(context, '/dialogs/my_check.gdlg')
+    dlg.slct_element.filter = self.element_filter
+    self.initialize_dialog(context, dlg, args)
+    return self.apply_dialog(dlg, gom.api.dialog.show(context, dlg))
+
+def element_filter(self, element):
+    # Only allow mesh elements to be selected
+    return element.type == 'mesh'
+```
+
+**Naming convention**
+
+The element name is typically composed of the target element's name and the inspection's
+abbreviation, e.g. ``"Circle 1.ScrSca"``. This can be set automatically in the `event()` handler
+when the target element selection changes.
 
 ##### gom.api.extensions.inspections.CustomInspection.__init__
 
 ```{py:function} gom.api.extensions.inspections.CustomInspection.__init__(self: Any, id: str, description: str, element_type: str, dimension: str, abbreviation: str, help_id: str): None
 
-:param id: Custom inspection id string
+:param id: Unique inspection id string (e.g. ``"mycompany.scalar_radius_check"``). Must contain only lower case characters, dots, and underscores.
 :type id: str
-:param description: Human readable name, will appear in menus
+:param description: Human readable name displayed in menus and element lists (e.g. ``"Radius Check"``).
 :type description: str
-:param element_type: Type of the generated element (inspection.scalar, inspection.surface, ...)
+:param element_type: Type of the generated inspection element. Set automatically by subclasses (``"inspection.scalar"``, ``"inspection.surface"``, ``"inspection.curve"``).
 :type element_type: str
-:param dimension: Dimension of the inspection value. See above for detailed explanation.
+:param dimension: Dimension of the inspection value (e.g. ``"length"``, ``"angle"``). Determines the base unit for computation and the available display units in the user preferences. Use `gom.api.customelements.get_dimensions()` to query valid identifiers.
 :type dimension: str
-:param abbreviation: Abbreviation of the inspection type as shown in labels etc.
+:param abbreviation: Short abbreviation of the inspection type as shown in element names and labels (e.g. ``"ScrSca"``).
 :type abbreviation: str
+:param help_id: Optional help page identifier for context-sensitive help. Pass ``None`` if not applicable.
+:type help_id: str
 ```
 
 Constructor
+
+Initializes a custom inspection element with the given identity, dimension, and display properties.
+This constructor is not called directly — use one of the subclasses (`Scalar`, `Surface`, `Curve`)
+which set the `element_type` parameter automatically.
 
 **Units and dimensions**
 
@@ -2236,21 +3409,22 @@ In principle, the term
 * 'unit' refers to a specific unit to quantify that dimension, like the units 'inch', 'mm', 'm', ... for the dimension 'length'.
 
 These two terms are often mixed up, but dimension describes the type of physical quantity, while unit describes the scale or standard
-used to measure it. When using scripts checks, it is important to understand that
+used to measure it. When using custom inspections, it is important to understand that
 
-* the 'dimension' of an element must be set explicitly in the script while
-* all internal calculations are done in the *base unit* of that dimension (which is 'mm' for 'length', 's' for 'time', etc.) and
+* the 'dimension' of an element must be set explicitly in the constructor while
+* all internal calculations are done in the *base unit* of that dimension (which is 'mm' for 'length', 's' for 'time', 'rad' for 'angle', etc.) and
 * a setting in the ZEISS INSPECT preferences defines the *displayed unit* for that dimension, like 'inch' or 'mm' for 'length'.
 
 So, for example, if a custom inspection is computing a value with the dimension 'angle', the base unit of that dimension is always
-'radian'. The expected values will be in the range [0, 2*pi] and the displayed unit will be transformed to the
-currently set unit in the preferences. The displayed unit is usually 'degree', so the computed value is transformed internally
-in the applications labels, tables, reports etc. to the range [0, 360] and displayed as such.
+'radian'. The computed values must be in radians (e.g. in the range [0, 2*pi] for a full circle) and the framework will transform
+them to the currently configured display unit automatically. If the user has set the display unit to 'degree', the computed value
+is converted internally in labels, tables, reports etc. to the range [0, 360] and displayed as such.
 
-The ids for the available dimensions can very over time and are hardcoded in the ZEISS INSPECT application. It is avised to
-use the `gom.api.customelements.get_dimensions ()` function to get a list of all available dimensions in the current version of the
-application and choose one of the returned ids as the `dimension` parameter in the constructor instead of relying to static
-dimension id lists:
+**Important:** Always compute and return values in the base unit of the chosen dimension. Never pre-convert to display units — the
+framework handles this conversion automatically based on the user's preference settings.
+
+The available dimensions can change between ZEISS INSPECT versions. Use the `gom.api.customelements.get_dimensions()` function to
+query the list of valid dimension identifiers at runtime and choose one of the returned ids as the `dimension` parameter:
 
 ```
 import gom.api.customelements
@@ -2260,56 +3434,144 @@ for id in gom.api.customelements.get_dimensions():
     print(f"Dimension id: {id}, name: {info['name']}, units: {info['units']}, default: {info['default']}")
 ```
 
+Common dimension identifiers include (non-exhaustive, subject to change):
+
+- ``"length"`` — base unit: mm
+- ``"angle"`` — base unit: rad
+- ``"time"`` — base unit: s
+- ``"force"`` — base unit: N
+- ``"pressure"`` — base unit: MPa
+
 **Abbreviation**
 
-The `abbreviation` parameter is a short string which is used to identify the inspection type in labels, menus, etc.
+The `abbreviation` parameter is a short string (typically 3–6 characters) used to identify the inspection type in
+element names, labels, and menus. It is appended to the target element's name to form the inspection element's
+display name, for example ``"Circle 1.ScrSca"`` where ``"ScrSca"`` is the abbreviation. Choose a concise,
+descriptive abbreviation that helps users distinguish this inspection type from others.
 
 **Tolerances**
 
-Inspections are supporting tolerances. A tolerance is a limit which defines the inspected value quality and is defined
-right at the inspection element. For this, a special element dialog widget 'tolerance' is defined which returns a
-representation of the tolerance limits. When used, this widgets value must be forwarded via a special return value
-named 'tolerance'. This can best be done in a customized `apply_dialog()` function which is called to generate the
-`dialog ()` function return dictionary from the dialogs result:
+Inspections support tolerances — limits that define whether the inspected deviation is within specification.
+Tolerances are configured by the user through a special ``"tolerance"`` dialog widget and are evaluated by the
+ZEISS INSPECT framework automatically. To support tolerances:
+
+1. Add a tolerance widget (type ``"tolerances"``) named ``"tolerance"`` to the element's dialog layout.
+2. Forward the tolerance value in the `apply_dialog()` override:
 
 ```
-def apply_dialog (self, dlg, result):
-    params = super ().apply_dialog (dlg, result)
-
-    params['name'] = result['name']           # Dialog widget named 'name' sets the element name
-    params['tolerance'] = result['tolerance'] # Dialog widget named 'tolerance' sets tolerance values
-
-    #
-    # So the resulting dictionary is of the following format:
-    #
-    # {'name': 'Element 1', 'tolerance': {'lower': 0.1, 'upper': 0.2}, 'values': {'threshold': 0.5, 'mode:' 23}}
-    #
-    # This will lead to three parameters in the recorded check creating command with specific semantics.
-    #
-
+def apply_dialog(self, dlg, result):
+    params = super().apply_dialog(dlg, result)
+    params['name'] = result['name']
+    params['tolerance'] = result['tolerance']
     return params
 ```
+
+The resulting parameter dictionary then has the following structure:
+
+```
+{
+    'name': 'Circle 1.ScrSca',
+    'tolerance': {'lower': -0.1, 'upper': 0.2},
+    'values': {'slct_element': <gom.Item>, 'threshold': 0.5}
+}
+```
+
+The ``'name'`` and ``'tolerance'`` keys are consumed by the framework; the ``'values'`` dictionary is
+forwarded to the `compute()` function as the `values` parameter.
+
+**Help ID**
+
+The optional `help_id` parameter links this inspection type to a help page in the ZEISS INSPECT documentation
+system. When set, the framework can open context-sensitive help for the user. If not needed, pass ``None``.
 
 #### gom.api.extensions.inspections.Scalar
 
 
 Custom scalar inspection
 
+A scalar inspection computes a single nominal/actual value pair for a target element. This is the most
+common inspection type, used for checking individual scalar properties such as radii, distances, angles,
+positions, or any other single numeric measurement.
+
+The deviation (actual − nominal) is computed automatically by the framework and can be evaluated against
+tolerances. The resulting inspection element is displayed with its deviation value in labels, tables,
+reports, and the 3D view.
+
 Please see the base class `CustomInspection` for a discussion of the properties all custom inspection types
-have in common.
+have in common, including target element handling, dimensions, tolerances, and the element lifecycle.
 
 **Return value**
 
-The expected parameters from the element's `self.compute ()` function is a map with the following format:
+The `compute()` function must return a dictionary with the following keys:
 
 ```
 {
-    "nominal": float,           // Nominal value
-    "actual": float,            // Actual value
-    "target_element": gom.Item, // Inspected element
-    "data": {...}               // Optional element data, stored with the element
+    "nominal": float,           # Nominal (expected) value in the base unit of the chosen dimension
+    "actual": float,            # Actual (measured) value in the base unit of the chosen dimension
+    "target_element": gom.Item, # The geometric element being inspected
+    "data": {...}               # Optional: custom data stored with the element (see CustomElement docs)
 }
 ```
+
+- ``"nominal"`` — The expected reference value. Must be a `float` (or `int`, which is auto-converted).
+- ``"actual"`` — The measured or computed value. Must be a `float` (or `int`, which is auto-converted).
+- ``"target_element"`` — The inspected geometric element (e.g. a mesh, circle, plane). Must be a `gom.Item`.
+- ``"data"`` — Optional dictionary for persisting custom metadata with the element.
+
+The framework computes the deviation as ``actual - nominal`` automatically. All values must be in the
+base unit of the dimension specified in the constructor (e.g. mm for 'length', rad for 'angle').
+
+**Minimal example**
+
+```
+import gom
+import gom.api.extensions.inspections
+from gom import apicontribution
+
+@apicontribution
+class RadiusCheck(gom.api.extensions.inspections.Scalar):
+
+    def __init__(self):
+        super().__init__(
+            id='examples.radius_check',
+            description='Radius Check',
+            dimension='length',
+            abbreviation='RadChk'
+        )
+
+    def dialog(self, context, args):
+        return self.show_dialog(context, args, '/dialogs/radius_check.gdlg')
+
+    def compute(self, context, values):
+        target = values['slct_element']
+        return {
+            "nominal": values['nominal_radius'],
+            "actual": target.radius,
+            "target_element": target,
+        }
+
+gom.run_api()
+```
+
+##### gom.api.extensions.inspections.Scalar.__init__
+
+```{py:function} gom.api.extensions.inspections.Scalar.__init__(self: Any, id: str, description: str, dimension: str, abbreviation: str, help_id: str): None
+
+:param id: Unique inspection id string (e.g. ``"mycompany.radius_check"``).
+:type id: str
+:param description: Human readable name displayed in menus (e.g. ``"Radius Check"``).
+:type description: str
+:param dimension: Physical dimension of the inspection value (e.g. ``"length"``, ``"angle"``). Use `gom.api.customelements.get_dimensions()` to query valid identifiers.
+:type dimension: str
+:param abbreviation: Short abbreviation for element names and labels (e.g. ``"RadChk"``).
+:type abbreviation: str
+:param help_id: Optional help page identifier. Defaults to ``None``.
+:type help_id: str
+```
+
+Constructor for a custom scalar inspection
+
+Creates a scalar inspection element type that computes a single nominal/actual value pair.
 
 #### gom.api.extensions.inspections.ScriptedInspection
 
@@ -2321,21 +3583,97 @@ Deprecated alias for `CustomInspection`. Use `CustomInspection` instead.
 
 Custom surface inspection
 
+A surface inspection computes point-wise deviation values on a surface element. Each point on the
+target surface receives an individual deviation value, enabling color-coded deviation maps in the
+3D view. This inspection type is used for surface comparison checks, flatness analysis, or any
+measurement where deviations vary spatially across a surface.
+
+The number of deviation values must match the number of points in the target surface element. The
+framework maps each value in the ``"deviation_values"`` list to the corresponding surface point by
+index. The order of points is determined by the target element's internal tessellation; querying
+the element's point data will reveal the expected count and order.
+
 Please see the base class `CustomInspection` for a discussion of the properties all custom inspection types
-have in common.
+have in common, including target element handling, dimensions, tolerances, and the element lifecycle.
 
 **Return value**
 
-The expected parameters from the element's `self.compute ()` function is a map with the following format:
+The `compute()` function must return a dictionary with the following keys:
 
 ```
 {
-    "deviation_values": [v: float, v: float, ...] // Deviations
-    "nominal": float,                             // Nominal value
-    "target_element": gom.Item,                   // Inspected element
-    "data": {...}                                 // Optional element data, stored with the element
+    "deviation_values": [float, float, ...],  # Per-point deviations (one per surface point)
+    "nominal": float,                         # Common nominal value (reference baseline)
+    "target_element": gom.Item,               # The surface element being inspected
+    "data": {...}                             # Optional: custom data stored with the element
 }
 ```
+
+- ``"deviation_values"`` — A list or tuple of `float` values, one per point on the target surface.
+  The length must match the number of points in the target element's surface mesh. Each value
+  represents the deviation at that point, in the base unit of the chosen dimension.
+- ``"nominal"`` — A single `float` representing the common nominal (reference) value for all points.
+  Must be a `float` (or `int`, which is auto-converted).
+- ``"target_element"`` — The surface element being inspected. Must be a `gom.Item`.
+- ``"data"`` — Optional dictionary for persisting custom metadata with the element.
+
+**Minimal example**
+
+```
+import gom
+import gom.api.extensions.inspections
+from gom import apicontribution
+
+@apicontribution
+class FlatnessCheck(gom.api.extensions.inspections.Surface):
+
+    def __init__(self):
+        super().__init__(
+            id='examples.flatness_check',
+            description='Flatness Check',
+            dimension='length',
+            abbreviation='Flat'
+        )
+
+    def dialog(self, context, args):
+        return self.show_dialog(context, args, '/dialogs/flatness_check.gdlg')
+
+    def compute(self, context, values):
+        target = values['slct_element']
+        # Compute per-point deviations from a reference plane
+        deviations = [compute_deviation(point) for point in target.data.coordinate]
+        return {
+            "deviation_values": deviations,
+            "nominal": 0.0,
+            "target_element": target,
+        }
+
+gom.run_api()
+```
+
+**Caveat:** The deviation values list must have exactly as many entries as the target surface has
+points. A length mismatch will cause a runtime error. When implementing, always derive the list
+length from the target element's actual point data rather than using hardcoded sizes.
+
+##### gom.api.extensions.inspections.Surface.__init__
+
+```{py:function} gom.api.extensions.inspections.Surface.__init__(self: Any, id: str, description: str, dimension: str, abbreviation: str, help_id: str): None
+
+:param id: Unique inspection id string (e.g. ``"mycompany.flatness_check"``).
+:type id: str
+:param description: Human readable name displayed in menus (e.g. ``"Flatness Check"``).
+:type description: str
+:param dimension: Physical dimension of the deviation values (e.g. ``"length"``). Use `gom.api.customelements.get_dimensions()` to query valid identifiers.
+:type dimension: str
+:param abbreviation: Short abbreviation for element names and labels (e.g. ``"Flat"``).
+:type abbreviation: str
+:param help_id: Optional help page identifier. Defaults to ``None``.
+:type help_id: str
+```
+
+Constructor for a custom surface inspection
+
+Creates a surface inspection element type that computes per-point deviation values on a surface.
 
 ### gom.api.extensions.nominals
 
@@ -2505,13 +3843,16 @@ Custom nominal point cloud element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
-```
+```python
 {
     "points":  [(x: float, y: float, z: float), ...], // List of points
     "normals": [(x: float, y: float, z: float), ...], // List of normals for each point
     "data": {...}                                     // Optional element data, stored with the element
 }
 ```
+
+The `points` and `normals` lists must have the same length — each normal corresponds to the point at
+the same index.
 
 #### gom.api.extensions.nominals.ScriptedNominal
 
@@ -2572,12 +3913,36 @@ Custom nominal surface element
 
 The expected parameters from the element's `compute ()` function is a map with the following format:
 
-```
+```python
 {
     "vertices":  [(x: float, y: float, z: float), ...], // List of vertices
-    "triangles": [(i1: int, i2: int, i3: int), ...],    // List of triangles (vertices indices)
+    "triangles": [(i1: int, i2: int, i3: int), ...],    // List of triangles (vertex indices, 0-based)
     "data": {...}                                       // Optional element data, stored with the element
 }
+```
+
+The `triangles` list contains triplets of indices into the `vertices` list, defining the surface mesh.
+
+**Example**
+
+```python
+def compute (self, context, values):
+    # A simple quad surface made of two triangles
+    vertices = [
+        (0.0, 0.0, 0.0),
+        (10.0, 0.0, 0.0),
+        (10.0, 10.0, 0.0),
+        (0.0, 10.0, 0.0)
+    ]
+    triangles = [
+        (0, 1, 2),
+        (0, 2, 3)
+    ]
+
+    return {
+        "vertices":  vertices,
+        "triangles": triangles
+    }
 ```
 
 #### gom.api.extensions.nominals.SurfaceCurve
@@ -2621,203 +3986,262 @@ The expected parameters from the element's `compute ()` function is a map with t
 
 Custom sequence elements
 
-This module contains the base class for custom sequence elements. A custom sequence element combines a sequence 
-of commands into a single unit. The sequence is treated as one combined element with named parts. The resulting 
-cluster of elements can then be edited as a whole sequence, or each of its individual parts can be edited 
-separately.
+This module contains the base class for custom sequence elements.
+
+**What are custom sequence elements?**
+
+A custom sequence element is a framework for combining multiple ZEISS INSPECT creation commands into a
+single coordinated unit. Unlike custom actuals or custom nominals — which each define a single element
+that participates in the dependency graph by computing geometry in a ``compute()`` function — a custom
+sequence *builds* the dependency graph. It orchestrates the creation of multiple regular elements (points,
+distances, inspections, etc.) using the standard ZEISS INSPECT creation commands and groups them into
+a logical unit.
+
+**How do custom sequences differ from custom actuals and nominals?**
+
+| Aspect | Custom Actuals / Nominals | Custom Sequences |
+|---|---|---|
+| **Role in the dependency graph** | Participate as individual elements. Each element computes its own geometry via a ``compute()`` function and is managed by the recalculation engine. | Build the dependency graph. They create multiple regular elements using standard creation commands. The created elements then participate in the graph independently. |
+| **What they create** | A single element with computed values (point coordinates, surface mesh, etc.) | A sequence of regular elements grouped under a leading element |
+| **Computation** | ``compute()`` / ``compute_stage()`` returns geometry data for one element | ``create()`` calls multiple ``gom.script.*`` creation commands and returns the list of created elements |
+| **Recalculation** | Managed by the recalculation engine; ``compute()`` is called automatically when inputs change | Elements created by the sequence are regular elements and are recalculated individually by the standard engine |
+| **Editing** | Re-opens the element's dialog and calls ``compute()`` again | Re-opens the sequence dialog and calls ``edit()`` to adjust the existing elements |
+
+**Lifecycle of a custom sequence**
+
+1. **Dialog** — The user opens the creation dialog (inherited from ``CustomElement``). The dialog
+   collects configuration parameters (e.g., a distance value, a mode selection).
+
+2. **Create** — The ``create()`` method is called with the dialog parameters. It uses standard
+   ZEISS INSPECT creation commands (``gom.script.primitive.create_point()``,
+   ``gom.script.inspection.create_distance_by_2_points()``, etc.) to create regular elements.
+   It returns a dictionary identifying all created elements and which one is the *leading* element.
+
+3. **Elements live in the dependency graph** — After creation, every element of the sequence is a
+   regular ZEISS INSPECT element. They participate in the dependency graph like any other element:
+   they have recalculation dependencies, can be inspected, appear in reports, etc. The custom
+   sequence framework has no further involvement in their recalculation.
+
+4. **Edit (whole sequence)** — When the user edits the leading element, the ``edit()`` method is
+   called. It receives the current elements and the creation arguments and uses
+   ``gom.script.sys.edit_creation_parameters()`` to adjust the existing elements.
+
+5. **Edit (single child)** — When the user edits a child element individually (if
+   ``edit_child_elements_separately`` is ``True``), the child's native edit dialog opens. After the
+   edit, ``on_edited()`` is called so the sequence can react to the change and propagate new
+   creation arguments back to ``edit()``.
+
+**Relationship to the ``CustomElement`` base class**
+
+``CustomSequence`` inherits from ``CustomElement``, which provides the dialog framework
+(``dialog()``, ``event()``, ``is_visible()``, ``show_dialog()``, etc.). These methods work the
+same way as for custom actuals and nominals. See the ``CustomElement`` documentation for details
+on dialog definition, event handling, and custom data storage.
 
 #### gom.api.extensions.sequence.CustomSequence
 
 
-This class is used to define a custom sequence element
+Base class for custom sequence elements
 
-*Concept*
+A custom sequence element is a framework for grouping multiple ZEISS INSPECT creation commands into a
+single coordinated unit. Instead of computing geometry like custom actuals or nominals, a custom sequence
+*orchestrates* the creation of regular elements using standard creation commands and manages them as a
+logical group.
 
-A custom sequence element combines a sequence of commands into one sequence. The sequence is treated
-as one single combined element with sub elements. The resulting cluster of elements can then be edited again
-as a altogether sequence, of the single elements within can be edited separately.
+**Leading element and child elements**
 
-Each sequence consists of a 'leading element' and 'child elements'. The leading element represents the whole
-sequence in the sense that editing the sequence again is initialized by editing the leading element or deleting
-the leading element deletes the whole sequence. The child elements are the other elements of the sequence
-which belong to the sequence but are not the leading element.
+Every sequence consists of exactly one *leading element* and zero or more *child elements*:
 
-*Property access*
+- The **leading element** is the representative of the entire sequence. Editing the leading element
+  opens the sequence dialog (not the element's native dialog). Deleting the leading element deletes
+  the entire sequence. The leading element's name is the "main" name of the sequence, typically
+  set by the user in the creation dialog's element name widget.
 
-As a sequence element is no native special element type in ZEISS INSPECT, but just a combination of regular elements,
-the API functions to query custom elements can be used to query special sequence properties. For regular elements,
-this would be a 'keyword access', for the sequence various functions from the `gom.api.customelements.CustomSequence`
-contribution definition can be used.
+- **Child elements** are the remaining elements of the sequence. They can optionally be edited
+  individually if ``edit_child_elements_separately`` is set to ``True`` (the default). Their names
+  should be generated via ``generate_element_name()`` to ensure uniqueness and visual grouping.
+
+**How elements become part of a sequence**
+
+The ``create()`` method uses standard ZEISS INSPECT creation commands (e.g.,
+``gom.script.primitive.create_point()``, ``gom.script.inspection.create_distance_by_2_points()``)
+to create elements. These are *regular ZEISS INSPECT elements* — they participate in the dependency
+graph, are recalculated by the standard engine, and can be inspected, reported, and queried
+like any built-in element. The sequence framework only manages the *grouping* and *coordinated
+editing* of these elements; it does not interfere with their individual recalculation.
+
+**Querying sequence structure**
+
+Since a sequence is not a special element type in ZEISS INSPECT but a grouping of regular elements,
+the sequence structure is queried via static methods of this class:
+
+- ``CustomSequence.get_sequence_elements(leading_element)`` — returns all elements of the sequence
+- ``CustomSequence.get_child_elements(leading_element)`` — returns only the child elements
+- ``CustomSequence.get_leading_element(child_element)`` — returns the leading element for a child
 
 Example:
 
-```
-from gom.api.extensions import CustomSequence
+```python
+from gom.api.extensions.sequence import CustomSequence
 
 # Given a leading element of a custom sequence...
-leading_element = ...
+leading_element = gom.app.project.actual_elements['Distance 1']
 
-# ...get all elements of the sequence and...
+# ...get all elements of the sequence (in creation order)
 elements = CustomSequence.get_sequence_elements(leading_element)
 
-# ...get all child elements of the sequence
+# ...get only child elements (excluding the leading element)
 children = CustomSequence.get_child_elements(leading_element)
+
+# Given a child element, find its leading element
+child = gom.app.project.actual_elements['Distance 1 ● First point 1']
+leading = CustomSequence.get_leading_element(child)
+```
+
+**Complete example: A custom sequence creating a distance from two points**
+
+The following example shows a complete custom sequence implementation that creates two points
+and a distance element. The distance is the leading element, and the two points are child elements.
+
+```python
+import gom
+import gom.api.dialog
+from gom.api.extensions.sequence import CustomSequence
+from gom import apicontribution
+
+@apicontribution
+class DistanceSequence(CustomSequence):
+
+    def __init__(self):
+        super().__init__(
+            id='example.distance_sequence',
+            description='Distance from Two Points'
+        )
+
+    def dialog(self, context, args):
+        return self.show_dialog(context, args, '/dialogs/distance_dialog.gdlg')
+
+    def create(self, context, name, args):
+        distance = args['distance']
+
+        POINT_1 = gom.script.primitive.create_point(
+            name=self.generate_element_name(name, 'First point'),
+            point={'point': gom.Vec3d(0.0, 0.0, 0.0)})
+
+        POINT_2 = gom.script.primitive.create_point(
+            name=self.generate_element_name(name, 'Second point'),
+            point={'point': gom.Vec3d(distance, 0.0, 0.0)})
+
+        DISTANCE = gom.script.inspection.create_distance_by_2_points(
+            name=name,
+            point1=POINT_1,
+            point2=POINT_2)
+
+        return {'elements': [POINT_1, POINT_2, DISTANCE], 'leading': DISTANCE}
+
+    def edit(self, context, elements, args):
+        POINT_1, POINT_2, DISTANCE = elements
+        distance = args['distance']
+
+        gom.script.sys.edit_creation_parameters(
+            element=POINT_2,
+            point={'point': gom.Vec3d(distance, 0.0, 0.0)})
+
+    def on_edited(self, context, args, parameters):
+        POINT_1_PARAMS, POINT_2_PARAMS, DISTANCE_PARAMS = parameters
+
+        if POINT_2_PARAMS:
+            args['distance'] = POINT_2_PARAMS['point'].point.x
+
+        return args
+
+gom.run_api()
 ```
 
 ##### gom.api.extensions.sequence.CustomSequence.__init__
 
 ```{py:function} gom.api.extensions.sequence.CustomSequence.__init__(self: Any, id: str, description: str, properties: Dict[str, Any]): None
 
-:param id: Unique contribution id, like `special_point`
+:param id: Unique contribution id, like ``example.distance_sequence``. The id may contain lower case characters, grouping dots and underscores.
 :type id: str
-:param description: Human readable contribution description
+:param description: Human readable contribution description, displayed in menus
 :type description: str
+:param properties: Optional configuration dictionary (see above)
+:type properties: Dict[str, Any]
 ```
 
 Constructor
 
-*Configuration*
+**Configuration**
 
 The following properties are supported for custom sequence elements. They can be passed in the
-contributions constructor via the `properties` dictionary and will be used to configure the behavior.
+constructor via the ``properties`` dictionary and will be used to configure the behavior:
 
-- `edit_child_elements_separately` (bool): If set to `True`, the child elements of the sequence can be
-                                           edited separately and an "edit/creation" on a sequence child
-                                           element will open this single elements native edit dialog. If set to
-                                            `False`, editing a child element will edit the whole sequence
-                                            instead of the single element. Default is `True`.
+- ``edit_child_elements_separately`` (bool): Controls whether child elements of the sequence can
+  be edited individually.
+
+  - If ``True`` (the default), right-clicking a child element and choosing "Edit" opens that
+    element's native creation dialog. After the user confirms the edit, the ``on_edited()``
+    callback is invoked so the sequence can synchronize its creation arguments. This mode is
+    useful when child elements have meaningful independent parameters.
+
+  - If ``False``, editing any child element will open the *sequence's* dialog instead, editing
+    the entire sequence as a whole. This mode is useful when child element parameters are
+    always derived from the sequence-level configuration and should not be modified independently.
 
 ##### gom.api.extensions.sequence.CustomSequence.create
 
 ```{py:function} gom.api.extensions.sequence.CustomSequence.create(self: Any, context: Any, name: Any, args: Any): None
 
-:param context: The context of the element
+:param context: Script context object containing execution-related parameters
 :type context: Any
-:param name: Name of the leading element, extracted from the dialog.
+:param name: Name for the leading element, as entered in the dialog's element name widget
 :type name: Any
-:param args: The arguments passed to the sequence, usually from the configuration dialog
+:param args: Creation arguments from the dialog (widget values)
 :type args: Any
-:return: Dictionary describing the created element. The fields here are: `elements` - List of all created elements (including the leading element) `leading` - 'Leading' element which represents the whole sequence
+:return: Dictionary with keys ``elements`` (list of all created elements) and ``leading`` (the leading element of the sequence)
 :rtype: None
 ```
 
-Function called to create a sequence of elements
+Called to create the initial sequence of elements
 
-**Sequence creation**
+This is the central creation function of a custom sequence. It is invoked when the user confirms
+the creation dialog for the first time. The function must use standard ZEISS INSPECT creation
+commands (``gom.script.primitive.*``, ``gom.script.inspection.*``, etc.) to create the elements
+that form the sequence, and return a dictionary identifying all created elements and the leading
+element.
 
-This function is called to create a sequence of elements initially. It can use the regular custom
-creation commands to create the elements of that sequence and determine which of these elements is
-the 'leading' element of the sequence. The leading element is the one which represents the whole
-sequence in the sense that editing the sequence again is initialized by editing the leading element or
-deleting the leading element deletes the whole sequence.
+**Important:** The elements created here are *regular ZEISS INSPECT elements*. After creation,
+they participate in the dependency graph like any built-in element and are recalculated by the
+standard engine. The custom sequence framework does not interfere with their recalculation —
+it only manages the grouping and coordinated editing.
 
-Example:
+**Return value**
 
-```
-def create (self, context, name, args):
+The function must return a dictionary with two keys:
 
-  #
-  # Extract parameters from the dialog
-  #
-  distance = args['distance']
+- ``elements`` — A list of all created elements (including the leading element), in the
+  order they were created. This order is preserved and used later in ``edit()`` and
+  ``on_edited()`` to identify elements by position.
 
-  #
-  # Create sequence via the regular creation commands. Here, two points and a distance
-  # between these points is created, with the distance being the leading element.
-  #
-  POINT_1=gom.script.primitive.create_point (
-    name=self.generate_element_name (name, 'First point'),
-    point={'point': gom.Vec3d (0.0, 0.0, 0.0)})
-
-  POINT_2=gom.script.primitive.create_point (
-    name=self.generate_element_name (name, 'Second point'),
-    point={'point': gom.Vec3d (distance, 0.0, 0.0)})
-
-  DISTANCE=gom.script.inspection.create_distance_by_2_points (
-    name = name,
-    point1=POINT_1,
-    point2=POINT_2)
-
-  #
-  # Return created sequence elements and the leading element of that sequence
-  #
-  return {'elements': [POINT_1, POINT_2, DISTANCE], 'leading': DISTANCE}
-```
+- ``leading`` — The leading element of the sequence. This element represents the whole
+  sequence: editing it opens the sequence dialog, deleting it removes the entire sequence.
 
 **Element naming**
 
-Element names must be unique within a project. Also, the elements belonging to the same sequence should be
-identifiable via their names. To assure this, the element names should be computed via the API function
-`generate_element_name()`. Please see documentation of this function for details.
-
-##### gom.api.extensions.sequence.CustomSequence.edit
-
-```{py:function} gom.api.extensions.sequence.CustomSequence.edit(self: Any, context: Any, elements: Any, args: Any): None
-
-:param context: The context of the sequence
-:type context: Any
-:param elements: List of current elements of the sequence in the same order as returned by the `create()` function
-:type elements: Any
-:param args: Creation arguments from the dialog
-:type args: Any
-```
-
-Function called to edit the custom sequence
-
-This function is called when a custom sequence is edited. It will receive the current sequence elements
-together with the current sequence creation dialog values and must reconfigure the sequence elements accordingly.
+Element names must be unique within a project. Use ``generate_element_name()`` to create
+child element names that are visually grouped with the leading element. The leading element
+itself should use the ``name`` parameter directly (which comes from the dialog's element
+name widget).
 
 Example:
-
-```
-def edit (self, context, elements, args):
-
-  #
-  # The 'elements' parameter is a list containing the elements in the
-  # same order as returned by the 'create()' function
-  #
-  POINT_1, POINT_2, DISTANCE = elements
-
-  #
-  # Actual dialog parameters
-  #
-  distance = args['distance']
-
-  gom.script.sys.edit_creation_parameters (
-    element=POINT_2,
-    point={'point': gom.Vec3d (distance, 0.0, 0.0)})
-```
-
-##### gom.api.extensions.sequence.CustomSequence.generate_element_name
-
-```{py:function} gom.api.extensions.sequence.CustomSequence.generate_element_name(self: Any, leading_name: Any, basename: Any): None
-
-:param leading_name: Name of the leading element of the sequence. This is usually the name as specified in the creation dialog.
-:type leading_name: Any
-:param basename: Base name for the element, like `Point` or `Line`. This name part will be extended by a running number to make it unique.
-:type basename: Any
-:return: Generated unique name
-:rtype: None
-```
-
-Generates a unique name for an element of the custom sequence.
-
-This function generates a unique name for an element of the custom sequence. The name is based
-on the leading element of the sequence, plus a base name and a running number.
-
-**Example**
-
-For a sequence with id `Distance 1` and a base name `Point`, the generated names will be
-`Distance 1 ● Point 1`, `Distance 1 ● Point 2`, ...
-
-When implemented, the `create()` function of the custom sequence should use this function
-to generate the names of the single elements:
 
 ```python
 def create(self, context, name, args):
 
-    distance = args['distance']  # Distance from dialog
+    distance = args['distance']
 
+    # Create child elements with generated names
     POINT_1 = gom.script.primitive.create_point(
         name=self.generate_element_name(name, 'First point'),
         point={'point': gom.Vec3d(0.0, 0.0, 0.0)})
@@ -2826,12 +4250,101 @@ def create(self, context, name, args):
         name=self.generate_element_name(name, 'Second point'),
         point={'point': gom.Vec3d(distance, 0.0, 0.0)})
 
+    # The leading element uses the 'name' parameter directly
     DISTANCE = gom.script.inspection.create_distance_by_2_points(
         name=name,
         point1=POINT_1,
         point2=POINT_2)
 
+    # Return all elements and identify the leading element
     return {'elements': [POINT_1, POINT_2, DISTANCE], 'leading': DISTANCE}
+```
+
+##### gom.api.extensions.sequence.CustomSequence.edit
+
+```{py:function} gom.api.extensions.sequence.CustomSequence.edit(self: Any, context: Any, elements: Any, args: Any): None
+
+:param context: Script context object containing execution-related parameters
+:type context: Any
+:param elements: List of current sequence elements, in the same order as returned by ``create()``
+:type elements: Any
+:param args: Current creation arguments (from the dialog or from ``on_edited()``)
+:type args: Any
+```
+
+Called to edit an existing custom sequence
+
+This function is invoked when the user edits the sequence — either by editing the leading element
+directly, or by editing a child element when ``edit_child_elements_separately`` is ``False``. It
+also serves as the re-application function after ``on_edited()`` returns updated creation arguments.
+
+The function receives the current sequence elements in the same order as originally returned by
+``create()``, together with the (possibly updated) creation arguments. It must reconfigure the
+existing elements accordingly using ``gom.script.sys.edit_creation_parameters()``.
+
+**Important:** This function modifies *existing* elements — it does not create new ones. The
+elements are the same objects that were originally created by ``create()``. Use
+``gom.script.sys.edit_creation_parameters()`` to change their parameters.
+
+Example:
+
+```python
+def edit(self, context, elements, args):
+
+    # Unpack elements in the same order as returned by create()
+    POINT_1, POINT_2, DISTANCE = elements
+
+    # Apply updated parameters
+    distance = args['distance']
+
+    gom.script.sys.edit_creation_parameters(
+        element=POINT_2,
+        point={'point': gom.Vec3d(distance, 0.0, 0.0)})
+```
+
+##### gom.api.extensions.sequence.CustomSequence.generate_element_name
+
+```{py:function} gom.api.extensions.sequence.CustomSequence.generate_element_name(self: Any, leading_name: Any, basename: Any): None
+
+:param leading_name: Name of the leading element (typically the ``name`` parameter from ``create()``)
+:type leading_name: Any
+:param basename: Descriptive base name for the child element (e.g., ``'First point'``, ``'Line'``)
+:type basename: Any
+:return: Generated name string in the format ``{leading_name} ● {basename}``
+:rtype: None
+```
+
+Generate a unique, visually grouped name for a child element of the sequence
+
+Child elements of a custom sequence should have names that clearly identify them as belonging
+to the sequence. This function generates such names by combining the leading element's name
+with a base name, separated by a ``●`` character.
+
+**Naming pattern:** ``{leading_name} ● {basename}``
+
+For example, for a sequence named ``Distance 1`` with child elements using base names
+``First point`` and ``Second point``, the generated names will be:
+
+- ``Distance 1 ● First point``
+- ``Distance 1 ● Second point``
+
+**Usage:** Call this function in ``create()`` when naming child elements. The leading element
+itself should use the ``name`` parameter from ``create()`` directly (not this function).
+
+Example:
+
+```python
+def create(self, context, name, args):
+    # Child elements use generate_element_name()
+    POINT_1 = gom.script.primitive.create_point(
+        name=self.generate_element_name(name, 'First point'),
+        point={'point': gom.Vec3d(0.0, 0.0, 0.0)})
+
+    # The leading element uses 'name' directly
+    DISTANCE = gom.script.inspection.create_distance_by_2_points(
+        name=name, ...)
+
+    return {'elements': [POINT_1, DISTANCE], 'leading': DISTANCE}
 ```
 
 ##### gom.api.extensions.sequence.CustomSequence.get_child_elements
@@ -2840,11 +4353,25 @@ def create(self, context, name, args):
 
 :param leading_element: Leading element of the custom sequence
 :type leading_element: Any
-:return: List of child elements of the custom sequence
+:return: List of child elements (excluding the leading element), in creation order
 :rtype: Any
 ```
 
-Returns child elements of the custom sequence for a given leading element.
+Return only the child elements of a custom sequence (excluding the leading element)
+
+Returns a list of all elements belonging to the sequence identified by the given leading
+element, *excluding* the leading element itself. The elements are returned in creation order.
+Returns an empty list if the sequence has no child elements.
+
+Example:
+
+```python
+from gom.api.extensions.sequence import CustomSequence
+
+leading = gom.app.project.actual_elements['Distance 1']
+children = CustomSequence.get_child_elements(leading)
+print(f'Sequence has {len(children)} child element(s)')
+```
 
 ##### gom.api.extensions.sequence.CustomSequence.get_leading_element
 
@@ -2852,11 +4379,26 @@ Returns child elements of the custom sequence for a given leading element.
 
 :param child_element: Child element of the custom sequence
 :type child_element: Any
-:return: Leading element of the custom sequence
+:return: Leading element of the custom sequence, or ``None`` if not found
 :rtype: Any
 ```
 
-Returns leading element of the custom sequence for a given child element.
+Return the leading element for a given child element
+
+Given any child element that belongs to a custom sequence, this function returns the
+leading element of that sequence. Returns ``None`` if the element is not part of a
+sequence or if the leading element cannot be determined.
+
+Example:
+
+```python
+from gom.api.extensions.sequence import CustomSequence
+
+child = gom.app.project.actual_elements['Distance 1 ● First point 1']
+leading = CustomSequence.get_leading_element(child)
+if leading:
+    print(f'This element belongs to sequence: {leading.name}')
+```
 
 ##### gom.api.extensions.sequence.CustomSequence.get_sequence_elements
 
@@ -2864,61 +4406,74 @@ Returns leading element of the custom sequence for a given child element.
 
 :param leading_element: Leading element of the custom sequence
 :type leading_element: Any
-:return: List of all elements of the custom sequence in the order as created in the `create()` function
+:return: List of all elements of the custom sequence, in creation order
 :rtype: Any
 ```
 
-Returns all elements of the custom sequence for a given leading element.
+Return all elements of the custom sequence for a given leading element
+
+Returns the complete list of elements belonging to the sequence identified by the given
+leading element, in the same order as originally returned by ``create()``. The list
+includes the leading element itself.
+
+Example:
+
+```python
+from gom.api.extensions.sequence import CustomSequence
+
+leading = gom.app.project.actual_elements['Distance 1']
+elements = CustomSequence.get_sequence_elements(leading)
+for e in elements:
+    print(e.name)
+```
 
 ##### gom.api.extensions.sequence.CustomSequence.on_edited
 
 ```{py:function} gom.api.extensions.sequence.CustomSequence.on_edited(self: Any, context: Any, args: Any, parameters: Any): None
 
-:param context: The context of the sequence
+:param context: Script context object containing execution-related parameters
 :type context: Any
-:param args: Current original creation arguments of the sequence
+:param args: Current creation arguments of the sequence (as originally passed to ``create()``)
 :type args: Any
-:param parameters: Edited parameters for each of the sequences elements in the order of creation
+:param parameters: List of edited parameters for each sequence element (in creation order). Each entry is either ``None`` (element was not edited) or a dictionary of changed parameters.
 :type parameters: Any
-:return: New creation arguments for the whole sequence
+:return: Updated creation arguments dictionary. These will be passed to ``edit()`` to re-apply the sequence.
 :rtype: None
 ```
 
-Called when an element of the sequence has been edited.
+Called when a child element of the sequence has been edited individually
 
-This function can be used to forward edits of single elements of the sequence to the whole sequence.
-When a single element of the sequence is edited, this function is called with the current creation
-arguments of the sequence and the edited parameters of the single element. The function can then
-compute new creation arguments for the whole sequence and return these. The returned arguments
-will then be used to re-create the whole sequence via the `edit()` function.
+This callback is invoked when a child element is edited via its native dialog (only possible when
+``edit_child_elements_separately`` is ``True``). It allows the sequence to react to the change and
+update its creation arguments accordingly.
+
+**How it works:**
+
+1. The user edits a child element individually (e.g., moves a point).
+2. ZEISS INSPECT calls ``on_edited()`` with the current sequence creation arguments and a list of
+   edited parameters — one entry per sequence element, in creation order.
+3. For each element, the corresponding entry in ``parameters`` is either ``None`` (if that element
+   was not edited) or a dictionary of the changed parameters.
+4. The function inspects the changed parameters, computes updated creation arguments, and returns
+   them. These updated arguments are then passed to ``edit()`` to re-apply the sequence.
+
+**Default behavior:** The base implementation does nothing (``pass``). If not overridden, the
+sequence creation arguments remain unchanged after a child element edit, and ``edit()`` is called
+with the original arguments.
 
 Example:
 
-```
-def create (self, context, name, args):
+```python
+def on_edited(self, context, args, parameters):
+    # 'parameters' has one entry per element, in create() order.
+    # An entry is None if that element was not edited.
+    POINT_1_PARAMS, POINT_2_PARAMS, DISTANCE_PARAMS = parameters
 
-  distance = args['distance']
-  POINT_1 = gom.script.primitive.create_point (...)
-  POINT_2 = gom.script.primitive.create_point (...)
-  DISTANCE = gom.script.inspection.create_distance_by_2_points (...)
+    # If POINT_2 was moved, update the sequence's 'distance' argument
+    if POINT_2_PARAMS:
+        args['distance'] = POINT_2_PARAMS['point'].point.x
 
-  return {'elements': [POINT_1, POINT_2, DISTANCE], 'leading': DISTANCE}
-
-def on_edited (self, context, args, parameters):
-  #
-  # 'parameters' is a list of edited parameters for each of the
-  # sequence elements in the same order as created in 'create()'
-  #
-  POINT_1_PARAMS, POINT_2_PARAMS, DISTANCE_PARAMS = parameters
-
-  #
-  # If the 'POINT_2'  element has been edited, extract the new distance
-  # value and adapt the creation arguments accordingly
-  #
-  if POINT_2_PARAMS:
-    args['distance'] = POINT_2_PARAMS['point'].point.x
-
-  return args
+    return args
 ```
 
 #### gom.api.extensions.sequence.ScriptedSequence
@@ -2930,36 +4485,122 @@ Deprecated alias for `CustomSequence`. Use `CustomSequence` instead.
 
 Custom views
 
-The classes in this module enable the user to define custom views. A custom view implements a model/view
-pair, where a Python script fetches data from the ZEISS INSPECT application (model part) and a JavaScript
-renderer visualizes it in a custom way (view part) inside of a native ZEISS INSPECT view. Also, events can be
-emitted from the JavaScript renderer and processed by the Python script.
+The classes in this module enable the user to define **custom views** — native ZEISS INSPECT views whose
+content is rendered by a **JavaScript** front-end that communicates with a **Python** back-end service.
+The Python side acts as the *model* (data source and business logic), while the JavaScript side acts
+as the *view* (rendering and user interaction). A C++ bridge inside ZEISS INSPECT connects them via
+Qt QWebChannel over WebSocket-based JSON serialisation.
+
+```mermaid
+flowchart LR
+    subgraph ZEISS INSPECT Application
+        CPP["C++ Host<br/>(Qt QWebChannel)"]
+    end
+    subgraph Python Service
+        PY["Python Model<br/>(CustomView subclass)"]
+    end
+    subgraph Embedded Browser
+        JS["JavaScript Renderer<br/>(HTML / Canvas / Bundle)"]
+    end
+
+    PY -- "registers functions<br/>& properties" --> CPP
+    CPP -- "exposes gom.bridge<br/>& gom.emitEvent" --> JS
+    JS -- "gom.bridge.func()" --> CPP
+    CPP -- "dispatches call" --> PY
+    PY -- "returns result" --> CPP
+    CPP -- "resolves Promise" --> JS
+    JS -- "gom.emitEvent(name, data)" --> CPP
+    CPP -- "posts event to<br/>Qt event queue" --> PY
+    CPP -- "system signals<br/>(data / selection / config)" --> JS
+```
+
+**Three concrete view types** are provided, each tailored to a different use case:
+
+- `CustomCanvas`  — widget of a ``UserDefinedDialog``, renders via a plain
+  JavaScript ``render(canvas, ctx)`` function on an HTML5 ``<canvas>`` element.
+- `CustomEditor`  — editor widget in the AppExplorer when selecting an AppContent
+  item; backed by an NPM bundle with automatic loading and saving of App Content files.
+- `CustomUtilityView` — view in the main application window; backed by an NPM
+  bundle without built-in content management. This concept is under development and might be 
+  subject to heavy changes in the future.
+
+All three inherit from the abstract `CustomView` base class, which should not be
+instantiated directly.
+
+**Lifecycle**
+
+1. The user creates an App containing a service script (``scripts/service.py``).
+2. The service script defines one or more ``@apicontribution``-decorated classes that
+   inherit from one of the three concrete view types above.
+3. ``gom.run_api()`` is called at the end of the script, which instantiates each
+   decorated class, extracts its metadata (id, category, functions, properties)
+   and registers the contributions with the ZEISS INSPECT application.
+4. When the user opens the custom view, the C++ host creates an embedded browser
+   (Chromium-based), injects the JavaScript bridge infrastructure, and — depending
+   on the view type — either loads a plain renderer script (Canvas) or an NPM
+   bundle (Editor / Utility).
+5. The JavaScript code can call any Python function exposed via ``functions``
+   through the ``gom.bridge`` object. All calls are asynchronous and return
+   JavaScript Promises.
+6. The Python service can receive events emitted by the JavaScript side via the
+   ``event()`` method, and system signals (data changed, selection changed,
+   config changed) are forwarded as DOM ``CustomEvent``s on ``window``.
+
+**JavaScript bridge API** (available inside the renderer)
+
+- ``gom.bridge.<function_name>(args)`` — call a Python function exposed via
+  ``functions``. Returns a ``Promise`` that resolves with the Python return
+  value (dicts become JS objects, lists become arrays, etc.).
+- ``gom.emitEvent(name, data)`` — emit a custom event to be received by the
+  Python ``event()`` method. The return value of ``event()`` is sent back to
+  JavaScript as a ``<name>_response`` event.
+- ``window.addEventListener('<signal_name>', handler)`` — listen for system
+  signals such as ``gom::event::data_changed``, ``gom::event::selection_changed``
+  or ``gom::event::config_changed``.
 
 #### gom.api.extensions.views.CustomCanvas
 
-This class is the base class for all custom views
+Custom canvas view for 2D rendering
 
-A custom view is a view that is embedded into the native ZEISS INSPECT application, but
-its content is rendered by a JavaScript renderer fetching its data from a Python service. Both
-parts form a model/view pair where the model (the python script) fetches and processes
-the data from the ZEISS INSPECT application, while the view (the JavaScript renderer) visualizes
-it in a custom way.
+A ``CustomCanvas`` embeds an HTML5 ``<canvas>`` element into a native ZEISS INSPECT
+view. The rendering is driven by a plain JavaScript file that must export a global
+``render(canvas, ctx)`` function. The function is called whenever the view needs
+to repaint (resize, signal, explicit invalidation).
 
-The purpose of the `CustomView` class on the one hand is to provide the model, on the other
-hand to bring both parts together.
+```mermaid
+sequenceDiagram
+    participant App as ZEISS INSPECT
+    participant Py as Python Service
+    participant JS as JavaScript Renderer
+
+    App->>Py: Start service (gom.run_api)
+    Py->>App: Register CustomCanvas contribution
+    App->>JS: Load renderer script + optional bundle
+    JS->>JS: Call render(canvas, ctx)
+    JS->>Py: gom.bridge.get_data()
+    Py-->>JS: { "text": "Hello World" }
+    JS->>JS: Draw data on canvas
+    JS->>Py: gom.emitEvent("my::event", payload)
+    Py-->>JS: event() return → "my::event_response"
+```
 
 **Identification**
 
-A custom view is identified by its `id` string. This string must be globally unique, as the custom
-view code can be part of an app, which shares its id space with other apps installed on the same system.
-It is advised to use a reverse domain name notation for the id, e.g. `com.mycompany.myapp.myview`.
+A custom view is identified by its ``id`` string. This string must be globally unique,
+as the custom view code can be part of an App which shares its id space with other Apps
+installed on the same system. It is advised to use a reverse domain name notation for the
+id, e.g. ``com.mycompany.myapp.myview``.
 
 **Implementation**
 
-A very simple example for a custom view API contribution can look like this:
+A minimal custom canvas requires:
+
+1. A Python class decorated with ``@apicontribution`` inheriting from ``CustomCanvas``.
+2. A JavaScript renderer file with a global ``render(canvas, ctx)`` function.
+3. A call to ``gom.run_api()`` at the end of the service script.
 
 ```{code-block} python
-:caption: Example of a simple custom view definition
+:caption: Minimal custom canvas (Python service script)
 
 import gom
 import gom.api.extensions.views
@@ -2967,90 +4608,136 @@ import gom.api.extensions.views
 from gom import apicontribution
 
 @apicontribution
-class MyCustomView (gom.api.extensions.views.CustomView):
+class MyCanvasView(gom.api.extensions.views.CustomCanvas):
 
     def __init__(self):
-        super().__init__(id='com.zeiss.testing.customview',
-                         description='My Custom View',
-                         renderer='renderers/MyRenderer.js',
-                         functions=[
-                             self.get_data
-                         ],
-                         bundle='npms/MyCustomView.js')
+        super().__init__(
+            id='com.example.mycanvas',
+            description='My Canvas View',
+            renderer='renderers/my_renderer.js',
+            functions=[self.get_data],
+        )
 
     def get_data(self):
-        return {
-            'text': 'Hello World'
-        }
+        return {'text': 'Hello World'}
 
-gom.run_api ())
+gom.run_api()
 ```
 
-Here, the custom view
-
-- has the id `com.zeiss.testing.customview`
-- is named `My Custom View` in menus etc.
-- exposes the class function `get_data` as a callable function to the JavaScript renderer
-- uses the renderer script `renderers/MyRenderer.js` to visualize the data.
-
-The JavaScript renderer can call the `get_data` function to get the data to visualize in a custom way
-via the `gom.bridge` object:
-
 ```{code-block} javascript
-:caption: Accessing data via the scripting bridge from Python
+:caption: JavaScript renderer (renderers/my_renderer.js)
 
-function renderer () {
-    var data = gom.bridge.get_data();
-    console.log(data.text);
+async function render(canvas, ctx) {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Call Python function via the bridge
+    let data = await gom.bridge.get_data();
+
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 24px Arial';
+    ctx.fillText(data.text, 50, 50);
 }
 ```
 
 **Event handling**
 
-The JavaScript renderer can emit events which can then be processed by the Python side. There are a few system
-events, but the renderer itself can produce custom events. The `event` instance method is called by the active 
-JavaScript renderer when an event occurs. It can be overwritten in custom custom view implementations:
+The JavaScript renderer can emit events that are received by the Python ``event()`` method.
+There are a few built-in system events (see ``CustomView.Event``), but any custom event
+name can be used. Override ``event()`` in your subclass to handle them:
 
 ```{code-block} python
-:caption: Example of a custom view with event handling
+:caption: Handling events in a custom canvas
 
-...
 @apicontribution
-class MyCustomView (gom.api.extensions.views.CustomView):
-    ...
-    def event(self, event: str, args: Any):
+class MyCanvasView(gom.api.extensions.views.CustomCanvas):
+
+    def __init__(self):
+        super().__init__(
+            id='com.example.mycanvas',
+            description='My Canvas View',
+            renderer='renderers/my_renderer.js',
+            functions=[self.get_data],
+        )
+
+    def get_data(self):
+        return {'text': 'Hello World'}
+
+    def event(self, event, args):
         if event == self.Event.INITIALIZED:
-            print('View initialized')
+            print('Canvas view initialized')
+        elif event == 'my::custom::event':
+            print(f'Custom event received: {args}')
+            return {'status': 'ok'}
 ```
 
-On the JavaScript side, the event can be emitted like this:
+On the JavaScript side, events are emitted like this:
 
 ```{code-block} javascript
-:caption: Emitting events from the JavaScript renderer
+:caption: Emitting events from JavaScript
 
-function renderer () {
-    gom.emitEvent('my::custom::event', 'Hello World');
-}
+// Fire-and-forget event
+gom.emitEvent('my::custom::event', { x: 42, y: 100 });
+
+// Listen for the response from Python's event() return value
+window.addEventListener('my::custom::event_response', (e) => {
+    console.log('Python responded:', e.detail);
+});
+```
+
+**Reacting to system signals**
+
+To receive notifications when project data, explorer selection, or preferences change,
+pass the appropriate signal constants in the constructor. The signals are delivered as
+``CustomEvent``s on the JavaScript ``window`` object:
+
+```{code-block} python
+:caption: Subscribing to system signals
+
+class MySignalView(gom.api.extensions.views.CustomCanvas):
+
+    def __init__(self):
+        super().__init__(
+            id='com.example.signal_demo',
+            description='Signal Demo',
+            renderer='renderers/signal_demo.js',
+            signals=[
+                self.Signal.DATA_CHANGED,
+                self.Signal.SELECTION_CHANGED,
+            ],
+        )
+```
+
+```{code-block} javascript
+:caption: Listening for signals in JavaScript
+
+window.addEventListener('gom::event::data_changed', (e) => {
+    // Project data changed — re-render
+    render(document.getElementById('renderCanvas'),
+           document.getElementById('renderCanvas').getContext('2d'));
+});
+
+window.addEventListener('gom::event::selection_changed', (e) => {
+    // Explorer selection changed — update highlights
+});
 ```
 
 **Using 3rd party modules**
 
 ```{caution}
-Please be aware of the relevant FOSS and copyright issues when using third-party modules in your apps !
+Please be aware of the relevant FOSS and copyright issues when using third-party modules in your Apps!
 ```
 
-JavaScript is strongly related to 3rd party modules, for example from node.js. The `bundle` property
-allows to specify a NPM bundle that is used by the JavaScript renderer. The bundle must be present
-as a single file in the `npms` folder of the app. The JavaScript renderer can use this bundle to load 3rd party
-modules. If present, that bundle will be inserted into the JavaScript engine before the renderer process is
-started.
+JavaScript is strongly related to 3rd party modules, for example from Node.js. The ``bundle``
+property allows to specify an NPM bundle that is used by the JavaScript renderer. The bundle
+path is arbitrary and set via the ``bundle`` constructor parameter. If present, the bundle is
+injected into the JavaScript engine **before** the renderer script is loaded.
 
-JavaScript bundles can be created in various ways, for example via a webpack build. Without going too much into
-detail about the Node.js/npm foundations, the following example shows how to create a simple `react` module bundle
-using Node.js and webpack.
+JavaScript bundles can be created in various ways, for example via a webpack build. The
+following example shows how to create a simple ``react`` module bundle using Node.js and webpack.
 
 ```{code-block} json
-:caption: Example of a package.json file for bundle creation
+:caption: Example package.json for bundle creation
 
     "name": "app-module-bundle",
     "version": 1,
@@ -3070,10 +4757,8 @@ using Node.js and webpack.
     }
 ```
 
-Then, a `webpack.config.js` like the following has to be added:
-
 ```{code-block} javascript
-:caption: Example of a webpack.config.js file for bundle creation
+:caption: Example webpack.config.js for bundle creation
 
 const path = require('path');
 
@@ -3084,21 +4769,21 @@ module.exports = {
         path: __dirname + '/dist',
         filename: 'bundle.js',
         library: {
-        name: '""" + project_title.replace(' ', '') + """Bundle',
-        type: 'umd',
-        export: 'default'
+            name: 'MyAppBundle',
+            type: 'umd',
+            export: 'default'
         },
         globalObject: 'this'
     },
-    // We want to bundle all modules together
     optimization: {
         minimize: true
     }
 };
 ```
 
-Please refer to the `node.js` and `webpack` documentation for more details on how to create a bundle. Additionally,
-have a look into the app examples for a more detailed example as a starting point for your own custom views.
+Please refer to the ``node.js`` and ``webpack`` documentation for more details on how to
+create a bundle. Additionally, have a look into the App examples for a more detailed example
+as a starting point for your own custom views.
 
 ##### gom.api.extensions.views.CustomCanvas.Event
 
@@ -3126,6 +4811,96 @@ Event types passed to the `event ()` function
 ```
 
 Constructor
+
+#### gom.api.extensions.views.CustomEditor
+
+Custom editor view for editing App Content
+
+A ``CustomEditor`` provides a full-featured editor for App Content files (workflows, tables,
+tokens, or custom content categories). Unlike ``CustomCanvas``, the editor uses an NPM bundle
+(required) for its UI and integrates automatic file loading and saving.
+
+```mermaid
+sequenceDiagram
+    participant App as ZEISS INSPECT
+    participant Py as Python Service
+    participant JS as Editor Bundle (JS)
+
+    App->>Py: Open content for editing
+    Py->>Py: get_data_types(content, files)
+    App->>App: Load files with specified DataTypes
+    App->>Py: prepare_data(content, data, readonly)
+    Py-->>JS: Initial editor data (JSON)
+    JS->>JS: User edits content
+    Note over JS: Debounced save (save_timeout_ms)
+    JS->>Py: extract_data(content, json)
+    Py-->>App: [(filename, data, DataType)] to save
+```
+
+**Data flow**
+
+The editor manages a bidirectional data pipeline through three overridable methods:
+
+1. ``get_data_types(content, files)`` — Called first. For each file in the App Content,
+   return the load strategy: ``DataTypes.JSON`` (parse as dict), ``DataTypes.STRING``
+   (read as text), ``DataTypes.BYTES`` (raw bytes), or ``DataTypes.NONE`` (skip).
+2. ``prepare_data(content, data, readonly)`` — Transform the loaded raw data into the
+   JSON structure expected by the JavaScript editor bundle.
+3. ``extract_data(content, json)`` — Inverse of ``prepare_data()``. Convert the editor's
+   output back to a list of ``(filename, data, DataType)`` tuples for saving.
+
+**Example**
+
+```{code-block} python
+:caption: Custom JSON file editor
+
+import gom
+import gom.api.extensions.views
+
+from gom import apicontribution
+
+@apicontribution
+class MyJsonEditor(gom.api.extensions.views.CustomEditor):
+
+    def __init__(self):
+        super().__init__(
+            id='com.example.json_editor',
+            content_category='my_custom_content',
+            description='JSON Editor',
+            bundle='npms/json_editor.js',
+            stylesheet='styles/editor.css',
+            signals=[self.Signal.DATA_CHANGED],
+        )
+
+    def get_data_types(self, content, files):
+        return [
+            (f, self.DataTypes.JSON if f.endswith('.json') else self.DataTypes.NONE)
+            for f in files
+        ]
+
+    def prepare_data(self, content, data, readonly):
+        return [{'data': entry, 'readonly': readonly} for (file, entry) in data]
+
+    def extract_data(self, content, json):
+        return [
+            (f'data_{i}.json', entry, self.DataTypes.JSON)
+            for i, entry in enumerate(json)
+        ]
+
+gom.run_api()
+```
+
+**Event handling**
+
+The editor can emit and receive events via the same ``gom.emitEvent()`` and ``event()``
+mechanism as ``CustomCanvas``. In addition, the return value of ``event()`` is automatically
+sent back to the JavaScript side as a ``<event_name>_response`` DOM event, enabling
+request/response patterns between the editor bundle and the Python service.
+
+**Save behaviour**
+
+Changes in the editor are saved with a configurable debounce timeout. Pass
+``save_timeout_ms`` in the ``properties`` dict to control the delay (default: 1000 ms).
 
 ##### gom.api.extensions.views.CustomEditor.DataTypes
 
@@ -3207,6 +4982,62 @@ Determine the loading type for each app content file.
 
 Prepare JSON style data from app contents.
 
+#### gom.api.extensions.views.CustomUtilityView
+
+Custom utility view for general-purpose panels
+
+A ``CustomUtilityView`` creates a generic utility panel — such as a dashboard, data
+inspector, image viewer, or any interactive widget — inside the ZEISS INSPECT application.
+Like ``CustomEditor``, it is backed by an NPM bundle (required), but it does **not**
+provide built-in App Content file management. All data flow is manual, driven by the
+``functions`` mechanism inherited from ``CustomView``.
+
+**View types overview**
+
+| View type | Placement in the application |
+|---|---|
+| ``CustomCanvas`` | Widget of a ``UserDefinedDialog`` |
+| ``CustomEditor`` | Editor widget in the AppExplorer when selecting an AppContent item |
+| ``CustomUtilityView`` | View in the main application window |
+
+**Example**
+
+```{code-block} python
+:caption: Plotly-based data visualization utility
+
+import gom
+import gom.api.extensions.views
+
+from gom import apicontribution
+
+@apicontribution
+class PlotlyViewer(gom.api.extensions.views.CustomUtilityView):
+
+    def __init__(self):
+        super().__init__(
+            id='com.example.plotly_viewer',
+            description='Plotly Data Viewer',
+            bundle='npms/plotly_viewer.js',
+            stylesheet='styles/plotly.css',
+            functions=[self.get_measurement_data],
+            signals=[
+                self.Signal.DATA_CHANGED,
+                self.Signal.SELECTION_CHANGED,
+            ],
+        )
+
+    def get_measurement_data(self):
+        # Fetch data from ZEISS INSPECT project
+        return {'x': [1, 2, 3], 'y': [10, 20, 30]}
+
+gom.run_api()
+```
+
+The JavaScript bundle renders into a ``<div id="root">`` element and can call
+``gom.bridge.get_measurement_data()`` to fetch data from the Python service.
+System signals are received as ``CustomEvent``s on ``window`` just like in the
+other view types.
+
 ##### gom.api.extensions.views.CustomUtilityView.__init__
 
 ```{py:function} gom.api.extensions.views.CustomUtilityView.__init__(self: Any, id: str, description: str, bundle: str, stylesheet: str, functions: List[Any], signals: List[str], properties: Dict[str, Any]): None
@@ -3228,6 +5059,55 @@ Prepare JSON style data from app contents.
 ```
 
 Constructor
+
+#### gom.api.extensions.views.CustomView
+
+Abstract base class for all custom view types
+
+``CustomView`` defines the common interface shared by `CustomCanvas`, `CustomEditor`
+and `CustomUtilityView`. It manages the registration of the view with the ZEISS
+INSPECT contribution system, wires up callable Python functions for the JavaScript
+bridge, and connects system signals.
+
+**Do not instantiate this class directly.** Derive from one of the concrete
+subclasses instead.
+
+```mermaid
+classDiagram
+    class CustomView {
+        <<abstract>>
+        +Event
+        +Signal
+        +event(event, args)
+    }
+    class CustomCanvas
+    class CustomEditor
+    class CustomUtilityView
+    CustomView <|-- CustomCanvas
+    CustomView <|-- CustomEditor
+    CustomView <|-- CustomUtilityView
+```
+
+**Events**
+
+The ``event()`` method is called whenever the JavaScript renderer emits an event
+via ``gom.emitEvent(name, data)``. Override it in your subclass to react to
+custom events or system events like ``Event.INITIALIZED``. The return value of
+``event()`` is automatically sent back to the JavaScript side as a
+``<event_name>_response`` DOM event.
+
+**Signals**
+
+System signals allow a view to be notified when application-wide state changes.
+Pass the desired signal constants in the ``signals`` list of the constructor to
+subscribe. When a signal fires, it is forwarded to the JavaScript renderer as a
+``CustomEvent`` on ``window``:
+
+```javascript
+window.addEventListener('gom::event::data_changed', (e) => {
+    // Refresh view content
+});
+```
 
 ##### gom.api.extensions.views.CustomView.Event
 
@@ -5456,10 +7336,25 @@ strategy should be listed for the selected nominal element.
 
 ## gom.api.table
 
-API for table data handling
+API for table template editing and rendering
 
-This module provides utilities and API entry points to parse table templates (XML), map project inspection data into
-those templates, and produce a serializable view representation suitable for direct rendering by the UI.
+This module provides entry points for accessing and modifying ZEISS INSPECT table templates.
+It allows you to generate render-ready table data from XML templates and create interactive
+content editors.
+
+Expression-language metadata (symbols, functions, element tokens) has been moved to
+`gom.api.expression`, which exposes the same data independently of table structure.
+
+**Typical workflow:**
+```python
+import gom.api.table
+
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+data    = adapter.get_render_data()       # Initial table structure (headers + rows + cells)
+adapter.edit_cell(0, 1, 'result_dimension')
+updated = adapter.get_render_data()       # Updated table structure
+saved   = adapter.get_properties()        # Serialized XML for persistence
+```
 
 ### gom.api.table.ContentEditor
 
@@ -5489,49 +7384,63 @@ Delete the column at the specified index
 :type col: int
 ```
 
-Removes the column from the template container (all element templates and the
-header row). The operation is rejected if only a single column remains.
+Removes the column from all element templates and the header row. Raises an exception
+if only a single column remains.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+adapter.delete_column(2)
+updated_data = adapter.get_render_data()
+```
 
 #### gom.api.table.ContentEditor.delete_row
 
 ```{py:function} gom.api.table.ContentEditor.delete_row(row: int): None
 
-Delete the template sub-row that corresponds to the given view row
-:param row: Row index (0-based)
+Delete an extra row within an element group
+:param row: Row index (0-based, as in the current render data)
 :type row: int
 ```
 
-Only view rows that are marked as extra (i.e. template rows beyond the first)
-may be deleted. Attempting to delete the base template row (index 0) raises an error.
+Only rows marked with `_is_extra_row = True` in the render data can be deleted.
+The base row of each element group — the original data row for the inspection element —
+cannot be deleted. Raises an exception when attempting to delete a base row or the last
+remaining row in an element's template.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+# Check render data to find rows where _is_extra_row is True
+adapter.delete_row(3)
+updated_data = adapter.get_render_data()
+```
 
 #### gom.api.table.ContentEditor.edit_cell
 
 ```{py:function} gom.api.table.ContentEditor.edit_cell(row: int, col: int, expression: str): None
 
-Update a cell's expression and refreshed render data
-:param row: Row index in the current table (0-based)
+Update a cell's expression and regenerate the table render data
+:param row: Row index (0-based, as in the current render data)
 :type row: int
 :param col: Column index (0-based)
 :type col: int
-:param expression: New text/expression to set for the header
+:param expression: New expression text to set for the cell
 :type expression: str
 ```
 
-Modifies the template element's expression text in the active template container based on the provided row and
-column, then regenerates the entire table render data to reflect this change.
+Sets the expression text of the cell at the given row and column, then regenerates the
+full table render data to reflect the change.
 
-**Important:** This regenerates the ENTIRE table because:
-- Elements can reference each other via TokenSource
-- Background colors can depend on other elements' values
-- Expression changes can affect multiple rows/cells
-
-**Note:** Changes are NOT saved to file until the host calls save.
-This only updates the in-memory template and regenerates the view.
+**Note:** The entire table is regenerated after each call because expression changes
+can affect other cells through cross-cell references and expression-based background colors.
+For bulk edits, group all `edit_cell()` calls before reading the render data again.
+Changes are not persisted until `get_properties()` is called and the result is saved.
 
 **Example usage in Python:**
 ```python
-adapter = gom.api.table.create_content_editor_data_adapter(properties, mode="inspection")
-adapter.edit_cell(0, 1, 'Point 1.y')
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+adapter.edit_cell(0, 1, 'result_dimension')
 updated_data = adapter.get_render_data()
 ```
 
@@ -5558,29 +7467,58 @@ adapter.edit_header(0, 'New Header Name')
 updated_data = adapter.get_render_data()
 ```
 
-#### gom.api.table.ContentEditor.get_background_color_expressions
+#### gom.api.table.ContentEditor.get_background_color_types
 
-```{py:function} gom.api.table.ContentEditor.get_background_color_expressions(row: int, col: int): list
+```{py:function} gom.api.table.ContentEditor.get_background_color_types(row: int, col: int): dict
 
-Return the list of expression-based color choices available for the given data cell.
+Return the list of color choices available for the given data cell.
 :param row: Display-row index (0-based, as in the current sort order).
 :type row: int
 :param col: Column index (0-based).
 :type col: int
-:return: QVariantList of QVariantMap entries with keys "label" and "expression_id".
-:rtype: list
+:return: Dict with key "color_entries" → list of dicts, each with: - "label" (str) — human-readable description, e.g. "Worst-case (result_worst_case)" - "color_type" (str) — raw token name, e.g. "result_worst_case"
+:rtype: dict
 ```
 
-The expressions are derived from the element's token interface.  Only tokens whose
+The color choices are derived from the element's token interface. Only tokens whose
 trait type is a tolerance type (or a MinMaxValue attribute that is a tolerance type)
 are returned, because those are the only ones that carry a meaningful color encoding.
 
 Each entry in the returned list is a dict:
-- "label"         (str) — human-readable description, e.g. "Worst-case (result_worst_case)"
-- "expression_id" (str) — expression string suitable for setBackgroundColorExpression,
-e.g. "color(result_worst_case)"
+- "label"      (str) — human-readable description, e.g. "Worst-case (result_worst_case)"
+- "color_type" (str) — raw token name for `set_background_color_expression()` and
+`get_colorbar_preview()`, e.g. "result_worst_case"
 
-Returns an empty list when the cell element has no applicable tokens.
+Returns an empty "color_entries" list when the cell element has no applicable tokens.
+
+#### gom.api.table.ContentEditor.get_colorbar_preview
+
+```{py:function} gom.api.table.ContentEditor.get_colorbar_preview(row: int, color_type: str, direction: str, width: int, height: int): dict
+
+Render a preview image of a color bar expression and return it as a base64-encoded PNG.
+:param row: Display-row index (0-based, current sort order).
+:type row: int
+:param color_type: Raw token name as returned by the "color_type" field of get_background_color_types(), e.g. "result_worst_case". The colorbar() expression is constructed internally.
+:type color_type: str
+:param direction: "horizontal" or "vertical".
+:type direction: str
+:param width: Desired width in pixels (0 = automatic).
+:type width: int
+:param height: Desired height in pixels (0 = automatic).
+:type height: int
+:return: Dict with key "image" → base64 PNG data-URI string, or empty string on failure.
+:rtype: dict
+```
+
+Mirrors the approach used by the C++ formula-bar editor (TextReplacements::generateImage):
+1. Legend2::ColorBarParser::parse() extracts the ColorBar structure (direction, size) from
+the expression without going through the full expression-evaluation pipeline.
+2. Expression::ExpressionCache resolves the raw token name against the element's TokenSource
+to obtain the actual ToleranceTokenData (measurement result + tolerance limits).
+3. The tolerance data — if available — is applied to the ColorBar so the preview reflects
+the element's real measurement state; unmeasured elements render the colorbar frame only.
+4. GFigure2::Tools::generateColorBarImage rasterises the result and it is returned as a
+base64 PNG data-URI for display in the JS ColorBarDialog preview area.
 
 #### gom.api.table.ContentEditor.get_data_id
 
@@ -5591,6 +7529,33 @@ Get the unique data ID for this ContentEditorDataAdapter instance
 :rtype: str
 ```
 
+
+#### gom.api.table.ContentEditor.get_element_at_row
+
+```{py:function} gom.api.table.ContentEditor.get_element_at_row(row: int): Any
+
+Return the project-element reference for the inspection element at the given table row.
+:param row: Display-row index (0-based, as in the current render data).
+:type row: int
+:return: Project element reference suitable for `gom.api.expression.get_tokens()`.
+:rtype: Any
+:throws: Exception if row is out of range.
+```
+
+Encodes the inspection element displayed at `row` as a project element reference that can
+be passed directly to `gom.api.expression.get_tokens()`.  This allows callers to decouple
+token enumeration from the table adapter — the token list is always computed by the canonical
+expression API rather than by the adapter itself.
+
+Example usage in Python:
+```python
+import gom.api.expression
+import gom.api.table
+
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+element_ref = adapter.get_element_at_row(0)
+tokens = gom.api.expression.get_tokens(element_ref)
+```
 
 #### gom.api.table.ContentEditor.get_properties
 
@@ -5616,47 +7581,82 @@ properties = adapter.get_properties()
 ```{py:function} gom.api.table.ContentEditor.get_render_data(): dict
 
 Get the current table render data
-:return: JSON formatted dictionary for rendering the table content editor
+:return: Dict with keys "headers", "rows", and "data_id". See `gom.api.table.get_render_data_from_xml()` for the full structure of headers and rows.
 :rtype: dict
 ```
 
-Returns the last generated table render data stored in memory.
+Returns the table render data last computed by the adapter. The returned dict has the same
+structure as `gom.api.table.get_render_data_from_xml()` and additionally contains a
+`data_id` key with the unique identifier of this adapter instance.
+
+#### gom.api.table.ContentEditor.get_well_known_color_types
+
+```{py:function} gom.api.table.ContentEditor.get_well_known_color_types(): list
+
+Return the well-known token names for expression-based coloring.
+:return: Ordered list of well-known token name strings: `["result_worst_case", "result_nominal", "result_deviation"]`.
+:rtype: list
+```
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+
+color_types = adapter.get_well_known_color_types()
+# color_types == ['result_worst_case', 'result_nominal', 'result_deviation']
+
+adapter.set_background_color_expression(0, 1, color_types[0])
+updated_data = adapter.get_render_data()
+```
 
 #### gom.api.table.ContentEditor.insert_column
 
 ```{py:function} gom.api.table.ContentEditor.insert_column(col: int, position: str): None
 
-Insert a new column before or after the specified column index
+Insert a new empty column before or after the specified column index
 :param col: Column index (0-based)
 :type col: int
-:param position: 'before' to insert to the left, 'after' to insert to the right
+:param position: `'before'` to insert to the left, `'after'` to insert to the right
 :type position: str
 ```
 
-Inserts a new empty column into the template container (affecting all element
-templates and the header row). After insertion the entire table render data
-is regenerated.
+Inserts a blank column into all element templates and the header row. After insertion
+the entire table render data is regenerated.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+adapter.insert_column(1, 'before')   # Insert a blank column to the left of column 1
+updated_data = adapter.get_render_data()
+```
 
 #### gom.api.table.ContentEditor.insert_row
 
 ```{py:function} gom.api.table.ContentEditor.insert_row(row: int, position: str): None
 
-Insert a new template row before or after the specified view row
-:param row: Row index (0-based)
+Insert a new empty row before or after the specified view row
+:param row: Row index (0-based, as in the current render data)
 :type row: int
-:param position: 'before' to insert above, 'after' to insert below
+:param position: `'before'` to insert above, `'after'` to insert below
 :type position: str
 ```
 
-Each view row belongs to an element group and carries an internal template-row index.
-This method inserts a new empty template row into the element-type template at
-the calculated position, so the new row appears within the same element group.
+Inserts a new blank row adjacent to the given view row within the same element group.
+An element group contains all view rows that belong to the same inspection element;
+they share the same `_element_group_id` value in the render data.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+adapter.insert_row(2, 'after')    # Insert a blank row after view row 2
+updated_data = adapter.get_render_data()
+```
 
 #### gom.api.table.ContentEditor.merge_cells
 
 ```{py:function} gom.api.table.ContentEditor.merge_cells(row_start: int, col_start: int, row_end: int, col_end: int): None
 
-Merge a rectangular block of cells in the element-type template
+Merge a rectangular block of cells
 :param row_start: First view row of the merge block (0-based)
 :type row_start: int
 :param col_start: First column of the merge block (0-based)
@@ -5667,135 +7667,239 @@ Merge a rectangular block of cells in the element-type template
 :type col_end: int
 ```
 
-All view rows in [row_start, row_end] must belong to the same element (same element group).
-The corresponding template rows and columns are merged: the top-left cell receives the
-combined row_span / col_span, and all other cells inside the block are cleared.
+Merges the cells spanning [row_start, row_end] × [col_start, col_end] into a single cell.
+All view rows in the range must belong to the same element (same `_element_group_id` in
+the render data). The top-left cell retains its content; all other cells in the block
+are cleared.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+# Merge a 2x2 block: rows 0-1, columns 0-1 (all rows must share the same element)
+adapter.merge_cells(0, 0, 1, 1)
+updated_data = adapter.get_render_data()
+```
+
+#### gom.api.table.ContentEditor.refresh_render_data
+
+```{py:function} gom.api.table.ContentEditor.refresh_render_data(): None
+
+Re-evaluate all rows against the current project state and update the internal cache
+```
+
+Unlike `get_render_data()` which returns the last cached snapshot, this method re-runs
+`generateRenderDataFromContainer` so that subsequent calls to `get_render_data()` reflect
+changes to the project (elements added, removed, or modified; project loaded or closed).
+
+The internal render-data cache (`_current_render_data`) and the element cache are updated
+in place, keeping the adapter consistent for subsequent edit and read operations.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.get_content_editor_data_adapter(data_id)
+adapter.refresh_render_data()   # Update cache to reflect current project state
+fresh_data = adapter.get_render_data()  # Retrieve the refreshed data
+```
 
 #### gom.api.table.ContentEditor.revert
 
 ```{py:function} gom.api.table.ContentEditor.revert(): None
 
-Revert all unsaved changes and restore original render data
+Discard all in-memory edits and restore the template to its initial state
+```
+
+Restores the XML template and render data to exactly the state they were in when this
+adapter was created, discarding any changes made via `edit_cell()`, `edit_header()`,
+`insert_row()`, `delete_row()`, and other mutation methods.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+adapter.edit_cell(0, 1, 'result_dimension')  # Make a change
+adapter.revert()                             # Discard the change
+data = adapter.get_render_data()             # Returns original state
+```
+
+#### gom.api.table.ContentEditor.set_alignment
+
+```{py:function} gom.api.table.ContentEditor.set_alignment(row: int, col: int, alignment: str): None
+
+Apply an alignment setting to a single data cell.
+:param row: Data row index (0-based, as in the current render data).
+:type row: int
+:param col: Column index (0-based).
+:type col: int
+:param alignment: One of "left", "center", or "right".
+:type alignment: str
 ```
 
 **Example usage in Python:**
 ```python
 adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
-adapter.revert()
-data = adapter.get_render_data()
+adapter.set_alignment(0, 1, 'center')
+updated_data = adapter.get_render_data()
 ```
 
-#### gom.api.table.ContentEditor.set_alignment
+#### gom.api.table.ContentEditor.set_alignment_header
 
-```{py:function} gom.api.table.ContentEditor.set_alignment(alignment: str): None
+```{py:function} gom.api.table.ContentEditor.set_alignment_header(col: int, alignment: str): None
 
-Apply alignment settings to one or more cells/headers in a single efficient operation
-:param alignment: JSON-encoded array of alignment objects as described above.
+Apply an alignment setting to a single header cell.
+:param col: Column index (0-based).
+:type col: int
+:param alignment: One of "left", "center", or "right".
 :type alignment: str
 ```
 
-`alignment` must be a JSON-encoded array where each element is an object with the following keys:
-- "is_header" (bool) — when true the entry targets a header cell
-- "row" (int) — data row index (ignored when "is_header" is true)
-- "col" (int) — column index
-- "alignment" (str) — one of "left", "center", or "right"
-
-All specified alignment settings are applied to the adapter's in-memory template, and the cached
-render data is regenerated exactly once afterwards.
-
-Notes for callers:
-- The API mutates the in-memory template only; persisting changes requires the host to call save.
-- The batch is not transactional: errors mid-iteration leave partial changes applied.
-- Out-of-range indices or other validation failures result in Exceptions from the helpers.
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+adapter.set_alignment_header(1, 'center')
+updated_data = adapter.get_render_data()
+```
 
 #### gom.api.table.ContentEditor.set_background_color
 
-```{py:function} gom.api.table.ContentEditor.set_background_color(background_color: str): None
+```{py:function} gom.api.table.ContentEditor.set_background_color(row: int, col: int, color: str): None
 
-Apply a fixed background color (or clear it) to one or more data cells in a single operation.
-:param background_color: JSON-encoded array of change descriptors as described above.
-:type background_color: str
+Apply a fixed background color (or clear it) on a single data cell.
+:param row: Data row index (0-based).
+:type row: int
+:param col: Column index (0-based).
+:type col: int
+:param color: CSS color string (e.g. "#rrggbb" or "rgba(r,g,b,a)"). An empty string clears the background color.
+:type color: str
 ```
 
 Only non-header data cells are supported.  Background color on header cells is intentionally
 excluded to match the behaviour of the traditional table cell editor dialog.
 
-`background_color` must be a JSON-encoded array where each element is an object with:
-- "row" (int)    — data row index (0-based)
-- "col" (int)    — column index (0-based)
-- "color" (str)  — CSS color string, e.g. "#rrggbb" or "rgba(r,g,b,a)".
-An empty string or missing key clears the background color (COLOR_NONE).
-
-All changes are applied to the in-memory template and render data is regenerated exactly once.
-
-Example payload:
-```json
-[{"row": 0, "col": 1, "color": "#ff0000"}, {"row": 2, "col": 0, "color": ""}]
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+adapter.set_background_color(0, 1, '#ff0000')  # Set red background
+adapter.set_background_color(2, 0, '')           # Clear background
+updated_data = adapter.get_render_data()
 ```
 
 #### gom.api.table.ContentEditor.set_background_color_expression
 
-```{py:function} gom.api.table.ContentEditor.set_background_color_expression(background_color_expression: str): None
+```{py:function} gom.api.table.ContentEditor.set_background_color_expression(row: int, col: int, color_type: str): None
 
-Apply an expression-based (dynamic) background color to one or more data cells.
-:param background_color_expression: JSON-encoded array of change descriptors.
-:type background_color_expression: str
+Apply an expression-based (dynamic) background color to a single data cell.
+:param row: Data row index (0-based, as in the current render data).
+:type row: int
+:param col: Column index (0-based).
+:type col: int
+:param color_type: Raw token name (e.g. `"result_worst_case"`). An empty string clears the background color.
+:type color_type: str
 ```
 
-`background_color_expression` must be a JSON-encoded array where each element is an object with:
-- "row" (int)        — data row index (0-based)
-- "col" (int)        — column index (0-based)
-- "expression" (str) — expression identifier, e.g. "color(result_worst_case)".
-An empty string clears the background color (COLOR_NONE).
+Accepts a plain token name as the color type (e.g. `"result_worst_case"`) and constructs
+the required `color(...)` expression internally.  Callers must pass a raw token name only —
+full `color(...)` strings are NOT accepted.
 
-Example payload:
-```json
-[{"row": 0, "col": 1, "expression": "color(result_worst_case)"}]
+Use the compile-time constants in `Tom::MCADScript::TableAPI::ToleranceColorType` for
+the most commonly available token names, or call `get_background_color_types()` to
+discover every valid token name for the element at a specific row at runtime.
+
+**Example usage in Python:**
+```python
+import gom.api.table
+
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+
+# Use a well-known token name directly:
+adapter.set_background_color_expression(0, 1, 'result_worst_case')
+
+# Or discover available token names at runtime first:
+color_types = adapter.get_background_color_types(0, 1)
+if color_types:
+    adapter.set_background_color_expression(0, 1, color_types[0].get('color_type', ''))
+
+updated_data = adapter.get_render_data()
 ```
 
 #### gom.api.table.ContentEditor.set_font_style
 
-```{py:function} gom.api.table.ContentEditor.set_font_style(font_style: str): None
+```{py:function} gom.api.table.ContentEditor.set_font_style(row: int, col: int, bold: bool, italic: bool, underline: bool): None
 
-Apply one or more font-style settings in a single efficient operation
-:param font_style: JSON-encoded array of font style objects as described above.
-:type font_style: str
+Apply a font-style setting to a single data cell.
+:param row: Data row index (0-based, as in the current render data).
+:type row: int
+:param col: Column index (0-based).
+:type col: int
+:param bold: Apply bold formatting.
+:type bold: bool
+:param italic: Apply italic formatting.
+:type italic: bool
+:param underline: Apply underline formatting.
+:type underline: bool
 ```
 
-`font_style` must be a JSON-encoded array where each element is an object
-with the following keys:
-- "is_header" (bool) — when true the entry targets a header cell
-- "row" (int) — data row index (ignored when "is_header" is true)
-- "col" (int) — column index
-- "bold", "italic", "underline" (bool)
-
-All specified font style settings are applied to the adapter's in-memory template, and
-the cached render data is regenerated exactly once afterwards.
+Applies the specified combination of bold, italic, and underline to the cell at
+(row, col) in the adapter's in-memory template and regenerates the cached render data.
 
 Notes for callers:
 - The API mutates the in-memory template only; persisting changes to disk or
 the host's storage must be handled by the host application.
-- The batch is not transactional: if an invalid index or other error causes an
-Exception during iteration, changes applied before the error remain in
-effect. Callers requiring atomicity should validate inputs beforehand or
-implement an explicit undo/save pattern.
-- Out-of-range indices or other validation failures will result in Exceptions
-thrown by the underlying helper methods.
+- Out-of-range indices raise an Exception from the underlying helper.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+adapter.set_font_style(0, 1, True, False, False)  # Bold, not italic, not underline
+updated_data = adapter.get_render_data()
+```
+
+#### gom.api.table.ContentEditor.set_font_style_header
+
+```{py:function} gom.api.table.ContentEditor.set_font_style_header(col: int, bold: bool, italic: bool, underline: bool): None
+
+Apply a font-style setting to a single header cell.
+:param col: Column index (0-based).
+:type col: int
+:param bold: Apply bold formatting.
+:type bold: bool
+:param italic: Apply italic formatting.
+:type italic: bool
+:param underline: Apply underline formatting.
+:type underline: bool
+```
+
+Applies the specified combination of bold, italic, and underline to the header at
+column @p col and regenerates the cached render data.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+adapter.set_font_style_header(1, True, False, False)  # Bold header at column 1
+updated_data = adapter.get_render_data()
+```
 
 #### gom.api.table.ContentEditor.split_cell
 
 ```{py:function} gom.api.table.ContentEditor.split_cell(row: int, col: int): None
 
-Split a merged cell back to individual cells
+Split a previously merged cell back into individual cells
 :param row: View row index (0-based)
 :type row: int
 :param col: Column index (0-based)
 :type col: int
 ```
 
-Resets the row_span and col_span of the template element at the given view
-coordinates to 1, effectively un-merging it.  All previously covered cells
-remain empty but regain their individual grid positions.
+Resets the row span and column span of the cell at the given view row and column to 1,
+undoing a previous `merge_cells()` call. The cells that were covered by the merge
+remain empty but regain their individual positions in the layout. Raises an exception
+when the target cell is not merged.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
+adapter.merge_cells(0, 0, 1, 1)  # Merge first
+adapter.split_cell(0, 0)         # Then split
+updated_data = adapter.get_render_data()
+```
 
 ### gom.api.table.create_content_editor_data_adapter
 
@@ -5833,23 +7937,6 @@ Get the render data adapter instance for the table content editor by data ID
 :throws: Exception if the data_id does not exist in the registry.
 ```
 
-
-### gom.api.table.get_functions
-
-```{py:function} gom.api.table.get_functions(): dict
-
-Get the list of all available expression functions grouped by category
-:return: Dictionary with key "categories" → list of category objects
-:rtype: dict
-```
-
-Returns a dictionary with a "categories" key containing an ordered list of function
-categories. Each category entry has a "name" (translated, human-readable) and a
-"functions" list. Each function entry contains:
-
-- **name**: the function identifier as used in expressions (e.g. "abs")
-- **description**: a short human-readable description
-- **template**: a ready-to-insert call template (e.g. "abs (VALUE)")
 
 ### gom.api.table.get_render_data_from_xml
 
