@@ -538,7 +538,6 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-content-list">gom.api.addons.AddOn.get_content_list</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-file">gom.api.addons.AddOn.get_file</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-file-list">gom.api.addons.AddOn.get_file_list</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-id">gom.api.addons.AddOn.get_id</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-level">gom.api.addons.AddOn.get_level</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-addons-addon-get-name">gom.api.addons.AddOn.get_name</a></li>
@@ -605,13 +604,12 @@ window.runMermaid = runMermaid;</script>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-expressions">gom.api.expressions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-expressions-clear-expression-cache">gom.api.expressions.clear_expression_cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-expressions-get-functions">gom.api.expressions.get_functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-expressions-get-symbols">gom.api.expressions.get_symbols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-expressions-get-tokens">gom.api.expressions.get_tokens</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-extensions">gom.api.extensions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#architecture-overview">Architecture overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lifecycle-of-a-custom-calculation-element">Lifecycle of a custom calculation element</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#minimal-example">Minimal example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#element-categories">Element categories</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-customcalculationelement">gom.api.extensions.CustomCalculationElement</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-customcalculationelement-init">gom.api.extensions.CustomCalculationElement.<strong>init</strong></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-customcalculationelement-compute">gom.api.extensions.CustomCalculationElement.compute</a></li>
@@ -668,48 +666,13 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-volumesegmentation">gom.api.extensions.actuals.VolumeSegmentation</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams">gom.api.extensions.diagrams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams">gom.api.extensions.diagrams</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagram">gom.api.extensions.diagrams.CustomDiagram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagramview">gom.api.extensions.diagrams.CustomDiagramView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-svgdiagram">gom.api.extensions.diagrams.SVGDiagram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-scripteddiagram">gom.api.extensions.diagrams.ScriptedDiagram</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Architecture overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#key-classes">Key classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#helper-module">Helper module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagram">gom.api.extensions.diagrams.CustomDiagram</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#subclassing-guide">Subclassing guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">Example</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagram-token">gom.api.extensions.diagrams.CustomDiagram.Token</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagram-init">gom.api.extensions.diagrams.CustomDiagram.<strong>init</strong></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagram-check-and-filter-partitions">gom.api.extensions.diagrams.CustomDiagram.check_and_filter_partitions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagram-event">gom.api.extensions.diagrams.CustomDiagram.event</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagram-finish-event">gom.api.extensions.diagrams.CustomDiagram.finish_event</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagram-partitions">gom.api.extensions.diagrams.CustomDiagram.partitions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagram-plot">gom.api.extensions.diagrams.CustomDiagram.plot</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagram-plot-all">gom.api.extensions.diagrams.CustomDiagram.plot_all</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagram-sanitize-plot-data">gom.api.extensions.diagrams.CustomDiagram.sanitize_plot_data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagramview">gom.api.extensions.diagrams.CustomDiagramView</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagramview-init">gom.api.extensions.diagrams.CustomDiagramView.<strong>init</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagramview-event">gom.api.extensions.diagrams.CustomDiagramView.event</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagramview-finish-event">gom.api.extensions.diagrams.CustomDiagramView.finish_event</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagramview-partitions">gom.api.extensions.diagrams.CustomDiagramView.partitions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagramview-plot">gom.api.extensions.diagrams.CustomDiagramView.plot</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagramview-plot-all">gom.api.extensions.diagrams.CustomDiagramView.plot_all</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-svgdiagram">gom.api.extensions.diagrams.SVGDiagram</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">Getting Started</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-svgdiagram-renderconfigtoken">gom.api.extensions.diagrams.SVGDiagram.RenderConfigToken</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-svgdiagram-token">gom.api.extensions.diagrams.SVGDiagram.Token</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-svgdiagram-add-element-to-overlay">gom.api.extensions.diagrams.SVGDiagram.add_element_to_overlay</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-svgdiagram-finish-plot">gom.api.extensions.diagrams.SVGDiagram.finish_plot</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-svgdiagram-get-overlay-tag">gom.api.extensions.diagrams.SVGDiagram.get_overlay_tag</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-svgdiagram-sanitize-plot-data">gom.api.extensions.diagrams.SVGDiagram.sanitize_plot_data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams-scripteddiagram">gom.api.extensions.diagrams.ScriptedDiagram</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-inspections">gom.api.extensions.inspections</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-inspections-curve">gom.api.extensions.inspections.Curve</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-inspections-custominspection">gom.api.extensions.inspections.CustomInspection</a></li>
@@ -838,23 +801,15 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-license">gom.api.license</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-license-licensecheckresult">gom.api.license.LicenseCheckResult</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-license-licensecheckresult-get-encrypted-nonce">gom.api.license.LicenseCheckResult.get_encrypted_nonce</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#example-python">Example (Python)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-license-licensecheckresult-is-available">gom.api.license.LicenseCheckResult.is_available</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-license-check-license">gom.api.license.check_license</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id6">Example</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-license-check-product-code">gom.api.license.check_product_code</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id7">Example</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-license-check-license">gom.api.license.check_license</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-license-check-product-code">gom.api.license.check_product_code</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-progress">gom.api.progress</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-progress-progressbar">gom.api.progress.ProgressBar</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id8">Example</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-progress-progressbar-finish-progress">gom.api.progress.ProgressBar.finish_progress</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-progress-progressbar-set-message">gom.api.progress.ProgressBar.set_message</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-progress-progressbar-set-progress">gom.api.progress.ProgressBar.set_progress</a></li>
@@ -918,11 +873,6 @@ window.runMermaid = runMermaid;</script>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-settings">gom.api.settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id9">Example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#types">Types</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#file-selector">File selector</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-settings-get">gom.api.settings.get</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-settings-get-description">gom.api.settings.get_description</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-settings-list">gom.api.settings.list</a></li>
@@ -1132,9 +1082,7 @@ be used to read or write/modify add-on content.</p>
 in edit mode ! An add-on in edit mode is unzipped and the <code class="docutils literal notranslate"><span class="pre">get_file</span> <span class="pre">()</span></code> function will return
 the file system path to its directory in that case. That directory can then be browsed with
 the standard file tools instead.</p>
-</section>
-<section id="example">
-<h4>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h4>
+<p><strong>Example</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">addon</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">get_installed_addons</span><span class="p">():</span>
   <span class="c1"># Edited add-ons are file system based and must be accessed via file system functions</span>
   <span class="k">if</span> <span class="n">addon</span><span class="o">.</span><span class="n">is_edited</span><span class="p">():</span>
@@ -2219,8 +2167,30 @@ Each sub-token entry has “token”, “label”, “has_index”.</p></li>
 </section>
 <section id="gom-api-expressions">
 <h2>gom.api.expressions<a class="headerlink" href="#gom-api-expressions" title="Link to this heading"></a></h2>
-<p>API for reading and manipulation of the internal expression cache</p>
-<p>Internal functions for debugging and error analysis of the expression system.</p>
+<p>General-purpose expression language metadata API</p>
+<p>This module provides access to the ZEISS INSPECT expression language primitives —
+symbols, functions, element-level tokens, and cache management — independently of
+any specific UI component. It can be used from table editors, formula bars, dialog
+widgets, diagram views, or any other context that needs to enumerate what can be
+typed into an expression field.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.expressions</span>
+
+<span class="c1"># List symbols (GPS, Greek, Math, ...)</span>
+<span class="n">symbols</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">expressions</span><span class="o">.</span><span class="n">get_symbols</span><span class="p">()</span>
+
+<span class="c1"># List built-in functions (abs, sin, if, ...)</span>
+<span class="n">functions</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">expressions</span><span class="o">.</span><span class="n">get_functions</span><span class="p">()</span>
+
+<span class="c1"># List tokens available on a specific element</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.selection</span>
+<span class="n">selected</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">get_selected_elements</span><span class="p">()</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">expressions</span><span class="o">.</span><span class="n">get_tokens</span><span class="p">(</span><span class="n">selected</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># Clear the expression evaluation cache (for debugging)</span>
+<span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">expressions</span><span class="o">.</span><span class="n">clear_expression_cache</span><span class="p">()</span>
+</pre></div>
+</div>
 <section id="gom-api-expressions-clear-expression-cache">
 <h3>gom.api.expressions.clear_expression_cache<a class="headerlink" href="#gom-api-expressions-clear-expression-cache" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -2234,11 +2204,130 @@ Each sub-token entry has “token”, “label”, “has_index”.</p></li>
 </dl>
 </dd></dl>
 
-<p>This function clears the expression cache maintained by the expression system. It is means to
-be for debugging purposes. The expression cache is used to speed up repeated evaluations of the same
-expressions in labels, tables, auto names, … and should usually be left alone, as it handles
-itself autonomously. For debugging tasks it can be useful to clear the cache to force re-evaluation
-of expressions nevertheless.</p>
+<p>This function clears the expression cache maintained by the expression system. It is meant to
+be for debugging purposes. The expression cache is used to speed up repeated evaluations of the
+same expressions in labels, tables, auto names, … and should usually be left alone, as it
+handles itself autonomously. For debugging tasks it can be useful to clear the cache to force
+re-evaluation of expressions nevertheless.</p>
+</section>
+<section id="gom-api-expressions-get-functions">
+<h3>gom.api.expressions.get_functions<a class="headerlink" href="#gom-api-expressions-get-functions" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.expressions.get_functions():</span> <span class="pre">dict</span></span></dt>
+<dd><p>Return all available global built-in expression functions grouped by category.</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary with key “categories” → list of category objects, each with “name” (str) and “functions” (list).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Returns a dictionary with a “categories” key containing an ordered list of function
+categories. Each category entry has a “name” (translated, human-readable) and a
+“functions” list. Each function entry contains:</p>
+<ul class="simple">
+<li><p><strong>name</strong>: the function identifier as used in expressions (e.g. “abs”)</p></li>
+<li><p><strong>description</strong>: a short human-readable description</p></li>
+<li><p><strong>template</strong>: a ready-to-insert call template (e.g. “abs (VALUE)”)</p></li>
+</ul>
+<p>Internal, obsolete, and vendor-specific functions are excluded.</p>
+</section>
+<section id="gom-api-expressions-get-symbols">
+<h3>gom.api.expressions.get_symbols<a class="headerlink" href="#gom-api-expressions-get-symbols" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.expressions.get_symbols():</span> <span class="pre">dict</span></span></dt>
+<dd><p>Return all expression symbols grouped by category.</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict with key “categories” → list of category objects, each with “name” (str) and “symbols” (list).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Returns symbols that can be inserted into any expression field, organized into
+four categories:</p>
+<ul class="simple">
+<li><p>GPS (GD&amp;T tolerance symbols)</p></li>
+<li><p>Greek alphabet</p></li>
+<li><p>Mathematical symbols</p></li>
+<li><p>Other (currency, arrows, typographic characters, etc.)</p></li>
+</ul>
+<p>Each symbol entry contains:</p>
+<ul class="simple">
+<li><p>“token”       (str) — the expression token string,
+e.g. “<strong>TOM_SYMBOL_GPS_STRAIGHTNESS</strong>”</p></li>
+<li><p>“description” (str) — translated display name</p></li>
+<li><p>“glyph”       (str) — Unicode glyph character(s) for visual rendering
+(empty for GPS symbols that require a proprietary font)</p></li>
+</ul>
+</section>
+<section id="gom-api-expressions-get-tokens">
+<h3>gom.api.expressions.get_tokens<a class="headerlink" href="#gom-api-expressions-get-tokens" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.expressions.get_tokens(element:</span> <span class="pre">Any):</span> <span class="pre">dict</span></span></dt>
+<dd><p>Return all expression tokens available for the given element, grouped by category.</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>element</strong> (<em>Any</em>) – Any project element reference (e.g. from the return value of <code class="docutils literal notranslate"><span class="pre">gom.api.selection.get_selected_elements()</span></code> or <code class="docutils literal notranslate"><span class="pre">gom.api.customelements.get_element_from_id()</span></code>).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict with keys “categories” and “data_array_categories”.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Accepts any project element reference and returns the tokens that can be inserted into
+expression fields (formula bars, table cells, diagram captions, etc.) for that element.
+Two token sources are provided:</p>
+<ul class="simple">
+<li><p>Element-level tokens (e.g. name, measurement results, tolerances)</p></li>
+<li><p>Data-array tokens   (e.g. point cloud coordinates, normals)
+Internal and icon tokens are excluded in both cases.</p></li>
+</ul>
+<p>The returned dict has two keys:</p>
+<ul class="simple">
+<li><p>“categories”            — ordered list of element-level token categories
+(shown as “Keywords” in expression editors).</p></li>
+<li><p>“data_array_categories” — ordered list of data-array token categories
+(shown as “Data arrays” in expression editors).</p></li>
+</ul>
+<p>Each category entry has:</p>
+<ul class="simple">
+<li><p>“name”    (str)  — translated category label (e.g. “Element info”, “Results”)</p></li>
+<li><p>“tokens”  (list) — list of token entries, each with:</p></li>
+<li><p>“token”       (str)  — raw token expression string (e.g. “result_worst_case”)</p></li>
+<li><p>“label”       (str)  — human-readable display name</p></li>
+<li><p>“has_index”   (bool) — whether the token supports [n] index notation</p></li>
+<li><p>“sub_tokens”  (list) — optional; for tokens with dot-notation sub-attributes
+(e.g. “application_build_information.version”).
+Each sub-token entry has “token”, “label”, “has_index”.</p></li>
+</ul>
+<p>Returns empty category lists when the element is invalid or has no available tokens.</p>
+<p><strong>Example usage in Python:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.expressions</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.selection</span>
+
+<span class="n">selected</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">get_selected_elements</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">selected</span><span class="p">:</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">expressions</span><span class="o">.</span><span class="n">get_tokens</span><span class="p">(</span><span class="n">selected</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">[</span><span class="s1">&#39;categories&#39;</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">category</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">category</span><span class="p">[</span><span class="s1">&#39;tokens&#39;</span><span class="p">]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">],</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="gom-api-extensions">
@@ -2248,8 +2337,7 @@ of expressions nevertheless.</p>
 Custom elements are fully user-defined: their configuration, computation, and visualization are implemented
 entirely in Python. They integrate seamlessly into the application’s element model, appearing in menus, the
 explorer, labels, reports, and the 3D view just like built-in elements.</p>
-<section id="architecture-overview">
-<h3>Architecture overview<a class="headerlink" href="#architecture-overview" title="Link to this heading"></a></h3>
+<p><strong>Architecture overview</strong></p>
 <p>The custom element system is organized as a class hierarchy of base classes. Each category of custom element
 inherits from one of the base classes in this module:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CustomElement                           Base for all custom elements (dialog, event, visibility)
@@ -2266,9 +2354,7 @@ CustomDiagram                           Transforms element data for diagram rend
 </div>
 <p>Each category has its own submodule (<code class="docutils literal notranslate"><span class="pre">gom.api.extensions.actuals</span></code>, <code class="docutils literal notranslate"><span class="pre">gom.api.extensions.nominals</span></code>, etc.)
 with concrete element classes that define the expected <code class="docutils literal notranslate"><span class="pre">compute()</span></code> return value format for each geometry type.</p>
-</section>
-<section id="lifecycle-of-a-custom-calculation-element">
-<h3>Lifecycle of a custom calculation element<a class="headerlink" href="#lifecycle-of-a-custom-calculation-element" title="Link to this heading"></a></h3>
+<p><strong>Lifecycle of a custom calculation element</strong></p>
 <p>The lifecycle of a custom calculation element (actual, nominal, or inspection) follows these steps:</p>
 <ol class="arabic simple">
 <li><p><strong>Registration</strong> — The element class is registered as a <em>contribution</em> using the <code class="docutils literal notranslate"><span class="pre">&#64;apicontribution</span></code>
@@ -2284,9 +2370,7 @@ initialized). Returning <code class="docutils literal notranslate"><span class="
 specific (e.g., <code class="docutils literal notranslate"><span class="pre">'value'</span></code> for a point, <code class="docutils literal notranslate"><span class="pre">'vertices'</span></code>/<code class="docutils literal notranslate"><span class="pre">'triangles'</span></code> for a surface). An optional
 <code class="docutils literal notranslate"><span class="pre">'data'</span></code> key stores arbitrary custom data alongside the element.</p></li>
 </ol>
-</section>
-<section id="minimal-example">
-<h3>Minimal example<a class="headerlink" href="#minimal-example" title="Link to this heading"></a></h3>
+<p><strong>Minimal example</strong></p>
 <p>A simple custom actual point element can be defined as follows::</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import gom
 import gom.api.extensions.actuals
@@ -2317,9 +2401,7 @@ gom.run_api()
 and element type automatically. The <code class="docutils literal notranslate"><span class="pre">dialog()</span></code> method uses the built-in <code class="docutils literal notranslate"><span class="pre">show_dialog()</span></code> helper to
 display a <code class="docutils literal notranslate"><span class="pre">.gdlg</span></code> dialog file and return the values. The <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code> method computes a 3D point
 from the dialog values and returns it in the format expected by the <code class="docutils literal notranslate"><span class="pre">Point</span></code> type.</p>
-</section>
-<section id="element-categories">
-<h3>Element categories<a class="headerlink" href="#element-categories" title="Link to this heading"></a></h3>
+<p><strong>Element categories</strong></p>
 <p>The following categories are available for custom calculation elements:</p>
 <ul class="simple">
 <li><p><strong>Actuals</strong> (<code class="docutils literal notranslate"><span class="pre">gom.api.extensions.actuals</span></code>): Computed elements based on measurement data or algorithms
@@ -2336,7 +2418,6 @@ into one editable unit.</p></li>
 (SVGDiagram, CustomDiagramView).</p></li>
 </ul>
 <p>Each concrete element class documents the expected return value format of its <code class="docutils literal notranslate"><span class="pre">compute()</span></code> function.</p>
-</section>
 <section id="gom-api-extensions-customcalculationelement">
 <h3>gom.api.extensions.CustomCalculationElement<a class="headerlink" href="#gom-api-extensions-customcalculationelement" title="Link to this heading"></a></h3>
 <p>This class is used to define a custom calculation element which computes its own data. It is used as a
@@ -3757,19 +3838,14 @@ Note that the NumPy shape convention is <code class="docutils literal notranslat
 diagram views. A custom diagram is a Python service contribution that transforms
 element data into a format consumable by a JavaScript renderer running in the
 diagram view’s embedded web engine.</p>
-</section>
-</section>
-<section id="id2">
-<h2>Architecture overview<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p><strong>Architecture overview</strong></p>
 <p>The custom diagram system follows a three-layer pipeline:</p>
 <pre  class="mermaid">
         flowchart TD
     A[&quot;**Custom Element** (Python service)&lt;br/&gt;finish() attaches diagram payloads&lt;br/&gt;via add_diagram_data()&quot;]
     --&gt; B[&quot;**Custom Diagram** (Python service)&lt;br/&gt;CustomDiagram / SVGDiagram&lt;br/&gt;plot() transforms element data&lt;br/&gt;into renderer-specific output&quot;]
     --&gt; C[&quot;**JavaScript Renderer** (diagram view)&lt;br/&gt;Renders into the HTML canvas&lt;br/&gt;Handles hover, click and tooltip&quot;]
-    </pre></section>
-<section id="getting-started">
-<h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+    </pre><p><strong>Getting started</strong></p>
 <ol class="arabic">
 <li><p><strong>Create a custom element</strong> that produces diagram data in its <code class="docutils literal notranslate"><span class="pre">finish()</span></code> method:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">results_states_map</span><span class="p">):</span>
@@ -3817,9 +3893,7 @@ diagram view’s embedded web engine.</p>
 <li><p><strong>Register both as services</strong> in the app’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> so they are
 started automatically.</p></li>
 </ol>
-</section>
-<section id="key-classes">
-<h2>Key classes<a class="headerlink" href="#key-classes" title="Link to this heading"></a></h2>
+<p><strong>Key classes</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CustomDiagram</span></code>
 Abstract base class for custom diagram contributions. Subclass this when you
 need full control over the renderer type and output format.</p>
@@ -3830,15 +3904,13 @@ output sanitization. This is the recommended starting point for most diagrams.</
 <p><code class="docutils literal notranslate"><span class="pre">CustomDiagramView</span></code>
 Integration class bridging custom diagrams into the custom view framework.
 Used for advanced diagram views with dedicated JavaScript bundles.</p>
-</section>
-<section id="helper-module">
-<h2>Helper module<a class="headerlink" href="#helper-module" title="Link to this heading"></a></h2>
+<p><strong>Helper module</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">gom.api.extensions.diagrams.matplotlib_tools</span></code>
 Provides <code class="docutils literal notranslate"><span class="pre">setup_plot()</span></code> and <code class="docutils literal notranslate"><span class="pre">create_svg()</span></code> for matplotlib-based SVG generation.
 Handles DPI scaling, figure sizing, and SVG export so the output fits cleanly
 into the diagram view canvas and report snapshots.</p>
 <section id="gom-api-extensions-diagrams-customdiagram">
-<h3>gom.api.extensions.diagrams.CustomDiagram<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram" title="Link to this heading"></a></h3>
+<h4>gom.api.extensions.diagrams.CustomDiagram<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram" title="Link to this heading"></a></h4>
 <p>Abstract base class for custom diagram contributions.</p>
 <p>A custom diagram is a Python service contribution that receives element data from one or more
 custom elements and transforms it into a format suitable for a JavaScript renderer in the
@@ -3853,10 +3925,7 @@ them by contribution, and calls <code class="docutils literal notranslate"><span
 per partition with the corresponding subset of element data.</p></li>
 <li><p>The return value of <code class="docutils literal notranslate"><span class="pre">plot()</span></code> is forwarded to the JavaScript renderer for display.</p></li>
 </ol>
-</section>
-</section>
-<section id="subclassing-guide">
-<h2>Subclassing guide<a class="headerlink" href="#subclassing-guide" title="Link to this heading"></a></h2>
+<p><strong>Subclassing guide</strong></p>
 <ul class="simple">
 <li><p><strong>Required</strong>: Override <code class="docutils literal notranslate"><span class="pre">plot(view,</span> <span class="pre">element_data)</span></code> to transform element data into
 renderer-specific output. The <code class="docutils literal notranslate"><span class="pre">view</span></code> dictionary provides canvas dimensions and font
@@ -3872,9 +3941,7 @@ to trigger execution of a follow-up script command.</p></li>
 </ul>
 <p>For SVG-based diagrams, prefer subclassing <code class="docutils literal notranslate"><span class="pre">SVGDiagram</span></code> instead — it provides
 additional helpers for SVG output, interactive overlays, and automatic output sanitization.</p>
-</section>
-<section id="id3">
-<h2>Example<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p><strong>Example</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gom.api.extensions.diagrams</span><span class="w"> </span><span class="kn">import</span> <span class="n">CustomDiagram</span>
@@ -3900,11 +3967,11 @@ additional helpers for SVG output, interactive overlays, and automatic output sa
 </pre></div>
 </div>
 <section id="gom-api-extensions-diagrams-customdiagram-token">
-<h3>gom.api.extensions.diagrams.CustomDiagram.Token<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-token" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.CustomDiagram.Token<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-token" title="Link to this heading"></a></h5>
 <p>Token identifiers for the CustomDiagram data format</p>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagram-init">
-<h3>gom.api.extensions.diagrams.CustomDiagram.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-init" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.CustomDiagram.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-init" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagram.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">diagram_type:</span> <span class="pre">str,</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">callables:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
@@ -3924,7 +3991,7 @@ additional helpers for SVG output, interactive overlays, and automatic output sa
 <p>Constructor</p>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagram-check-and-filter-partitions">
-<h3>gom.api.extensions.diagrams.CustomDiagram.check_and_filter_partitions<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-check-and-filter-partitions" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.CustomDiagram.check_and_filter_partitions<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-check-and-filter-partitions" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagram.check_and_filter_partitions(self:</span> <span class="pre">Any,</span> <span class="pre">partitions_in:</span> <span class="pre">List[List[int]],</span> <span class="pre">cnt_elements:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
@@ -3942,7 +4009,7 @@ additional helpers for SVG output, interactive overlays, and automatic output sa
 <p>For internal use only.</p>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagram-event">
-<h3>gom.api.extensions.diagrams.CustomDiagram.event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-event" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.CustomDiagram.event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-event" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagram.event(self:</span> <span class="pre">Any,</span> <span class="pre">element_name:</span> <span class="pre">str,</span> <span class="pre">element_uuid:</span> <span class="pre">str,</span> <span class="pre">event_data:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
@@ -3974,7 +4041,7 @@ about the mouse event. Use <code class="docutils literal notranslate"><span clas
 </div>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagram-finish-event">
-<h3>gom.api.extensions.diagrams.CustomDiagram.finish_event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-finish-event" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.CustomDiagram.finish_event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-finish-event" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagram.finish_event(self:</span> <span class="pre">Any,</span> <span class="pre">cmd_script:</span> <span class="pre">str,</span> <span class="pre">params:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
@@ -4002,7 +4069,7 @@ about the mouse event. Use <code class="docutils literal notranslate"><span clas
 </div>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagram-partitions">
-<h3>gom.api.extensions.diagrams.CustomDiagram.partitions<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-partitions" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.CustomDiagram.partitions<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-partitions" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagram.partitions(self:</span> <span class="pre">Any,</span> <span class="pre">element_data:</span> <span class="pre">List[Dict[str,</span> <span class="pre">Any]]):</span> <span class="pre">None</span></span></dt>
@@ -4037,7 +4104,7 @@ resulting in one diagram.</p>
 </div>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagram-plot">
-<h3>gom.api.extensions.diagrams.CustomDiagram.plot<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-plot" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.CustomDiagram.plot<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-plot" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagram.plot(self:</span> <span class="pre">Any,</span> <span class="pre">view:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">element_data:</span> <span class="pre">List[Dict[str,</span> <span class="pre">Any]]):</span> <span class="pre">None</span></span></dt>
@@ -4062,7 +4129,7 @@ resulting in one diagram.</p>
 all elements if <code class="docutils literal notranslate"><span class="pre">partitions()</span></code> is not overridden).</p>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagram-plot-all">
-<h3>gom.api.extensions.diagrams.CustomDiagram.plot_all<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-plot-all" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.CustomDiagram.plot_all<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-plot-all" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagram.plot_all(self:</span> <span class="pre">Any,</span> <span class="pre">view:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">element_data:</span> <span class="pre">List[Dict[str,</span> <span class="pre">Any]]):</span> <span class="pre">None</span></span></dt>
@@ -4088,7 +4155,7 @@ partition to produce the final diagram output. Users should not call or override
 this method — override <code class="docutils literal notranslate"><span class="pre">plot()</span></code> and optionally <code class="docutils literal notranslate"><span class="pre">partitions()</span></code> instead.</p>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagram-sanitize-plot-data">
-<h3>gom.api.extensions.diagrams.CustomDiagram.sanitize_plot_data<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-sanitize-plot-data" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.CustomDiagram.sanitize_plot_data<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-sanitize-plot-data" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagram.sanitize_plot_data(self:</span> <span class="pre">Any,</span> <span class="pre">plot_data:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
@@ -4099,8 +4166,9 @@ this method — override <code class="docutils literal notranslate"><span class=
 to normalize raw SVG strings into the full dictionary format expected by its
 JavaScript renderer.</p>
 </section>
+</section>
 <section id="gom-api-extensions-diagrams-customdiagramview">
-<h3>gom.api.extensions.diagrams.CustomDiagramView<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview" title="Link to this heading"></a></h3>
+<h4>gom.api.extensions.diagrams.CustomDiagramView<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview" title="Link to this heading"></a></h4>
 <p>Integration class for custom diagrams in the custom view framework.</p>
 <p><code class="docutils literal notranslate"><span class="pre">CustomDiagramView</span></code> bridges the custom view system and the diagram pipeline.
 It exposes a <code class="docutils literal notranslate"><span class="pre">plot()</span></code> / <code class="docutils literal notranslate"><span class="pre">event()</span></code> interface similar to <code class="docutils literal notranslate"><span class="pre">CustomDiagram</span></code>, but
@@ -4109,7 +4177,7 @@ contribution system.</p>
 <p>&#64;note This class currently duplicates parts of the <code class="docutils literal notranslate"><span class="pre">CustomDiagram</span></code> interface.
 Prefer <code class="docutils literal notranslate"><span class="pre">CustomDiagram</span></code> or <code class="docutils literal notranslate"><span class="pre">SVGDiagram</span></code> for new diagram contributions.</p>
 <section id="gom-api-extensions-diagrams-customdiagramview-init">
-<h4>gom.api.extensions.diagrams.CustomDiagramView.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-init" title="Link to this heading"></a></h4>
+<h5>gom.api.extensions.diagrams.CustomDiagramView.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-init" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">bundle:</span> <span class="pre">str,</span> <span class="pre">stylesheet:</span> <span class="pre">str,</span> <span class="pre">supported_properties:</span> <span class="pre">List[str],</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">signals:</span> <span class="pre">List[str],</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
@@ -4132,7 +4200,7 @@ Prefer <code class="docutils literal notranslate"><span class="pre">CustomDiagra
 <p>Constructor</p>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagramview-event">
-<h4>gom.api.extensions.diagrams.CustomDiagramView.event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-event" title="Link to this heading"></a></h4>
+<h5>gom.api.extensions.diagrams.CustomDiagramView.event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-event" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.event(self:</span> <span class="pre">Any,</span> <span class="pre">element_name:</span> <span class="pre">str,</span> <span class="pre">element_uuid:</span> <span class="pre">str,</span> <span class="pre">event_data:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
@@ -4157,7 +4225,7 @@ Prefer <code class="docutils literal notranslate"><span class="pre">CustomDiagra
 <p>See <code class="docutils literal notranslate"><span class="pre">CustomDiagram.event()</span></code> for a detailed description of the parameters.</p>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagramview-finish-event">
-<h4>gom.api.extensions.diagrams.CustomDiagramView.finish_event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-finish-event" title="Link to this heading"></a></h4>
+<h5>gom.api.extensions.diagrams.CustomDiagramView.finish_event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-finish-event" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.finish_event(self:</span> <span class="pre">Any,</span> <span class="pre">cmd_script:</span> <span class="pre">str,</span> <span class="pre">params:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
@@ -4180,7 +4248,7 @@ Prefer <code class="docutils literal notranslate"><span class="pre">CustomDiagra
 <p>This function is called to help return event data in the correct format</p>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagramview-partitions">
-<h4>gom.api.extensions.diagrams.CustomDiagramView.partitions<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-partitions" title="Link to this heading"></a></h4>
+<h5>gom.api.extensions.diagrams.CustomDiagramView.partitions<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-partitions" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.partitions(self:</span> <span class="pre">Any,</span> <span class="pre">element_data:</span> <span class="pre">List[Dict[str,</span> <span class="pre">Any]]):</span> <span class="pre">None</span></span></dt>
@@ -4204,7 +4272,7 @@ The index of each partition will be available through the ‘subplot’ key in t
 <p>&#64;note Partitions may share elements</p>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagramview-plot">
-<h4>gom.api.extensions.diagrams.CustomDiagramView.plot<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-plot" title="Link to this heading"></a></h4>
+<h5>gom.api.extensions.diagrams.CustomDiagramView.plot<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-plot" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.plot(self:</span> <span class="pre">Any,</span> <span class="pre">view:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">element_data:</span> <span class="pre">List[Dict[str,</span> <span class="pre">Any]]):</span> <span class="pre">None</span></span></dt>
@@ -4229,7 +4297,7 @@ The index of each partition will be available through the ‘subplot’ key in t
 a detailed description of the parameters and return value.</p>
 </section>
 <section id="gom-api-extensions-diagrams-customdiagramview-plot-all">
-<h4>gom.api.extensions.diagrams.CustomDiagramView.plot_all<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-plot-all" title="Link to this heading"></a></h4>
+<h5>gom.api.extensions.diagrams.CustomDiagramView.plot_all<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-plot-all" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.plot_all(self:</span> <span class="pre">Any,</span> <span class="pre">view:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">element_data:</span> <span class="pre">List[Dict[str,</span> <span class="pre">Any]]):</span> <span class="pre">None</span></span></dt>
@@ -4255,16 +4323,13 @@ the list format expected by the diagram renderer.</p>
 </section>
 </section>
 <section id="gom-api-extensions-diagrams-svgdiagram">
-<h3>gom.api.extensions.diagrams.SVGDiagram<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram" title="Link to this heading"></a></h3>
+<h4>gom.api.extensions.diagrams.SVGDiagram<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram" title="Link to this heading"></a></h4>
 <p>Specialized base class for custom diagrams rendered as SVG images.</p>
 <p><code class="docutils literal notranslate"><span class="pre">SVGDiagram</span></code> extends <code class="docutils literal notranslate"><span class="pre">CustomDiagram</span></code> with helpers for the built-in
 <code class="docutils literal notranslate"><span class="pre">SVGDiagram</span></code> JavaScript renderer that ships with ZEISS INSPECT. It is the
 recommended base class when diagrams are generated as SVG (for example via
 matplotlib).</p>
-</section>
-</section>
-<section id="features">
-<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<p><strong>Features</strong></p>
 <ul class="simple">
 <li><p><strong>Automatic output sanitization:</strong> <code class="docutils literal notranslate"><span class="pre">plot()</span></code> can return a raw SVG string
 <em>or</em> a dictionary produced by <code class="docutils literal notranslate"><span class="pre">finish_plot()</span></code>. Raw strings are wrapped
@@ -4280,9 +4345,7 @@ bounding boxes from the tagged SVG groups.</p></li>
 <code class="docutils literal notranslate"><span class="pre">finish_plot()</span></code> to control debug overlays, marker styles, tooltips, and
 caching. See <code class="docutils literal notranslate"><span class="pre">RenderConfigToken</span></code> for the full list of options.</p></li>
 </ul>
-</section>
-<section id="id4">
-<h2>Getting Started<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p><strong>Getting Started</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gom.api.extensions.diagrams</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVGDiagram</span>
@@ -4311,7 +4374,7 @@ caching. See <code class="docutils literal notranslate"><span class="pre">Render
 </pre></div>
 </div>
 <section id="gom-api-extensions-diagrams-svgdiagram-renderconfigtoken">
-<h3>gom.api.extensions.diagrams.SVGDiagram.RenderConfigToken<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram-renderconfigtoken" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.SVGDiagram.RenderConfigToken<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram-renderconfigtoken" title="Link to this heading"></a></h5>
 <p>Token identifiers for the optional rendering configuration passed to the SVGDiagram renderer via Token.RENDER_CONFIG parameter</p>
 <p>“debug_logging” - Enable general logging (default: False)</p>
 <p>“debug_logging_trace” - Enable detailed result logging (default: False)</p>
@@ -4337,11 +4400,11 @@ caching. See <code class="docutils literal notranslate"><span class="pre">Render
 <p>“overlay_element_count” - Count of elements to be tracked by the overlay. (default: automatic)</p>
 </section>
 <section id="gom-api-extensions-diagrams-svgdiagram-token">
-<h3>gom.api.extensions.diagrams.SVGDiagram.Token<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram-token" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.SVGDiagram.Token<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram-token" title="Link to this heading"></a></h5>
 <p>Token identifiers for the SVGDiagram renderer data format</p>
 </section>
 <section id="gom-api-extensions-diagrams-svgdiagram-add-element-to-overlay">
-<h3>gom.api.extensions.diagrams.SVGDiagram.add_element_to_overlay<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram-add-element-to-overlay" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.SVGDiagram.add_element_to_overlay<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram-add-element-to-overlay" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.SVGDiagram.add_element_to_overlay(self:</span> <span class="pre">Any,</span> <span class="pre">overlay:</span> <span class="pre">Dict[str,</span> <span class="pre">Dict[str,</span> <span class="pre">Any]],</span> <span class="pre">element_uuid:</span> <span class="pre">Any,</span> <span class="pre">interaction_point:</span> <span class="pre">Tuple[float,</span> <span class="pre">float],</span> <span class="pre">element_name:</span> <span class="pre">str,</span> <span class="pre">tooltip:</span> <span class="pre">Any,</span> <span class="pre">custom_interaction:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
@@ -4387,7 +4450,7 @@ are updated if new non-empty values are provided.</p>
 </div>
 </section>
 <section id="gom-api-extensions-diagrams-svgdiagram-finish-plot">
-<h3>gom.api.extensions.diagrams.SVGDiagram.finish_plot<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram-finish-plot" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.SVGDiagram.finish_plot<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram-finish-plot" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.SVGDiagram.finish_plot(self:</span> <span class="pre">Any,</span> <span class="pre">svg_string:</span> <span class="pre">str,</span> <span class="pre">overlay:</span> <span class="pre">List,</span> <span class="pre">render_config:</span> <span class="pre">Dict):</span> <span class="pre">None</span></span></dt>
@@ -4427,7 +4490,7 @@ internally.</p>
 </div>
 </section>
 <section id="gom-api-extensions-diagrams-svgdiagram-get-overlay-tag">
-<h3>gom.api.extensions.diagrams.SVGDiagram.get_overlay_tag<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram-get-overlay-tag" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.SVGDiagram.get_overlay_tag<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram-get-overlay-tag" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.SVGDiagram.get_overlay_tag(self:</span> <span class="pre">Any,</span> <span class="pre">element_uuid:</span> <span class="pre">str):</span> <span class="pre">str</span></span></dt>
@@ -4458,7 +4521,7 @@ id to let the renderer automatically compute hitboxes.</p>
 </div>
 </section>
 <section id="gom-api-extensions-diagrams-svgdiagram-sanitize-plot-data">
-<h3>gom.api.extensions.diagrams.SVGDiagram.sanitize_plot_data<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram-sanitize-plot-data" title="Link to this heading"></a></h3>
+<h5>gom.api.extensions.diagrams.SVGDiagram.sanitize_plot_data<a class="headerlink" href="#gom-api-extensions-diagrams-svgdiagram-sanitize-plot-data" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.SVGDiagram.sanitize_plot_data(self:</span> <span class="pre">Any,</span> <span class="pre">plot_data:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
@@ -4475,9 +4538,11 @@ automatically.</p></li>
 <p>Users do not need to call this method directly — it is invoked internally by
 <code class="docutils literal notranslate"><span class="pre">plot_all()</span></code> after each call to <code class="docutils literal notranslate"><span class="pre">plot()</span></code>.</p>
 </section>
+</section>
 <section id="gom-api-extensions-diagrams-scripteddiagram">
-<h3>gom.api.extensions.diagrams.ScriptedDiagram<a class="headerlink" href="#gom-api-extensions-diagrams-scripteddiagram" title="Link to this heading"></a></h3>
+<h4>gom.api.extensions.diagrams.ScriptedDiagram<a class="headerlink" href="#gom-api-extensions-diagrams-scripteddiagram" title="Link to this heading"></a></h4>
 <p>Deprecated alias for <code class="docutils literal notranslate"><span class="pre">CustomDiagram</span></code>. Use <code class="docutils literal notranslate"><span class="pre">CustomDiagram</span></code> instead.</p>
+</section>
 </section>
 <section id="gom-api-extensions-inspections">
 <h3>gom.api.extensions.inspections<a class="headerlink" href="#gom-api-extensions-inspections" title="Link to this heading"></a></h3>
@@ -5742,6 +5807,9 @@ content is rendered by a <strong>JavaScript</strong> front-end that communicates
 The Python side acts as the <em>model</em> (data source and business logic), while the JavaScript side acts
 as the <em>view</em> (rendering and user interaction). A C++ bridge inside ZEISS INSPECT connects them via
 Qt QWebChannel over WebSocket-based JSON serialisation.</p>
+<p><strong>Architecture overview</strong></p>
+<p>Python service acts as the <em>model</em> (data source, business logic); JavaScript acts as the <em>view</em> (rendering, interaction).
+A C++ bridge (Qt QWebChannel) connects them via WebSocket-based JSON serialisation.</p>
 <pre  class="mermaid">
         flowchart LR
     subgraph ZEISS INSPECT Application
@@ -5840,8 +5908,8 @@ id, e.g. <code class="docutils literal notranslate"><span class="pre">com.mycomp
 <li><p>A JavaScript renderer file with a global <code class="docutils literal notranslate"><span class="pre">render(canvas,</span> <span class="pre">ctx)</span></code> function.</p></li>
 <li><p>A call to <code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> at the end of the service script.</p></li>
 </ol>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Minimal custom canvas (Python service script)</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Minimal custom canvas (Python service script)</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.views</span>
 
@@ -5865,8 +5933,8 @@ id, e.g. <code class="docutils literal notranslate"><span class="pre">com.mycomp
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">JavaScript renderer (renderers/my_renderer.js)</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">JavaScript renderer (renderers/my_renderer.js)</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">render</span><span class="p">(</span><span class="nx">canvas</span><span class="p">,</span><span class="w"> </span><span class="nx">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;black&#39;</span><span class="p">;</span>
 <span class="w">    </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
@@ -5885,8 +5953,8 @@ id, e.g. <code class="docutils literal notranslate"><span class="pre">com.mycomp
 <p>The JavaScript renderer can emit events that are received by the Python <code class="docutils literal notranslate"><span class="pre">event()</span></code> method.
 There are a few built-in system events (see <code class="docutils literal notranslate"><span class="pre">CustomView.Event</span></code>), but any custom event
 name can be used. Override <code class="docutils literal notranslate"><span class="pre">event()</span></code> in your subclass to handle them:</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Handling events in a custom canvas</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Handling events in a custom canvas</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@apicontribution</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MyCanvasView</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">CustomCanvas</span><span class="p">):</span>
 
@@ -5911,8 +5979,8 @@ name can be used. Override <code class="docutils literal notranslate"><span clas
 </div>
 </div>
 <p>On the JavaScript side, events are emitted like this:</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Emitting events from JavaScript</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Emitting events from JavaScript</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// Fire-and-forget event</span>
 <span class="nx">gom</span><span class="p">.</span><span class="nx">emitEvent</span><span class="p">(</span><span class="s1">&#39;my::custom::event&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="mf">42</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="mf">100</span><span class="w"> </span><span class="p">});</span>
 
@@ -5927,8 +5995,8 @@ name can be used. Override <code class="docutils literal notranslate"><span clas
 <p>To receive notifications when project data, explorer selection, or preferences change,
 pass the appropriate signal constants in the constructor. The signals are delivered as
 <code class="docutils literal notranslate"><span class="pre">CustomEvent</span></code>s on the JavaScript <code class="docutils literal notranslate"><span class="pre">window</span></code> object:</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Subscribing to system signals</span><a class="headerlink" href="#id14" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Subscribing to system signals</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MySignalView</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">CustomCanvas</span><span class="p">):</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -5944,8 +6012,8 @@ pass the appropriate signal constants in the constructor. The signals are delive
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Listening for signals in JavaScript</span><a class="headerlink" href="#id15" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Listening for signals in JavaScript</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;gom::event::data_changed&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// Project data changed — re-render</span>
 <span class="w">    </span><span class="nx">render</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;renderCanvas&#39;</span><span class="p">),</span>
@@ -5969,8 +6037,8 @@ path is arbitrary and set via the <code class="docutils literal notranslate"><sp
 injected into the JavaScript engine <strong>before</strong> the renderer script is loaded.</p>
 <p>JavaScript bundles can be created in various ways, for example via a webpack build. The
 following example shows how to create a simple <code class="docutils literal notranslate"><span class="pre">react</span></code> module bundle using Node.js and webpack.</p>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">Example package.json for bundle creation</span><a class="headerlink" href="#id16" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Example package.json for bundle creation</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;app-module-bundle&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;App module bundle&quot;</span><span class="p">,</span>
@@ -5990,8 +6058,8 @@ following example shows how to create a simple <code class="docutils literal not
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">Example webpack.config.js for bundle creation</span><a class="headerlink" href="#id17" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Example webpack.config.js for bundle creation</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
@@ -6079,8 +6147,8 @@ JSON structure expected by the JavaScript editor bundle.</p></li>
 output back to a list of <code class="docutils literal notranslate"><span class="pre">(filename,</span> <span class="pre">data,</span> <span class="pre">DataType)</span></code> tuples for saving.</p></li>
 </ol>
 <p><strong>Example</strong></p>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">Custom JSON file editor</span><a class="headerlink" href="#id18" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Custom JSON file editor</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.views</span>
 
@@ -6259,8 +6327,8 @@ provide built-in App Content file management. All data flow is manual, driven by
 </tbody>
 </table>
 <p><strong>Example</strong></p>
-<div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">Plotly-based data visualization utility</span><a class="headerlink" href="#id19" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Plotly-based data visualization utility</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.views</span>
 
@@ -6394,8 +6462,8 @@ subscribe. When a signal fires, it is forwarded to the JavaScript renderer as a
 
 <p>Constructor</p>
 </section>
-<section id="id5">
-<h5>gom.api.extensions.views.CustomView.event<a class="headerlink" href="#id5" title="Link to this heading"></a></h5>
+<section id="id2">
+<h5>gom.api.extensions.views.CustomView.event<a class="headerlink" href="#id2" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">gom.api.extensions.views.CustomView.event(self:</span> <span class="pre">Any,</span> <span class="pre">event:</span> <span class="pre">str,</span> <span class="pre">args:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
@@ -7669,9 +7737,7 @@ availability status and a cryptographically signed nonce for verification.</p>
 (signed) with the software’s private key. The caller can verify this signature
 using the corresponding public key to ensure the response authenticity.</p>
 <p>The nonce is only valid if the license is available; otherwise, an empty string is returned.</p>
-</section>
-<section id="example-python">
-<h4>Example (Python)<a class="headerlink" href="#example-python" title="Link to this heading"></a></h4>
+<p><strong>Example (Python)</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">secrets</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
@@ -7776,8 +7842,7 @@ can verify this signature using the corresponding public key. This verification 
 implemented by the caller to ensure the authenticity of the response and prevent spoofing.</p>
 <p>This implements a challenge-response authentication scheme to prevent replay attacks and
 ensure that the license check result is genuine.</p>
-<section id="id6">
-<h4>Example<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
+<p><strong>Example</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">secrets</span>
 
@@ -7794,7 +7859,6 @@ ensure that the license check result is genuine.</p>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;License not available&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
 </section>
 <section id="gom-api-license-check-product-code">
 <h3>gom.api.license.check_product_code<a class="headerlink" href="#gom-api-license-check-product-code" title="Link to this heading"></a></h3>
@@ -7827,8 +7891,7 @@ can verify this signature using the corresponding public key. This verification 
 implemented by the caller to ensure the authenticity of the response and prevent spoofing.</p>
 <p>This implements a challenge-response authentication scheme to prevent replay attacks and
 ensure that the product code check result is genuine.</p>
-<section id="id7">
-<h4>Example<a class="headerlink" href="#id7" title="Link to this heading"></a></h4>
+<p><strong>Example</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">secrets</span>
 
@@ -7847,7 +7910,6 @@ ensure that the product code check result is genuine.</p>
 </div>
 </section>
 </section>
-</section>
 <section id="gom-api-progress">
 <h2>gom.api.progress<a class="headerlink" href="#gom-api-progress" title="Link to this heading"></a></h2>
 <p>API for accessing the progress bar in the main window</p>
@@ -7856,8 +7918,7 @@ ensure that the product code check result is genuine.</p>
 <h3>gom.api.progress.ProgressBar<a class="headerlink" href="#gom-api-progress-progressbar" title="Link to this heading"></a></h3>
 <p>Class representing the ProgressBar</p>
 <p>This class is meant to be used with the Python ‘with’ statement</p>
-<section id="id8">
-<h4>Example<a class="headerlink" href="#id8" title="Link to this heading"></a></h4>
+<p><strong>Example</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.progress</span>
 
 <span class="k">with</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">ProgressBar</span><span class="p">()</span> <span class="k">as</span> <span class="n">bar</span><span class="p">:</span>
@@ -7871,7 +7932,6 @@ ensure that the product code check result is genuine.</p>
 <span class="c1"># Progress bar entry gets removed automatically after leaving the &#39;with&#39; statement</span>
 </pre></div>
 </div>
-</section>
 <section id="gom-api-progress-progressbar-finish-progress">
 <h4>gom.api.progress.ProgressBar.finish_progress<a class="headerlink" href="#gom-api-progress-progressbar-finish-progress" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -8833,8 +8893,7 @@ via the applications preferences dialog.</p>
 defined the available keys, the entry types and the entry properties. If the entry type can be
 represented by some widget, the setting entry will also be present in the application’s ‘preferences’
 dialog and can be adapted interactively there.</p>
-<section id="id9">
-<h3>Example<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<p><strong>Example</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Settings API example&quot;</span><span class="p">,</span>
   <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Example app demonstrating usage of the settings API&quot;</span><span class="p">,</span>
@@ -8913,16 +8972,13 @@ part of an app called ‘Settings API Example’, the application preferences wi
 (visible setting entries only):</p>
 <p><img alt="Settings level 1" src="../_images/settings_api_preferences_1.png" /></p>
 <p><img alt="Settings level 2" src="../_images/settings_api_preferences_2.png" /></p>
-</section>
-<section id="types">
-<h3>Types<a class="headerlink" href="#types" title="Link to this heading"></a></h3>
+<p><strong>Types</strong></p>
 <p>See the examples above for how to configure the different settings type. Usually, the <code class="docutils literal notranslate"><span class="pre">value</span></code> field determines the
 type of the setting. For example, a <code class="docutils literal notranslate"><span class="pre">23</span></code> indicates that an integer is requested. A <code class="docutils literal notranslate"><span class="pre">23.0</span></code> with <code class="docutils literal notranslate"><span class="pre">digits</span></code> greater than
 0 will lead to a float settings type.</p>
 <p>Special non basic types are specified via the <code class="docutils literal notranslate"><span class="pre">type</span></code> field explicitly. For example, the file selector is configured
 if the <code class="docutils literal notranslate"><span class="pre">type</span></code> field has been set to <code class="docutils literal notranslate"><span class="pre">file</span></code>.</p>
-<section id="file-selector">
-<h4>File selector<a class="headerlink" href="#file-selector" title="Link to this heading"></a></h4>
+<p><strong>File selector</strong></p>
 <p>The file selector provides a <code class="docutils literal notranslate"><span class="pre">mode</span></code> attribute in addition to the standard settings entry attributes. The <code class="docutils literal notranslate"><span class="pre">mode</span></code>
 attribute determines what kind of files or directories can be selected.</p>
 <ul class="simple">
@@ -8935,8 +8991,6 @@ attribute determines what kind of files or directories can be selected.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">save_dir</span></code>: Existing directory with writing permissions</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">exec</span></code>: Existing executable file</p></li>
 </ul>
-</section>
-</section>
 <section id="gom-api-settings-get">
 <h3>gom.api.settings.get<a class="headerlink" href="#gom-api-settings-get" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -9054,8 +9108,8 @@ are integer, double, string and bool.</p>
 <p>This class is used to define a custom edit dialog for Smart Principle.</p>
 <p><strong>Implementation</strong></p>
 <p>A very simple example for a custom view API contribution can look like this:</p>
-<div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text">Example of a simple custom edit dialog</span><a class="headerlink" href="#id20" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Example of a simple custom edit dialog</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.experimental</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.smart_principle</span>
@@ -9232,7 +9286,7 @@ strategy should be listed for the selected nominal element.</p>
 It allows you to generate render-ready table data from XML templates and create interactive
 content editors.</p>
 <p>Expression-language metadata (symbols, functions, element tokens) has been moved to
-<code class="docutils literal notranslate"><span class="pre">gom.api.expression</span></code>, which exposes the same data independently of table structure.</p>
+<code class="docutils literal notranslate"><span class="pre">gom.api.expressions</span></code>, which exposes the same data independently of table structure.</p>
 <p><strong>Typical workflow:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.table</span>
 
@@ -9460,7 +9514,7 @@ base64 PNG data-URI for display in the JS ColorBarDialog preview area.</p></li>
 <dd class="field-odd"><p><strong>row</strong> (<em>int</em>) – Display-row index (0-based, as in the current render data).</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Project element reference suitable for <code class="docutils literal notranslate"><span class="pre">gom.api.expression.get_tokens()</span></code>.</p>
+<dd class="field-even"><p>Project element reference suitable for <code class="docutils literal notranslate"><span class="pre">gom.api.expressions.get_tokens()</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Any</p>
@@ -9472,16 +9526,16 @@ base64 PNG data-URI for display in the JS ColorBarDialog preview area.</p></li>
 </dd></dl>
 
 <p>Encodes the inspection element displayed at <code class="docutils literal notranslate"><span class="pre">row</span></code> as a project element reference that can
-be passed directly to <code class="docutils literal notranslate"><span class="pre">gom.api.expression.get_tokens()</span></code>.  This allows callers to decouple
+be passed directly to <code class="docutils literal notranslate"><span class="pre">gom.api.expressions.get_tokens()</span></code>.  This allows callers to decouple
 token enumeration from the table adapter — the token list is always computed by the canonical
 expression API rather than by the adapter itself.</p>
 <p>Example usage in Python:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.expression</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.expressions</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.table</span>
 
 <span class="n">adapter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">create_content_editor_data_adapter</span><span class="p">(</span><span class="n">properties_json</span><span class="p">,</span> <span class="s1">&#39;inspection&#39;</span><span class="p">)</span>
 <span class="n">element_ref</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_element_at_row</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">tokens</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">expression</span><span class="o">.</span><span class="n">get_tokens</span><span class="p">(</span><span class="n">element_ref</span><span class="p">)</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">expressions</span><span class="o">.</span><span class="n">get_tokens</span><span class="p">(</span><span class="n">element_ref</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -10224,7 +10278,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f344f3b80c0>
+  <jinja2.runtime.BlockReference object at 0x7f4710293c40>
 
 
 </footer>
