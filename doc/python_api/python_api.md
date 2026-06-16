@@ -89,7 +89,7 @@ in edit mode ! An add-on in edit mode is unzipped and the `get_file ()` function
 the file system path to its directory in that case. That directory can then be browsed with
 the standard file tools instead.
 
-#### Example
+**Example**
 
 ```
 for addon in gom.api.addons.get_installed_addons():
@@ -847,9 +847,32 @@ if selected:
 
 ## gom.api.expressions
 
-API for reading and manipulation of the internal expression cache
+General-purpose expression language metadata API
 
-Internal functions for debugging and error analysis of the expression system.
+This module provides access to the ZEISS INSPECT expression language primitives —
+symbols, functions, element-level tokens, and cache management — independently of
+any specific UI component. It can be used from table editors, formula bars, dialog
+widgets, diagram views, or any other context that needs to enumerate what can be
+typed into an expression field.
+
+**Example:**
+```python
+import gom.api.expressions
+
+# List symbols (GPS, Greek, Math, ...)
+symbols = gom.api.expressions.get_symbols()
+
+# List built-in functions (abs, sin, if, ...)
+functions = gom.api.expressions.get_functions()
+
+# List tokens available on a specific element
+import gom.api.selection
+selected = gom.api.selection.get_selected_elements()
+tokens = gom.api.expressions.get_tokens(selected[0])
+
+# Clear the expression evaluation cache (for debugging)
+gom.api.expressions.clear_expression_cache()
+```
 
 ### gom.api.expressions.clear_expression_cache
 
@@ -859,11 +882,103 @@ Clear the expression cache
 :API version: 1
 ```
 
-This function clears the expression cache maintained by the expression system. It is means to
-be for debugging purposes. The expression cache is used to speed up repeated evaluations of the same
-expressions in labels, tables, auto names, ... and should usually be left alone, as it handles
-itself autonomously. For debugging tasks it can be useful to clear the cache to force re-evaluation
-of expressions nevertheless.
+This function clears the expression cache maintained by the expression system. It is meant to
+be for debugging purposes. The expression cache is used to speed up repeated evaluations of the
+same expressions in labels, tables, auto names, ... and should usually be left alone, as it
+handles itself autonomously. For debugging tasks it can be useful to clear the cache to force
+re-evaluation of expressions nevertheless.
+
+### gom.api.expressions.get_functions
+
+```{py:function} gom.api.expressions.get_functions(): dict
+
+Return all available global built-in expression functions grouped by category.
+:return: Dictionary with key "categories" → list of category objects, each with "name" (str) and "functions" (list).
+:rtype: dict
+```
+
+Returns a dictionary with a "categories" key containing an ordered list of function
+categories. Each category entry has a "name" (translated, human-readable) and a
+"functions" list. Each function entry contains:
+
+- **name**: the function identifier as used in expressions (e.g. "abs")
+- **description**: a short human-readable description
+- **template**: a ready-to-insert call template (e.g. "abs (VALUE)")
+
+Internal, obsolete, and vendor-specific functions are excluded.
+
+### gom.api.expressions.get_symbols
+
+```{py:function} gom.api.expressions.get_symbols(): dict
+
+Return all expression symbols grouped by category.
+:return: Dict with key "categories" → list of category objects, each with "name" (str) and "symbols" (list).
+:rtype: dict
+```
+
+Returns symbols that can be inserted into any expression field, organized into
+four categories:
+- GPS (GD&T tolerance symbols)
+- Greek alphabet
+- Mathematical symbols
+- Other (currency, arrows, typographic characters, etc.)
+
+Each symbol entry contains:
+- "token"       (str) — the expression token string,
+e.g. "__TOM_SYMBOL_GPS_STRAIGHTNESS__"
+- "description" (str) — translated display name
+- "glyph"       (str) — Unicode glyph character(s) for visual rendering
+(empty for GPS symbols that require a proprietary font)
+
+### gom.api.expressions.get_tokens
+
+```{py:function} gom.api.expressions.get_tokens(element: Any): dict
+
+Return all expression tokens available for the given element, grouped by category.
+:param element: Any project element reference (e.g. from the return value of `gom.api.selection.get_selected_elements()` or `gom.api.customelements.get_element_from_id()`).
+:type element: Any
+:return: Dict with keys "categories" and "data_array_categories".
+:rtype: dict
+```
+
+Accepts any project element reference and returns the tokens that can be inserted into
+expression fields (formula bars, table cells, diagram captions, etc.) for that element.
+Two token sources are provided:
+- Element-level tokens (e.g. name, measurement results, tolerances)
+- Data-array tokens   (e.g. point cloud coordinates, normals)
+Internal and icon tokens are excluded in both cases.
+
+The returned dict has two keys:
+- "categories"            — ordered list of element-level token categories
+(shown as "Keywords" in expression editors).
+- "data_array_categories" — ordered list of data-array token categories
+(shown as "Data arrays" in expression editors).
+
+Each category entry has:
+- "name"    (str)  — translated category label (e.g. "Element info", "Results")
+- "tokens"  (list) — list of token entries, each with:
+- "token"       (str)  — raw token expression string (e.g. "result_worst_case")
+- "label"       (str)  — human-readable display name
+- "has_index"   (bool) — whether the token supports [n] index notation
+- "sub_tokens"  (list) — optional; for tokens with dot-notation sub-attributes
+(e.g. "application_build_information.version").
+Each sub-token entry has "token", "label", "has_index".
+
+Returns empty category lists when the element is invalid or has no available tokens.
+
+**Example usage in Python:**
+```python
+import gom.api.expressions
+import gom.api.selection
+
+selected = gom.api.selection.get_selected_elements()
+if selected:
+    tokens = gom.api.expressions.get_tokens(selected[0])
+    for category in tokens['categories']:
+        print(category['name'])
+        for t in category['tokens']:
+            print(' ', t['token'], '-', t['label'])
+```
 
 ## gom.api.extensions
 
@@ -874,7 +989,7 @@ Custom elements are fully user-defined: their configuration, computation, and vi
 entirely in Python. They integrate seamlessly into the application's element model, appearing in menus, the
 explorer, labels, reports, and the 3D view just like built-in elements.
 
-#### Architecture overview
+**Architecture overview**
 
 The custom element system is organized as a class hierarchy of base classes. Each category of custom element
 inherits from one of the base classes in this module:
@@ -895,7 +1010,7 @@ CustomDiagram                           Transforms element data for diagram rend
 Each category has its own submodule (``gom.api.extensions.actuals``, ``gom.api.extensions.nominals``, etc.)
 with concrete element classes that define the expected ``compute()`` return value format for each geometry type.
 
-#### Lifecycle of a custom calculation element
+**Lifecycle of a custom calculation element**
 
 The lifecycle of a custom calculation element (actual, nominal, or inspection) follows these steps:
 
@@ -916,7 +1031,7 @@ The lifecycle of a custom calculation element (actual, nominal, or inspection) f
    specific (e.g., ``'value'`` for a point, ``'vertices'``/``'triangles'`` for a surface). An optional
    ``'data'`` key stores arbitrary custom data alongside the element.
 
-#### Minimal example
+**Minimal example**
 
 A simple custom actual point element can be defined as follows::
 
@@ -949,7 +1064,7 @@ and element type automatically. The ``dialog()`` method uses the built-in ``show
 display a ``.gdlg`` dialog file and return the values. The ``compute_stage()`` method computes a 3D point
 from the dialog values and returns it in the format expected by the ``Point`` type.
 
-#### Element categories
+**Element categories**
 
 The following categories are available for custom calculation elements:
 
@@ -2470,8 +2585,7 @@ diagram views. A custom diagram is a Python service contribution that transforms
 element data into a format consumable by a JavaScript renderer running in the
 diagram view's embedded web engine.
 
-Architecture overview
----------------------
+**Architecture overview**
 
 The custom diagram system follows a three-layer pipeline:
 
@@ -2482,8 +2596,7 @@ flowchart TD
     --> C["**JavaScript Renderer** (diagram view)<br/>Renders into the HTML canvas<br/>Handles hover, click and tooltip"]
 ```
 
-Getting started
----------------
+**Getting started**
 
 1. **Create a custom element** that produces diagram data in its ``finish()`` method:
 
@@ -2533,8 +2646,7 @@ Getting started
 3. **Register both as services** in the app's ``metainfo.json`` so they are
    started automatically.
 
-Key classes
------------
+**Key classes**
 
 ``CustomDiagram``
     Abstract base class for custom diagram contributions. Subclass this when you
@@ -2549,8 +2661,7 @@ Key classes
     Integration class bridging custom diagrams into the custom view framework.
     Used for advanced diagram views with dedicated JavaScript bundles.
 
-Helper module
--------------
+**Helper module**
 
 ``gom.api.extensions.diagrams.matplotlib_tools``
     Provides ``setup_plot()`` and ``create_svg()`` for matplotlib-based SVG generation.
@@ -2575,8 +2686,7 @@ diagram view. The typical data flow is:
    per partition with the corresponding subset of element data.
 4. The return value of ``plot()`` is forwarded to the JavaScript renderer for display.
 
-Subclassing guide
------------------
+**Subclassing guide**
 
 - **Required**: Override ``plot(view, element_data)`` to transform element data into
   renderer-specific output. The ``view`` dictionary provides canvas dimensions and font
@@ -2595,8 +2705,7 @@ Subclassing guide
 For SVG-based diagrams, prefer subclassing ``SVGDiagram`` instead — it provides
 additional helpers for SVG output, interactive overlays, and automatic output sanitization.
 
-Example
--------
+**Example**
 
 ```python
 import gom
@@ -2914,8 +3023,7 @@ Specialized base class for custom diagrams rendered as SVG images.
 recommended base class when diagrams are generated as SVG (for example via
 matplotlib).
 
-Features
---------
+**Features**
 
 - **Automatic output sanitization:** ``plot()`` can return a raw SVG string
   *or* a dictionary produced by ``finish_plot()``. Raw strings are wrapped
@@ -2931,8 +3039,7 @@ Features
   ``finish_plot()`` to control debug overlays, marker styles, tooltips, and
   caching. See ``RenderConfigToken`` for the full list of options.
 
-Getting Started
----------------
+**Getting Started**
 
 ```python
 import gom
@@ -4490,6 +4597,11 @@ content is rendered by a **JavaScript** front-end that communicates with a **Pyt
 The Python side acts as the *model* (data source and business logic), while the JavaScript side acts
 as the *view* (rendering and user interaction). A C++ bridge inside ZEISS INSPECT connects them via
 Qt QWebChannel over WebSocket-based JSON serialisation.
+
+**Architecture overview**
+
+Python service acts as the *model* (data source, business logic); JavaScript acts as the *view* (rendering, interaction).
+A C++ bridge (Qt QWebChannel) connects them via WebSocket-based JSON serialisation.
 
 ```mermaid
 flowchart LR
@@ -6126,7 +6238,7 @@ using the corresponding public key to ensure the response authenticity.
 
 The nonce is only valid if the license is available; otherwise, an empty string is returned.
 
-#### Example (Python)
+**Example (Python)**
 
 ```python
 import gom
@@ -6214,7 +6326,7 @@ implemented by the caller to ensure the authenticity of the response and prevent
 This implements a challenge-response authentication scheme to prevent replay attacks and
 ensure that the license check result is genuine.
 
-#### Example
+**Example**
 
 ```python
 import gom
@@ -6259,7 +6371,7 @@ implemented by the caller to ensure the authenticity of the response and prevent
 This implements a challenge-response authentication scheme to prevent replay attacks and
 ensure that the product code check result is genuine.
 
-#### Example
+**Example**
 
 ```python
 import gom
@@ -6290,7 +6402,7 @@ Class representing the ProgressBar
 
 This class is meant to be used with the Python 'with' statement
 
-#### Example
+**Example**
 
 ```
 import gom.api.progress
@@ -6994,7 +7106,7 @@ defined the available keys, the entry types and the entry properties. If the ent
 represented by some widget, the setting entry will also be present in the application's 'preferences'
 dialog and can be adapted interactively there.
 
-### Example
+**Example**
 
 ```
 {
@@ -7078,7 +7190,7 @@ part of an app called 'Settings API Example', the application preferences will c
 
 ![Settings level 2](images/settings_api_preferences_2.png)
 
-### Types
+**Types**
 
 See the examples above for how to configure the different settings type. Usually, the `value` field determines the
 type of the setting. For example, a `23` indicates that an integer is requested. A `23.0` with `digits` greater than
@@ -7087,7 +7199,7 @@ type of the setting. For example, a `23` indicates that an integer is requested.
 Special non basic types are specified via the `type` field explicitly. For example, the file selector is configured
 if the `type` field has been set to `file`.
 
-#### File selector
+**File selector**
 
 The file selector provides a `mode` attribute in addition to the standard settings entry attributes. The `mode`
 attribute determines what kind of files or directories can be selected.
@@ -7343,7 +7455,7 @@ It allows you to generate render-ready table data from XML templates and create 
 content editors.
 
 Expression-language metadata (symbols, functions, element tokens) has been moved to
-`gom.api.expression`, which exposes the same data independently of table structure.
+`gom.api.expressions`, which exposes the same data independently of table structure.
 
 **Typical workflow:**
 ```python
@@ -7537,24 +7649,24 @@ Get the unique data ID for this ContentEditorDataAdapter instance
 Return the project-element reference for the inspection element at the given table row.
 :param row: Display-row index (0-based, as in the current render data).
 :type row: int
-:return: Project element reference suitable for `gom.api.expression.get_tokens()`.
+:return: Project element reference suitable for `gom.api.expressions.get_tokens()`.
 :rtype: Any
 :throws: Exception if row is out of range.
 ```
 
 Encodes the inspection element displayed at `row` as a project element reference that can
-be passed directly to `gom.api.expression.get_tokens()`.  This allows callers to decouple
+be passed directly to `gom.api.expressions.get_tokens()`.  This allows callers to decouple
 token enumeration from the table adapter — the token list is always computed by the canonical
 expression API rather than by the adapter itself.
 
 Example usage in Python:
 ```python
-import gom.api.expression
+import gom.api.expressions
 import gom.api.table
 
 adapter = gom.api.table.create_content_editor_data_adapter(properties_json, 'inspection')
 element_ref = adapter.get_element_at_row(0)
-tokens = gom.api.expression.get_tokens(element_ref)
+tokens = gom.api.expressions.get_tokens(element_ref)
 ```
 
 #### gom.api.table.ContentEditor.get_properties
