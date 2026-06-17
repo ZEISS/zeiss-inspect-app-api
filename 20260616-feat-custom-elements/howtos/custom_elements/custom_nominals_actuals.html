@@ -290,13 +290,13 @@
 <p>Create a custom element from a Python script by using function <code class="docutils literal notranslate"><span class="pre">gom.script.customelements.create_actual()</span></code> or <code class="docutils literal notranslate"><span class="pre">gom.script.customelements.create_nominal()</span></code>, respectively.</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Custom element creation from Python script – Custom actual circle element</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">center_x</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="linenos"> 2</span><span class="n">center_y</span> <span class="o">=</span> <span class="mf">2.0</span>
-<span class="linenos"> 3</span><span class="n">center_z</span> <span class="o">=</span> <span class="mf">3.0</span>
-<span class="linenos"> 4</span><span class="n">dir_x</span> <span class="o">=</span> <span class="mf">4.0</span>
-<span class="linenos"> 5</span><span class="n">dir_y</span> <span class="o">=</span> <span class="mf">5.0</span>
-<span class="linenos"> 6</span><span class="n">dir_z</span> <span class="o">=</span> <span class="mf">6.0</span>
-<span class="linenos"> 7</span><span class="n">radius</span> <span class="o">=</span> <span class="mf">42.0</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">CENTER_X</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="linenos"> 2</span><span class="n">CENTER_Y</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="linenos"> 3</span><span class="n">CENTER_Z</span> <span class="o">=</span> <span class="mf">3.0</span>
+<span class="linenos"> 4</span><span class="n">DIR_X</span> <span class="o">=</span> <span class="mf">4.0</span>
+<span class="linenos"> 5</span><span class="n">DIR_Y</span> <span class="o">=</span> <span class="mf">5.0</span>
+<span class="linenos"> 6</span><span class="n">DIR_Z</span> <span class="o">=</span> <span class="mf">6.0</span>
+<span class="linenos"> 7</span><span class="n">RADIUS</span> <span class="o">=</span> <span class="mf">42.0</span>
 <span class="linenos"> 8</span>
 <span class="linenos"> 9</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">customelements</span><span class="o">.</span><span class="n">create_actual</span> <span class="p">(</span>
 <span class="linenos">10</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -310,8 +310,8 @@
 <span class="linenos">18</span>    
 <span class="linenos">19</span>    <span class="c1"># Set element type specific parameters</span>
 <span class="linenos">20</span>    <span class="n">values</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos">21</span>        <span class="s1">&#39;center_x&#39;</span><span class="p">:</span> <span class="n">center_x</span><span class="p">,</span> <span class="s1">&#39;center_y&#39;</span><span class="p">:</span> <span class="n">center_y</span><span class="p">,</span> <span class="s1">&#39;center_z&#39;</span><span class="p">:</span> <span class="n">center_z</span><span class="p">,</span>
-<span class="linenos">22</span>        <span class="s1">&#39;dir_x&#39;</span><span class="p">:</span> <span class="n">dir_x</span><span class="p">,</span> <span class="s1">&#39;dir_y&#39;</span><span class="p">:</span> <span class="n">dir_y</span><span class="p">,</span> <span class="s1">&#39;dir_z&#39;</span><span class="p">:</span> <span class="n">dir_z</span><span class="p">,</span> <span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="n">radius</span>
+<span class="linenos">21</span>        <span class="s1">&#39;center_x&#39;</span><span class="p">:</span> <span class="n">CENTER_X</span><span class="p">,</span> <span class="s1">&#39;center_y&#39;</span><span class="p">:</span> <span class="n">CENTER_Y</span><span class="p">,</span> <span class="s1">&#39;center_z&#39;</span><span class="p">:</span> <span class="n">CENTER_Z</span><span class="p">,</span>
+<span class="linenos">22</span>        <span class="s1">&#39;dir_x&#39;</span><span class="p">:</span> <span class="n">DIR_X</span><span class="p">,</span> <span class="s1">&#39;dir_y&#39;</span><span class="p">:</span> <span class="n">DIR_Y</span><span class="p">,</span> <span class="s1">&#39;dir_z&#39;</span><span class="p">:</span> <span class="n">DIR_Z</span><span class="p">,</span> <span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="n">RADIUS</span>
 <span class="linenos">23</span>    <span class="p">}</span>
 <span class="linenos">24</span><span class="p">)</span>
 </pre></div>
@@ -659,8 +659,8 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 </div>
 </li>
 <li><p><strong>Missing parameters</strong>: Validate all required parameters are provided:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">required_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">required_params</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>  <span class="n">REQUIRED_PARAMS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">REQUIRED_PARAMS</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing required parameter: </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
@@ -814,7 +814,7 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f389bacbd90>
+  <jinja2.runtime.BlockReference object at 0x7f7c04bafd90>
 
 
 </footer>
