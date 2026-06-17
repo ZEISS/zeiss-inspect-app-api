@@ -21,5 +21,5 @@ The following How-to sections will introduce the concept of custom elements.
    
    custom_nominals_actuals
    custom_inspections
-   [custom_diagrams]
 ```
+% TBD: Add custom_diagrams
