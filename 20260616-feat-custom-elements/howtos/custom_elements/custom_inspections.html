@@ -69,6 +69,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Custom inspections</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dialog-definition">Dialog definition</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#custom-inspection-python-script">Custom inspection Python script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#service-definition-and-troubleshooting">Service definition and troubleshooting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#applying-tolerances">Applying tolerances</a></li>
 </ul>
 </li>
@@ -134,7 +135,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <p><img alt="New in Version 2026" src="https://img.shields.io/badge/New-Version_2026-red" /></p>
+  <p><img alt="New in Version 2027" src="https://img.shields.io/badge/New-Version_2027-20B2AA" /></p>
 <section id="custom-inspections">
 <h1>Custom inspections<a class="headerlink" href="#custom-inspections" title="Link to this heading"></a></h1>
 <p>Custom inspections always refer to a geometric target element, in most cases an actual element. Therefore the name of an inspection element is typically composed of the target element’s name and an abbreviation indicating the inspection purpose. For example, a radius inspection on the circle element ‘Circle 1’ could be named ‘Circle1.R’.</p>
@@ -169,11 +170,11 @@
 <p class="admonition-title">Caution</p>
 <p>The tolerances widget’s name must be set to <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> in the Dialog Editor.</p>
 </div>
-<p>Both object names are reserved and case-sensitive.</p>
+<p>Both object names – <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> – are reserved and case-sensitive.</p>
 <section id="custom-inspection-python-script">
 <h3>Custom inspection Python script<a class="headerlink" href="#custom-inspection-python-script" title="Link to this heading"></a></h3>
 <p>All custom elements are based on the <a href="../../python_api/python_api.html#gom-api-extensions">Extensions API</a>. More specifically, a custom inspection class is inherited from the <a href="../../python_api/python_api.html#gom-api-extensions-inspections">CustomInspection</a> base class.</p>
-<p>Use this How-to for implementation flow and practical patterns. For complete constructor and return-value specifications, refer to the inspection class references in the API documentation.</p>
+<p>Use this How-to for implementation flow and practical patterns. For complete constructor and return-value specifications, refer to the inspections class references in the API documentation.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Custom_Scalar_Check.py – Minimal example – Custom scalar inspection</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
@@ -220,12 +221,12 @@
 <span class="linenos">42</span>        <span class="c1"># ----------------------------------------------------</span>
 <span class="linenos">43</span>        <span class="c1"># --- insert your computation here -------------------</span>
 <span class="linenos">44</span>        <span class="c1"># ----------------------------------------------------</span>
-<span class="linenos">45</span>        <span class="n">actual_result</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="linenos">46</span>        <span class="n">nominal_result</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="linenos">45</span>        <span class="n">ACTUAL_RESULT</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="linenos">46</span>        <span class="n">NOMINAL_RESULT</span> <span class="o">=</span> <span class="mf">2.0</span>
 <span class="linenos">47</span>        <span class="c1"># ----------------------------------------------------</span>
 <span class="linenos">48</span>        <span class="k">return</span> <span class="p">{</span>
-<span class="linenos">49</span>            <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="n">nominal_result</span><span class="p">,</span>
-<span class="linenos">50</span>            <span class="s2">&quot;actual&quot;</span><span class="p">:</span>  <span class="n">actual_result</span><span class="p">,</span>
+<span class="linenos">49</span>            <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="n">NOMINAL_RESULT</span><span class="p">,</span>
+<span class="linenos">50</span>            <span class="s2">&quot;actual&quot;</span><span class="p">:</span>  <span class="n">ACTUAL_RESULT</span><span class="p">,</span>
 <span class="linenos">51</span>            <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;slct_element&#39;</span><span class="p">],</span>
 <span class="linenos">52</span>            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;unit&#39;</span><span class="p">]</span>
 <span class="linenos">53</span>        <span class="p">}</span>
@@ -250,6 +251,14 @@
 <dt>line 55:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> is executed when the script is started as a service.</p>
 </dd>
 </dl>
+</section>
+<section id="service-definition-and-troubleshooting">
+<h3>Service definition and troubleshooting<a class="headerlink" href="#service-definition-and-troubleshooting" title="Link to this heading"></a></h3>
+<p>For service definition details and troubleshooting guidance (including service startup issues), refer to the corresponding sections in <a class="reference internal" href="custom_nominals_actuals.html#service-definition"><span class="std std-ref">Custom nominal/actual elements</span></a>:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="custom_nominals_actuals.html#service-definition"><span class="std std-ref">Service definition</span></a></p></li>
+<li><p><a class="reference internal" href="custom_nominals_actuals.html#troubleshooting"><span class="std std-ref">Troubleshooting</span></a></p></li>
+</ul>
 </section>
 <section id="applying-tolerances">
 <h3>Applying tolerances<a class="headerlink" href="#applying-tolerances" title="Link to this heading"></a></h3>
@@ -300,7 +309,7 @@
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f3da1592d50>
+  <jinja2.runtime.BlockReference object at 0x7ff0d7b32f30>
 
 
 </footer>
