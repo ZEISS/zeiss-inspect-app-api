@@ -128,13 +128,6 @@ line 41..53:
 line 55:
 : `gom.run_api()` is executed when the script is started as a service.
 
-### Service definition and troubleshooting
-
-For service definition details and troubleshooting guidance (including service startup issues), refer to the corresponding sections in [Custom nominal/actual elements](custom_nominals_actuals.md#service-definition):
-
-* [Service definition](custom_nominals_actuals.md#service-definition)
-* [Troubleshooting](custom_nominals_actuals.md#troubleshooting)
-
 ### Applying tolerances
 
 To apply tolerances to a custom inspection, forward the tolerance value from the dialog result in `apply_dialog()`.
@@ -152,8 +145,16 @@ def apply_dialog(self, dlg, result):
 
 The framework consumes `name` and `tolerance` automatically. The `values` dictionary is still forwarded unchanged to `compute()`.
 
+### Service definition and troubleshooting
+
+For service definition details and troubleshooting guidance (including service startup issues), refer to the corresponding sections in [Custom nominal/actual elements](custom_nominals_actuals.md#service-definition):
+
+* [Service definition](custom_nominals_actuals.md#service-definition)
+* [Troubleshooting](custom_nominals_actuals.md#troubleshooting)
+
 ## References
 
+* [Custom nominal/actual elements](custom_nominals_actuals.md)
 * [Extensions API &ndash; Inspections](../../python_api/python_api.md#gomapiextensionsinspections)
 * [Extensions API &ndash; Scalar Inspections](../../python_api/python_api.md#gomapiextensionsinspectionsscalar)
 * [Extensions API &ndash; Curve Inspections](../../python_api/python_api.md#gomapiextensionsinspectionscurve)
