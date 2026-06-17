@@ -6,6 +6,8 @@ Custom sequence elements group multiple regular ZEISS INSPECT creation commands 
 
 ```{note}
 This How-to focuses on implementation flow, editing behavior, naming, and troubleshooting. For full constructor signatures, return schemas, and API semantics, refer to <a href="../../python_api/python_api.html#gom-api-extensions-sequence">Extensions API &ndash; Custom Sequence Elements</a>.
+
+For a complete runnable API example, see <a href="../../python_api/python_api.html#complete-example-a-custom-sequence-creating-a-distance-from-two-points">Complete example: A custom sequence creating a distance from two points</a>.
 ```
 
 The upcoming custom sequence example app will be linked here once it is published. Until then, the API reference and the example app documentation are the primary sources for concrete implementation details.
@@ -110,5 +112,6 @@ If a child element is meant to stay editable on its own, make sure `edit_child_e
 ## References
 
 * <a href="../../python_api/python_api.html#gom-api-extensions-sequence">Extensions API &ndash; Custom Sequence Elements</a>
+* <a href="../../python_api/python_api.html#complete-example-a-custom-sequence-creating-a-distance-from-two-points">Complete example: A custom sequence creating a distance from two points</a>
 * [Custom nominal/actual elements](custom_nominals_actuals.md)
 * Published example app link to be added after release
