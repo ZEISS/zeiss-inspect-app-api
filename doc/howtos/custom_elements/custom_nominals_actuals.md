@@ -150,13 +150,13 @@ Create a custom element from a Python script by using function `gom.script.custo
 :caption: Custom element creation from Python script &ndash; Custom actual circle element
 :linenos:
 
-center_x = 1.0
-center_y = 2.0
-center_z = 3.0
-dir_x = 4.0
-dir_y = 5.0
-dir_z = 6.0
-radius = 42.0
+CENTER_X = 1.0
+CENTER_Y = 2.0
+CENTER_Z = 3.0
+DIR_X = 4.0
+DIR_Y = 5.0
+DIR_Z = 6.0
+RADIUS = 42.0
 
 gom.script.customelements.create_actual (
     """
@@ -170,8 +170,8 @@ gom.script.customelements.create_actual (
     
     # Set element type specific parameters
     values={
-        'center_x': center_x, 'center_y': center_y, 'center_z': center_z,
-        'dir_x': dir_x, 'dir_y': dir_y, 'dir_z': dir_z, 'radius': radius
+        'center_x': CENTER_X, 'center_y': CENTER_Y, 'center_z': CENTER_Z,
+        'dir_x': DIR_X, 'dir_y': DIR_Y, 'dir_z': DIR_Z, 'radius': RADIUS
     }
 )
 ```     
@@ -508,8 +508,8 @@ class MyOffsetPoint (gom.api.extensions.nominals.Point):
 
 - **Missing parameters**: Validate all required parameters are provided:
   ```python
-  required_params = ['x', 'y', 'z']
-  for param in required_params:
+    REQUIRED_PARAMS = ['x', 'y', 'z']
+    for param in REQUIRED_PARAMS:
       if param not in values:
           raise ValueError(f"Missing required parameter: {param}")
   ```
