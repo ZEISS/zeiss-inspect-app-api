@@ -78,7 +78,7 @@ element_list = [ element for element in elements if element.name.endswith(' 1') 
 
 Use `gom.api.expressions.get_tokens()` to query all expression tokens available for an element.
 To get tokens and their values, iterate over the returned token names and read each value with `element.get(<token>)`.
-For API details, see [gom.api.expressions](../../python_api/python_api.md#gomapiexpressions).
+For API details, see <a href="../../python_api/python_api.html#gom-api-expressions">gom.api.expressions</a>.
 
 ```{code-block} Python
 import gom.api.expressions
