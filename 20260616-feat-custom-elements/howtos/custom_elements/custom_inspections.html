@@ -176,7 +176,7 @@
 <p>All custom elements are based on the <a href="../../python_api/python_api.html#gom-api-extensions">Extensions API</a>. More specifically, a custom inspection class is inherited from the <a href="../../python_api/python_api.html#gom-api-extensions-inspections">CustomInspection</a> base class.</p>
 <p>Use this How-to for implementation flow and practical patterns. For complete constructor and return-value specifications, refer to the inspections class references in the API documentation.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Custom_Scalar_Check.py – Minimal example – Custom scalar inspection</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Custom_Scalar_Inspection.py – Minimal example – Custom scalar inspection</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="linenos"> 2</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.custom_checks_util</span>
 <span class="linenos"> 3</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.inspections</span>
@@ -188,14 +188,14 @@
 <span class="linenos"> 9</span>
 <span class="linenos">10</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">11</span>        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span>
-<span class="linenos">12</span>            <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_scalar_check&#39;</span><span class="p">,</span>
-<span class="linenos">13</span>            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Scalar Check&#39;</span><span class="p">,</span>
+<span class="linenos">12</span>            <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_scalar_inspection&#39;</span><span class="p">,</span>
+<span class="linenos">13</span>            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Scalar Inspection&#39;</span><span class="p">,</span>
 <span class="linenos">14</span>            <span class="n">dimension</span><span class="o">=</span><span class="s1">&#39;length&#39;</span><span class="p">,</span>
 <span class="linenos">15</span>            <span class="n">abbreviation</span><span class="o">=</span><span class="s1">&#39;ScrSca&#39;</span>
 <span class="linenos">16</span>        <span class="p">)</span>
 <span class="linenos">17</span>
 <span class="linenos">18</span>    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-<span class="linenos">19</span>        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;/Custom_Scalar_Check.gdlg&#39;</span><span class="p">)</span>
+<span class="linenos">19</span>        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;/Custom_Scalar_Inspection.gdlg&#39;</span><span class="p">)</span>
 <span class="linenos">20</span>        <span class="c1"># -------------------------------------------------------------------------</span>
 <span class="linenos">21</span>        <span class="n">dlg</span><span class="o">.</span><span class="n">slct_element</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">custom_checks_util</span><span class="o">.</span><span class="n">is_scalar_checkable</span>
 <span class="linenos">22</span>        <span class="c1"># -------------------------------------------------------------------------</span>
@@ -309,7 +309,7 @@
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7ff0d7b32f30>
+  <jinja2.runtime.BlockReference object at 0x7f252dcf7e30>
 
 
 </footer>

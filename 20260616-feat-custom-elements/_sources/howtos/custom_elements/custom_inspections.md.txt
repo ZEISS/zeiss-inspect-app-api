@@ -47,7 +47,7 @@ All custom elements are based on the <a href="../../python_api/python_api.html#g
 Use this How-to for implementation flow and practical patterns. For complete constructor and return-value specifications, refer to the inspections class references in the API documentation.
 
 ```{code-block} python
-:caption: Custom_Scalar_Check.py &ndash; Minimal example &ndash; Custom scalar inspection
+:caption: Custom_Scalar_Inspection.py &ndash; Minimal example &ndash; Custom scalar inspection
 :linenos:
 
 import gom
@@ -61,14 +61,14 @@ class MinimalScalarInspection (gom.api.extensions.inspections.Scalar):
 
     def __init__ (self):
         super ().__init__ (
-            id='examples.custom_scalar_check',
-            description='Custom Scalar Check',
+            id='examples.custom_scalar_inspection',
+            description='Custom Scalar Inspection',
             dimension='length',
             abbreviation='ScrSca'
         )
 
     def dialog (self, context, args):
-        dlg = gom.api.dialog.create (context, '/Custom_Scalar_Check.gdlg')
+        dlg = gom.api.dialog.create (context, '/Custom_Scalar_Inspection.gdlg')
         # -------------------------------------------------------------------------
         dlg.slct_element.filter = gom.api.custom_checks_util.is_scalar_checkable
         # -------------------------------------------------------------------------
