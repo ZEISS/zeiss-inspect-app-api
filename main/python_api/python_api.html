@@ -596,12 +596,6 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-experimental-create-dialog">gom.api.experimental.create_dialog</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#gom-api-expression">gom.api.expression</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-expression-get-functions">gom.api.expression.get_functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-expression-get-symbols">gom.api.expression.get_symbols</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-expression-get-tokens">gom.api.expression.get_tokens</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-expressions">gom.api.expressions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-expressions-clear-expression-cache">gom.api.expressions.clear_expression_cache</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-expressions-get-functions">gom.api.expressions.get_functions</a></li>
@@ -837,18 +831,6 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-script-resources-save">gom.api.script_resources.save</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-script-resources-save-as">gom.api.script_resources.save_as</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-script-resources-unload">gom.api.script_resources.unload</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#gom-api-scripted-checks-util">gom.api.scripted_checks_util</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-curve-checkable">gom.api.scripted_checks_util.is_curve_checkable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-scalar-checkable">gom.api.scripted_checks_util.is_scalar_checkable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-surface-checkable">gom.api.scripted_checks_util.is_surface_checkable</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#gom-api-scriptedelements">gom.api.scriptedelements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimension-definition">gom.api.scriptedelements.get_dimension_definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimensions">gom.api.scriptedelements.get_dimensions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-inspection-definition">gom.api.scriptedelements.get_inspection_definition</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-selection">gom.api.selection</a><ul>
@@ -2020,149 +2002,6 @@ contributions script context is mandatory for the function to work.</p>
 </dl>
 </dd></dl>
 
-</section>
-</section>
-<section id="gom-api-expression">
-<h2>gom.api.expression<a class="headerlink" href="#gom-api-expression" title="Link to this heading"></a></h2>
-<p>General-purpose expression language metadata API</p>
-<p>This module provides access to the ZEISS INSPECT expression language primitives —
-symbols, functions, and element-level tokens — independently of any specific UI
-component. It can be used from table editors, formula bars, dialog widgets,
-diagram views, or any other context that needs to enumerate what can be typed
-into an expression field.</p>
-<p><strong>Example:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.expression</span>
-
-<span class="c1"># List symbols (GPS, Greek, Math, ...)</span>
-<span class="n">symbols</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">expression</span><span class="o">.</span><span class="n">get_symbols</span><span class="p">()</span>
-
-<span class="c1"># List built-in functions (abs, sin, if, ...)</span>
-<span class="n">functions</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">expression</span><span class="o">.</span><span class="n">get_functions</span><span class="p">()</span>
-
-<span class="c1"># List tokens available on a specific element</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.selection</span>
-<span class="n">selected</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">get_selected_elements</span><span class="p">()</span>
-<span class="n">tokens</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">expression</span><span class="o">.</span><span class="n">get_tokens</span><span class="p">(</span><span class="n">selected</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-<section id="gom-api-expression-get-functions">
-<h3>gom.api.expression.get_functions<a class="headerlink" href="#gom-api-expression-get-functions" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.expression.get_functions():</span> <span class="pre">dict</span></span></dt>
-<dd><p>Return all available global built-in expression functions grouped by category.</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary with key “categories” → list of category objects, each with “name” (str) and “functions” (list).</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>Returns a dictionary with a “categories” key containing an ordered list of function
-categories. Each category entry has a “name” (translated, human-readable) and a
-“functions” list. Each function entry contains:</p>
-<ul class="simple">
-<li><p><strong>name</strong>: the function identifier as used in expressions (e.g. “abs”)</p></li>
-<li><p><strong>description</strong>: a short human-readable description</p></li>
-<li><p><strong>template</strong>: a ready-to-insert call template (e.g. “abs (VALUE)”)</p></li>
-</ul>
-<p>Internal, obsolete, and vendor-specific functions are excluded.</p>
-</section>
-<section id="gom-api-expression-get-symbols">
-<h3>gom.api.expression.get_symbols<a class="headerlink" href="#gom-api-expression-get-symbols" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.expression.get_symbols():</span> <span class="pre">dict</span></span></dt>
-<dd><p>Return all expression symbols grouped by category.</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dict with key “categories” → list of category objects, each with “name” (str) and “symbols” (list).</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>Returns symbols that can be inserted into any expression field, organized into
-four categories:</p>
-<ul class="simple">
-<li><p>GPS (GD&amp;T tolerance symbols)</p></li>
-<li><p>Greek alphabet</p></li>
-<li><p>Mathematical symbols</p></li>
-<li><p>Other (currency, arrows, typographic characters, etc.)</p></li>
-</ul>
-<p>Each symbol entry contains:</p>
-<ul class="simple">
-<li><p>“token”       (str) — the expression token string,
-e.g. “<strong>TOM_SYMBOL_GPS_STRAIGHTNESS</strong>”</p></li>
-<li><p>“description” (str) — translated display name</p></li>
-<li><p>“glyph”       (str) — Unicode glyph character(s) for visual rendering
-(empty for GPS symbols that require a proprietary font)</p></li>
-</ul>
-</section>
-<section id="gom-api-expression-get-tokens">
-<h3>gom.api.expression.get_tokens<a class="headerlink" href="#gom-api-expression-get-tokens" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.expression.get_tokens(element:</span> <span class="pre">Any):</span> <span class="pre">dict</span></span></dt>
-<dd><p>Return all expression tokens available for the given element, grouped by category.</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>element</strong> (<em>Any</em>) – Any project element reference (e.g. from the return value of <code class="docutils literal notranslate"><span class="pre">gom.api.selection.get_selected_elements()</span></code> or <code class="docutils literal notranslate"><span class="pre">gom.api.customelements.get_element_from_id()</span></code>).</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dict with keys “categories” and “data_array_categories”.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>Accepts any project element reference and returns the tokens that can be inserted into
-expression fields (formula bars, table cells, diagram captions, etc.) for that element.
-Two token sources are provided:</p>
-<ul class="simple">
-<li><p>Element-level tokens (e.g. name, measurement results, tolerances)</p></li>
-<li><p>Data-array tokens   (e.g. point cloud coordinates, normals)
-Internal and icon tokens are excluded in both cases.</p></li>
-</ul>
-<p>The returned dict has two keys:</p>
-<ul class="simple">
-<li><p>“categories”            — ordered list of element-level token categories
-(shown as “Keywords” in expression editors).</p></li>
-<li><p>“data_array_categories” — ordered list of data-array token categories
-(shown as “Data arrays” in expression editors).</p></li>
-</ul>
-<p>Each category entry has:</p>
-<ul class="simple">
-<li><p>“name”    (str)  — translated category label (e.g. “Element info”, “Results”)</p></li>
-<li><p>“tokens”  (list) — list of token entries, each with:</p></li>
-<li><p>“token”       (str)  — raw token expression string (e.g. “result_worst_case”)</p></li>
-<li><p>“label”       (str)  — human-readable display name</p></li>
-<li><p>“has_index”   (bool) — whether the token supports [n] index notation</p></li>
-<li><p>“sub_tokens”  (list) — optional; for tokens with dot-notation sub-attributes
-(e.g. “application_build_information.version”).
-Each sub-token entry has “token”, “label”, “has_index”.</p></li>
-</ul>
-<p>Returns empty category lists when the element is invalid or has no available tokens.</p>
-<p><strong>Example usage in Python:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.expression</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.selection</span>
-
-<span class="n">selected</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">get_selected_elements</span><span class="p">()</span>
-<span class="k">if</span> <span class="n">selected</span><span class="p">:</span>
-    <span class="n">tokens</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">expression</span><span class="o">.</span><span class="n">get_tokens</span><span class="p">(</span><span class="n">selected</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">[</span><span class="s1">&#39;categories&#39;</span><span class="p">]:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">category</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">category</span><span class="p">[</span><span class="s1">&#39;tokens&#39;</span><span class="p">]:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">],</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
 </section>
 </section>
 <section id="gom-api-expressions">
@@ -8346,154 +8185,6 @@ for various image variants.</p>
 
 </section>
 </section>
-<section id="gom-api-scripted-checks-util">
-<h2>gom.api.scripted_checks_util<a class="headerlink" href="#gom-api-scripted-checks-util" title="Link to this heading"></a></h2>
-<p>Tool functions for scripted checks</p>
-<section id="gom-api-scripted-checks-util-is-curve-checkable">
-<h3>gom.api.scripted_checks_util.is_curve_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-curve-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_curve_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a curve check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a curve</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a curve in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-<section id="gom-api-scripted-checks-util-is-scalar-checkable">
-<h3>gom.api.scripted_checks_util.is_scalar_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-scalar-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_scalar_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a scalar check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a scalar value</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a scalar value in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-<section id="gom-api-scripted-checks-util-is-surface-checkable">
-<h3>gom.api.scripted_checks_util.is_surface_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-surface-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_surface_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a surface check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a surface</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a surface in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-</section>
-<section id="gom-api-scriptedelements">
-<h2>gom.api.scriptedelements<a class="headerlink" href="#gom-api-scriptedelements" title="Link to this heading"></a></h2>
-<p>API for handling scripted elements</p>
-<p>This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, …)
-It is used mostly internally by the scripted element framework.</p>
-<section id="gom-api-scriptedelements-get-dimension-definition">
-<h3>gom.api.scriptedelements.get_dimension_definition<a class="headerlink" href="#gom-api-scriptedelements-get-dimension-definition" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_dimension_definition(typename:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Return information about the given dimension</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> – Name of the dimension</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>A physical dimension (or just “dimension”) refers to the fundamental nature of what is measured - like length,
-time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
-from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
-millimeter, inch for length; or degree, radian for angle.</p>
-</section>
-<section id="gom-api-scriptedelements-get-dimensions">
-<h3>gom.api.scriptedelements.get_dimensions<a class="headerlink" href="#gom-api-scriptedelements-get-dimensions" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_dimensions():</span> <span class="pre">[str]</span></span></dt>
-<dd><p>Return available dimensions</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List of known dimensions</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="gom-api-scriptedelements-get-inspection-definition">
-<h3>gom.api.scriptedelements.get_inspection_definition<a class="headerlink" href="#gom-api-scriptedelements-get-inspection-definition" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_inspection_definition(typename:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Return information about the given scripted element type</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>type_name</strong> – Type name of the inspection to query</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary with relevant type information or an empty dictionary if the type is unknown</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function queries in internal ‘scalar registry’ database for information about the
-inspection with the given type.</p>
-</section>
-</section>
 <section id="gom-api-selection">
 <h2>gom.api.selection<a class="headerlink" href="#gom-api-selection" title="Link to this heading"></a></h2>
 <p>API for handling explorer selection</p>
@@ -10278,7 +9969,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f4710293c40>
+  <jinja2.runtime.BlockReference object at 0x7f78da15f770>
 
 
 </footer>
