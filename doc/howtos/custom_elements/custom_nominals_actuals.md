@@ -615,7 +615,7 @@ def compute_stage(self, context, values):
 
 ## References
 
-* [Extensions API &ndash; Custom Element](../../python_api/python_api.html#gom-api-extensions-customelement)
+* [Extensions API &ndash; Custom Element](../../python_api/python_api.md#gomapiextensionscustomelement)
 * [Extensions API &ndash; Actuals](../../python_api/python_api.md#gomapiextensionsactuals)
 * [Extensions API &ndash; Nominals](../../python_api/python_api.md#gomapiextensionsnominals)
 * [Extensions API &ndash; Inspections](../../python_api/python_api.md#gomapiextensionsinspections)
