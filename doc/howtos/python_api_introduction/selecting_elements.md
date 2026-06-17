@@ -72,6 +72,38 @@ element_list = [ element for element in elements if element.name.endswith(' 1') 
 # [gom.app.project.inspection['Plane 1'], gom.app.project.inspection['Circle 1']]
 ```
 
+## Accessing tokens and token values
+
+![New in Version 2027](https://img.shields.io/badge/New-Version_2027-20B2AA)
+
+Use `gom.api.expressions.get_tokens()` to query all expression tokens available for an element.
+To get tokens and their values, iterate over the returned token names and read each value with `element.get(<token>)`.
+For API details, see [gom.api.expressions](../../python_api/python_api.md#gom.api.expressions).
+
+```{code-block} Python
+import gom.api.expressions
+
+# Example element reference (replace with an element from your project)
+element = gom.app.project.inspection['Plane 1']
+
+tokens = gom.api.expressions.get_tokens(element)
+
+for category in tokens['categories']:
+    print(f"Category: {category['name']}")
+    for token in category['tokens']:
+        token_name = token['token']
+        try:
+            token_value = element.get(token_name)
+        except Exception:
+            token_value = '<not readable>'
+
+        print(f"  {token_name}: {token_value}")
+```
+
+```{note}
+Some tokens may represent complex or indexed data and are not directly readable as a single scalar value.
+```
+
 ## Examples
 
 The following Explorer element tree is used to give some `ElementSelection` examples:

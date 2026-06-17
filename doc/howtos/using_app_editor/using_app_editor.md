@@ -115,6 +115,12 @@ You start or stop recording of commands executed in ZEISS INSPECT by using the R
 
 You insert objects from ZEISS INSPECT into your Python script by using RMB ► Insert ► Element Value in the script editor.
 
+```{note}
+![New in Version 2027](https://img.shields.io/badge/New-Version_2027-20B2AA)
+
+Element values can also be found programmatically via the expression API. See [gom.api.expressions](../../python_api/python_api.md#gom.api.expressions).
+```
+
 ### Inserting a File Selection Dialog
 
 You insert a file selection dialog in your Python script by using RMB ► Insert ► File... in the script editor. See [Selecting a file or folder](../python_api_introduction/file_selection_dialog.md) for details.
