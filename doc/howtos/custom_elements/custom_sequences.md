@@ -5,7 +5,7 @@
 Custom sequence elements group multiple regular ZEISS INSPECT creation commands into one coordinated unit. In contrast to custom actuals and custom nominals, a sequence does not compute geometry itself. Instead, it creates and manages a set of standard elements and keeps them synchronized through the sequence lifecycle.
 
 ```{note}
-This How-to focuses on implementation flow, editing behavior, naming, and troubleshooting. For full constructor signatures, return schemas, and API semantics, refer to [Extensions API &ndash; Custom Sequence Elements](../../python_api/python_api.md#gom-api-extensions-sequence).
+This How-to focuses on implementation flow, editing behavior, naming, and troubleshooting. For full constructor signatures, return schemas, and API semantics, refer to <a href="../../python_api/python_api.html#gom-api-extensions-sequence">Extensions API &ndash; Custom Sequence Elements</a>.
 ```
 
 The upcoming custom sequence example app will be linked here once it is published. Until then, the API reference and the example app documentation are the primary sources for concrete implementation details.
@@ -25,10 +25,10 @@ If the feature only computes one geometric result, a custom nominal or actual el
 
 The sequence lifecycle is different from the lifecycle of custom actuals or nominals:
 
-1. **Dialog** - The user enters the sequence parameters in a custom dialog. The dialog framework is provided by [Extensions API &ndash; Custom Element](../../python_api/python_api.md#gom-api-extensions-customelement).
-2. **Create** - The sequence creates the regular elements that belong to it and returns them in creation order. See [Extensions API &ndash; CustomSequence.create](../../python_api/python_api.md#gom-api-extensions-sequence-customsequencecreate).
-3. **Edit** - Re-opening the leading element updates the existing sequence elements. See [Extensions API &ndash; CustomSequence.edit](../../python_api/python_api.md#gom-api-extensions-sequence-customsequenceedit).
-4. **Child edit** - If child editing is enabled, direct edits to child elements are reflected back into the sequence arguments. See [Extensions API &ndash; CustomSequence.on_edited](../../python_api/python_api.md#gom-api-extensions-sequence-customsequenceon_edited).
+1. **Dialog** - The user enters the sequence parameters in a custom dialog. The dialog framework is provided by <a href="../../python_api/python_api.html#gom-api-extensions-customelement">Extensions API &ndash; Custom Element</a>.
+2. **Create** - The sequence creates the regular elements that belong to it and returns them in creation order. See <a href="../../python_api/python_api.html#gom-api-extensions-sequence-customsequence-create">Extensions API &ndash; CustomSequence.create</a>.
+3. **Edit** - Re-opening the leading element updates the existing sequence elements. See <a href="../../python_api/python_api.html#gom-api-extensions-sequence-customsequence-edit">Extensions API &ndash; CustomSequence.edit</a>.
+4. **Child edit** - If child editing is enabled, direct edits to child elements are reflected back into the sequence arguments. See <a href="../../python_api/python_api.html#gom-api-extensions-sequence-customsequence-on-edited">Extensions API &ndash; CustomSequence.on_edited</a>.
 
 The API documentation describes the full method contracts. This How-to should be read as a usage guide for the implementation flow.
 
@@ -109,6 +109,6 @@ If a child element is meant to stay editable on its own, make sure `edit_child_e
 
 ## References
 
-* [Extensions API &ndash; Custom Sequence Elements](../../python_api/python_api.md#gom-api-extensions-sequence)
+* <a href="../../python_api/python_api.html#gom-api-extensions-sequence">Extensions API &ndash; Custom Sequence Elements</a>
 * [Custom nominal/actual elements](custom_nominals_actuals.md)
 * Published example app link to be added after release
