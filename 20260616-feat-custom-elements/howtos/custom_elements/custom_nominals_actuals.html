@@ -460,6 +460,10 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 </pre></div>
 </div>
 </div>
+<blockquote>
+<div><p>[!NOTE]
+The log messages can be viewed in the Service Manager.</p>
+</div></blockquote>
 </section>
 <section id="using-an-element-selection-filter">
 <h3>Using an element selection filter<a class="headerlink" href="#using-an-element-selection-filter" title="Link to this heading"></a></h3>
@@ -565,6 +569,7 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 </div>
 </li>
 <li><p><strong>Missing decorator</strong>: Add <code class="docutils literal notranslate"><span class="pre">&#64;apicontribution</span></code> decorator before your class definition</p></li>
+<li><p><strong>Missing API runner call</strong>: Ensure your service script calls <code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> so contributions are registered and the service keeps running</p></li>
 <li><p><strong>Invalid service definition</strong>: Check <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> service configuration:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
 <span class="w">    </span><span class="nt">&quot;endpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gom.api.myservice&quot;</span><span class="p">,</span>
@@ -814,7 +819,7 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f7c04bafd90>
+  <jinja2.runtime.BlockReference object at 0x7f6a21cf3a10>
 
 
 </footer>

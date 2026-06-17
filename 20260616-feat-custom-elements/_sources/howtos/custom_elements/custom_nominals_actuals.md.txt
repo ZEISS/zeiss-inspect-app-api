@@ -322,6 +322,9 @@ def compute_stage (self, context, values):
     # ...
 ```
 
+> [!NOTE]
+> The log messages can be viewed in the Service Manager.
+
 ### Using an element selection filter
 
 Some elements are created from other elements, which are selected with a <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#selection-element-widget">Selection element widget</a>. This widget provides a few options for selecting a specific element type, but in some cases a dedicated filter function has to be applied.
@@ -424,6 +427,7 @@ class MyOffsetPoint (gom.api.extensions.nominals.Point):
   from gom import apicontribution
   ```
 - **Missing decorator**: Add `@apicontribution` decorator before your class definition
+- **Missing API runner call**: Ensure your service script calls `gom.run_api()` so contributions are registered and the service keeps running
 - **Invalid service definition**: Check `metainfo.json` service configuration:
   ```json
   "services": [{
