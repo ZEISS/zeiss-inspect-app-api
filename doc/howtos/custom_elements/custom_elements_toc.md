@@ -20,6 +20,6 @@ The following How-to sections will introduce the concept of custom elements.
    :titlesonly:
    
    custom_nominals_actuals
-   custom_checks
    custom_inspections
+   [custom_diagrams]
 ```
