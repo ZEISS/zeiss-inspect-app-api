@@ -23,4 +23,3 @@ The following How-to sections will introduce the concept of custom elements.
    custom_inspections
    custom_sequences
 ```
-% TBD: Add custom_diagrams
