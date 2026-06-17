@@ -322,8 +322,9 @@ def compute_stage (self, context, values):
     # ...
 ```
 
-> [!NOTE]
-> The log messages can be viewed in the Service Manager.
+```{note}
+The log messages can be viewed in the Service Manager.
+```
 
 ### Using an element selection filter
 
