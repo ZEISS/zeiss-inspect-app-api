@@ -118,7 +118,7 @@ You insert objects from ZEISS INSPECT into your Python script by using RMB ► I
 ```{note}
 ![New in Version 2027](https://img.shields.io/badge/New-Version_2027-20B2AA)
 
-Element values can also be found programmatically via the expression API. See [gom.api.expressions](../../python_api/python_api.md#gom.api.expressions).
+Element values can also be found programmatically via the expression API. See [gom.api.expressions](../../python_api/python_api.md#gom-api-expressions).
 ```
 
 ### Inserting a File Selection Dialog
