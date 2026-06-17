@@ -1,4 +1,4 @@
-![New in Version 2026](https://img.shields.io/badge/New-Version_2026-red)
+![New in Version 2027](https://img.shields.io/badge/New-Version_2027-20B2AA)
 
 # Custom inspections
 
@@ -38,13 +38,13 @@ The dialog can optionally provide
 The tolerances widget's name must be set to `tolerance` in the Dialog Editor.
 ```
 
-Both object names are reserved and case-sensitive.
+Both object names &ndash; `name` and `tolerance` &ndash; are reserved and case-sensitive.
 
 ### Custom inspection Python script
 
 All custom elements are based on the <a href="../../python_api/python_api.html#gom-api-extensions">Extensions API</a>. More specifically, a custom inspection class is inherited from the <a href="../../python_api/python_api.html#gom-api-extensions-inspections">CustomInspection</a> base class.
 
-Use this How-to for implementation flow and practical patterns. For complete constructor and return-value specifications, refer to the inspection class references in the API documentation.
+Use this How-to for implementation flow and practical patterns. For complete constructor and return-value specifications, refer to the inspections class references in the API documentation.
 
 ```{code-block} python
 :caption: Custom_Scalar_Check.py &ndash; Minimal example &ndash; Custom scalar inspection
@@ -94,12 +94,12 @@ class MinimalScalarInspection (gom.api.extensions.inspections.Scalar):
         # ----------------------------------------------------
         # --- insert your computation here -------------------
         # ----------------------------------------------------
-        actual_result = 1.0
-        nominal_result = 2.0
+        ACTUAL_RESULT = 1.0
+        NOMINAL_RESULT = 2.0
         # ----------------------------------------------------
         return {
-            "nominal": nominal_result,
-            "actual":  actual_result,
+            "nominal": NOMINAL_RESULT,
+            "actual":  ACTUAL_RESULT,
             "target_element": values['slct_element'],
             "unit": values['unit']
         }
@@ -127,6 +127,13 @@ line 41..53:
 
 line 55:
 : `gom.run_api()` is executed when the script is started as a service.
+
+### Service definition and troubleshooting
+
+For service definition details and troubleshooting guidance (including service startup issues), refer to the corresponding sections in [Custom nominal/actual elements](custom_nominals_actuals.md#service-definition):
+
+* [Service definition](custom_nominals_actuals.md#service-definition)
+* [Troubleshooting](custom_nominals_actuals.md#troubleshooting)
 
 ### Applying tolerances
 
