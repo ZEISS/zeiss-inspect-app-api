@@ -183,6 +183,8 @@ One way to inspect the available keys is by using the 'Script Object' explorer, 
 You will find several keywords in the Object Explorer, with a preview of the current value.
 If you click `OK`, the complete call, including element reference by name, will be copied to your current script. If you already have a name reference, you can of course use this reference.
 
+For expression tokens and programmatic token values, see <a href="selecting_elements.html#accessing-tokens-and-token-values">Selecting elements in scripts</a>.
+
 ```python
 mesh_element = gom.app.project.parts['Part'].actual
 print (mesh_element.area)
