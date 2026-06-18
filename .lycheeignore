@@ -13,10 +13,13 @@ https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/using_add_on_editor/.*
 https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/dialog_widgets/.*
 ^https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/misc.html$
 https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/misc/.*
+^https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/data_interfaces.html$
+https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/data_interfaces/.*
 ^https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/script_icons.html$
 https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/script_icons/.*
 ^https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/script_resources.html$
 https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/script_resources/.*
+^https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/scripted_actuals/scripted_actuals.html$
 https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/scripted_actuals/.*
 ^https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/scripted_checks.html$
 https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/scripted_checks/.*
