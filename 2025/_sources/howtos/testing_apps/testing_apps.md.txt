@@ -254,7 +254,7 @@ Interaction with the control buttons of the dialog is done via the return value 
 
 Sometimes not only the test results, but also the amount of code covered by the test suite is of interest. The App [TemplateUnittestCoverage](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/TemplateUnittestCoverage/doc/Documentation.md) provides a template for running unit tests and generating a code coverage report.
 
-The test case structure is the same as described in the preceding sections, but to generate a coverage report, the tests must be run with the script [run_tests.py](https://github.com/ZeissIQS/AddOnExamples/blob/main/examples/TemplateUnittestCoverage/scripts/run_tests.py) while the App is in editing mode.
+The test case structure is the same as described in the preceding sections, but to generate a coverage report, the tests must be run with the script [run_tests.py](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/TemplateUnittestCoverage/scripts/run_tests.py) while the App is in editing mode.
 
 With the provided example, the test results are shown as follows:
 
