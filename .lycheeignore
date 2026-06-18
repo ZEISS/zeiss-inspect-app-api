@@ -1,4 +1,7 @@
 https://software-store.zeiss.com/.*
+^https://zeiss.github.io/zeiss-inspect-app-api/2026/news/20240409-scripting-solutions.html$
+^https://zeiss.github.io/zeiss-inspect-app-api/2026/news/20240502-python-details.html$
+^https://zeiss.github.io/zeiss-inspect-app-api/2026/news/20241127-release-2025.html$
 https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/user_defined_dialogs/.*
 https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/custom_elements/.*
 https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_versions/.*
