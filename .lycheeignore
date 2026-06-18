@@ -4,3 +4,6 @@ https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/custom_elements/.*
 https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_versions/.*
 ^https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_api_introduction/creating_wizard_dialogs.html$
 ^https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_api_introduction/user_defined_dialogs.html$
+https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/scripted_actuals/.*
+^https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/scripted_checks.html$
+https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/scripted_checks/.*
