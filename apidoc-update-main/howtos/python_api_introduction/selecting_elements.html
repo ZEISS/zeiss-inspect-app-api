@@ -53,6 +53,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Selecting elements in scripts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#recording-element-selections">Recording element selections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#accessing-elements-in-a-selection">Accessing elements in a selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-tokens-and-token-values">Accessing tokens and token values</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#more-element-selection-options">More element selection options</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#explorer-filter">Explorer filter</a></li>
@@ -72,6 +73,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../using_vscode_editor/using_vscode_editor.html">Using Visual Studio Code as App editor</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../app_documentation/app_documentation.html">Documenting Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../custom_elements/custom_elements_toc.html">Custom elements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="using_script_resources.html">Using script resources</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../stages/stages.html">Working with stages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../project_keywords/project_keywords.html">Project keywords handling</a></li>
@@ -192,6 +194,36 @@ iteration:</p>
 <span class="c1"># Example output:</span>
 <span class="c1"># [gom.app.project.inspection[&#39;Plane 1&#39;], gom.app.project.inspection[&#39;Circle 1&#39;]]</span>
 </pre></div>
+</div>
+</section>
+<section id="accessing-tokens-and-token-values">
+<h2>Accessing tokens and token values<a class="headerlink" href="#accessing-tokens-and-token-values" title="Link to this heading"></a></h2>
+<p><img alt="New in Version 2027" src="https://img.shields.io/badge/New-Version_2027-20B2AA" /></p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">gom.api.expressions.get_tokens()</span></code> to query all expression tokens available for an element.
+To get tokens and their values, iterate over the returned token names and read each value with <code class="docutils literal notranslate"><span class="pre">element.get(&lt;token&gt;)</span></code>.
+For API details, see <a href="../../python_api/python_api.html#gom-api-expressions">gom.api.expressions</a>.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.expressions</span>
+
+<span class="c1"># Example element reference (replace with an element from your project)</span>
+<span class="n">element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">inspection</span><span class="p">[</span><span class="s1">&#39;Plane 1&#39;</span><span class="p">]</span>
+
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">expressions</span><span class="o">.</span><span class="n">get_tokens</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">[</span><span class="s1">&#39;categories&#39;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Category: </span><span class="si">{</span><span class="n">category</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">category</span><span class="p">[</span><span class="s1">&#39;tokens&#39;</span><span class="p">]:</span>
+        <span class="n">token_name</span> <span class="o">=</span> <span class="n">token</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">token_value</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">token_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">token_value</span> <span class="o">=</span> <span class="s1">&#39;&lt;not readable&gt;&#39;</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">token_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">token_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some tokens may represent complex or indexed data and are not directly readable as a single scalar value.</p>
 </div>
 </section>
 <section id="examples">
@@ -440,7 +472,7 @@ that match any of the filters (disjunction / OR):</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f2afeb61310>
+  <jinja2.runtime.BlockReference object at 0x7f09f96a4520>
 
 
 </footer>
