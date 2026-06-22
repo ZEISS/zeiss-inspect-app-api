@@ -8,7 +8,7 @@
   },
   "author": "Carl Zeiss GOM Metrology GmbH",
   "dependencies": {
-    "checkout": "actions/checkout#semver:^6",
+    "checkout": "actions/checkout#semver:^7",
     "setup-python": "actions/setup-python#semver:^6",
     "sphinx": "sphinx-doc/sphinx:^7.2.6",
     "lychee-action": "lycheeverse/lychee-action#semver:^2",
