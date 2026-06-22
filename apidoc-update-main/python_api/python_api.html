@@ -2213,7 +2213,7 @@ with concrete element classes that define the expected <code class="docutils lit
 decorator and <code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code>. This makes it available in the ZEISS INSPECT menus.</p></li>
 <li><p><strong>Dialog</strong> — When the user creates or edits an element, <code class="docutils literal notranslate"><span class="pre">dialog()</span></code> is called. It displays a
 configuration dialog and returns the user’s input as a parameter dictionary.</p></li>
-<li><p><strong>Compute</strong> — After dialog confirmation (and during recalculation), <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code> is called for
+<li><p><strong>Compute</strong> — After dialog confirmation (and during recalculation), <code class="docutils literal notranslate"><span class="pre">compute()</span></code> is called for
 each stage. The function receives the dialog values and returns the computed result (e.g., a point
 coordinate, a surface mesh, or inspection deviations).</p></li>
 <li><p><strong>Event</strong> — While the dialog is open, <code class="docutils literal notranslate"><span class="pre">event()</span></code> is called on UI changes (widget value changed, dialog
@@ -2223,8 +2223,9 @@ specific (e.g., <code class="docutils literal notranslate"><span class="pre">'va
 <code class="docutils literal notranslate"><span class="pre">'data'</span></code> key stores arbitrary custom data alongside the element.</p></li>
 </ol>
 <p><strong>Minimal example</strong></p>
-<p>A simple custom actual point element can be defined as follows::</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import gom
+<p>A simple custom actual point element can be defined as follows:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```
+import gom
 import gom.api.extensions.actuals
 from gom import apicontribution
 
@@ -2237,7 +2238,7 @@ class MyPoint(gom.api.extensions.actuals.Point):
     def dialog(self, context, args):
         return self.show_dialog(context, args, &#39;/dialogs/my_point.gdlg&#39;)
 
-    def compute_stage(self, context, values):
+    def compute(self, context, values):
         return {
             &#39;value&#39;: (
                 float(values[&#39;x&#39;]),
@@ -2247,11 +2248,12 @@ class MyPoint(gom.api.extensions.actuals.Point):
         }
 
 gom.run_api()
+```
 </pre></div>
 </div>
 <p>The element class inherits from <code class="docutils literal notranslate"><span class="pre">gom.api.extensions.actuals.Point</span></code>, which sets the correct category
 and element type automatically. The <code class="docutils literal notranslate"><span class="pre">dialog()</span></code> method uses the built-in <code class="docutils literal notranslate"><span class="pre">show_dialog()</span></code> helper to
-display a <code class="docutils literal notranslate"><span class="pre">.gdlg</span></code> dialog file and return the values. The <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code> method computes a 3D point
+display a <code class="docutils literal notranslate"><span class="pre">.gdlg</span></code> dialog file and return the values. The <code class="docutils literal notranslate"><span class="pre">compute()</span></code> method computes a 3D point
 from the dialog values and returns it in the format expected by the <code class="docutils literal notranslate"><span class="pre">Point</span></code> type.</p>
 <p><strong>Element categories</strong></p>
 <p>The following categories are available for custom calculation elements:</p>
@@ -2290,11 +2292,12 @@ return value format.</p>
 <p><strong>Computation methods</strong></p>
 <p>This class provides three computation methods with different levels of control:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">compute_stage(context,</span> <span class="pre">values)</span></code>: <strong>Recommended for new implementations.</strong> Computes the result for a single
-stage. Override this method in your element class. The default implementation delegates to <code class="docutils literal notranslate"><span class="pre">compute()</span></code>
-for backward compatibility.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">compute(context,</span> <span class="pre">values)</span></code>: <strong>Legacy single-stage method.</strong> Kept for backward compatibility with older
-implementations. New code should override <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code> instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compute(context,</span> <span class="pre">values)</span></code>: <strong>Primary method to implement.</strong> Computes the result for a single stage.
+Called by the default implementation of <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compute_stage(context,</span> <span class="pre">values)</span></code>: The default implementation calls <code class="docutils literal notranslate"><span class="pre">compute()</span></code> and
+handles custom data error handling automatically (clears <code class="docutils literal notranslate"><span class="pre">context.data</span></code> on failure). Override this
+method only if you need custom result validation or error handling. Please see function documentation for
+details about this.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">compute_stages(context,</span> <span class="pre">values)</span></code>: Computes results for all stages at once. The default implementation
 iterates over all stages and calls <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code> for each one. Override this method only if you need
 bulk computation across stages for performance reasons (e.g., vectorized NumPy operations).</p></li>
@@ -2305,7 +2308,7 @@ for simple project setups, computation is usually done for a single stage only. 
 a recalc, computation for many stages is usually required. To support both cases and keep it
 simple for beginners, the custom elements are using two computation functions:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code>: Computes the result for one single stage only. If nothing else is implemented,
+<li><p><code class="docutils literal notranslate"><span class="pre">compute()</span></code>: Computes the result for one single stage only. If nothing else is implemented,
 this function will be called for each stage one by one and return the computed value for that stage only.
 The stage for which the computation is performed is passed via the function’s script context, but does
 usually not matter as all input values are already associated with that single stage.</p></li>
@@ -2315,10 +2318,10 @@ project. The result is expected to be a result vector of the same size as these 
 context passed to that function will contain a list of stages of equal size matching the value’s stage
 ordering.</p></li>
 </ul>
-<p>So for a project with stages, it is usually sufficient to just implement <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code>. For increased
+<p>So for a project with stages, it is usually sufficient to just implement <code class="docutils literal notranslate"><span class="pre">compute()</span></code>. For increased
 performance or parallelization, <code class="docutils literal notranslate"><span class="pre">compute_stages()</span></code> can then be implemented as a second step.</p>
 <p>Example for a simple single-stage computation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_stage</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">])</span>
     <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
     <span class="n">z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">])</span>
@@ -2337,7 +2340,7 @@ performance or parallelization, <code class="docutils literal notranslate"><span
             <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]))})</span>
             <span class="n">states</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()))</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
             <span class="n">states</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">context</span><span class="o">.</span><span class="n">stage</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2391,10 +2394,12 @@ active/inactive stages, stage sorting, …</p>
 </dl>
 </dd></dl>
 
-<p>Legacy single-stage computation function. Kept for backward compatibility.</p>
-<p>New implementations should override <code class="docutils literal notranslate"><span class="pre">compute_stage</span> <span class="pre">()</span></code> instead. This function
-is called by the default implementation of <code class="docutils literal notranslate"><span class="pre">compute_stage</span> <span class="pre">()</span></code> if that method
-is not overridden.</p>
+<p>Single-stage computation function. Implement this method to compute the element result for one stage.</p>
+<p>This is the primary method to override in custom element classes. It is called by the default
+implementation of <code class="docutils literal notranslate"><span class="pre">compute_stage</span> <span class="pre">()</span></code> for each stage. The function receives the current dialog
+widget values and must return a dictionary with the element-type-specific result keys. See the
+concrete element class documentation (e.g. <code class="docutils literal notranslate"><span class="pre">actuals.Point</span></code>, <code class="docutils literal notranslate"><span class="pre">nominals.Circle</span></code>) for the expected
+return value format.</p>
 </section>
 <section id="gom-api-extensions-customcalculationelement-compute-stage">
 <h4>gom.api.extensions.CustomCalculationElement.compute_stage<a class="headerlink" href="#gom-api-extensions-customcalculationelement-compute-stage" title="Link to this heading"></a></h4>
@@ -2411,11 +2416,43 @@ is not overridden.</p>
 </dl>
 </dd></dl>
 
-<p>This function is called when a single stage value is to be computed. The input values from the
-associated dialog function are passed as <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> parameters - one value as one specific
-parameter named as the associated input widget.</p>
-<p>By default, this function delegates to <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> for backward compatibility with older
-implementations. Override this method in new implementations instead of <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code>.</p>
+<p>Computes the result for a single stage.</p>
+<p>The default implementation calls the elements specialized <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function and does error handling.
+It usually does not need to be overridden, but can for specialization in mainly two areas:</p>
+<ul class="simple">
+<li><p>Custom result validation, for example of the value types. Checks can be added to force the <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code>
+function into returning the expected results and raise an early error otherwise.</p></li>
+<li><p>Custom data handling in case or exceptions: The custom element data of the computed stage is cleared
+explicitly in the default implementation in case of an error. This ensures that stale data from a previous
+successful computation is never mistaken as current output. If you want to preserve or even set data on failure,
+override <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code> and implement your own error handling instead.</p></li>
+</ul>
+<p><strong>Example:</strong> Custom result type validation for a 3D point result:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_stage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">compute_stage</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>  <span class="c1"># calls compute() + handles errors</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">check_list</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p><strong>Example:</strong> Custom data handling on failure:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_stage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>      <span class="c1"># Calls `compute ()` directly to skip default custom data cleanup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_list</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># Original checks are skipped, can be added here if desired</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c1"># Custom data cleanup happened in the overwritten function and is skipped here.</span>
+        <span class="c1"># As a result, the previous stages data or the data already written in the failing</span>
+        <span class="c1"># compute() call is preserved. The implementation must care for correct behavior</span>
+        <span class="c1"># here now explicitly.</span>
+        <span class="n">diagnostic</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;error_type&#39;</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="s1">&#39;detail&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span>
+
+        <span class="c1"># `context.data` is overwritten completely. So any remnants from the failing `compute ()` call</span>
+        <span class="c1"># are discarded and the custom data set will contain exception related information instead.</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">diagnostic</span>
+        <span class="k">raise</span>
+</pre></div>
+</div>
 </section>
 <section id="gom-api-extensions-customcalculationelement-compute-stages">
 <h4>gom.api.extensions.CustomCalculationElement.compute_stages<a class="headerlink" href="#gom-api-extensions-customcalculationelement-compute-stages" title="Link to this heading"></a></h4>
@@ -2434,8 +2471,8 @@ implementations. Override this method in new implementations instead of <code cl
 
 <p>This function is called to compute multiple stages of the custom element. The expected result is
 a vector of the same length as the number of stages.</p>
-<p>The function is calling the <code class="docutils literal notranslate"><span class="pre">compute</span> <span class="pre">()</span></code> function of the custom element for each stage by default.
-For a more efficient implementation, it can be overwritten and bulk compute many stages at once.</p>
+<p>The function calls <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code> for each stage by default. For a more efficient
+implementation, it can be overwritten to bulk compute many stages at once.</p>
 </section>
 </section>
 <section id="gom-api-extensions-customelement">
@@ -2446,7 +2483,7 @@ element type where configuration and computation are happening entirely in a Pyt
 behavior and visualization can be implemented.</p>
 <p>Custom elements are registered as <em>contributions</em> using the <code class="docutils literal notranslate"><span class="pre">&#64;apicontribution</span></code> decorator. Each element
 is instantiated once at service startup. The ZEISS INSPECT application then calls the element’s methods
-as needed: <code class="docutils literal notranslate"><span class="pre">dialog()</span></code> for interactive configuration, <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code> for result computation, and
+as needed: <code class="docutils literal notranslate"><span class="pre">dialog()</span></code> for interactive configuration, <code class="docutils literal notranslate"><span class="pre">compute()</span></code> for result computation, and
 <code class="docutils literal notranslate"><span class="pre">event()</span></code> for UI state changes during dialog interaction.</p>
 <p><strong>Class hierarchy</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CustomElement</span></code> is the root of the custom element hierarchy. It provides the dialog, event handling, and
@@ -2490,23 +2527,21 @@ Each entry in that dictionary is then stored as a separate custom data entry for
 “element tokens” in scripts afterwards.</p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-    <span class="c1"># Access custom data for the current stage.</span>
-    <span class="k">if</span> <span class="s1">&#39;intermediate_result&#39;</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
-        <span class="n">intermediate_result</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;intermediate_result&#39;</span><span class="p">]</span>
-
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># Compute intermediate result and write it to custom data for later reuse.</span>
-        <span class="c1"># The type is arbitrary, as long as it is serializable. Using a dictionary here</span>
-        <span class="c1"># is usually a good choice.</span>
-        <span class="n">intermediate_result</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># Compute intermediate result</span>
-        <span class="n">context</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;intermediate_result&#39;</span><span class="p">:</span> <span class="n">intermediate_result</span><span class="p">,</span>
-                        <span class="s1">&#39;computed&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="c1"># Compute an intermediate result and store it alongside the element.</span>
+    <span class="c1"># The type is arbitrary, as long as it is serializable. Using a dictionary here</span>
+    <span class="c1"># is usually a good choice.</span>
+    <span class="n">intermediate_result</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># Compute intermediate result</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;intermediate_result&#39;</span><span class="p">:</span> <span class="n">intermediate_result</span><span class="p">,</span>
+                    <span class="s1">&#39;computed&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 
     <span class="c1"># Compute final result</span>
     <span class="n">result</span> <span class="o">=</span> <span class="o">...</span>
     <span class="k">return</span> <span class="n">result</span>
 </pre></div>
 </div>
+<p>Custom data <strong>persists across computation rounds</strong>. At the start of each <code class="docutils literal notranslate"><span class="pre">compute()</span></code> call,
+<code class="docutils literal notranslate"><span class="pre">context.data</span></code> contains the data stored during the previous computation round (if any). This allows
+using custom data as a cache for intermediate results that should survive across recalculations.</p>
 <p>When a custom element has custom data set, these data entries can be accessed in scripts via element tokens.</p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">project</span><span class="p">[</span><span class="s1">&#39;Parts&#39;</span><span class="p">][</span><span class="s1">&#39;Part 1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="s1">&#39;My custom element&#39;</span><span class="p">]</span>
@@ -2538,6 +2573,53 @@ that element and stage. This is a more explicit way of returning custom data com
 </div>
 <p>When a new custom data set is set, either via <code class="docutils literal notranslate"><span class="pre">context.data</span></code> or via the <code class="docutils literal notranslate"><span class="pre">data</span></code> entry in the result, all
 previous custom data entries for that stage are cleared and the whole new data set is stored instead.</p>
+<p><strong>Reading custom element data back from scripts</strong></p>
+<p>Custom data stored via <code class="docutils literal notranslate"><span class="pre">context.data</span></code> or via the <code class="docutils literal notranslate"><span class="pre">data</span></code> key in the compute result can be read
+back in two ways:</p>
+<ol class="arabic">
+<li><p><strong>During <code class="docutils literal notranslate"><span class="pre">compute()</span></code></strong>, use <code class="docutils literal notranslate"><span class="pre">context.data</span></code> to read data</p></li>
+<li><p><strong>Outside of <code class="docutils literal notranslate"><span class="pre">compute()</span></code>, in any script</strong>, access stored data as element tokens. Each key
+in the custom data dictionary becomes a token on the element, accessible by its key name::</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>element = gom.app.project.actual_elements[&#39;My Custom Element&#39;]
+value = element.my_metric       # Reads the &#39;my_metric&#39; custom data entry
+label = element.label            # Reads the &#39;label&#39; custom data entry
+</pre></div>
+</div>
+<p>If a token does not exist, an <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code> is raised.</p>
+</li>
+</ol>
+<p>Unlike the legacy UDE (User-Defined Element) system, custom element data keys do not require
+any prefix (such as <code class="docutils literal notranslate"><span class="pre">ude_</span></code>). Any valid Python identifier can be used as a key name. Avoid
+using names that conflict with built-in element attributes (e.g., <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">type</span></code>,
+<code class="docutils literal notranslate"><span class="pre">computation_status</span></code>).</p>
+<p><strong>Data lifecycle across stages and on failure</strong></p>
+<p>Custom data persists across computation rounds for each stage. At the beginning of each
+<code class="docutils literal notranslate"><span class="pre">compute()</span></code> call, <code class="docutils literal notranslate"><span class="pre">context.data</span></code> contains the data stored during the previous computation
+of that stage (or an empty dictionary if no data was stored before). This enables using custom data
+as a cache for values that should survive across recalculations.</p>
+<p>Custom data is managed explicitly by the user, so the user is responsible for updating, clearing, or
+leaving data unchanged. On failed computation of a stage (exception raised from the <code class="docutils literal notranslate"><span class="pre">compute()</span></code>), the
+custom data of that stage is cleared by default. This behavior can be adapted by overwriting the <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code>
+method and handling the exception explicitly - see <code class="docutils literal notranslate"><span class="pre">compute_stage</span> <span class="pre">()</span></code> API documentation for examples.</p>
+<p><strong>Example:</strong> General context data handling</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="c1"># Read previous custom data (if any)</span>
+    <span class="n">previous_data</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="c1"># Reset custom data for this stage to be sure no old data is left over from previous turns</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Compute final result</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="o">...</span>
+
+    <span class="c1"># Set new custom data for this stage. This will overwrite any previous data.</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;intermediate_result&#39;</span><span class="p">:</span> <span class="o">...</span> <span class="c1"># Some computed intermediate result</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
 <section id="gom-api-extensions-customelement-attribute">
 <h4>gom.api.extensions.CustomElement.Attribute<a class="headerlink" href="#gom-api-extensions-customelement-attribute" title="Link to this heading"></a></h4>
 <p>Attributes used in the dialog definition</p>
@@ -3189,33 +3271,6 @@ the same index.</p>
 <section id="gom-api-extensions-actuals-scriptedactual">
 <h4>gom.api.extensions.actuals.ScriptedActual<a class="headerlink" href="#gom-api-extensions-actuals-scriptedactual" title="Link to this heading"></a></h4>
 <p>Deprecated alias for <code class="docutils literal notranslate"><span class="pre">CustomActual</span></code>. Use <code class="docutils literal notranslate"><span class="pre">CustomActual</span></code> instead.</p>
-<section id="gom-api-extensions-actuals-scriptedactual-compute-stage">
-<h5>gom.api.extensions.actuals.ScriptedActual.compute_stage<a class="headerlink" href="#gom-api-extensions-actuals-scriptedactual-compute-stage" title="Link to this heading"></a></h5>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.actuals.ScriptedActual.compute_stage(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
-<dd><dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<em>Any</em>) – Script context object for the current stage.</p></li>
-<li><p><strong>values</strong> (<em>Any</em>) – Dialog widget values dictionary.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Result of <code class="docutils literal notranslate"><span class="pre">compute()</span></code>, forwarded unchanged.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>Delegate single-stage computation to the user-supplied <code class="docutils literal notranslate"><span class="pre">compute()</span></code> method.</p>
-<p>Legacy add-ons that derive from ‘ScriptedActual’ are expected to implement
-<code class="docutils literal notranslate"><span class="pre">compute()</span></code> only (the pre-rename contract). This implementation satisfies the
-abstract <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code> requirement of <code class="docutils literal notranslate"><span class="pre">CustomCalculationElement</span></code> while
-keeping the user-visible API unchanged.</p>
-</section>
 </section>
 <section id="gom-api-extensions-actuals-section">
 <h4>gom.api.extensions.actuals.Section<a class="headerlink" href="#gom-api-extensions-actuals-section" title="Link to this heading"></a></h4>
@@ -5014,33 +5069,6 @@ the same index.</p>
 <section id="gom-api-extensions-nominals-scriptednominal">
 <h4>gom.api.extensions.nominals.ScriptedNominal<a class="headerlink" href="#gom-api-extensions-nominals-scriptednominal" title="Link to this heading"></a></h4>
 <p>Deprecated alias for <code class="docutils literal notranslate"><span class="pre">CustomNominal</span></code>. Use <code class="docutils literal notranslate"><span class="pre">CustomNominal</span></code> instead.</p>
-<section id="gom-api-extensions-nominals-scriptednominal-compute-stage">
-<h5>gom.api.extensions.nominals.ScriptedNominal.compute_stage<a class="headerlink" href="#gom-api-extensions-nominals-scriptednominal-compute-stage" title="Link to this heading"></a></h5>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.nominals.ScriptedNominal.compute_stage(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">values:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
-<dd><dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<em>Any</em>) – Script context object for the current stage.</p></li>
-<li><p><strong>values</strong> (<em>Any</em>) – Dialog widget values dictionary.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Result of <code class="docutils literal notranslate"><span class="pre">compute()</span></code>, forwarded unchanged.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>Delegate single-stage computation to the user-supplied <code class="docutils literal notranslate"><span class="pre">compute()</span></code> method.</p>
-<p>Legacy add-ons that derive from ‘ScriptedNominal’ are expected to implement
-<code class="docutils literal notranslate"><span class="pre">compute()</span></code> only (the pre-rename contract). This implementation satisfies the
-abstract <code class="docutils literal notranslate"><span class="pre">compute_stage()</span></code> requirement of <code class="docutils literal notranslate"><span class="pre">CustomCalculationElement</span></code> while
-keeping the user-visible API unchanged.</p>
-</section>
 </section>
 <section id="gom-api-extensions-nominals-section">
 <h4>gom.api.extensions.nominals.Section<a class="headerlink" href="#gom-api-extensions-nominals-section" title="Link to this heading"></a></h4>
@@ -10130,7 +10158,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f68aa6c08a0>
+  <jinja2.runtime.BlockReference object at 0x7fdaa0d98d00>
 
 
 </footer>
