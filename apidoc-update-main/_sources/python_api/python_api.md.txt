@@ -1369,6 +1369,8 @@ Event types passed to the `event ()` function
 
 - `DIALOG_INITIALIZE`: Sent when the dialog has been initialized and made visible
 - `DIALOG_CHANGED`:    A dialog widget value changed
+- `DIALOG_CLOSED`:     The dialog was closed (OK or Cancel)
+- `DIALOG_SYSTEM`:     A system event occurred (e.g., element selection changed)
 
 #### gom.api.extensions.CustomElement.WidgetType
 
