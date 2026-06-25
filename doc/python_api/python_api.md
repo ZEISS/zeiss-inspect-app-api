@@ -902,7 +902,7 @@ The lifecycle of a custom calculation element (actual, nominal, or inspection) f
 2. **Dialog** — When the user creates or edits an element, ``dialog()`` is called. It displays a
    configuration dialog and returns the user's input as a parameter dictionary.
 
-3. **Compute** — After dialog confirmation (and during recalculation), ``compute_stage()`` is called for
+3. **Compute** — After dialog confirmation (and during recalculation), ``compute()`` is called for
    each stage. The function receives the dialog values and returns the computed result (e.g., a point
    coordinate, a surface mesh, or inspection deviations).
 
@@ -915,8 +915,9 @@ The lifecycle of a custom calculation element (actual, nominal, or inspection) f
 
 **Minimal example**
 
-A simple custom actual point element can be defined as follows::
+A simple custom actual point element can be defined as follows:
 
+    ```
     import gom
     import gom.api.extensions.actuals
     from gom import apicontribution
@@ -930,7 +931,7 @@ A simple custom actual point element can be defined as follows::
         def dialog(self, context, args):
             return self.show_dialog(context, args, '/dialogs/my_point.gdlg')
 
-        def compute_stage(self, context, values):
+        def compute(self, context, values):
             return {
                 'value': (
                     float(values['x']),
@@ -940,10 +941,11 @@ A simple custom actual point element can be defined as follows::
             }
 
     gom.run_api()
+    ```
 
 The element class inherits from ``gom.api.extensions.actuals.Point``, which sets the correct category
 and element type automatically. The ``dialog()`` method uses the built-in ``show_dialog()`` helper to
-display a ``.gdlg`` dialog file and return the values. The ``compute_stage()`` method computes a 3D point
+display a ``.gdlg`` dialog file and return the values. The ``compute()`` method computes a 3D point
 from the dialog values and returns it in the format expected by the ``Point`` type.
 
 **Element categories**
@@ -995,12 +997,13 @@ return value format.
 
 This class provides three computation methods with different levels of control:
 
-- ``compute_stage(context, values)``: **Recommended for new implementations.** Computes the result for a single
-  stage. Override this method in your element class. The default implementation delegates to ``compute()``
-  for backward compatibility.
+- ``compute(context, values)``: **Primary method to implement.** Computes the result for a single stage.
+  Called by the default implementation of ``compute_stage()``.
 
-- ``compute(context, values)``: **Legacy single-stage method.** Kept for backward compatibility with older
-  implementations. New code should override ``compute_stage()`` instead.
+- ``compute_stage(context, values)``: The default implementation calls ``compute()`` and
+  handles custom data error handling automatically (clears ``context.data`` on failure). Override this
+  method only if you need custom result validation or error handling. Please see function documentation for
+  details about this.
 
 - ``compute_stages(context, values)``: Computes results for all stages at once. The default implementation
   iterates over all stages and calls ``compute_stage()`` for each one. Override this method only if you need
@@ -1013,7 +1016,7 @@ for simple project setups, computation is usually done for a single stage only. 
 a recalc, computation for many stages is usually required. To support both cases and keep it
 simple for beginners, the custom elements are using two computation functions:
 
-- ``compute_stage()``: Computes the result for one single stage only. If nothing else is implemented,
+- ``compute()``: Computes the result for one single stage only. If nothing else is implemented,
   this function will be called for each stage one by one and return the computed value for that stage only.
   The stage for which the computation is performed is passed via the function's script context, but does
   usually not matter as all input values are already associated with that single stage.
@@ -1023,13 +1026,13 @@ simple for beginners, the custom elements are using two computation functions:
   context passed to that function will contain a list of stages of equal size matching the value's stage
   ordering.
 
-So for a project with stages, it is usually sufficient to just implement ``compute_stage()``. For increased
+So for a project with stages, it is usually sufficient to just implement ``compute()``. For increased
 performance or parallelization, ``compute_stages()`` can then be implemented as a second step.
 
 Example for a simple single-stage computation:
 
 ```
-def compute_stage (self, context, values):
+def compute (self, context, values):
     x = float(values['x'])
     y = float(values['y'])
     z = float(values['z'])
@@ -1050,7 +1053,7 @@ def compute_stages (self, context, values):
             results.append({'value': (float(values['x']), float(values['y']), float(values['z']))})
             states.append(True)
         except Exception as e:
-            results.append((str(e), traceback.format_exc()))
+            results.append((str(e), traceback.format_exc())
             states.append(False)
         finally:
             context.stage = None
@@ -1099,11 +1102,13 @@ Constructor
 :type values: Any
 ```
 
-Legacy single-stage computation function. Kept for backward compatibility.
+Single-stage computation function. Implement this method to compute the element result for one stage.
 
-New implementations should override `compute_stage ()` instead. This function
-is called by the default implementation of `compute_stage ()` if that method
-is not overridden.
+This is the primary method to override in custom element classes. It is called by the default
+implementation of `compute_stage ()` for each stage. The function receives the current dialog
+widget values and must return a dictionary with the element-type-specific result keys. See the
+concrete element class documentation (e.g. `actuals.Point`, `nominals.Circle`) for the expected
+return value format.
 
 #### gom.api.extensions.CustomCalculationElement.compute_stage
 
@@ -1115,12 +1120,47 @@ is not overridden.
 :type values: Any
 ```
 
-This function is called when a single stage value is to be computed. The input values from the
-associated dialog function are passed as `kwargs` parameters - one value as one specific
-parameter named as the associated input widget.
+Computes the result for a single stage.
 
-By default, this function delegates to `compute ()` for backward compatibility with older
-implementations. Override this method in new implementations instead of `compute ()`.
+The default implementation calls the elements specialized `compute ()` function and does error handling. 
+It usually does not need to be overridden, but can for specialization in mainly two areas:
+
+- Custom result validation, for example of the value types. Checks can be added to force the `compute ()`
+  function into returning the expected results and raise an early error otherwise.
+- Custom data handling in case or exceptions: The custom element data of the computed stage is cleared
+  explicitly in the default implementation in case of an error. This ensures that stale data from a previous 
+  successful computation is never mistaken as current output. If you want to preserve or even set data on failure, 
+  override `compute_stage()` and implement your own error handling instead.
+
+**Example:** Custom result type validation for a 3D point result:
+
+```python
+def compute_stage(self, context, values):
+    result = super().compute_stage(context, values)  # calls compute() + handles errors
+    self.check_list(result, 'value', float, 3)
+    return result
+```
+
+**Example:** Custom data handling on failure:
+
+```python
+def compute_stage(self, context, values):
+    try:
+        result = self.compute(context, values)      # Calls `compute ()` directly to skip default custom data cleanup
+        self.check_list(result, 'value', float, 3)  # Original checks are skipped, can be added here if desired
+        return result
+    except Exception as e:
+        # Custom data cleanup happened in the overwritten function and is skipped here.
+        # As a result, the previous stages data or the data already written in the failing
+        # compute() call is preserved. The implementation must care for correct behavior
+        # here now explicitly.
+        diagnostic = {'error_type': type(e).__name__, 'detail': str(e)}
+
+        # `context.data` is overwritten completely. So any remnants from the failing `compute ()` call
+        # are discarded and the custom data set will contain exception related information instead.
+        context.data = diagnostic
+        raise
+```
 
 #### gom.api.extensions.CustomCalculationElement.compute_stages
 
@@ -1135,8 +1175,8 @@ implementations. Override this method in new implementations instead of `compute
 This function is called to compute multiple stages of the custom element. The expected result is
 a vector of the same length as the number of stages.
 
-The function is calling the `compute ()` function of the custom element for each stage by default.
-For a more efficient implementation, it can be overwritten and bulk compute many stages at once.
+The function calls ``compute_stage()`` for each stage by default. For a more efficient
+implementation, it can be overwritten to bulk compute many stages at once.
 
 ### gom.api.extensions.CustomElement
 
@@ -1149,7 +1189,7 @@ behavior and visualization can be implemented.
 
 Custom elements are registered as *contributions* using the ``@apicontribution`` decorator. Each element
 is instantiated once at service startup. The ZEISS INSPECT application then calls the element's methods
-as needed: ``dialog()`` for interactive configuration, ``compute_stage()`` for result computation, and
+as needed: ``dialog()`` for interactive configuration, ``compute()`` for result computation, and
 ``event()`` for UI state changes during dialog interaction.
 
 **Class hierarchy**
@@ -1206,22 +1246,21 @@ Each entry in that dictionary is then stored as a separate custom data entry for
 Example:
 ```
 def compute (self, context, values):
-    # Access custom data for the current stage.
-    if 'intermediate_result' in context.data:
-        intermediate_result = context.data['intermediate_result']
-
-    else:
-        # Compute intermediate result and write it to custom data for later reuse.
-        # The type is arbitrary, as long as it is serializable. Using a dictionary here
-        # is usually a good choice.
-        intermediate_result = ... # Compute intermediate result
-        context.data = {'intermediate_result': intermediate_result,
-                        'computed': True}
+    # Compute an intermediate result and store it alongside the element.
+    # The type is arbitrary, as long as it is serializable. Using a dictionary here
+    # is usually a good choice.
+    intermediate_result = ... # Compute intermediate result
+    context.data = {'intermediate_result': intermediate_result,
+                    'computed': True}
 
     # Compute final result
     result = ...
     return result
 ```
+
+Custom data **persists across computation rounds**. At the start of each ``compute()`` call,
+``context.data`` contains the data stored during the previous computation round (if any). This allows
+using custom data as a cache for intermediate results that should survive across recalculations.
 
 When a custom element has custom data set, these data entries can be accessed in scripts via element tokens.
 
@@ -1261,6 +1300,60 @@ def compute (self, context, values):
 When a new custom data set is set, either via `context.data` or via the `data` entry in the result, all
 previous custom data entries for that stage are cleared and the whole new data set is stored instead.
 
+**Reading custom element data back from scripts**
+
+Custom data stored via `context.data` or via the `data` key in the compute result can be read
+back in two ways:
+
+1. **During ``compute()``**, use ``context.data`` to read data
+
+2. **Outside of `compute()`, in any script**, access stored data as element tokens. Each key
+   in the custom data dictionary becomes a token on the element, accessible by its key name::
+
+       element = gom.app.project.actual_elements['My Custom Element']
+       value = element.my_metric       # Reads the 'my_metric' custom data entry
+       label = element.label            # Reads the 'label' custom data entry
+
+   If a token does not exist, an ``AttributeError`` is raised.
+
+Unlike the legacy UDE (User-Defined Element) system, custom element data keys do not require
+any prefix (such as ``ude_``). Any valid Python identifier can be used as a key name. Avoid
+using names that conflict with built-in element attributes (e.g., ``name``, ``type``,
+``computation_status``).
+
+**Data lifecycle across stages and on failure**
+
+Custom data persists across computation rounds for each stage. At the beginning of each
+``compute()`` call, ``context.data`` contains the data stored during the previous computation
+of that stage (or an empty dictionary if no data was stored before). This enables using custom data
+as a cache for values that should survive across recalculations.
+
+Custom data is managed explicitly by the user, so the user is responsible for updating, clearing, or
+leaving data unchanged. On failed computation of a stage (exception raised from the ``compute()``), the
+custom data of that stage is cleared by default. This behavior can be adapted by overwriting the ``compute_stage()`` 
+method and handling the exception explicitly - see `compute_stage ()` API documentation for examples.
+
+**Example:** General context data handling
+
+```python
+def compute (self, context, values):
+    # Read previous custom data (if any)
+    previous_data = context.data
+
+    # Reset custom data for this stage to be sure no old data is left over from previous turns
+    context.data = {}
+
+    # Compute final result
+    result = ...
+
+    # Set new custom data for this stage. This will overwrite any previous data.
+    context.data = {
+        'intermediate_result': ... # Some computed intermediate result
+    }
+
+    return result
+```
+
 #### gom.api.extensions.CustomElement.Attribute
 
 
@@ -1276,6 +1369,8 @@ Event types passed to the `event ()` function
 
 - `DIALOG_INITIALIZE`: Sent when the dialog has been initialized and made visible
 - `DIALOG_CHANGED`:    A dialog widget value changed
+- `DIALOG_CLOSED`:     The dialog was closed (OK or Cancel)
+- `DIALOG_SYSTEM`:     A system event occurred (e.g., element selection changed)
 
 #### gom.api.extensions.CustomElement.WidgetType
 
@@ -1891,25 +1986,6 @@ The format of the `Curve` object is:
 
 
 Deprecated alias for `CustomActual`. Use `CustomActual` instead.
-
-##### gom.api.extensions.actuals.ScriptedActual.compute_stage
-
-```{py:function} gom.api.extensions.actuals.ScriptedActual.compute_stage(self: Any, context: Any, values: Any): None
-
-:param context: Script context object for the current stage.
-:type context: Any
-:param values: Dialog widget values dictionary.
-:type values: Any
-:return: Result of `compute()`, forwarded unchanged.
-:rtype: None
-```
-
-Delegate single-stage computation to the user-supplied `compute()` method.
-
-Legacy add-ons that derive from 'ScriptedActual' are expected to implement
-`compute()` only (the pre-rename contract). This implementation satisfies the
-abstract `compute_stage()` requirement of `CustomCalculationElement` while
-keeping the user-visible API unchanged.
 
 #### gom.api.extensions.actuals.Section
 
@@ -3847,25 +3923,6 @@ the same index.
 
 
 Deprecated alias for `CustomNominal`. Use `CustomNominal` instead.
-
-##### gom.api.extensions.nominals.ScriptedNominal.compute_stage
-
-```{py:function} gom.api.extensions.nominals.ScriptedNominal.compute_stage(self: Any, context: Any, values: Any): None
-
-:param context: Script context object for the current stage.
-:type context: Any
-:param values: Dialog widget values dictionary.
-:type values: Any
-:return: Result of `compute()`, forwarded unchanged.
-:rtype: None
-```
-
-Delegate single-stage computation to the user-supplied `compute()` method.
-
-Legacy add-ons that derive from 'ScriptedNominal' are expected to implement
-`compute()` only (the pre-rename contract). This implementation satisfies the
-abstract `compute_stage()` requirement of `CustomCalculationElement` while
-keeping the user-visible API unchanged.
 
 #### gom.api.extensions.nominals.Section
 
@@ -6568,6 +6625,101 @@ Unload resource from shared memory
 :rtype: bool
 ```
 
+
+## gom.api.scripted_checks_util
+
+Tool functions for scripted checks
+
+
+### gom.api.scripted_checks_util.is_curve_checkable
+
+```{py:function} gom.api.scripted_checks_util.is_curve_checkable(element: gom.Object): bool
+
+Checks if the referenced element is suitable for inspection with a curve check
+:API version: 1
+:param element: Element reference to check
+:type element: gom.Object
+:return: 'true' if the element is checkable like a curve
+:rtype: bool
+```
+
+This function checks if the given element can be inspected like a curve in the context of scripted
+elements. Please see the scripted element documentation for details about the underlying scheme.
+
+### gom.api.scripted_checks_util.is_scalar_checkable
+
+```{py:function} gom.api.scripted_checks_util.is_scalar_checkable(element: gom.Object): bool
+
+Checks if the referenced element is suitable for inspection with a scalar check
+:API version: 1
+:param element: Element reference to check
+:type element: gom.Object
+:return: 'true' if the element is checkable like a scalar value
+:rtype: bool
+```
+
+This function checks if the given element can be inspected like a scalar value in the context of scripted
+elements. Please see the scripted element documentation for details about the underlying scheme.
+
+### gom.api.scripted_checks_util.is_surface_checkable
+
+```{py:function} gom.api.scripted_checks_util.is_surface_checkable(element: gom.Object): bool
+
+Checks if the referenced element is suitable for inspection with a surface check
+:API version: 1
+:param element: Element reference to check
+:type element: gom.Object
+:return: 'true' if the element is checkable like a surface
+:rtype: bool
+```
+
+This function checks if the given element can be inspected like a surface in the context of scripted
+elements. Please see the scripted element documentation for details about the underlying scheme.
+
+## gom.api.scriptedelements
+
+API for handling scripted elements
+
+This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, ...)
+It is used mostly internally by the scripted element framework.
+
+### gom.api.scriptedelements.get_dimension_definition
+
+```{py:function} gom.api.scriptedelements.get_dimension_definition(typename: str): Any
+
+Return information about the given dimension
+:param name: Name of the dimension
+:return: Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension
+:rtype: Any
+```
+
+A physical dimension (or just "dimension") refers to the fundamental nature of what is measured - like length,
+time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
+from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
+millimeter, inch for length; or degree, radian for angle.
+
+### gom.api.scriptedelements.get_dimensions
+
+```{py:function} gom.api.scriptedelements.get_dimensions(): [str]
+
+Return available dimensions
+:return: List of known dimensions
+:rtype: [str]
+```
+
+
+### gom.api.scriptedelements.get_inspection_definition
+
+```{py:function} gom.api.scriptedelements.get_inspection_definition(typename: str): Any
+
+Return information about the given scripted element type
+:param type_name: Type name of the inspection to query
+:return: Dictionary with relevant type information or an empty dictionary if the type is unknown
+:rtype: Any
+```
+
+This function queries in internal 'scalar registry' database for information about the
+inspection with the given type.
 
 ## gom.api.selection
 
