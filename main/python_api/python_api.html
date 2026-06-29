@@ -2699,8 +2699,8 @@ C++/Python contract.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>diagram_data</strong> (<em>List</em>) – List that the data entry is appended to</p></li>
-<li><p><strong>diagram_id</strong> (<em>str</em>) – Id of the diagram the data is passed to (i.e. SVGDiagram)</p></li>
-<li><p><strong>service_id</strong> (<em>str</em>) – Service id of the diagram contribution</p></li>
+<li><p><strong>diagram_id</strong> (<em>str</em>) – Id of the diagram the data is passed to (e.g. SVGDiagram). Leave empty if the contribution should decide which diagram to use.</p></li>
+<li><p><strong>service_id</strong> (<em>str</em>) – Id of the diagram contribution OR diagram function name (see above)</p></li>
 <li><p><strong>element_data</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Data that is provided to the diagram</p></li>
 </ul>
 </dd>
@@ -2708,6 +2708,11 @@ C++/Python contract.</p>
 </dd></dl>
 
 <p>Adds a diagram data entry to a list provided as an input parameter</p>
+<p>Depending on the kind of diagram implementation being used, “service_id” can either be</p>
+<ol class="arabic simple">
+<li><p>the ID of the diagram contribution (e.g. zeiss.example.diagram.my_circles)</p></li>
+<li><p>the name of the plot function including the service endpoint (e.g. gom.api.endpoint.my_plot).</p></li>
+</ol>
 </section>
 <section id="gom-api-extensions-customelement-add-log-message">
 <h4>gom.api.extensions.CustomElement.add_log_message<a class="headerlink" href="#gom-api-extensions-customelement-add-log-message" title="Link to this heading"></a></h4>
@@ -10160,7 +10165,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f6470de8de0>
+  <jinja2.runtime.BlockReference object at 0x7f6899b1cd70>
 
 
 </footer>
