@@ -1422,15 +1422,19 @@ C++/Python contract.
 
 :param diagram_data: List that the data entry is appended to
 :type diagram_data: List
-:param diagram_id: Id of the diagram the data is passed to (i.e. SVGDiagram)
+:param diagram_id: Id of the diagram the data is passed to (e.g. SVGDiagram). Leave empty if the contribution should decide which diagram to use.
 :type diagram_id: str
-:param service_id: Service id of the diagram contribution
+:param service_id: Id of the diagram contribution OR diagram function name (see above)
 :type service_id: str
 :param element_data: Data that is provided to the diagram
 :type element_data: Dict[str, Any]
 ```
 
 Adds a diagram data entry to a list provided as an input parameter
+
+Depending on the kind of diagram implementation being used, "service_id" can either be 
+1. the ID of the diagram contribution (e.g. zeiss.example.diagram.my_circles)
+2. the name of the plot function including the service endpoint (e.g. gom.api.endpoint.my_plot).
 
 #### gom.api.extensions.CustomElement.add_log_message
 
