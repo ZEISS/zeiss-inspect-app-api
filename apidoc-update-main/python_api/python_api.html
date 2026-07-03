@@ -834,12 +834,6 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-script-resources-unload">gom.api.script_resources.unload</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#gom-api-scripted-checks-util">gom.api.scripted_checks_util</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-curve-checkable">gom.api.scripted_checks_util.is_curve_checkable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-scalar-checkable">gom.api.scripted_checks_util.is_scalar_checkable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-surface-checkable">gom.api.scripted_checks_util.is_surface_checkable</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-selection">gom.api.selection</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-selection-get-selected-elements">gom.api.selection.get_selected_elements</a></li>
 </ul>
@@ -1904,12 +1898,12 @@ JSON based description format and can be executed server side in the native UI s
 <h3>gom.api.dialog.create<a class="headerlink" href="#gom-api-dialog-create" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.dialog.create(context:</span> <span class="pre">Any,</span> <span class="pre">url:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.dialog.create(context:</span> <span class="pre">Any=gom.ContributionContext('null'),</span> <span class="pre">url:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
 <dd><p>Create modal dialog, but do not execute it yet</p>
 <dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<em>Any</em>) – Script execution context</p></li>
+<li><p><strong>context</strong> (<em>Any=gom.ContributionContext</em><em>(</em><em>'null'</em><em>)</em>) – Script execution context of the calling scripted contribution. Optional - omit it when calling from outside the custom elements framework.</p></li>
 <li><p><strong>url</strong> (<em>str</em>) – URL of the dialog definition (*.gdlg file)</p></li>
 </ul>
 </dd>
@@ -1924,11 +1918,11 @@ JSON based description format and can be executed server side in the native UI s
 
 <p>This function creates a dialog. The dialog is passed in an abstract JSON description defining its layout.
 The dialog is created but not executed yet. The dialog can be executed later by calling the ‘gom.api.dialog.show’
-function. The purpose of this function is to create a dialog in advance and allow the user setting it up before</p>
-<p>This function is part of the scripted contribution framework. It can be used in the scripts
-‘dialog’ functions to pop up user input dialogs, e.g. for creation commands. Passing of the
-contributions script context is mandatory for the function to work.</p>
-<p>\attention This function is not enabled outside of the custom elements scripted contribution framework.</p>
+function. The purpose of this function is to create a dialog in advance and allow the user setting it up before
+showing it.</p>
+<p>When called with a scripted contribution’s context (e.g. from a custom element’s ‘dialog’ function), the dialog
+definition is resolved relative to that contribution’s add-on content. When called without a context (<code class="docutils literal notranslate"><span class="pre">context</span></code>
+omitted), the dialog definition is resolved directly relative to the calling script instead.</p>
 </section>
 <section id="gom-api-dialog-execute">
 <h3>gom.api.dialog.execute<a class="headerlink" href="#gom-api-dialog-execute" title="Link to this heading"></a></h3>
@@ -8227,85 +8221,6 @@ for various image variants.</p>
 
 </section>
 </section>
-<section id="gom-api-scripted-checks-util">
-<h2>gom.api.scripted_checks_util<a class="headerlink" href="#gom-api-scripted-checks-util" title="Link to this heading"></a></h2>
-<p>Tool functions for scripted checks</p>
-<section id="gom-api-scripted-checks-util-is-curve-checkable">
-<h3>gom.api.scripted_checks_util.is_curve_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-curve-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_curve_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a curve check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a curve</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a curve in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-<section id="gom-api-scripted-checks-util-is-scalar-checkable">
-<h3>gom.api.scripted_checks_util.is_scalar_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-scalar-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_scalar_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a scalar check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a scalar value</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a scalar value in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-<section id="gom-api-scripted-checks-util-is-surface-checkable">
-<h3>gom.api.scripted_checks_util.is_surface_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-surface-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_surface_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a surface check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a surface</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a surface in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-</section>
 <section id="gom-api-selection">
 <h2>gom.api.selection<a class="headerlink" href="#gom-api-selection" title="Link to this heading"></a></h2>
 <p>API for handling explorer selection</p>
@@ -8923,7 +8838,7 @@ are integer, double, string and bool.</p>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text">Example of a simple custom edit dialog</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.experimental</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.smart_principle</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
@@ -8935,7 +8850,7 @@ are integer, double, string and bool.</p>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;com.zeiss.my.customdialog&#39;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">create_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
-        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">create_dialog</span><span class="p">(</span><span class="s2">&quot;my_dialog.gdlg&quot;</span><span class="p">)</span>
+        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;my_dialog.gdlg&quot;</span><span class="p">)</span>
         <span class="o">...</span>
         <span class="k">return</span> <span class="n">dlg</span>
 
@@ -10090,7 +10005,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fe5cf261550>
+  <jinja2.runtime.BlockReference object at 0x7f41aeb097f0>
 
 
 </footer>
