@@ -1910,12 +1910,12 @@ JSON based description format and can be executed server side in the native UI s
 <h3>gom.api.dialog.create<a class="headerlink" href="#gom-api-dialog-create" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.dialog.create(context:</span> <span class="pre">Any,</span> <span class="pre">url:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.dialog.create(context:</span> <span class="pre">Any=gom.ContributionContext('null'),</span> <span class="pre">url:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
 <dd><p>Create modal dialog, but do not execute it yet</p>
 <dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>context</strong> (<em>Any</em>) – Script execution context</p></li>
+<li><p><strong>context</strong> (<em>Any=gom.ContributionContext</em><em>(</em><em>'null'</em><em>)</em>) – Script execution context of the calling scripted contribution. Optional - omit it when calling from outside the custom elements framework.</p></li>
 <li><p><strong>url</strong> (<em>str</em>) – URL of the dialog definition (*.gdlg file)</p></li>
 </ul>
 </dd>
@@ -1930,11 +1930,11 @@ JSON based description format and can be executed server side in the native UI s
 
 <p>This function creates a dialog. The dialog is passed in an abstract JSON description defining its layout.
 The dialog is created but not executed yet. The dialog can be executed later by calling the ‘gom.api.dialog.show’
-function. The purpose of this function is to create a dialog in advance and allow the user setting it up before</p>
-<p>This function is part of the scripted contribution framework. It can be used in the scripts
-‘dialog’ functions to pop up user input dialogs, e.g. for creation commands. Passing of the
-contributions script context is mandatory for the function to work.</p>
-<p>\attention This function is not enabled outside of the custom elements scripted contribution framework.</p>
+function. The purpose of this function is to create a dialog in advance and allow the user setting it up before
+showing it.</p>
+<p>When called with a scripted contribution’s context (e.g. from a custom element’s ‘dialog’ function), the dialog
+definition is resolved relative to that contribution’s add-on content. When called without a context (<code class="docutils literal notranslate"><span class="pre">context</span></code>
+omitted), the dialog definition is resolved directly relative to the calling script instead.</p>
 </section>
 <section id="gom-api-dialog-execute">
 <h3>gom.api.dialog.execute<a class="headerlink" href="#gom-api-dialog-execute" title="Link to this heading"></a></h3>
@@ -8998,7 +8998,7 @@ are integer, double, string and bool.</p>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text">Example of a simple custom edit dialog</span><a class="headerlink" href="#id13" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.experimental</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.smart_principle</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
@@ -9010,7 +9010,7 @@ are integer, double, string and bool.</p>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;com.zeiss.my.customdialog&#39;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">create_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
-        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">experimental</span><span class="o">.</span><span class="n">create_dialog</span><span class="p">(</span><span class="s2">&quot;my_dialog.gdlg&quot;</span><span class="p">)</span>
+        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;my_dialog.gdlg&quot;</span><span class="p">)</span>
         <span class="o">...</span>
         <span class="k">return</span> <span class="n">dlg</span>
 
@@ -10165,7 +10165,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f6899b1cd70>
+  <jinja2.runtime.BlockReference object at 0x7fe49fa48ec0>
 
 
 </footer>
