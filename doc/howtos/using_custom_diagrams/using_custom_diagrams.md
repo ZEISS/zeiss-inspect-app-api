@@ -6,7 +6,7 @@
 
 ## General
 
-Custom diagrams are the successor of [Scripted diagrams](../using_scripted_diagrams/using_scripted_diagrams.md). In comparison, **Custom diagrams** offer greater flexibility and interactivity.
+Custom diagrams are the successor of <a href="https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/using_scripted_diagrams/using_scripted_diagrams.html">Scripted diagrams</a>. In comparison, **Custom diagrams** offer greater flexibility and interactivity.
 
 Custom diagrams require [Custom actual/nominal elements](../custom_elements/custom_nominals_actuals.md) as diagram data sources.
 
@@ -69,7 +69,7 @@ graph TB
     class MPL matplotlib
 ```
 
-The Application Layer provides raw data from [Custom nominal/actual elements](custom_nominals_actuals.md) for displaying in a diagram. The Diagram API allows to create diagram data structures (e.g. SVG), optionally by using the [Matplotlib](https://matplotlib.org/) Python library. The Rendering Layer displays the diagram and handles user input for interactive diagrams.
+The Application Layer provides raw data from [Custom nominal/actual elements](../custom_elements/custom_nominals_actuals.md) for displaying in a diagram. The Diagram API allows to create diagram data structures (e.g. SVG), optionally by using the [Matplotlib](https://matplotlib.org/) Python library. The Rendering Layer displays the diagram and handles user input for interactive diagrams.
 
 ```mermaid
 ---
@@ -144,12 +144,12 @@ graph TB
 
 The Diagram API Layer (ZEISS) creates a diagram data structure by using either
 
-[CustomDiagram](../../python_api/python_api.md#gom-api-extensions-diagrams-customdiagram)
+[CustomDiagram](../../python_api/python_api.md#gomapiextensionsdiagramscustomdiagram)
 : A generic base class (which requires a user-defined renderer).
 
 or
 
-[SVGDiagram](../../python_api/python_api.md#gom-api-extensions-diagrams-svgdiagram)
+[SVGDiagram](../../python_api/python_api.md#gomapiextensionsdiagramssvgdiagram)
 : A specialized base class for using the SVGDiagram renderer provided by the INSPECT App.
 
 Interactions are implemented via
@@ -403,9 +403,9 @@ Open the tab 'Inspection Details' in the ZEISS INSPECT 3D View to see the custom
 ```
 
 ```{note}
-Instead of using the [SVGDiagram](../../python_api/python_api.md#gom-api-extensions-diagrams-svgdiagram) base class, it is possible to create a custom diagram/renderer pair.
+Instead of using the [SVGDiagram](../../python_api/python_api.md#gomapiextensionsdiagramssvgdiagram) base class, it is possible to create a custom diagram/renderer pair.
 
-The base class would then be [CustomDiagram](../../python_api/python_api.md#gom-api-extensions-diagrams-customdiagram) and a corresponding JavaScript renderer must be implemented in the App.
+The base class would then be [CustomDiagram](../../python_api/python_api.md#gomapiextensionsdiagramscustomdiagram) and a corresponding JavaScript renderer must be implemented in the App.
 ```
 
 #### Basic Custom Diagram
@@ -795,5 +795,5 @@ In the point-cloud overlay example, `custom_interaction` is intentionally enable
 
 * [How-to: Custom Elements](custom_elements_toc.md)
 * [How-to: Using Services](../using_services/using_services.md)
-* [Extensions API &ndash; Diagrams](../../python_api/python_api.md#gom-api-extensions-diagrams)
-* [Extensions API &ndash; SVGDiagram](../../python_api/python_api.md#gom-api-extensions-diagrams-svgdiagram)
+* [Extensions API &ndash; Diagrams](../../python_api/python_api.md#gomapiextensionsdiagrams)
+* [Extensions API &ndash; SVGDiagram](../../python_api/python_api.md#gomapiextensionsdiagramssvgdiagram)
