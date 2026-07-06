@@ -12,6 +12,7 @@ https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/add_on_file_format/.*
 https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/adding_workspaces_to_addons/.*
 https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/testing_addons/.*
 https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/using_add_on_editor/.*
+https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/using_custom_diagrams/.* 
 ^https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/dialog_widgets.html$
 https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/dialog_widgets/.*
 ^https://zeiss.github.io/zeiss-inspect-app-api/2026/python_examples/misc.html$
