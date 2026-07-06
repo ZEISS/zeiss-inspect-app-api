@@ -1,0 +1,1421 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" sizes="16x16" type="image/png" href="../../_static/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Using Custom Diagrams &mdash; App Development Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme_zeiss.css?v=0a9be833" />
+
+  
+    <link rel="canonical" href="https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/using_custom_diagrams/using_custom_diagrams.html" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+      <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}`;
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        all_mermaids.forEach((el) => {
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+        await mermaid.run();
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+
+    if ("False" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("");
+            if(all_mermaids.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else if(svgs.size() !== mermaids_to_add_zoom) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else {
+                svgs.each(function() {
+                    var svg = d3.select(this);
+                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                    var inner = svg.select("g");
+                    var zoom = d3.zoom().on("zoom", function(event) {
+                        inner.attr("transform", event.transform);
+                    });
+                    svg.call(zoom);
+                });
+            }
+        }
+    } else if(all_mermaids.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("False" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Using Jupyter Notebook" href="../using_jupyter_notebook/using_jupyter_notebook.html" />
+    <link rel="prev" title="Using services" href="../using_services/using_services.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            App Development Documentation
+              <img src="../../_static/zeiss-logo-rgb.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../news/news.html">What’s New</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to Guides – Basic</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/python_api_introduction.html">ZEISS INSPECT Python API Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/selecting_elements.html">Selecting elements in scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_app_editor/using_app_editor.html">Using the App Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_file_format/app_file_format.html">App file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/file_selection_dialog.html">Selecting a file or folder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/user_defined_dialogs.html">User-defined Dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/dialog_widgets.html">Dialog widgets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/executing_dialogs.html">Executing dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripting_solutions/scripting_solutions.html">Scripting solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/faq.html">Frequently asked questions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to Guides – Intermediate</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../using_vscode_editor/using_vscode_editor.html">Using Visual Studio Code as App editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_documentation/app_documentation.html">Documenting Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../custom_elements/custom_elements_toc.html">Custom elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api_introduction/using_script_resources.html">Using script resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stages/stages.html">Working with stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project_keywords/project_keywords.html">Project keywords handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../localization/localization.html">Localization of Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing_apps/testing_apps.html">Testing Apps</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">How-to Guides – Expert</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/wizard_control.html">Wizard widget control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_defined_dialogs/creating_wizard_dialogs.html">Creating wizard dialogs (deprecated)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_gui_libraries/using_gui_libraries.html">Using an additional Python GUI library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_shared_environments/using_shared_environments.html">Using shared environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_wheelhouses/using_wheelhouses.html">Using Python wheelhouses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adding_workspaces_to_apps/adding_workspaces_to_apps.html">Adding workspaces to Apps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow_assistant/workflow_assistant.html">Workflow Assistant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_services/using_services.html">Using services</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using Custom Diagrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general">General</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#use-cases-applications">Use Cases &amp; Applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-diagram-system-architecture">Custom Diagram System Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core-terminology-by-layer">Core Terminology by Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-flow-interaction-pattern">Data Flow &amp; Interaction Pattern</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation">Implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#suggested-learning-path">Suggested Learning Path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-element">Custom Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-diagrams">Custom Diagrams</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#basic-custom-diagram">Basic Custom Diagram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-diagram-with-element-overlay">Custom Diagram with Element Overlay</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-diagram-with-point-cloud-overlay">Custom Diagram with Point Cloud Overlay</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-structure-examples">Data Structure Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#element-data-structure">Element Data Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view-parameters-structure">View Parameters Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#svg-overlay-structure-simplified">SVG Overlay Structure (Simplified)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../using_jupyter_notebook/using_jupyter_notebook.html">Using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_jupyter_notebook/using_jupyter_and_vscode.html">Using Jupyter Notebook with VSCode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../starting_options/starting_options.html">Software and script starting options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_versions/python_versions.html">Adding and using specific Python versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripting_legacy_projects/scripting_legacy_projects.html">Scripting with legacy projects (part-less)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_examples/index.html">Introduction to the Python API Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_examples/examples_overview.html">ZEISS INSPECT App Examples Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Python API Specification</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/python_api.html">ZEISS INSPECT App Python API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/resource_api.html">gom.Resource API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">App Development Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Using Custom Diagrams</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p><img alt="New in Version 2027" src="https://img.shields.io/badge/New-Version_2027-20B2AA" /></p>
+<section id="using-custom-diagrams">
+<h1>Using Custom Diagrams<a class="headerlink" href="#using-custom-diagrams" title="Link to this heading"></a></h1>
+<p><img alt="Inspection details Custom diagrams example" src="../../_images/custom_diagrams.png" /></p>
+<section id="general">
+<h2>General<a class="headerlink" href="#general" title="Link to this heading"></a></h2>
+<p>Custom diagrams are the successor of <a href="https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/using_scripted_diagrams/using_scripted_diagrams.html">Scripted diagrams</a>. In comparison, <strong>Custom diagrams</strong> offer greater flexibility and interactivity.</p>
+<p>Custom diagrams require <a class="reference internal" href="../custom_elements/custom_nominals_actuals.html"><span class="std std-doc">Custom actual/nominal elements</span></a> as diagram data sources.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Prerequisite: Implement custom element payloads first.</p>
+<p>See <a class="reference internal" href="../custom_elements/custom_elements_toc.html"><span class="std std-doc">Custom elements</span></a>, especially <a class="reference internal" href="../custom_elements/custom_nominals_actuals.html"><span class="std std-doc">Custom actual/nominal elements</span></a>.</p>
+</div>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<section id="use-cases-applications">
+<h3>Use Cases &amp; Applications<a class="headerlink" href="#use-cases-applications" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Quality Control Dashboards</strong></p>
+<ul class="simple">
+<li><p>Visualize inspection results across multiple measurements</p></li>
+<li><p>Interactive elements link to detailed check information</p></li>
+<li><p>Real-time updates as new measurements are processed</p></li>
+</ul>
+</li>
+<li><p><strong>Measurement Analysis</strong></p>
+<ul class="simple">
+<li><p>Custom scatter plots, trend analysis, statistical distributions</p></li>
+<li><p>Link plot points directly to 3D measurement data</p></li>
+<li><p>Filter and partition data by measurement series or stages</p></li>
+</ul>
+</li>
+<li><p><strong>Process Monitoring</strong></p>
+<ul class="simple">
+<li><p>Time-series charts of measurement results</p></li>
+<li><p>Interactive timeline with drill-down capabilities</p></li>
+<li><p>Custom alerts and threshold visualization</p></li>
+</ul>
+</li>
+<li><p><strong>Custom Reporting</strong></p>
+<ul class="simple">
+<li><p>Generate interactive reports with embedded diagrams</p></li>
+<li><p>Export capabilities for external documentation</p></li>
+<li><p>Custom styling and branding options</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="custom-diagram-system-architecture">
+<h3>Custom Diagram System Architecture<a class="headerlink" href="#custom-diagram-system-architecture" title="Link to this heading"></a></h3>
+<pre  class="mermaid">
+        ---
+title: Architecture Overview
+---
+graph TB
+    ZEISS[&quot;ZEISS INSPECT&lt;br/&gt;Application Layer&quot;]
+    API[&quot;Diagram API&lt;br/&gt;(ZEISS)&quot;]
+    RENDER[&quot;Rendering Layer&lt;br/&gt;(JavaScript)&quot;]
+    MPL[&quot;Matplotlib&lt;br/&gt;(Optional)&quot;]
+    
+    ZEISS --&gt; API
+    API --&gt; RENDER
+    API -.-&gt; MPL
+    MPL -.-&gt; RENDER
+    
+    %% Styling
+    classDef zeissApp fill:#e3f2fd,stroke:#1565c0,stroke-width:3px,color:#000000
+    classDef diagramAPI fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px,color:#000000
+    classDef rendering fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px,color:#000000
+    classDef matplotlib fill:#fff3e0,stroke:#f57c00,stroke-width:3px,color:#000000
+    
+    class ZEISS zeissApp
+    class API diagramAPI
+    class RENDER rendering
+    class MPL matplotlib
+    </pre><p>The Application Layer provides raw data from <a class="reference internal" href="../custom_elements/custom_nominals_actuals.html"><span class="std std-doc">Custom nominal/actual elements</span></a> for displaying in a diagram. The Diagram API allows to create diagram data structures (e.g. SVG), optionally by using the <a class="reference external" href="https://matplotlib.org/">Matplotlib</a> Python library. The Rendering Layer displays the diagram and handles user input for interactive diagrams.</p>
+<pre  class="mermaid">
+        ---
+title: ZEISS INSPECT Application Layer
+---
+graph TB
+    subgraph &quot;Data Sources&quot;
+        PROJECT[Project&lt;br/&gt;Complete measurement project]
+        ELEMENTS[Elements&lt;br/&gt;Geometry, checks, measurements]
+        STAGES[Stages&lt;br/&gt;Data snapshots for multi-state analysis]
+    end
+    
+    subgraph &quot;User Interface&quot;
+        DIAGRAM_VIEW[Diagram View&lt;br/&gt;UI panel for display]
+        SELECTION[Element Selection&lt;br/&gt;User-chosen elements]
+        EXPLORER[Project Explorer&lt;br/&gt;Element browser]
+    end
+    
+    PROJECT --&gt; ELEMENTS
+    ELEMENTS --&gt; SELECTION
+    EXPLORER --&gt; SELECTION
+    SELECTION --&gt; DIAGRAM_VIEW
+    
+    classDef dataSource fill:#bbdefb,stroke:#1976d2,stroke-width:2px,color:#000000
+    classDef ui fill:#c8e6c9,stroke:#388e3c,stroke-width:2px,color:#000000
+    
+    class PROJECT,ELEMENTS,STAGES dataSource
+    class DIAGRAM_VIEW,SELECTION,EXPLORER ui
+    </pre><p>The ZEISS INSPECT Application Layer provides the current project’s element data and the user interface with a diagram view, which also allows user interaction.</p>
+<pre  class="mermaid">
+        ---
+title: Diagram API Layer (ZEISS)
+---
+graph TB
+    subgraph &quot;Data Processing&quot;
+        ELEMENT_DATA[&quot;Element Data&lt;br/&gt;Input: element, data, type&quot;]
+        PARTITIONS[&quot;Partitions&lt;br/&gt;Data subsets for rendering&quot;]
+        VIEW_PARAMS[&quot;View Parameters&lt;br/&gt;Canvas properties&quot;]
+    end
+    
+    subgraph &quot;Base Classes&quot;
+        SCRIPTED[&quot;CustomDiagram&lt;br/&gt;Generic base class&quot;]
+        SVG[&quot;SVGDiagram&lt;br/&gt;SVG specialization&quot;]
+    end
+    
+    subgraph &quot;Interaction&quot;
+        OVERLAY[&quot;Overlay&lt;br/&gt;Interactive mapping&quot;]
+        EVENTS[&quot;Events&lt;br/&gt;User interactions&quot;]
+        CALLBACKS[&quot;Callbacks&lt;br/&gt;Response scripts&quot;]
+    end
+    
+    ELEMENT_DATA --&gt; PARTITIONS
+    PARTITIONS --&gt; VIEW_PARAMS
+    VIEW_PARAMS --&gt; SCRIPTED
+    VIEW_PARAMS --&gt; SVG
+    
+    SVG --&gt; OVERLAY
+    OVERLAY --&gt; EVENTS
+    EVENTS --&gt; CALLBACKS
+    
+    classDef dataProc fill:#e1bee7,stroke:#8e24aa,stroke-width:2px,color:#000000
+    classDef coreClass fill:#f8bbd9,stroke:#c2185b,stroke-width:2px,color:#000000
+    classDef interaction fill:#dcedc8,stroke:#689f38,stroke-width:2px,color:#000000
+    
+    class ELEMENT_DATA,PARTITIONS,VIEW_PARAMS dataProc
+    class SCRIPTED,SVG coreClass
+    class OVERLAY,EVENTS,CALLBACKS interaction
+    </pre><p>The Diagram API Layer (ZEISS) creates a diagram data structure by using either</p>
+<dl class="simple myst">
+<dt><a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-diagrams-customdiagram"><span class="std std-ref">CustomDiagram</span></a></dt><dd><p>A generic base class (which requires a user-defined renderer).</p>
+</dd>
+</dl>
+<p>or</p>
+<dl class="simple myst">
+<dt><a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-diagrams-svgdiagram"><span class="std std-ref">SVGDiagram</span></a></dt><dd><p>A specialized base class for using the SVGDiagram renderer provided by the INSPECT App.</p>
+</dd>
+</dl>
+<p>Interactions are implemented via</p>
+<dl class="simple myst">
+<dt>Overlay</dt><dd><p>Mapping diagram view coordinates to diagram plot coordinates, providing a tooltip (optional) or an event function (optional).</p>
+</dd>
+<dt>Events</dt><dd><p>Linking interactions with the diagram to callbacks.</p>
+</dd>
+<dt>Callbacks</dt><dd><p>Functions / scripts which are executed when triggered by events.</p>
+</dd>
+</dl>
+<pre  class="mermaid">
+        ---
+title: Rendering Layer (JavaScript)
+---
+graph TB
+    subgraph &quot;Renderers&quot;
+        SVG_RENDERER[&quot;SVGDiagram Renderer&lt;br/&gt;Built-in SVG + interaction&quot;]
+        CUSTOM_RENDERER[&quot;Custom Renderers&lt;br/&gt;User-defined logic&quot;]
+    end
+    
+    subgraph &quot;Drawing Environment&quot;
+        CANVAS[&quot;Canvas&lt;br/&gt;Drawing surface&quot;]
+        VIEWPORT[&quot;Viewport&lt;br/&gt;Visible area&quot;]
+        HITBOXES[&quot;Hitboxes&lt;br/&gt;Click regions&quot;]
+    end
+    
+    subgraph &quot;User Interaction&quot;
+        MOUSE[&quot;Mouse Events&lt;br/&gt;Click, hover, drag&quot;]
+        TOOLTIPS[&quot;Tooltips&lt;br/&gt;Information display&quot;]
+        NAVIGATION[&quot;Navigation&lt;br/&gt;Zoom, pan&quot;]
+    end
+    
+    SVG_RENDERER --&gt; CANVAS
+    CUSTOM_RENDERER --&gt; CANVAS
+    CANVAS --&gt; VIEWPORT
+    VIEWPORT --&gt; HITBOXES
+    
+    HITBOXES --&gt; MOUSE
+    MOUSE --&gt; TOOLTIPS
+    VIEWPORT --&gt; NAVIGATION
+    
+    classDef renderer fill:#ffcdd2,stroke:#d32f2f,stroke-width:2px,color:#000000
+    classDef browser fill:#e0f2f1,stroke:#00695c,stroke-width:2px,color:#000000
+    classDef userInt fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000000
+    
+    class SVG_RENDERER,CUSTOM_RENDERER renderer
+    class CANVAS,VIEWPORT,HITBOXES browser
+    class MOUSE,TOOLTIPS,NAVIGATION userInt
+    </pre><p>The Rendering Layer (JavaScript) is handled by the GUI framework. It provides the drawing environment for displaying the diagram and features for user interactions.</p>
+<pre  class="mermaid">
+        ---
+title: Matplotlib Integration (Optional)
+---
+graph TB
+    subgraph &quot;Matplotlib Hierarchy&quot;
+        FIGURE[&quot;Figure&lt;br/&gt;Top-level container&quot;]
+        AXES[&quot;Axes&lt;br/&gt;Plot coordinate system&quot;]
+        SUBPLOT[&quot;Subplot&lt;br/&gt;Grid arrangement&quot;]
+        PLOT[&quot;Plot Objects&lt;br/&gt;Lines, scatter, bars&quot;]
+        ARTIST[&quot;Artist Objects&lt;br/&gt;Text, patches, annotations&quot;]
+    end
+    
+    subgraph &quot;Integration Points&quot;
+        SVG_OUTPUT[&quot;SVG Output&lt;br/&gt;fig.savefig(format='svg')&quot;]
+        COORD_TRANSFORM[&quot;Coordinate Transform&lt;br/&gt;Matplotlib → SVG coords&quot;]
+        DATA_PREP[&quot;Data Preparation&lt;br/&gt;ZEISS elements → plot data&quot;]
+    end
+    
+    FIGURE --&gt; AXES
+    AXES --&gt; SUBPLOT
+    AXES --&gt; PLOT
+    AXES --&gt; ARTIST
+    
+    FIGURE --&gt; SVG_OUTPUT
+    PLOT --&gt; COORD_TRANSFORM
+    SVG_OUTPUT --&gt; DATA_PREP
+    
+    classDef mplCore fill:#fff8e1,stroke:#f57c00,stroke-width:2px,color:#000000
+    classDef integration fill:#e8eaf6,stroke:#3f51b5,stroke-width:2px,color:#000000
+    
+    class FIGURE,AXES,SUBPLOT,PLOT,ARTIST mplCore
+    class SVG_OUTPUT,COORD_TRANSFORM,DATA_PREP integration
+    </pre><p><a class="reference external" href="https://matplotlib.org/">Matplotlib</a> is a comprehensive library for creating huge variety of diagram types allowing customization.</p>
+</section>
+<section id="core-terminology-by-layer">
+<h3>Core Terminology by Layer<a class="headerlink" href="#core-terminology-by-layer" title="Link to this heading"></a></h3>
+<p><strong>ZEISS INSPECT Layer:</strong></p>
+<ul class="simple">
+<li><p><strong>Project</strong>: Complete measurement project with all data</p></li>
+<li><p><strong>Element</strong>: Individual geometry/inspection objects (points, surfaces, dimensions)</p></li>
+<li><p><strong>Stage</strong>: Data snapshot for multi-state analysis (same nominal, different actual data)</p></li>
+<li><p><strong>Diagram View</strong>: UI panel displaying diagrams within ZEISS INSPECT</p></li>
+</ul>
+<p><strong>Diagram API Layer:</strong></p>
+<ul class="simple">
+<li><p><strong>Element Data</strong>: Input structure <code class="docutils literal notranslate"><span class="pre">[{'element':</span> <span class="pre">obj,</span> <span class="pre">'data':</span> <span class="pre">dict,</span> <span class="pre">'type':</span> <span class="pre">str}]</span></code></p></li>
+<li><p><strong>Partitions</strong>: Data subsets for separate rendering (large dataset handling)</p></li>
+<li><p><strong>View Parameters</strong>: Canvas properties (width, height, DPI, font, subplot index)</p></li>
+<li><p><strong>Overlay</strong>: Interactive mapping (Element UUIDs → coordinates + tooltips; optional <code class="docutils literal notranslate"><span class="pre">custom_interaction</span></code> flag)</p></li>
+</ul>
+<p><strong>Rendering Layer:</strong></p>
+<ul class="simple">
+<li><p><strong>SVGDiagram Renderer</strong>: Built-in SVG renderer with interaction support</p></li>
+<li><p><strong>Canvas</strong>: Drawing surface for diagram display</p></li>
+<li><p><strong>Hitboxes</strong>: Clickable regions generated from overlay coordinates</p></li>
+</ul>
+<p><strong>Matplotlib Integration (Optional):</strong></p>
+<ul class="simple">
+<li><p><strong>Figure</strong>: Top-level matplotlib container</p></li>
+<li><p><strong>Axes</strong>: Plot coordinate system and drawing area</p></li>
+<li><p><strong>Plot Objects</strong>: Lines, scatter plots, bars, etc.</p></li>
+<li><p><strong>Subplot</strong>: Multiple plots in grid arrangement</p></li>
+<li><p><strong>Artist Objects</strong>: Text, patches, annotations for customization</p></li>
+</ul>
+</section>
+<section id="data-flow-interaction-pattern">
+<h3>Data Flow &amp; Interaction Pattern<a class="headerlink" href="#data-flow-interaction-pattern" title="Link to this heading"></a></h3>
+<pre  class="mermaid">
+        sequenceDiagram
+    participant UI as ZEISS INSPECT UI
+    participant DV as Diagram View
+    participant SD as CustomDiagram
+    participant JS as JavaScript Renderer
+    participant User as User
+
+    Note over UI,User: Diagram Creation &amp; Display
+    
+    UI-&gt;&gt;SD: Initialize with element data
+    SD-&gt;&gt;SD: partitions(element_data)
+    Note right of SD: Optional: Split data into partitions
+    
+    loop For each partition
+        SD-&gt;&gt;SD: plot(view, element_data)
+        Note right of SD: Transform data for renderer
+        SD-&gt;&gt;JS: Return plot data
+        JS-&gt;&gt;DV: Render diagram
+    end
+    
+    DV-&gt;&gt;UI: Display complete diagram
+    
+    Note over UI,User: User Interaction
+    
+    User-&gt;&gt;DV: Click/hover on element
+    DV-&gt;&gt;SD: event(element_name, element_uuid, event_data)
+    SD-&gt;&gt;SD: Process interaction
+    SD-&gt;&gt;SD: finish_event(cmd_script, params)
+    SD-&gt;&gt;UI: Execute follow-up script
+    UI-&gt;&gt;User: Update interface/selection
+    </pre></section>
+</section>
+<section id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Link to this heading"></a></h2>
+<p><strong>Custom diagrams</strong> require <a class="reference internal" href="../custom_elements/custom_nominals_actuals.html"><span class="std std-doc">Custom nominal/actual elements</span></a> for data input.</p>
+<section id="suggested-learning-path">
+<h3>Suggested Learning Path<a class="headerlink" href="#suggested-learning-path" title="Link to this heading"></a></h3>
+<p>If you are new to custom diagrams, use this order:</p>
+<ol class="arabic simple">
+<li><p>Start with <a class="reference internal" href="#basic-custom-diagram">Basic Custom Diagram</a> to verify plotting and service setup.</p></li>
+<li><p>Continue with <a class="reference internal" href="#custom-diagram-with-element-overlay">Custom Diagram with Element Overlay</a> when you need full element-level hit detection and renderer tuning.</p></li>
+<li><p>Use <a class="reference internal" href="#custom-diagram-with-point-cloud-overlay">Custom Diagram with Point Cloud Overlay</a> for point-based interaction mapping.</p></li>
+</ol>
+<p>In the following sections, you find</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#custom-element">Custom element</a> – An example custom element as diagram data source</p></li>
+<li><p><a class="reference internal" href="#basic-custom-diagram">Basic Custom Diagram</a> – A minimal example without interactivity</p></li>
+<li><p><a class="reference internal" href="#custom-diagram-with-element-overlay">Custom Diagram with Element Overlay</a> – An example with element overlay for interactivity</p></li>
+<li><p><a class="reference internal" href="#custom-diagram-with-point-cloud-overlay">Custom Diagram with Point Cloud Overlay</a> – An example with point cloud overlay for interactivity</p></li>
+</ul>
+</section>
+<section id="custom-element">
+<h3>Custom Element<a class="headerlink" href="#custom-element" title="Link to this heading"></a></h3>
+<p>The method <code class="docutils literal notranslate"><span class="pre">finish()</span></code> is implemented to assign element data to diagrams.
+The helper function ‘add_diagram_data’ can be used to map diagram IDs to data entries.
+It is possible to add multiple data entries to any number of diagram ids.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Custom Element Example – Actual Circle Element</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@apicontribution</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyActualCircle</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">actuals</span><span class="o">.</span><span class="n">Circle</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Register the custom actual circle contribution.&quot;&quot;&quot;</span>
+        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_diagrams.actual_circle&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Actual Circle for Diagram Examples&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open the input dialog for center, direction, and radius.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/Custom_Circle.gdlg&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute circle geometry and payload from dialog values.&quot;&quot;&quot;</span>
+        <span class="c1"># ... parse values and return center/direction/radius payload ...</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">...</span><span class="p">),</span> <span class="s1">&#39;direction&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">...</span><span class="p">),</span> <span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;radius&#39;</span><span class="p">]}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">finish</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span> <span class="p">,</span> <span class="n">results_states</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map stage-0 element results to diagram services via contribution IDs.&quot;&quot;&quot;</span>
+        <span class="n">diagram_data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># All examples in this App use the SVGDiagram renderer.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_diagram_data</span><span class="p">(</span>
+            <span class="n">diagram_data</span> <span class="o">=</span> <span class="n">diagram_data</span><span class="p">,</span>
+            <span class="n">diagram_id</span> <span class="o">=</span> <span class="s1">&#39;SVGDiagram&#39;</span><span class="p">,</span>
+            <span class="n">service_id</span> <span class="o">=</span> <span class="s1">&#39;com.zeiss.example.custom_diagrams.basic&#39;</span><span class="p">,</span>
+            <span class="n">element_data</span> <span class="o">=</span> <span class="n">results_states</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_diagram_data</span><span class="p">(</span>
+            <span class="n">diagram_data</span> <span class="o">=</span> <span class="n">diagram_data</span><span class="p">,</span>
+            <span class="n">diagram_id</span> <span class="o">=</span> <span class="s1">&#39;SVGDiagram&#39;</span><span class="p">,</span>
+            <span class="n">service_id</span> <span class="o">=</span> <span class="s1">&#39;com.zeiss.example.custom_diagrams.element_overlay&#39;</span><span class="p">,</span>
+            <span class="n">element_data</span> <span class="o">=</span> <span class="n">results_states</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_diagram_data</span><span class="p">(</span>
+            <span class="n">diagram_data</span> <span class="o">=</span> <span class="n">diagram_data</span><span class="p">,</span>
+            <span class="n">diagram_id</span> <span class="o">=</span> <span class="s1">&#39;SVGDiagram&#39;</span><span class="p">,</span>
+            <span class="n">service_id</span> <span class="o">=</span> <span class="s1">&#39;com.zeiss.example.custom_diagrams.point_cloud_overlay&#39;</span><span class="p">,</span>
+            <span class="n">element_data</span> <span class="o">=</span> <span class="n">results_states</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">results_states</span><span class="p">[</span><span class="s2">&quot;diagram_data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">diagram_data</span>
+        <span class="k">return</span> <span class="n">results_states</span>
+
+    <span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Full source in example App:</p>
+<ul class="simple">
+<li><p>https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/Custom_Circle.py</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>With <a href="https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/using_scripted_diagrams/using_scripted_diagrams.html">Scripted diagrams</a> you would implement a <a class="reference internal" href="../using_services/using_services.html"><span class="std std-doc">service function</span></a> to convert element data into diagram data.</p>
+</div>
+<p>See <a class="reference internal" href="../custom_elements/custom_nominals_actuals.html"><span class="std std-doc">Custom nominal/actual elements</span></a> for more information.</p>
+</section>
+<section id="custom-diagrams">
+<h3>Custom Diagrams<a class="headerlink" href="#custom-diagrams" title="Link to this heading"></a></h3>
+<p><strong>Custom diagrams</strong> are based on the <a href="../../python_api/python_api.html#gomapiextensions">Extensions API</a>, specifically <a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-diagrams"><span class="std std-ref">gom.api.extensions.diagrams</span></a>.</p>
+<p>For rendering diagrams as SVG (Scalable Vector Graphics), a <strong>Custom Diagram</strong> class is created by using
+<a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-diagrams-svgdiagram"><span class="std std-ref">SVGDiagram</span></a> as the base class and implementing the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> method. This base class provides additional methods for customization, like the event function to enable custom interactions.</p>
+<p>For implementing static diagrams, using <a class="reference external" href="https://matplotlib.org/">Matplotlib</a> and converting the plot to an SVG string is sufficient (see <a class="reference internal" href="#basic-custom-diagram">Basic Custom Diagram</a>).</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p><strong>Custom diagrams</strong> are executed as services in ZEISS INSPECT. Therefore, the App containing a diagram must configure the diagram script as a service in its <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file and the service has to be started (see <a class="reference internal" href="../using_services/using_services.html"><span class="std std-doc">Using Services</span></a> for more information).</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Open the tab ‘Inspection Details’ in the ZEISS INSPECT 3D View to see the custom diagram.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Instead of using the <a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-diagrams-svgdiagram"><span class="std std-ref">SVGDiagram</span></a> base class, it is possible to create a custom diagram/renderer pair.</p>
+<p>The base class would then be <a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-diagrams-customdiagram"><span class="std std-ref">CustomDiagram</span></a> and a corresponding JavaScript renderer must be implemented in the App.</p>
+</div>
+<section id="basic-custom-diagram">
+<h4>Basic Custom Diagram<a class="headerlink" href="#basic-custom-diagram" title="Link to this heading"></a></h4>
+<p>This is a minimal example of a custom diagram using Matplotlib to create a static SVG plot without interactivity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Quick prerequisites:</p>
+<ol class="arabic simple">
+<li><p>The diagram script is configured as a service in <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> and the service is started.</p></li>
+<li><p>Matplotlib is available in the App environment.</p></li>
+<li><p>Your custom element returns <code class="docutils literal notranslate"><span class="pre">diagram_data</span></code> via <code class="docutils literal notranslate"><span class="pre">finish()</span></code> as shown above.</p></li>
+</ol>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Basic Custom Diagram Example</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
+<span class="linenos"> 3</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.diagrams</span>
+<span class="linenos"> 4</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.diagrams.matplotlib_tools</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpltools</span>
+<span class="linenos"> 5</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="nd">@apicontribution</span>
+<span class="linenos"> 8</span><span class="k">class</span><span class="w"> </span><span class="nc">MyBasicDiagram</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">diagrams</span><span class="o">.</span><span class="n">SVGDiagram</span><span class="p">):</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">11</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize service metadata for the basic diagram.&quot;&quot;&quot;</span>
+<span class="linenos">12</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+<span class="linenos">13</span>            <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;com.zeiss.example.custom_diagrams.basic&#39;</span><span class="p">,</span>
+<span class="linenos">14</span>            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Basic Custom Diagram&#39;</span>
+<span class="linenos">15</span>        <span class="p">)</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span>    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">element_data</span><span class="p">):</span>
+<span class="linenos">18</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Render a radius-over-index line plot as SVG.&quot;&quot;&quot;</span>
+<span class="linenos">19</span>        <span class="c1"># Helper methods omitted for clarity:</span>
+<span class="linenos">20</span>        <span class="c1"># _normalized_view(view), _export_svg(fig, safe_view)</span>
+<span class="linenos">21</span>        <span class="n">safe_view</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalized_view</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+<span class="linenos">22</span>        <span class="n">fig</span> <span class="o">=</span> <span class="n">mpltools</span><span class="o">.</span><span class="n">setup_plot</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span> <span class="n">safe_view</span><span class="p">)</span>
+<span class="linenos">23</span>        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span>        <span class="n">x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">element_data</span><span class="p">)))</span>
+<span class="linenos">26</span>        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;radius&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">element_entry</span> <span class="ow">in</span> <span class="n">element_data</span><span class="p">]</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="linenos">29</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Basic Diagram&#39;</span><span class="p">)</span>
+<span class="linenos">30</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Index&#39;</span><span class="p">)</span>
+<span class="linenos">31</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Radius&#39;</span><span class="p">)</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span>        <span class="n">svg_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_svg</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">safe_view</span><span class="p">)</span>
+<span class="linenos">34</span>        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+<span class="linenos">35</span>
+<span class="linenos">36</span>        <span class="k">return</span> <span class="n">svg_string</span>
+<span class="linenos">37</span>
+<span class="linenos">38</span>    <span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Full source in example App:</p>
+<ul class="simple">
+<li><p>https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/basic_custom_diagram.py</p></li>
+</ul>
+</section>
+<section id="custom-diagram-with-element-overlay">
+<h4>Custom Diagram with Element Overlay<a class="headerlink" href="#custom-diagram-with-element-overlay" title="Link to this heading"></a></h4>
+<p>This example shows how to create an interactive custom diagram using an <strong>element overlay</strong>. This type of overlay covers each mapped element completely, precisely mapping clicks to an element.</p>
+<p>Additionally, this example demonstrates customization options to make rendering more accessible without implementing a custom JavaScript diagram.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Quick prerequisites:</p>
+<ol class="arabic simple">
+<li><p>The service is started and visible in the service manager.</p></li>
+<li><p>The custom element data entries provide <code class="docutils literal notranslate"><span class="pre">element</span></code> references.</p></li>
+<li><p>A follow-up script named <code class="docutils literal notranslate"><span class="pre">testscript.py</span></code> exists in the App (or adjust <code class="docutils literal notranslate"><span class="pre">event()</span></code> accordingly).</p></li>
+</ol>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Interactive Custom Diagram Example with Element Overlay</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
+<span class="linenos"> 3</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.diagrams.matplotlib_tools</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpltools</span>
+<span class="linenos"> 4</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="nd">@apicontribution</span>
+<span class="linenos"> 7</span><span class="k">class</span><span class="w"> </span><span class="nc">DiagramWithElementOverlay</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">diagrams</span><span class="o">.</span><span class="n">SVGDiagram</span><span class="p">):</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>    <span class="n">RENDER_CONFIG</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;auto_generated_overlay_use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+<span class="linenos">10</span>    <span class="n">DEFAULT_MARKER_COLOR</span> <span class="o">=</span> <span class="s1">&#39;#4c956c&#39;</span>
+<span class="linenos">11</span>    <span class="n">SELECTED_MARKER_COLOR</span> <span class="o">=</span> <span class="s1">&#39;#f45d48&#39;</span>
+<span class="linenos">12</span>    <span class="n">MARKER_SIZE</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="linenos">13</span> 
+<span class="linenos">14</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">15</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize service metadata and interaction state.&quot;&quot;&quot;</span>
+<span class="linenos">16</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;com.zeiss.example.custom_diagrams.element_overlay&#39;</span><span class="p">,</span>
+<span class="linenos">17</span>                        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Interactive Custom Diagram with Element Overlay&#39;</span><span class="p">)</span>
+<span class="linenos">18</span>        <span class="bp">self</span><span class="o">.</span><span class="n">last_clicked_uuid</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span>    <span class="c1"># Helper methods omitted for clarity:</span>
+<span class="linenos">21</span>    <span class="c1"># _element_metadata(...), _marker_color(...), _export_svg(...)</span>
+<span class="linenos">22</span> 
+<span class="linenos">23</span>    <span class="k">def</span><span class="w"> </span><span class="nf">add_all_overlay_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element_data</span><span class="p">,</span> <span class="n">overlay</span><span class="p">):</span>
+<span class="linenos">24</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Auto-generated element overlay: each element maps to a full hitbox.&quot;&quot;&quot;</span>
+<span class="linenos">25</span>        <span class="k">for</span> <span class="n">element_entry</span> <span class="ow">in</span> <span class="n">element_data</span><span class="p">:</span>
+<span class="linenos">26</span>            <span class="n">element_uuid</span><span class="p">,</span> <span class="n">element_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element_metadata</span><span class="p">(</span><span class="n">element_entry</span><span class="p">)</span>
+<span class="linenos">27</span>            <span class="bp">self</span><span class="o">.</span><span class="n">add_element_to_overlay</span><span class="p">(</span>
+<span class="linenos">28</span>                <span class="n">overlay</span><span class="p">,</span>
+<span class="linenos">29</span>                <span class="n">element_uuid</span><span class="p">,</span>
+<span class="linenos">30</span>                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+<span class="linenos">31</span>                <span class="n">element_name</span><span class="o">=</span><span class="n">element_name</span><span class="p">,</span>
+<span class="linenos">32</span>                <span class="n">tooltip</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">element_name</span><span class="si">}</span><span class="s2">: radius = </span><span class="si">{</span><span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;radius&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+<span class="linenos">33</span>                <span class="n">custom_interaction</span><span class="o">=</span><span class="kc">True</span>
+<span class="linenos">34</span>            <span class="p">)</span>
+<span class="linenos">35</span>
+<span class="linenos">36</span>    <span class="k">def</span><span class="w"> </span><span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element_name</span><span class="p">,</span> <span class="n">element_uuid</span><span class="p">,</span> <span class="n">event_data</span><span class="p">):</span>
+<span class="linenos">37</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle overlay click events and forward callback arguments.&quot;&quot;&quot;</span>
+<span class="linenos">38</span>        <span class="bp">self</span><span class="o">.</span><span class="n">last_clicked_uuid</span> <span class="o">=</span> <span class="n">element_uuid</span>
+<span class="linenos">39</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish_event</span><span class="p">(</span>
+<span class="linenos">40</span>            <span class="s2">&quot;testscript&quot;</span><span class="p">,</span>
+<span class="linenos">41</span>            <span class="p">{</span>
+<span class="linenos">42</span>                <span class="s2">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;testname&quot;</span><span class="p">,</span>
+<span class="linenos">43</span>                <span class="s2">&quot;testval&quot;</span><span class="p">:</span> <span class="mf">17.00351334</span><span class="p">,</span>
+<span class="linenos">44</span>                <span class="s2">&quot;element_name&quot;</span><span class="p">:</span> <span class="n">element_name</span><span class="p">,</span>
+<span class="linenos">45</span>                <span class="s2">&quot;element_uuid&quot;</span><span class="p">:</span> <span class="n">element_uuid</span><span class="p">,</span>
+<span class="linenos">46</span>                <span class="s2">&quot;mouse&quot;</span><span class="p">:</span> <span class="n">event_data</span>
+<span class="linenos">47</span>            <span class="p">}</span>
+<span class="linenos">48</span>        <span class="p">)</span>
+<span class="linenos">49</span>
+<span class="linenos">50</span>    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">element_data</span><span class="p">):</span>
+<span class="linenos">51</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Render scatter markers with gid-based element overlay mapping.&quot;&quot;&quot;</span>
+<span class="linenos">52</span>        <span class="c1"># _normalized_view(...) omitted for clarity.</span>
+<span class="linenos">53</span>        <span class="n">fig</span> <span class="o">=</span> <span class="n">mpltools</span><span class="o">.</span><span class="n">setup_plot</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+<span class="linenos">54</span>        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="linenos">55</span>        <span class="n">overlay</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="linenos">56</span>
+<span class="linenos">57</span>        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="linenos">58</span>        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">element_entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">element_data</span><span class="p">):</span>
+<span class="linenos">59</span>            <span class="n">radius</span> <span class="o">=</span> <span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;radius&#39;</span><span class="p">]</span>
+<span class="linenos">60</span>            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+<span class="linenos">61</span>            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+<span class="linenos">62</span>
+<span class="linenos">63</span>        <span class="c1"># Key concept: gid tag links plotted markers to element UUIDs.</span>
+<span class="linenos">64</span>        <span class="k">for</span> <span class="n">x_value</span><span class="p">,</span> <span class="n">y_value</span><span class="p">,</span> <span class="n">element_entry</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">element_data</span><span class="p">):</span>
+<span class="linenos">65</span>            <span class="n">element_uuid</span><span class="p">,</span> <span class="n">_element_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element_metadata</span><span class="p">(</span><span class="n">element_entry</span><span class="p">)</span>
+<span class="linenos">66</span>            <span class="n">scatter_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos">67</span>                <span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARKER_SIZE</span><span class="p">,</span>
+<span class="linenos">68</span>                <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_marker_color</span><span class="p">(</span><span class="n">element_uuid</span><span class="p">),</span>
+<span class="linenos">69</span>                <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.85</span>
+<span class="linenos">70</span>            <span class="p">}</span>
+<span class="linenos">71</span>            <span class="k">if</span> <span class="n">element_uuid</span><span class="p">:</span>
+<span class="linenos">72</span>                <span class="n">scatter_kwargs</span><span class="p">[</span><span class="s1">&#39;gid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_overlay_tag</span><span class="p">(</span><span class="n">element_uuid</span><span class="p">)</span>
+<span class="linenos">73</span>
+<span class="linenos">74</span>            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+<span class="linenos">75</span>                <span class="n">x_value</span><span class="p">,</span>
+<span class="linenos">76</span>                <span class="n">y_value</span><span class="p">,</span>
+<span class="linenos">77</span>                <span class="o">**</span><span class="n">scatter_kwargs</span>
+<span class="linenos">78</span>            <span class="p">)</span>
+<span class="linenos">79</span>
+<span class="linenos">80</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Interactive Scatterplot with Element Overlay&#39;</span><span class="p">)</span>
+<span class="linenos">81</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Index&#39;</span><span class="p">)</span>
+<span class="linenos">82</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Radius&#39;</span><span class="p">)</span>
+<span class="linenos">83</span>
+<span class="linenos">84</span>        <span class="n">svg_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_svg</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+<span class="linenos">85</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_all_overlay_data</span><span class="p">(</span><span class="n">element_data</span><span class="p">,</span> <span class="n">overlay</span><span class="p">)</span>
+<span class="linenos">86</span>        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+<span class="linenos">87</span>
+<span class="linenos">88</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish_plot</span><span class="p">(</span><span class="n">svg_string</span><span class="p">,</span> <span class="n">overlay</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RENDER_CONFIG</span><span class="p">)</span>
+<span class="linenos">89</span>
+<span class="linenos">90</span>    <span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Full source in example App:
+
+- https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/element_overlay_custom_diagram.py
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Optional: Extended renderer tuning</p>
+<p>Use this <code class="docutils literal notranslate"><span class="pre">render_config</span></code> if you want additional marker/debug/filter behavior:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gom.api.extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">diagrams</span>
+
+<span class="n">RCT</span> <span class="o">=</span> <span class="n">diagrams</span><span class="o">.</span><span class="n">SVGDiagram</span><span class="o">.</span><span class="n">RenderConfigToken</span>
+
+<span class="n">render_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">RCT</span><span class="o">.</span><span class="n">CUSTOM_HASH</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">hash</span><span class="p">((</span><span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">y</span><span class="p">)))),</span>
+    <span class="n">RCT</span><span class="o">.</span><span class="n">DISABLE_MOUSE_EVENTS</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">RCT</span><span class="o">.</span><span class="n">DISABLE_TOOLTIPS</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">RCT</span><span class="o">.</span><span class="n">NEAREST_MARKER_SHAPE</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+    <span class="n">RCT</span><span class="o">.</span><span class="n">NEAREST_MARKER_SIZE</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">RCT</span><span class="o">.</span><span class="n">AUTO_GENERATED_OVERLAY_USE</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">RCT</span><span class="o">.</span><span class="n">OVERLAY_FILTER_METHOD</span><span class="p">:</span> <span class="s2">&quot;string-parser&quot;</span><span class="p">,</span>
+    <span class="n">RCT</span><span class="o">.</span><span class="n">OVERLAY_ELEMENT_COUNT</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+    <span class="n">RCT</span><span class="o">.</span><span class="n">OVERLAY_USE_MOUSE_POSITION</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">RCT</span><span class="o">.</span><span class="n">OVERLAY_EXPAND_HITBOXES</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="custom-diagram-with-point-cloud-overlay">
+<h4>Custom Diagram with Point Cloud Overlay<a class="headerlink" href="#custom-diagram-with-point-cloud-overlay" title="Link to this heading"></a></h4>
+<p>This example shows how to create an interactive custom diagram using a <strong>point cloud overlay</strong>. The advantage of this overlay type is a reduced computation time as compared to the <a class="reference internal" href="#custom-diagram-with-element-overlay">element overlay</a>.</p>
+<p>This option is limited in flexibility and is only suitable for simple plots such as scatter plots, curves and polar plots, because it can only map individual points in the diagram (plus a configurable hitbox size) to an element.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Quick prerequisites:</p>
+<ol class="arabic simple">
+<li><p>The service is started and receives diagram data from custom elements.</p></li>
+<li><p>The plotted points and <code class="docutils literal notranslate"><span class="pre">element_data</span></code> order match one-to-one.</p></li>
+<li><p>For custom click behavior, keep <code class="docutils literal notranslate"><span class="pre">custom_interaction=True</span></code> on selected overlay points.</p></li>
+<li><p>In this example, only the first point uses <code class="docutils literal notranslate"><span class="pre">custom_interaction=True</span></code>; all other points are added without custom interaction.</p></li>
+</ol>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Interactive Custom Diagram Example with Point Cloud Overlay</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="linenos"> 2</span><span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
+<span class="linenos"> 3</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.diagrams</span>
+<span class="linenos"> 4</span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.diagrams.matplotlib_tools</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpltools</span>
+<span class="linenos"> 5</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="nd">@apicontribution</span>
+<span class="linenos"> 8</span><span class="k">class</span><span class="w"> </span><span class="nc">DiagramWithPointCloudOverlay</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">diagrams</span><span class="o">.</span><span class="n">SVGDiagram</span><span class="p">):</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>    <span class="n">INTERACTION_SCRIPT</span> <span class="o">=</span> <span class="s1">&#39;testscript&#39;</span>
+<span class="linenos">11</span>    <span class="n">INTERACTION_ARGS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;testname&#39;</span><span class="p">,</span> <span class="s1">&#39;testval&#39;</span><span class="p">:</span> <span class="mf">17.00351334</span><span class="p">}</span>
+<span class="linenos">12</span>    <span class="n">MARKER_SIZE</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="linenos">13</span>    <span class="n">MARKER_COLOR</span> <span class="o">=</span> <span class="s1">&#39;#2f6fed&#39;</span>
+<span class="linenos">14</span>    <span class="n">MARKER_ALPHA</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="linenos">15</span> 
+<span class="linenos">16</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos">17</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize service metadata for point-cloud overlay rendering.&quot;&quot;&quot;</span>
+<span class="linenos">18</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;com.zeiss.example.custom_diagrams.point_cloud_overlay&#39;</span><span class="p">,</span>
+<span class="linenos">19</span>                         <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Interactive Custom Diagram with Point Cloud Overlay&#39;</span><span class="p">)</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span>    <span class="c1"># Helper methods omitted for clarity:</span>
+<span class="linenos">22</span>    <span class="c1"># _normalized_view(...), _normalize_overlay_point(...), _export_svg(...)</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>    <span class="k">def</span><span class="w"> </span><span class="nf">add_all_overlay_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element_data</span><span class="p">,</span> <span class="n">display_coords</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">overlay</span><span class="p">):</span>
+<span class="linenos">25</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Populate point-cloud overlay entries using display coordinates.&quot;&quot;&quot;</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span>        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">element_entry</span><span class="p">,</span> <span class="n">point_coords</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">element_data</span><span class="p">,</span> <span class="n">display_coords</span><span class="p">)):</span>
+<span class="linenos">28</span>            <span class="n">interaction_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_overlay_point</span><span class="p">(</span><span class="n">point_coords</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+<span class="linenos">29</span>            <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">30</span>                <span class="bp">self</span><span class="o">.</span><span class="n">add_element_to_overlay</span><span class="p">(</span>
+<span class="linenos">31</span>                    <span class="n">overlay</span><span class="p">,</span>
+<span class="linenos">32</span>                    <span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">],</span>
+<span class="linenos">33</span>                    <span class="n">interaction_point</span><span class="p">,</span>
+<span class="linenos">34</span>                    <span class="n">tooltip</span> <span class="o">=</span> <span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">],</span>
+<span class="linenos">35</span>                    <span class="c1"># Keep custom interaction on the first point only.</span>
+<span class="linenos">36</span>                    <span class="n">custom_interaction</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">37</span>                <span class="p">)</span>
+<span class="linenos">38</span>            <span class="k">else</span><span class="p">:</span>
+<span class="linenos">39</span>                <span class="bp">self</span><span class="o">.</span><span class="n">add_element_to_overlay</span><span class="p">(</span>
+<span class="linenos">40</span>                    <span class="n">overlay</span><span class="p">,</span>
+<span class="linenos">41</span>                    <span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">],</span>
+<span class="linenos">42</span>                    <span class="n">interaction_point</span><span class="p">,</span>
+<span class="linenos">43</span>                    <span class="n">tooltip</span> <span class="o">=</span> <span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">]</span>
+<span class="linenos">44</span>                <span class="p">)</span>
+<span class="linenos">45</span>
+<span class="linenos">46</span>    <span class="k">def</span><span class="w"> </span><span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element_name</span><span class="p">,</span> <span class="n">element_uuid</span><span class="p">,</span> <span class="n">event_data</span><span class="p">):</span>
+<span class="linenos">47</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle point-overlay click events and forward callback arguments.&quot;&quot;&quot;</span>
+<span class="linenos">48</span>        <span class="n">callback_args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">INTERACTION_ARGS</span><span class="p">)</span>
+<span class="linenos">49</span>        <span class="n">callback_args</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+<span class="linenos">50</span>            <span class="s1">&#39;element_name&#39;</span><span class="p">:</span> <span class="n">element_name</span><span class="p">,</span>
+<span class="linenos">51</span>            <span class="s1">&#39;element_uuid&#39;</span><span class="p">:</span> <span class="n">element_uuid</span><span class="p">,</span>
+<span class="linenos">52</span>            <span class="s1">&#39;mouse&#39;</span><span class="p">:</span> <span class="n">event_data</span>
+<span class="linenos">53</span>        <span class="p">})</span>
+<span class="linenos">54</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish_event</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">INTERACTION_SCRIPT</span><span class="p">,</span> <span class="n">callback_args</span><span class="p">)</span>
+<span class="linenos">55</span>
+<span class="linenos">56</span>    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">element_data</span><span class="p">):</span>
+<span class="linenos">57</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Render scatter markers and map overlay points by display coordinates.&quot;&quot;&quot;</span>
+<span class="linenos">58</span>        <span class="c1"># Key concept: use display coordinates for point-based overlay mapping.</span>
+<span class="linenos">59</span>        <span class="n">fig</span> <span class="o">=</span> <span class="n">mpltools</span><span class="o">.</span><span class="n">setup_plot</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+<span class="linenos">60</span>        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="linenos">61</span>        <span class="n">overlay</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="linenos">62</span>
+<span class="linenos">63</span>        <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">64</span>        <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">65</span>        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">element_entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">element_data</span><span class="p">):</span>
+<span class="linenos">66</span>            <span class="n">radius</span> <span class="o">=</span> <span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;radius&#39;</span><span class="p">]</span>
+<span class="linenos">67</span>            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+<span class="linenos">68</span>            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+<span class="linenos">69</span>
+<span class="linenos">70</span>        <span class="n">points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+<span class="linenos">71</span>        <span class="n">display_coords</span> <span class="o">=</span> <span class="n">mpltools</span><span class="o">.</span><span class="n">get_display_coords</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+<span class="linenos">72</span>
+<span class="linenos">73</span>        <span class="c1"># No gid mapping here. Overlay points are matched by display coordinates.</span>
+<span class="linenos">74</span>        <span class="k">for</span> <span class="n">x_value</span><span class="p">,</span> <span class="n">y_value</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+<span class="linenos">75</span>            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+<span class="linenos">76</span>                <span class="n">x_value</span><span class="p">,</span>
+<span class="linenos">77</span>                <span class="n">y_value</span><span class="p">,</span>
+<span class="linenos">78</span>                <span class="n">s</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_SIZE</span><span class="p">,</span>
+<span class="linenos">79</span>                <span class="n">c</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_COLOR</span><span class="p">,</span>
+<span class="linenos">80</span>                <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_ALPHA</span>
+<span class="linenos">81</span>            <span class="p">)</span>
+<span class="linenos">82</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Interactive Scatterplot with Point Cloud Overlay&#39;</span><span class="p">)</span>
+<span class="linenos">83</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Index&#39;</span><span class="p">)</span>
+<span class="linenos">84</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Radius&#39;</span><span class="p">)</span>
+<span class="linenos">85</span> 
+<span class="linenos">86</span>        <span class="n">svg_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_svg</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+<span class="linenos">87</span>         
+<span class="linenos">88</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_all_overlay_data</span><span class="p">(</span>
+<span class="linenos">89</span>            <span class="n">element_data</span><span class="p">,</span>
+<span class="linenos">90</span>            <span class="n">display_coords</span><span class="p">,</span>
+<span class="linenos">91</span>            <span class="n">view</span><span class="p">,</span>
+<span class="linenos">92</span>            <span class="n">overlay</span>
+<span class="linenos">93</span>        <span class="p">)</span>
+<span class="linenos">94</span>        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+<span class="linenos">95</span>
+<span class="linenos">96</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish_plot</span><span class="p">(</span><span class="n">svg_string</span><span class="p">,</span> <span class="n">overlay</span><span class="p">)</span>
+<span class="linenos">97</span>
+<span class="linenos">98</span>    <span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Full source in example App:</p>
+<ul class="simple">
+<li><p>https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/point_cloud_overlay_custom_diagram.py</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="data-structure-examples">
+<h2>Data Structure Examples<a class="headerlink" href="#data-structure-examples" title="Link to this heading"></a></h2>
+<section id="element-data-structure">
+<h3>Element Data Structure<a class="headerlink" href="#element-data-structure" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">element_data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;element&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">&#39;Circle 1&#39;</span><span class="p">],</span>                           <span class="c1"># ZEISS INSPECT element object</span>
+        <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="s1">&#39;direction&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">},</span> <span class="c1"># Element-specific data</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;SVGDiagram&#39;</span>                                                              <span class="c1"># Element type identifier</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;element&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">&#39;Circle 2&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="s1">&#39;direction&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">},</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;SVGDiagram&#39;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="view-parameters-structure">
+<h3>View Parameters Structure<a class="headerlink" href="#view-parameters-structure" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">view</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>        <span class="c1"># Canvas width in pixels</span>
+    <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>       <span class="c1"># Canvas height in pixels  </span>
+    <span class="s1">&#39;dpi&#39;</span><span class="p">:</span> <span class="mf">96.0</span><span class="p">,</span>         <span class="c1"># Display DPI for scaling</span>
+    <span class="s1">&#39;font&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>          <span class="c1"># Base font size</span>
+    <span class="s1">&#39;subplot&#39;</span><span class="p">:</span> <span class="mi">0</span>         <span class="c1"># Partition/subplot index (0-based)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="svg-overlay-structure-simplified">
+<h3>SVG Overlay Structure (Simplified)<a class="headerlink" href="#svg-overlay-structure-simplified" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">overlay</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;element-uuid-123&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;element_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Circle 1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mf">0.0805</span><span class="p">,</span>
+                <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mf">0.8900</span><span class="p">,</span>
+                <span class="s1">&#39;custom_interaction&#39;</span><span class="p">:</span> <span class="kc">True</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;tooltip&#39;</span><span class="p">:</span> <span class="s1">&#39;Circle 1: radius = 3.0&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;element-uuid-456&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;element_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Circle 2&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mf">0.9485</span><span class="p">,</span>
+                <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mf">0.0835</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;tooltip&#39;</span><span class="p">:</span> <span class="s1">&#39;Circle 2: radius = 4.0&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the point-cloud overlay example, <code class="docutils literal notranslate"><span class="pre">custom_interaction</span></code> is intentionally enabled for the first point only.</p>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../custom_elements/custom_elements_toc.html"><span class="std std-doc">How-to: Custom Elements</span></a></p></li>
+<li><p><a class="reference internal" href="../using_services/using_services.html"><span class="std std-doc">How-to: Using Services</span></a></p></li>
+<li><p><a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-diagrams"><span class="std std-ref">Extensions API – Diagrams</span></a></p></li>
+<li><p><a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-diagrams-svgdiagram"><span class="std std-ref">Extensions API – SVGDiagram</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../using_services/using_services.html" class="btn btn-neutral float-left" title="Using services" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../using_jupyter_notebook/using_jupyter_notebook.html" class="btn btn-neutral float-right" title="Using Jupyter Notebook" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Carl Zeiss GOM Metrology GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+  <p></p>
+  <div class="footer">
+    <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
+  </div>
+  <jinja2.runtime.BlockReference object at 0x7f812b2aa900>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
