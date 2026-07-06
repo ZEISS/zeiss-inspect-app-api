@@ -305,7 +305,7 @@ sequenceDiagram
 
 ## Implementation
 
-**Custom diagrams** require [Custom nominal/actual elements](custom_nominals_actuals.md) for data input.
+**Custom diagrams** require [Custom nominal/actual elements](../custom_elements/custom_nominals_actuals.md) for data input.
 
 ### Suggested Learning Path
 
@@ -380,17 +380,17 @@ Full source in example App:
 - https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/Custom_Circle.py
 
 ```{note}
-With [Scripted diagrams](../using_scripted_diagrams/using_scripted_diagrams.md) you would implement a [service function](../using_services/using_services.md) to convert element data into diagram data.
+With <a href="https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/using_scripted_diagrams/using_scripted_diagrams.html">Scripted diagrams</a> you would implement a [service function](../using_services/using_services.md) to convert element data into diagram data.
 ```
 
 See [Custom nominal/actual elements](../custom_elements/custom_nominals_actuals.md) for more information.
 
 ### Custom Diagrams
 
-**Custom diagrams** are based on the <a href="../../python_api/python_api.html#gom-api-extensions">Extensions API</a>, specifically [gom.api.extensions.diagrams](../../python_api/python_api.md#gom-api-extensions-diagrams).
+**Custom diagrams** are based on the <a href="../../python_api/python_api.html#gomapiextensions">Extensions API</a>, specifically [gom.api.extensions.diagrams](../../python_api/python_api.md#gomapiextensionsdiagrams).
 
 For rendering diagrams as SVG (Scalable Vector Graphics), a **Custom Diagram** class is created by using 
-[SVGDiagram](../../python_api/python_api.md#gom-api-extensions-diagrams-svgdiagram) as the base class and implementing the `plot()` method. This base class provides additional methods for customization, like the event function to enable custom interactions.
+[SVGDiagram](../../python_api/python_api.md#gomapiextensionsdiagramssvgdiagram) as the base class and implementing the `plot()` method. This base class provides additional methods for customization, like the event function to enable custom interactions.
 
 For implementing static diagrams, using [Matplotlib](https://matplotlib.org/) and converting the plot to an SVG string is sufficient (see [Basic Custom Diagram](#basic-custom-diagram)).
 
@@ -793,7 +793,7 @@ In the point-cloud overlay example, `custom_interaction` is intentionally enable
 
 ## References
 
-* [How-to: Custom Elements](custom_elements_toc.md)
+* [How-to: Custom Elements](../custom_elements/custom_elements_toc.md)
 * [How-to: Using Services](../using_services/using_services.md)
 * [Extensions API &ndash; Diagrams](../../python_api/python_api.md#gomapiextensionsdiagrams)
 * [Extensions API &ndash; SVGDiagram](../../python_api/python_api.md#gomapiextensionsdiagramssvgdiagram)
