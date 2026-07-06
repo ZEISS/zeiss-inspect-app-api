@@ -649,11 +649,11 @@ JSON based description format and can be executed server side in the native UI s
 
 ### gom.api.dialog.create
 
-```{py:function} gom.api.dialog.create(context: Any, url: str): Any
+```{py:function} gom.api.dialog.create(context: Any=gom.ContributionContext('null'), url: str): Any
 
 Create modal dialog, but do not execute it yet
-:param context: Script execution context
-:type context: Any
+:param context: Script execution context of the calling scripted contribution. Optional - omit it when calling from outside the custom elements framework.
+:type context: Any=gom.ContributionContext('null')
 :param url: URL of the dialog definition (*.gdlg file)
 :type url: str
 :return: Dialog handle which can be used to set up the dialog before executing it
@@ -663,12 +663,11 @@ Create modal dialog, but do not execute it yet
 This function creates a dialog. The dialog is passed in an abstract JSON description defining its layout.
 The dialog is created but not executed yet. The dialog can be executed later by calling the 'gom.api.dialog.show'
 function. The purpose of this function is to create a dialog in advance and allow the user setting it up before
+showing it.
 
-This function is part of the scripted contribution framework. It can be used in the scripts
-'dialog' functions to pop up user input dialogs, e.g. for creation commands. Passing of the
-contributions script context is mandatory for the function to work.
-
-\attention This function is not enabled outside of the custom elements scripted contribution framework.
+When called with a scripted contribution's context (e.g. from a custom element's 'dialog' function), the dialog
+definition is resolved relative to that contribution's add-on content. When called without a context (`context`
+omitted), the dialog definition is resolved directly relative to the calling script instead.
 
 ### gom.api.dialog.execute
 
@@ -7252,7 +7251,7 @@ A very simple example for a custom view API contribution can look like this:
 :caption: Example of a simple custom edit dialog
 
 import gom
-import gom.api.experimental
+import gom.api.dialog
 import gom.api.smart_principle
 
 from gom import apicontribution
@@ -7264,7 +7263,7 @@ class MyCustomEditDialog (gom.api.smart_principle.CustomEditDialog):
         super().__init__(id='com.zeiss.my.customdialog')
 
     def create_dialog(self, ctx):
-        dlg = gom.api.experimental.create_dialog("my_dialog.gdlg")
+        dlg = gom.api.dialog.create("my_dialog.gdlg")
         ...
         return dlg
 
