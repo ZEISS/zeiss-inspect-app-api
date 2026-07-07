@@ -581,7 +581,7 @@ Full source in example App:\
 [AppExamples/custom_diagrams/CustomDiagramExamples/scripts/element_overlay_custom_diagram.py](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/element_overlay_custom_diagram.py)
 
 ````{note}
-Optional: Extended renderer tuning
+Optional: Extended renderer tuning (see [RenderConfigToken](../../python_api/python_api.md#gomapiextensionsdiagramssvgdiagram))
 
 Use this `render_config` if you want additional marker/debug/filter behavior:
 
