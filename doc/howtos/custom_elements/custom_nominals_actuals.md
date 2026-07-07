@@ -68,7 +68,7 @@ class MinimalPointExample (gom.api.extensions.actuals.Point):
     def dialog (self, context, args):
         return self.show_dialog (context, args, '/dialogs/Custom_Point.gdlg')
 
-    def compute_stage (self, context, values):
+    def compute (self, context, values):
         return {
             "value": (
                 float(values['point_x']),
@@ -93,7 +93,7 @@ line 11..12:
 : The `dialog()` method allows to show the dialog when a custom element is created or edited.
 
 line 14..21:
-: The `compute_stage()` method returns an element type specific dictionary of parameters. The dictionary `values` contains the dialog widgets' object values. Numeric values are provided as strings, therefore a type conversion to `float` is done.
+: The `compute()` method returns an element type specific dictionary of parameters. The dictionary `values` contains the dialog widgets' object values. Numeric values are provided as strings, therefore a type conversion to `float` is done.
 
 line 23:
 : `gom.run_api()` is executed when the script is started as a service.
@@ -194,7 +194,7 @@ Additional data of any type can be stored using the `data` parameter of the comp
 :caption: Custom actual point with optional element data
 :linenos:
 
-    def compute_stage (self, context, values):
+    def compute (self, context, values):
         return {
             "value": (
                 float(values['point_x']),
@@ -220,7 +220,7 @@ Each key in the `data` dictionary becomes a token on that element.
 # Example element reference
 element = gom.app.project.actual_elements['Point 1']
 
-# If compute_stage() returned: "data": {"source": "imported", "quality_score": 0.98}
+# If compute() returned: "data": {"source": "imported", "quality_score": 0.98}
 source = element.source
 quality_score = element.quality_score
 
@@ -281,7 +281,7 @@ class MyActualPoint (gom.api.extensions.actuals.Point):
     def dialog (self, context, args):
         return self.show_dialog (context, args, '/dialogs/Custom_Point.gdlg')
 
-    def compute_stage (self, context, values):
+    def compute (self, context, values):
         return generate_point_element(
             point_x=values['point_x'], 
             point_y=values['point_y'], 
@@ -299,7 +299,7 @@ class MyNominalPoint (gom.api.extensions.nominals.Point):
     def dialog (self, context, args):
         return self.show_dialog (context, args, '/dialogs/Custom_Point.gdlg')
         
-    def compute_stage (self, context, values):
+    def compute (self, context, values):
         return generate_point_element(
             point_x=values['point_x'], 
             point_y=values['point_y'], 
@@ -317,7 +317,7 @@ Log messages can be created by using the method <a href="../../python_api/python
 :caption: Creating log messages
 :linenos:
 
-def compute_stage (self, context, values):
+def compute (self, context, values):
     self.add_log_message(context, 'info', f"{values=}")
     # ...
 ```
@@ -383,7 +383,7 @@ class MyOffsetPoint (gom.api.extensions.nominals.Point):
         res = self.apply_dialog(args, gom.api.dialog.show(context, self.dlg))
         return res
 
-    def compute_stage (self, context, values):
+    def compute (self, context, values):
         self.add_log_message(context, 'info', f"{values['base']=}")
         return generate_point_element(
             offset_x=values['offset_x'], 
@@ -481,7 +481,7 @@ class MyOffsetPoint (gom.api.extensions.nominals.Point):
 
 **Common Issues:**
 
-- **Invalid return format**: Ensure `compute_stage()` method returns correct format:
+- **Invalid return format**: Ensure `compute()` method returns correct format:
   ```python
   # For Point elements
   return {"value": (x, y, z)}
@@ -500,7 +500,7 @@ class MyOffsetPoint (gom.api.extensions.nominals.Point):
 
 - **Type conversion errors**: Convert dialog string inputs to appropriate types:
   ```python
-    def compute_stage(self, context, values):
+    def compute(self, context, values):
       try:
           x = float(values['x'])
           y = float(values['y'])
@@ -530,7 +530,7 @@ class MyOffsetPoint (gom.api.extensions.nominals.Point):
 
 **Solutions:**
 
-- **Optimize computations**: Avoid heavy calculations in the `compute_stage()` method
+- **Optimize computations**: Avoid heavy calculations in the `compute()` method
 - **Cache element properties**: Don't repeatedly access the same element properties:
   ```python
   # Inefficient
@@ -575,7 +575,7 @@ class MyOffsetPoint (gom.api.extensions.nominals.Point):
 Add logging to track execution and identify issues:
 
 ```python
-def compute_stage(self, context, values):
+def compute(self, context, values):
     self.add_log_message(context, 'info', f"Starting computation with values: {values}")
     
     try:
@@ -605,7 +605,7 @@ Always monitor the ZEISS INSPECT Service Manager for:
 #### Validate Early and Often
 
 ```python
-def compute_stage(self, context, values):
+def compute(self, context, values):
     # Input validation
     if not values:
         raise ValueError("No input values provided")
