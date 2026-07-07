@@ -387,7 +387,7 @@ See [Custom nominal/actual elements](../custom_elements/custom_nominals_actuals.
 
 ### Custom Diagrams
 
-**Custom diagrams** are based on the <a href="../../python_api/python_api.html#gomapiextensions">Extensions API</a>, specifically [gom.api.extensions.diagrams](../../python_api/python_api.md#gomapiextensionsdiagrams).
+**Custom diagrams** are based on the [Extensions](../../python_api/python_api.md#gomapiextensions), specifically [gom.api.extensions.diagrams](../../python_api/python_api.md#gomapiextensionsdiagrams).
 
 For rendering diagrams as SVG (Scalable Vector Graphics), a **Custom Diagram** class is created by using 
 [SVGDiagram](../../python_api/python_api.md#gomapiextensionsdiagramssvgdiagram) as the base class and implementing the `plot()` method. This base class provides additional methods for customization, like the event function to enable custom interactions.
@@ -466,7 +466,7 @@ class MyBasicDiagram(gom.api.extensions.diagrams.SVGDiagram):
 
 Full source in example App:
 
-- https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/basic_custom_diagram.py
+[AppExamples/custom_diagrams/CustomDiagramExamples/scripts/basic_custom_diagram.py](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/basic_custom_diagram.py)
 
 #### Custom Diagram with Element Overlay
 
@@ -578,9 +578,9 @@ class DiagramWithElementOverlay (gom.api.extensions.diagrams.SVGDiagram):
     gom.run_api()
 ```
 
-    Full source in example App:
+Full source in example App:
 
-    - https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/element_overlay_custom_diagram.py
+[AppExamples/custom_diagrams/CustomDiagramExamples/scripts/element_overlay_custom_diagram.py](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/element_overlay_custom_diagram.py)
 
 ````{note}
 Optional: Extended renderer tuning
@@ -728,7 +728,7 @@ class DiagramWithPointCloudOverlay (gom.api.extensions.diagrams.SVGDiagram):
 
 Full source in example App:
 
-- https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/point_cloud_overlay_custom_diagram.py
+[AppExamples/custom_diagrams/CustomDiagramExamples/scripts/point_cloud_overlay_custom_diagram.py](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/point_cloud_overlay_custom_diagram.py)
 
 ## Data Structure Examples
 
