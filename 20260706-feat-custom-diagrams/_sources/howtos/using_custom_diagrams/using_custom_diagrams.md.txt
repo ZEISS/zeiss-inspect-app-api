@@ -464,8 +464,7 @@ class MyBasicDiagram(gom.api.extensions.diagrams.SVGDiagram):
     gom.run_api()
 ```
 
-Full source in example App:
-
+Full source in example App:\
 [AppExamples/custom_diagrams/CustomDiagramExamples/scripts/basic_custom_diagram.py](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/basic_custom_diagram.py)
 
 #### Custom Diagram with Element Overlay
@@ -578,8 +577,7 @@ class DiagramWithElementOverlay (gom.api.extensions.diagrams.SVGDiagram):
     gom.run_api()
 ```
 
-Full source in example App:
-
+Full source in example App:\
 [AppExamples/custom_diagrams/CustomDiagramExamples/scripts/element_overlay_custom_diagram.py](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/element_overlay_custom_diagram.py)
 
 ````{note}
@@ -726,8 +724,7 @@ class DiagramWithPointCloudOverlay (gom.api.extensions.diagrams.SVGDiagram):
     gom.run_api()
 ```
 
-Full source in example App:
-
+Full source in example App:\
 [AppExamples/custom_diagrams/CustomDiagramExamples/scripts/point_cloud_overlay_custom_diagram.py](https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/scripts/point_cloud_overlay_custom_diagram.py)
 
 ## Data Structure Examples
