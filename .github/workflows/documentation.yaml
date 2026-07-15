@@ -30,7 +30,7 @@ jobs:
         run: echo "SUBDIR_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
       - name: Deploy
         if: ${{ github.event_name != 'pull_request' }}
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@v4.1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: _build/
