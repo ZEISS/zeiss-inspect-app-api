@@ -708,24 +708,6 @@ Show previously created and configured dialog
 This function shows and executes previously created an configured dialog. The combination of
 'create' and 'show' in effect is the same as calling 'execute' directly.
 
-## gom.api.experimental
-
-API for experimental functionality
-
-This API is experimental and can change at any time.
-
-### gom.api.experimental.create_dialog
-
-```{py:function} gom.api.experimental.create_dialog(url: str): Any
-
-Create a dialog, but do not execute it yet
-:param url: URL of the dialog definition (*.gdlg file)
-:type url: str
-:return: Dialog handle which can be used to set up the dialog before executing it
-:rtype: Any
-```
-
-
 ## gom.api.expressions
 
 General-purpose expression language metadata API
@@ -6628,56 +6610,6 @@ Unload resource from shared memory
 :rtype: bool
 ```
 
-
-## gom.api.scripted_checks_util
-
-Tool functions for scripted checks
-
-
-### gom.api.scripted_checks_util.is_curve_checkable
-
-```{py:function} gom.api.scripted_checks_util.is_curve_checkable(element: gom.Object): bool
-
-Checks if the referenced element is suitable for inspection with a curve check
-:API version: 1
-:param element: Element reference to check
-:type element: gom.Object
-:return: 'true' if the element is checkable like a curve
-:rtype: bool
-```
-
-This function checks if the given element can be inspected like a curve in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.
-
-### gom.api.scripted_checks_util.is_scalar_checkable
-
-```{py:function} gom.api.scripted_checks_util.is_scalar_checkable(element: gom.Object): bool
-
-Checks if the referenced element is suitable for inspection with a scalar check
-:API version: 1
-:param element: Element reference to check
-:type element: gom.Object
-:return: 'true' if the element is checkable like a scalar value
-:rtype: bool
-```
-
-This function checks if the given element can be inspected like a scalar value in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.
-
-### gom.api.scripted_checks_util.is_surface_checkable
-
-```{py:function} gom.api.scripted_checks_util.is_surface_checkable(element: gom.Object): bool
-
-Checks if the referenced element is suitable for inspection with a surface check
-:API version: 1
-:param element: Element reference to check
-:type element: gom.Object
-:return: 'true' if the element is checkable like a surface
-:rtype: bool
-```
-
-This function checks if the given element can be inspected like a surface in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.
 
 ## gom.api.selection
 
