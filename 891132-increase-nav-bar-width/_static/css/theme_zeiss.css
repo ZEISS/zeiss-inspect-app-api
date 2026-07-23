@@ -45,19 +45,19 @@
   .wy-side-nav-search,
   .wy-menu-vertical,
   .rst-versions {
-    width: 350px;
-  }
-
-  .wy-side-scroll {
     width: 370px;
   }
 
+  .wy-side-scroll {
+    width: 390px;
+  }
+
   .wy-nav-content-wrap {
-    margin-left: 350px;
+    margin-left: 370px;
   }
 
   .wy-nav-content {
-    max-width: 1020px;
+    max-width: 1120px;
   }
 }
 
@@ -67,19 +67,19 @@
   .wy-side-nav-search,
   .wy-menu-vertical,
   .rst-versions {
-    width: 380px;
+    width: 390px;
   }
 
   .wy-side-scroll {
-    width: 400px;
+    width: 410px;
   }
 
   .wy-nav-content-wrap {
-    margin-left: 380px;
+    margin-left: 390px;
   }
 
   .wy-nav-content {
-    max-width: 1120px;
+    max-width: 1220px;
   }
 }
 
