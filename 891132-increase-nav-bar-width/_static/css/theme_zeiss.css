@@ -5,80 +5,84 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap');
 
 /* ==========================================================================
-   Responsive desktop nav-width tuning for the ZEISS documentation theme
+   Wide-screen layout tuning for ZEISS docs (safe progressive version)
 
-   Existing ZEISS theme behavior:
-   - .wy-nav-content already uses max-width: 1000px
-   - Because content is already fairly wide, nav growth must be conservative
+   Goal:
+   - Keep default/laptop layout unchanged
+   - Widen nav and content only on larger screens
 
-   Strategy:
-   - 1400px to 1599px:
-     Slightly widen the nav only
-   - 1600px and wider:
-     Widen the nav a bit more
-   - 1800px and wider:
-     Optionally allow a slightly wider content column too
-
-   What to change:
-   - --zeiss-nav-width:
-     Visible width of the left navigation column
-   - --zeiss-nav-scroll-width:
-     Usually nav width + 20px
-   - --zeiss-content-max-width:
-     Only changed on very wide screens
+   How to tune:
+   - nav width: visible left sidebar width
+   - side-scroll width: usually nav width + 20px
+   - content max width: readable content width on wide screens
    ========================================================================== */
 
-
-/* 1440px-class screens: safe small increase */
-@media screen and (min-width: 1400px) and (max-width: 1599px) {
-  :root {
-    --zeiss-nav-width: 320px;         /* Good safe value for 1440px screens */
-    --zeiss-nav-scroll-width: 340px;  /* Usually nav width + 20px */
-  }
-
+/* Large desktop */
+@media screen and (min-width: 1400px) and (max-width: 1699px) {
   .wy-nav-side,
   .wy-side-nav-search,
   .wy-menu-vertical,
   .rst-versions {
-    width: var(--zeiss-nav-width);
+    width: 320px;
   }
 
   .wy-side-scroll {
-    width: var(--zeiss-nav-scroll-width);
+    width: 340px;
   }
 
   .wy-nav-content-wrap {
-    margin-left: var(--zeiss-nav-width);
+    margin-left: 320px;
+  }
+
+  .wy-nav-content {
+    max-width: 920px;
   }
 }
 
-
-/* Larger desktop screens: allow a bit more nav width */
-@media screen and (min-width: 1600px) and (max-width: 1799px) {
-  :root {
-    --zeiss-nav-width: 370px;         /* Comfortable on larger screens */
-    --zeiss-nav-scroll-width: 390px;  /* Usually nav width + 20px */
-  }
-
+/* Extra-wide desktop */
+@media screen and (min-width: 1700px) and (max-width: 2099px) {
   .wy-nav-side,
   .wy-side-nav-search,
   .wy-menu-vertical,
   .rst-versions {
-    width: var(--zeiss-nav-width);
+    width: 350px;
   }
 
   .wy-side-scroll {
-    width: var(--zeiss-nav-scroll-width);
+    width: 370px;
   }
 
   .wy-nav-content-wrap {
-    margin-left: var(--zeiss-nav-width);
+    margin-left: 350px;
+  }
+
+  .wy-nav-content {
+    max-width: 1020px;
   }
 }
 
-.wy-nav-content {
-  max-width: 1000px;
+/* Ultra-wide desktop */
+@media screen and (min-width: 2100px) {
+  .wy-nav-side,
+  .wy-side-nav-search,
+  .wy-menu-vertical,
+  .rst-versions {
+    width: 380px;
+  }
+
+  .wy-side-scroll {
+    width: 400px;
+  }
+
+  .wy-nav-content-wrap {
+    margin-left: 380px;
+  }
+
+  .wy-nav-content {
+    max-width: 1120px;
+  }
 }
+
 
 /****************************************************************************** 
  * Override some styles to match ZEISS branding
