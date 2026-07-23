@@ -1,59 +1,72 @@
 /* ==========================================================================
-   Read the Docs / Sphinx layout width override
+   Responsive desktop nav-width tuning for the ZEISS documentation theme
 
-   Change these variables to tune the desktop layout:
+   Existing ZEISS theme behavior:
+   - .wy-nav-content already uses max-width: 1000px
+   - Because content is already fairly wide, nav growth must be conservative
+
+   Strategy:
+   - 1400px to 1599px:
+     Slightly widen the nav only
+   - 1600px and wider:
+     Widen the nav a bit more
+   - 1800px and wider:
+     Optionally allow a slightly wider content column too
+
+   What to change:
    - --zeiss-nav-width:
-     Visible width of the left navigation column.
+     Visible width of the left navigation column
    - --zeiss-nav-scroll-width:
-     Usually nav width + about 20px to leave room for the scroll area.
+     Usually nav width + 20px
    - --zeiss-content-max-width:
-     Maximum width of the main content column.
-
-   Important relation:
-   - .wy-nav-content-wrap margin-left must match --zeiss-nav-width
-   - If nav gets wider and content max width stays unchanged, the content area
-     will feel more compressed on medium desktop screens.
-   - Increasing --zeiss-content-max-width compensates for that on large screens.
+     Only changed on very wide screens
    ========================================================================== */
 
-:root {
-  --zeiss-nav-width: 360px;          /* Typical widened nav: 340px to 380px */
-  --zeiss-nav-scroll-width: 380px;   /* Usually nav width + 20px */
-  --zeiss-content-max-width: 1000px;  /* Typical content width: 900px to 1000px */
-}
 
-/* Left navigation width */
-.wy-nav-side,
-.wy-side-nav-search,
-.wy-menu-vertical,
-.rst-versions {
-  width: var(--zeiss-nav-width);
-}
-
-/* Inner scroll container for the left navigation */
-.wy-side-scroll {
-  width: var(--zeiss-nav-scroll-width);
-}
-
-/* Move the main page area to the right by the same amount as the sidebar width */
-.wy-nav-content-wrap {
-  margin-left: var(--zeiss-nav-width);
-}
-
-/* Increase the readable content area on large screens */
-.wy-nav-content {
-  max-width: var(--zeiss-content-max-width);
-}
-
-/* Keep the original responsive behavior on smaller screens */
-@media screen and (max-width: 768px) {
-  .wy-nav-side.shift,
-  .rst-versions {
-    width: 85%;
+/* 1440px-class screens: safe small increase */
+@media screen and (min-width: 1400px) and (max-width: 1599px) {
+  :root {
+    --zeiss-nav-width: 320px;         /* Good safe value for 1440px screens */
+    --zeiss-nav-scroll-width: 340px;  /* Usually nav width + 20px */
   }
 
-  .wy-nav-content-wrap.shift {
-    left: 85%;
+  .wy-nav-side,
+  .wy-side-nav-search,
+  .wy-menu-vertical,
+  .rst-versions {
+    width: var(--zeiss-nav-width);
+  }
+
+  .wy-side-scroll {
+    width: var(--zeiss-nav-scroll-width);
+  }
+
+  .wy-nav-content-wrap {
+    margin-left: var(--zeiss-nav-width);
+  }
+}
+
+
+/* Larger desktop screens: allow a bit more nav width */
+@media screen and (min-width: 1600px) and (max-width: 1799px) {
+  :root {
+    --zeiss-nav-width: 340px;         /* Comfortable on larger screens */
+    --zeiss-nav-scroll-width: 360px;  /* Usually nav width + 20px */
+  }
+
+  .wy-nav-side,
+  .wy-side-nav-search,
+  .wy-menu-vertical,
+  .rst-versions {
+    width: var(--zeiss-nav-width);
+  }
+
+  .wy-side-scroll {
+    width: var(--zeiss-nav-scroll-width);
+  }
+
+  .wy-nav-content-wrap {
+    margin-left: var(--zeiss-nav-width);
   }
 }
 
