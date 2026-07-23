@@ -1,3 +1,62 @@
+/* ==========================================================================
+   Read the Docs / Sphinx layout width override
+
+   Change these variables to tune the desktop layout:
+   - --zeiss-nav-width:
+     Visible width of the left navigation column.
+   - --zeiss-nav-scroll-width:
+     Usually nav width + about 20px to leave room for the scroll area.
+   - --zeiss-content-max-width:
+     Maximum width of the main content column.
+
+   Important relation:
+   - .wy-nav-content-wrap margin-left must match --zeiss-nav-width
+   - If nav gets wider and content max width stays unchanged, the content area
+     will feel more compressed on medium desktop screens.
+   - Increasing --zeiss-content-max-width compensates for that on large screens.
+   ========================================================================== */
+
+:root {
+  --zeiss-nav-width: 360px;          /* Typical widened nav: 340px to 380px */
+  --zeiss-nav-scroll-width: 380px;   /* Usually nav width + 20px */
+  --zeiss-content-max-width: 1000px;  /* Typical content width: 900px to 1000px */
+}
+
+/* Left navigation width */
+.wy-nav-side,
+.wy-side-nav-search,
+.wy-menu-vertical,
+.rst-versions {
+  width: var(--zeiss-nav-width);
+}
+
+/* Inner scroll container for the left navigation */
+.wy-side-scroll {
+  width: var(--zeiss-nav-scroll-width);
+}
+
+/* Move the main page area to the right by the same amount as the sidebar width */
+.wy-nav-content-wrap {
+  margin-left: var(--zeiss-nav-width);
+}
+
+/* Increase the readable content area on large screens */
+.wy-nav-content {
+  max-width: var(--zeiss-content-max-width);
+}
+
+/* Keep the original responsive behavior on smaller screens */
+@media screen and (max-width: 768px) {
+  .wy-nav-side.shift,
+  .rst-versions {
+    width: 85%;
+  }
+
+  .wy-nav-content-wrap.shift {
+    left: 85%;
+  }
+}
+
 /****************************************************************************** 
  * Override some styles to match ZEISS branding
  *
@@ -115,16 +174,6 @@ a:visited {
 /* Changed from #fcfcfc */
 .wy-nav-content-wrap, .wy-body-for-nav, .wy-nav-content, .wy-dropdown-menu {
     background: #ffffff;
-}
-
-
-/******************************************************************************
- * Page content
- ******************************************************************************/
-
-/* Change max-width from 800px to 1000px */
-.wy-nav-content {
-    max-width: 1000px;
 }
 
 
