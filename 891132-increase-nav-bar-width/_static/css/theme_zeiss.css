@@ -1,3 +1,9 @@
+/* Based on Read the Docs theme */
+@import 'theme.css';
+
+/* Use font "Noto Sans" */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap');
+
 /* ==========================================================================
    Responsive desktop nav-width tuning for the ZEISS documentation theme
 
@@ -82,16 +88,9 @@
  * Copyright 2026, Carl Zeiss GOM Metrology GmbH
  ******************************************************************************/
 
-/* Based on Read the Docs theme */
-@import 'theme.css';
-
 /******************************************************************************
- * Fonts
+ * Fonts for ZEISS branding
  ******************************************************************************/
-
-/* Use font "Noto Sans" */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap');
-
 :root {
     --font-family-sans: "Noto Sans", "Helvetica Neue", Helvetica, Verdana, Arial, sans-serif;
 }
