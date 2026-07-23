@@ -56,8 +56,8 @@
 /* Larger desktop screens: allow a bit more nav width */
 @media screen and (min-width: 1600px) and (max-width: 1799px) {
   :root {
-    --zeiss-nav-width: 360px;         /* Comfortable on larger screens */
-    --zeiss-nav-scroll-width: 380px;  /* Usually nav width + 20px */
+    --zeiss-nav-width: 370px;         /* Comfortable on larger screens */
+    --zeiss-nav-scroll-width: 390px;  /* Usually nav width + 20px */
   }
 
   .wy-nav-side,
