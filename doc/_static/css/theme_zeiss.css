@@ -1,3 +1,89 @@
+/* Based on Read the Docs theme */
+@import 'theme.css';
+
+/* Use font "Noto Sans" */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap');
+
+/* ==========================================================================
+   Wide-screen layout tuning for ZEISS docs (safe progressive version)
+
+   Goal:
+   - Keep default/laptop layout unchanged
+   - Widen nav and content only on larger screens
+
+   How to tune:
+   - nav width: visible left sidebar width
+   - side-scroll width: usually nav width + 20px
+   - content max width: readable content width on wide screens
+   ========================================================================== */
+
+/* Large desktop */
+@media screen and (min-width: 1400px) and (max-width: 1699px) {
+  .wy-nav-side,
+  .wy-side-nav-search,
+  .wy-menu-vertical,
+  .rst-versions {
+    width: 320px;
+  }
+
+  .wy-side-scroll {
+    width: 340px;
+  }
+
+  .wy-nav-content-wrap {
+    margin-left: 320px;
+  }
+
+  .wy-nav-content {
+    max-width: 920px;
+  }
+}
+
+/* Extra-wide desktop */
+@media screen and (min-width: 1700px) and (max-width: 2099px) {
+  .wy-nav-side,
+  .wy-side-nav-search,
+  .wy-menu-vertical,
+  .rst-versions {
+    width: 370px;
+  }
+
+  .wy-side-scroll {
+    width: 390px;
+  }
+
+  .wy-nav-content-wrap {
+    margin-left: 370px;
+  }
+
+  .wy-nav-content {
+    max-width: 1120px;
+  }
+}
+
+/* Ultra-wide desktop */
+@media screen and (min-width: 2100px) {
+  .wy-nav-side,
+  .wy-side-nav-search,
+  .wy-menu-vertical,
+  .rst-versions {
+    width: 390px;
+  }
+
+  .wy-side-scroll {
+    width: 410px;
+  }
+
+  .wy-nav-content-wrap {
+    margin-left: 390px;
+  }
+
+  .wy-nav-content {
+    max-width: 1220px;
+  }
+}
+
+
 /****************************************************************************** 
  * Override some styles to match ZEISS branding
  *
@@ -6,16 +92,9 @@
  * Copyright 2026, Carl Zeiss GOM Metrology GmbH
  ******************************************************************************/
 
-/* Based on Read the Docs theme */
-@import 'theme.css';
-
 /******************************************************************************
- * Fonts
+ * Fonts for ZEISS branding
  ******************************************************************************/
-
-/* Use font "Noto Sans" */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap');
-
 :root {
     --font-family-sans: "Noto Sans", "Helvetica Neue", Helvetica, Verdana, Arial, sans-serif;
 }
@@ -115,16 +194,6 @@ a:visited {
 /* Changed from #fcfcfc */
 .wy-nav-content-wrap, .wy-body-for-nav, .wy-nav-content, .wy-dropdown-menu {
     background: #ffffff;
-}
-
-
-/******************************************************************************
- * Page content
- ******************************************************************************/
-
-/* Change max-width from 800px to 1000px */
-.wy-nav-content {
-    max-width: 1000px;
 }
 
 
