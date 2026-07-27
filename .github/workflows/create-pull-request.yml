@@ -7,7 +7,7 @@ on:
       - apidoc-update-2023
       - apidoc-update-2025
       - apidoc-update-2026
-      - apidoc-update-2026
+      - apidoc-update-2027
 jobs:
   UpdatePythonApiDoc:
     runs-on: ubuntu-latest
