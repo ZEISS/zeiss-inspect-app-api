@@ -50,7 +50,7 @@ mermaid_params = ['-backgroundColor', 'transparent']
 
 # -- Options for sitemap -----------------------------------------------------
 # https://sphinx-sitemap.readthedocs.io/en/latest/getting-started.html
-html_baseurl = 'https://zeiss.github.io/zeiss-inspect-app-api/main/'
+html_baseurl = 'https://zeiss.github.io/zeiss-inspect-app-api/2027/'
 sitemap_url_scheme = "{link}"
 
 # -- Options for HTML output -------------------------------------------------
