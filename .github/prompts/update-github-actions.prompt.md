@@ -1,6 +1,6 @@
 ---
 agent: agent
-description: "Update GitHub Actions to latest major versions across all version branches (main, 2023, 2025, 2026), creating update branches and PRs for any changes needed."
+description: "Update GitHub Actions to latest major versions across all version branches (main, 2023, 2025, 2026, 2027), creating update branches and PRs for any changes needed."
 tools:
   - run_in_terminal
 ---
@@ -9,7 +9,7 @@ tools:
 
 ## Context
 
-This repository contains GitHub Actions workflow files in `.github/workflows/`. Dependabot is configured only for the `main` branch and only for npm packages — it does **not** track `github-actions` updates, and it does **not** cover version branches `2023`, `2025`, or `2026`.
+This repository contains GitHub Actions workflow files in `.github/workflows/`. Dependabot is configured only for the `main` branch and only for npm packages — it does **not** track `github-actions` updates, and it does **not** cover version branches `2023`, `2025`, `2026` or `2027`.
 
 This prompt checks all four branches, detects outdated GitHub Actions, and creates update branches and PRs for any branch that needs changes.
 
@@ -44,7 +44,7 @@ An action needs updating if its current version tag resolves to an older major t
 
 ### 3. Check each version branch
 
-Process the following branches in sequence: `main`, `2023`, `2025`, `2026`.
+Process the following branches in sequence: `main`, `2023`, `2025`, `2026`, `2027`.
 
 For each branch:
 
