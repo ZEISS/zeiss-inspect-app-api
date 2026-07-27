@@ -7,6 +7,7 @@ on:
       - apidoc-update-2023
       - apidoc-update-2025
       - apidoc-update-2026
+      - apidoc-update-2027
 jobs:
   UpdatePythonApiDoc:
     runs-on: ubuntu-latest
@@ -28,6 +29,8 @@ jobs:
             TARGET_BRANCH="2025"
           elif [[ ${GITHUB_REF#refs/*/} == "apidoc-update-2026" ]]; then
             TARGET_BRANCH="2026"
+          elif [[ ${GITHUB_REF#refs/*/} == "apidoc-update-2027" ]]; then
+            TARGET_BRANCH="2027"
           fi
           echo "Target branch: ${TARGET_BRANCH}"
           echo "target_branch=${TARGET_BRANCH}" >> $GITHUB_OUTPUT
