@@ -11,6 +11,12 @@ Custom elements are ZEISS INSPECT elements which are defined using the Python <a
 ```{note}
 In this How-to chapter, the user-facing term "custom elements" is used. The current API uses the `Custom*` class family (for example `CustomElement`, `CustomActual`, `CustomNominal`, and `CustomInspection`). `Scripted*` class names are documented as legacy aliases.
 ```
+
+```{seealso}
+Custom elements are commonly used as data providers for interactive diagrams.
+
+Continue with [Using Custom Diagrams](../using_custom_diagrams/using_custom_diagrams.md) once you are familiar with defining custom element payloads.
+```
  
 The following How-to sections will introduce the concept of custom elements.
 

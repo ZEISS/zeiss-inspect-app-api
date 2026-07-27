@@ -123,6 +123,7 @@ Furthermore, we recommend following our How-to Guides to get you started.
    howtos/adding_workspaces_to_apps/adding_workspaces_to_apps
    howtos/workflow_assistant/workflow_assistant
    howtos/using_services/using_services
+   howtos/using_custom_diagrams/using_custom_diagrams
    howtos/using_jupyter_notebook/using_jupyter_notebook
    howtos/using_jupyter_notebook/using_jupyter_and_vscode
    howtos/starting_options/starting_options
