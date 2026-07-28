@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/css/theme_zeiss.css?v=d081d605" />
 
   
-    <link rel="canonical" href="https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/python_api.html" />
+    <link rel="canonical" href="https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html" />
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../_static/documentation_options.js?v=5929fcd5"></script>
@@ -769,6 +769,7 @@ window.runMermaid = runMermaid;</script>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-services">gom.api.services</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-services-service">gom.api.services.Service</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-app">gom.api.services.Service.get_app</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-autostart">gom.api.services.Service.get_autostart</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-endpoint">gom.api.services.Service.get_endpoint</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-name">gom.api.services.Service.get_name</a></li>
@@ -8382,6 +8383,40 @@ skipped entirely for the respective items.</p>
 <p>Class representing a single API service</p>
 <p>This class represents an API service. The properties of that service can be read and
 the service can be administered (started, stopped, …) via that handle.</p>
+<section id="gom-api-services-service-get-app">
+<h4>gom.api.services.Service.get_app<a class="headerlink" href="#gom-api-services-service-get-app" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.services.Service.get_app():</span> <span class="pre">UUID</span></span></dt>
+<dd><p>Return the UUID of the App this service belongs to</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>UUID of the App the service belongs to, or a nil UUID if not app-owned</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>UUID</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function returns the UUID of the App (add-on) that registered this service. The returned
+value is a UUID. A nil UUID is returned if the service was not registered by an App.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">service</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">get_service</span> <span class="p">(</span><span class="s1">&#39;my.test.service&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">service</span><span class="o">.</span><span class="n">get_app</span> <span class="p">())</span>
+<span class="o">&gt;</span> <span class="s1">&#39;78440dba-4c91-4690-902c-39e777323df4&#39;</span>
+
+<span class="c1"># Compare to the current addon</span>
+<span class="k">if</span> <span class="n">service</span><span class="o">.</span><span class="n">get_app</span> <span class="p">()</span> <span class="o">==</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">get_current_addon</span> <span class="p">()</span><span class="o">.</span><span class="n">get_id</span> <span class="p">():</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Service belongs to the current addon&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Service belongs to another addon&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 <section id="gom-api-services-service-get-autostart">
 <h4>gom.api.services.Service.get_autostart<a class="headerlink" href="#gom-api-services-service-get-autostart" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -10057,7 +10092,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fbe273879a0>
+  <jinja2.runtime.BlockReference object at 0x7f8c3baa5d30>
 
 
 </footer>

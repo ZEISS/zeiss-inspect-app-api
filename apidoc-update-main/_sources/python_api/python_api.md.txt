@@ -6822,6 +6822,33 @@ Class representing a single API service
 This class represents an API service. The properties of that service can be read and
 the service can be administered (started, stopped, ...) via that handle.
 
+#### gom.api.services.Service.get_app
+
+```{py:function} gom.api.services.Service.get_app(): UUID
+
+Return the UUID of the App this service belongs to
+:API version: 1
+:return: UUID of the App the service belongs to, or a nil UUID if not app-owned
+:rtype: UUID
+```
+
+This function returns the UUID of the App (add-on) that registered this service. The returned
+value is a UUID. A nil UUID is returned if the service was not registered by an App.
+
+**Example:**
+
+```
+service = gom.api.services.get_service ('my.test.service')
+print (service.get_app ())
+> '78440dba-4c91-4690-902c-39e777323df4'
+
+# Compare to the current addon
+if service.get_app () == gom.api.addons.get_current_addon ().get_id ():
+    print ('Service belongs to the current addon')
+else:
+    print ('Service belongs to another addon')
+```
+
 #### gom.api.services.Service.get_autostart
 
 ```{py:function} gom.api.services.Service.get_autostart(): bool
