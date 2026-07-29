@@ -1198,7 +1198,13 @@ items      (list)
 ```{code-block} python
 :caption: Combo box widget attributes example
 
-# Assign a list of selected data items
+# Set items in the combo box (not needed if already included in the dialog definition)
+# Variant 1: Using same values for display and data
+DIALOG.shape_list.items = ['circles', 'cylinders', 'cones']
+# Variant 2: Using [<display>, <data>] pairs
+DIALOG.shape_list.items = [['Circles', 'circles'], ['Cylinders', 'cylinders'], ['Cones', 'cones']]
+
+# Assign a list of _selected_ data items
 DIALOG.shape_list.value = ['circles', 'cones']
 ```
 
