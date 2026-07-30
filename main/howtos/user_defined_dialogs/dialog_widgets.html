@@ -1335,7 +1335,13 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
 </dl>
 <div class="literal-block-wrapper docutils container" id="id29">
 <div class="code-block-caption"><span class="caption-text">Combo box widget attributes example</span><a class="headerlink" href="#id29" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign a list of selected data items</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set items in the combo box (not needed if already included in the dialog definition)</span>
+<span class="c1"># Variant 1: Using same values for display and data</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">shape_list</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;circles&#39;</span><span class="p">,</span> <span class="s1">&#39;cylinders&#39;</span><span class="p">,</span> <span class="s1">&#39;cones&#39;</span><span class="p">]</span>
+<span class="c1"># Variant 2: Using [&lt;display&gt;, &lt;data&gt;] pairs</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">shape_list</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;Circles&#39;</span><span class="p">,</span> <span class="s1">&#39;circles&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Cylinders&#39;</span><span class="p">,</span> <span class="s1">&#39;cylinders&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Cones&#39;</span><span class="p">,</span> <span class="s1">&#39;cones&#39;</span><span class="p">]]</span>
+
+<span class="c1"># Assign a list of _selected_ data items</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">shape_list</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;circles&#39;</span><span class="p">,</span> <span class="s1">&#39;cones&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1718,7 +1724,7 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fe3fc0a98d0>
+  <jinja2.runtime.BlockReference object at 0x7fa89d638830>
 
 
 </footer>
