@@ -976,7 +976,7 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <ol class="arabic simple">
 <li><p>The service is started and visible in the service manager.</p></li>
 <li><p>The custom element data entries provide <code class="docutils literal notranslate"><span class="pre">element</span></code> references.</p></li>
-<li><p>A follow-up script named <code class="docutils literal notranslate"><span class="pre">testscript.py</span></code> exists in the App (or adjust <code class="docutils literal notranslate"><span class="pre">event()</span></code> accordingly).</p></li>
+<li><p>A follow-up script named <code class="docutils literal notranslate"><span class="pre">diagram_click_callback.py</span></code> exists in the App (or adjust <code class="docutils literal notranslate"><span class="pre">event()</span></code> accordingly).</p></li>
 </ol>
 </div>
 <div class="literal-block-wrapper docutils container" id="id3">
@@ -1020,7 +1020,7 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="linenos">37</span><span class="w">        </span><span class="sd">"""Handle overlay click events and forward callback arguments."""</span>
 <span class="linenos">38</span>        <span class="bp">self</span><span class="o">.</span><span class="n">last_clicked_uuid</span> <span class="o">=</span> <span class="n">element_uuid</span>
 <span class="linenos">39</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish_event</span><span class="p">(</span>
-<span class="linenos">40</span>            <span class="s2">"testscript"</span><span class="p">,</span>
+<span class="linenos">40</span>            <span class="s2">"diagram_click_callback"</span><span class="p">,</span>
 <span class="linenos">41</span>            <span class="p">{</span>
 <span class="linenos">42</span>                <span class="s2">"name"</span> <span class="p">:</span> <span class="s2">"testname"</span><span class="p">,</span>
 <span class="linenos">43</span>                <span class="s2">"testval"</span><span class="p">:</span> <span class="mf">17.00351334</span><span class="p">,</span>
@@ -1125,7 +1125,7 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="linenos"> 7</span><span class="nd">@apicontribution</span>
 <span class="linenos"> 8</span><span class="k">class</span><span class="w"> </span><span class="nc">DiagramWithPointCloudOverlay</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">diagrams</span><span class="o">.</span><span class="n">SVGDiagram</span><span class="p">):</span>
 <span class="linenos"> 9</span>
-<span class="linenos">10</span>    <span class="n">INTERACTION_SCRIPT</span> <span class="o">=</span> <span class="s1">'testscript'</span>
+<span class="linenos">10</span>    <span class="n">INTERACTION_SCRIPT</span> <span class="o">=</span> <span class="s1">'diagram_click_callback'</span>
 <span class="linenos">11</span>    <span class="n">INTERACTION_ARGS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'testname'</span><span class="p">,</span> <span class="s1">'testval'</span><span class="p">:</span> <span class="mf">17.00351334</span><span class="p">}</span>
 <span class="linenos">12</span>    <span class="n">MARKER_SIZE</span> <span class="o">=</span> <span class="mi">120</span>
 <span class="linenos">13</span>    <span class="n">MARKER_COLOR</span> <span class="o">=</span> <span class="s1">'#2f6fed'</span>
@@ -1186,34 +1186,35 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="linenos">68</span>            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
 <span class="linenos">69</span>
 <span class="linenos">70</span>        <span class="n">points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-<span class="linenos">71</span>        <span class="n">display_coords</span> <span class="o">=</span> <span class="n">mpltools</span><span class="o">.</span><span class="n">get_display_coords</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
-<span class="linenos">72</span>
-<span class="linenos">73</span>        <span class="c1"># No gid mapping here. Overlay points are matched by display coordinates.</span>
-<span class="linenos">74</span>        <span class="k">for</span> <span class="n">x_value</span><span class="p">,</span> <span class="n">y_value</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
-<span class="linenos">75</span>            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-<span class="linenos">76</span>                <span class="n">x_value</span><span class="p">,</span>
-<span class="linenos">77</span>                <span class="n">y_value</span><span class="p">,</span>
-<span class="linenos">78</span>                <span class="n">s</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_SIZE</span><span class="p">,</span>
-<span class="linenos">79</span>                <span class="n">c</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_COLOR</span><span class="p">,</span>
-<span class="linenos">80</span>                <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_ALPHA</span>
-<span class="linenos">81</span>            <span class="p">)</span>
-<span class="linenos">82</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Interactive Scatterplot with Point Cloud Overlay'</span><span class="p">)</span>
-<span class="linenos">83</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Index'</span><span class="p">)</span>
-<span class="linenos">84</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Radius'</span><span class="p">)</span>
-<span class="linenos">85</span> 
-<span class="linenos">86</span>        <span class="n">svg_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_svg</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
-<span class="linenos">87</span>         
-<span class="linenos">88</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_all_overlay_data</span><span class="p">(</span>
-<span class="linenos">89</span>            <span class="n">element_data</span><span class="p">,</span>
-<span class="linenos">90</span>            <span class="n">display_coords</span><span class="p">,</span>
-<span class="linenos">91</span>            <span class="n">view</span><span class="p">,</span>
-<span class="linenos">92</span>            <span class="n">overlay</span>
-<span class="linenos">93</span>        <span class="p">)</span>
-<span class="linenos">94</span>        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
-<span class="linenos">95</span>
-<span class="linenos">96</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish_plot</span><span class="p">(</span><span class="n">svg_string</span><span class="p">,</span> <span class="n">overlay</span><span class="p">)</span>
-<span class="linenos">97</span>
-<span class="linenos">98</span>    <span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">()</span>
+<span class="linenos">71</span>
+<span class="linenos">72</span>        <span class="c1"># No gid mapping here. Overlay points are matched by display coordinates.</span>
+<span class="linenos">73</span>        <span class="k">for</span> <span class="n">x_value</span><span class="p">,</span> <span class="n">y_value</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+<span class="linenos">74</span>            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+<span class="linenos">75</span>                <span class="n">x_value</span><span class="p">,</span>
+<span class="linenos">76</span>                <span class="n">y_value</span><span class="p">,</span>
+<span class="linenos">77</span>                <span class="n">s</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_SIZE</span><span class="p">,</span>
+<span class="linenos">78</span>                <span class="n">c</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_COLOR</span><span class="p">,</span>
+<span class="linenos">79</span>                <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_ALPHA</span>
+<span class="linenos">80</span>            <span class="p">)</span>
+<span class="linenos">81</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Interactive Scatterplot with Point Cloud Overlay'</span><span class="p">)</span>
+<span class="linenos">82</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Index'</span><span class="p">)</span>
+<span class="linenos">83</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Radius'</span><span class="p">)</span>
+<span class="linenos">84</span>
+<span class="linenos">85</span>        <span class="n">svg_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_svg</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+<span class="linenos">86</span>        <span class="c1"># Calculate overlay coordinates after rendering so the axes limits and layout match the SVG.</span>
+<span class="linenos">87</span>        <span class="n">display_coords</span> <span class="o">=</span> <span class="n">mpltools</span><span class="o">.</span><span class="n">get_display_coords</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+<span class="linenos">88</span>
+<span class="linenos">89</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_all_overlay_data</span><span class="p">(</span>
+<span class="linenos">90</span>            <span class="n">element_data</span><span class="p">,</span>
+<span class="linenos">91</span>            <span class="n">display_coords</span><span class="p">,</span>
+<span class="linenos">92</span>            <span class="n">view</span><span class="p">,</span>
+<span class="linenos">93</span>            <span class="n">overlay</span>
+<span class="linenos">94</span>        <span class="p">)</span>
+<span class="linenos">95</span>        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+<span class="linenos">96</span>
+<span class="linenos">97</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish_plot</span><span class="p">(</span><span class="n">svg_string</span><span class="p">,</span> <span class="n">overlay</span><span class="p">)</span>
+<span class="linenos">98</span>
+<span class="linenos">99</span>    <span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1316,7 +1317,7 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f665063b8c0>
+  <jinja2.runtime.BlockReference object at 0x7f079aa2b8c0>
 
 
 </footer>
