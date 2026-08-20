@@ -478,7 +478,7 @@ Quick prerequisites:
 
 1. The service is started and visible in the service manager.
 2. The custom element data entries provide `element` references.
-3. A follow-up script named `testscript.py` exists in the App (or adjust `event()` accordingly).
+3. A follow-up script named `diagram_click_callback.py` exists in the App (or adjust `event()` accordingly).
 ```
 
 ```{code-block} python
@@ -524,7 +524,7 @@ class DiagramWithElementOverlay (gom.api.extensions.diagrams.SVGDiagram):
         """Handle overlay click events and forward callback arguments."""
         self.last_clicked_uuid = element_uuid
         return self.finish_event(
-            "testscript",
+            "diagram_click_callback",
             {
                 "name" : "testname",
                 "testval": 17.00351334,
@@ -633,7 +633,7 @@ import matplotlib.pyplot as plt
 @apicontribution
 class DiagramWithPointCloudOverlay (gom.api.extensions.diagrams.SVGDiagram):
 
-    INTERACTION_SCRIPT = 'testscript'
+    INTERACTION_SCRIPT = 'diagram_click_callback'
     INTERACTION_ARGS = {'name': 'testname', 'testval': 17.00351334}
     MARKER_SIZE = 120
     MARKER_COLOR = '#2f6fed'
@@ -694,7 +694,6 @@ class DiagramWithPointCloudOverlay (gom.api.extensions.diagrams.SVGDiagram):
             y.append(radius)
 
         points = list(zip(x, y))
-        display_coords = mpltools.get_display_coords(ax, points, view)
 
         # No gid mapping here. Overlay points are matched by display coordinates.
         for x_value, y_value in points:
@@ -708,9 +707,11 @@ class DiagramWithPointCloudOverlay (gom.api.extensions.diagrams.SVGDiagram):
         ax.set_title('Interactive Scatterplot with Point Cloud Overlay')
         ax.set_xlabel('Index')
         ax.set_ylabel('Radius')
- 
+
         svg_string = self._export_svg(fig, view)
-         
+        # Calculate overlay coordinates after rendering so the axes limits and layout match the SVG.
+        display_coords = mpltools.get_display_coords(ax, points, view)
+
         self.add_all_overlay_data(
             element_data,
             display_coords,

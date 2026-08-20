@@ -201,15 +201,15 @@ For more details, see also: <a class="reference internal" href="../../python_exa
 <li><p>Write test functions: Write test functions named with prefix <code class="docutils literal notranslate"><span class="pre">test_</span></code> that define expected behavior. For simple checks for expected values, use the <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement like shown below. For more complex test data (like arrays or Element properties), see <a class="reference internal" href="#working-with-test-data">Working with test data</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_check_results</span><span class="p">():</span>
     <span class="c1"># Setup test project</span>
-    <span class="n">open_project</span><span class="p">(</span><span class="s1">&#39;zeiss_part_test_project&#39;</span><span class="p">)</span>
-    <span class="n">test_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">inspection</span><span class="p">[</span><span class="s1">&#39;Surface comparison 1&#39;</span><span class="p">]</span>
+    <span class="n">open_project</span><span class="p">(</span><span class="s1">'zeiss_part_test_project'</span><span class="p">)</span>
+    <span class="n">test_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">inspection</span><span class="p">[</span><span class="s1">'Surface comparison 1'</span><span class="p">]</span>
 
     <span class="c1"># Test definition</span>
     <span class="n">expected_single_value</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1673445701599121</span>
     <span class="k">assert</span> <span class="n">expected_single_value</span> <span class="o">==</span> <span class="n">example</span><span class="o">.</span><span class="n">get_single_result_value</span><span class="p">(</span><span class="n">test_element</span><span class="p">)</span>
 
     <span class="n">actual_result_array</span> <span class="o">=</span> <span class="n">example</span><span class="o">.</span><span class="n">get_result_values_array</span><span class="p">(</span><span class="n">test_element</span><span class="p">)</span>
-    <span class="n">test</span> <span class="o">=</span> <span class="n">ArrayDataTest</span><span class="p">(</span><span class="s1">&#39;test_data/data_interfaces_check_results.dat&#39;</span><span class="p">)</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="n">ArrayDataTest</span><span class="p">(</span><span class="s1">'test_data/data_interfaces_check_results.dat'</span><span class="p">)</span>
     <span class="n">test</span><span class="o">.</span><span class="n">testArrayValues</span><span class="p">(</span><span class="n">actual_result_array</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -237,11 +237,11 @@ To use this feature, navigate to the “Testing” workspace of VSCode and selec
 <section id="from-scripts">
 <h3>From scripts<a class="headerlink" href="#from-scripts" title="Link to this heading"></a></h3>
 <p>You can use the <code class="docutils literal notranslate"><span class="pre">execute_addon_tests</span></code> command to run tests of an App. It takes the App UUID as mandatory argument. If solely given, all tests of the App are executed. You can also provide a list of test paths with the argument <code class="docutils literal notranslate"><span class="pre">test_paths</span></code> in form of relative paths inside the App. The suffix <code class="docutils literal notranslate"><span class="pre">#test_&lt;...&gt;</span></code> selects the test function to be run.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">&#39;cc4de73f-a8b9-4c01-8f45-141a74f29333&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">'cc4de73f-a8b9-4c01-8f45-141a74f29333'</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">&#39;5f396cc9-7865-44a1-8a85-ed7c1689dd68&#39;</span><span class="p">,</span> 
-	<span class="n">test_paths</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;/PythonApiExamples/tests/test_dialog_widgets_explorer_selection#test_explorer_selection&#39;</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">'5f396cc9-7865-44a1-8a85-ed7c1689dd68'</span><span class="p">,</span> 
+	<span class="n">test_paths</span><span class="o">=</span><span class="p">[</span><span class="s1">'/PythonApiExamples/tests/test_dialog_widgets_explorer_selection#test_explorer_selection'</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>This will give you <code class="docutils literal notranslate"><span class="pre">results</span></code> as a list of tuples (test name, success, error message), which you can use for further evaluation.</p>
@@ -259,21 +259,21 @@ To use this feature, navigate to the “Testing” workspace of VSCode and selec
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_volume_section</span><span class="p">():</span>
 	<span class="c1"># Setup test project</span>
-	<span class="n">open_project</span><span class="p">(</span><span class="s1">&#39;volume_test_project&#39;</span><span class="p">)</span>
-	<span class="n">test_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">&#39;Plane X +40.00 mm&#39;</span><span class="p">]</span>
+	<span class="n">open_project</span><span class="p">(</span><span class="s1">'volume_test_project'</span><span class="p">)</span>
+	<span class="n">test_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">'Plane X +40.00 mm'</span><span class="p">]</span>
 	<span class="c1">#</span>
 	<span class="c1"># TEST</span>
 	<span class="c1">#</span>
-	<span class="n">element_test</span> <span class="o">=</span> <span class="n">ElementTest</span><span class="p">(</span><span class="s1">&#39;test_data/data_interfaces_volume_section_tokens.dat&#39;</span><span class="p">)</span>
-	<span class="n">element_test</span><span class="o">.</span><span class="n">testElementValues</span><span class="p">(</span><span class="n">test_element</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;image_width&#39;</span><span class="p">,</span> <span class="s1">&#39;image_height&#39;</span><span class="p">,</span> <span class="s1">&#39;image_type&#39;</span><span class="p">])</span>
+	<span class="n">element_test</span> <span class="o">=</span> <span class="n">ElementTest</span><span class="p">(</span><span class="s1">'test_data/data_interfaces_volume_section_tokens.dat'</span><span class="p">)</span>
+	<span class="n">element_test</span><span class="o">.</span><span class="n">testElementValues</span><span class="p">(</span><span class="n">test_element</span><span class="p">,</span> <span class="p">[</span><span class="s1">'image_width'</span><span class="p">,</span> <span class="s1">'image_height'</span><span class="p">,</span> <span class="s1">'image_type'</span><span class="p">])</span>
 	<span class="n">element_test</span><span class="o">.</span><span class="n">callTest</span><span class="p">()</span>
 
 	<span class="n">raw_array</span> <span class="o">=</span> <span class="n">example</span><span class="o">.</span><span class="n">get_image_data_raw</span><span class="p">(</span><span class="n">test_element</span><span class="p">)</span>
-	<span class="n">raw_array_test</span> <span class="o">=</span> <span class="n">ArrayDataTest</span><span class="p">(</span><span class="s1">&#39;test_data/data_interfaces_volume_section_raw.dat&#39;</span><span class="p">)</span>
+	<span class="n">raw_array_test</span> <span class="o">=</span> <span class="n">ArrayDataTest</span><span class="p">(</span><span class="s1">'test_data/data_interfaces_volume_section_raw.dat'</span><span class="p">)</span>
 	<span class="n">raw_array_test</span><span class="o">.</span><span class="n">testArrayValues</span><span class="p">(</span><span class="n">raw_array</span><span class="p">)</span>
 
 	<span class="n">rgb_array</span> <span class="o">=</span> <span class="n">example</span><span class="o">.</span><span class="n">get_image_data_rgb</span><span class="p">(</span><span class="n">test_element</span><span class="p">)</span>
-	<span class="n">rgb_array_test</span> <span class="o">=</span> <span class="n">ArrayDataTest</span><span class="p">(</span><span class="s1">&#39;test_data/data_interfaces_volume_section_rgb.dat&#39;</span><span class="p">)</span>
+	<span class="n">rgb_array_test</span> <span class="o">=</span> <span class="n">ArrayDataTest</span><span class="p">(</span><span class="s1">'test_data/data_interfaces_volume_section_rgb.dat'</span><span class="p">)</span>
 	<span class="n">rgb_array_test</span><span class="o">.</span><span class="n">testArrayValues</span><span class="p">(</span><span class="n">rgb_array</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -291,59 +291,59 @@ If a relative path is given – as in this example – a resource inside the App
 <h3>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
 <p><img alt="Example dialog" src="../../_images/that_dialog.png" /></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">code_that_contains_dialogs</span><span class="p">():</span>
-   <span class="n">dialog</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+   <span class="n">dialog</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 
    <span class="k">def</span><span class="w"> </span><span class="nf">handler</span><span class="p">(</span><span class="n">widget</span><span class="p">):</span>
-      <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="s1">&#39;initialize&#39;</span><span class="p">:</span>
-         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The dialog has been initialized.&#39;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="s1">'initialize'</span><span class="p">:</span>
+         <span class="nb">print</span><span class="p">(</span><span class="s1">'The dialog has been initialized.'</span><span class="p">)</span>
       <span class="k">elif</span> <span class="n">widget</span> <span class="o">==</span> <span class="n">dialog</span><span class="o">.</span><span class="n">button</span><span class="p">:</span>
-         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The dialog has been closed via the button&#39;</span><span class="p">)</span>
-         <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">close_user_defined_dialog</span><span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">dialog</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="s1">&#39;buttonresult&#39;</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="s1">'The dialog has been closed via the button'</span><span class="p">)</span>
+         <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">close_user_defined_dialog</span><span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">dialog</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="s1">'buttonresult'</span><span class="p">)</span>
       <span class="k">elif</span> <span class="n">widget</span> <span class="o">==</span> <span class="n">dialog</span><span class="o">.</span><span class="n">input</span><span class="p">:</span>
-         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The text field has been changed to contain </span><span class="si">{</span><span class="n">dialog</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'The text field has been changed to contain </span><span class="si">{</span><span class="n">dialog</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
    <span class="n">dialog</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">handler</span>
 
    <span class="k">try</span><span class="p">:</span>
       <span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span><span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">dialog</span><span class="p">)</span>
-      <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The result of the dialog is:</span><span class="se">\n</span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'The result of the dialog is:</span><span class="se">\n</span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
    <span class="k">except</span> <span class="n">gom</span><span class="o">.</span><span class="n">BreakError</span><span class="p">:</span>
-      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The dialog was canceled&#39;</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s1">'The dialog was canceled'</span><span class="p">)</span>
       
 <span class="n">code_that_contains_dialogs</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>For automated testing, we provide a callback function for each test case covering this dialog. We can set input values, trigger the dialog handler with a specified event and emulate the dialog’s <a class="reference internal" href="../user_defined_dialogs/dialog_widgets.html#control-widget"><span class="std std-ref">control widgets</span></a> (i.e. ‘Ok’ or ‘Cancel’ button). Note that each callback function evaluates the <code class="docutils literal notranslate"><span class="pre">dialog.title</span></code>. This allows to set up a function which can handle multiple dialogs.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span><span class="w"> </span><span class="nf">callback1</span><span class="p">(</span><span class="n">dialog</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s1">&#39;That Dialog&#39;</span> <span class="ow">in</span> <span class="n">dialog</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
-            <span class="n">dialog</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;autotext1&#39;</span>
+        <span class="k">if</span> <span class="s1">'That Dialog'</span> <span class="ow">in</span> <span class="n">dialog</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
+            <span class="n">dialog</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">'autotext1'</span>
             <span class="n">dialog</span><span class="o">.</span><span class="n">handler</span><span class="p">(</span><span class="n">dialog</span><span class="o">.</span><span class="n">button</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">callback2</span><span class="p">(</span><span class="n">dialog</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s1">&#39;That Dialog&#39;</span> <span class="ow">in</span> <span class="n">dialog</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
-            <span class="n">dialog</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;autotext2&#39;</span>
-            <span class="k">return</span> <span class="s1">&#39;close&#39;</span>
+        <span class="k">if</span> <span class="s1">'That Dialog'</span> <span class="ow">in</span> <span class="n">dialog</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
+            <span class="n">dialog</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">'autotext2'</span>
+            <span class="k">return</span> <span class="s1">'close'</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">callback3</span><span class="p">(</span><span class="n">dialog</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s1">&#39;That Dialog&#39;</span> <span class="ow">in</span> <span class="n">dialog</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
-            <span class="n">dialog</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;autotext3&#39;</span>
-            <span class="k">return</span> <span class="s1">&#39;cancel&#39;</span>
+        <span class="k">if</span> <span class="s1">'That Dialog'</span> <span class="ow">in</span> <span class="n">dialog</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
+            <span class="n">dialog</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">'autotext3'</span>
+            <span class="k">return</span> <span class="s1">'cancel'</span>
 </pre></div>
 </div>
 <p>Finally we use <code class="docutils literal notranslate"><span class="pre">AutoDialogContext</span></code> to run our unit-under-test — the function <code class="docutils literal notranslate"><span class="pre">code_that_contains_dialogs()</span></code> — while applying our callback functions.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gom_test_helpers.dialogs.AutoDialogContext</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoDialogContext</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Automatically executing the dialog with callback1&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Automatically executing the dialog with callback1'</span><span class="p">)</span>
 <span class="k">with</span> <span class="n">AutoDialogContext</span><span class="p">(</span><span class="n">callback1</span><span class="p">):</span>
 	<span class="n">code_that_contains_dialogs</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Automatically executing the dialog with callback2&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Automatically executing the dialog with callback2'</span><span class="p">)</span>
 <span class="k">with</span> <span class="n">AutoDialogContext</span><span class="p">(</span><span class="n">callback2</span><span class="p">):</span>
 	<span class="n">code_that_contains_dialogs</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Automatically executing the dialog with callback3&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Automatically executing the dialog with callback3'</span><span class="p">)</span>
 <span class="k">with</span> <span class="n">AutoDialogContext</span><span class="p">(</span><span class="n">callback3</span><span class="p">):</span>
 	<span class="n">code_that_contains_dialogs</span><span class="p">()</span>
 </pre></div>
@@ -360,7 +360,7 @@ If a relative path is given – as in this example – a resource inside the App
 <span class="n">The</span> <span class="n">dialog</span> <span class="n">has</span> <span class="n">been</span> <span class="n">initialized</span><span class="o">.</span>
 <span class="n">The</span> <span class="n">text</span> <span class="n">field</span> <span class="n">has</span> <span class="n">been</span> <span class="n">changed</span> <span class="n">to</span> <span class="n">contain</span> <span class="n">autotext2</span>
 <span class="n">The</span> <span class="n">result</span> <span class="n">of</span> <span class="n">the</span> <span class="n">dialog</span> <span class="ow">is</span><span class="p">:</span>
-<span class="n">gom</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">DialogResult</span> <span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;input&#39;</span><span class="p">:</span> <span class="s1">&#39;autotext2&#39;</span><span class="p">)</span>
+<span class="n">gom</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">DialogResult</span> <span class="p">(</span><span class="s1">'button'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">'input'</span><span class="p">:</span> <span class="s1">'autotext2'</span><span class="p">)</span>
 
 <span class="n">Automatically</span> <span class="n">executing</span> <span class="n">the</span> <span class="n">dialog</span> <span class="k">with</span> <span class="n">callback3</span>
 <span class="n">The</span> <span class="n">dialog</span> <span class="n">has</span> <span class="n">been</span> <span class="n">initialized</span><span class="o">.</span>
@@ -414,13 +414,13 @@ Test case folder: C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspect-app-examp
 sys.path=
 [...]
 
-reports_path=&#39;reports&#39;
+reports_path='reports'
 pytest_args=[...]
 
 ============================= test session starts =============================
 platform win32 -- Python 3.9.22, pytest-8.4.1, pluggy-1.6.0 -- C:\Program Files\Zeiss\INSPECT\2026\python\python.exe
 cachedir: .pytest_cache
-metadata: {&#39;Python&#39;: &#39;3.9.22&#39;, &#39;Platform&#39;: &#39;Windows-10-10.0.22621-SP0&#39;, &#39;Packages&#39;: {&#39;pytest&#39;: &#39;8.4.1&#39;, &#39;pluggy&#39;: &#39;1.6.0&#39;}, &#39;Plugins&#39;: {&#39;cov&#39;: &#39;6.2.1&#39;, &#39;html&#39;: &#39;4.1.1&#39;, &#39;metadata&#39;: &#39;3.1.1&#39;}}
+metadata: {'Python': '3.9.22', 'Platform': 'Windows-10-10.0.22621-SP0', 'Packages': {'pytest': '8.4.1', 'pluggy': '1.6.0'}, 'Plugins': {'cov': '6.2.1', 'html': '4.1.1', 'metadata': '3.1.1'}}
 rootdir: C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspect-app-examples\AppExamples\misc\PytestTemplate\scripts\tests
 configfile: pytest_integrationtest_coverage.ini
 plugins: cov-6.2.1, html-4.1.1, metadata-3.1.1
@@ -440,12 +440,12 @@ scripts\tests\test_units\test_units.py::test_pass PASSED                 [100%]
 ________________________________ test_blackbox ________________________________
 
     def test_blackbox():
-        &#39;&#39;&#39;Executing the UUT as the entire script&#39;&#39;&#39;
+        '''Executing the UUT as the entire script'''
         gom.script.sys.close_project()
         gom.script.sys.create_project()
     
         # Add-on relative path to UUT
-        uut_path = &#39;scripts/uut_project_keywords.py&#39;
+        uut_path = 'scripts/uut_project_keywords.py'
     
         # Get path of UUT
         addon = gom.api.addons.get_current_addon()
@@ -455,9 +455,9 @@ ________________________________ test_blackbox ________________________________
         gom.script.sys.execute_script(file=uut_path)
     
         # Check project state
-        assert gom.app.project.get(&#39;user_inspector&#39;) == &#39;Clouseau&#39;
-&gt;       assert gom.app.project.get(&#39;user_project&#39;) == &#39;Test Projet&#39; # intended to fail
-E       AssertionError: assert &#39;Test Project&#39; == &#39;Test Projet&#39;
+        assert gom.app.project.get('user_inspector') == 'Clouseau'
+&gt;       assert gom.app.project.get('user_project') == 'Test Projet' # intended to fail
+E       AssertionError: assert 'Test Project' == 'Test Projet'
 E         
 E         - Test Projet
 E         + Test Project
@@ -467,7 +467,7 @@ scripts\tests\test_integration\test_blackbox.py:32: AssertionError
 __________________________________ test_fail __________________________________
 
     def test_fail():
-        &quot;&quot;&quot;This test has no unit-under-test and always fails&quot;&quot;&quot;
+        """This test has no unit-under-test and always fails"""
 &gt;       assert False
 E       assert False
 
@@ -505,7 +505,7 @@ Coverage XML written to file C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspec
 0.00s setup    test_integration/test_pass.py::test_pass
 - Generated html report: file:///C:/Users/&lt;USERID&gt;/Documents/work/zeiss-inspect-app-examples/AppExamples/misc/PytestTemplate/scripts/tests/reports/html/integrationtest-sw2026-results.html -
 =========================== short test summary info ===========================
-FAILED scripts\tests\test_integration\test_blackbox.py::test_blackbox - AssertionError: assert &#39;Test Project&#39; == &#39;Test Projet&#39;
+FAILED scripts\tests\test_integration\test_blackbox.py::test_blackbox - AssertionError: assert 'Test Project' == 'Test Projet'
   
   - Test Projet
   + Test Project
@@ -567,7 +567,7 @@ Coverage Report: file://C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspect-app
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fa89af397f0>
+  <jinja2.runtime.BlockReference object at 0x7fc33e742510>
 
 
 </footer>
