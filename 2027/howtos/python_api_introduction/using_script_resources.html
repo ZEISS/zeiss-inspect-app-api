@@ -144,7 +144,7 @@ The qualified name starts with a <code class="docutils literal notranslate"><spa
 <p>When using relative paths, the path is resolved to the script <em>currently executed</em>. This is not inevitably the script containing the <code class="docutils literal notranslate"><span class="pre">gom.Resource</span></code> call. E.g., when you import a script (A) containing a <code class="docutils literal notranslate"><span class="pre">gom.Resource</span></code> call in another script (B) and then execute the script (B), script (B) will be the <em>currently executed</em> one. In this case, usage of qualified names is advised.</p>
 </div>
 <p>Suppose you created a script called <code class="docutils literal notranslate"><span class="pre">resource_example.py</span></code> in a folder next to <code class="docutils literal notranslate"><span class="pre">test_resource.txt</span></code>. In the script, you can read the data in the following way:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">Resource</span> <span class="p">(</span><span class="s2">&quot;test_resource.txt&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">Resource</span> <span class="p">(</span><span class="s2">"test_resource.txt"</span><span class="p">)</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">exists</span><span class="p">()):</span>
    <span class="nb">print</span> <span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">open</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 </pre></div>
@@ -181,7 +181,7 @@ The qualified name starts with a <code class="docutils literal notranslate"><spa
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fb28ecf6740>
+  <jinja2.runtime.BlockReference object at 0x7f25d7ffaeb0>
 
 
 </footer>

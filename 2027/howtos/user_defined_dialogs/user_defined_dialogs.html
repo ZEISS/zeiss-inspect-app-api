@@ -185,35 +185,35 @@
 <p>The base filename of a dialog file is <code class="docutils literal notranslate"><span class="pre">dialog.gdlg</span></code>, it can be renamed later. A dialog is stored as a JSON document internally.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Example: Script with separate dialog file</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Example: Script with embedded dialog</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span>
-    <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"content"</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">[</span>
             <span class="p">{</span>
                 <span class="o">...</span>
             <span class="p">}</span>
         <span class="p">]</span>
     <span class="p">],</span>    
-    <span class="s2">&quot;control&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;OkCancel&quot;</span>
+    <span class="s2">"control"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"OkCancel"</span>
     <span class="p">},</span>
-    <span class="s2">&quot;embedding&quot;</span><span class="p">:</span> <span class="s2">&quot;always_toplevel&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="s2">&quot;automatic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">155</span><span class="p">,</span>    
-        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">198</span>
+    <span class="s2">"embedding"</span><span class="p">:</span> <span class="s2">"always_toplevel"</span><span class="p">,</span>
+    <span class="s2">"position"</span><span class="p">:</span> <span class="s2">"automatic"</span><span class="p">,</span>
+    <span class="s2">"size"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"height"</span><span class="p">:</span> <span class="mi">155</span><span class="p">,</span>    
+        <span class="s2">"width"</span><span class="p">:</span> <span class="mi">198</span>
     <span class="p">},</span>
-    <span class="s2">&quot;sizemode&quot;</span><span class="p">:</span> <span class="s2">&quot;automatic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Message&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;translatable&quot;</span><span class="p">:</span>     <span class="kc">True</span>
+    <span class="s2">"sizemode"</span><span class="p">:</span> <span class="s2">"automatic"</span><span class="p">,</span>
+    <span class="s2">"style"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"title"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"text"</span><span class="p">:</span> <span class="s2">"Message"</span><span class="p">,</span>
+        <span class="s2">"translatable"</span><span class="p">:</span>     <span class="kc">True</span>
     <span class="p">}</span>
 <span class="p">})</span>
 </pre></div>
@@ -369,7 +369,7 @@
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fb28f54a190>
+  <jinja2.runtime.BlockReference object at 0x7f25d7c38600>
 
 
 </footer>
