@@ -320,7 +320,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Basic example for triggering command execution in ZEISS INSPECT from command line via WebSocket protocol
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 
 </div>
