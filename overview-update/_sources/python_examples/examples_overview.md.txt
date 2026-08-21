@@ -543,7 +543,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Text detection example
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#measurement">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> <a href="#image-widget">![Static Badge](https://img.shields.io/badge/image--widget-blue)</a> 
