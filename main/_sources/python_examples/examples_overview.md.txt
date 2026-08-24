@@ -48,10 +48,10 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [zeiss_part_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_api_introduction/python_api_introduction.html#access-element-properties)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/python_api_introduction/python_api_introduction.html#access-element-properties)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#element-properties">![Static Badge](https://img.shields.io/badge/element--properties-blue)</a> <a href="#element-data">![Static Badge](https://img.shields.io/badge/element--data-blue)</a> 
@@ -73,10 +73,10 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [zeiss_part_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#reference-points">![Static Badge](https://img.shields.io/badge/reference--points-blue)</a> <a href="#mesh">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#measurement">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
@@ -98,10 +98,10 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [volume_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#element-data">![Static Badge](https://img.shields.io/badge/element--data-blue)</a> 
@@ -263,7 +263,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Display measurement as a single image
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#image-widget">![Static Badge](https://img.shields.io/badge/image--widget-blue)</a> <a href="#measurement">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
@@ -282,7 +282,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Example for reading and writing Excel files from an App
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#import">![Static Badge](https://img.shields.io/badge/import-blue)</a> <a href="#export">![Static Badge](https://img.shields.io/badge/export-blue)</a> <a href="#project-keywords">![Static Badge](https://img.shields.io/badge/project--keywords-blue)</a> 
@@ -320,7 +320,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Basic example for triggering command execution in ZEISS INSPECT from command line via WebSocket protocol
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 
 </div>
@@ -417,10 +417,10 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     App template for running integration tests and unit tests with coverage using pytest
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/testing_apps/testing_apps.html)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/testing_apps/testing_apps.html)
 
 :Required Software:
-    ZEISS INSPECT 2025
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#testing">![Static Badge](https://img.shields.io/badge/testing-blue)</a> 
@@ -439,7 +439,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Example demonstrating how to use the pywin32 package in a ZEISS INSPECT App
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#pywin32">![Static Badge](https://img.shields.io/badge/pywin32-blue)</a> <a href="#windows">![Static Badge](https://img.shields.io/badge/windows-blue)</a> <a href="#python">![Static Badge](https://img.shields.io/badge/python-blue)</a> 
@@ -543,7 +543,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Text detection example
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#measurement">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> <a href="#image-widget">![Static Badge](https://img.shields.io/badge/image--widget-blue)</a> 
@@ -748,10 +748,10 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     This is an example for a scripted actual 'curve' element.
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#curve)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#curve)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#curve">![Static Badge](https://img.shields.io/badge/curve-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -817,7 +817,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#point)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#point">![Static Badge](https://img.shields.io/badge/point-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -839,7 +839,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#point-cloud)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#point-cloud">![Static Badge](https://img.shields.io/badge/point--cloud-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -861,7 +861,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#section)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#section">![Static Badge](https://img.shields.io/badge/section-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -883,7 +883,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#surface)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#surface">![Static Badge](https://img.shields.io/badge/surface-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -905,7 +905,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#surface-curve)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#surface-curve">![Static Badge](https://img.shields.io/badge/surface--curve-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -927,7 +927,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#volume)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume">![Static Badge](https://img.shields.io/badge/volume-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -949,7 +949,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#volume-defects)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume-defects">![Static Badge](https://img.shields.io/badge/volume--defects-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -971,7 +971,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#volume-region)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume-region">![Static Badge](https://img.shields.io/badge/volume--region-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -993,7 +993,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#volume-section)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume-section">![Static Badge](https://img.shields.io/badge/volume--section-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -1040,7 +1040,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#surface)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#mesh">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#surface">![Static Badge](https://img.shields.io/badge/surface-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -1069,7 +1069,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_checks.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#scalar-curve)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#scripted-check">![Static Badge](https://img.shields.io/badge/scripted--check-blue)</a> <a href="#curve">![Static Badge](https://img.shields.io/badge/curve-blue)</a> 
@@ -1119,7 +1119,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_checks.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#scalar-surface)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#scripted-check">![Static Badge](https://img.shields.io/badge/scripted--check-blue)</a> <a href="#surface">![Static Badge](https://img.shields.io/badge/surface-blue)</a> 
