@@ -190,14 +190,14 @@
 <span class="linenos"> 9</span>
 <span class="linenos">10</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="linenos">11</span>        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span>
-<span class="linenos">12</span>            <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_scalar_inspection&#39;</span><span class="p">,</span>
-<span class="linenos">13</span>            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Scalar Inspection&#39;</span><span class="p">,</span>
-<span class="linenos">14</span>            <span class="n">dimension</span><span class="o">=</span><span class="s1">&#39;length&#39;</span><span class="p">,</span>
-<span class="linenos">15</span>            <span class="n">abbreviation</span><span class="o">=</span><span class="s1">&#39;ScrSca&#39;</span>
+<span class="linenos">12</span>            <span class="nb">id</span><span class="o">=</span><span class="s1">'examples.custom_scalar_inspection'</span><span class="p">,</span>
+<span class="linenos">13</span>            <span class="n">description</span><span class="o">=</span><span class="s1">'Custom Scalar Inspection'</span><span class="p">,</span>
+<span class="linenos">14</span>            <span class="n">dimension</span><span class="o">=</span><span class="s1">'length'</span><span class="p">,</span>
+<span class="linenos">15</span>            <span class="n">abbreviation</span><span class="o">=</span><span class="s1">'ScrSca'</span>
 <span class="linenos">16</span>        <span class="p">)</span>
 <span class="linenos">17</span>
 <span class="linenos">18</span>    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-<span class="linenos">19</span>        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;/Custom_Scalar_Inspection.gdlg&#39;</span><span class="p">)</span>
+<span class="linenos">19</span>        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'/Custom_Scalar_Inspection.gdlg'</span><span class="p">)</span>
 <span class="linenos">20</span>        <span class="c1"># -------------------------------------------------------------------------</span>
 <span class="linenos">21</span>        <span class="n">dlg</span><span class="o">.</span><span class="n">slct_element</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">custom_checks_util</span><span class="o">.</span><span class="n">is_scalar_checkable</span>
 <span class="linenos">22</span>        <span class="c1"># -------------------------------------------------------------------------</span>
@@ -209,12 +209,12 @@
 <span class="linenos">28</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">))</span>
 <span class="linenos">29</span>
 <span class="linenos">30</span>    <span class="k">def</span><span class="w"> </span><span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event_type</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-<span class="linenos">31</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">31</span><span class="w">        </span><span class="sd">"""</span>
 <span class="linenos">32</span><span class="sd">        Set custom inspection name: &lt;target_element&gt;.&lt;abbreviation&gt;</span>
-<span class="linenos">33</span><span class="sd">        &quot;&quot;&quot;</span>
-<span class="linenos">34</span>        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">&#39;dialog::initialized&#39;</span> <span class="ow">or</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">&#39;dialog::changed&#39;</span><span class="p">:</span>
-<span class="linenos">35</span>            <span class="k">if</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">][</span><span class="s1">&#39;slct_element&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">36</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">slct_element</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="s1">&#39;ScrSca&#39;</span>
+<span class="linenos">33</span><span class="sd">        """</span>
+<span class="linenos">34</span>        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">'dialog::initialized'</span> <span class="ow">or</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">'dialog::changed'</span><span class="p">:</span>
+<span class="linenos">35</span>            <span class="k">if</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">'values'</span><span class="p">][</span><span class="s1">'slct_element'</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">36</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">slct_element</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">'.'</span> <span class="o">+</span> <span class="s1">'ScrSca'</span>
 <span class="linenos">37</span>                <span class="k">return</span> <span class="kc">True</span>
 <span class="linenos">38</span>
 <span class="linenos">39</span>        <span class="k">return</span> <span class="kc">False</span>
@@ -227,10 +227,10 @@
 <span class="linenos">46</span>        <span class="n">NOMINAL_RESULT</span> <span class="o">=</span> <span class="mf">2.0</span>
 <span class="linenos">47</span>        <span class="c1"># ----------------------------------------------------</span>
 <span class="linenos">48</span>        <span class="k">return</span> <span class="p">{</span>
-<span class="linenos">49</span>            <span class="s2">&quot;nominal&quot;</span><span class="p">:</span> <span class="n">NOMINAL_RESULT</span><span class="p">,</span>
-<span class="linenos">50</span>            <span class="s2">&quot;actual&quot;</span><span class="p">:</span>  <span class="n">ACTUAL_RESULT</span><span class="p">,</span>
-<span class="linenos">51</span>            <span class="s2">&quot;target_element&quot;</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;slct_element&#39;</span><span class="p">],</span>
-<span class="linenos">52</span>            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;unit&#39;</span><span class="p">]</span>
+<span class="linenos">49</span>            <span class="s2">"nominal"</span><span class="p">:</span> <span class="n">NOMINAL_RESULT</span><span class="p">,</span>
+<span class="linenos">50</span>            <span class="s2">"actual"</span><span class="p">:</span>  <span class="n">ACTUAL_RESULT</span><span class="p">,</span>
+<span class="linenos">51</span>            <span class="s2">"target_element"</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">'slct_element'</span><span class="p">],</span>
+<span class="linenos">52</span>            <span class="s2">"unit"</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">'unit'</span><span class="p">]</span>
 <span class="linenos">53</span>        <span class="p">}</span>
 <span class="linenos">54</span>
 <span class="linenos">55</span><span class="n">gom</span><span class="o">.</span><span class="n">run_api</span> <span class="p">()</span>
@@ -261,8 +261,8 @@
 <div class="code-block-caption"><span class="caption-text">Forwarding tolerance values in apply_dialog()</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">apply_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
 <span class="linenos">2</span>    <span class="n">params</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
-<span class="linenos">3</span>    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-<span class="linenos">4</span>    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;tolerance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;tolerance&#39;</span><span class="p">]</span>
+<span class="linenos">3</span>    <span class="n">params</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span>
+<span class="linenos">4</span>    <span class="n">params</span><span class="p">[</span><span class="s1">'tolerance'</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">'tolerance'</span><span class="p">]</span>
 <span class="linenos">5</span>    <span class="k">return</span> <span class="n">params</span>
 </pre></div>
 </div>
@@ -312,7 +312,7 @@
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fc724b76c60>
+  <jinja2.runtime.BlockReference object at 0x7f85534195e0>
 
 
 </footer>

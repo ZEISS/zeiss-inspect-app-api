@@ -169,18 +169,18 @@
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
 <span class="c1"># create main wizard dialog:</span>
 <span class="c1">#</span>
-<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;...&#39;</span><span class="p">})</span>
+<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span><span class="s1">'...'</span><span class="p">})</span>
 
 <span class="c1">#</span>
 <span class="c1"># Dummy dialogs containing the images of the corresponding steps encoded in JSON</span>
 <span class="c1">#</span>
-<span class="n">STEP_1</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;...&#39;</span><span class="p">})</span>
+<span class="n">STEP_1</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span><span class="s1">'...'</span><span class="p">})</span>
  
-<span class="n">STEP_2</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;...&#39;</span><span class="p">})</span>
+<span class="n">STEP_2</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span><span class="s1">'...'</span><span class="p">})</span>
  
-<span class="n">STEP_3</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;...&#39;</span><span class="p">})</span>
+<span class="n">STEP_3</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span><span class="s1">'...'</span><span class="p">})</span>
  
-<span class="n">STEP_4</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;...&#39;</span><span class="p">})</span>
+<span class="n">STEP_4</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span><span class="s1">'...'</span><span class="p">})</span>
 
 <span class="c1">#</span>
 <span class="c1"># The dummy dialogs are organized in an array for a simple step transition logic</span>
@@ -201,7 +201,7 @@
     <span class="n">steps</span><span class="p">[</span><span class="n">count</span><span class="p">]</span><span class="o">.</span><span class="n">noteInput</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span>  <span class="n">DIALOG</span><span class="o">.</span><span class="n">noteInput</span><span class="o">.</span><span class="n">value</span>
  
     <span class="c1">#</span>
-    <span class="c1"># &#39;next&#39; button has been pressed</span>
+    <span class="c1"># 'next' button has been pressed</span>
     <span class="c1">#</span>
     <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span> <span class="p">(</span><span class="n">steps</span><span class="p">):</span>
@@ -211,7 +211,7 @@
             <span class="n">DIALOG</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">count</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">data</span>
  
     <span class="c1">#</span>
-    <span class="c1"># &#39;prev&#39; button has been pressed</span>
+    <span class="c1"># 'prev' button has been pressed</span>
     <span class="c1">#</span>
     <span class="k">elif</span> <span class="n">widget</span> <span class="o">==</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">prev</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -238,8 +238,8 @@ Finally we register the handler function to the dialog and display the wizard di
 <section id="changing-the-button-text">
 <h2>Changing the button text<a class="headerlink" href="#changing-the-button-text" title="Link to this heading"></a></h2>
 <p>You can easily change the text of the <strong>Next</strong> and <strong>Back</strong> buttons:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;randomButtonText&quot;</span>
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">prev</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;anotherRandomButtonText&quot;</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">next</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">"randomButtonText"</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">prev</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">"anotherRandomButtonText"</span>
 </pre></div>
 </div>
 </section>
@@ -255,7 +255,7 @@ First of all we have to define appropriate dialogs:</p>
 </div>
 <p>This time, STEP_2, STEP_3 and STEP_4 won´t be simple dummy dialogs used as containers, they have to be wizard dialogs instead. Now let us define the handler function:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">steps</span> <span class="o">=</span> <span class="p">[</span><span class="n">DIALOG</span><span class="p">,</span> <span class="n">STEP_2</span><span class="p">,</span> <span class="n">STEP_3</span><span class="p">,</span> <span class="n">STEP_4</span><span class="p">]</span>
-<span class="n">inputStrings</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
+<span class="n">inputStrings</span> <span class="o">=</span> <span class="p">[</span><span class="s1">''</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> <span class="s1">''</span><span class="p">]</span>
 <span class="n">current_step</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 <span class="n">new_step</span> <span class="o">=</span> <span class="mi">0</span>
  
@@ -334,7 +334,7 @@ First of all we have to define appropriate dialogs:</p>
     <span class="n">steps</span><span class="p">[</span><span class="n">count</span><span class="p">]</span><span class="o">.</span><span class="n">noteInput</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span>  <span class="n">DIALOG</span><span class="o">.</span><span class="n">noteInput</span><span class="o">.</span><span class="n">value</span>
 
     <span class="c1">#</span>
-    <span class="c1"># &#39;next&#39; button has been pressed</span>
+    <span class="c1"># 'next' button has been pressed</span>
     <span class="c1">#</span>
     <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span> <span class="p">(</span><span class="n">steps</span><span class="p">):</span>
@@ -343,7 +343,7 @@ First of all we have to define appropriate dialogs:</p>
             <span class="n">DIALOG</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">count</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">text</span>
             <span class="n">DIALOG</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">count</span><span class="p">]</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">data</span>
     <span class="c1">#</span>
-    <span class="c1"># &#39;prev&#39; button has been pressed</span>
+    <span class="c1"># 'prev' button has been pressed</span>
     <span class="c1">#</span>
     <span class="k">elif</span> <span class="n">widget</span> <span class="o">==</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">prev</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -391,7 +391,7 @@ First of all we have to define appropriate dialogs:</p>
 <span class="n">current_step</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 <span class="n">new_step</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">steps</span> <span class="o">=</span> <span class="p">[</span><span class="n">DIALOG</span><span class="p">,</span> <span class="n">STEP_2</span><span class="p">,</span> <span class="n">STEP_3</span><span class="p">,</span> <span class="n">STEP_4</span><span class="p">]</span>
-<span class="n">inputStrings</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
+<span class="n">inputStrings</span> <span class="o">=</span> <span class="p">[</span><span class="s1">''</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> <span class="s1">''</span><span class="p">,</span> <span class="s1">''</span><span class="p">]</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">handler_func</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
     <span class="k">global</span> <span class="n">current_step</span><span class="p">,</span> <span class="n">new_step</span>
@@ -453,7 +453,7 @@ First of all we have to define appropriate dialogs:</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fc725bf3cb0>
+  <jinja2.runtime.BlockReference object at 0x7f855418b690>
 
 
 </footer>

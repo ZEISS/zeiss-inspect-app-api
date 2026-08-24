@@ -838,41 +838,41 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="k">class</span><span class="w"> </span><span class="nc">MyActualCircle</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">actuals</span><span class="o">.</span><span class="n">Circle</span><span class="p">):</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Register the custom actual circle contribution.&quot;&quot;&quot;</span>
-        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_diagrams.actual_circle&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Actual Circle for Diagram Examples&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Register the custom actual circle contribution."""</span>
+        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'examples.custom_diagrams.actual_circle'</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">'Custom Actual Circle for Diagram Examples'</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open the input dialog for center, direction, and radius.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/Custom_Circle.gdlg&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">"""Open the input dialog for center, direction, and radius."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">'/Custom_Circle.gdlg'</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute circle geometry and payload from dialog values.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Compute circle geometry and payload from dialog values."""</span>
         <span class="c1"># ... parse values and return center/direction/radius payload ...</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">...</span><span class="p">),</span> <span class="s1">&#39;direction&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">...</span><span class="p">),</span> <span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">&#39;radius&#39;</span><span class="p">]}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">'center'</span><span class="p">:</span> <span class="p">(</span><span class="o">...</span><span class="p">),</span> <span class="s1">'direction'</span><span class="p">:</span> <span class="p">(</span><span class="o">...</span><span class="p">),</span> <span class="s1">'radius'</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">'radius'</span><span class="p">]}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">finish</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span> <span class="p">,</span> <span class="n">results_states</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Map stage-0 element results to diagram services via contribution IDs.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Map stage-0 element results to diagram services via contribution IDs."""</span>
         <span class="n">diagram_data</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># All examples in this App use the SVGDiagram renderer.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_diagram_data</span><span class="p">(</span>
             <span class="n">diagram_data</span> <span class="o">=</span> <span class="n">diagram_data</span><span class="p">,</span>
-            <span class="n">diagram_id</span> <span class="o">=</span> <span class="s1">&#39;SVGDiagram&#39;</span><span class="p">,</span>
-            <span class="n">service_id</span> <span class="o">=</span> <span class="s1">&#39;com.zeiss.example.custom_diagrams.basic&#39;</span><span class="p">,</span>
-            <span class="n">element_data</span> <span class="o">=</span> <span class="n">results_states</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">diagram_id</span> <span class="o">=</span> <span class="s1">'SVGDiagram'</span><span class="p">,</span>
+            <span class="n">service_id</span> <span class="o">=</span> <span class="s1">'com.zeiss.example.custom_diagrams.basic'</span><span class="p">,</span>
+            <span class="n">element_data</span> <span class="o">=</span> <span class="n">results_states</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_diagram_data</span><span class="p">(</span>
             <span class="n">diagram_data</span> <span class="o">=</span> <span class="n">diagram_data</span><span class="p">,</span>
-            <span class="n">diagram_id</span> <span class="o">=</span> <span class="s1">&#39;SVGDiagram&#39;</span><span class="p">,</span>
-            <span class="n">service_id</span> <span class="o">=</span> <span class="s1">&#39;com.zeiss.example.custom_diagrams.element_overlay&#39;</span><span class="p">,</span>
-            <span class="n">element_data</span> <span class="o">=</span> <span class="n">results_states</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">diagram_id</span> <span class="o">=</span> <span class="s1">'SVGDiagram'</span><span class="p">,</span>
+            <span class="n">service_id</span> <span class="o">=</span> <span class="s1">'com.zeiss.example.custom_diagrams.element_overlay'</span><span class="p">,</span>
+            <span class="n">element_data</span> <span class="o">=</span> <span class="n">results_states</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_diagram_data</span><span class="p">(</span>
             <span class="n">diagram_data</span> <span class="o">=</span> <span class="n">diagram_data</span><span class="p">,</span>
-            <span class="n">diagram_id</span> <span class="o">=</span> <span class="s1">&#39;SVGDiagram&#39;</span><span class="p">,</span>
-            <span class="n">service_id</span> <span class="o">=</span> <span class="s1">&#39;com.zeiss.example.custom_diagrams.point_cloud_overlay&#39;</span><span class="p">,</span>
-            <span class="n">element_data</span> <span class="o">=</span> <span class="n">results_states</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">diagram_id</span> <span class="o">=</span> <span class="s1">'SVGDiagram'</span><span class="p">,</span>
+            <span class="n">service_id</span> <span class="o">=</span> <span class="s1">'com.zeiss.example.custom_diagrams.point_cloud_overlay'</span><span class="p">,</span>
+            <span class="n">element_data</span> <span class="o">=</span> <span class="n">results_states</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="p">)</span>
-        <span class="n">results_states</span><span class="p">[</span><span class="s2">&quot;diagram_data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">diagram_data</span>
+        <span class="n">results_states</span><span class="p">[</span><span class="s2">"diagram_data"</span><span class="p">]</span> <span class="o">=</span> <span class="n">diagram_data</span>
         <span class="k">return</span> <span class="n">results_states</span>
 
     <span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">()</span>
@@ -932,14 +932,14 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="linenos"> 8</span><span class="k">class</span><span class="w"> </span><span class="nc">MyBasicDiagram</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">diagrams</span><span class="o">.</span><span class="n">SVGDiagram</span><span class="p">):</span>
 <span class="linenos"> 9</span>
 <span class="linenos">10</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">11</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize service metadata for the basic diagram.&quot;&quot;&quot;</span>
+<span class="linenos">11</span><span class="w">        </span><span class="sd">"""Initialize service metadata for the basic diagram."""</span>
 <span class="linenos">12</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-<span class="linenos">13</span>            <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;com.zeiss.example.custom_diagrams.basic&#39;</span><span class="p">,</span>
-<span class="linenos">14</span>            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Basic Custom Diagram&#39;</span>
+<span class="linenos">13</span>            <span class="nb">id</span><span class="o">=</span><span class="s1">'com.zeiss.example.custom_diagrams.basic'</span><span class="p">,</span>
+<span class="linenos">14</span>            <span class="n">description</span><span class="o">=</span><span class="s1">'Basic Custom Diagram'</span>
 <span class="linenos">15</span>        <span class="p">)</span>
 <span class="linenos">16</span>
 <span class="linenos">17</span>    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">element_data</span><span class="p">):</span>
-<span class="linenos">18</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Render a radius-over-index line plot as SVG.&quot;&quot;&quot;</span>
+<span class="linenos">18</span><span class="w">        </span><span class="sd">"""Render a radius-over-index line plot as SVG."""</span>
 <span class="linenos">19</span>        <span class="c1"># Helper methods omitted for clarity:</span>
 <span class="linenos">20</span>        <span class="c1"># _normalized_view(view), _export_svg(fig, safe_view)</span>
 <span class="linenos">21</span>        <span class="n">safe_view</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalized_view</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
@@ -947,12 +947,12 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="linenos">23</span>        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 <span class="linenos">24</span>
 <span class="linenos">25</span>        <span class="n">x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">element_data</span><span class="p">)))</span>
-<span class="linenos">26</span>        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;radius&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">element_entry</span> <span class="ow">in</span> <span class="n">element_data</span><span class="p">]</span>
+<span class="linenos">26</span>        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">element_entry</span><span class="p">[</span><span class="s1">'data'</span><span class="p">][</span><span class="s1">'radius'</span><span class="p">]</span> <span class="k">for</span> <span class="n">element_entry</span> <span class="ow">in</span> <span class="n">element_data</span><span class="p">]</span>
 <span class="linenos">27</span>
-<span class="linenos">28</span>        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
-<span class="linenos">29</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Basic Diagram&#39;</span><span class="p">)</span>
-<span class="linenos">30</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Index&#39;</span><span class="p">)</span>
-<span class="linenos">31</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Radius&#39;</span><span class="p">)</span>
+<span class="linenos">28</span>        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="linenos">29</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Basic Diagram'</span><span class="p">)</span>
+<span class="linenos">30</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Index'</span><span class="p">)</span>
+<span class="linenos">31</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Radius'</span><span class="p">)</span>
 <span class="linenos">32</span>
 <span class="linenos">33</span>        <span class="n">svg_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_svg</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">safe_view</span><span class="p">)</span>
 <span class="linenos">34</span>        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
@@ -976,7 +976,7 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <ol class="arabic simple">
 <li><p>The service is started and visible in the service manager.</p></li>
 <li><p>The custom element data entries provide <code class="docutils literal notranslate"><span class="pre">element</span></code> references.</p></li>
-<li><p>A follow-up script named <code class="docutils literal notranslate"><span class="pre">testscript.py</span></code> exists in the App (or adjust <code class="docutils literal notranslate"><span class="pre">event()</span></code> accordingly).</p></li>
+<li><p>A follow-up script named <code class="docutils literal notranslate"><span class="pre">diagram_click_callback.py</span></code> exists in the App (or adjust <code class="docutils literal notranslate"><span class="pre">event()</span></code> accordingly).</p></li>
 </ol>
 </div>
 <div class="literal-block-wrapper docutils container" id="id3">
@@ -989,22 +989,22 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="linenos"> 6</span><span class="nd">@apicontribution</span>
 <span class="linenos"> 7</span><span class="k">class</span><span class="w"> </span><span class="nc">DiagramWithElementOverlay</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">diagrams</span><span class="o">.</span><span class="n">SVGDiagram</span><span class="p">):</span>
 <span class="linenos"> 8</span>
-<span class="linenos"> 9</span>    <span class="n">RENDER_CONFIG</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;auto_generated_overlay_use&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
-<span class="linenos">10</span>    <span class="n">DEFAULT_MARKER_COLOR</span> <span class="o">=</span> <span class="s1">&#39;#4c956c&#39;</span>
-<span class="linenos">11</span>    <span class="n">SELECTED_MARKER_COLOR</span> <span class="o">=</span> <span class="s1">&#39;#f45d48&#39;</span>
+<span class="linenos"> 9</span>    <span class="n">RENDER_CONFIG</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'auto_generated_overlay_use'</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+<span class="linenos">10</span>    <span class="n">DEFAULT_MARKER_COLOR</span> <span class="o">=</span> <span class="s1">'#4c956c'</span>
+<span class="linenos">11</span>    <span class="n">SELECTED_MARKER_COLOR</span> <span class="o">=</span> <span class="s1">'#f45d48'</span>
 <span class="linenos">12</span>    <span class="n">MARKER_SIZE</span> <span class="o">=</span> <span class="mi">120</span>
 <span class="linenos">13</span> 
 <span class="linenos">14</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">15</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize service metadata and interaction state.&quot;&quot;&quot;</span>
-<span class="linenos">16</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;com.zeiss.example.custom_diagrams.element_overlay&#39;</span><span class="p">,</span>
-<span class="linenos">17</span>                        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Interactive Custom Diagram with Element Overlay&#39;</span><span class="p">)</span>
+<span class="linenos">15</span><span class="w">        </span><span class="sd">"""Initialize service metadata and interaction state."""</span>
+<span class="linenos">16</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'com.zeiss.example.custom_diagrams.element_overlay'</span><span class="p">,</span>
+<span class="linenos">17</span>                        <span class="n">description</span><span class="o">=</span><span class="s1">'Interactive Custom Diagram with Element Overlay'</span><span class="p">)</span>
 <span class="linenos">18</span>        <span class="bp">self</span><span class="o">.</span><span class="n">last_clicked_uuid</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="linenos">19</span>
 <span class="linenos">20</span>    <span class="c1"># Helper methods omitted for clarity:</span>
 <span class="linenos">21</span>    <span class="c1"># _element_metadata(...), _marker_color(...), _export_svg(...)</span>
 <span class="linenos">22</span> 
 <span class="linenos">23</span>    <span class="k">def</span><span class="w"> </span><span class="nf">add_all_overlay_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element_data</span><span class="p">,</span> <span class="n">overlay</span><span class="p">):</span>
-<span class="linenos">24</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Auto-generated element overlay: each element maps to a full hitbox.&quot;&quot;&quot;</span>
+<span class="linenos">24</span><span class="w">        </span><span class="sd">"""Auto-generated element overlay: each element maps to a full hitbox."""</span>
 <span class="linenos">25</span>        <span class="k">for</span> <span class="n">element_entry</span> <span class="ow">in</span> <span class="n">element_data</span><span class="p">:</span>
 <span class="linenos">26</span>            <span class="n">element_uuid</span><span class="p">,</span> <span class="n">element_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element_metadata</span><span class="p">(</span><span class="n">element_entry</span><span class="p">)</span>
 <span class="linenos">27</span>            <span class="bp">self</span><span class="o">.</span><span class="n">add_element_to_overlay</span><span class="p">(</span>
@@ -1012,26 +1012,26 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="linenos">29</span>                <span class="n">element_uuid</span><span class="p">,</span>
 <span class="linenos">30</span>                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
 <span class="linenos">31</span>                <span class="n">element_name</span><span class="o">=</span><span class="n">element_name</span><span class="p">,</span>
-<span class="linenos">32</span>                <span class="n">tooltip</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">element_name</span><span class="si">}</span><span class="s2">: radius = </span><span class="si">{</span><span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;radius&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+<span class="linenos">32</span>                <span class="n">tooltip</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">element_name</span><span class="si">}</span><span class="s2">: radius = </span><span class="si">{</span><span class="n">element_entry</span><span class="p">[</span><span class="s1">'data'</span><span class="p">][</span><span class="s1">'radius'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
 <span class="linenos">33</span>                <span class="n">custom_interaction</span><span class="o">=</span><span class="kc">True</span>
 <span class="linenos">34</span>            <span class="p">)</span>
 <span class="linenos">35</span>
 <span class="linenos">36</span>    <span class="k">def</span><span class="w"> </span><span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element_name</span><span class="p">,</span> <span class="n">element_uuid</span><span class="p">,</span> <span class="n">event_data</span><span class="p">):</span>
-<span class="linenos">37</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle overlay click events and forward callback arguments.&quot;&quot;&quot;</span>
+<span class="linenos">37</span><span class="w">        </span><span class="sd">"""Handle overlay click events and forward callback arguments."""</span>
 <span class="linenos">38</span>        <span class="bp">self</span><span class="o">.</span><span class="n">last_clicked_uuid</span> <span class="o">=</span> <span class="n">element_uuid</span>
 <span class="linenos">39</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish_event</span><span class="p">(</span>
-<span class="linenos">40</span>            <span class="s2">&quot;testscript&quot;</span><span class="p">,</span>
+<span class="linenos">40</span>            <span class="s2">"diagram_click_callback"</span><span class="p">,</span>
 <span class="linenos">41</span>            <span class="p">{</span>
-<span class="linenos">42</span>                <span class="s2">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;testname&quot;</span><span class="p">,</span>
-<span class="linenos">43</span>                <span class="s2">&quot;testval&quot;</span><span class="p">:</span> <span class="mf">17.00351334</span><span class="p">,</span>
-<span class="linenos">44</span>                <span class="s2">&quot;element_name&quot;</span><span class="p">:</span> <span class="n">element_name</span><span class="p">,</span>
-<span class="linenos">45</span>                <span class="s2">&quot;element_uuid&quot;</span><span class="p">:</span> <span class="n">element_uuid</span><span class="p">,</span>
-<span class="linenos">46</span>                <span class="s2">&quot;mouse&quot;</span><span class="p">:</span> <span class="n">event_data</span>
+<span class="linenos">42</span>                <span class="s2">"name"</span> <span class="p">:</span> <span class="s2">"testname"</span><span class="p">,</span>
+<span class="linenos">43</span>                <span class="s2">"testval"</span><span class="p">:</span> <span class="mf">17.00351334</span><span class="p">,</span>
+<span class="linenos">44</span>                <span class="s2">"element_name"</span><span class="p">:</span> <span class="n">element_name</span><span class="p">,</span>
+<span class="linenos">45</span>                <span class="s2">"element_uuid"</span><span class="p">:</span> <span class="n">element_uuid</span><span class="p">,</span>
+<span class="linenos">46</span>                <span class="s2">"mouse"</span><span class="p">:</span> <span class="n">event_data</span>
 <span class="linenos">47</span>            <span class="p">}</span>
 <span class="linenos">48</span>        <span class="p">)</span>
 <span class="linenos">49</span>
 <span class="linenos">50</span>    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">element_data</span><span class="p">):</span>
-<span class="linenos">51</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Render scatter markers with gid-based element overlay mapping.&quot;&quot;&quot;</span>
+<span class="linenos">51</span><span class="w">        </span><span class="sd">"""Render scatter markers with gid-based element overlay mapping."""</span>
 <span class="linenos">52</span>        <span class="c1"># _normalized_view(...) omitted for clarity.</span>
 <span class="linenos">53</span>        <span class="n">fig</span> <span class="o">=</span> <span class="n">mpltools</span><span class="o">.</span><span class="n">setup_plot</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
 <span class="linenos">54</span>        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
@@ -1039,7 +1039,7 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="linenos">56</span>
 <span class="linenos">57</span>        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
 <span class="linenos">58</span>        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">element_entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">element_data</span><span class="p">):</span>
-<span class="linenos">59</span>            <span class="n">radius</span> <span class="o">=</span> <span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;radius&#39;</span><span class="p">]</span>
+<span class="linenos">59</span>            <span class="n">radius</span> <span class="o">=</span> <span class="n">element_entry</span><span class="p">[</span><span class="s1">'data'</span><span class="p">][</span><span class="s1">'radius'</span><span class="p">]</span>
 <span class="linenos">60</span>            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
 <span class="linenos">61</span>            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
 <span class="linenos">62</span>
@@ -1047,12 +1047,12 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="linenos">64</span>        <span class="k">for</span> <span class="n">x_value</span><span class="p">,</span> <span class="n">y_value</span><span class="p">,</span> <span class="n">element_entry</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">element_data</span><span class="p">):</span>
 <span class="linenos">65</span>            <span class="n">element_uuid</span><span class="p">,</span> <span class="n">_element_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_element_metadata</span><span class="p">(</span><span class="n">element_entry</span><span class="p">)</span>
 <span class="linenos">66</span>            <span class="n">scatter_kwargs</span> <span class="o">=</span> <span class="p">{</span>
-<span class="linenos">67</span>                <span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARKER_SIZE</span><span class="p">,</span>
-<span class="linenos">68</span>                <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_marker_color</span><span class="p">(</span><span class="n">element_uuid</span><span class="p">),</span>
-<span class="linenos">69</span>                <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.85</span>
+<span class="linenos">67</span>                <span class="s1">'s'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARKER_SIZE</span><span class="p">,</span>
+<span class="linenos">68</span>                <span class="s1">'c'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_marker_color</span><span class="p">(</span><span class="n">element_uuid</span><span class="p">),</span>
+<span class="linenos">69</span>                <span class="s1">'alpha'</span><span class="p">:</span> <span class="mf">0.85</span>
 <span class="linenos">70</span>            <span class="p">}</span>
 <span class="linenos">71</span>            <span class="k">if</span> <span class="n">element_uuid</span><span class="p">:</span>
-<span class="linenos">72</span>                <span class="n">scatter_kwargs</span><span class="p">[</span><span class="s1">&#39;gid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_overlay_tag</span><span class="p">(</span><span class="n">element_uuid</span><span class="p">)</span>
+<span class="linenos">72</span>                <span class="n">scatter_kwargs</span><span class="p">[</span><span class="s1">'gid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_overlay_tag</span><span class="p">(</span><span class="n">element_uuid</span><span class="p">)</span>
 <span class="linenos">73</span>
 <span class="linenos">74</span>            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
 <span class="linenos">75</span>                <span class="n">x_value</span><span class="p">,</span>
@@ -1060,9 +1060,9 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="linenos">77</span>                <span class="o">**</span><span class="n">scatter_kwargs</span>
 <span class="linenos">78</span>            <span class="p">)</span>
 <span class="linenos">79</span>
-<span class="linenos">80</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Interactive Scatterplot with Element Overlay&#39;</span><span class="p">)</span>
-<span class="linenos">81</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Index&#39;</span><span class="p">)</span>
-<span class="linenos">82</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Radius&#39;</span><span class="p">)</span>
+<span class="linenos">80</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Interactive Scatterplot with Element Overlay'</span><span class="p">)</span>
+<span class="linenos">81</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Index'</span><span class="p">)</span>
+<span class="linenos">82</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Radius'</span><span class="p">)</span>
 <span class="linenos">83</span>
 <span class="linenos">84</span>        <span class="n">svg_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_svg</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
 <span class="linenos">85</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_all_overlay_data</span><span class="p">(</span><span class="n">element_data</span><span class="p">,</span> <span class="n">overlay</span><span class="p">)</span>
@@ -1088,10 +1088,10 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
     <span class="n">RCT</span><span class="o">.</span><span class="n">CUSTOM_HASH</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">hash</span><span class="p">((</span><span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">y</span><span class="p">)))),</span>
     <span class="n">RCT</span><span class="o">.</span><span class="n">DISABLE_MOUSE_EVENTS</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">RCT</span><span class="o">.</span><span class="n">DISABLE_TOOLTIPS</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">RCT</span><span class="o">.</span><span class="n">NEAREST_MARKER_SHAPE</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
+    <span class="n">RCT</span><span class="o">.</span><span class="n">NEAREST_MARKER_SHAPE</span><span class="p">:</span> <span class="s2">"circle"</span><span class="p">,</span>
     <span class="n">RCT</span><span class="o">.</span><span class="n">NEAREST_MARKER_SIZE</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="n">RCT</span><span class="o">.</span><span class="n">AUTO_GENERATED_OVERLAY_USE</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">RCT</span><span class="o">.</span><span class="n">OVERLAY_FILTER_METHOD</span><span class="p">:</span> <span class="s2">&quot;string-parser&quot;</span><span class="p">,</span>
+    <span class="n">RCT</span><span class="o">.</span><span class="n">OVERLAY_FILTER_METHOD</span><span class="p">:</span> <span class="s2">"string-parser"</span><span class="p">,</span>
     <span class="n">RCT</span><span class="o">.</span><span class="n">OVERLAY_ELEMENT_COUNT</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
     <span class="n">RCT</span><span class="o">.</span><span class="n">OVERLAY_USE_MOUSE_POSITION</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">RCT</span><span class="o">.</span><span class="n">OVERLAY_EXPAND_HITBOXES</span><span class="p">:</span> <span class="mi">10</span>
@@ -1125,54 +1125,54 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="linenos"> 7</span><span class="nd">@apicontribution</span>
 <span class="linenos"> 8</span><span class="k">class</span><span class="w"> </span><span class="nc">DiagramWithPointCloudOverlay</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">diagrams</span><span class="o">.</span><span class="n">SVGDiagram</span><span class="p">):</span>
 <span class="linenos"> 9</span>
-<span class="linenos">10</span>    <span class="n">INTERACTION_SCRIPT</span> <span class="o">=</span> <span class="s1">&#39;testscript&#39;</span>
-<span class="linenos">11</span>    <span class="n">INTERACTION_ARGS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;testname&#39;</span><span class="p">,</span> <span class="s1">&#39;testval&#39;</span><span class="p">:</span> <span class="mf">17.00351334</span><span class="p">}</span>
+<span class="linenos">10</span>    <span class="n">INTERACTION_SCRIPT</span> <span class="o">=</span> <span class="s1">'diagram_click_callback'</span>
+<span class="linenos">11</span>    <span class="n">INTERACTION_ARGS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'testname'</span><span class="p">,</span> <span class="s1">'testval'</span><span class="p">:</span> <span class="mf">17.00351334</span><span class="p">}</span>
 <span class="linenos">12</span>    <span class="n">MARKER_SIZE</span> <span class="o">=</span> <span class="mi">120</span>
-<span class="linenos">13</span>    <span class="n">MARKER_COLOR</span> <span class="o">=</span> <span class="s1">&#39;#2f6fed&#39;</span>
+<span class="linenos">13</span>    <span class="n">MARKER_COLOR</span> <span class="o">=</span> <span class="s1">'#2f6fed'</span>
 <span class="linenos">14</span>    <span class="n">MARKER_ALPHA</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="linenos">15</span> 
 <span class="linenos">16</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">17</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize service metadata for point-cloud overlay rendering.&quot;&quot;&quot;</span>
-<span class="linenos">18</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;com.zeiss.example.custom_diagrams.point_cloud_overlay&#39;</span><span class="p">,</span>
-<span class="linenos">19</span>                         <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Interactive Custom Diagram with Point Cloud Overlay&#39;</span><span class="p">)</span>
+<span class="linenos">17</span><span class="w">        </span><span class="sd">"""Initialize service metadata for point-cloud overlay rendering."""</span>
+<span class="linenos">18</span>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'com.zeiss.example.custom_diagrams.point_cloud_overlay'</span><span class="p">,</span>
+<span class="linenos">19</span>                         <span class="n">description</span><span class="o">=</span><span class="s1">'Interactive Custom Diagram with Point Cloud Overlay'</span><span class="p">)</span>
 <span class="linenos">20</span>
 <span class="linenos">21</span>    <span class="c1"># Helper methods omitted for clarity:</span>
 <span class="linenos">22</span>    <span class="c1"># _normalized_view(...), _normalize_overlay_point(...), _export_svg(...)</span>
 <span class="linenos">23</span>
 <span class="linenos">24</span>    <span class="k">def</span><span class="w"> </span><span class="nf">add_all_overlay_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element_data</span><span class="p">,</span> <span class="n">display_coords</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">overlay</span><span class="p">):</span>
-<span class="linenos">25</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Populate point-cloud overlay entries using display coordinates.&quot;&quot;&quot;</span>
+<span class="linenos">25</span><span class="w">        </span><span class="sd">"""Populate point-cloud overlay entries using display coordinates."""</span>
 <span class="linenos">26</span>
 <span class="linenos">27</span>        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">element_entry</span><span class="p">,</span> <span class="n">point_coords</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">element_data</span><span class="p">,</span> <span class="n">display_coords</span><span class="p">)):</span>
 <span class="linenos">28</span>            <span class="n">interaction_point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_overlay_point</span><span class="p">(</span><span class="n">point_coords</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
 <span class="linenos">29</span>            <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 <span class="linenos">30</span>                <span class="bp">self</span><span class="o">.</span><span class="n">add_element_to_overlay</span><span class="p">(</span>
 <span class="linenos">31</span>                    <span class="n">overlay</span><span class="p">,</span>
-<span class="linenos">32</span>                    <span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">],</span>
+<span class="linenos">32</span>                    <span class="n">element_entry</span><span class="p">[</span><span class="s1">'uuid'</span><span class="p">],</span>
 <span class="linenos">33</span>                    <span class="n">interaction_point</span><span class="p">,</span>
-<span class="linenos">34</span>                    <span class="n">tooltip</span> <span class="o">=</span> <span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">],</span>
+<span class="linenos">34</span>                    <span class="n">tooltip</span> <span class="o">=</span> <span class="n">element_entry</span><span class="p">[</span><span class="s1">'element'</span><span class="p">],</span>
 <span class="linenos">35</span>                    <span class="c1"># Keep custom interaction on the first point only.</span>
 <span class="linenos">36</span>                    <span class="n">custom_interaction</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="linenos">37</span>                <span class="p">)</span>
 <span class="linenos">38</span>            <span class="k">else</span><span class="p">:</span>
 <span class="linenos">39</span>                <span class="bp">self</span><span class="o">.</span><span class="n">add_element_to_overlay</span><span class="p">(</span>
 <span class="linenos">40</span>                    <span class="n">overlay</span><span class="p">,</span>
-<span class="linenos">41</span>                    <span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">],</span>
+<span class="linenos">41</span>                    <span class="n">element_entry</span><span class="p">[</span><span class="s1">'uuid'</span><span class="p">],</span>
 <span class="linenos">42</span>                    <span class="n">interaction_point</span><span class="p">,</span>
-<span class="linenos">43</span>                    <span class="n">tooltip</span> <span class="o">=</span> <span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">]</span>
+<span class="linenos">43</span>                    <span class="n">tooltip</span> <span class="o">=</span> <span class="n">element_entry</span><span class="p">[</span><span class="s1">'element'</span><span class="p">]</span>
 <span class="linenos">44</span>                <span class="p">)</span>
 <span class="linenos">45</span>
 <span class="linenos">46</span>    <span class="k">def</span><span class="w"> </span><span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element_name</span><span class="p">,</span> <span class="n">element_uuid</span><span class="p">,</span> <span class="n">event_data</span><span class="p">):</span>
-<span class="linenos">47</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle point-overlay click events and forward callback arguments.&quot;&quot;&quot;</span>
+<span class="linenos">47</span><span class="w">        </span><span class="sd">"""Handle point-overlay click events and forward callback arguments."""</span>
 <span class="linenos">48</span>        <span class="n">callback_args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">INTERACTION_ARGS</span><span class="p">)</span>
 <span class="linenos">49</span>        <span class="n">callback_args</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-<span class="linenos">50</span>            <span class="s1">&#39;element_name&#39;</span><span class="p">:</span> <span class="n">element_name</span><span class="p">,</span>
-<span class="linenos">51</span>            <span class="s1">&#39;element_uuid&#39;</span><span class="p">:</span> <span class="n">element_uuid</span><span class="p">,</span>
-<span class="linenos">52</span>            <span class="s1">&#39;mouse&#39;</span><span class="p">:</span> <span class="n">event_data</span>
+<span class="linenos">50</span>            <span class="s1">'element_name'</span><span class="p">:</span> <span class="n">element_name</span><span class="p">,</span>
+<span class="linenos">51</span>            <span class="s1">'element_uuid'</span><span class="p">:</span> <span class="n">element_uuid</span><span class="p">,</span>
+<span class="linenos">52</span>            <span class="s1">'mouse'</span><span class="p">:</span> <span class="n">event_data</span>
 <span class="linenos">53</span>        <span class="p">})</span>
 <span class="linenos">54</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish_event</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">INTERACTION_SCRIPT</span><span class="p">,</span> <span class="n">callback_args</span><span class="p">)</span>
 <span class="linenos">55</span>
 <span class="linenos">56</span>    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">element_data</span><span class="p">):</span>
-<span class="linenos">57</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;Render scatter markers and map overlay points by display coordinates.&quot;&quot;&quot;</span>
+<span class="linenos">57</span><span class="w">        </span><span class="sd">"""Render scatter markers and map overlay points by display coordinates."""</span>
 <span class="linenos">58</span>        <span class="c1"># Key concept: use display coordinates for point-based overlay mapping.</span>
 <span class="linenos">59</span>        <span class="n">fig</span> <span class="o">=</span> <span class="n">mpltools</span><span class="o">.</span><span class="n">setup_plot</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
 <span class="linenos">60</span>        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
@@ -1181,39 +1181,40 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <span class="linenos">63</span>        <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos">64</span>        <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="linenos">65</span>        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">element_entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">element_data</span><span class="p">):</span>
-<span class="linenos">66</span>            <span class="n">radius</span> <span class="o">=</span> <span class="n">element_entry</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;radius&#39;</span><span class="p">]</span>
+<span class="linenos">66</span>            <span class="n">radius</span> <span class="o">=</span> <span class="n">element_entry</span><span class="p">[</span><span class="s1">'data'</span><span class="p">][</span><span class="s1">'radius'</span><span class="p">]</span>
 <span class="linenos">67</span>            <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
 <span class="linenos">68</span>            <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
 <span class="linenos">69</span>
 <span class="linenos">70</span>        <span class="n">points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-<span class="linenos">71</span>        <span class="n">display_coords</span> <span class="o">=</span> <span class="n">mpltools</span><span class="o">.</span><span class="n">get_display_coords</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
-<span class="linenos">72</span>
-<span class="linenos">73</span>        <span class="c1"># No gid mapping here. Overlay points are matched by display coordinates.</span>
-<span class="linenos">74</span>        <span class="k">for</span> <span class="n">x_value</span><span class="p">,</span> <span class="n">y_value</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
-<span class="linenos">75</span>            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-<span class="linenos">76</span>                <span class="n">x_value</span><span class="p">,</span>
-<span class="linenos">77</span>                <span class="n">y_value</span><span class="p">,</span>
-<span class="linenos">78</span>                <span class="n">s</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_SIZE</span><span class="p">,</span>
-<span class="linenos">79</span>                <span class="n">c</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_COLOR</span><span class="p">,</span>
-<span class="linenos">80</span>                <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_ALPHA</span>
-<span class="linenos">81</span>            <span class="p">)</span>
-<span class="linenos">82</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Interactive Scatterplot with Point Cloud Overlay&#39;</span><span class="p">)</span>
-<span class="linenos">83</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Index&#39;</span><span class="p">)</span>
-<span class="linenos">84</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Radius&#39;</span><span class="p">)</span>
-<span class="linenos">85</span> 
-<span class="linenos">86</span>        <span class="n">svg_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_svg</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
-<span class="linenos">87</span>         
-<span class="linenos">88</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_all_overlay_data</span><span class="p">(</span>
-<span class="linenos">89</span>            <span class="n">element_data</span><span class="p">,</span>
-<span class="linenos">90</span>            <span class="n">display_coords</span><span class="p">,</span>
-<span class="linenos">91</span>            <span class="n">view</span><span class="p">,</span>
-<span class="linenos">92</span>            <span class="n">overlay</span>
-<span class="linenos">93</span>        <span class="p">)</span>
-<span class="linenos">94</span>        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
-<span class="linenos">95</span>
-<span class="linenos">96</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish_plot</span><span class="p">(</span><span class="n">svg_string</span><span class="p">,</span> <span class="n">overlay</span><span class="p">)</span>
-<span class="linenos">97</span>
-<span class="linenos">98</span>    <span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">()</span>
+<span class="linenos">71</span>
+<span class="linenos">72</span>        <span class="c1"># No gid mapping here. Overlay points are matched by display coordinates.</span>
+<span class="linenos">73</span>        <span class="k">for</span> <span class="n">x_value</span><span class="p">,</span> <span class="n">y_value</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+<span class="linenos">74</span>            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+<span class="linenos">75</span>                <span class="n">x_value</span><span class="p">,</span>
+<span class="linenos">76</span>                <span class="n">y_value</span><span class="p">,</span>
+<span class="linenos">77</span>                <span class="n">s</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_SIZE</span><span class="p">,</span>
+<span class="linenos">78</span>                <span class="n">c</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_COLOR</span><span class="p">,</span>
+<span class="linenos">79</span>                <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MARKER_ALPHA</span>
+<span class="linenos">80</span>            <span class="p">)</span>
+<span class="linenos">81</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Interactive Scatterplot with Point Cloud Overlay'</span><span class="p">)</span>
+<span class="linenos">82</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Index'</span><span class="p">)</span>
+<span class="linenos">83</span>        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Radius'</span><span class="p">)</span>
+<span class="linenos">84</span>
+<span class="linenos">85</span>        <span class="n">svg_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_export_svg</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+<span class="linenos">86</span>        <span class="c1"># Calculate overlay coordinates after rendering so the axes limits and layout match the SVG.</span>
+<span class="linenos">87</span>        <span class="n">display_coords</span> <span class="o">=</span> <span class="n">mpltools</span><span class="o">.</span><span class="n">get_display_coords</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
+<span class="linenos">88</span>
+<span class="linenos">89</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_all_overlay_data</span><span class="p">(</span>
+<span class="linenos">90</span>            <span class="n">element_data</span><span class="p">,</span>
+<span class="linenos">91</span>            <span class="n">display_coords</span><span class="p">,</span>
+<span class="linenos">92</span>            <span class="n">view</span><span class="p">,</span>
+<span class="linenos">93</span>            <span class="n">overlay</span>
+<span class="linenos">94</span>        <span class="p">)</span>
+<span class="linenos">95</span>        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+<span class="linenos">96</span>
+<span class="linenos">97</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish_plot</span><span class="p">(</span><span class="n">svg_string</span><span class="p">,</span> <span class="n">overlay</span><span class="p">)</span>
+<span class="linenos">98</span>
+<span class="linenos">99</span>    <span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1228,14 +1229,14 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <h3>Element Data Structure<a class="headerlink" href="#element-data-structure" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">element_data</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">{</span>
-        <span class="s1">&#39;element&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">&#39;Circle 1&#39;</span><span class="p">],</span>                           <span class="c1"># ZEISS INSPECT element object</span>
-        <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="s1">&#39;direction&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">},</span> <span class="c1"># Element-specific data</span>
-        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;SVGDiagram&#39;</span>                                                              <span class="c1"># Element type identifier</span>
+        <span class="s1">'element'</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">'Circle 1'</span><span class="p">],</span>                           <span class="c1"># ZEISS INSPECT element object</span>
+        <span class="s1">'data'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'center'</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="s1">'direction'</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="s1">'radius'</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">},</span> <span class="c1"># Element-specific data</span>
+        <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'SVGDiagram'</span>                                                              <span class="c1"># Element type identifier</span>
     <span class="p">},</span>
     <span class="p">{</span>
-        <span class="s1">&#39;element&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">&#39;Circle 2&#39;</span><span class="p">],</span>
-        <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="s1">&#39;direction&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">},</span>
-        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;SVGDiagram&#39;</span>
+        <span class="s1">'element'</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">'Circle 2'</span><span class="p">],</span>
+        <span class="s1">'data'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'center'</span><span class="p">:</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="s1">'direction'</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="s1">'radius'</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">},</span>
+        <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'SVGDiagram'</span>
     <span class="p">}</span>
 <span class="p">]</span>
 </pre></div>
@@ -1244,11 +1245,11 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <section id="view-parameters-structure">
 <h3>View Parameters Structure<a class="headerlink" href="#view-parameters-structure" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">view</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>        <span class="c1"># Canvas width in pixels</span>
-    <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>       <span class="c1"># Canvas height in pixels  </span>
-    <span class="s1">&#39;dpi&#39;</span><span class="p">:</span> <span class="mf">96.0</span><span class="p">,</span>         <span class="c1"># Display DPI for scaling</span>
-    <span class="s1">&#39;font&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>          <span class="c1"># Base font size</span>
-    <span class="s1">&#39;subplot&#39;</span><span class="p">:</span> <span class="mi">0</span>         <span class="c1"># Partition/subplot index (0-based)</span>
+    <span class="s1">'width'</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>        <span class="c1"># Canvas width in pixels</span>
+    <span class="s1">'height'</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>       <span class="c1"># Canvas height in pixels  </span>
+    <span class="s1">'dpi'</span><span class="p">:</span> <span class="mf">96.0</span><span class="p">,</span>         <span class="c1"># Display DPI for scaling</span>
+    <span class="s1">'font'</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>          <span class="c1"># Base font size</span>
+    <span class="s1">'subplot'</span><span class="p">:</span> <span class="mi">0</span>         <span class="c1"># Partition/subplot index (0-based)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1256,26 +1257,26 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
 <section id="svg-overlay-structure-simplified">
 <h3>SVG Overlay Structure (Simplified)<a class="headerlink" href="#svg-overlay-structure-simplified" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">overlay</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;element-uuid-123&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;element_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Circle 1&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s1">'element-uuid-123'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'element_name'</span><span class="p">:</span> <span class="s1">'Circle 1'</span><span class="p">,</span>
+        <span class="s1">'coordinates'</span><span class="p">:</span> <span class="p">[</span>
             <span class="p">{</span>
-                <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mf">0.0805</span><span class="p">,</span>
-                <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mf">0.8900</span><span class="p">,</span>
-                <span class="s1">&#39;custom_interaction&#39;</span><span class="p">:</span> <span class="kc">True</span>
+                <span class="s1">'x'</span><span class="p">:</span> <span class="mf">0.0805</span><span class="p">,</span>
+                <span class="s1">'y'</span><span class="p">:</span> <span class="mf">0.8900</span><span class="p">,</span>
+                <span class="s1">'custom_interaction'</span><span class="p">:</span> <span class="kc">True</span>
             <span class="p">}</span>
         <span class="p">],</span>
-        <span class="s1">&#39;tooltip&#39;</span><span class="p">:</span> <span class="s1">&#39;Circle 1: radius = 3.0&#39;</span>
+        <span class="s1">'tooltip'</span><span class="p">:</span> <span class="s1">'Circle 1: radius = 3.0'</span>
     <span class="p">},</span>
-    <span class="s1">&#39;element-uuid-456&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;element_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Circle 2&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s1">'element-uuid-456'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'element_name'</span><span class="p">:</span> <span class="s1">'Circle 2'</span><span class="p">,</span>
+        <span class="s1">'coordinates'</span><span class="p">:</span> <span class="p">[</span>
             <span class="p">{</span>
-                <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mf">0.9485</span><span class="p">,</span>
-                <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mf">0.0835</span>
+                <span class="s1">'x'</span><span class="p">:</span> <span class="mf">0.9485</span><span class="p">,</span>
+                <span class="s1">'y'</span><span class="p">:</span> <span class="mf">0.0835</span>
             <span class="p">}</span>
         <span class="p">],</span>
-        <span class="s1">&#39;tooltip&#39;</span><span class="p">:</span> <span class="s1">&#39;Circle 2: radius = 4.0&#39;</span>
+        <span class="s1">'tooltip'</span><span class="p">:</span> <span class="s1">'Circle 2: radius = 4.0'</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -1316,7 +1317,7 @@ It is possible to add multiple data entries to any number of diagram ids.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fc7235bd8d0>
+  <jinja2.runtime.BlockReference object at 0x7f8551dc02f0>
 
 
 </footer>

@@ -215,17 +215,17 @@
 <span class="linenos"> 6</span><span class="k">class</span><span class="w"> </span><span class="nc">MinimalPointExample</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">actuals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
 <span class="linenos"> 7</span>
 <span class="linenos"> 8</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos"> 9</span>        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_actual_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Actual Point&#39;</span><span class="p">)</span>
+<span class="linenos"> 9</span>        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'examples.custom_actual_point'</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">'Custom Actual Point'</span><span class="p">)</span>
 <span class="linenos">10</span>
 <span class="linenos">11</span>    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-<span class="linenos">12</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Point.gdlg&#39;</span><span class="p">)</span>
+<span class="linenos">12</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">'/dialogs/Custom_Point.gdlg'</span><span class="p">)</span>
 <span class="linenos">13</span>
 <span class="linenos">14</span>    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
 <span class="linenos">15</span>        <span class="k">return</span> <span class="p">{</span>
-<span class="linenos">16</span>            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span>
-<span class="linenos">17</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_x&#39;</span><span class="p">]),</span>
-<span class="linenos">18</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_y&#39;</span><span class="p">]),</span>
-<span class="linenos">19</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_z&#39;</span><span class="p">])</span>
+<span class="linenos">16</span>            <span class="s2">"value"</span><span class="p">:</span> <span class="p">(</span>
+<span class="linenos">17</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">'point_x'</span><span class="p">]),</span>
+<span class="linenos">18</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">'point_y'</span><span class="p">]),</span>
+<span class="linenos">19</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">'point_z'</span><span class="p">])</span>
 <span class="linenos">20</span>            <span class="p">)</span>
 <span class="linenos">21</span>        <span class="p">}</span>
 <span class="linenos">22</span>
@@ -255,11 +255,11 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">endpoint</span></code> identifies the service. Use a unique endpoint string across your Apps and keep it stable after release.</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">metainfo.json – Minimal custom actual element example – Custom actual point</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="linenos">2</span><span class="w">    </span><span class="p">{</span>
-<span class="linenos">3</span><span class="w">        </span><span class="nt">&quot;endpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gom.api.point&quot;</span><span class="p">,</span>
-<span class="linenos">4</span><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Custom point&quot;</span><span class="p">,</span>
-<span class="linenos">5</span><span class="w">        </span><span class="nt">&quot;script&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Custom_Point.py&quot;</span>
+<span class="linenos">3</span><span class="w">        </span><span class="nt">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gom.api.point"</span><span class="p">,</span>
+<span class="linenos">4</span><span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Custom point"</span><span class="p">,</span>
+<span class="linenos">5</span><span class="w">        </span><span class="nt">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Custom_Point.py"</span>
 <span class="linenos">6</span><span class="w">    </span><span class="p">}</span>
 <span class="linenos">7</span><span class="p">]</span>
 </pre></div>
@@ -301,19 +301,19 @@
 <span class="linenos"> 7</span><span class="n">RADIUS</span> <span class="o">=</span> <span class="mf">42.0</span>
 <span class="linenos"> 8</span>
 <span class="linenos"> 9</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">customelements</span><span class="o">.</span><span class="n">create_actual</span> <span class="p">(</span>
-<span class="linenos">10</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">10</span><span class="w">    </span><span class="sd">"""</span>
 <span class="linenos">11</span><span class="sd">    Create a custom actual element</span>
-<span class="linenos">12</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">12</span><span class="sd">    """</span>
 <span class="linenos">13</span>    <span class="c1"># Element ID as defined in its constructor</span>
-<span class="linenos">14</span>    <span class="n">contribution</span><span class="o">=</span><span class="s1">&#39;examples.custom_actual_circle&#39;</span><span class="p">,</span>
+<span class="linenos">14</span>    <span class="n">contribution</span><span class="o">=</span><span class="s1">'examples.custom_actual_circle'</span><span class="p">,</span>
 <span class="linenos">15</span>    
 <span class="linenos">16</span>    <span class="c1"># Optional: Set element name explicitly, otherwise the name is set automatically </span>
-<span class="linenos">17</span>    <span class="c1"># name=&#39;Test Circle 1&#39;, </span>
+<span class="linenos">17</span>    <span class="c1"># name='Test Circle 1', </span>
 <span class="linenos">18</span>    
 <span class="linenos">19</span>    <span class="c1"># Set element type specific parameters</span>
 <span class="linenos">20</span>    <span class="n">values</span><span class="o">=</span><span class="p">{</span>
-<span class="linenos">21</span>        <span class="s1">&#39;center_x&#39;</span><span class="p">:</span> <span class="n">CENTER_X</span><span class="p">,</span> <span class="s1">&#39;center_y&#39;</span><span class="p">:</span> <span class="n">CENTER_Y</span><span class="p">,</span> <span class="s1">&#39;center_z&#39;</span><span class="p">:</span> <span class="n">CENTER_Z</span><span class="p">,</span>
-<span class="linenos">22</span>        <span class="s1">&#39;dir_x&#39;</span><span class="p">:</span> <span class="n">DIR_X</span><span class="p">,</span> <span class="s1">&#39;dir_y&#39;</span><span class="p">:</span> <span class="n">DIR_Y</span><span class="p">,</span> <span class="s1">&#39;dir_z&#39;</span><span class="p">:</span> <span class="n">DIR_Z</span><span class="p">,</span> <span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="n">RADIUS</span>
+<span class="linenos">21</span>        <span class="s1">'center_x'</span><span class="p">:</span> <span class="n">CENTER_X</span><span class="p">,</span> <span class="s1">'center_y'</span><span class="p">:</span> <span class="n">CENTER_Y</span><span class="p">,</span> <span class="s1">'center_z'</span><span class="p">:</span> <span class="n">CENTER_Z</span><span class="p">,</span>
+<span class="linenos">22</span>        <span class="s1">'dir_x'</span><span class="p">:</span> <span class="n">DIR_X</span><span class="p">,</span> <span class="s1">'dir_y'</span><span class="p">:</span> <span class="n">DIR_Y</span><span class="p">,</span> <span class="s1">'dir_z'</span><span class="p">:</span> <span class="n">DIR_Z</span><span class="p">,</span> <span class="s1">'radius'</span><span class="p">:</span> <span class="n">RADIUS</span>
 <span class="linenos">23</span>    <span class="p">}</span>
 <span class="linenos">24</span><span class="p">)</span>
 </pre></div>
@@ -337,14 +337,14 @@
 <div class="code-block-caption"><span class="caption-text">Custom actual point with optional element data</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
 <span class="linenos"> 2</span>        <span class="k">return</span> <span class="p">{</span>
-<span class="linenos"> 3</span>            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span>
-<span class="linenos"> 4</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_x&#39;</span><span class="p">]),</span>
-<span class="linenos"> 5</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_y&#39;</span><span class="p">]),</span>
-<span class="linenos"> 6</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_z&#39;</span><span class="p">])</span>
+<span class="linenos"> 3</span>            <span class="s2">"value"</span><span class="p">:</span> <span class="p">(</span>
+<span class="linenos"> 4</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">'point_x'</span><span class="p">]),</span>
+<span class="linenos"> 5</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">'point_y'</span><span class="p">]),</span>
+<span class="linenos"> 6</span>                <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">'point_z'</span><span class="p">])</span>
 <span class="linenos"> 7</span>            <span class="p">),</span>
-<span class="linenos"> 8</span>            <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-<span class="linenos"> 9</span>                <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;imported&quot;</span><span class="p">,</span>
-<span class="linenos">10</span>                <span class="s2">&quot;quality_score&quot;</span><span class="p">:</span> <span class="mf">0.98</span>
+<span class="linenos"> 8</span>            <span class="s2">"data"</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos"> 9</span>                <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"imported"</span><span class="p">,</span>
+<span class="linenos">10</span>                <span class="s2">"quality_score"</span><span class="p">:</span> <span class="mf">0.98</span>
 <span class="linenos">11</span>            <span class="p">}</span>
 <span class="linenos">12</span>        <span class="p">}</span>
 </pre></div>
@@ -358,13 +358,13 @@ Each key in the <code class="docutils literal notranslate"><span class="pre">dat
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Reading optional element data from element tokens</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Example element reference</span>
-<span class="linenos">2</span><span class="n">element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">&#39;Point 1&#39;</span><span class="p">]</span>
+<span class="linenos">2</span><span class="n">element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">'Point 1'</span><span class="p">]</span>
 <span class="linenos">3</span>
-<span class="linenos">4</span><span class="c1"># If compute() returned: &quot;data&quot;: {&quot;source&quot;: &quot;imported&quot;, &quot;quality_score&quot;: 0.98}</span>
+<span class="linenos">4</span><span class="c1"># If compute() returned: "data": {"source": "imported", "quality_score": 0.98}</span>
 <span class="linenos">5</span><span class="n">source</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">source</span>
 <span class="linenos">6</span><span class="n">quality_score</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">quality_score</span>
 <span class="linenos">7</span>
-<span class="linenos">8</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;source=</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">, quality_score=</span><span class="si">{</span><span class="n">quality_score</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">8</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"source=</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">, quality_score=</span><span class="si">{</span><span class="n">quality_score</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -387,7 +387,7 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <span class="linenos"> 5</span><span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
 <span class="linenos"> 6</span>
 <span class="linenos"> 7</span><span class="k">def</span><span class="w"> </span><span class="nf">generate_point_element</span><span class="p">(</span><span class="n">point_x</span><span class="p">,</span> <span class="n">point_y</span><span class="p">,</span> <span class="n">point_z</span><span class="p">):</span>
-<span class="linenos"> 8</span><span class="w">   </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 8</span><span class="w">   </span><span class="sd">"""</span>
 <span class="linenos"> 9</span><span class="sd">   Generates a point</span>
 <span class="linenos">10</span>
 <span class="linenos">11</span><span class="sd">   Params: </span>
@@ -396,13 +396,13 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <span class="linenos">14</span><span class="sd">   - point_z: z-coordinate</span>
 <span class="linenos">15</span>
 <span class="linenos">16</span><span class="sd">   Returns:</span>
-<span class="linenos">17</span><span class="sd">   - Dictionary with point&#39;s coordinate:</span>
+<span class="linenos">17</span><span class="sd">   - Dictionary with point's coordinate:</span>
 <span class="linenos">18</span><span class="sd">   {</span>
-<span class="linenos">19</span><span class="sd">       &quot;value&quot;: (float(x-value), float(y-value), float(z-value))</span>
+<span class="linenos">19</span><span class="sd">       "value": (float(x-value), float(y-value), float(z-value))</span>
 <span class="linenos">20</span><span class="sd">   }</span>
-<span class="linenos">21</span><span class="sd">   &quot;&quot;&quot;</span>
+<span class="linenos">21</span><span class="sd">   """</span>
 <span class="linenos">22</span>   <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
-<span class="linenos">23</span>       <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span>
+<span class="linenos">23</span>       <span class="s2">"value"</span><span class="p">:</span> <span class="p">(</span>
 <span class="linenos">24</span>           <span class="nb">float</span><span class="p">(</span><span class="n">point_x</span><span class="p">),</span> 
 <span class="linenos">25</span>           <span class="nb">float</span><span class="p">(</span><span class="n">point_y</span><span class="p">),</span> 
 <span class="linenos">26</span>           <span class="nb">float</span><span class="p">(</span><span class="n">point_z</span><span class="p">)</span>
@@ -412,38 +412,38 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <span class="linenos">30</span>
 <span class="linenos">31</span><span class="nd">@apicontribution</span>
 <span class="linenos">32</span><span class="k">class</span><span class="w"> </span><span class="nc">MyActualPoint</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">actuals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
-<span class="linenos">33</span><span class="w">   </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">33</span><span class="w">   </span><span class="sd">"""</span>
 <span class="linenos">34</span><span class="sd">   Custom actual point element </span>
-<span class="linenos">35</span><span class="sd">   &quot;&quot;&quot;</span>
+<span class="linenos">35</span><span class="sd">   """</span>
 <span class="linenos">36</span>   <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">37</span>       <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_actual_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Actual Point&#39;</span><span class="p">)</span>
+<span class="linenos">37</span>       <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'examples.custom_actual_point'</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">'Custom Actual Point'</span><span class="p">)</span>
 <span class="linenos">38</span>
 <span class="linenos">39</span>   <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-<span class="linenos">40</span>       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Point.gdlg&#39;</span><span class="p">)</span>
+<span class="linenos">40</span>       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">'/dialogs/Custom_Point.gdlg'</span><span class="p">)</span>
 <span class="linenos">41</span>
 <span class="linenos">42</span>   <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
 <span class="linenos">43</span>       <span class="k">return</span> <span class="n">generate_point_element</span><span class="p">(</span>
-<span class="linenos">44</span>           <span class="n">point_x</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_x&#39;</span><span class="p">],</span> 
-<span class="linenos">45</span>           <span class="n">point_y</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_y&#39;</span><span class="p">],</span> 
-<span class="linenos">46</span>           <span class="n">point_z</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_z&#39;</span><span class="p">],</span>
+<span class="linenos">44</span>           <span class="n">point_x</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'point_x'</span><span class="p">],</span> 
+<span class="linenos">45</span>           <span class="n">point_y</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'point_y'</span><span class="p">],</span> 
+<span class="linenos">46</span>           <span class="n">point_z</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'point_z'</span><span class="p">],</span>
 <span class="linenos">47</span>       <span class="p">)</span>
 <span class="linenos">48</span>
 <span class="linenos">49</span><span class="nd">@apicontribution</span>
 <span class="linenos">50</span><span class="k">class</span><span class="w"> </span><span class="nc">MyNominalPoint</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">nominals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
-<span class="linenos">51</span><span class="w">   </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">51</span><span class="w">   </span><span class="sd">"""</span>
 <span class="linenos">52</span><span class="sd">   Custom nominal point element </span>
-<span class="linenos">53</span><span class="sd">   &quot;&quot;&quot;</span>
+<span class="linenos">53</span><span class="sd">   """</span>
 <span class="linenos">54</span>   <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">55</span>       <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_nominal_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Nominal Point&#39;</span><span class="p">)</span>
+<span class="linenos">55</span>       <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'examples.custom_nominal_point'</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">'Custom Nominal Point'</span><span class="p">)</span>
 <span class="linenos">56</span>   
 <span class="linenos">57</span>   <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-<span class="linenos">58</span>       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Point.gdlg&#39;</span><span class="p">)</span>
+<span class="linenos">58</span>       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">'/dialogs/Custom_Point.gdlg'</span><span class="p">)</span>
 <span class="linenos">59</span>       
 <span class="linenos">60</span>   <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
 <span class="linenos">61</span>       <span class="k">return</span> <span class="n">generate_point_element</span><span class="p">(</span>
-<span class="linenos">62</span>           <span class="n">point_x</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_x&#39;</span><span class="p">],</span> 
-<span class="linenos">63</span>           <span class="n">point_y</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_y&#39;</span><span class="p">],</span> 
-<span class="linenos">64</span>           <span class="n">point_z</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;point_z&#39;</span><span class="p">],</span>
+<span class="linenos">62</span>           <span class="n">point_x</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'point_x'</span><span class="p">],</span> 
+<span class="linenos">63</span>           <span class="n">point_y</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'point_y'</span><span class="p">],</span> 
+<span class="linenos">64</span>           <span class="n">point_z</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'point_z'</span><span class="p">],</span>
 <span class="linenos">65</span>       <span class="p">)</span>
 <span class="linenos">66</span>
 <span class="linenos">67</span><span class="n">gom</span><span class="o">.</span><span class="n">run_api</span> <span class="p">()</span>
@@ -457,7 +457,7 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">Creating log messages</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-<span class="linenos">2</span>   <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">values</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">2</span>   <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">values</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
 <span class="linenos">3</span>   <span class="c1"># ...</span>
 </pre></div>
 </div>
@@ -478,18 +478,18 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <span class="linenos"> 4</span>    <span class="c1"># ...</span>
 <span class="linenos"> 5</span>
 <span class="linenos"> 6</span>    <span class="k">def</span><span class="w"> </span><span class="nf">element_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
-<span class="linenos"> 7</span><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 7</span><span class="w">        </span><span class="sd">"""</span>
 <span class="linenos"> 8</span><span class="sd">        Element type filter - see Selection element widget documentation</span>
-<span class="linenos"> 9</span><span class="sd">        &quot;&quot;&quot;</span>
+<span class="linenos"> 9</span><span class="sd">        """</span>
 <span class="linenos">10</span>        <span class="k">try</span><span class="p">:</span>
-<span class="linenos">11</span>            <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;linked_volume&#39;</span><span class="p">:</span>
+<span class="linenos">11</span>            <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">'linked_volume'</span><span class="p">:</span>
 <span class="linenos">12</span>                <span class="k">return</span> <span class="kc">True</span>
 <span class="linenos">13</span>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 <span class="linenos">14</span>            <span class="k">pass</span>
 <span class="linenos">15</span>        <span class="k">return</span> <span class="kc">False</span>
 <span class="linenos">16</span>            
 <span class="linenos">17</span>    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-<span class="linenos">18</span>        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Volume_Region.gdlg&#39;</span><span class="p">)</span>
+<span class="linenos">18</span>        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'/dialogs/Custom_Volume_Region.gdlg'</span><span class="p">)</span>
 <span class="linenos">19</span>        <span class="n">dlg</span><span class="o">.</span><span class="n">volume_ele</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">element_filter</span>
 <span class="linenos">20</span>        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
 <span class="linenos">21</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">))</span>
@@ -508,41 +508,41 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <div class="code-block-caption"><span class="caption-text">Offset point example with dialog control widget and event handler</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nd">@apicontribution</span>
 <span class="linenos"> 2</span><span class="k">class</span><span class="w"> </span><span class="nc">MyOffsetPoint</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">nominals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
-<span class="linenos"> 3</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="sd">"""</span>
 <span class="linenos"> 4</span><span class="sd">    Provides a dialog handler for changing the control widget.</span>
-<span class="linenos"> 5</span><span class="sd">    Allows to show a computation error via the control widget&#39;s status and in ZEISS INSPECT&#39;s element properties. </span>
-<span class="linenos"> 6</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos"> 5</span><span class="sd">    Allows to show a computation error via the control widget's status and in ZEISS INSPECT's element properties. </span>
+<span class="linenos"> 6</span><span class="sd">    """</span>
 <span class="linenos"> 7</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos"> 8</span>        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;examples.custom_nominal_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Nominal Point&#39;</span><span class="p">)</span>
+<span class="linenos"> 8</span>        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'examples.custom_nominal_point'</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">'Custom Nominal Point'</span><span class="p">)</span>
 <span class="linenos"> 9</span>
 <span class="linenos">10</span>    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-<span class="linenos">11</span>        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;/dialogs/Custom_Point.gdlg&#39;</span><span class="p">)</span>
+<span class="linenos">11</span>        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'/dialogs/Custom_Point.gdlg'</span><span class="p">)</span>
 <span class="linenos">12</span>        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
 <span class="linenos">13</span>        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="p">))</span>
 <span class="linenos">14</span>        <span class="k">return</span> <span class="n">res</span>
 <span class="linenos">15</span>
 <span class="linenos">16</span>    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-<span class="linenos">17</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">17</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">values</span><span class="p">[</span><span class="s1">'base'</span><span class="p">]</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
 <span class="linenos">18</span>        <span class="k">return</span> <span class="n">generate_point_element</span><span class="p">(</span>
-<span class="linenos">19</span>            <span class="n">offset_x</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;offset_x&#39;</span><span class="p">],</span> 
-<span class="linenos">20</span>            <span class="n">offset_y</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;offset_y&#39;</span><span class="p">],</span> 
-<span class="linenos">21</span>            <span class="n">offset_z</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;offset_z&#39;</span><span class="p">],</span>
-<span class="linenos">22</span>            <span class="n">base</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;base&#39;</span><span class="p">]</span>
+<span class="linenos">19</span>            <span class="n">offset_x</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'offset_x'</span><span class="p">],</span> 
+<span class="linenos">20</span>            <span class="n">offset_y</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'offset_y'</span><span class="p">],</span> 
+<span class="linenos">21</span>            <span class="n">offset_z</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'offset_z'</span><span class="p">],</span>
+<span class="linenos">22</span>            <span class="n">base</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'base'</span><span class="p">]</span>
 <span class="linenos">23</span>        <span class="p">)</span>
 <span class="linenos">24</span>
 <span class="linenos">25</span>    <span class="k">def</span><span class="w"> </span><span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event_type</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-<span class="linenos">26</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">event_type</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="linenos">27</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parameters</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="linenos">26</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">event_type</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
+<span class="linenos">27</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">parameters</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
 <span class="linenos">28</span>       
-<span class="linenos">29</span>        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">&#39;dialog::initialized&#39;</span><span class="p">:</span>
+<span class="linenos">29</span>        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">'dialog::initialized'</span><span class="p">:</span>
 <span class="linenos">30</span>            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="linenos">31</span>            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;Select base with &#39;center_coordinate&#39;!&quot;</span>
+<span class="linenos">31</span>            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">"Select base with 'center_coordinate'!"</span>
 <span class="linenos">32</span>
-<span class="linenos">33</span>        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">&#39;dialog::changed&#39;</span><span class="p">:</span>
-<span class="linenos">34</span>            <span class="k">if</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">][</span><span class="s1">&#39;base&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> \
-<span class="linenos">35</span>                <span class="nb">hasattr</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">][</span><span class="s1">&#39;base&#39;</span><span class="p">],</span> <span class="s1">&#39;center_coordinate&#39;</span><span class="p">):</span>
+<span class="linenos">33</span>        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">'dialog::changed'</span><span class="p">:</span>
+<span class="linenos">34</span>            <span class="k">if</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">'values'</span><span class="p">][</span><span class="s1">'base'</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> \
+<span class="linenos">35</span>                <span class="nb">hasattr</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s1">'values'</span><span class="p">][</span><span class="s1">'base'</span><span class="p">],</span> <span class="s1">'center_coordinate'</span><span class="p">):</span>
 <span class="linenos">36</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="linenos">37</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="linenos">37</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">''</span>
 </pre></div>
 </div>
 </div>
@@ -573,10 +573,10 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <li><p><strong>Missing decorator</strong>: Add <code class="docutils literal notranslate"><span class="pre">&#64;apicontribution</span></code> decorator before your class definition</p></li>
 <li><p><strong>Missing API runner call</strong>: Ensure your service script calls <code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> so contributions are registered and the service keeps running</p></li>
 <li><p><strong>Invalid service definition</strong>: Check <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> service configuration:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
-<span class="w">    </span><span class="nt">&quot;endpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;gom.api.myservice&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My Custom Element&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;script&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MyElement.py&quot;</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">    </span><span class="nt">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"gom.api.myservice"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Custom Element"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"script"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MyElement.py"</span>
 <span class="p">}]</span>
 </pre></div>
 </div>
@@ -598,7 +598,7 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 </div>
 </li>
 <li><p><strong>Check element ID</strong>: Use a unique, descriptive ID in your constructor:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;mycompany.custom_point&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Custom Point&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'mycompany.custom_point'</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">'Custom Point'</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
@@ -618,7 +618,7 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <p><strong>Solutions:</strong></p>
 <ul>
 <li><p><strong>Check dialog path</strong>: Use correct path from App root:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">&#39;/dialogs/mydialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="s1">'/dialogs/mydialog.gdlg'</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
@@ -637,14 +637,14 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <ul>
 <li><p><strong>Invalid return format</strong>: Ensure <code class="docutils literal notranslate"><span class="pre">compute()</span></code> method returns correct format:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Point elements</span>
-<span class="k">return</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)}</span>
+<span class="k">return</span> <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)}</span>
 
 <span class="c1"># For Circle elements  </span>
 <span class="k">return</span> <span class="p">{</span>
-    <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;center&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span>
-        <span class="s2">&quot;direction&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">),</span>
-        <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="n">r</span>
+    <span class="s2">"value"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"center"</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span>
+        <span class="s2">"direction"</span><span class="p">:</span> <span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">),</span>
+        <span class="s2">"radius"</span><span class="p">:</span> <span class="n">r</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
@@ -655,21 +655,21 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <li><p><strong>Type conversion errors</strong>: Convert dialog string inputs to appropriate types:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>  <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">])</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">])</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)}</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">'x'</span><span class="p">])</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">'y'</span><span class="p">])</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">'z'</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"value"</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)}</span>
     <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Invalid input: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'error'</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Invalid input: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">raise</span>
 </pre></div>
 </div>
 </li>
 <li><p><strong>Missing parameters</strong>: Validate all required parameters are provided:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>  <span class="n">REQUIRED_PARAMS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>  <span class="n">REQUIRED_PARAMS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'x'</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">,</span> <span class="s1">'z'</span><span class="p">]</span>
   <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">REQUIRED_PARAMS</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing required parameter: </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Missing required parameter: </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
@@ -718,15 +718,15 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <ul>
 <li><p><strong>Implement event handling</strong>: Use the <code class="docutils literal notranslate"><span class="pre">event()</span></code> method to handle dialog state:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event_type</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">&#39;dialog::initialized&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">'dialog::initialized'</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;Please enter all required parameters&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">"Please enter all required parameters"</span>
     
-    <span class="k">elif</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">&#39;dialog::changed&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">'dialog::changed'</span><span class="p">:</span>
         <span class="c1"># Validate inputs and enable/disable OK button</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_inputs</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;values&#39;</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate_inputs</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s1">'values'</span><span class="p">]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">""</span>
 </pre></div>
 </div>
 </li>
@@ -739,14 +739,14 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <h4>Enable Detailed Logging<a class="headerlink" href="#enable-detailed-logging" title="Link to this heading"></a></h4>
 <p>Add logging to track execution and identify issues:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Starting computation with values: </span><span class="si">{</span><span class="n">values</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Starting computation with values: </span><span class="si">{</span><span class="n">values</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     
     <span class="k">try</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">your_computation_logic</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="s2">&quot;Computation completed successfully&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="s2">"Computation completed successfully"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Computation failed: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'error'</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Computation failed: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">raise</span>
 </pre></div>
 </div>
@@ -775,12 +775,12 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
     <span class="c1"># Input validation</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No input values provided&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"No input values provided"</span><span class="p">)</span>
     
     <span class="c1"># Type validation</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parameter &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; cannot be None&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Parameter '</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">' cannot be None"</span><span class="p">)</span>
     
     <span class="c1"># Proceed with computation...</span>
 </pre></div>
@@ -821,7 +821,7 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fc7235abe70>
+  <jinja2.runtime.BlockReference object at 0x7f8551ec3850>
 
 
 </footer>
