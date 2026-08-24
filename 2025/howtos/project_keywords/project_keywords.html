@@ -138,27 +138,27 @@
 <section id="reading-project-keywords">
 <h2>Reading project keywords<a class="headerlink" href="#reading-project-keywords" title="Link to this heading"></a></h2>
 <p>A project must be loaded before project keywords can be used. This can be checked with:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="s1">&#39;project&#39;</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No project loaded - exiting.&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="s1">'project'</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"No project loaded - exiting."</span><span class="p">)</span>
     <span class="n">quit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">print(gom.app.project.project_keywords)</span></code> shows the available project keywords.</p>
 <p>From a script, you access the keyword set “User-defined”. User-defined project keywords have the prefix <code class="docutils literal notranslate"><span class="pre">user_</span></code> internally, i.e. to access the project variable ‘Inspector’ as shown in the dialog, the following code is used:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="s1">&#39;user_inspector&#39;</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">project_keywords</span><span class="p">:</span>
-    <span class="n">inspector</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;user_inspector&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="s1">'user_inspector'</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">project_keywords</span><span class="p">:</span>
+    <span class="n">inspector</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'user_inspector'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Checking if the wanted keyword exists before using <code class="docutils literal notranslate"><span class="pre">get()</span></code> prevents an exception in case the keyword is not available. You can also use exception handling instead:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="n">inspector</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;user_inspector&#39;</span><span class="p">)</span>
+    <span class="n">inspector</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'user_inspector'</span><span class="p">)</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="n">inspector</span> <span class="o">=</span> <span class="kc">None</span>
 </pre></div>
 </div>
 <p>To get the keyword description, you use:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="n">inspector_desc</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;description(user_inspector)&#39;</span><span class="p">)</span>
+    <span class="n">inspector_desc</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'description(user_inspector)'</span><span class="p">)</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="n">inspector_desc</span> <span class="o">=</span> <span class="kc">None</span>
 </pre></div>
@@ -172,14 +172,14 @@
 </div>
 <p>To add a new keyword, both a value and a keyword description must be set:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">set_project_keywords</span> <span class="p">(</span>
-    <span class="n">keywords</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;project&#39;</span><span class="p">:</span> <span class="s1">&#39;My Project&#39;</span><span class="p">},</span>
-    <span class="n">keywords_description</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;project&#39;</span><span class="p">:</span> <span class="s1">&#39;Project Name&#39;</span><span class="p">}</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'project'</span><span class="p">:</span> <span class="s1">'My Project'</span><span class="p">},</span>
+    <span class="n">keywords_description</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'project'</span><span class="p">:</span> <span class="s1">'Project Name'</span><span class="p">}</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>To modify the value of an existing keyword, it is sufficient to assign a new value:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">set_project_keywords</span> <span class="p">(</span>
-    <span class="n">keywords</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;project&#39;</span><span class="p">:</span> <span class="s1">&#39;Project XYZ&#39;</span><span class="p">}</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'project'</span><span class="p">:</span> <span class="s1">'Project XYZ'</span><span class="p">}</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -189,22 +189,22 @@
 <p>With the code examples above, the project keywords apply to all stages.</p>
 <p>To write a project keyword to a specific stage:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">set_project_keywords</span><span class="p">(</span>
-  <span class="n">keywords</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;system&#39;</span><span class="p">:</span> <span class="s1">&#39;Shock&#39;</span><span class="p">},</span>
-  <span class="n">keywords_description</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;system&#39;</span><span class="p">:</span> <span class="s1">&#39;System&#39;</span><span class="p">},</span>
-  <span class="n">stage</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">stages</span><span class="p">[</span><span class="s1">&#39;ZEISS Training Object Mesh 3&#39;</span><span class="p">])</span>
+  <span class="n">keywords</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'system'</span><span class="p">:</span> <span class="s1">'Shock'</span><span class="p">},</span>
+  <span class="n">keywords_description</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'system'</span><span class="p">:</span> <span class="s1">'System'</span><span class="p">},</span>
+  <span class="n">stage</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">stages</span><span class="p">[</span><span class="s1">'ZEISS Training Object Mesh 3'</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>To access project keywords per stage:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">stage</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">stages</span><span class="p">:</span>
-	<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stage: </span><span class="si">{</span><span class="n">stage</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> System=&#39;</span><span class="si">{</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">in_stage</span><span class="p">[</span><span class="n">stage</span><span class="o">.</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;user_system&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Stage: </span><span class="si">{</span><span class="n">stage</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> System='</span><span class="si">{</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">in_stage</span><span class="p">[</span><span class="n">stage</span><span class="o">.</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'user_system'</span><span class="p">)</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Example Result:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Stage</span><span class="p">:</span> <span class="n">ZEISS</span> <span class="n">Training</span> <span class="n">Object</span> <span class="n">Mesh</span> <span class="mi">1</span> <span class="n">System</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
-<span class="n">Stage</span><span class="p">:</span> <span class="n">ZEISS</span> <span class="n">Training</span> <span class="n">Object</span> <span class="n">Mesh</span> <span class="mi">2</span> <span class="n">System</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
-<span class="n">Stage</span><span class="p">:</span> <span class="n">ZEISS</span> <span class="n">Training</span> <span class="n">Object</span> <span class="n">Mesh</span> <span class="mi">3</span> <span class="n">System</span><span class="o">=</span><span class="s1">&#39;Shock&#39;</span>
-<span class="n">Stage</span><span class="p">:</span> <span class="n">ZEISS</span> <span class="n">Training</span> <span class="n">Object</span> <span class="n">Mesh</span> <span class="mi">4</span> <span class="n">System</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
-<span class="n">Stage</span><span class="p">:</span> <span class="n">ZEISS</span> <span class="n">Training</span> <span class="n">Object</span> <span class="n">Mesh</span> <span class="mi">5</span> <span class="n">System</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Stage</span><span class="p">:</span> <span class="n">ZEISS</span> <span class="n">Training</span> <span class="n">Object</span> <span class="n">Mesh</span> <span class="mi">1</span> <span class="n">System</span><span class="o">=</span><span class="s1">''</span>
+<span class="n">Stage</span><span class="p">:</span> <span class="n">ZEISS</span> <span class="n">Training</span> <span class="n">Object</span> <span class="n">Mesh</span> <span class="mi">2</span> <span class="n">System</span><span class="o">=</span><span class="s1">''</span>
+<span class="n">Stage</span><span class="p">:</span> <span class="n">ZEISS</span> <span class="n">Training</span> <span class="n">Object</span> <span class="n">Mesh</span> <span class="mi">3</span> <span class="n">System</span><span class="o">=</span><span class="s1">'Shock'</span>
+<span class="n">Stage</span><span class="p">:</span> <span class="n">ZEISS</span> <span class="n">Training</span> <span class="n">Object</span> <span class="n">Mesh</span> <span class="mi">4</span> <span class="n">System</span><span class="o">=</span><span class="s1">''</span>
+<span class="n">Stage</span><span class="p">:</span> <span class="n">ZEISS</span> <span class="n">Training</span> <span class="n">Object</span> <span class="n">Mesh</span> <span class="mi">5</span> <span class="n">System</span><span class="o">=</span><span class="s1">''</span>
 </pre></div>
 </div>
 </section>
@@ -232,7 +232,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f77bf4f6350>
+  <jinja2.runtime.BlockReference object at 0x7fbc0b8b9e10>
 
 
 </footer>

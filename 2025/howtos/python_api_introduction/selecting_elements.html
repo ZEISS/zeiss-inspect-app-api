@@ -144,8 +144,8 @@ by the actual command in the script later. You can also select multiple elements
 <p><img alt="Explorer - Nominal Elements selected" src="../../_images/explorer-element_selection-1.png" /></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">cad</span><span class="o">.</span><span class="n">show_element</span> <span class="p">(</span>
     <span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-        <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">],</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;nominal&#39;</span>
+        <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">],</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'nominal'</span>
         <span class="p">]}</span>
     <span class="p">)</span>
 <span class="p">)</span>
@@ -160,13 +160,13 @@ by the actual command in the script later. You can also select multiple elements
 <h2>Accessing elements in a selection<a class="headerlink" href="#accessing-elements-in-a-selection" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ElementSelection</span></code> is a reference to the selected elements:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">],</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;nominal&#39;</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">],</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'nominal'</span>
     <span class="p">]}</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 <span class="c1"># output: </span>
-<span class="c1"># gom.ElementSelection ({&#39;category&#39;: [&#39;key&#39;, &#39;elements&#39;, &#39;part&#39;, gom.app.project.parts[&#39;Part&#39;], &#39;explorer_category&#39;, &#39;nominal&#39;]})</span>
+<span class="c1"># gom.ElementSelection ({'category': ['key', 'elements', 'part', gom.app.project.parts['Part'], 'explorer_category', 'nominal']})</span>
 </pre></div>
 </div>
 <p>To access the selected elements for reading their properties (e.g. element names), you use the returned reference in an
@@ -183,13 +183,13 @@ iteration:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">element_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">element_list</span><span class="p">)</span>
 <span class="c1"># Example output: </span>
-<span class="c1"># [gom.app.project.inspection[&#39;Plane 1&#39;], gom.app.project.inspection[&#39;Plane 2&#39;], gom.app.project.inspection[&#39;Circle 1&#39;]]</span>
+<span class="c1"># [gom.app.project.inspection['Plane 1'], gom.app.project.inspection['Plane 2'], gom.app.project.inspection['Circle 1']]</span>
 </pre></div>
 </div>
 <p>Using a Python comprehension, you can add another filtering condition:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">element_list</span> <span class="o">=</span> <span class="p">[</span> <span class="n">element</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span> <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39; 1&#39;</span><span class="p">)</span> <span class="p">]</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">element_list</span> <span class="o">=</span> <span class="p">[</span> <span class="n">element</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span> <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">' 1'</span><span class="p">)</span> <span class="p">]</span>
 <span class="c1"># Example output:</span>
-<span class="c1"># [gom.app.project.inspection[&#39;Plane 1&#39;], gom.app.project.inspection[&#39;Circle 1&#39;]]</span>
+<span class="c1"># [gom.app.project.inspection['Plane 1'], gom.app.project.inspection['Circle 1']]</span>
 </pre></div>
 </div>
 </section>
@@ -204,15 +204,15 @@ iteration:</p>
 <ol class="arabic">
 <li><p>Part</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">]]}</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">]]}</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </li>
 <li><p>CAD Elements (Nominal part)</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;nominal_part&#39;</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'nominal_part'</span>
     <span class="p">]}</span>
 <span class="p">)</span>
 </pre></div>
@@ -220,8 +220,8 @@ iteration:</p>
 </li>
 <li><p>Mesh Elements (Actual part)</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;actual_part&#39;</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'actual_part'</span>
     <span class="p">]}</span>
 <span class="p">)</span>
 </pre></div>
@@ -229,8 +229,8 @@ iteration:</p>
 </li>
 <li><p>Nominal Elements</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">],</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;nominal&#39;</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">],</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'nominal'</span>
     <span class="p">]}</span>
 <span class="p">)</span>
 </pre></div>
@@ -238,9 +238,9 @@ iteration:</p>
 </li>
 <li><p>Nominal Elements — Geometries</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">],</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;nominal&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;object_family&#39;</span><span class="p">,</span> <span class="s1">&#39;geometrical_element&#39;</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">],</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'nominal'</span><span class="p">,</span>
+        <span class="s1">'object_family'</span><span class="p">,</span> <span class="s1">'geometrical_element'</span>
     <span class="p">]}</span>
 <span class="p">)</span>
 </pre></div>
@@ -248,9 +248,9 @@ iteration:</p>
 </li>
 <li><p>Nominal Elements — Geometries — Planes</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">],</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;nominal&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;object_family&#39;</span><span class="p">,</span> <span class="s1">&#39;geometrical_element&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;inspection_plane&#39;</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">],</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'nominal'</span><span class="p">,</span>
+        <span class="s1">'object_family'</span><span class="p">,</span> <span class="s1">'geometrical_element'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">,</span> <span class="s1">'inspection_plane'</span>
     <span class="p">]}</span>
 <span class="p">)</span>
 </pre></div>
@@ -258,14 +258,14 @@ iteration:</p>
 </li>
 <li><p>Nominal Elements — Geometries — Planes — Plane 1</p>
 <p>💡 The leaf nodes of the element tree are elements, not element selections!</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">inspection</span><span class="p">[</span><span class="s1">&#39;Plane 1&#39;</span><span class="p">]]</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">inspection</span><span class="p">[</span><span class="s1">'Plane 1'</span><span class="p">]]</span>
 </pre></div>
 </div>
 </li>
 <li><p>Inspection</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">],</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;inspection&#39;</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">],</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'inspection'</span>
     <span class="p">]}</span>
 <span class="p">)</span>
 </pre></div>
@@ -273,8 +273,8 @@ iteration:</p>
 </li>
 <li><p>Actual Elements</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">],</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;actual&#39;</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">],</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'actual'</span>
     <span class="p">]}</span>
 <span class="p">)</span>
 </pre></div>
@@ -282,7 +282,7 @@ iteration:</p>
 </li>
 <li><p>Tags</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">]}</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'tags'</span><span class="p">]}</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -292,25 +292,25 @@ iteration:</p>
 <section id="more-element-selection-options">
 <h2>More element selection options<a class="headerlink" href="#more-element-selection-options" title="Link to this heading"></a></h2>
 <p>You can get all inspections directly related to an element with:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;attachment_group&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;criterias&#39;</span><span class="p">]})</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="p">{</span><span class="s1">'attachment_group'</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">'criterias'</span><span class="p">]})</span>
 </pre></div>
 </div>
 <p>You can get an element in the Section View tab with:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">element</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;view&#39;</span><span class="p">:</span> <span class="s1">&#39;section_view&#39;</span><span class="p">})</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">element</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="p">{</span><span class="s1">'view'</span><span class="p">:</span> <span class="s1">'section_view'</span><span class="p">})</span>
 </pre></div>
 </div>
 <p>You can get all elements with:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;overview_explorer_categories&#39;</span><span class="p">,</span> <span class="s1">&#39;all_elements&#39;</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'overview_explorer_categories'</span><span class="p">,</span> <span class="s1">'all_elements'</span>
     <span class="p">]}</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>You can get all selected elements in a category with:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">selected_elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]},</span>
-    <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;selected&#39;</span><span class="p">]</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]},</span>
+    <span class="nb">filter</span><span class="o">=</span><span class="p">[</span><span class="s1">'selected'</span><span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -321,7 +321,7 @@ iteration:</p>
 <p>For the currently selected element, you can also select related elements from various tabs of the Explorer, e.g. “
 Relates To”, “Depends On” and “Required For”:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Options: related, depends_on, required_for</span>
-<span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">({</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;related&#39;</span><span class="p">]})</span>
+<span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">({</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'key'</span><span class="p">,</span> <span class="s1">'related'</span><span class="p">]})</span>
 </pre></div>
 </div>
 <div class="admonition hint">
@@ -338,16 +338,16 @@ Relates To”, “Depends On” and “Required For”:</p>
 subsequent <code class="docutils literal notranslate"><span class="pre">ElementSelection</span></code>:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Recorded command, can be deleted after copying the filter parameter to the ElementSelection</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_explorer_filter</span> <span class="p">(</span>
-	<span class="nb">filter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;param&#39;</span><span class="p">:</span> <span class="s1">&#39;Circle&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;by_name&#39;</span><span class="p">},</span> 
-	<span class="n">uuid</span><span class="o">=</span><span class="s1">&#39;00000000-0000-0000-0000-000000000000&#39;</span>
+	<span class="nb">filter</span><span class="o">=</span><span class="p">{</span><span class="s1">'param'</span><span class="p">:</span> <span class="s1">'Circle'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'by_name'</span><span class="p">},</span> 
+	<span class="n">uuid</span><span class="o">=</span><span class="s1">'00000000-0000-0000-0000-000000000000'</span>
 <span class="p">)</span>
 
-<span class="c1"># Nominal elements with &#39;Circle&#39; in name</span>
+<span class="c1"># Nominal elements with 'Circle' in name</span>
 <span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">],</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;nominal&#39;</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">],</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'nominal'</span>
     <span class="p">]},</span>
-    <span class="nb">filter</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;param&#39;</span><span class="p">:</span> <span class="s1">&#39;Circle&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;by_name&#39;</span><span class="p">}</span>
+    <span class="nb">filter</span><span class="o">=</span><span class="p">{</span><span class="s1">'param'</span><span class="p">:</span> <span class="s1">'Circle'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'by_name'</span><span class="p">}</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -355,62 +355,62 @@ subsequent <code class="docutils literal notranslate"><span class="pre">ElementS
 <section id="syntax">
 <h2>Syntax<a class="headerlink" href="#syntax" title="Link to this heading"></a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span>
-        <span class="p">[,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">part_reference</span><span class="o">&gt;</span><span class="p">]</span>
-        <span class="p">[,</span> <span class="s1">&#39;is_element_in_clipboard&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span> <span class="o">|</span>
-                                      <span class="s1">&#39;False&#39;</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span>
+        <span class="p">[,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">part_reference</span><span class="o">&gt;</span><span class="p">]</span>
+        <span class="p">[,</span> <span class="s1">'is_element_in_clipboard'</span><span class="p">,</span> <span class="s1">'True'</span> <span class="o">|</span>
+                                      <span class="s1">'False'</span>
         <span class="p">]</span>
-        <span class="p">[,</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;measurements&#39;</span> <span class="o">|</span>
-                                <span class="s1">&#39;nominal_part&#39;</span> <span class="o">|</span>
-                                <span class="s1">&#39;actual_part&#39;</span> <span class="o">|</span>
-                                <span class="s1">&#39;linked_volumes&#39;</span> <span class="o">|</span>
-                                <span class="s1">&#39;nominal&#39;</span> <span class="o">|</span> 
-                                <span class="s1">&#39;inspection&#39;</span> <span class="o">|</span> 
-                                <span class="s1">&#39;actual&#39;</span> <span class="o">|</span> 
-                                <span class="s1">&#39;coordinate_systems&#39;</span> <span class="o">|</span>
-                                <span class="s1">&#39;alignment&#39;</span> <span class="o">|</span>
-								<span class="s1">&#39;clusters&#39;</span> <span class="o">|</span>
-                                <span class="s1">&#39;reports&#39;</span> <span class="o">|</span> 
-                                <span class="s1">&#39;stage_ranges&#39;</span> <span class="o">|</span>
-                                <span class="s1">&#39;tags&#39;</span> <span class="o">|</span> 
+        <span class="p">[,</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'measurements'</span> <span class="o">|</span>
+                                <span class="s1">'nominal_part'</span> <span class="o">|</span>
+                                <span class="s1">'actual_part'</span> <span class="o">|</span>
+                                <span class="s1">'linked_volumes'</span> <span class="o">|</span>
+                                <span class="s1">'nominal'</span> <span class="o">|</span> 
+                                <span class="s1">'inspection'</span> <span class="o">|</span> 
+                                <span class="s1">'actual'</span> <span class="o">|</span> 
+                                <span class="s1">'coordinate_systems'</span> <span class="o">|</span>
+                                <span class="s1">'alignment'</span> <span class="o">|</span>
+								<span class="s1">'clusters'</span> <span class="o">|</span>
+                                <span class="s1">'reports'</span> <span class="o">|</span> 
+                                <span class="s1">'stage_ranges'</span> <span class="o">|</span>
+                                <span class="s1">'tags'</span> <span class="o">|</span> 
                                 <span class="o">...</span> 
         <span class="p">]</span>
-        <span class="p">[,</span> <span class="s1">&#39;object_family&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">object_family_name</span><span class="o">&gt;</span><span class="p">]</span>
-        <span class="p">[,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">type_name</span><span class="o">&gt;</span><span class="p">]</span>
-        <span class="p">[,</span> <span class="s1">&#39;overview_explorer_categories&#39;</span><span class="p">,</span> <span class="s1">&#39;all_elements&#39;</span><span class="p">]</span>
+        <span class="p">[,</span> <span class="s1">'object_family'</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">object_family_name</span><span class="o">&gt;</span><span class="p">]</span>
+        <span class="p">[,</span> <span class="s1">'type'</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">type_name</span><span class="o">&gt;</span><span class="p">]</span>
+        <span class="p">[,</span> <span class="s1">'overview_explorer_categories'</span><span class="p">,</span> <span class="s1">'all_elements'</span><span class="p">]</span>
     <span class="p">]}</span>
 <span class="p">)</span>
 
 <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="n">element</span><span class="o">&gt;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;attachment_group&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;criterias&#39;</span><span class="p">]}</span>
+    <span class="o">&lt;</span><span class="n">element</span><span class="o">&gt;</span><span class="p">,</span> <span class="p">{</span><span class="s1">'attachment_group'</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">'criterias'</span><span class="p">]}</span>
 <span class="p">)</span>
 
 <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="n">element</span><span class="o">&gt;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;view&#39;</span><span class="p">:</span> <span class="s1">&#39;section_view&#39;</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="n">element</span><span class="o">&gt;</span><span class="p">,</span> <span class="p">{</span><span class="s1">'view'</span><span class="p">:</span> <span class="s1">'section_view'</span><span class="p">}</span>
 <span class="p">)</span>
 
 <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;related&#39;</span> <span class="o">|</span> <span class="s1">&#39;depends_on&#39;</span> <span class="o">|</span> <span class="s1">&#39;required_for&#39;</span> <span class="o">|</span> <span class="o">...</span> <span class="p">]}</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'key'</span><span class="p">,</span> <span class="s1">'related'</span> <span class="o">|</span> <span class="s1">'depends_on'</span> <span class="o">|</span> <span class="s1">'required_for'</span> <span class="o">|</span> <span class="o">...</span> <span class="p">]}</span>
 <span class="p">)</span>
 
 <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]},</span>
-    <span class="nb">filter</span> <span class="o">=</span> <span class="p">{[</span><span class="s1">&#39;inverse&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,]</span> <span class="s1">&#39;param&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;by_name&#39;</span> <span class="p">}</span> <span class="o">|</span>
-             <span class="p">{[</span><span class="s1">&#39;inverse&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,]</span> <span class="s1">&#39;param&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">keyword</span><span class="o">&gt;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;by_keyword&#39;</span> <span class="p">}</span> <span class="o">|</span>
-             <span class="s1">&#39;visible&#39;</span> <span class="o">|</span>
-             <span class="s1">&#39;bodies&#39;</span> <span class="o">|</span>
-             <span class="s1">&#39;coordinate_systems&#39;</span> <span class="o">|</span>
-             <span class="p">{</span><span class="s1">&#39;inverse&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;visible&#39;</span> <span class="o">|</span> <span class="s1">&#39;bodies&#39;</span> <span class="o">|</span> <span class="s1">&#39;coordinate_systems&#39;</span><span class="p">}</span> <span class="o">|</span>
-             <span class="s1">&#39;selected&#39;</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]},</span>
+    <span class="nb">filter</span> <span class="o">=</span> <span class="p">{[</span><span class="s1">'inverse'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,]</span> <span class="s1">'param'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'by_name'</span> <span class="p">}</span> <span class="o">|</span>
+             <span class="p">{[</span><span class="s1">'inverse'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,]</span> <span class="s1">'param'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">keyword</span><span class="o">&gt;</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'by_keyword'</span> <span class="p">}</span> <span class="o">|</span>
+             <span class="s1">'visible'</span> <span class="o">|</span>
+             <span class="s1">'bodies'</span> <span class="o">|</span>
+             <span class="s1">'coordinate_systems'</span> <span class="o">|</span>
+             <span class="p">{</span><span class="s1">'inverse'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'visible'</span> <span class="o">|</span> <span class="s1">'bodies'</span> <span class="o">|</span> <span class="s1">'coordinate_systems'</span><span class="p">}</span> <span class="o">|</span>
+             <span class="s1">'selected'</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>You can also use the <code class="docutils literal notranslate"><span class="pre">ElementSelection</span></code> command with multiple selection filters to get elements
 that match any of the filters (disjunction / OR):</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">elements</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">(</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;nominal&#39;</span><span class="p">]},</span>
-    <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;actual&#39;</span><span class="p">]}</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'nominal'</span><span class="p">]},</span>
+    <span class="p">{</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'actual'</span><span class="p">]}</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -439,7 +439,7 @@ that match any of the filters (disjunction / OR):</p>
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f77c07ad130>
+  <jinja2.runtime.BlockReference object at 0x7fbc0c856de0>
 
 
 </footer>

@@ -153,22 +153,22 @@
 <section id="basic-command-line-options">
 <h3>Basic command line options<a class="headerlink" href="#basic-command-line-options" title="Link to this heading"></a></h3>
 <p>You start ZEISS INSPECT from the command line with</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">"C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe"</span>
 </pre></div>
 </div>
 <p>This will start the application with all available licenses. You can specify the desired licenses with the parameter <code class="docutils literal notranslate"><span class="pre">-license</span></code>, e.g.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe&quot;</span> <span class="o">-</span><span class="n">license</span> <span class="n">volume</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">"C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe"</span> <span class="o">-</span><span class="n">license</span> <span class="n">volume</span>
 </pre></div>
 </div>
 <p>By default, all licensed Apps with a valid license and all license-free Apps are visible in the application. This can be changed with the parameter <code class="docutils literal notranslate"><span class="pre">-packages</span></code>, which restricts the visible Apps to those listed by UUID:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe&quot;</span> <span class="o">-</span><span class="n">packages</span> <span class="mi">36687</span><span class="n">b47</span><span class="o">-</span><span class="mi">6</span><span class="n">ee0</span><span class="o">-</span><span class="mi">448</span><span class="n">c</span><span class="o">-</span><span class="mi">886</span><span class="n">a</span><span class="o">-</span><span class="n">eba02c9d0329</span><span class="p">,</span><span class="n">a8c6baec</span><span class="o">-</span><span class="n">c6ed</span><span class="o">-</span><span class="mi">409</span><span class="n">d</span><span class="o">-</span><span class="n">a2dc</span><span class="o">-</span><span class="n">dd3d032db8bd</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">"C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe"</span> <span class="o">-</span><span class="n">packages</span> <span class="mi">36687</span><span class="n">b47</span><span class="o">-</span><span class="mi">6</span><span class="n">ee0</span><span class="o">-</span><span class="mi">448</span><span class="n">c</span><span class="o">-</span><span class="mi">886</span><span class="n">a</span><span class="o">-</span><span class="n">eba02c9d0329</span><span class="p">,</span><span class="n">a8c6baec</span><span class="o">-</span><span class="n">c6ed</span><span class="o">-</span><span class="mi">409</span><span class="n">d</span><span class="o">-</span><span class="n">a2dc</span><span class="o">-</span><span class="n">dd3d032db8bd</span>
 </pre></div>
 </div>
 <p>You find the UUID in the App’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p>
 <p>You can reduce the software startup time by skipping the splash screen with the parameter <code class="docutils literal notranslate"><span class="pre">-nosplash</span></code>.</p>
 <p>The initial appearance of the ZEISS INSPECT window can be set with the parameters <code class="docutils literal notranslate"><span class="pre">-minimized</span></code>, <code class="docutils literal notranslate"><span class="pre">-maximized</span></code> and <code class="docutils literal notranslate"><span class="pre">-fullscreen</span></code>.</p>
 <p>The software configuration is stored in the file <code class="docutils literal notranslate"><span class="pre">%APPDATA%\GOM\&lt;VERSION&gt;\gomsoftware.cfg</span></code>. You can make a copy of the configuration created for a special purpose and later apply it with the parameter <code class="docutils literal notranslate"><span class="pre">-config</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe&quot;</span> <span class="o">-</span><span class="n">config</span> <span class="n">C</span><span class="p">:</span>\<span class="n">temp</span>\<span class="n">my_inspection</span><span class="o">.</span><span class="n">cfg</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">"C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe"</span> <span class="o">-</span><span class="n">config</span> <span class="n">C</span><span class="p">:</span>\<span class="n">temp</span>\<span class="n">my_inspection</span><span class="o">.</span><span class="n">cfg</span>
 </pre></div>
 </div>
 <div class="admonition caution">
@@ -180,27 +180,27 @@
 <h3>Starting ZEISS INSPECT Python scripts<a class="headerlink" href="#starting-zeiss-inspect-python-scripts" title="Link to this heading"></a></h3>
 <p>You start ZEISS INSPECT and execute a script with <code class="docutils literal notranslate"><span class="pre">-eval</span> <span class="pre">&quot;gom.script.userscript.&lt;scriptfolder&gt;__&lt;script&gt;()&quot;</span></code></p>
 <p>Example: <code class="docutils literal notranslate"><span class="pre">&lt;App_Folder&gt;/scripts/tools/convert_mesh.py</span></code></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe&quot;</span> <span class="o">-</span><span class="nb">eval</span> <span class="s2">&quot;gom.script.userscript.tools__convert_mesh()&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">"C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe"</span> <span class="o">-</span><span class="nb">eval</span> <span class="s2">"gom.script.userscript.tools__convert_mesh()"</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">&lt;scriptfolder&gt;</span></code> can be omitted if the script is located in an App <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> folder:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe&quot;</span> <span class="o">-</span><span class="nb">eval</span> <span class="s2">&quot;gom.script.userscript.convert_mesh()&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">"C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe"</span> <span class="o">-</span><span class="nb">eval</span> <span class="s2">"gom.script.userscript.convert_mesh()"</span>
 </pre></div>
 </div>
 <p>If the script’s name is not unique within all installed Apps and connected App folders, you can also execute the script by specifying its file path with the parameter <code class="docutils literal notranslate"><span class="pre">-script</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe&quot;</span> <span class="o">-</span><span class="n">script</span> <span class="s2">&quot;C:</span><span class="se">\t</span><span class="s2">emp\convert.py&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">"C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe"</span> <span class="o">-</span><span class="n">script</span> <span class="s2">"C:</span><span class="se">\t</span><span class="s2">emp\convert.py"</span>
 </pre></div>
 </div>
 </section>
 <section id="passing-parameters-to-a-script">
 <h3>Passing parameters to a script<a class="headerlink" href="#passing-parameters-to-a-script" title="Link to this heading"></a></h3>
 <p>You can execute a script with parameters by passing a Python dictionary to it:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe&quot;</span> <span class="o">-</span><span class="nb">eval</span> <span class="s2">&quot;gom.script.userscript.myscript(parameters={&#39;variable_1&#39;:&#39;value_1&#39;,&#39;variable_2&#39;:&#39;value_2&#39;})&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">"C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe"</span> <span class="o">-</span><span class="nb">eval</span> <span class="s2">"gom.script.userscript.myscript(parameters={'variable_1':'value_1','variable_2':'value_2'})"</span>
 </pre></div>
 </div>
 <p>In the script, you can access the variables directly by name:</p>
 <p>Example: <code class="docutils literal notranslate"><span class="pre">myscript.py</span></code></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gom</span><span class="p">,</span> <span class="s1">&#39;read_parameters&#39;</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gom</span><span class="p">,</span> <span class="s1">'read_parameters'</span><span class="p">):</span>
     <span class="n">gom</span><span class="o">.</span><span class="n">read_parameters</span><span class="p">(</span><span class="nb">globals</span><span class="p">())</span>
 
 <span class="n">var1</span> <span class="o">=</span> <span class="n">variable_1</span>
@@ -214,9 +214,9 @@
 </div>
 <p>To allow simple testing in the App editor during script development, you add the following code to define the variables which are set as script parameters otherwise :</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default parameters for testing</span>
-<span class="k">if</span> <span class="s1">&#39;variable_1&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">()</span> <span class="ow">or</span> <span class="s1">&#39;variable_2&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">():</span>
-	<span class="n">variable_1</span> <span class="o">=</span> <span class="s1">&#39;default_value_1&#39;</span>
-	<span class="n">variable_2</span> <span class="o">=</span> <span class="s1">&#39;default_value_2&#39;</span>
+<span class="k">if</span> <span class="s1">'variable_1'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">()</span> <span class="ow">or</span> <span class="s1">'variable_2'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">():</span>
+	<span class="n">variable_1</span> <span class="o">=</span> <span class="s1">'default_value_1'</span>
+	<span class="n">variable_2</span> <span class="o">=</span> <span class="s1">'default_value_2'</span>
 </pre></div>
 </div>
 </section>
@@ -252,11 +252,11 @@
 <p>You can create a batch file to start ZEISS INSPECT for executing a script. This is especially useful, if the script execution is part of a sequence of operations.</p>
 <p><img alt="ZEISS INSPECT batch file" src="../../_images/ZEISS_INSPECT_batchfile.png" /></p>
 <p>Create a batch file (e.g. <code class="docutils literal notranslate"><span class="pre">ZEISS_INSPECT_myscript.bat</span></code>) with a text editor and insert your command line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe&quot;</span> <span class="o">-</span><span class="nb">eval</span> <span class="s2">&quot;gom.script.userscript.myscript(parameters={&#39;variable_1&#39;:&#39;value_1&#39;,&#39;variable_2&#39;:&#39;value_2&#39;})&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">"C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe"</span> <span class="o">-</span><span class="nb">eval</span> <span class="s2">"gom.script.userscript.myscript(parameters={'variable_1':'value_1','variable_2':'value_2'})"</span>
 </pre></div>
 </div>
 <p>Executing this batch file will open a Command Prompt window. If this is not desired, start the application with the Windows <code class="docutils literal notranslate"><span class="pre">start</span></code> command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">start</span> \<span class="n">b</span> <span class="s2">&quot;&quot;</span> <span class="s2">&quot;C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe&quot;</span> <span class="o">-</span><span class="nb">eval</span> <span class="s2">&quot;gom.script.userscript.myscript(parameters={&#39;variable_1&#39;:&#39;value_1&#39;,&#39;variable_2&#39;:&#39;value_2&#39;})&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">start</span> \<span class="n">b</span> <span class="s2">""</span> <span class="s2">"C:\Program Files\Zeiss\INSPECT</span><span class="se">\202</span><span class="s2">5</span><span class="se">\b</span><span class="s2">in\ZEISS_INSPECT.exe"</span> <span class="o">-</span><span class="nb">eval</span> <span class="s2">"gom.script.userscript.myscript(parameters={'variable_1':'value_1','variable_2':'value_2'})"</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">\b</span></code> starts an application without opening a new Command Prompt window.</p>
@@ -268,7 +268,7 @@
 <p>Example: <code class="docutils literal notranslate"><span class="pre">ZEISS_INSPECT_myscript.py</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
 
-<span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">&quot;C:/Program Files/Zeiss/INSPECT/2025/bin/ZEISS_INSPECT.exe&quot;</span><span class="p">,</span> <span class="s2">&quot;-eval&quot;</span><span class="p">,</span> <span class="s2">&quot;gom.script.userscript.myscript(parameters={&#39;variable_1&#39;:&#39;value_1&#39;,&#39;variable_2&#39;:&#39;value_2&#39;})&quot;</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">"C:/Program Files/Zeiss/INSPECT/2025/bin/ZEISS_INSPECT.exe"</span><span class="p">,</span> <span class="s2">"-eval"</span><span class="p">,</span> <span class="s2">"gom.script.userscript.myscript(parameters={'variable_1':'value_1','variable_2':'value_2'})"</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -306,7 +306,7 @@
 <div class="code-block-caption"><span class="caption-text">App Script</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 
-<span class="n">FILE</span> <span class="o">=</span> <span class="s2">&quot;C:/temp/testscript.py&quot;</span>
+<span class="n">FILE</span> <span class="o">=</span> <span class="s2">"C:/temp/testscript.py"</span>
 
 <span class="c1"># Return None</span>
 <span class="n">res</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">FILE</span><span class="p">)</span>
@@ -323,7 +323,7 @@
 <span class="c1"># Pass parameters</span>
 <span class="n">res</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span>
 	<span class="n">file</span><span class="o">=</span><span class="n">FILE</span><span class="p">,</span>
-	<span class="n">parameters</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span> <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="s2">&quot;42&quot;</span><span class="p">},</span> 
+	<span class="n">parameters</span><span class="o">=</span><span class="p">{</span><span class="s2">"geometry"</span><span class="p">:</span> <span class="s2">"circle"</span><span class="p">,</span> <span class="s2">"radius"</span><span class="p">:</span> <span class="s2">"42"</span><span class="p">},</span> 
 	<span class="n">collect_stdout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 </pre></div>
@@ -333,36 +333,36 @@
 <div class="code-block-caption"><span class="caption-text">External Python Script (testscript.py)</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;sys.argv: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'sys.argv: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># Two possible ways to check for parameters...</span>
 
 <span class="c1"># Option 1</span>
-<span class="k">if</span> <span class="s1">&#39;geometry&#39;</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Name: </span><span class="si">{</span><span class="n">geometry</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="s1">'geometry'</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Name: </span><span class="si">{</span><span class="n">geometry</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="c1"># Option 2    </span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;radius: </span><span class="si">{</span><span class="n">radius</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'radius: </span><span class="si">{</span><span class="n">radius</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
     <span class="k">pass</span>
     
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is a normal message&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is an error message&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"This is a normal message"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"This is an error message"</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Output to App Editor Console</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kc">None</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;C:/temp/testscript.py&#39;</span><span class="p">]</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span> <span class="p">[</span><span class="s1">'C:/temp/testscript.py'</span><span class="p">]</span>
 <span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">normal</span> <span class="n">message</span>
 
-<span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;C:/temp/testscript.py&#39;</span><span class="p">]</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span> <span class="p">[</span><span class="s1">'C:/temp/testscript.py'</span><span class="p">]</span>
 <span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">normal</span> <span class="n">message</span>
 <span class="n">This</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">error</span> <span class="n">message</span>
 
-<span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;C:/temp/testscript.py&#39;</span><span class="p">]</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span> <span class="p">[</span><span class="s1">'C:/temp/testscript.py'</span><span class="p">]</span>
 <span class="n">Name</span><span class="p">:</span> <span class="n">circle</span>
 <span class="n">radius</span><span class="p">:</span> <span class="mi">42</span>
 <span class="n">This</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">normal</span> <span class="n">message</span>
@@ -394,7 +394,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f77c068cb40>
+  <jinja2.runtime.BlockReference object at 0x7fbc0c5a9080>
 
 
 </footer>

@@ -161,12 +161,12 @@
 <p>Any kind of <a class="reference internal" href="../scripted_elements/scripted_elements_introduction.html"><span class="std std-doc">scripted element</span></a> can provide data to a scripted diagram.</p>
 <p>In the scripted element’s <code class="docutils literal notranslate"><span class="pre">calculation()</span></code> function, apply <code class="docutils literal notranslate"><span class="pre">context.data[]</span></code> as in this example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">context</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">stage</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;ude_diagram_custom&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1"># mandatory, fixed</span>
-    <span class="s2">&quot;ude_diagram_type&quot;</span><span class="p">:</span> <span class="s2">&quot;SVGDiagram&quot;</span><span class="p">,</span> <span class="c1"># mandatory, fixed</span>
-    <span class="s2">&quot;ude_diagram_service&quot;</span> <span class="p">:</span> <span class="s2">&quot;gom.api.diagram.radius_plot&quot;</span><span class="p">,</span> <span class="c1"># &lt;service_endpoint&gt;.&lt;service_function_name&gt;</span>
+    <span class="s2">"ude_diagram_custom"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1"># mandatory, fixed</span>
+    <span class="s2">"ude_diagram_type"</span><span class="p">:</span> <span class="s2">"SVGDiagram"</span><span class="p">,</span> <span class="c1"># mandatory, fixed</span>
+    <span class="s2">"ude_diagram_service"</span> <span class="p">:</span> <span class="s2">"gom.api.diagram.radius_plot"</span><span class="p">,</span> <span class="c1"># &lt;service_endpoint&gt;.&lt;service_function_name&gt;</span>
     <span class="c1"># add any number/type of parameters for use in a diagram</span>
     <span class="c1"># prefix must be ude_diagram_</span>
-    <span class="s2">&quot;ude_diagram_radius&quot;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;radius&#39;</span><span class="p">]</span> 
+    <span class="s2">"ude_diagram_radius"</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="s1">'radius'</span><span class="p">]</span> 
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -238,22 +238,22 @@
 
 <span class="nd">@apifunction</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">diagram_service_template</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">element_data</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
-    <span class="n">gom</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Diagram Service Template&#39;</span><span class="p">)</span>
-    <span class="n">gom</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">view</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">element_data</span><span class="si">=}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">gom</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Diagram Service Template'</span><span class="p">)</span>
+    <span class="n">gom</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">view</span><span class="si">=}</span><span class="s1">, </span><span class="si">{</span><span class="n">element_data</span><span class="si">=}</span><span class="s1">'</span><span class="p">)</span>
     
     <span class="c1"># Prepare plotting</span>
     <span class="n">mpltools</span><span class="o">.</span><span class="n">setup_plot</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">element_data</span><span class="p">:</span>
         <span class="c1"># Read element reference </span>
-        <span class="n">element</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">]</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="s1">'element'</span><span class="p">]</span>
         
-        <span class="c1"># Read scripted element&#39;s context data</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+        <span class="c1"># Read scripted element's context data</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">e</span><span class="p">[</span><span class="s1">'data'</span><span class="p">]</span>
 
         <span class="c1"># Create your diagram</span>
         <span class="c1"># Example: </span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span> <span class="p">([</span><span class="n">element</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ude_diagram_radius&#39;</span><span class="p">]],</span> <span class="s1">&#39;bx&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span> <span class="p">([</span><span class="n">element</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">'ude_diagram_radius'</span><span class="p">]],</span> <span class="s1">'bx'</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">mpltools</span><span class="o">.</span><span class="n">create_svg</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
 
@@ -266,7 +266,7 @@
 <div class="code-block-caption"><span class="caption-text">Export diagram as SVG file</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set path for debugging</span>
 <span class="c1">#SVG_PATH = None</span>
-<span class="n">SVG_PATH</span> <span class="o">=</span> <span class="s1">&#39;C:/temp/ScriptedDiagram.svg&#39;</span>
+<span class="n">SVG_PATH</span> <span class="o">=</span> <span class="s1">'C:/temp/ScriptedDiagram.svg'</span>
 
 <span class="nd">@apifunction</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">diagram_service_template</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">element_data</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
@@ -275,7 +275,7 @@
     <span class="n">svg</span> <span class="o">=</span> <span class="n">mpltools</span><span class="o">.</span><span class="n">create_svg</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span> <span class="n">view</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">SVG_PATH</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">SVG_PATH</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">SVG_PATH</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">svg</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">svg</span>
@@ -327,7 +327,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f77c068d160>
+  <jinja2.runtime.BlockReference object at 0x7fbc0c71edd0>
 
 
 </footer>
