@@ -251,7 +251,7 @@ Read file from add-on
 ```
 
 This function reads the content of a file from the add-on. If the add-on is protected,
-the file can still be read but will be AES encrypted.
+the contents can only be accessed from within the add-on itself.
 
 **Example:** Print all add-on 'metainfo.json' files
 
@@ -260,6 +260,8 @@ import gom
 import json
 
 for a in gom.api.addons.get_installed_addons ():
+  if a.is_protected ():
+    continue
   text = json.loads (a.read ('metainfo.json'))
   print (json.dumps (text, indent=4))
 ```
@@ -1701,6 +1703,39 @@ This function is called to check if the custom element is visible in the menus. 
 the selections and other preconditions are setup and the user then shall be enabled to create or edit the element.
 
 The default state is `True`, so this function must be overwritten to add granularity to the elements visibility.
+
+#### gom.api.extensions.CustomElement.is_visible_for_iinspect
+
+```{py:function} gom.api.extensions.CustomElement.is_visible_for_iinspect(self: Any, context: Any, element: Any): bool
+
+:param context: Script context object containing execution related parameters.
+:type context: Any
+:param element: The currently selected element.
+:type element: Any
+:return: `True` if the inspection should be visible in the I-Inspect menu for the given element. Defaults to `True` if an exception is raised.
+:rtype: bool
+```
+
+This function is called to check if this custom inspection element should be visible in the I-Inspect menu
+for a selected element.
+
+The function receives exactly one selected element and can decide based on element type, properties, or other
+criteria whether this check should be offered to the user in the I-Inspect menu.
+
+**Exception handling:** If this function raises an exception, the custom inspection will default to being
+visible (`True`) as a fail-safe behavior. 
+
+Example:
+```python
+def is_visible_for_iinspect(self, context, element) -> bool:
+
+    # Only show for circle element
+    str_element = str(element.type)
+    if not str_element.endswith('circle'):
+        return False
+
+    return True
+```
 
 #### gom.api.extensions.CustomElement.show_dialog
 
@@ -5183,6 +5218,26 @@ Identifier for SW signals that the view can be connected to
 
 Constructor
 
+##### gom.api.extensions.views.CustomView._get_scaling_factor
+
+```{py:function} gom.api.extensions.views.CustomView._get_scaling_factor(self: Any): float
+
+Get the current scaling factor
+:return: Current scaling factor as float
+:rtype: float
+```
+
+
+##### gom.api.extensions.views.CustomView._get_style_theme
+
+```{py:function} gom.api.extensions.views.CustomView._get_style_theme(self: Any): str
+
+Get the current style theme
+:return: Current style theme as string
+:rtype: str
+```
+
+
 ##### gom.api.extensions.views.CustomView.event
 
 ```{py:function} gom.api.extensions.views.CustomView.event(self: Any, event: str, args: Any): None
@@ -6822,11 +6877,39 @@ Class representing a single API service
 This class represents an API service. The properties of that service can be read and
 the service can be administered (started, stopped, ...) via that handle.
 
+#### gom.api.services.Service.get_app
+
+```{py:function} gom.api.services.Service.get_app(): UUID
+
+Return the UUID of the App this service belongs to
+:API version: 1
+:return: UUID of the App the service belongs to, or a null UUID (all zeros) if not app-owned
+:rtype: UUID
+```
+
+This function returns the UUID of the App (add-on) that registered this service. The returned
+value is a UUID. A null UUID (all zeros) is returned if the service was not registered by an App.
+
+**Example:**
+
+```
+service = gom.api.services.get_service ('my.test.service')
+print (service.get_app ())
+> '78440dba-4c91-4690-902c-39e777323df4'
+
+# Compare to the current addon
+if service.get_app () == gom.api.addons.get_current_addon ().get_id ():
+    print ('Service belongs to the current addon')
+else:
+    print ('Service belongs to another addon')
+```
+
 #### gom.api.services.Service.get_autostart
 
 ```{py:function} gom.api.services.Service.get_autostart(): bool
 
 Return autostart status of the service
+:API version: 1
 :return: 'true' if the service is started automatically at application startup
 :rtype: bool
 ```
@@ -6863,6 +6946,7 @@ Return the human readable name of this service
 ```{py:function} gom.api.services.Service.get_number_of_instances(): int
 
 Get the number of API instances (processes) the service runs in parallel
+:API version: 1
 :return: Number of API instances which are run in parallel when the service is started.
 :rtype: int
 ```
@@ -6886,8 +6970,10 @@ This function returns the status the service is currently in. Possible values ar
 - STARTED: Service has been started and is currently initializing. This can include both the general
 service process startup or running the global service initialization code (model loading, ...).
 - RUNNING: Service is running and ready to process API requests. If there are multiple service instances configured
-per service, the service counts as RUNNING not before all of these instances have been initialized !
-- STOPPING: Service is currently shutting down,
+per service, the service counts as RUNNING not before all of these instances have been initialized.
+- STOPPING: Service is currently shutting down.
+- EXTERNAL: Service is managed externally (e.g. started as a remote service). It cannot be started or stopped via
+this API.
 
 #### gom.api.services.Service.set_number_of_instances
 
@@ -6960,12 +7046,12 @@ Stop service
 :API version: 1
 ```
 
-Stop service. The service can be restarted afterwards via the 'start ()' function
+Stop service. The service can be restarted afterwards via the `start ()` function
 if needed.
 
 ```{caution}
 The function will return immediately, the service instances will be stopped asynchronously.
-The 'get_status ()' function can be used to poll the service status until all service instances
+The `get_status ()` function can be used to poll the service status until all service instances
 have been stopped.
 ```
 
@@ -7411,6 +7497,26 @@ adapter.edit_cell(0, 1, "New Expression")
 adapter.get_render_data()  # Get updated render data for rendering
 ```
 
+#### gom.api.table.ContentEditor.begin_undoable_action
+
+```{py:function} gom.api.table.ContentEditor.begin_undoable_action(): None
+
+Begin an undoable action for the content editor
+```
+
+This method should be called before making any changes to the table data that should be undoable. It saves the
+current state of the table so that it can be restored later if an undo operation is performed.
+
+#### gom.api.table.ContentEditor.clear_redo
+
+```{py:function} gom.api.table.ContentEditor.clear_redo(): None
+
+Clear the redo stack for the content editor
+```
+
+This method clears the redo stack, removing all redoable actions. After calling this method, it will not be possible
+to redo any previously undone actions.
+
 #### gom.api.table.ContentEditor.delete_column
 
 ```{py:function} gom.api.table.ContentEditor.delete_column(col: int): None
@@ -7716,6 +7822,16 @@ adapter.merge_cells(0, 0, 1, 1)
 updated_data = adapter.get_render_data()
 ```
 
+#### gom.api.table.ContentEditor.redo
+
+```{py:function} gom.api.table.ContentEditor.redo(): None
+
+Redo the last undone action for the content editor
+```
+
+This method restores the table to the state it was in before the last undo operation was performed. If there are no
+redoable actions to redo, the method does nothing.
+
 #### gom.api.table.ContentEditor.refresh_render_data
 
 ```{py:function} gom.api.table.ContentEditor.refresh_render_data(): None
@@ -7736,6 +7852,16 @@ adapter = gom.api.table.get_content_editor_data_adapter(data_id)
 adapter.refresh_render_data()   # Update cache to reflect current project state
 fresh_data = adapter.get_render_data()  # Retrieve the refreshed data
 ```
+
+#### gom.api.table.ContentEditor.restore_state
+
+```{py:function} gom.api.table.ContentEditor.restore_state(state: dict): None
+
+Restore the content editor to a previous state
+:param state: The state to restore
+:type state: dict
+```
+
 
 #### gom.api.table.ContentEditor.revert
 
@@ -7856,6 +7982,16 @@ if color_types:
 updated_data = adapter.get_render_data()
 ```
 
+#### gom.api.table.ContentEditor.set_expanding_column
+
+```{py:function} gom.api.table.ContentEditor.set_expanding_column(column: int): None
+
+Set the column that receives extra width when the table is resized.
+```
+
+Use -1 to distribute the available width across all columns. Invalid column
+indices are rejected, while -1 remains valid for the "All columns" option.
+
 #### gom.api.table.ContentEditor.set_font_style
 
 ```{py:function} gom.api.table.ContentEditor.set_font_style(row: int, col: int, bold: bool, italic: bool, underline: bool): None
@@ -7913,6 +8049,24 @@ adapter.set_font_style_header(1, True, False, False)  # Bold header at column 1
 updated_data = adapter.get_render_data()
 ```
 
+#### gom.api.table.ContentEditor.set_view_mode
+
+```{py:function} gom.api.table.ContentEditor.set_view_mode(mode: str): None
+
+Set the table mode for the content editor
+:param mode: View modes are mutually exclusive. Supported values are: - "sortable": Cells can be sorted. Merged cells should be split before switching to this mode. - "layout_editable": Table layout can be edited, by merging cells.
+:type mode: str
+```
+
+This method allows switching between different table view modes, such as "Sortable" and "Layout Editable". The mode
+affects how the table is rendered and interacted with in the frontend.
+
+**Example usage in Python:**
+```python
+adapter = gom.api.table.get_content_editor_data_adapter(data_id)
+adapter.set_view_mode("layout_editable")  # Switch to layout editing mode
+```
+
 #### gom.api.table.ContentEditor.split_cell
 
 ```{py:function} gom.api.table.ContentEditor.split_cell(row: int, col: int): None
@@ -7936,6 +8090,16 @@ adapter.merge_cells(0, 0, 1, 1)  # Merge first
 adapter.split_cell(0, 0)         # Then split
 updated_data = adapter.get_render_data()
 ```
+
+#### gom.api.table.ContentEditor.undo
+
+```{py:function} gom.api.table.ContentEditor.undo(): None
+
+Undo the last undoable action for the content editor
+```
+
+This method restores the table to the state it was in before the last undoable action was performed. If there are no
+undoable actions to undo, the method does nothing.
 
 ### gom.api.table.create_content_editor_data_adapter
 
