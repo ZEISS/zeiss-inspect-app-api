@@ -408,8 +408,8 @@
 <dd class="field-even"><p>Start and end point of distance</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;point1&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="s1">&#39;point2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span> <span class="p">}</span>
-<span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;point1&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">&#39;point2&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span> <span class="p">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'point1'</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="s1">'point2'</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'point1'</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">'point2'</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span> <span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -437,7 +437,7 @@
 <dd class="field-even"><p>A center point, direction vector and radius (double)</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;center&#39;</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">&#39;direction&#39;</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">&#39;radius&#39;</span> <span class="p">:</span> <span class="n">double</span> <span class="p">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'center'</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">'direction'</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">'radius'</span> <span class="p">:</span> <span class="n">double</span> <span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -451,12 +451,12 @@
 <dd class="field-even"><p>A curve can be made up by an array of subcurves. Each subcurve is a polyline. A closed curve will be created, if first point = last point.<br>As an option, a creation plane can be added.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span> <span class="s1">&#39;points&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="p">}</span> <span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span> <span class="s1">'points'</span><span class="p">:</span> <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="p">}</span> <span class="p">]</span>
 
 <span class="c1"># Optional: Curve with additional creation plane</span>
 <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;curves&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;points&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span><span class="p">]}],</span>
-  <span class="s1">&#39;plane&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;normal&#39;</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span> <span class="p">:</span> <span class="nb">float</span><span class="p">}</span>
+  <span class="s1">'curves'</span><span class="p">:</span> <span class="p">[{</span><span class="s1">'points'</span><span class="p">:</span> <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span><span class="p">]}],</span>
+  <span class="s1">'plane'</span> <span class="p">:</span> <span class="p">{</span><span class="s1">'normal'</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">'distance'</span> <span class="p">:</span> <span class="nb">float</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -472,8 +472,8 @@
 </dd>
 </dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span><span class="s1">&#39;points&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="s1">&#39;normals&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span><span class="p">]},</span>
+  <span class="s1">'default'</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">'points'</span><span class="p">:</span> <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="s1">'normals'</span><span class="p">:</span> <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span><span class="p">]},</span>
     <span class="p">{</span><span class="o">...</span><span class="p">},</span> 
     <span class="o">...</span>
   <span class="p">]</span>
@@ -492,10 +492,10 @@
 </dd>
 </dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;curves&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;points&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="s1">&#39;normals&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="o">...</span><span class="p">]},</span> <span class="o">...</span><span class="p">],</span> 
-  <span class="s1">&#39;plane&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;normal&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="s1">&#39;distance&#39;</span> <span class="p">:</span> <span class="nb">float</span><span class="p">},</span> 
-  <span class="s1">&#39;cylinder&#39;</span><span class="p">:</span> <span class="o">...</span><span class="p">,</span> 
-  <span class="s1">&#39;cone&#39;</span> <span class="p">:</span> <span class="o">...</span>
+  <span class="s1">'curves'</span><span class="p">:</span> <span class="p">[{</span><span class="s1">'points'</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="s1">'normals'</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="o">...</span><span class="p">]},</span> <span class="o">...</span><span class="p">],</span> 
+  <span class="s1">'plane'</span> <span class="p">:</span> <span class="p">{</span><span class="s1">'normal'</span> <span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="s1">'distance'</span> <span class="p">:</span> <span class="nb">float</span><span class="p">},</span> 
+  <span class="s1">'cylinder'</span><span class="p">:</span> <span class="o">...</span><span class="p">,</span> 
+  <span class="s1">'cone'</span> <span class="p">:</span> <span class="o">...</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -510,7 +510,7 @@
 <dd class="field-even"><p>A set of points. The ‘normals ‘attribute is optional.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;points&#39;</span> <span class="p">:</span>  <span class="p">[</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span> <span class="p">]</span> <span class="p">,</span> <span class="s1">&#39;normals&#39;</span> <span class="p">:</span> <span class="p">[</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span> <span class="p">]</span> <span class="p">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'points'</span> <span class="p">:</span>  <span class="p">[</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span> <span class="p">]</span> <span class="p">,</span> <span class="s1">'normals'</span> <span class="p">:</span> <span class="p">[</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span> <span class="p">]</span> <span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -524,7 +524,7 @@
 <dd class="field-even"><p>Defines a triangulation. The vertices attribute defines all points. The triangle attribute defines triangles between these points using indices into the vertex list.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;vertices&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span> <span class="p">],</span> <span class="s1">&#39;triangles&#39;</span><span class="p">:</span>  <span class="p">[</span> <span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">)</span> <span class="p">]</span> <span class="p">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'vertices'</span><span class="p">:</span> <span class="p">[</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span> <span class="p">],</span> <span class="s1">'triangles'</span><span class="p">:</span>  <span class="p">[</span> <span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">)</span> <span class="p">]</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition seealso">
@@ -542,7 +542,7 @@
 <dd class="field-even"><p>Accepts any Cone Trait</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;default&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;point1&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">&#39;radius1&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="s1">&#39;point2&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">&#39;radius2&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">}</span> <span class="p">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'default'</span> <span class="p">:</span> <span class="p">{</span><span class="s1">'point1'</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">'radius1'</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="s1">'point2'</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">'radius2'</span><span class="p">:</span> <span class="nb">float</span><span class="p">}</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition caution">
@@ -563,7 +563,7 @@
 </dl>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">Reference</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;default&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">&#39;radius&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="s1">&#39;direction&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">&#39;inner&#39;</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">}</span> <span class="p">}</span>
+<span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'default'</span> <span class="p">:</span> <span class="p">{</span><span class="s1">'point'</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">'radius'</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="s1">'direction'</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="s1">'inner'</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">}</span> <span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -578,10 +578,10 @@
 </dd>
 </dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;vertices&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="o">...</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="o">...</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
-  <span class="s1">&#39;triangles&#39;</span><span class="p">:</span>  <span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">v0</span><span class="p">,</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">),</span> <span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">),</span> <span class="o">...</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">v0</span><span class="p">,</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">),</span> <span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">),</span> <span class="o">...</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
-  <span class="s1">&#39;outer_hull&#39;</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Reference</span>     <span class="c1"># optional OR</span>
-  <span class="s1">&#39;outer_hull_vertices&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span><span class="o">...</span><span class="p">),</span> <span class="s1">&#39;outer_hull_triangles&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">v0</span><span class="p">,</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">),</span><span class="o">...</span><span class="p">)</span> 
+  <span class="s1">'vertices'</span><span class="p">:</span> <span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="o">...</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="o">...</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+  <span class="s1">'triangles'</span><span class="p">:</span>  <span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">v0</span><span class="p">,</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">),</span> <span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">),</span> <span class="o">...</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">v0</span><span class="p">,</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">),</span> <span class="p">(</span><span class="n">v0</span><span class="p">,</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">),</span> <span class="o">...</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span> <span class="o">...</span> <span class="p">],</span>
+  <span class="s1">'outer_hull'</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Reference</span>     <span class="c1"># optional OR</span>
+  <span class="s1">'outer_hull_vertices'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span><span class="o">...</span><span class="p">),</span> <span class="s1">'outer_hull_triangles'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">v0</span><span class="p">,</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">),</span><span class="o">...</span><span class="p">)</span> 
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -598,12 +598,12 @@
 </dd>
 </dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;curves&#39;</span><span class="p">:</span> <span class="p">[</span>
+  <span class="s1">'curves'</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
     <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
     <span class="o">...</span> 
   <span class="p">],</span>
-  <span class="s1">&#39;outer_contours&#39;</span><span class="p">:</span> <span class="p">[</span> 
+  <span class="s1">'outer_contours'</span><span class="p">:</span> <span class="p">[</span> 
     <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
     <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
     <span class="o">...</span> 
@@ -613,12 +613,12 @@
 </div>
 <p>or</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;curves&#39;</span><span class="p">:</span> <span class="p">[</span> 
+  <span class="s1">'curves'</span><span class="p">:</span> <span class="p">[</span> 
     <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="o">...</span><span class="p">]),</span>
     <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="o">...</span><span class="p">]),</span>
     <span class="o">...</span>
   <span class="p">],</span>
-  <span class="s1">&#39;outer_contours&#39;</span><span class="p">:</span> <span class="p">[</span>
+  <span class="s1">'outer_contours'</span><span class="p">:</span> <span class="p">[</span>
     <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">),</span>
     <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">),</span>
     <span class="o">...</span>
@@ -637,7 +637,7 @@
 <dd class="field-even"><p>Accepts a numpy array with voxel data and a transformation. <p>The numpy array’s shape denotes the resulting volume shape. The ‘dtype’ can be one of (UINT16, BYTE, INT16, INT16, INT32, UINT32, FLOAT, DOUBLE).<p>The transformation can be a gom.Mat4x4 (affine transformation) or a gom.Vec3d (scaling along x/y/z axis only)</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;voxel_data&#39;</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">(),</span> <span class="s1">&#39;transformation&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">Mat4x4</span> <span class="o">|</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">)</span> <span class="p">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'voxel_data'</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">(),</span> <span class="s1">'transformation'</span> <span class="p">:</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">Mat4x4</span> <span class="o">|</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">)</span> <span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -652,9 +652,9 @@
 </dd>
 </dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;segmentation_labels&#39;</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">(),</span>
-  <span class="s1">&#39;number_of_segments&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="c1"># range: 2..8</span>
-  <span class="s1">&#39;volume_element&#39;</span> <span class="p">:</span> <span class="n">Reference</span>
+  <span class="s1">'segmentation_labels'</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">(),</span>
+  <span class="s1">'number_of_segments'</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="c1"># range: 2..8</span>
+  <span class="s1">'volume_element'</span> <span class="p">:</span> <span class="n">Reference</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -669,7 +669,7 @@
 <dd class="field-even"><p>Accepts a numpy array with pixel data and a transformation.<p>The numpy array’s shape denotes the resulting volume section shape. The ‘dtype’ must be <code class="docutils literal notranslate"><span class="pre">numpy.float32</span></code>.<p>The transformation is a gom.Mat4x4 (affine transformation)</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;pixel_data&#39;</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">(),</span> <span class="s1">&#39;transformation&#39;</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Mat4x4</span> <span class="p">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'pixel_data'</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">(),</span> <span class="s1">'transformation'</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Mat4x4</span> <span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -684,9 +684,9 @@
 </dd>
 </dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;volume_element&#39;</span><span class="p">:</span> <span class="n">Reference</span><span class="p">,</span>
-  <span class="s1">&#39;offset&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span>
-  <span class="s1">&#39;voxel_data&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">()</span>
+  <span class="s1">'volume_element'</span><span class="p">:</span> <span class="n">Reference</span><span class="p">,</span>
+  <span class="s1">'offset'</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span><span class="p">,</span>
+  <span class="s1">'voxel_data'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -709,7 +709,7 @@
 <dd class="field-even"><p>A nominal and actual double value are set, and a reference to element which was checked.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;nominal&quot;</span> <span class="p">:</span> <span class="n">double</span><span class="p">,</span> <span class="s2">&quot;actual&quot;</span> <span class="p">:</span> <span class="n">double</span><span class="p">,</span> <span class="s2">&quot;reference&quot;</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Reference</span> <span class="p">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"nominal"</span> <span class="p">:</span> <span class="n">double</span><span class="p">,</span> <span class="s2">"actual"</span> <span class="p">:</span> <span class="n">double</span><span class="p">,</span> <span class="s2">"reference"</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Reference</span> <span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -723,7 +723,7 @@
 <dd class="field-even"><p>A list of deviation values for each point of a mesh. The mesh is also set as “reference” parameter.<p>The number of points of the mesh and the “deviation_values” array must match.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;deviation_values&quot;</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="s2">&quot;reference&quot;</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Reference</span> <span class="p">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"deviation_values"</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="s2">"reference"</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Reference</span> <span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -737,7 +737,7 @@
 <dd class="field-even"><p>A list of nominal and actual values for each point of a curve. The deviation values are calculated automatically as a difference between both.<p>The curve is also set as “reference” parameter.<p>The number of points of the curve and the value arrays must match.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;actual_values&quot;</span> <span class="p">:</span> <span class="n">double</span><span class="p">,</span> <span class="s1">&#39;nominal_values&#39;</span><span class="p">:</span> <span class="n">double</span><span class="p">,</span> <span class="s2">&quot;reference&quot;</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Reference</span><span class="p">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"actual_values"</span> <span class="p">:</span> <span class="n">double</span><span class="p">,</span> <span class="s1">'nominal_values'</span><span class="p">:</span> <span class="n">double</span><span class="p">,</span> <span class="s2">"reference"</span> <span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Reference</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -766,7 +766,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f22c5fb4b40>
+  <jinja2.runtime.BlockReference object at 0x7f2c10700a60>
 
 
 </footer>

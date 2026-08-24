@@ -166,13 +166,13 @@
 <section id="creating-parts">
 <h2>Creating parts<a class="headerlink" href="#creating-parts" title="Link to this heading"></a></h2>
 <p>The evaluation elements are usually placed under a “part”. Accordingly, an empty part can be created as follows:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creates a new part in your project with the name &#39;Part 1&#39;</span>
-<span class="n">PART_OBJECT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">create_new_part</span> <span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Part 1&#39;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creates a new part in your project with the name 'Part 1'</span>
+<span class="n">PART_OBJECT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">create_new_part</span> <span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'Part 1'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>An existing part can be accessed via name or index in the new category:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Access the part object via name</span>
-<span class="n">PART_OBJECT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part 1&#39;</span><span class="p">]</span>
+<span class="n">PART_OBJECT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part 1'</span><span class="p">]</span>
  
 <span class="c1"># or via index</span>
 <span class="n">PART_OBJECT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -191,20 +191,20 @@
 <li><p>Add the imported elements to a created part</p></li>
 </ol>
 <p>Example:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">create_new_part</span> <span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Part 1&#39;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">create_new_part</span> <span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'Part 1'</span><span class="p">)</span>
  
-<span class="c1"># import element into &#39;Element in clipboard&#39;</span>
+<span class="c1"># import element into 'Element in clipboard'</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">import_g3d</span> <span class="p">(</span>
-  <span class="n">files</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;D:/zeiss_part.g3d&#39;</span><span class="p">],</span>
-  <span class="n">import_mode</span><span class="o">=</span><span class="s1">&#39;clipboard&#39;</span>
+  <span class="n">files</span><span class="o">=</span><span class="p">[</span><span class="s1">'D:/zeiss_part.g3d'</span><span class="p">],</span>
+  <span class="n">import_mode</span><span class="o">=</span><span class="s1">'clipboard'</span>
 <span class="p">)</span>
  
 <span class="c1"># Move it to a created part</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">add_elements_to_part</span> <span class="p">(</span>
   <span class="n">delete_invisible_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-  <span class="n">elements</span><span class="o">=</span><span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">clipboard</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">&#39;zeiss_part&#39;</span><span class="p">]],</span>
-  <span class="n">import_mode</span><span class="o">=</span><span class="s1">&#39;new_elements&#39;</span><span class="p">,</span>
-  <span class="n">part</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part 1&#39;</span><span class="p">])</span>
+  <span class="n">elements</span><span class="o">=</span><span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">clipboard</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">'zeiss_part'</span><span class="p">]],</span>
+  <span class="n">import_mode</span><span class="o">=</span><span class="s1">'new_elements'</span><span class="p">,</span>
+  <span class="n">part</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part 1'</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>In the same way, a CAD can be imported into a part project.</p>
@@ -215,8 +215,8 @@
 <p>A <strong>mesh element</strong> of a part can be accessed in the following ways:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is usually the most elegant way and is recommended.</span>
 <span class="c1"># Replacing your mesh will keep the correct parametric if you use</span>
-<span class="c1"># the actual values reference (like formerly the &#39;Actual master&#39; in the part-less workflow).</span>
-<span class="n">PART_OBJECT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part 1&#39;</span><span class="p">]</span>
+<span class="c1"># the actual values reference (like formerly the 'Actual master' in the part-less workflow).</span>
+<span class="n">PART_OBJECT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part 1'</span><span class="p">]</span>
 <span class="n">MESH_PROXY</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">ActualReference</span> <span class="p">(</span><span class="n">PART_OBJECT</span><span class="p">)</span>
  
 <span class="c1"># If you really like to access the representing CAD Element (which is not always existing, e.g. for planning)</span>
@@ -227,8 +227,8 @@
 <p>The <strong>CAD</strong> of a part can be addressed in the following ways:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is usually the most elegant way and is recommended.</span>
 <span class="c1"># Replacing your CAD will keep the correct parametric if you use</span>
-<span class="c1"># the nominal values reference (like formerly the &#39;All CAD Group proxy&#39; in the part-less workflow)</span>
-<span class="n">PART_OBJECT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part 1&#39;</span><span class="p">]</span>
+<span class="c1"># the nominal values reference (like formerly the 'All CAD Group proxy' in the part-less workflow)</span>
+<span class="n">PART_OBJECT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part 1'</span><span class="p">]</span>
 <span class="n">CAD_PROXY</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">NominalReference</span> <span class="p">(</span><span class="n">PART_OBJECT</span><span class="p">)</span>
  
 <span class="c1"># If you really like to access the representing CAD Element (which is not always existing, e.g. for planning)</span>
@@ -240,14 +240,14 @@
 <section id="accessing-an-object-s-part">
 <h2>Accessing an object’s part<a class="headerlink" href="#accessing-an-object-s-part" title="Link to this heading"></a></h2>
 <p>This information can be retrieved via an attribute of the object. Here is an example:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">PART_OBJECT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">inspection</span><span class="p">[</span><span class="s1">&#39;Point 1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">part</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">PART_OBJECT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">inspection</span><span class="p">[</span><span class="s1">'Point 1'</span><span class="p">]</span><span class="o">.</span><span class="n">part</span>
 </pre></div>
 </div>
 </section>
 <section id="accessing-all-elements-and-alignments-of-a-part">
 <h2>Accessing all elements and alignments of a part<a class="headerlink" href="#accessing-all-elements-and-alignments-of-a-part" title="Link to this heading"></a></h2>
 <p>One possibility is to iterate over all elements in the different categories (nominal, actual, inspection, alignments) and to check the part attribute. Usually, for most applications this can be achieved easier using an <code class="docutils literal notranslate"><span class="pre">ElementSelection</span></code> (some elements are hidden and not listed, but usually you do not need access to these elements). Here is an example:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">({</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">]]}):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">({</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">]]}):</span>
     <span class="nb">print</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -256,7 +256,7 @@
 <section id="accessing-elements-and-alignments-of-element-in-clipboard">
 <h2>Accessing elements and alignments of <em>Element in clipboard</em><a class="headerlink" href="#accessing-elements-and-alignments-of-element-in-clipboard" title="Link to this heading"></a></h2>
 <p>Also, these elements can be easily accessed via an <code class="docutils literal notranslate"><span class="pre">ElementSelection</span></code>:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">({</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;is_element_in_clipboard&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">]}):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">({</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'is_element_in_clipboard'</span><span class="p">,</span> <span class="s1">'True'</span><span class="p">]}):</span>
     <span class="nb">print</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -264,12 +264,12 @@
 <section id="alignments">
 <h2>Alignments<a class="headerlink" href="#alignments" title="Link to this heading"></a></h2>
 <p>Alignments are still accessible via <code class="docutils literal notranslate"><span class="pre">gom.app.project.alignments</span></code> (like in the legacy workflow). The same is valid for <code class="docutils literal notranslate"><span class="pre">gom.app.project.nominal_elements</span></code>, <code class="docutils literal notranslate"><span class="pre">gom.app.project.actual_elements</span></code> and <code class="docutils literal notranslate"><span class="pre">gom.app.project.inspection</span></code>. You have to keep in mind that you will get all elements or alignments of all parts. You can use the <code class="docutils literal notranslate"><span class="pre">part</span></code> token to establish to which part an alignment belongs to or you use an <code class="docutils literal notranslate"><span class="pre">ElementSelection</span></code> (see examples above):</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">({</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">],</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;alignment&#39;</span><span class="p">]}):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">({</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">],</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'alignment'</span><span class="p">]}):</span>
     <span class="nb">print</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>There is one special handling for multiple parts and scripting with the <em>Original alignment</em>. To distinguish these alignments for different parts, the scripting name contains the part name and is modified into:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">alignments</span><span class="p">[</span><span class="s1">&#39;&lt;Name of the part&gt;::Original alignment&#39;</span><span class="p">]</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">alignments</span><span class="p">[</span><span class="s1">'&lt;Name of the part&gt;::Original alignment'</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
@@ -278,7 +278,7 @@
 <p>The “elements” of the GOM Software, i.e. what you see in the element explorer of your project, hold several properties and data which you can access using the Python API.</p>
 <p>First of all, you need a reference to an element, which you can get either by a <a class="reference internal" href="../user_defined_dialogs/user_defined_dialogs.html"><span class="std std-doc">User-defined dialog</span></a> or simply by referencing it by name.</p>
 <p>If you have installed the <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">API</span> <span class="pre">Examples</span></code> App from the store and loaded the <code class="docutils literal notranslate"><span class="pre">zeiss_part_test_project</span></code> (see the <a class="reference internal" href="../../python_examples/index.html"><span class="std std-doc">Python API Examples Documentation</span></a>), you can reference the mesh like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mesh_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">actual</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mesh_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">]</span><span class="o">.</span><span class="n">actual</span>
 </pre></div>
 </div>
 <section id="explore-available-properties">
@@ -291,7 +291,7 @@
 </a>
 <p>You will find several keywords in the Object Explorer, with a preview of the current value.
 If you click <code class="docutils literal notranslate"><span class="pre">OK</span></code>, the complete call, including element reference by name, will be copied to your current script. If you already have a name reference, you can of course use this reference.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mesh_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">actual</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mesh_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">]</span><span class="o">.</span><span class="n">actual</span>
 <span class="nb">print</span> <span class="p">(</span><span class="n">mesh_element</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -303,7 +303,7 @@ If you click <code class="docutils literal notranslate"><span class="pre">OK</sp
 <section id="gom-vec3d-and-gom-math">
 <h3><code class="docutils literal notranslate"><span class="pre">gom_vec3d</span></code> and <code class="docutils literal notranslate"><span class="pre">gom_math</span></code><a class="headerlink" href="#gom-vec3d-and-gom-math" title="Link to this heading"></a></h3>
 <p>The Python module <code class="docutils literal notranslate"><span class="pre">gom_vec3d</span></code> defines the classes <code class="docutils literal notranslate"><span class="pre">gom.Vec3d</span></code> and <code class="docutils literal notranslate"><span class="pre">Point3d</span></code>. <code class="docutils literal notranslate"><span class="pre">gom.Vec3d</span></code> objects are used to represent single coordinates, such as a circle’s center or a point, e.g.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">nominal_elements</span><span class="p">[</span><span class="s1">&#39;Circle 1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">center_coordinate</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">nominal_elements</span><span class="p">[</span><span class="s1">'Circle 1'</span><span class="p">]</span><span class="o">.</span><span class="n">center_coordinate</span><span class="p">)</span>
 <span class="c1"># Output:</span>
 <span class="c1"># gom.Vec3d (10.0, -10.0, 0.0)</span>
 </pre></div>
@@ -315,7 +315,7 @@ If you click <code class="docutils literal notranslate"><span class="pre">OK</sp
 
 <span class="n">items</span> <span class="o">=</span> <span class="nb">dir</span><span class="p">(</span><span class="n">gom_math</span><span class="p">)</span>
 
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;gom_math contents:&quot;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">"gom_math contents:"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
     <span class="nb">print</span> <span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
@@ -369,7 +369,7 @@ If you click <code class="docutils literal notranslate"><span class="pre">OK</sp
 <section id="properties-of-different-stages">
 <h3>Properties of different stages<a class="headerlink" href="#properties-of-different-stages" title="Link to this heading"></a></h3>
 <p>If you are using a multi-stage project, the approach as described above will always give you the element properties in the current stage. If you need access to properties in a different stage, you can use the <code class="docutils literal notranslate"><span class="pre">in_stage[s]</span></code> modifier:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mesh_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">actual</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mesh_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">]</span><span class="o">.</span><span class="n">actual</span>
 <span class="nb">print</span> <span class="p">(</span><span class="n">mesh_element</span><span class="o">.</span><span class="n">in_stage</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -394,7 +394,7 @@ If you click <code class="docutils literal notranslate"><span class="pre">OK</sp
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Example 1 - Mesh</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mesh in 8 stage trend project with 238654 points, each with one (x, y, z) triple</span>
-<span class="o">&gt;</span> <span class="nb">print</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Part&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">actual</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="nb">print</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Part'</span><span class="p">]</span><span class="o">.</span><span class="n">actual</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">coordinate</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">238654</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -402,7 +402,7 @@ If you click <code class="docutils literal notranslate"><span class="pre">OK</sp
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Example 2 - Scalar value</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Single scalar value in a 8 stages trend project</span>
-<span class="o">&gt;</span> <span class="nb">print</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">inspection</span><span class="p">[</span><span class="s1">&#39;My Check&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">result_dimension</span><span class="o">.</span><span class="n">deviation</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="nb">print</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">inspection</span><span class="p">[</span><span class="s1">'My Check'</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">result_dimension</span><span class="o">.</span><span class="n">deviation</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -410,7 +410,7 @@ If you click <code class="docutils literal notranslate"><span class="pre">OK</sp
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Example 3 - Image</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Image in 8 stage trend project with 4000x3000 pixels, each with one (r, g, b, a) tuple</span>
-<span class="o">&gt;</span> <span class="nb">print</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">measurement_list</span><span class="p">[</span><span class="s1">&#39;Scan&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">measurement</span><span class="p">[</span><span class="s1">&#39;M1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="s1">&#39;Left camera&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="nb">print</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">measurement_list</span><span class="p">[</span><span class="s1">'Scan'</span><span class="p">]</span><span class="o">.</span><span class="n">measurement</span><span class="p">[</span><span class="s1">'M1'</span><span class="p">]</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="s1">'Left camera'</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">rgb</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -422,7 +422,7 @@ If you click <code class="docutils literal notranslate"><span class="pre">OK</sp
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Example 4 - Transferring image data</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fetch gom.Array with image data in all stages (not transferred !)</span>
-<span class="o">&gt;</span> <span class="n">image</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">measurement_list</span><span class="p">[</span><span class="s1">&#39;Scan&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">measurement</span><span class="p">[</span><span class="s1">&#39;M1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="s1">&#39;Left camera&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">rgb</span>
+<span class="o">&gt;</span> <span class="n">image</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">measurement_list</span><span class="p">[</span><span class="s1">'Scan'</span><span class="p">]</span><span class="o">.</span><span class="n">measurement</span><span class="p">[</span><span class="s1">'M1'</span><span class="p">]</span><span class="o">.</span><span class="n">images</span><span class="p">[</span><span class="s1">'Left camera'</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">rgb</span>
 <span class="o">&gt;</span> <span class="nb">print</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">type</span> <span class="p">(</span><span class="n">image</span><span class="p">))</span>
 <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="mi">4000</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">gom</span><span class="o">.</span><span class="n">Array</span> <span class="p">()</span>
 <span class="c1"># 45 MB Image data if on stage, transferred in &lt; 100 ms</span>
@@ -484,7 +484,7 @@ context.stage = current_stage
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="n">calling_for_trouble</span><span class="p">()</span> <span class="c1"># could raise an exception; type unknown yet</span>
 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">)</span> <span class="c1"># e.g.: &lt;class &#39;gomlib.api.GomApiError&#39;&gt;</span>
+    <span class="nb">print</span><span class="p">(</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">)</span> <span class="c1"># e.g.: &lt;class 'gomlib.api.GomApiError'&gt;</span>
 </pre></div>
 </div>
 <p>Now you can specify the expected exception type correctly:</p>
@@ -521,7 +521,7 @@ context.stage = current_stage
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f22c479cf50>
+  <jinja2.runtime.BlockReference object at 0x7f2c0f4ac9d0>
 
 
 </footer>

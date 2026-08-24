@@ -160,9 +160,9 @@
 </div>
 <p>Use the following code to determine the type of an existing project:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">is_part_project</span><span class="p">:</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Is part project: True&#39;</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">'Is part project: True'</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Is part project: False&#39;</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">'Is part project: False'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In former projects, the CAD or the actual mesh have been accessed via their proxies:</p>
@@ -172,9 +172,9 @@
 <h2>Measurement series and Measuring environment<a class="headerlink" href="#measurement-series-and-measuring-environment" title="Link to this heading"></a></h2>
 <p>The access and information about the VMR, measuring setups and measurement series  are much more separated in the part-based workflow as compared to the part-less workflow. New categories and <code class="docutils literal notranslate"><span class="pre">ElementSelection</span></code> categories were introduced. If you have further questions regarding scripting purposes, please contact the ZEISS support.</p>
 <p>Here just the most important information follows. The measurements have their own category in the part-based workflow. A measurement can be accessed via the attribute <code class="docutils literal notranslate"><span class="pre">measurement_series</span></code> and no longer via <code class="docutils literal notranslate"><span class="pre">actual_elements</span></code>.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">MEASUREMENT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">measurement_series</span><span class="p">[</span><span class="s1">&#39;Scan 1&#39;</span><span class="p">]</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">MEASUREMENT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">measurement_series</span><span class="p">[</span><span class="s1">'Scan 1'</span><span class="p">]</span>
  
-<span class="n">MEASUREMENTS</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">({</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;measurements&#39;</span><span class="p">,</span> <span class="s1">&#39;object_family&#39;</span><span class="p">,</span> <span class="s1">&#39;measurement_series&#39;</span><span class="p">]})</span>
+<span class="n">MEASUREMENTS</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">({</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'measurements'</span><span class="p">,</span> <span class="s1">'object_family'</span><span class="p">,</span> <span class="s1">'measurement_series'</span><span class="p">]})</span>
 </pre></div>
 </div>
 </section>
@@ -207,7 +207,7 @@ According to this, the stage (i.e. a mesh) would be a sub-element of the part. O
 <span class="c1"># Iterate through each element</span>
 <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">nominal_elements</span><span class="p">:</span>
     <span class="c1"># Check if the element is a CAD</span>
-    <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;cad&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">"cad"</span><span class="p">:</span>
         <span class="c1"># Print the name and type</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
         
@@ -218,16 +218,16 @@ According to this, the stage (i.e. a mesh) would be a sub-element of the part. O
 </pre></div>
 </div>
 <p>This is an example to list files by <code class="docutils literal notranslate"><span class="pre">cat_part</span></code>:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">cad</span> <span class="o">=</span> <span class="nb">filter</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;cad&quot;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">nominal_elements</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">cad</span> <span class="o">=</span> <span class="nb">filter</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">"cad"</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">nominal_elements</span><span class="p">)</span>
  
 <span class="c1"># for all cads in all parts list the file structure of each CAD of one part and furthermore all bodies of each file</span>
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cad</span><span class="p">:</span>
     <span class="nb">print</span> <span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Number of files: &#39;</span> <span class="o">+</span> <span class="nb">str</span> <span class="p">(</span><span class="nb">len</span> <span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">file</span><span class="p">)))</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">'Number of files: '</span> <span class="o">+</span> <span class="nb">str</span> <span class="p">(</span><span class="nb">len</span> <span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">file</span><span class="p">)))</span>
     <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">file</span><span class="p">:</span>
         <span class="nb">print</span> <span class="p">(</span><span class="n">file</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">file</span><span class="o">.</span><span class="n">bodies</span><span class="p">:</span>
-            <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39; </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s1">' </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span> <span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
@@ -279,7 +279,7 @@ According to this, the stage (i.e. a mesh) would be a sub-element of the part. O
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f22c4645550>
+  <jinja2.runtime.BlockReference object at 0x7f2c0f3f60b0>
 
 
 </footer>

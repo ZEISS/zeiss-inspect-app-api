@@ -285,17 +285,17 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <span class="c1">#</span>
 <span class="nb">print</span> <span class="p">(</span><span class="n">DIALOG</span><span class="o">.</span><span class="n">my_button</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
 <span class="c1"># output:</span>
-<span class="c1"># Handle for a widget called &#39;my_button&#39; of type &#39;Button&#39; (button::pushbutton)</span>
+<span class="c1"># Handle for a widget called 'my_button' of type 'Button' (button::pushbutton)</span>
 <span class="c1">#</span>
 <span class="c1"># Attributes:</span>
 <span class="c1"># name             (string)              - Name of the widget. The name can be used to access the widget via a dialog handle.</span>
 <span class="c1"># tooltip          (string)              - Tooltip of the widget. If empty, no tooltip is displayed.</span>
-<span class="c1"># enabled          (boolean)             - Enabled state of the widget. Default is &#39;enabled&#39;, set to false for disabling it.</span>
-<span class="c1"># value            (unspecified/various) - The current value of the widget. Type depends on the widget type and can be &#39;none&#39; for empty widgets.</span>
+<span class="c1"># enabled          (boolean)             - Enabled state of the widget. Default is 'enabled', set to false for disabling it.</span>
+<span class="c1"># value            (unspecified/various) - The current value of the widget. Type depends on the widget type and can be 'none' for empty widgets.</span>
 <span class="c1"># attributes       (map)                 - Map of all accessible widget attributes together with their current values.</span>
 <span class="c1"># focus            (boolean)             - Focus state of the widget. Can be used to set an explicit widget focus.</span>
 <span class="c1"># text             (string)              - Text of the button</span>
-<span class="c1"># type             (string)              - Button type (&#39;push&#39;, &#39;toggle&#39;)</span>
+<span class="c1"># type             (string)              - Button type ('push', 'toggle')</span>
 <span class="c1"># icon             (Tom::Parse::Binary)  - Icon of the button</span>
 <span class="c1"># icon_file_name   (string)              - Source file name of the icon</span>
 <span class="c1"># icon_size        (string)              - Icon size mode (icon, full)</span>
@@ -388,12 +388,12 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <p><img alt="" src="../../_images/control_widget_status_label.png" /></p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Using the Status label</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 
 <span class="c1"># Set status label text</span>
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;No point selected.&#39;</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">'No point selected.'</span>
 
-<span class="c1"># Set &#39;ok&#39; button to disabled&lt;br&gt;DIALOG.control.ok.enabled = False</span>
+<span class="c1"># Set 'ok' button to disabled&lt;br&gt;DIALOG.control.ok.enabled = False</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span><span class="p">(</span><span class="n">dialog</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -422,28 +422,28 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
 <span class="c1"># Create dialog with wizard control panel</span>
 <span class="c1">#</span>
-<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 <span class="c1">#</span>
 <span class="c1"># Handler function to be registered to the dialog</span>
 <span class="c1">#</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">func</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
     <span class="c1">#</span>
-    <span class="c1"># Handle clicks onto the &#39;prev&#39; button</span>
+    <span class="c1"># Handle clicks onto the 'prev' button</span>
     <span class="c1">#</span>
     <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">prev</span><span class="p">:</span>
-        <span class="c1"># Here you would write code to display the content of the previous wizard &#39;page&#39;</span>
+        <span class="c1"># Here you would write code to display the content of the previous wizard 'page'</span>
         
         <span class="c1">#</span>
-        <span class="c1"># Handle clicks onto the &#39;next&#39; button</span>
+        <span class="c1"># Handle clicks onto the 'next' button</span>
         <span class="c1">#</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prev button was clicked.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Prev button was clicked."</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">widget</span> <span class="o">==</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">next</span><span class="p">:</span>
-        <span class="c1"># Here you would write code to display the content of the next wizard &#39;page&#39;</span>
+        <span class="c1"># Here you would write code to display the content of the next wizard 'page'</span>
         
         <span class="c1">#</span>
         <span class="c1"># Update dialog button enabled state and register handler function</span>
         <span class="c1">#</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Next button was clicked.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Next button was clicked."</span><span class="p">)</span>
 
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">func</span>
 
@@ -489,17 +489,17 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </dl>
 <section id="example">
 <h3>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 
 <span class="c1">#</span>
 <span class="c1"># Event handler function called if anything happens inside of the dialog</span>
 <span class="c1">#</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">dialog_event_handler</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
-	<span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="s1">&#39;initialize&#39;</span><span class="p">:</span>
-		<span class="n">DIALOG</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">tooltip</span> <span class="o">=</span> <span class="s1">&#39;Enter distance in mm&#39;</span>
+	<span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="s1">'initialize'</span><span class="p">:</span>
+		<span class="n">DIALOG</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">tooltip</span> <span class="o">=</span> <span class="s1">'Enter distance in mm'</span>
 		<span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">False</span>
 	<span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">input</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">widget</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; widget event&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">widget</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' widget event"</span><span class="p">)</span>
 		<span class="k">if</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
 			<span class="n">DIALOG</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -539,8 +539,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </dl>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Continuous text widget attributes example</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;How to become a professional metrologist&quot;</span>
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">default_font</span> <span class="o">=</span> <span class="s1">&#39;Arial Black&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">"How to become a professional metrologist"</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">default_font</span> <span class="o">=</span> <span class="s1">'Arial Black'</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">default_font_size</span> <span class="o">=</span> <span class="mi">16</span>
 </pre></div>
 </div>
@@ -589,30 +589,30 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Internal representation of a dialog</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span>
-    <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"content"</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">[</span>
             <span class="p">{</span>
                 <span class="o">...</span>
             <span class="p">},</span>
             <span class="p">{</span>
-                <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                <span class="s2">&quot;default_font_family&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;default_font_size&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;rows&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;\&lt;html\&gt;\&lt;p align=</span><span class="se">\&quot;</span><span class="s2">center</span><span class="se">\&quot;</span><span class="s2">\&gt;By clicking &#39;Close&#39;, the dialog will be closed.\&lt;/p\&gt;\&lt;/html\&gt;&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;translatable&quot;</span><span class="p">:</span> <span class="kc">True</span>
+                <span class="s2">"columns"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">"default_font_family"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                <span class="s2">"default_font_size"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"text"</span><span class="p">,</span>
+                <span class="s2">"rows"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">"text"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                    <span class="s2">"text"</span><span class="p">:</span> <span class="s2">"\&lt;html\&gt;\&lt;p align=</span><span class="se">\"</span><span class="s2">center</span><span class="se">\"</span><span class="s2">\&gt;By clicking 'Close', the dialog will be closed.\&lt;/p\&gt;\&lt;/html\&gt;"</span><span class="p">,</span>
+                    <span class="s2">"translatable"</span><span class="p">:</span> <span class="kc">True</span>
                 <span class="p">},</span>
                                 <span class="o">...</span>
-                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;display::text&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;wordwrap&quot;</span><span class="p">:</span> <span class="kc">False</span>
+                <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"display::text"</span><span class="p">,</span>
+                <span class="s2">"wordwrap"</span><span class="p">:</span> <span class="kc">False</span>
             <span class="p">}</span>
         <span class="p">]</span>
     <span class="p">],</span>
-    <span class="s2">&quot;control&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Close&quot;</span>
+    <span class="s2">"control"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"Close"</span>
     <span class="p">},</span>
         <span class="o">...</span>
 <span class="p">})</span>
@@ -649,46 +649,46 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <p>The dialog is stored as a JSON document internally. The ‘data’ element contains the image data.</p>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">Internal representation of an image</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The &#39;data&#39; element contains the image data (shortened version here)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The 'data' element contains the image data (shortened version here)</span>
 <span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span>
-    <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"content"</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">[</span>
             <span class="p">{</span>
-                <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;AAAAAYlQTkcNChoKAAAADUlIRFIAAAQAAAACQAgCAAAAnPeDgptZSsdt...&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;file_name&quot;</span><span class="p">:</span> <span class="s2">&quot;C:/Users/IQMPRINK/Downloads/zeiss-inspect_python.jpg&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">144</span><span class="p">,</span>
-                <span class="s2">&quot;keep_aspect&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s2">&quot;keep_original_size&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;rows&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                <span class="s2">&quot;system_image&quot;</span><span class="p">:</span> <span class="s2">&quot;system_message_information&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;translatable&quot;</span><span class="p">:</span> <span class="kc">True</span>
+                <span class="s2">"columns"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">"data"</span><span class="p">:</span> <span class="s2">"AAAAAYlQTkcNChoKAAAADUlIRFIAAAQAAAACQAgCAAAAnPeDgptZSsdt..."</span><span class="p">,</span>
+                <span class="s2">"file_name"</span><span class="p">:</span> <span class="s2">"C:/Users/IQMPRINK/Downloads/zeiss-inspect_python.jpg"</span><span class="p">,</span>
+                <span class="s2">"height"</span><span class="p">:</span> <span class="mi">144</span><span class="p">,</span>
+                <span class="s2">"keep_aspect"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">"keep_original_size"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"image"</span><span class="p">,</span>
+                <span class="s2">"rows"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">"system_image"</span><span class="p">:</span> <span class="s2">"system_message_information"</span><span class="p">,</span>
+                <span class="s2">"tooltip"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                    <span class="s2">"text"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                    <span class="s2">"translatable"</span><span class="p">:</span> <span class="kc">True</span>
                 <span class="p">},</span>
-                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;use_system_image&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">256</span>
+                <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"image"</span><span class="p">,</span>
+                <span class="s2">"use_system_image"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">"width"</span><span class="p">:</span> <span class="mi">256</span>
             <span class="p">}</span>
         <span class="p">]</span>
     <span class="p">],</span>
-    <span class="s2">&quot;control&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;Close&quot;</span>
+    <span class="s2">"control"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"Close"</span>
     <span class="p">},</span>
-    <span class="s2">&quot;embedding&quot;</span><span class="p">:</span> <span class="s2">&quot;always_toplevel&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="s2">&quot;automatic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">233</span><span class="p">,</span>
-        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">292</span>
+    <span class="s2">"embedding"</span><span class="p">:</span> <span class="s2">"always_toplevel"</span><span class="p">,</span>
+    <span class="s2">"position"</span><span class="p">:</span> <span class="s2">"automatic"</span><span class="p">,</span>
+    <span class="s2">"size"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"height"</span><span class="p">:</span> <span class="mi">233</span><span class="p">,</span>
+        <span class="s2">"width"</span><span class="p">:</span> <span class="mi">292</span>
     <span class="p">},</span>
-    <span class="s2">&quot;sizemode&quot;</span><span class="p">:</span> <span class="s2">&quot;automatic&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Dialog with image&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;translatable&quot;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="s2">"sizemode"</span><span class="p">:</span> <span class="s2">"automatic"</span><span class="p">,</span>
+    <span class="s2">"style"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"title"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"text"</span><span class="p">:</span> <span class="s2">"Dialog with image"</span><span class="p">,</span>
+        <span class="s2">"translatable"</span><span class="p">:</span> <span class="kc">True</span>
     <span class="p">}</span>
 <span class="p">})</span>
 </pre></div>
@@ -761,7 +761,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text">Progress bar widget example – manual mode</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span><span class="o">,</span><span class="w"> </span><span class="nn">time</span>
-<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">minimum</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">maximum</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">open_user_defined_dialog</span><span class="p">(</span> <span class="n">dialog</span> <span class="o">=</span> <span class="n">DIALOG</span> <span class="p">)</span>
@@ -781,10 +781,10 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text">Progress bar widget example – system mode</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
-<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">open_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_project</span> <span class="p">()</span>
-<span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">import_project</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;some project&#39;</span><span class="p">)</span>
+<span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">import_project</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'some project'</span><span class="p">)</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">close_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -795,10 +795,10 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text">Changing the progress bar widget mode</span><a class="headerlink" href="#id12" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># manual mode:</span>
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;manual&quot;</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">"manual"</span>
 
 <span class="c1"># system mode:</span>
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;system&quot;</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">"system"</span>
 </pre></div>
 </div>
 </div>
@@ -815,19 +815,19 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 
-<span class="c1"># Create a user defined dialog with a progress bar, mode &#39;system&#39;</span>
-<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<span class="c1"># Create a user defined dialog with a progress bar, mode 'system'</span>
+<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">open_user_defined_dialog</span><span class="p">(</span> <span class="n">dialog</span> <span class="o">=</span> <span class="n">DIALOG</span> <span class="p">)</span>
 
 <span class="c1"># Split progress bar into 3 parts</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">parts</span> <span class="o">=</span> <span class="mi">3</span>
 
-<span class="c1"># Current part is the first interval (part &#39;0&#39;, because we are counting from &#39;0&#39;)</span>
+<span class="c1"># Current part is the first interval (part '0', because we are counting from '0')</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="c1"># Execute load command. The command will control the first progress bar range from 0% to 33%.</span>
-<span class="c1"># That means when the command has been finished, the progress bar will display &#39;33%&#39;.</span>
-<span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">load_project</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;some project&#39;</span><span class="p">)</span>
+<span class="c1"># That means when the command has been finished, the progress bar will display '33%'.</span>
+<span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">load_project</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'some project'</span><span class="p">)</span>
 
 <span class="c1"># Current part is the second interval. The progress bar runs from 33% to 66%</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="mi">1</span>
@@ -868,7 +868,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <dt>maximum    (double)</dt><dd><p>Maximum possible value</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 <span class="n">userInput</span> <span class="o">=</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">integerWidget</span>
 </pre></div>
 </div>
@@ -895,7 +895,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </dl>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text">Decimal widget example</span><a class="headerlink" href="#id14" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 <span class="n">userInput</span> <span class="o">=</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">decimalWidget</span>
 </pre></div>
 </div>
@@ -903,7 +903,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text">Decimal widget attributes example</span><a class="headerlink" href="#id15" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">.</span><span class="n">decimalWidget</span><span class="o">.</span><span class="n">precision</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">decimalWidget</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="s1">&#39;LENGTH&#39;</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">decimalWidget</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="s1">'LENGTH'</span>
 </pre></div>
 </div>
 </div>
@@ -928,8 +928,8 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </dl>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text">Text entry field example</span><a class="headerlink" href="#id16" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">textEntryWidget</span> <span class="o">=</span> <span class="s2">&quot;some default text&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">textEntryWidget</span> <span class="o">=</span> <span class="s2">"some default text"</span>
 <span class="n">RESULT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span><span class="p">(</span><span class="n">dialog</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">textEntryWidget</span> <span class="p">)</span> <span class="c1"># the user input string</span>
 </pre></div>
@@ -943,7 +943,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 
 <span class="c1"># Accept only lowercase letters, digits &amp; dash</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">check_input</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-	<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^[a-z0-9-]+$&#39;</span>
+	<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'^[a-z0-9-]+$'</span>
 	<span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
 
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">validator</span> <span class="o">=</span> <span class="n">check_input</span>
@@ -975,7 +975,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </dl>
 <div class="literal-block-wrapper docutils container" id="id18">
 <div class="code-block-caption"><span class="caption-text">Slider widget example</span><a class="headerlink" href="#id18" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 
 <span class="n">RESULT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">sliderWidget</span> <span class="p">)</span> <span class="c1"># some text</span>
@@ -997,7 +997,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </dl>
 <div class="literal-block-wrapper docutils container" id="id19">
 <div class="code-block-caption"><span class="caption-text">Checkbox widget example</span><a class="headerlink" href="#id19" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 
 <span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
 <span class="nb">print</span> <span class="p">(</span><span class="n">RESULT</span><span class="o">.</span><span class="n">checkboxWidget</span><span class="p">)</span>
@@ -1050,7 +1050,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </dl>
 <div class="literal-block-wrapper docutils container" id="id20">
 <div class="code-block-caption"><span class="caption-text">Date widget example</span><a class="headerlink" href="#id20" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 <span class="n">dateObject</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">dateWidget</span><span class="o">.</span><span class="n">value</span> <span class="c1"># date object</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">dateWidget</span><span class="o">.</span><span class="n">year</span> <span class="p">)</span>  <span class="c1"># integer</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">dateWidget</span><span class="o">.</span><span class="n">month</span> <span class="p">)</span> <span class="c1"># integer</span>
@@ -1073,7 +1073,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </dl>
 <div class="literal-block-wrapper docutils container" id="id21">
 <div class="code-block-caption"><span class="caption-text">Color widget example</span><a class="headerlink" href="#id21" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 
 <span class="c1">#</span>
 <span class="c1"># Event handler function called if anything happens inside of the dialog</span>
@@ -1086,7 +1086,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">dialog_event_handler</span>
 
 <span class="n">RESULT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Selection:&#39;</span><span class="p">,</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">colorWidget</span><span class="p">)</span> <span class="c1"># example output (white): 0xffffffff</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Selection:'</span><span class="p">,</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">colorWidget</span><span class="p">)</span> <span class="c1"># example output (white): 0xffffffff</span>
 </pre></div>
 </div>
 </div>
@@ -1105,7 +1105,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 </div>
 <div class="literal-block-wrapper docutils container" id="id22">
 <div class="code-block-caption"><span class="caption-text">Unit widget example</span><a class="headerlink" href="#id22" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 
 <span class="c1">#</span>
 <span class="c1"># Event handler function called if anything happens inside of the dialog</span>
@@ -1142,7 +1142,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
 <div class="code-block-caption"><span class="caption-text">Element name widget example</span><a class="headerlink" href="#id23" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let the user define 3 new points (the coordinates are created automatically in this example)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="s1">&#39;dialog definition&#39;</span><span class="p">)</span>
+    <span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="s1">'dialog definition'</span><span class="p">)</span>
     
     <span class="c1">#</span>
     <span class="c1"># Event handler function called if anything happens inside of the dialog</span>
@@ -1158,7 +1158,7 @@ into <a class="reference internal" href="executing_dialogs.html"><span class="st
     
     <span class="n">MCAD_ELEMENT</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">primitive</span><span class="o">.</span><span class="n">create_point</span> <span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="n">RESULT</span><span class="o">.</span><span class="n">elementnameWidget</span><span class="p">,</span>
-        <span class="n">point</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;point&#39;</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)}</span>
+        <span class="n">point</span><span class="o">=</span><span class="p">{</span><span class="s1">'point'</span><span class="p">:</span> <span class="n">gom</span><span class="o">.</span><span class="n">Vec3d</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)}</span>
     <span class="p">)</span>
 </pre></div>
 </div>
@@ -1252,17 +1252,17 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
 <p><code class="docutils literal notranslate"><span class="pre">elementSelectionWidget</span></code> is the object name of the element selection widget in the example below.</p>
 <div class="literal-block-wrapper docutils container" id="id25">
 <div class="code-block-caption"><span class="caption-text">Selection element widget example</span><a class="headerlink" href="#id25" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 
 <span class="n">selectedElement</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">elementSelectionWidget</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">selectedElement</span><span class="o">.</span><span class="n">value</span> <span class="p">)</span> <span class="c1"># output: gom.app.project.inspection[&#39;Equidistant Surface Points 1&#39;]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">selectedElement</span><span class="o">.</span><span class="n">value</span> <span class="p">)</span> <span class="c1"># output: gom.app.project.inspection['Equidistant Surface Points 1']</span>
 </pre></div>
 </div>
 </div>
 <p>The following script shows how to use a custom filter for element selection. The example filter allows the user to select a system plane:</p>
 <div class="literal-block-wrapper docutils container" id="id26">
 <div class="code-block-caption"><span class="caption-text">Selection element widget with custom filter</span><a class="headerlink" href="#id26" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG4</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG4</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">dialog_event_handler</span><span class="p">(</span><span class="n">widget</span><span class="p">):</span>
@@ -1271,7 +1271,7 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
 <span class="c1"># filter system planes</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">element_filter</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;plane&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">'plane'</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">pass</span>
@@ -1291,7 +1291,7 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
 
 <span class="n">RESULT</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">show_user_defined_dialog</span><span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="n">DIALOG4</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Chosen system plane: &#39;</span><span class="p">,</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">input_new</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Chosen system plane: '</span><span class="p">,</span> <span class="n">RESULT</span><span class="o">.</span><span class="n">input_new</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1339,7 +1339,7 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
 <div class="literal-block-wrapper docutils container" id="id29">
 <div class="code-block-caption"><span class="caption-text">Combo box widget attributes example</span><a class="headerlink" href="#id29" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign a list of selected data items</span>
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">shape_list</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;circles&#39;</span><span class="p">,</span> <span class="s1">&#39;cones&#39;</span><span class="p">]</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">shape_list</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'circles'</span><span class="p">,</span> <span class="s1">'cones'</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1403,8 +1403,8 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">selectedChoice</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">radiobuttonsWidget</span><span class="o">.</span><span class="n">value</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">selectedChoice</span> <span class="p">)</span> <span class="c1"># output: ONE</span>
 
-<span class="k">if</span> <span class="n">selectedChoice</span> <span class="o">==</span> <span class="s1">&#39;ONE&#39;</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;IDs are strings.&quot;</span><span class="p">)</span> <span class="c1"># output: IDs are strings.</span>
+<span class="k">if</span> <span class="n">selectedChoice</span> <span class="o">==</span> <span class="s1">'ONE'</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"IDs are strings."</span><span class="p">)</span> <span class="c1"># output: IDs are strings.</span>
 </pre></div>
 </div>
 </div>
@@ -1507,10 +1507,10 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
 <div class="code-block-caption"><span class="caption-text">Wizard widget – Enable completion when current step is initialized</span><a class="headerlink" href="#id34" title="Link to this code"></a></div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 
-<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;dialog.gdlg&#39;</span><span class="p">)</span>
+<span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">'dialog.gdlg'</span><span class="p">)</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">dialog_event_handler</span> <span class="p">(</span><span class="n">widget</span><span class="p">):</span>
-	<span class="k">if</span> <span class="n">widget</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;initialized&#39;</span><span class="p">:</span>
+	<span class="k">if</span> <span class="n">widget</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'initialized'</span><span class="p">:</span>
 		<span class="n">DIALOG</span><span class="o">.</span><span class="n">wizard</span><span class="o">.</span><span class="n">step_set_complete</span><span class="p">(</span><span class="n">DIALOG</span><span class="o">.</span><span class="n">wizard</span><span class="o">.</span><span class="n">current_id</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">wizard</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">dialog_event_handler</span>
@@ -1573,10 +1573,10 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
 </dd>
 </dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">dialog_handler</span><span class="p">(</span><span class="n">widget</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="s1">&#39;initialize&#39;</span><span class="p">:</span>
-        <span class="n">DIALOG</span><span class="o">.</span><span class="n">filesystem</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;C:/temp&#39;</span>
+    <span class="k">if</span> <span class="n">widget</span> <span class="o">==</span> <span class="s1">'initialize'</span><span class="p">:</span>
+        <span class="n">DIALOG</span><span class="o">.</span><span class="n">filesystem</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="s1">'C:/temp'</span>
         <span class="n">DIALOG</span><span class="o">.</span><span class="n">filesystem</span><span class="o">.</span><span class="n">use_multiselection</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="nb">filter</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*.g3d&#39;</span><span class="p">,</span> <span class="s1">&#39;*.stp&#39;</span><span class="p">]</span>
+        <span class="nb">filter</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'*.g3d'</span><span class="p">,</span> <span class="s1">'*.stp'</span><span class="p">]</span>
     <span class="o">...</span>
 
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">dialog_handler</span>
@@ -1585,7 +1585,7 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
 
 <span class="nb">print</span><span class="p">(</span><span class="n">RESULT</span><span class="o">.</span><span class="n">filesystem</span><span class="o">.</span><span class="n">selected</span><span class="p">)</span>
 <span class="c1"># E.g.:</span>
-<span class="c1"># [&#39;C:/temp/ZEISS_INSPECT_Training/Training Data/Raw Data/Actual/ZEISS Training Object Mesh 1.g3d&#39;, &#39;C:/temp/ZEISS_INSPECT_Training/Training Data/Raw Data/Actual/ZEISS Training Object Mesh 2.g3d&#39;]</span>
+<span class="c1"># ['C:/temp/ZEISS_INSPECT_Training/Training Data/Raw Data/Actual/ZEISS Training Object Mesh 1.g3d', 'C:/temp/ZEISS_INSPECT_Training/Training Data/Raw Data/Actual/ZEISS Training Object Mesh 2.g3d']</span>
 </pre></div>
 </div>
 </section>
@@ -1666,14 +1666,14 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
 <h2>Widget text assignment and formatting at run time<a class="headerlink" href="#widget-text-assignment-and-formatting-at-run-time" title="Link to this heading"></a></h2>
 <p>The <a class="reference internal" href="#description-field-label-widget">Description field (label) widget</a> and the <a class="reference internal" href="#continuous-text-widget">Continuous text widget</a> support HTML / CSS syntax for text formatting and character encoding.</p>
 <p>Example: Dialog with a label widget (<code class="docutils literal notranslate"><span class="pre">label</span></code>)</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Label - font size: 18 pt, style: bold, special character: &#39;Diameter&#39;</span>
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&lt;span style=&quot;font-size:18pt&quot;&gt;&lt;b&gt;Cylinder &amp;#x2300;&lt;/b&gt;&lt;/span&gt;&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Label - font size: 18 pt, style: bold, special character: 'Diameter'</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">'&lt;span style="font-size:18pt"&gt;&lt;b&gt;Cylinder &amp;#x2300;&lt;/b&gt;&lt;/span&gt;'</span>
 </pre></div>
 </div>
 <p><img alt="Label widget with HTML formatted text" src="../../_images/widget_text_html_label.png" /></p>
 <p>Example: Continuous text widget (<code class="docutils literal notranslate"><span class="pre">cont_text</span></code>) with formatted text</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Continuous text - font size: 18 pt, font weight: 600, color: red, </span>
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&lt;span style=&quot;font-size:18pt; font-weight:800; color:red;&quot;&gt;Attention!&lt;/span&gt;&#39;</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">'&lt;span style="font-size:18pt; font-weight:800; color:red;"&gt;Attention!&lt;/span&gt;'</span>
 </pre></div>
 </div>
 <p><img alt="Continuous text widget with HTML formatted text" src="../../_images/widget_text_html_formatting.png" /></p>
@@ -1681,11 +1681,11 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">var1</span> <span class="o">=</span> <span class="mf">9.8</span>
 <span class="n">var2</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">var3</span> <span class="o">=</span> <span class="mf">0.3</span>
-<span class="n">var4</span> <span class="o">=</span> <span class="s2">&quot;pass&quot;</span>
+<span class="n">var4</span> <span class="o">=</span> <span class="s2">"pass"</span>
 
-<span class="n">DIALOG</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&lt;table width=&quot;200&quot;&gt;&#39;</span>\
-<span class="s1">&#39;&lt;tr&gt;&lt;th&gt;Actual&lt;/th&gt;&lt;th&gt;Nominal&lt;/th&gt;&lt;th&gt;Tolerance&lt;/th&gt;&lt;th&gt;Result&lt;/th&gt;&lt;/tr&gt;&#39;</span>\
-<span class="sa">f</span><span class="s1">&#39;&lt;tr&gt;&lt;td&gt;</span><span class="si">{</span><span class="n">var1</span><span class="si">}</span><span class="s1">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="n">var2</span><span class="si">}</span><span class="s1">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="n">var3</span><span class="si">}</span><span class="s1">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="n">var4</span><span class="si">}</span><span class="s1">&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#39;</span>
+<span class="n">DIALOG</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">'&lt;table width="200"&gt;'</span>\
+<span class="s1">'&lt;tr&gt;&lt;th&gt;Actual&lt;/th&gt;&lt;th&gt;Nominal&lt;/th&gt;&lt;th&gt;Tolerance&lt;/th&gt;&lt;th&gt;Result&lt;/th&gt;&lt;/tr&gt;'</span>\
+<span class="sa">f</span><span class="s1">'&lt;tr&gt;&lt;td&gt;</span><span class="si">{</span><span class="n">var1</span><span class="si">}</span><span class="s1">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="n">var2</span><span class="si">}</span><span class="s1">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="n">var3</span><span class="si">}</span><span class="s1">&lt;/td&gt;&lt;td&gt;</span><span class="si">{</span><span class="n">var4</span><span class="si">}</span><span class="s1">&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;'</span>
 </pre></div>
 </div>
 <p><img alt="Continuous text widget with HTML table" src="../../_images/widget_text_html_table.png" /></p>
@@ -1719,7 +1719,7 @@ The top widget has focus. The arrows are just examples for icons.</span><a class
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f22c4201a20>
+  <jinja2.runtime.BlockReference object at 0x7f2c0efc2430>
 
 
 </footer>

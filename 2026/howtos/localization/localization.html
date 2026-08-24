@@ -161,24 +161,24 @@
 <h3>User-defined script dialogs<a class="headerlink" href="#user-defined-script-dialogs" title="Link to this heading"></a></h3>
 <p>When adding a user defined script dialog to a script, since software version 2022 the resulting code is in JSON compatible format and will contain translation entries for all translatable texts automatically. The user does not have to care for these entries manually. They are kept consistently when the dialog is edited again and will lead to translation file entries (see below).</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_user_defined_dialog</span> <span class="p">(</span><span class="n">dialog</span><span class="o">=</span><span class="p">{</span>
-    <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"content"</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">[</span>
             <span class="p">{</span>
-                <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                <span class="s2">&quot;monospace&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;log&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;rows&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                <span class="s2">&quot;save_dialog_title&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Save Log File&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;translatable&quot;</span><span class="p">:</span> <span class="kc">True</span>
+                <span class="s2">"columns"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">"monospace"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"log"</span><span class="p">,</span>
+                <span class="s2">"rows"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">"save_dialog_title"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                    <span class="s2">"text"</span><span class="p">:</span> <span class="s2">"Save Log File"</span><span class="p">,</span>
+                    <span class="s2">"translatable"</span><span class="p">:</span> <span class="kc">True</span>
                 <span class="p">},</span>
-                <span class="s2">&quot;scroll_automatically&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s2">&quot;show_save&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s2">&quot;tooltip&quot;</span><span class="p">:</span> <span class="p">{</span>
-                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;translatable&quot;</span><span class="p">:</span> <span class="kc">True</span>
+                <span class="s2">"scroll_automatically"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">"show_save"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">"tooltip"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                    <span class="s2">"text"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                    <span class="s2">"translatable"</span><span class="p">:</span> <span class="kc">True</span>
                 <span class="p">},</span>
     <span class="o">...</span>
     <span class="p">)</span>
@@ -191,7 +191,7 @@
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">tr</span>
 
-<span class="nb">print</span> <span class="p">(</span><span class="n">tr</span> <span class="p">(</span><span class="s1">&#39;This text will be translated&#39;</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">tr</span> <span class="p">(</span><span class="s1">'This text will be translated'</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
@@ -286,20 +286,20 @@
 </ul>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Example XLIFF file</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
-<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;xliff</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;urn:oasis:names:tc:xliff:document:1.1&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;1.1&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;file</span><span class="w"> </span><span class="na">original=</span><span class="s">&quot;metainfo.json&quot;</span><span class="w"> </span><span class="na">datatype=</span><span class="s">&quot;json&quot;</span><span class="w"> </span><span class="na">source-language=</span><span class="s">&quot;en&quot;</span><span class="w"> </span><span class="na">target_language=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
-<span class="w">        </span><span class="nt">&lt;group</span><span class="w"> </span><span class="na">restype=</span><span class="s">&quot;x-gettext-domain&quot;</span><span class="w"> </span><span class="na">resname=</span><span class="s">&quot;metainfo.json&quot;</span><span class="nt">&gt;</span>
-<span class="w">            </span><span class="nt">&lt;trans-unit</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;msg1&quot;</span><span class="w"> </span><span class="na">resname=</span><span class="s">&quot;author&quot;</span><span class="nt">&gt;</span>
-<span class="w">                </span><span class="nt">&lt;source</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span>Carl<span class="w"> </span>Zeiss<span class="w"> </span>GOM<span class="w"> </span>Metrology<span class="w"> </span>GmbH<span class="nt">&lt;/source&gt;</span>
-<span class="w">                </span><span class="nt">&lt;target</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span>Carl<span class="w"> </span>Zeiss<span class="w"> </span>GOM<span class="w"> </span>Metrology<span class="w"> </span>GmbH<span class="nt">&lt;/target&gt;</span>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;xliff</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">"urn:oasis:names:tc:xliff:document:1.1"</span><span class="w"> </span><span class="na">version=</span><span class="s">"1.1"</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;file</span><span class="w"> </span><span class="na">original=</span><span class="s">"metainfo.json"</span><span class="w"> </span><span class="na">datatype=</span><span class="s">"json"</span><span class="w"> </span><span class="na">source-language=</span><span class="s">"en"</span><span class="w"> </span><span class="na">target_language=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;group</span><span class="w"> </span><span class="na">restype=</span><span class="s">"x-gettext-domain"</span><span class="w"> </span><span class="na">resname=</span><span class="s">"metainfo.json"</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="nt">&lt;trans-unit</span><span class="w"> </span><span class="na">id=</span><span class="s">"msg1"</span><span class="w"> </span><span class="na">resname=</span><span class="s">"author"</span><span class="nt">&gt;</span>
+<span class="w">                </span><span class="nt">&lt;source</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">"preserve"</span><span class="nt">&gt;</span>Carl<span class="w"> </span>Zeiss<span class="w"> </span>GOM<span class="w"> </span>Metrology<span class="w"> </span>GmbH<span class="nt">&lt;/source&gt;</span>
+<span class="w">                </span><span class="nt">&lt;target</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">"preserve"</span><span class="nt">&gt;</span>Carl<span class="w"> </span>Zeiss<span class="w"> </span>GOM<span class="w"> </span>Metrology<span class="w"> </span>GmbH<span class="nt">&lt;/target&gt;</span>
 <span class="w">            </span><span class="nt">&lt;/trans-unit&gt;</span>
-<span class="w">            </span><span class="nt">&lt;trans-unit</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;msg2&quot;</span><span class="w"> </span><span class="na">resname=</span><span class="s">&quot;description&quot;</span><span class="nt">&gt;</span>
-<span class="w">                </span><span class="nt">&lt;source</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span>Tools<span class="w"> </span>for<span class="w"> </span>App<span class="w"> </span>internationalization<span class="nt">&lt;/source&gt;</span>
-<span class="w">                </span><span class="nt">&lt;target</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span>Tools<span class="w"> </span>for<span class="w"> </span>App<span class="w"> </span>internationalization<span class="nt">&lt;/target&gt;</span>
+<span class="w">            </span><span class="nt">&lt;trans-unit</span><span class="w"> </span><span class="na">id=</span><span class="s">"msg2"</span><span class="w"> </span><span class="na">resname=</span><span class="s">"description"</span><span class="nt">&gt;</span>
+<span class="w">                </span><span class="nt">&lt;source</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">"preserve"</span><span class="nt">&gt;</span>Tools<span class="w"> </span>for<span class="w"> </span>App<span class="w"> </span>internationalization<span class="nt">&lt;/source&gt;</span>
+<span class="w">                </span><span class="nt">&lt;target</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">"preserve"</span><span class="nt">&gt;</span>Tools<span class="w"> </span>for<span class="w"> </span>App<span class="w"> </span>internationalization<span class="nt">&lt;/target&gt;</span>
 <span class="w">            </span><span class="nt">&lt;/trans-unit&gt;</span>
-<span class="w">            </span><span class="nt">&lt;trans-unit</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;msg3&quot;</span><span class="w"> </span><span class="na">resname=</span><span class="s">&quot;title&quot;</span><span class="nt">&gt;</span>
-<span class="w">                </span><span class="nt">&lt;source</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span>Internationalization<span class="w"> </span>Tools<span class="nt">&lt;/source&gt;</span>
-<span class="w">                </span><span class="nt">&lt;target</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">&quot;preserve&quot;</span><span class="nt">&gt;</span>Internationalization<span class="w"> </span>Tools<span class="nt">&lt;/target&gt;</span>
+<span class="w">            </span><span class="nt">&lt;trans-unit</span><span class="w"> </span><span class="na">id=</span><span class="s">"msg3"</span><span class="w"> </span><span class="na">resname=</span><span class="s">"title"</span><span class="nt">&gt;</span>
+<span class="w">                </span><span class="nt">&lt;source</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">"preserve"</span><span class="nt">&gt;</span>Internationalization<span class="w"> </span>Tools<span class="nt">&lt;/source&gt;</span>
+<span class="w">                </span><span class="nt">&lt;target</span><span class="w"> </span><span class="na">xml:space=</span><span class="s">"preserve"</span><span class="nt">&gt;</span>Internationalization<span class="w"> </span>Tools<span class="nt">&lt;/target&gt;</span>
 <span class="w">            </span><span class="nt">&lt;/trans-unit&gt;</span>
 <span class="w">        </span><span class="nt">&lt;/group&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/file&gt;</span>
@@ -377,7 +377,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f22c48d03c0>
+  <jinja2.runtime.BlockReference object at 0x7f2c0fccfc20>
 
 
 </footer>
