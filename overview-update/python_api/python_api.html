@@ -548,6 +548,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-customelement-finish">gom.api.extensions.CustomElement.finish</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-customelement-initialize-dialog">gom.api.extensions.CustomElement.initialize_dialog</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-customelement-is-visible">gom.api.extensions.CustomElement.is_visible</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-customelement-is-visible-for-iinspect">gom.api.extensions.CustomElement.is_visible_for_iinspect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-customelement-show-dialog">gom.api.extensions.CustomElement.show_dialog</a></li>
 </ul>
 </li>
@@ -769,6 +770,7 @@ window.runMermaid = runMermaid;</script>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-services">gom.api.services</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-services-service">gom.api.services.Service</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-app">gom.api.services.Service.get_app</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-autostart">gom.api.services.Service.get_autostart</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-endpoint">gom.api.services.Service.get_endpoint</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-services-service-get-name">gom.api.services.Service.get_name</a></li>
@@ -808,6 +810,8 @@ window.runMermaid = runMermaid;</script>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-table">gom.api.table</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-table-contenteditor">gom.api.table.ContentEditor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-begin-undoable-action">gom.api.table.ContentEditor.begin_undoable_action</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-clear-redo">gom.api.table.ContentEditor.clear_redo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-delete-column">gom.api.table.ContentEditor.delete_column</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-delete-row">gom.api.table.ContentEditor.delete_row</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-edit-cell">gom.api.table.ContentEditor.edit_cell</a></li>
@@ -822,15 +826,20 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-insert-column">gom.api.table.ContentEditor.insert_column</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-insert-row">gom.api.table.ContentEditor.insert_row</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-merge-cells">gom.api.table.ContentEditor.merge_cells</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-redo">gom.api.table.ContentEditor.redo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-refresh-render-data">gom.api.table.ContentEditor.refresh_render_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-restore-state">gom.api.table.ContentEditor.restore_state</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-revert">gom.api.table.ContentEditor.revert</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-set-alignment">gom.api.table.ContentEditor.set_alignment</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-set-alignment-header">gom.api.table.ContentEditor.set_alignment_header</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-set-background-color">gom.api.table.ContentEditor.set_background_color</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-set-background-color-expression">gom.api.table.ContentEditor.set_background_color_expression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-set-expanding-column">gom.api.table.ContentEditor.set_expanding_column</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-set-font-style">gom.api.table.ContentEditor.set_font_style</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-set-font-style-header">gom.api.table.ContentEditor.set_font_style_header</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-set-view-mode">gom.api.table.ContentEditor.set_view_mode</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-split-cell">gom.api.table.ContentEditor.split_cell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-table-contenteditor-undo">gom.api.table.ContentEditor.undo</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-table-create-content-editor-data-adapter">gom.api.table.create_content_editor_data_adapter</a></li>
@@ -1253,12 +1262,14 @@ copied, as far as possible)</p>
 </dd></dl>
 
 <p>This function reads the content of a file from the add-on. If the add-on is protected,
-the file can still be read but will be AES encrypted.</p>
+the contents can only be accessed from within the add-on itself.</p>
 <p><strong>Example:</strong> Print all add-on ‘metainfo.json’ files</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 
 <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">get_installed_addons</span> <span class="p">():</span>
+  <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">is_protected</span> <span class="p">():</span>
+    <span class="k">continue</span>
   <span class="n">text</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">read</span> <span class="p">(</span><span class="s1">'metainfo.json'</span><span class="p">))</span>
   <span class="nb">print</span> <span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span> <span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
 </pre></div>
@@ -2938,6 +2949,45 @@ widgets from the given arguments. The arguments are a map of widget names and th
 <p>This function is called to check if the custom element is visible in the menus. This is usually the case if
 the selections and other preconditions are setup and the user then shall be enabled to create or edit the element.</p>
 <p>The default state is <code class="docutils literal notranslate"><span class="pre">True</span></code>, so this function must be overwritten to add granularity to the elements visibility.</p>
+</section>
+<section id="gom-api-extensions-customelement-is-visible-for-iinspect">
+<h4>gom.api.extensions.CustomElement.is_visible_for_iinspect<a class="headerlink" href="#gom-api-extensions-customelement-is-visible-for-iinspect" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.CustomElement.is_visible_for_iinspect(self:</span> <span class="pre">Any,</span> <span class="pre">context:</span> <span class="pre">Any,</span> <span class="pre">element:</span> <span class="pre">Any):</span> <span class="pre">bool</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>Any</em>) – Script context object containing execution related parameters.</p></li>
+<li><p><strong>element</strong> (<em>Any</em>) – The currently selected element.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the inspection should be visible in the I-Inspect menu for the given element. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code> if an exception is raised.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function is called to check if this custom inspection element should be visible in the I-Inspect menu
+for a selected element.</p>
+<p>The function receives exactly one selected element and can decide based on element type, properties, or other
+criteria whether this check should be offered to the user in the I-Inspect menu.</p>
+<p><strong>Exception handling:</strong> If this function raises an exception, the custom inspection will default to being
+visible (<code class="docutils literal notranslate"><span class="pre">True</span></code>) as a fail-safe behavior.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">is_visible_for_iinspect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+
+    <span class="c1"># Only show for circle element</span>
+    <span class="n">str_element</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">str_element</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'circle'</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+</div>
 </section>
 <section id="gom-api-extensions-customelement-show-dialog">
 <h4>gom.api.extensions.CustomElement.show_dialog<a class="headerlink" href="#gom-api-extensions-customelement-show-dialog" title="Link to this heading"></a></h4>
@@ -6241,6 +6291,40 @@ subscribe. When a signal fires, it is forwarded to the JavaScript renderer as a
 
 <p>Constructor</p>
 </section>
+<section id="gom-api-extensions-views-customview-get-scaling-factor">
+<h5>gom.api.extensions.views.CustomView._get_scaling_factor<a class="headerlink" href="#gom-api-extensions-views-customview-get-scaling-factor" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.CustomView._get_scaling_factor(self:</span> <span class="pre">Any):</span> <span class="pre">float</span></span></dt>
+<dd><p>Get the current scaling factor</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Current scaling factor as float</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="gom-api-extensions-views-customview-get-style-theme">
+<h5>gom.api.extensions.views.CustomView._get_style_theme<a class="headerlink" href="#gom-api-extensions-views-customview-get-style-theme" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.CustomView._get_style_theme(self:</span> <span class="pre">Any):</span> <span class="pre">str</span></span></dt>
+<dd><p>Get the current style theme</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Current style theme as string</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="id2">
 <h5>gom.api.extensions.views.CustomView.event<a class="headerlink" href="#id2" title="Link to this heading"></a></h5>
 <dl class="py function">
@@ -8382,6 +8466,40 @@ skipped entirely for the respective items.</p>
 <p>Class representing a single API service</p>
 <p>This class represents an API service. The properties of that service can be read and
 the service can be administered (started, stopped, …) via that handle.</p>
+<section id="gom-api-services-service-get-app">
+<h4>gom.api.services.Service.get_app<a class="headerlink" href="#gom-api-services-service-get-app" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.services.Service.get_app():</span> <span class="pre">UUID</span></span></dt>
+<dd><p>Return the UUID of the App this service belongs to</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>UUID of the App the service belongs to, or a null UUID (all zeros) if not app-owned</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>UUID</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function returns the UUID of the App (add-on) that registered this service. The returned
+value is a UUID. A null UUID (all zeros) is returned if the service was not registered by an App.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">service</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">get_service</span> <span class="p">(</span><span class="s1">'my.test.service'</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">service</span><span class="o">.</span><span class="n">get_app</span> <span class="p">())</span>
+<span class="o">&gt;</span> <span class="s1">'78440dba-4c91-4690-902c-39e777323df4'</span>
+
+<span class="c1"># Compare to the current addon</span>
+<span class="k">if</span> <span class="n">service</span><span class="o">.</span><span class="n">get_app</span> <span class="p">()</span> <span class="o">==</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">addons</span><span class="o">.</span><span class="n">get_current_addon</span> <span class="p">()</span><span class="o">.</span><span class="n">get_id</span> <span class="p">():</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">'Service belongs to the current addon'</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">'Service belongs to another addon'</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 <section id="gom-api-services-service-get-autostart">
 <h4>gom.api.services.Service.get_autostart<a class="headerlink" href="#gom-api-services-service-get-autostart" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -8389,11 +8507,14 @@ the service can be administered (started, stopped, …) via that handle.</p>
 <span class="sig-name descname"><span class="pre">gom.api.services.Service.get_autostart():</span> <span class="pre">bool</span></span></dt>
 <dd><p>Return autostart status of the service</p>
 <dl class="myst field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the service is started automatically at application startup</p>
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>‘true’ if the service is started automatically at application startup</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8450,11 +8571,14 @@ the service management dialog.</p>
 <span class="sig-name descname"><span class="pre">gom.api.services.Service.get_number_of_instances():</span> <span class="pre">int</span></span></dt>
 <dd><p>Get the number of API instances (processes) the service runs in parallel</p>
 <dl class="myst field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Number of API instances which are run in parallel when the service is started.</p>
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of API instances which are run in parallel when the service is started.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -8487,8 +8611,10 @@ be configured to start more than one API process for parallelization.</p>
 <li><p>STARTED: Service has been started and is currently initializing. This can include both the general
 service process startup or running the global service initialization code (model loading, …).</p></li>
 <li><p>RUNNING: Service is running and ready to process API requests. If there are multiple service instances configured
-per service, the service counts as RUNNING not before all of these instances have been initialized !</p></li>
-<li><p>STOPPING: Service is currently shutting down,</p></li>
+per service, the service counts as RUNNING not before all of these instances have been initialized.</p></li>
+<li><p>STOPPING: Service is currently shutting down.</p></li>
+<li><p>EXTERNAL: Service is managed externally (e.g. started as a remote service). It cannot be started or stopped via
+this API.</p></li>
 </ul>
 </section>
 <section id="gom-api-services-service-set-number-of-instances">
@@ -8586,12 +8712,12 @@ useful for scripts which need to call service functions right after starting the
 </dl>
 </dd></dl>
 
-<p>Stop service. The service can be restarted afterwards via the ‘start ()’ function
+<p>Stop service. The service can be restarted afterwards via the <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">()</span></code> function
 if needed.</p>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
 <p>The function will return immediately, the service instances will be stopped asynchronously.
-The ‘get_status ()’ function can be used to poll the service status until all service instances
+The <code class="docutils literal notranslate"><span class="pre">get_status</span> <span class="pre">()</span></code> function can be used to poll the service status until all service instances
 have been stopped.</p>
 </div>
 </section>
@@ -9092,6 +9218,28 @@ the frontend, and ensures that edits are properly synchronized and validated.</p
 <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>  <span class="c1"># Get updated render data for rendering</span>
 </pre></div>
 </div>
+<section id="gom-api-table-contenteditor-begin-undoable-action">
+<h4>gom.api.table.ContentEditor.begin_undoable_action<a class="headerlink" href="#gom-api-table-contenteditor-begin-undoable-action" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.begin_undoable_action():</span> <span class="pre">None</span></span></dt>
+<dd><p>Begin an undoable action for the content editor</p>
+</dd></dl>
+
+<p>This method should be called before making any changes to the table data that should be undoable. It saves the
+current state of the table so that it can be restored later if an undo operation is performed.</p>
+</section>
+<section id="gom-api-table-contenteditor-clear-redo">
+<h4>gom.api.table.ContentEditor.clear_redo<a class="headerlink" href="#gom-api-table-contenteditor-clear-redo" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.clear_redo():</span> <span class="pre">None</span></span></dt>
+<dd><p>Clear the redo stack for the content editor</p>
+</dd></dl>
+
+<p>This method clears the redo stack, removing all redoable actions. After calling this method, it will not be possible
+to redo any previously undone actions.</p>
+</section>
 <section id="gom-api-table-contenteditor-delete-column">
 <h4>gom.api.table.ContentEditor.delete_column<a class="headerlink" href="#gom-api-table-contenteditor-delete-column" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -9471,6 +9619,17 @@ are cleared.</p>
 </pre></div>
 </div>
 </section>
+<section id="gom-api-table-contenteditor-redo">
+<h4>gom.api.table.ContentEditor.redo<a class="headerlink" href="#gom-api-table-contenteditor-redo" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.redo():</span> <span class="pre">None</span></span></dt>
+<dd><p>Redo the last undone action for the content editor</p>
+</dd></dl>
+
+<p>This method restores the table to the state it was in before the last undo operation was performed. If there are no
+redoable actions to redo, the method does nothing.</p>
+</section>
 <section id="gom-api-table-contenteditor-refresh-render-data">
 <h4>gom.api.table.ContentEditor.refresh_render_data<a class="headerlink" href="#gom-api-table-contenteditor-refresh-render-data" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -9490,6 +9649,20 @@ in place, keeping the adapter consistent for subsequent edit and read operations
 <span class="n">fresh_data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>  <span class="c1"># Retrieve the refreshed data</span>
 </pre></div>
 </div>
+</section>
+<section id="gom-api-table-contenteditor-restore-state">
+<h4>gom.api.table.ContentEditor.restore_state<a class="headerlink" href="#gom-api-table-contenteditor-restore-state" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.restore_state(state:</span> <span class="pre">dict):</span> <span class="pre">None</span></span></dt>
+<dd><p>Restore the content editor to a previous state</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>dict</em>) – The state to restore</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="gom-api-table-contenteditor-revert">
 <h4>gom.api.table.ContentEditor.revert<a class="headerlink" href="#gom-api-table-contenteditor-revert" title="Link to this heading"></a></h4>
@@ -9624,6 +9797,17 @@ discover every valid token name for the element at a specific row at runtime.</p
 </pre></div>
 </div>
 </section>
+<section id="gom-api-table-contenteditor-set-expanding-column">
+<h4>gom.api.table.ContentEditor.set_expanding_column<a class="headerlink" href="#gom-api-table-contenteditor-set-expanding-column" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.set_expanding_column(column:</span> <span class="pre">int):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the column that receives extra width when the table is resized.</p>
+</dd></dl>
+
+<p>Use -1 to distribute the available width across all columns. Invalid column
+indices are rejected, while -1 remains valid for the “All columns” option.</p>
+</section>
 <section id="gom-api-table-contenteditor-set-font-style">
 <h4>gom.api.table.ContentEditor.set_font_style<a class="headerlink" href="#gom-api-table-contenteditor-set-font-style" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -9685,6 +9869,27 @@ column &#64;p col and regenerates the cached render data.</p>
 </pre></div>
 </div>
 </section>
+<section id="gom-api-table-contenteditor-set-view-mode">
+<h4>gom.api.table.ContentEditor.set_view_mode<a class="headerlink" href="#gom-api-table-contenteditor-set-view-mode" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.set_view_mode(mode:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the table mode for the content editor</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mode</strong> (<em>str</em>) – View modes are mutually exclusive. Supported values are: - “sortable”: Cells can be sorted. Merged cells should be split before switching to this mode. - “layout_editable”: Table layout can be edited, by merging cells.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This method allows switching between different table view modes, such as “Sortable” and “Layout Editable”. The mode
+affects how the table is rendered and interacted with in the frontend.</p>
+<p><strong>Example usage in Python:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">adapter</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">get_content_editor_data_adapter</span><span class="p">(</span><span class="n">data_id</span><span class="p">)</span>
+<span class="n">adapter</span><span class="o">.</span><span class="n">set_view_mode</span><span class="p">(</span><span class="s2">"layout_editable"</span><span class="p">)</span>  <span class="c1"># Switch to layout editing mode</span>
+</pre></div>
+</div>
+</section>
 <section id="gom-api-table-contenteditor-split-cell">
 <h4>gom.api.table.ContentEditor.split_cell<a class="headerlink" href="#gom-api-table-contenteditor-split-cell" title="Link to this heading"></a></h4>
 <dl class="py function">
@@ -9712,6 +9917,17 @@ when the target cell is not merged.</p>
 <span class="n">updated_data</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get_render_data</span><span class="p">()</span>
 </pre></div>
 </div>
+</section>
+<section id="gom-api-table-contenteditor-undo">
+<h4>gom.api.table.ContentEditor.undo<a class="headerlink" href="#gom-api-table-contenteditor-undo" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.table.ContentEditor.undo():</span> <span class="pre">None</span></span></dt>
+<dd><p>Undo the last undoable action for the content editor</p>
+</dd></dl>
+
+<p>This method restores the table to the state it was in before the last undoable action was performed. If there are no
+undoable actions to undo, the method does nothing.</p>
 </section>
 </section>
 <section id="gom-api-table-create-content-editor-data-adapter">
@@ -10057,7 +10273,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fdeb21211d0>
+  <jinja2.runtime.BlockReference object at 0x7f85fc721390>
 
 
 </footer>
