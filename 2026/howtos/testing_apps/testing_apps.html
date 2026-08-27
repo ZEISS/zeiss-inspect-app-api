@@ -237,12 +237,17 @@ To use this feature, navigate to the “Testing” workspace of VSCode and selec
 </section>
 <section id="from-scripts">
 <h3>From scripts<a class="headerlink" href="#from-scripts" title="Link to this heading"></a></h3>
-<p>You can use the <code class="docutils literal notranslate"><span class="pre">execute_addon_tests</span></code> command to run tests of an App. It takes the App UUID as mandatory argument. If solely given, all tests of the App are executed. You can also provide a list of test paths with the argument <code class="docutils literal notranslate"><span class="pre">test_paths</span></code> in form of relative paths inside the App. The suffix <code class="docutils literal notranslate"><span class="pre">#test_&lt;...&gt;</span></code> selects the test function to be run.</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">execute_addon_tests</span></code> command to run tests of an App. It takes the App UUID as mandatory argument. If solely given, all tests of the App are executed. You can also provide a list of test paths with the argument <code class="docutils literal notranslate"><span class="pre">test_paths</span></code>. The suffix <code class="docutils literal notranslate"><span class="pre">#test_&lt;...&gt;</span></code> indicates, which test function to run.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests_draft</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">'cc4de73f-a8b9-4c01-8f45-141a74f29333'</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests_draft</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">'5f396cc9-7865-44a1-8a85-ed7c1689dd68'</span><span class="p">,</span> 
-	<span class="n">test_paths</span><span class="o">=</span><span class="p">[</span><span class="s1">'/PythonApiExamples/tests/test_dialog_widgets_explorer_selection#test_explorer_selection'</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Finalized App</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests_draft</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">'5f396cc9-7865-44a1-8a85-ed7c1689dd68'</span><span class="p">,</span> 
+    <span class="n">test_paths</span><span class="o">=</span><span class="p">[</span><span class="s1">'zip://5f396cc9-7865-44a1-8a85-ed7c1689dd68/scripts/PythonApiExamples/tests/test_dialog_widgets_explorer_selection.py#test_explorer_selection'</span><span class="p">])</span>
+
+<span class="c1"># App in editing mode or in a connected folder</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests_draft</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">'5f396cc9-7865-44a1-8a85-ed7c1689dd68'</span><span class="p">,</span>
+    <span class="n">test_paths</span><span class="o">=</span><span class="p">[</span><span class="s1">'file:///C:/Users/EXAMPLEUSER/AppData/Roaming/gom/2026/gom_edited_addons/5f396cc9-7865-44a1-8a85-ed7c1689dd68/scripts/PythonApiExamples/tests/test_dialog_widgets_explorer_selection.py#test_explorer_selection'</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>This will give you <code class="docutils literal notranslate"><span class="pre">results</span></code> as a list of tuples (test name, success, error message), which you can use for further evaluation.</p>
@@ -568,7 +573,7 @@ Coverage Report: file://C:\Users\&lt;USERID&gt;\Documents\work\zeiss-inspect-app
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f2c0f3f5470>
+  <jinja2.runtime.BlockReference object at 0x7ff671f3a900>
 
 
 </footer>
