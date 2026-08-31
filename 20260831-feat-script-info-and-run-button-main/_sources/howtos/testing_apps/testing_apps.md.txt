@@ -79,6 +79,7 @@ You can use this context also on higher levels of the file hierarchy, e.g. to ex
 
 ```{note}
 ![Run test button](assets/script_editor-run_test.png)
+
 Test scripts can also be run via the "Run test" button in the Script Editor (ZEISS INSPECT 2027 or later).
 ```
 
