@@ -45,13 +45,35 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Self-contained custom diagram examples: basic rendering, element overlay, and point-cloud overlay.
 
 :References:
-    [HowTo - Custom Diagrams](https://zeiss.github.io/zeiss-inspect-app-api/main/howtos/custom_diagrams/custom_diagrams.html), [HowTo - Custom Elements](https://zeiss.github.io/zeiss-inspect-app-api/main/howtos/custom_elements/custom_nominals_actuals.html), [API - diagrams](https://zeiss.github.io/zeiss-inspect-app-api/main/python_api/python_api.html#gom-api-extensions-diagrams)
+    [HowTo - Custom Diagrams](https://zeiss.github.io/zeiss-inspect-app-api/main/howtos/using_custom_diagrams/using_custom_diagrams.html), [HowTo - Custom Elements](https://zeiss.github.io/zeiss-inspect-app-api/main/howtos/custom_elements/custom_nominals_actuals.html), [API - diagrams](https://zeiss.github.io/zeiss-inspect-app-api/main/python_api/python_api.html#gom-api-extensions-diagrams)
 
 :Required Software:
     ZEISS INSPECT 2027
 
 :Tags:
     <a href="#custom-diagrams">![Static Badge](https://img.shields.io/badge/custom--diagrams-blue)</a> <a href="#custom-elements">![Static Badge](https://img.shields.io/badge/custom--elements-blue)</a> <a href="#overlay">![Static Badge](https://img.shields.io/badge/overlay-blue)</a> <a href="#matplotlib">![Static Badge](https://img.shields.io/badge/matplotlib-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="osmmapcustomdiagram">
+<div id="osmmapcustomdiagram" class="example-block-even">
+<h3>OSMMapCustomDiagram — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/OSMMapCustomDiagram/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#osmmapcustomdiagram" title="Link to this heading"></a></h3>
+
+
+:Description:
+    Display geolocation data in an OpenStreetMap custom diagram.
+
+:References:
+    [HowTo - Custom Diagrams](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/using_custom_diagrams/using_custom_diagrams.html), [API - diagrams](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-diagrams-customdiagram)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#custom-diagrams">![Static Badge](https://img.shields.io/badge/custom--diagrams-blue)</a> <a href="#custom-elements">![Static Badge](https://img.shields.io/badge/custom--elements-blue)</a> <a href="#cartopy">![Static Badge](https://img.shields.io/badge/cartopy-blue)</a> <a href="#openstreetmap">![Static Badge](https://img.shields.io/badge/openstreetmap-blue)</a> 
 
 </div>
 
@@ -1717,6 +1739,11 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 * <a href="#workspace">Workspace</a>
 
 
+<a name="cartopy"></a>![Static Badge](https://img.shields.io/badge/cartopy-blue)
+
+* <a href="#osmmapcustomdiagram">OSMMapCustomDiagram</a>
+
+
 <a name="circle"></a>![Static Badge](https://img.shields.io/badge/circle-blue)
 
 * <a href="#customcircle">CustomCircle</a>
@@ -1749,6 +1776,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <a name="custom-diagrams"></a>![Static Badge](https://img.shields.io/badge/custom--diagrams-blue)
 
 * <a href="#customdiagramexamples">CustomDiagramExamples</a>
+* <a href="#osmmapcustomdiagram">OSMMapCustomDiagram</a>
 
 
 <a name="custom-element"></a>![Static Badge](https://img.shields.io/badge/custom--element-blue)
@@ -1781,6 +1809,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <a name="custom-elements"></a>![Static Badge](https://img.shields.io/badge/custom--elements-blue)
 
 * <a href="#customdiagramexamples">CustomDiagramExamples</a>
+* <a href="#osmmapcustomdiagram">OSMMapCustomDiagram</a>
 
 
 <a name="custom-sequence"></a>![Static Badge](https://img.shields.io/badge/custom--sequence-blue)
@@ -1890,6 +1919,11 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 * <a href="#referencepointsandmeshdata">ReferencePointsAndMeshData</a>
 * <a href="#trimeshdeformmesh">TrimeshDeformMesh</a>
+
+
+<a name="openstreetmap"></a>![Static Badge](https://img.shields.io/badge/openstreetmap-blue)
+
+* <a href="#osmmapcustomdiagram">OSMMapCustomDiagram</a>
 
 
 <a name="overlay"></a>![Static Badge](https://img.shields.io/badge/overlay-blue)
