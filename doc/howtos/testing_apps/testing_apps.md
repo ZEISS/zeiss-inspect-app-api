@@ -77,6 +77,11 @@ To run the tests of a specific test script, use the context menu and select "Run
 
 You can use this context also on higher levels of the file hierarchy, e.g. to execute all tests in a folder or of the complete App.
 
+```{note}
+![Run test button](assets/script_editor-run_test.png)
+Test scripts can also be run via the "Run test" button in the Script Editor (ZEISS INSPECT 2027 or later).
+```
+
 Results will be shown in the log of the script editor.
 
 ![Test log](assets/test_log.png)
