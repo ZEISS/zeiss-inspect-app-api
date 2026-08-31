@@ -419,8 +419,33 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 </section>
 
+<section id="customsurfacedeformmesh">
+<div id="customsurfacedeformmesh" class="example-block-even">
+<h3>CustomSurfaceDeformMesh — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomSurfaceDeformMesh/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customsurfacedeformmesh" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example creates a custom actual surface by applying trimesh noise deformation to a selected mesh or CAD body.
+
+:Example Projects:
+    [zeiss_part_test_project](#example-projects)
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.Surface](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-surface)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#mesh">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#surface">![Static Badge](https://img.shields.io/badge/surface-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> <a href="#trimesh">![Static Badge](https://img.shields.io/badge/trimesh-blue)</a> 
+
+</div>
+
+</section>
+
 <section id="customsurfaceinspection">
-<div id="customsurfaceinspection" class="example-block-even">
+<div id="customsurfaceinspection" class="example-block-odd">
 <h3>CustomSurfaceInspection — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomSurfaceInspection/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#customsurfaceinspection" title="Link to this heading"></a></h3>
 
@@ -445,7 +470,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </section>
 
 <section id="customvalueelement">
-<div id="customvalueelement" class="example-block-odd">
+<div id="customvalueelement" class="example-block-even">
 <h3>CustomValueElement — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomValueElement/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#customvalueelement" title="Link to this heading"></a></h3>
 
@@ -467,7 +492,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </section>
 
 <section id="customvolume">
-<div id="customvolume" class="example-block-even">
+<div id="customvolume" class="example-block-odd">
 <h3>CustomVolume — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomVolume/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#customvolume" title="Link to this heading"></a></h3>
 
@@ -489,7 +514,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </section>
 
 <section id="customvolumedefects">
-<div id="customvolumedefects" class="example-block-odd">
+<div id="customvolumedefects" class="example-block-even">
 <h3>CustomVolumeDefects — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomVolumeDefects/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#customvolumedefects" title="Link to this heading"></a></h3>
 
@@ -511,7 +536,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </section>
 
 <section id="customvolumedefects2d">
-<div id="customvolumedefects2d" class="example-block-even">
+<div id="customvolumedefects2d" class="example-block-odd">
 <h3>CustomVolumeDefects2d — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomVolumeDefects2d/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#customvolumedefects2d" title="Link to this heading"></a></h3>
 
@@ -533,7 +558,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </section>
 
 <section id="customvolumeregion">
-<div id="customvolumeregion" class="example-block-odd">
+<div id="customvolumeregion" class="example-block-even">
 <h3>CustomVolumeRegion — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomVolumeRegion/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#customvolumeregion" title="Link to this heading"></a></h3>
 
@@ -555,7 +580,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </section>
 
 <section id="customvolumesection">
-<div id="customvolumesection" class="example-block-even">
+<div id="customvolumesection" class="example-block-odd">
 <h3>CustomVolumeSection — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomVolumeSection/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#customvolumesection" title="Link to this heading"></a></h3>
 
@@ -577,7 +602,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </section>
 
 <section id="customvolumesegmentation">
-<div id="customvolumesegmentation" class="example-block-odd">
+<div id="customvolumesegmentation" class="example-block-even">
 <h3>CustomVolumeSegmentation — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomVolumeSegmentation/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#customvolumesegmentation" title="Link to this heading"></a></h3>
 
@@ -1796,6 +1821,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 * <a href="#customsequence">CustomSequence</a>
 * <a href="#customsurface">CustomSurface</a>
 * <a href="#customsurfacecurve">CustomSurfaceCurve</a>
+* <a href="#customsurfacedeformmesh">CustomSurfaceDeformMesh</a>
 * <a href="#customsurfaceinspection">CustomSurfaceInspection</a>
 * <a href="#customvalueelement">CustomValueElement</a>
 * <a href="#customvolume">CustomVolume</a>
@@ -1917,6 +1943,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <a name="mesh"></a>![Static Badge](https://img.shields.io/badge/mesh-blue)
 
+* <a href="#customsurfacedeformmesh">CustomSurfaceDeformMesh</a>
 * <a href="#referencepointsandmeshdata">ReferencePointsAndMeshData</a>
 * <a href="#trimeshdeformmesh">TrimeshDeformMesh</a>
 
@@ -2071,6 +2098,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <a name="surface"></a>![Static Badge](https://img.shields.io/badge/surface-blue)
 
 * <a href="#customsurface">CustomSurface</a>
+* <a href="#customsurfacedeformmesh">CustomSurfaceDeformMesh</a>
 * <a href="#scriptedactualsurface">ScriptedActualSurface</a>
 * <a href="#scriptedsurfacecheck">ScriptedSurfaceCheck</a>
 * <a href="#trimeshdeformmesh">TrimeshDeformMesh</a>
@@ -2090,6 +2118,11 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <a name="testing"></a>![Static Badge](https://img.shields.io/badge/testing-blue)
 
 * <a href="#pytesttemplate">PytestTemplate</a>
+
+
+<a name="trimesh"></a>![Static Badge](https://img.shields.io/badge/trimesh-blue)
+
+* <a href="#customsurfacedeformmesh">CustomSurfaceDeformMesh</a>
 
 
 <a name="unit-widget"></a>![Static Badge](https://img.shields.io/badge/unit--widget-blue)
