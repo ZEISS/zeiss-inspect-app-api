@@ -1,7 +1,7 @@
 ---
 myst:
     html_meta:
-        "description": "Examples for using the ZEISS INSPECT 2026 App Python API"
+        "description": "Examples for using the ZEISS INSPECT 2027 App Python API"
         "keywords": "Metrology, ZEISS INSPECT, Python API, App API, GOM API, Scripting, Add-ons, Apps, Examples"
 ---
 
@@ -32,6 +32,598 @@ The examples provided here serve as illustrative versions of ZEISS INSPECT Apps.
 Users may utilize these examples at their own risk, and ZEISS assumes no liability for their use.
 ```
 
+## custom_diagrams &mdash; How to create custom diagrams
+
+<hr class="small-margin">
+<section id="customdiagramexamples">
+<div id="customdiagramexamples" class="example-block-odd">
+<h3>CustomDiagramExamples — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/CustomDiagramExamples/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customdiagramexamples" title="Link to this heading"></a></h3>
+
+
+:Description:
+    Self-contained custom diagram examples: basic rendering, element overlay, and point-cloud overlay.
+
+:References:
+    [HowTo - Custom Diagrams](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/using_custom_diagrams/using_custom_diagrams.html), [HowTo - Custom Elements](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - diagrams](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-diagrams)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#custom-diagrams">![Static Badge](https://img.shields.io/badge/custom--diagrams-blue)</a> <a href="#custom-elements">![Static Badge](https://img.shields.io/badge/custom--elements-blue)</a> <a href="#overlay">![Static Badge](https://img.shields.io/badge/overlay-blue)</a> <a href="#matplotlib">![Static Badge](https://img.shields.io/badge/matplotlib-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="osmmapcustomdiagram">
+<div id="osmmapcustomdiagram" class="example-block-even">
+<h3>OSMMapCustomDiagram — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_diagrams/OSMMapCustomDiagram/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#osmmapcustomdiagram" title="Link to this heading"></a></h3>
+
+
+:Description:
+    Display geolocation data in an OpenStreetMap custom diagram.
+
+:References:
+    [HowTo - Custom Diagrams](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/using_custom_diagrams/using_custom_diagrams.html), [API - diagrams](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-diagrams-customdiagram)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#custom-diagrams">![Static Badge](https://img.shields.io/badge/custom--diagrams-blue)</a> <a href="#custom-elements">![Static Badge](https://img.shields.io/badge/custom--elements-blue)</a> <a href="#cartopy">![Static Badge](https://img.shields.io/badge/cartopy-blue)</a> <a href="#openstreetmap">![Static Badge](https://img.shields.io/badge/openstreetmap-blue)</a> 
+
+</div>
+
+</section>
+
+
+## custom_elements &mdash; How to create custom elements
+
+<hr class="small-margin">
+<section id="customcircle">
+<div id="customcircle" class="example-block-odd">
+<h3>CustomCircle — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomCircle/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customcircle" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom nominal/actual circle element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.Circle](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-circle), [API - nominals.Circle](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-nominals-circle)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#circle">![Static Badge](https://img.shields.io/badge/circle-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customcone">
+<div id="customcone" class="example-block-even">
+<h3>CustomCone — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomCone/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customcone" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom nominal/actual cone element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.Cone](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-cone), [API - nominals.Cone](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-nominals-cone)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#cone">![Static Badge](https://img.shields.io/badge/cone-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customcurve">
+<div id="customcurve" class="example-block-odd">
+<h3>CustomCurve — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomCurve/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customcurve" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom nominal/actual curve element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.Curve](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-curve), [API - nominals.Curve](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-nominals-curve)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#curve">![Static Badge](https://img.shields.io/badge/curve-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customcurveinspection">
+<div id="customcurveinspection" class="example-block-even">
+<h3>CustomCurveInspection — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomCurveInspection/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customcurveinspection" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a Custom Curve Inspection element using the gom.api.extensions.inspections.Curve API. A curve inspection assigns per-vertex deviation values to a curve element, displayed as a color-coded deviation plot along the curve.
+
+:Example Projects:
+    [zeiss_part_test_project](#example-projects)
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_inspections.html), [API - inspections.Curve](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-inspections-curve)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#curve-check">![Static Badge](https://img.shields.io/badge/curve--check-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> <a href="#inspection">![Static Badge](https://img.shields.io/badge/inspection-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customcylinder">
+<div id="customcylinder" class="example-block-odd">
+<h3>CustomCylinder — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomCylinder/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customcylinder" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom nominal/actual cylinder element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.Cylinder](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-cylinder), [API - nominals.Cylinder](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-nominals-cylinder)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#cylinder">![Static Badge](https://img.shields.io/badge/cylinder-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customdistance">
+<div id="customdistance" class="example-block-even">
+<h3>CustomDistance — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomDistance/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customdistance" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom nominal/actual distance element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.Distance](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-distance), [API - nominals.Distance](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-nominals-distance)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#distance">![Static Badge](https://img.shields.io/badge/distance-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customplane">
+<div id="customplane" class="example-block-odd">
+<h3>CustomPlane — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomPlane/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customplane" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom nominal/actual plane element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.Plane](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-plane), [API - nominals.Plane](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-nominals-plane)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#plane">![Static Badge](https://img.shields.io/badge/plane-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="custompoint">
+<div id="custompoint" class="example-block-even">
+<h3>CustomPoint — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomPoint/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#custompoint" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom nominal/actual offset point element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.Point](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-point), [API - nominals.Point](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-nominals-point)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#point">![Static Badge](https://img.shields.io/badge/point-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="custompointcloud">
+<div id="custompointcloud" class="example-block-odd">
+<h3>CustomPointCloud — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomPointCloud/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#custompointcloud" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom nominal/actual point cloud element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.PointCloud](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-pointcloud), [API - nominals.PointCloud](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-nominals-pointcloud)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#point-cloud">![Static Badge](https://img.shields.io/badge/point--cloud-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customprobemeasuredcurve">
+<div id="customprobemeasuredcurve" class="example-block-even">
+<h3>CustomProbeMeasuredCurve — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomProbeMeasuredCurve/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customprobemeasuredcurve" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom actual probe measured curve element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.ProbeMeasuredCurve](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-probemeasuredcurve)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#probe-measured-curve">![Static Badge](https://img.shields.io/badge/probe--measured--curve-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customscalarinspection">
+<div id="customscalarinspection" class="example-block-odd">
+<h3>CustomScalarInspection — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomScalarInspection/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customscalarinspection" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a Custom Scalar Inspection element using the gom.api.extensions.inspections.Scalar API. A scalar inspection compares the deviation of an existing inspection element against user-defined tolerance limits, creating a new check result on top of the original inspection.
+
+:Example Projects:
+    [zeiss_part_test_project](#example-projects)
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_inspections.html), [API - inspections.Scalar](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-inspections-scalar)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#scalar-check">![Static Badge](https://img.shields.io/badge/scalar--check-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> <a href="#inspection">![Static Badge](https://img.shields.io/badge/inspection-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customsection">
+<div id="customsection" class="example-block-even">
+<h3>CustomSection — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomSection/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customsection" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom nominal/actual section element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.Section](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-section), [API - nominals.Section](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-nominals-section)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#section">![Static Badge](https://img.shields.io/badge/section-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customsequence">
+<div id="customsequence" class="example-block-odd">
+<h3>CustomSequence — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomSequence/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customsequence" title="Link to this heading"></a></h3>
+
+
+:Description:
+    Example for a custom sequence element that creates a datum plane through 3 reference points.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - sequence.CustomSequence](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-sequence-customsequence)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#custom-sequence">![Static Badge](https://img.shields.io/badge/custom--sequence-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> <a href="#datum-plane">![Static Badge](https://img.shields.io/badge/datum--plane-blue)</a> <a href="#reference-points">![Static Badge](https://img.shields.io/badge/reference--points-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customsurface">
+<div id="customsurface" class="example-block-even">
+<h3>CustomSurface — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomSurface/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customsurface" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom nominal/actual surface element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.Surface](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-surface), [API - nominals.Surface](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-nominals-surface)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#surface">![Static Badge](https://img.shields.io/badge/surface-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customsurfacecurve">
+<div id="customsurfacecurve" class="example-block-odd">
+<h3>CustomSurfaceCurve — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomSurfaceCurve/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customsurfacecurve" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom nominal/actual surface curve element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.SurfaceCurve](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-surfacecurve), [API - nominals.SurfaceCurve](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-nominals-surfacecurve)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#surface-curve">![Static Badge](https://img.shields.io/badge/surface--curve-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customsurfacedeformmesh">
+<div id="customsurfacedeformmesh" class="example-block-even">
+<h3>CustomSurfaceDeformMesh — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomSurfaceDeformMesh/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customsurfacedeformmesh" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example creates a custom actual surface by applying trimesh noise deformation to a selected mesh or CAD body.
+
+:Example Projects:
+    [zeiss_part_test_project](#example-projects)
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.Surface](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-surface)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#mesh">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#surface">![Static Badge](https://img.shields.io/badge/surface-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> <a href="#trimesh">![Static Badge](https://img.shields.io/badge/trimesh-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customsurfaceinspection">
+<div id="customsurfaceinspection" class="example-block-odd">
+<h3>CustomSurfaceInspection — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomSurfaceInspection/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customsurfaceinspection" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a Custom Surface Inspection element using the gom.api.extensions.inspections.Surface API. A surface inspection assigns per-vertex deviation values to a mesh element, displayed as a color-coded deviation map on the surface.
+
+:Example Projects:
+    [zeiss_part_test_project](#example-projects)
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_inspections.html), [API - inspections.Surface](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-inspections-surface)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#surface-check">![Static Badge](https://img.shields.io/badge/surface--check-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> <a href="#inspection">![Static Badge](https://img.shields.io/badge/inspection-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customvalueelement">
+<div id="customvalueelement" class="example-block-even">
+<h3>CustomValueElement — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomValueElement/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customvalueelement" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom nominal/actual value element.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.ValueElement](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-valueelement), [API - nominals.ValueElement](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-nominals-valueelement)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#value-element">![Static Badge](https://img.shields.io/badge/value--element-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customvolume">
+<div id="customvolume" class="example-block-odd">
+<h3>CustomVolume — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomVolume/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customvolume" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom actual volume element from artificial voxel data (NumPy array).
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.Volume](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-volume)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume">![Static Badge](https://img.shields.io/badge/volume-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customvolumedefects">
+<div id="customvolumedefects" class="example-block-even">
+<h3>CustomVolumeDefects — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomVolumeDefects/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customvolumedefects" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom actual volume defects element from a tetrahedron defined by four vertices.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.VolumeDefects](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-volumedefects)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume-defects">![Static Badge](https://img.shields.io/badge/volume--defects-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customvolumedefects2d">
+<div id="customvolumedefects2d" class="example-block-odd">
+<h3>CustomVolumeDefects2d — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomVolumeDefects2d/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customvolumedefects2d" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom actual 2D volume defects element from parametric circular defect contours.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.VolumeDefects2d](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-volumedefects2d)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume-defects-2d">![Static Badge](https://img.shields.io/badge/volume--defects--2d-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customvolumeregion">
+<div id="customvolumeregion" class="example-block-even">
+<h3>CustomVolumeRegion — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomVolumeRegion/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customvolumeregion" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom actual volume region element from a user-defined region of interest within a linked volume.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.VolumeRegion](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-volumeregion)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume-region">![Static Badge](https://img.shields.io/badge/volume--region-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customvolumesection">
+<div id="customvolumesection" class="example-block-odd">
+<h3>CustomVolumeSection — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomVolumeSection/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customvolumesection" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom actual volume section element from a grayscale image and a placement transformation.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.VolumeSection](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-volumesection)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume-section">![Static Badge](https://img.shields.io/badge/volume--section-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+<section id="customvolumesegmentation">
+<div id="customvolumesegmentation" class="example-block-even">
+<h3>CustomVolumeSegmentation — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/custom_elements/CustomVolumeSegmentation/doc/Documentation.md">view</a> 
+<a class="headerlink" href="#customvolumesegmentation" title="Link to this heading"></a></h3>
+
+
+:Description:
+    This example shows how to create a custom actual volume segmentation element that classifies voxels of a linked volume into three material segments using two grayscale thresholds.
+
+:References:
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/custom_elements/custom_nominals_actuals.html), [API - actuals.VolumeSegmentation](https://zeiss.github.io/zeiss-inspect-app-api/2027/python_api/python_api.html#gom-api-extensions-actuals-volumesegmentation)
+
+:Required Software:
+    ZEISS INSPECT 2027
+
+:Tags:
+    <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume-segmentation">![Static Badge](https://img.shields.io/badge/volume--segmentation-blue)</a> <a href="#custom-element">![Static Badge](https://img.shields.io/badge/custom--element-blue)</a> 
+
+</div>
+
+</section>
+
+
 ## data_interfaces &mdash; How to access data of ZEISS INSPECT elements
 
 <hr class="small-margin">
@@ -48,10 +640,10 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [zeiss_part_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_api_introduction/python_api_introduction.html#access-element-properties)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/python_api_introduction/python_api_introduction.html#access-element-properties)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#element-properties">![Static Badge](https://img.shields.io/badge/element--properties-blue)</a> <a href="#element-data">![Static Badge](https://img.shields.io/badge/element--data-blue)</a> 
@@ -73,10 +665,10 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [zeiss_part_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#reference-points">![Static Badge](https://img.shields.io/badge/reference--points-blue)</a> <a href="#mesh">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#measurement">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
@@ -98,10 +690,10 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [volume_test_project](#example-projects)
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/python_api_introduction/python_api_introduction.html#element-data-interfaces)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#element-data">![Static Badge](https://img.shields.io/badge/element--data-blue)</a> 
@@ -263,7 +855,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Display measurement as a single image
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#image-widget">![Static Badge](https://img.shields.io/badge/image--widget-blue)</a> <a href="#measurement">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> 
@@ -282,7 +874,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Example for reading and writing Excel files from an App
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#import">![Static Badge](https://img.shields.io/badge/import-blue)</a> <a href="#export">![Static Badge](https://img.shields.io/badge/export-blue)</a> <a href="#project-keywords">![Static Badge](https://img.shields.io/badge/project--keywords-blue)</a> 
@@ -320,7 +912,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Basic example for triggering command execution in ZEISS INSPECT from command line via WebSocket protocol
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 
 </div>
@@ -417,10 +1009,10 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     App template for running integration tests and unit tests with coverage using pytest
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/testing_apps/testing_apps.html)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2027/howtos/testing_apps/testing_apps.html)
 
 :Required Software:
-    ZEISS INSPECT 2025
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#testing">![Static Badge](https://img.shields.io/badge/testing-blue)</a> 
@@ -439,7 +1031,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Example demonstrating how to use the pywin32 package in a ZEISS INSPECT App
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#pywin32">![Static Badge](https://img.shields.io/badge/pywin32-blue)</a> <a href="#windows">![Static Badge](https://img.shields.io/badge/windows-blue)</a> <a href="#python">![Static Badge](https://img.shields.io/badge/python-blue)</a> 
@@ -511,30 +1103,8 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 </section>
 
-<section id="templateunittestcoverage">
-<div id="templateunittestcoverage" class="example-block-even">
-<h3>TemplateUnittestCoverage — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/TemplateUnittestCoverage/doc/Documentation.md">view</a> 
-<a class="headerlink" href="#templateunittestcoverage" title="Link to this heading"></a></h3>
-
-
-:Description:
-    App template for running unit testing and generating a test coverage report
-
-:References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/testing_apps/testing_apps.html)
-
-:Required Software:
-    ZEISS INSPECT 2023
-
-:Tags:
-    <a href="#testing">![Static Badge](https://img.shields.io/badge/testing-blue)</a> 
-
-</div>
-
-</section>
-
 <section id="textdetection">
-<div id="textdetection" class="example-block-odd">
+<div id="textdetection" class="example-block-even">
 <h3>TextDetection — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/TextDetection/doc/Documentation.md">view</a> 
 <a class="headerlink" href="#textdetection" title="Link to this heading"></a></h3>
 
@@ -543,7 +1113,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     Text detection example
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#measurement">![Static Badge](https://img.shields.io/badge/measurement-blue)</a> <a href="#image-widget">![Static Badge](https://img.shields.io/badge/image--widget-blue)</a> 
@@ -553,7 +1123,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </section>
 
 <section id="workflowassistants">
-<div id="workflowassistants" class="example-block-even">
+<div id="workflowassistants" class="example-block-odd">
 <h3>WorkflowAssistants — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/WorkflowAssistants/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/workflow-assistants">download</a>
 <a class="headerlink" href="#workflowassistants" title="Link to this heading"></a></h3>
 
@@ -575,7 +1145,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </section>
 
 <section id="workspace">
-<div id="workspace" class="example-block-odd">
+<div id="workspace" class="example-block-even">
 <h3>Workspace — <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/AppExamples/misc/Workspace/doc/Documentation.md">view</a>  / <a class="reference external" href="https://software-store.zeiss.com/products/apps/workspace">download</a>
 <a class="headerlink" href="#workspace" title="Link to this heading"></a></h3>
 
@@ -691,7 +1261,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </section>
 
 
-## scripted_actuals &mdash; Building custom actual elements with Python code
+## scripted_actuals &mdash; Building custom actual elements (deprecated)
 
 <hr class="small-margin">
 <section id="scriptedactualcircle">
@@ -748,10 +1318,10 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     This is an example for a scripted actual 'curve' element.
 
 :References:
-    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2025/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2025/python_api/scripted_elements_api.html#curve)
+    [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#curve)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#curve">![Static Badge](https://img.shields.io/badge/curve-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -817,7 +1387,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#point)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#point">![Static Badge](https://img.shields.io/badge/point-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -839,7 +1409,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#point-cloud)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#point-cloud">![Static Badge](https://img.shields.io/badge/point--cloud-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -861,7 +1431,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#section)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#section">![Static Badge](https://img.shields.io/badge/section-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -883,7 +1453,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#surface)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#surface">![Static Badge](https://img.shields.io/badge/surface-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -905,7 +1475,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#surface-curve)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#surface-curve">![Static Badge](https://img.shields.io/badge/surface--curve-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -927,7 +1497,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#volume)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume">![Static Badge](https://img.shields.io/badge/volume-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -949,7 +1519,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#volume-defects)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume-defects">![Static Badge](https://img.shields.io/badge/volume--defects-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -971,7 +1541,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#volume-region)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume-region">![Static Badge](https://img.shields.io/badge/volume--region-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -993,7 +1563,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#volume-section)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#xray">![Static Badge](https://img.shields.io/badge/xray-blue)</a> <a href="#volume-section">![Static Badge](https://img.shields.io/badge/volume--section-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -1040,7 +1610,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_actuals.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#surface)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#mesh">![Static Badge](https://img.shields.io/badge/mesh-blue)</a> <a href="#surface">![Static Badge](https://img.shields.io/badge/surface-blue)</a> <a href="#scripted-actual">![Static Badge](https://img.shields.io/badge/scripted--actual-blue)</a> 
@@ -1050,7 +1620,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </section>
 
 
-## scripted_checks &mdash; Building custom checks with Python code
+## scripted_checks &mdash; Building custom checks (deprecated)
 
 <hr class="small-margin">
 <section id="scriptedcurvecheck">
@@ -1069,7 +1639,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_checks.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#scalar-curve)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#scripted-check">![Static Badge](https://img.shields.io/badge/scripted--check-blue)</a> <a href="#curve">![Static Badge](https://img.shields.io/badge/curve-blue)</a> 
@@ -1119,7 +1689,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
     [HowTo](https://zeiss.github.io/zeiss-inspect-app-api/2026/howtos/scripted_elements/scripted_checks.html), [API](https://zeiss.github.io/zeiss-inspect-app-api/2026/python_api/scripted_elements_api.html#scalar-surface)
 
 :Required Software:
-    ZEISS INSPECT 2023
+    ZEISS INSPECT 2027
 
 :Tags:
     <a href="#scripted-check">![Static Badge](https://img.shields.io/badge/scripted--check-blue)</a> <a href="#surface">![Static Badge](https://img.shields.io/badge/surface-blue)</a> 
@@ -1129,7 +1699,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 </section>
 
 
-## scripted_diagrams &mdash; Creating custom diagrams
+## scripted_diagrams &mdash; Creating custom diagrams (deprecated)
 
 <hr class="small-margin">
 <section id="osmmapdiagram">
@@ -1194,8 +1764,14 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 * <a href="#workspace">Workspace</a>
 
 
+<a name="cartopy"></a>![Static Badge](https://img.shields.io/badge/cartopy-blue)
+
+* <a href="#osmmapcustomdiagram">OSMMapCustomDiagram</a>
+
+
 <a name="circle"></a>![Static Badge](https://img.shields.io/badge/circle-blue)
 
+* <a href="#customcircle">CustomCircle</a>
 * <a href="#scriptedactualcircle">ScriptedActualCircle</a>
 
 
@@ -1206,18 +1782,76 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <a name="cone"></a>![Static Badge](https://img.shields.io/badge/cone-blue)
 
+* <a href="#customcone">CustomCone</a>
 * <a href="#scriptedactualcone">ScriptedActualCone</a>
 
 
 <a name="curve"></a>![Static Badge](https://img.shields.io/badge/curve-blue)
 
+* <a href="#customcurve">CustomCurve</a>
 * <a href="#scriptedactualcurve">ScriptedActualCurve</a>
 * <a href="#scriptedcurvecheck">ScriptedCurveCheck</a>
 
 
+<a name="curve-check"></a>![Static Badge](https://img.shields.io/badge/curve--check-blue)
+
+* <a href="#customcurveinspection">CustomCurveInspection</a>
+
+
+<a name="custom-diagrams"></a>![Static Badge](https://img.shields.io/badge/custom--diagrams-blue)
+
+* <a href="#customdiagramexamples">CustomDiagramExamples</a>
+* <a href="#osmmapcustomdiagram">OSMMapCustomDiagram</a>
+
+
+<a name="custom-element"></a>![Static Badge](https://img.shields.io/badge/custom--element-blue)
+
+* <a href="#customcircle">CustomCircle</a>
+* <a href="#customcone">CustomCone</a>
+* <a href="#customcurve">CustomCurve</a>
+* <a href="#customcurveinspection">CustomCurveInspection</a>
+* <a href="#customcylinder">CustomCylinder</a>
+* <a href="#customdistance">CustomDistance</a>
+* <a href="#customplane">CustomPlane</a>
+* <a href="#custompoint">CustomPoint</a>
+* <a href="#custompointcloud">CustomPointCloud</a>
+* <a href="#customprobemeasuredcurve">CustomProbeMeasuredCurve</a>
+* <a href="#customscalarinspection">CustomScalarInspection</a>
+* <a href="#customsection">CustomSection</a>
+* <a href="#customsequence">CustomSequence</a>
+* <a href="#customsurface">CustomSurface</a>
+* <a href="#customsurfacecurve">CustomSurfaceCurve</a>
+* <a href="#customsurfacedeformmesh">CustomSurfaceDeformMesh</a>
+* <a href="#customsurfaceinspection">CustomSurfaceInspection</a>
+* <a href="#customvalueelement">CustomValueElement</a>
+* <a href="#customvolume">CustomVolume</a>
+* <a href="#customvolumedefects">CustomVolumeDefects</a>
+* <a href="#customvolumedefects2d">CustomVolumeDefects2d</a>
+* <a href="#customvolumeregion">CustomVolumeRegion</a>
+* <a href="#customvolumesection">CustomVolumeSection</a>
+* <a href="#customvolumesegmentation">CustomVolumeSegmentation</a>
+
+
+<a name="custom-elements"></a>![Static Badge](https://img.shields.io/badge/custom--elements-blue)
+
+* <a href="#customdiagramexamples">CustomDiagramExamples</a>
+* <a href="#osmmapcustomdiagram">OSMMapCustomDiagram</a>
+
+
+<a name="custom-sequence"></a>![Static Badge](https://img.shields.io/badge/custom--sequence-blue)
+
+* <a href="#customsequence">CustomSequence</a>
+
+
 <a name="cylinder"></a>![Static Badge](https://img.shields.io/badge/cylinder-blue)
 
+* <a href="#customcylinder">CustomCylinder</a>
 * <a href="#scriptedactualcylinder">ScriptedActualCylinder</a>
+
+
+<a name="datum-plane"></a>![Static Badge](https://img.shields.io/badge/datum--plane-blue)
+
+* <a href="#customsequence">CustomSequence</a>
 
 
 <a name="dialog"></a>![Static Badge](https://img.shields.io/badge/dialog-blue)
@@ -1236,6 +1870,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <a name="distance"></a>![Static Badge](https://img.shields.io/badge/distance-blue)
 
+* <a href="#customdistance">CustomDistance</a>
 * <a href="#scriptedactualdistance">ScriptedActualDistance</a>
 
 
@@ -1280,6 +1915,18 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 * <a href="#ipcwebsocketexample">IPCWebsocketExample</a>
 
 
+<a name="inspection"></a>![Static Badge](https://img.shields.io/badge/inspection-blue)
+
+* <a href="#customcurveinspection">CustomCurveInspection</a>
+* <a href="#customscalarinspection">CustomScalarInspection</a>
+* <a href="#customsurfaceinspection">CustomSurfaceInspection</a>
+
+
+<a name="matplotlib"></a>![Static Badge](https://img.shields.io/badge/matplotlib-blue)
+
+* <a href="#customdiagramexamples">CustomDiagramExamples</a>
+
+
 <a name="measurement"></a>![Static Badge](https://img.shields.io/badge/measurement-blue)
 
 * <a href="#displayimage">DisplayImage</a>
@@ -1296,8 +1943,19 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <a name="mesh"></a>![Static Badge](https://img.shields.io/badge/mesh-blue)
 
+* <a href="#customsurfacedeformmesh">CustomSurfaceDeformMesh</a>
 * <a href="#referencepointsandmeshdata">ReferencePointsAndMeshData</a>
 * <a href="#trimeshdeformmesh">TrimeshDeformMesh</a>
+
+
+<a name="openstreetmap"></a>![Static Badge](https://img.shields.io/badge/openstreetmap-blue)
+
+* <a href="#osmmapcustomdiagram">OSMMapCustomDiagram</a>
+
+
+<a name="overlay"></a>![Static Badge](https://img.shields.io/badge/overlay-blue)
+
+* <a href="#customdiagramexamples">CustomDiagramExamples</a>
 
 
 <a name="path"></a>![Static Badge](https://img.shields.io/badge/path-blue)
@@ -1305,14 +1963,26 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 * <a href="#fileselectionandfiltering">FileSelectionAndFiltering</a>
 
 
+<a name="plane"></a>![Static Badge](https://img.shields.io/badge/plane-blue)
+
+* <a href="#customplane">CustomPlane</a>
+
+
 <a name="point"></a>![Static Badge](https://img.shields.io/badge/point-blue)
 
+* <a href="#custompoint">CustomPoint</a>
 * <a href="#scriptedactualpoint">ScriptedActualPoint</a>
 
 
 <a name="point-cloud"></a>![Static Badge](https://img.shields.io/badge/point--cloud-blue)
 
+* <a href="#custompointcloud">CustomPointCloud</a>
 * <a href="#scriptedactualpointcloud">ScriptedActualPointCloud</a>
+
+
+<a name="probe-measured-curve"></a>![Static Badge](https://img.shields.io/badge/probe--measured--curve-blue)
+
+* <a href="#customprobemeasuredcurve">CustomProbeMeasuredCurve</a>
 
 
 <a name="project"></a>![Static Badge](https://img.shields.io/badge/project-blue)
@@ -1339,6 +2009,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <a name="reference-points"></a>![Static Badge](https://img.shields.io/badge/reference--points-blue)
 
+* <a href="#customsequence">CustomSequence</a>
 * <a href="#pointpixeltransformations">PointPixelTransformations</a>
 * <a href="#referencepointsandmeshdata">ReferencePointsAndMeshData</a>
 
@@ -1352,6 +2023,11 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 <a name="scalar"></a>![Static Badge](https://img.shields.io/badge/scalar-blue)
 
 * <a href="#scriptedscalarcheck">ScriptedScalarCheck</a>
+
+
+<a name="scalar-check"></a>![Static Badge](https://img.shields.io/badge/scalar--check-blue)
+
+* <a href="#customscalarinspection">CustomScalarInspection</a>
 
 
 <a name="scripted-actual"></a>![Static Badge](https://img.shields.io/badge/scripted--actual-blue)
@@ -1388,6 +2064,7 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <a name="section"></a>![Static Badge](https://img.shields.io/badge/section-blue)
 
+* <a href="#customsection">CustomSection</a>
 * <a href="#scriptedactualsection">ScriptedActualSection</a>
 
 
@@ -1420,20 +2097,32 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <a name="surface"></a>![Static Badge](https://img.shields.io/badge/surface-blue)
 
+* <a href="#customsurface">CustomSurface</a>
+* <a href="#customsurfacedeformmesh">CustomSurfaceDeformMesh</a>
 * <a href="#scriptedactualsurface">ScriptedActualSurface</a>
 * <a href="#scriptedsurfacecheck">ScriptedSurfaceCheck</a>
 * <a href="#trimeshdeformmesh">TrimeshDeformMesh</a>
 
 
+<a name="surface-check"></a>![Static Badge](https://img.shields.io/badge/surface--check-blue)
+
+* <a href="#customsurfaceinspection">CustomSurfaceInspection</a>
+
+
 <a name="surface-curve"></a>![Static Badge](https://img.shields.io/badge/surface--curve-blue)
 
+* <a href="#customsurfacecurve">CustomSurfaceCurve</a>
 * <a href="#scriptedactualsurfacecurve">ScriptedActualSurfaceCurve</a>
 
 
 <a name="testing"></a>![Static Badge](https://img.shields.io/badge/testing-blue)
 
 * <a href="#pytesttemplate">PytestTemplate</a>
-* <a href="#templateunittestcoverage">TemplateUnittestCoverage</a>
+
+
+<a name="trimesh"></a>![Static Badge](https://img.shields.io/badge/trimesh-blue)
+
+* <a href="#customsurfacedeformmesh">CustomSurfaceDeformMesh</a>
 
 
 <a name="unit-widget"></a>![Static Badge](https://img.shields.io/badge/unit--widget-blue)
@@ -1441,24 +2130,43 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 * <a href="#unitdialogeventhandler">UnitDialogEventHandler</a>
 
 
+<a name="value-element"></a>![Static Badge](https://img.shields.io/badge/value--element-blue)
+
+* <a href="#customvalueelement">CustomValueElement</a>
+
+
 <a name="volume"></a>![Static Badge](https://img.shields.io/badge/volume-blue)
 
+* <a href="#customvolume">CustomVolume</a>
 * <a href="#scriptedactualvolume">ScriptedActualVolume</a>
 
 
 <a name="volume-defects"></a>![Static Badge](https://img.shields.io/badge/volume--defects-blue)
 
+* <a href="#customvolumedefects">CustomVolumeDefects</a>
 * <a href="#scriptedactualvolumedefects">ScriptedActualVolumeDefects</a>
+
+
+<a name="volume-defects-2d"></a>![Static Badge](https://img.shields.io/badge/volume--defects--2d-blue)
+
+* <a href="#customvolumedefects2d">CustomVolumeDefects2d</a>
 
 
 <a name="volume-region"></a>![Static Badge](https://img.shields.io/badge/volume--region-blue)
 
+* <a href="#customvolumeregion">CustomVolumeRegion</a>
 * <a href="#scriptedactualvolumeregion">ScriptedActualVolumeRegion</a>
 
 
 <a name="volume-section"></a>![Static Badge](https://img.shields.io/badge/volume--section-blue)
 
+* <a href="#customvolumesection">CustomVolumeSection</a>
 * <a href="#scriptedactualvolumesection">ScriptedActualVolumeSection</a>
+
+
+<a name="volume-segmentation"></a>![Static Badge](https://img.shields.io/badge/volume--segmentation-blue)
+
+* <a href="#customvolumesegmentation">CustomVolumeSegmentation</a>
 
 
 <a name="widget-properties"></a>![Static Badge](https://img.shields.io/badge/widget--properties-blue)
@@ -1484,6 +2192,12 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 <a name="xray"></a>![Static Badge](https://img.shields.io/badge/xray-blue)
 
+* <a href="#customvolume">CustomVolume</a>
+* <a href="#customvolumedefects">CustomVolumeDefects</a>
+* <a href="#customvolumedefects2d">CustomVolumeDefects2d</a>
+* <a href="#customvolumeregion">CustomVolumeRegion</a>
+* <a href="#customvolumesection">CustomVolumeSection</a>
+* <a href="#customvolumesegmentation">CustomVolumeSegmentation</a>
 * <a href="#scriptedactualvolume">ScriptedActualVolume</a>
 * <a href="#scriptedactualvolumedefects">ScriptedActualVolumeDefects</a>
 * <a href="#scriptedactualvolumeregion">ScriptedActualVolumeRegion</a>
@@ -1492,6 +2206,5 @@ Users may utilize these examples at their own risk, and ZEISS assumes no liabili
 
 ## Related
 
-* [ZEISS IQS GitHub &mdash; App Development Documentation](https://zeiss.github.io/zeiss-inspect-app-api/2026/index.html)
+* [ZEISS IQS GitHub &mdash; App Development Documentation](https://zeiss.github.io/zeiss-inspect-app-api/2027/index.html)
 * [ZEISS Quality Software Store](https://software-store.zeiss.com)
-
