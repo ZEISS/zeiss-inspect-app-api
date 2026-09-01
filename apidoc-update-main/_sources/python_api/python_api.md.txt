@@ -405,6 +405,118 @@ else:
     print ('Unregistration failed: folder was not registered')
 ```
 
+### gom.api.collectors.get
+
+```{py:function} gom.api.collectors.get(id: str): dict
+
+Return the cached data and diagnostic status of a custom data collector. See gom.api.collectors.list() for a
+:API version: 1
+:param id: Custom data collector identifier.
+:type id: str
+:return: Dictionary with `found`, diagnostic fields, and `data`. `data` is empty until the first successful
+:rtype: dict
+```
+
+description of the returned dictionary.
+
+collection.
+
+### gom.api.collectors.list
+
+```{py:function} gom.api.collectors.list(): list[dict]
+
+Return all registered custom data collectors and their diagnostic status.
+:return: A list of collector status dictionaries, sorted by identifier.
+:rtype: list[dict]
+```
+
+**Returned dictionary**
+
+Each item in the returned list describes one registered collector:
+
+- `id` — Unique collector identifier.
+- `description` — Human-readable collector description.
+- `signals` — Signals listened to by the collector. See gom.api.extensions.collectors.CustomDataCollector.Signal
+for supported signals.
+- `only_update_when_idle` — `true` if collection waits until no command is active; otherwise `false`.
+- `has_data` — `true` after at least one successful collection has produced
+cached data; otherwise `false`.
+- `collecting` — `true` while a collection is currently running.
+- `last_error` — Most recent collection error, or an empty value if no error
+has been reported.
+- `collected_at` — Timestamp of the most recent successful collection.
+
+A collector that has not completed a successful collection yet has no
+collection timestamp or cached data. Use `get()` to retrieve the cached data
+for an individual collector.
+
+**Ordering and empty results**
+
+The result contains one dictionary per currently registered collector. If no
+collectors are registered, an empty list is returned.
+
+**Example**
+
+```python
+[
+    {
+        "id": "my.points.collector",
+        "description": "Collects point positions from the project",
+        "signals": ["signal::data"],
+        "has_data": True,
+        "collecting": False,
+        "last_error": "",
+        "collected_at": "2026-08-17T12:00:00Z",
+    },
+]
+```
+
+### gom.api.collectors.query_element_tokens
+
+```{py:function} gom.api.collectors.query_element_tokens(elements: Any, attributes: Any, stage: int): Any
+
+Return token values for multiple project elements at one project stage.
+:param elements: Resolved script element references, such as `list(gom.ElementSelection(...))`.
+:type elements: Any
+:param attributes: Scalar token paths to retrieve for every element.
+:type attributes: Any
+:param stage: Zero-based index of the active project stage.
+:type stage: int
+:return: One result dictionary for every supplied element reference.
+:rtype: Any
+```
+
+Pass resolved script element references as `elements`, for example by calling
+`list(gom.ElementSelection(...))`. The function reads each requested token path directly in C++ and avoids one
+Python-to-application request per token and element.
+
+`attributes` contains scalar TokenInterface paths. A path consists of a top-level token and optional dot-separated
+value attributes, for example `result` or `result.out_of_tolerance`. Script type attributes are also supported,
+for example `type.type` and `type.translation`. Data packages (`element.data.*`), indexed tokens, arbitrary Python
+expressions, and callable attributes are not supported.
+
+`stage` is the zero-based index in the active project-stage list. An invalid stage index is a call error. Invalid
+element references and unavailable token paths do not fail the complete call. The returned list preserves the input
+element order; each row contains:
+
+- `element` — The corresponding script element reference.
+- `values` — A dictionary of successfully resolved token paths and values.
+- `errors` — A dictionary mapping unavailable token paths to a machine-readable error code.
+
+### gom.api.collectors.request_update
+
+```{py:function} gom.api.collectors.request_update(id: str): dict
+
+Request an asynchronous background update of a custom data collector.
+:param id: Custom data collector identifier.
+:type id: str
+:return: Dictionary containing `found`, `requested`, `scheduled`, `collecting`, and `reason`.
+:rtype: dict
+```
+
+The function returns after scheduling the request. It does not wait for collection or return new data.
+Call `get()` after the update has completed to read the cache.
+
 ## gom.api.contributions
 
 API for accessing the registered contributions (semantic extensions)
@@ -709,24 +821,6 @@ Show previously created and configured dialog
 
 This function shows and executes previously created an configured dialog. The combination of
 'create' and 'show' in effect is the same as calling 'execute' directly.
-
-## gom.api.experimental
-
-API for experimental functionality
-
-This API is experimental and can change at any time.
-
-### gom.api.experimental.create_dialog
-
-```{py:function} gom.api.experimental.create_dialog(url: str): Any
-
-Create a dialog, but do not execute it yet
-:param url: URL of the dialog definition (*.gdlg file)
-:type url: str
-:return: Dialog handle which can be used to set up the dialog before executing it
-:rtype: Any
-```
-
 
 ## gom.api.expressions
 
@@ -6766,37 +6860,6 @@ Return available dimensions
 ```
 
 
-### gom.api.scriptedelements.get_element_from_id
-
-```{py:function} gom.api.scriptedelements.get_element_from_id(element_id: str): Any
-
-Convert an internal id into a script element reference
-:param element_id: Internal id of the element to convert, usually a uuid
-:type element_id: str
-:return: Script element reference
-:rtype: Any
-:throws: std::runtime_error if the element id is unknown
-```
-
-This function is used to convert ids which are representing elements into script element
-references which can be used in the scripting environment. It is used for internal purposes
-only and should be used with care. For example, in scripted sequences, the child elements of
-a leading sequence element are stored by their internal ids, in principle uuids. So when
-the child elements of a leading element are requested, the internal framework can use this
-function to convert the stored ids into script element references.
-
-### gom.api.scriptedelements.get_id_for_element
-
-```{py:function} gom.api.scriptedelements.get_id_for_element(element: Any): str
-
-Return internal id of the given element
-:param element: Element reference
-:type element: Any
-:return: Id of this element
-:rtype: str
-```
-
-
 ### gom.api.scriptedelements.get_inspection_definition
 
 ```{py:function} gom.api.scriptedelements.get_inspection_definition(typename: str): Any
@@ -6809,20 +6872,6 @@ Return information about the given scripted element type
 
 This function queries in internal 'scalar registry' database for information about the
 inspection with the given type.
-
-### gom.api.scriptedelements.get_instructions
-
-```{py:function} gom.api.scriptedelements.get_instructions(element: Any): Any
-
-Return recalculation instructions/commands for the given element
-:param element: Element to query
-:type element: Any
-:return: Recalculation instructions
-:rtype: Any
-```
-
-This function queries the recalculations instructions (commands) which are executed to recalc
-an element.
 
 ## gom.api.selection
 
