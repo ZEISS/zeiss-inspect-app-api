@@ -375,7 +375,7 @@ Yes, [pdfplumber](https://pypi.org/project/pdfplumber/) can be installed with th
 ## Can I use the Python package `pywin32` in an App?
 
 ```{caution}
-This section only applies to ZEISS INSPECT 2026 and earlier!
+This section only applies to ZEISS INSPECT 2026 and earlier! No workaround is needed for later versions!
 ```
  
 Yes, but `pywin32` requires a workaround due to a limitation in ZEISS INSPECT's wheel cache.
