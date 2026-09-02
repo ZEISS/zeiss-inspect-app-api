@@ -481,10 +481,6 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-current-addon">gom.api.addons.get_current_addon</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-installed-addons">gom.api.addons.get_installed_addons</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-remove-external-folder">gom.api.addons.remove_external_folder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-collectors-get">gom.api.collectors.get</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-collectors-list">gom.api.collectors.list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-collectors-query-element-tokens">gom.api.collectors.query_element_tokens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-collectors-request-update">gom.api.collectors.request_update</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-contributions">gom.api.contributions</a><ul>
@@ -1467,144 +1463,6 @@ available to the application.</p>
     <span class="nb">print</span> <span class="p">(</span><span class="s1">'Unregistration failed: folder was not registered'</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="gom-api-collectors-get">
-<h3>gom.api.collectors.get<a class="headerlink" href="#gom-api-collectors-get" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.collectors.get(id:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
-<dd><p>Return the cached data and diagnostic status of a custom data collector. See gom.api.collectors.list() for a</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>id</strong> (<em>str</em>) – Custom data collector identifier.</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Dictionary with <code class="docutils literal notranslate"><span class="pre">found</span></code>, diagnostic fields, and <code class="docutils literal notranslate"><span class="pre">data</span></code>. <code class="docutils literal notranslate"><span class="pre">data</span></code> is empty until the first successful</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>description of the returned dictionary.</p>
-<p>collection.</p>
-</section>
-<section id="gom-api-collectors-list">
-<h3>gom.api.collectors.list<a class="headerlink" href="#gom-api-collectors-list" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.collectors.list():</span> <span class="pre">list[dict]</span></span></dt>
-<dd><p>Return all registered custom data collectors and their diagnostic status.</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A list of collector status dictionaries, sorted by identifier.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>list[dict]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p><strong>Returned dictionary</strong></p>
-<p>Each item in the returned list describes one registered collector:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code> — Unique collector identifier.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> — Human-readable collector description.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">signals</span></code> — Signals listened to by the collector. See gom.api.extensions.collectors.CustomDataCollector.Signal
-for supported signals.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">only_update_when_idle</span></code> — <code class="docutils literal notranslate"><span class="pre">true</span></code> if collection waits until no command is active; otherwise <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">has_data</span></code> — <code class="docutils literal notranslate"><span class="pre">true</span></code> after at least one successful collection has produced
-cached data; otherwise <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">collecting</span></code> — <code class="docutils literal notranslate"><span class="pre">true</span></code> while a collection is currently running.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">last_error</span></code> — Most recent collection error, or an empty value if no error
-has been reported.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">collected_at</span></code> — Timestamp of the most recent successful collection.</p></li>
-</ul>
-<p>A collector that has not completed a successful collection yet has no
-collection timestamp or cached data. Use <code class="docutils literal notranslate"><span class="pre">get()</span></code> to retrieve the cached data
-for an individual collector.</p>
-<p><strong>Ordering and empty results</strong></p>
-<p>The result contains one dictionary per currently registered collector. If no
-collectors are registered, an empty list is returned.</p>
-<p><strong>Example</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
-    <span class="p">{</span>
-        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"my.points.collector"</span><span class="p">,</span>
-        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Collects point positions from the project"</span><span class="p">,</span>
-        <span class="s2">"signals"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"signal::data"</span><span class="p">],</span>
-        <span class="s2">"has_data"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">"collecting"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s2">"last_error"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
-        <span class="s2">"collected_at"</span><span class="p">:</span> <span class="s2">"2026-08-17T12:00:00Z"</span><span class="p">,</span>
-    <span class="p">},</span>
-<span class="p">]</span>
-</pre></div>
-</div>
-</section>
-<section id="gom-api-collectors-query-element-tokens">
-<h3>gom.api.collectors.query_element_tokens<a class="headerlink" href="#gom-api-collectors-query-element-tokens" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.collectors.query_element_tokens(elements:</span> <span class="pre">Any,</span> <span class="pre">attributes:</span> <span class="pre">Any,</span> <span class="pre">stage:</span> <span class="pre">int):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Return token values for multiple project elements at one project stage.</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>elements</strong> (<em>Any</em>) – Resolved script element references, such as <code class="docutils literal notranslate"><span class="pre">list(gom.ElementSelection(...))</span></code>.</p></li>
-<li><p><strong>attributes</strong> (<em>Any</em>) – Scalar token paths to retrieve for every element.</p></li>
-<li><p><strong>stage</strong> (<em>int</em>) – Zero-based index of the active project stage.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>One result dictionary for every supplied element reference.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>Pass resolved script element references as <code class="docutils literal notranslate"><span class="pre">elements</span></code>, for example by calling
-<code class="docutils literal notranslate"><span class="pre">list(gom.ElementSelection(...))</span></code>. The function reads each requested token path directly in C++ and avoids one
-Python-to-application request per token and element.</p>
-<p><code class="docutils literal notranslate"><span class="pre">attributes</span></code> contains scalar TokenInterface paths. A path consists of a top-level token and optional dot-separated
-value attributes, for example <code class="docutils literal notranslate"><span class="pre">result</span></code> or <code class="docutils literal notranslate"><span class="pre">result.out_of_tolerance</span></code>. Script type attributes are also supported,
-for example <code class="docutils literal notranslate"><span class="pre">type.type</span></code> and <code class="docutils literal notranslate"><span class="pre">type.translation</span></code>. Data packages (<code class="docutils literal notranslate"><span class="pre">element.data.*</span></code>), indexed tokens, arbitrary Python
-expressions, and callable attributes are not supported.</p>
-<p><code class="docutils literal notranslate"><span class="pre">stage</span></code> is the zero-based index in the active project-stage list. An invalid stage index is a call error. Invalid
-element references and unavailable token paths do not fail the complete call. The returned list preserves the input
-element order; each row contains:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">element</span></code> — The corresponding script element reference.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code> — A dictionary of successfully resolved token paths and values.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">errors</span></code> — A dictionary mapping unavailable token paths to a machine-readable error code.</p></li>
-</ul>
-</section>
-<section id="gom-api-collectors-request-update">
-<h3>gom.api.collectors.request_update<a class="headerlink" href="#gom-api-collectors-request-update" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.collectors.request_update(id:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
-<dd><p>Request an asynchronous background update of a custom data collector.</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>id</strong> (<em>str</em>) – Custom data collector identifier.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary containing <code class="docutils literal notranslate"><span class="pre">found</span></code>, <code class="docutils literal notranslate"><span class="pre">requested</span></code>, <code class="docutils literal notranslate"><span class="pre">scheduled</span></code>, <code class="docutils literal notranslate"><span class="pre">collecting</span></code>, and <code class="docutils literal notranslate"><span class="pre">reason</span></code>.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>The function returns after scheduling the request. It does not wait for collection or return new data.
-Call <code class="docutils literal notranslate"><span class="pre">get()</span></code> after the update has completed to read the cache.</p>
 </section>
 </section>
 <section id="gom-api-contributions">
@@ -10417,7 +10275,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f0b9e4a8ad0>
+  <jinja2.runtime.BlockReference object at 0x7f3430934910>
 
 
 </footer>
