@@ -405,6 +405,118 @@ else:
     print ('Unregistration failed: folder was not registered')
 ```
 
+### gom.api.collectors.get
+
+```{py:function} gom.api.collectors.get(id: str): dict
+
+Return the cached data and diagnostic status of a custom data collector. See gom.api.collectors.list() for a
+:API version: 1
+:param id: Custom data collector identifier.
+:type id: str
+:return: Dictionary with `found`, diagnostic fields, and `data`. `data` is empty until the first successful
+:rtype: dict
+```
+
+description of the returned dictionary.
+
+collection.
+
+### gom.api.collectors.list
+
+```{py:function} gom.api.collectors.list(): list[dict]
+
+Return all registered custom data collectors and their diagnostic status.
+:return: A list of collector status dictionaries, sorted by identifier.
+:rtype: list[dict]
+```
+
+**Returned dictionary**
+
+Each item in the returned list describes one registered collector:
+
+- `id` — Unique collector identifier.
+- `description` — Human-readable collector description.
+- `signals` — Signals listened to by the collector. See gom.api.extensions.collectors.CustomDataCollector.Signal
+for supported signals.
+- `only_update_when_idle` — `true` if collection waits until no command is active; otherwise `false`.
+- `has_data` — `true` after at least one successful collection has produced
+cached data; otherwise `false`.
+- `collecting` — `true` while a collection is currently running.
+- `last_error` — Most recent collection error, or an empty value if no error
+has been reported.
+- `collected_at` — Timestamp of the most recent successful collection.
+
+A collector that has not completed a successful collection yet has no
+collection timestamp or cached data. Use `get()` to retrieve the cached data
+for an individual collector.
+
+**Ordering and empty results**
+
+The result contains one dictionary per currently registered collector. If no
+collectors are registered, an empty list is returned.
+
+**Example**
+
+```python
+[
+    {
+        "id": "my.points.collector",
+        "description": "Collects point positions from the project",
+        "signals": ["signal::data"],
+        "has_data": True,
+        "collecting": False,
+        "last_error": "",
+        "collected_at": "2026-08-17T12:00:00Z",
+    },
+]
+```
+
+### gom.api.collectors.query_element_tokens
+
+```{py:function} gom.api.collectors.query_element_tokens(elements: Any, attributes: Any, stage: int): Any
+
+Return token values for multiple project elements at one project stage.
+:param elements: Resolved script element references, such as `list(gom.ElementSelection(...))`.
+:type elements: Any
+:param attributes: Scalar token paths to retrieve for every element.
+:type attributes: Any
+:param stage: Zero-based index of the active project stage.
+:type stage: int
+:return: One result dictionary for every supplied element reference.
+:rtype: Any
+```
+
+Pass resolved script element references as `elements`, for example by calling
+`list(gom.ElementSelection(...))`. The function reads each requested token path directly in C++ and avoids one
+Python-to-application request per token and element.
+
+`attributes` contains scalar TokenInterface paths. A path consists of a top-level token and optional dot-separated
+value attributes, for example `result` or `result.out_of_tolerance`. Script type attributes are also supported,
+for example `type.type` and `type.translation`. Data packages (`element.data.*`), indexed tokens, arbitrary Python
+expressions, and callable attributes are not supported.
+
+`stage` is the zero-based index in the active project-stage list. An invalid stage index is a call error. Invalid
+element references and unavailable token paths do not fail the complete call. The returned list preserves the input
+element order; each row contains:
+
+- `element` — The corresponding script element reference.
+- `values` — A dictionary of successfully resolved token paths and values.
+- `errors` — A dictionary mapping unavailable token paths to a machine-readable error code.
+
+### gom.api.collectors.request_update
+
+```{py:function} gom.api.collectors.request_update(id: str): dict
+
+Request an asynchronous background update of a custom data collector.
+:param id: Custom data collector identifier.
+:type id: str
+:return: Dictionary containing `found`, `requested`, `scheduled`, `collecting`, and `reason`.
+:rtype: dict
+```
+
+The function returns after scheduling the request. It does not wait for collection or return new data.
+Call `get()` after the update has completed to read the cache.
+
 ## gom.api.contributions
 
 API for accessing the registered contributions (semantic extensions)
@@ -6665,6 +6777,101 @@ Unload resource from shared memory
 :rtype: bool
 ```
 
+
+## gom.api.scripted_checks_util
+
+Tool functions for scripted checks
+
+
+### gom.api.scripted_checks_util.is_curve_checkable
+
+```{py:function} gom.api.scripted_checks_util.is_curve_checkable(element: gom.Object): bool
+
+Checks if the referenced element is suitable for inspection with a curve check
+:API version: 1
+:param element: Element reference to check
+:type element: gom.Object
+:return: 'true' if the element is checkable like a curve
+:rtype: bool
+```
+
+This function checks if the given element can be inspected like a curve in the context of scripted
+elements. Please see the scripted element documentation for details about the underlying scheme.
+
+### gom.api.scripted_checks_util.is_scalar_checkable
+
+```{py:function} gom.api.scripted_checks_util.is_scalar_checkable(element: gom.Object): bool
+
+Checks if the referenced element is suitable for inspection with a scalar check
+:API version: 1
+:param element: Element reference to check
+:type element: gom.Object
+:return: 'true' if the element is checkable like a scalar value
+:rtype: bool
+```
+
+This function checks if the given element can be inspected like a scalar value in the context of scripted
+elements. Please see the scripted element documentation for details about the underlying scheme.
+
+### gom.api.scripted_checks_util.is_surface_checkable
+
+```{py:function} gom.api.scripted_checks_util.is_surface_checkable(element: gom.Object): bool
+
+Checks if the referenced element is suitable for inspection with a surface check
+:API version: 1
+:param element: Element reference to check
+:type element: gom.Object
+:return: 'true' if the element is checkable like a surface
+:rtype: bool
+```
+
+This function checks if the given element can be inspected like a surface in the context of scripted
+elements. Please see the scripted element documentation for details about the underlying scheme.
+
+## gom.api.scriptedelements
+
+API for handling scripted elements
+
+This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, ...)
+It is used mostly internally by the scripted element framework.
+
+### gom.api.scriptedelements.get_dimension_definition
+
+```{py:function} gom.api.scriptedelements.get_dimension_definition(typename: str): Any
+
+Return information about the given dimension
+:param name: Name of the dimension
+:return: Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension
+:rtype: Any
+```
+
+A physical dimension (or just "dimension") refers to the fundamental nature of what is measured - like length,
+time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
+from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
+millimeter, inch for length; or degree, radian for angle.
+
+### gom.api.scriptedelements.get_dimensions
+
+```{py:function} gom.api.scriptedelements.get_dimensions(): [str]
+
+Return available dimensions
+:return: List of known dimensions
+:rtype: [str]
+```
+
+
+### gom.api.scriptedelements.get_inspection_definition
+
+```{py:function} gom.api.scriptedelements.get_inspection_definition(typename: str): Any
+
+Return information about the given scripted element type
+:param type_name: Type name of the inspection to query
+:return: Dictionary with relevant type information or an empty dictionary if the type is unknown
+:rtype: Any
+```
+
+This function queries in internal 'scalar registry' database for information about the
+inspection with the given type.
 
 ## gom.api.selection
 
