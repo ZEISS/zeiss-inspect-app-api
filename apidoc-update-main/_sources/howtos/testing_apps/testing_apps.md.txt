@@ -104,7 +104,7 @@ results = gom.script.sys.execute_addon_tests(addon_uuid='cc4de73f-a8b9-4c01-8f45
 
 ```
 results = gom.script.sys.execute_addon_tests(addon_uuid='5f396cc9-7865-44a1-8a85-ed7c1689dd68', 
-	test_paths=['/PythonApiExamples/tests/test_dialog_widgets_explorer_selection#test_explorer_selection'])
+	test_paths=['scripts/tests/test_dialog_widgets_explorer_selection#test_explorer_selection'])
 ```
 This will give you `results` as a list of tuples (test name, success, error message), which you can use for further evaluation.
 
