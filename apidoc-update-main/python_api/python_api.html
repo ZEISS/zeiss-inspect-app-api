@@ -481,6 +481,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-current-addon">gom.api.addons.get_current_addon</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-installed-addons">gom.api.addons.get_installed_addons</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-remove-external-folder">gom.api.addons.remove_external_folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-collectors-get-data">gom.api.collectors.get_data</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-contributions">gom.api.contributions</a><ul>
@@ -1462,6 +1463,44 @@ available to the application.</p>
     <span class="nb">print</span> <span class="p">(</span><span class="s1">'External folder unregistered successfully'</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="nb">print</span> <span class="p">(</span><span class="s1">'Unregistration failed: folder was not registered'</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-collectors-get-data">
+<h3>gom.api.collectors.get_data<a class="headerlink" href="#gom-api-collectors-get-data" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.collectors.get_data(id:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
+<dd><p>Return the data of a custom data collector.</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>id</strong> (<em>str</em>) – Custom data collector identifier.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing the collector identifier and data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The returned dictionary contains the collector identifier and its data.</p>
+<p>The dictionary contains the following keys:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">collector_id</span></code> (str) — The custom data collector identifier. Empty if the collector is not found.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code> (Any) — The data provided by the custom data collector. Empty if the collector is not found or if no data
+has been collected yet.</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.collectors</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">collectors</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s1">'com.example.my_collector'</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s1">'data'</span><span class="p">])</span>
 </pre></div>
 </div>
 </section>
@@ -10303,7 +10342,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f0c9fd37310>
+  <jinja2.runtime.BlockReference object at 0x7efc75aeb930>
 
 
 </footer>
