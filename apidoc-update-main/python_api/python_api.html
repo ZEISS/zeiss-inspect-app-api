@@ -481,6 +481,10 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-current-addon">gom.api.addons.get_current_addon</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-get-installed-addons">gom.api.addons.get_installed_addons</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-addons-remove-external-folder">gom.api.addons.remove_external_folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-collectors-get">gom.api.collectors.get</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-collectors-list">gom.api.collectors.list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-collectors-query-element-tokens">gom.api.collectors.query_element_tokens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-collectors-request-update">gom.api.collectors.request_update</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-contributions">gom.api.contributions</a><ul>
@@ -581,6 +585,10 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-actuals-volumesegmentation">gom.api.extensions.actuals.VolumeSegmentation</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-collectors">gom.api.extensions.collectors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-collectors-customdatacollector">gom.api.extensions.collectors.CustomDataCollector</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-diagrams">gom.api.extensions.diagrams</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagram">gom.api.extensions.diagrams.CustomDiagram</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-diagrams-customdiagramview">gom.api.extensions.diagrams.CustomDiagramView</a></li>
@@ -620,6 +628,7 @@ window.runMermaid = runMermaid;</script>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-extensions-views">gom.api.extensions.views</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-views-customcanvas">gom.api.extensions.views.CustomCanvas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-views-customdataview">gom.api.extensions.views.CustomDataView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-views-customeditor">gom.api.extensions.views.CustomEditor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-views-customutilityview">gom.api.extensions.views.CustomUtilityView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#gom-api-extensions-views-customview">gom.api.extensions.views.CustomView</a></li>
@@ -753,6 +762,18 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-script-resources-save">gom.api.script_resources.save</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-script-resources-save-as">gom.api.script_resources.save_as</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-script-resources-unload">gom.api.script_resources.unload</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gom-api-scripted-checks-util">gom.api.scripted_checks_util</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-curve-checkable">gom.api.scripted_checks_util.is_curve_checkable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-scalar-checkable">gom.api.scripted_checks_util.is_scalar_checkable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-surface-checkable">gom.api.scripted_checks_util.is_surface_checkable</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gom-api-scriptedelements">gom.api.scriptedelements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimension-definition">gom.api.scriptedelements.get_dimension_definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimensions">gom.api.scriptedelements.get_dimensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-inspection-definition">gom.api.scriptedelements.get_inspection_definition</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-selection">gom.api.selection</a><ul>
@@ -1452,6 +1473,144 @@ available to the application.</p>
     <span class="nb">print</span> <span class="p">(</span><span class="s1">'Unregistration failed: folder was not registered'</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="gom-api-collectors-get">
+<h3>gom.api.collectors.get<a class="headerlink" href="#gom-api-collectors-get" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.collectors.get(id:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
+<dd><p>Return the cached data and diagnostic status of a custom data collector. See gom.api.collectors.list() for a</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>id</strong> (<em>str</em>) – Custom data collector identifier.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary with <code class="docutils literal notranslate"><span class="pre">found</span></code>, diagnostic fields, and <code class="docutils literal notranslate"><span class="pre">data</span></code>. <code class="docutils literal notranslate"><span class="pre">data</span></code> is empty until the first successful</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>description of the returned dictionary.</p>
+<p>collection.</p>
+</section>
+<section id="gom-api-collectors-list">
+<h3>gom.api.collectors.list<a class="headerlink" href="#gom-api-collectors-list" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.collectors.list():</span> <span class="pre">list[dict]</span></span></dt>
+<dd><p>Return all registered custom data collectors and their diagnostic status.</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of collector status dictionaries, sorted by identifier.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[dict]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Returned dictionary</strong></p>
+<p>Each item in the returned list describes one registered collector:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code> — Unique collector identifier.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code> — Human-readable collector description.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">signals</span></code> — Signals listened to by the collector. See gom.api.extensions.collectors.CustomDataCollector.Signal
+for supported signals.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">only_update_when_idle</span></code> — <code class="docutils literal notranslate"><span class="pre">true</span></code> if collection waits until no command is active; otherwise <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">has_data</span></code> — <code class="docutils literal notranslate"><span class="pre">true</span></code> after at least one successful collection has produced
+cached data; otherwise <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">collecting</span></code> — <code class="docutils literal notranslate"><span class="pre">true</span></code> while a collection is currently running.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">last_error</span></code> — Most recent collection error, or an empty value if no error
+has been reported.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">collected_at</span></code> — Timestamp of the most recent successful collection.</p></li>
+</ul>
+<p>A collector that has not completed a successful collection yet has no
+collection timestamp or cached data. Use <code class="docutils literal notranslate"><span class="pre">get()</span></code> to retrieve the cached data
+for an individual collector.</p>
+<p><strong>Ordering and empty results</strong></p>
+<p>The result contains one dictionary per currently registered collector. If no
+collectors are registered, an empty list is returned.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"my.points.collector"</span><span class="p">,</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Collects point positions from the project"</span><span class="p">,</span>
+        <span class="s2">"signals"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"signal::data"</span><span class="p">],</span>
+        <span class="s2">"has_data"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"collecting"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">"last_error"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"collected_at"</span><span class="p">:</span> <span class="s2">"2026-08-17T12:00:00Z"</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-collectors-query-element-tokens">
+<h3>gom.api.collectors.query_element_tokens<a class="headerlink" href="#gom-api-collectors-query-element-tokens" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.collectors.query_element_tokens(elements:</span> <span class="pre">Any,</span> <span class="pre">attributes:</span> <span class="pre">Any,</span> <span class="pre">stage:</span> <span class="pre">int):</span> <span class="pre">Any</span></span></dt>
+<dd><p>Return token values for multiple project elements at one project stage.</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elements</strong> (<em>Any</em>) – Resolved script element references, such as <code class="docutils literal notranslate"><span class="pre">list(gom.ElementSelection(...))</span></code>.</p></li>
+<li><p><strong>attributes</strong> (<em>Any</em>) – Scalar token paths to retrieve for every element.</p></li>
+<li><p><strong>stage</strong> (<em>int</em>) – Zero-based index of the active project stage.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>One result dictionary for every supplied element reference.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Pass resolved script element references as <code class="docutils literal notranslate"><span class="pre">elements</span></code>, for example by calling
+<code class="docutils literal notranslate"><span class="pre">list(gom.ElementSelection(...))</span></code>. The function reads each requested token path directly in C++ and avoids one
+Python-to-application request per token and element.</p>
+<p><code class="docutils literal notranslate"><span class="pre">attributes</span></code> contains scalar TokenInterface paths. A path consists of a top-level token and optional dot-separated
+value attributes, for example <code class="docutils literal notranslate"><span class="pre">result</span></code> or <code class="docutils literal notranslate"><span class="pre">result.out_of_tolerance</span></code>. Script type attributes are also supported,
+for example <code class="docutils literal notranslate"><span class="pre">type.type</span></code> and <code class="docutils literal notranslate"><span class="pre">type.translation</span></code>. Data packages (<code class="docutils literal notranslate"><span class="pre">element.data.*</span></code>), indexed tokens, arbitrary Python
+expressions, and callable attributes are not supported.</p>
+<p><code class="docutils literal notranslate"><span class="pre">stage</span></code> is the zero-based index in the active project-stage list. An invalid stage index is a call error. Invalid
+element references and unavailable token paths do not fail the complete call. The returned list preserves the input
+element order; each row contains:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">element</span></code> — The corresponding script element reference.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code> — A dictionary of successfully resolved token paths and values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">errors</span></code> — A dictionary mapping unavailable token paths to a machine-readable error code.</p></li>
+</ul>
+</section>
+<section id="gom-api-collectors-request-update">
+<h3>gom.api.collectors.request_update<a class="headerlink" href="#gom-api-collectors-request-update" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.collectors.request_update(id:</span> <span class="pre">str):</span> <span class="pre">dict</span></span></dt>
+<dd><p>Request an asynchronous background update of a custom data collector.</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>str</em>) – Custom data collector identifier.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing <code class="docutils literal notranslate"><span class="pre">found</span></code>, <code class="docutils literal notranslate"><span class="pre">requested</span></code>, <code class="docutils literal notranslate"><span class="pre">scheduled</span></code>, <code class="docutils literal notranslate"><span class="pre">collecting</span></code>, and <code class="docutils literal notranslate"><span class="pre">reason</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The function returns after scheduling the request. It does not wait for collection or return new data.
+Call <code class="docutils literal notranslate"><span class="pre">get()</span></code> after the update has completed to read the cache.</p>
 </section>
 </section>
 <section id="gom-api-contributions">
@@ -3676,6 +3835,125 @@ Note that the NumPy shape convention is <code class="docutils literal notranslat
     <span class="p">}</span>
 </pre></div>
 </div>
+</section>
+</section>
+<section id="gom-api-extensions-collectors">
+<h3>gom.api.extensions.collectors<a class="headerlink" href="#gom-api-extensions-collectors" title="Link to this heading"></a></h3>
+<p>Custom Data Collectors</p>
+<section id="gom-api-extensions-collectors-customdatacollector">
+<h4>gom.api.extensions.collectors.CustomDataCollector<a class="headerlink" href="#gom-api-extensions-collectors-customdatacollector" title="Link to this heading"></a></h4>
+<p>Base class for custom data collectors.</p>
+<p>Subclass this and implement collect_data_for_elements(). Optionally override determine_elements() to declare
+explicit project element dependencies, and calculate_hash() to provide a hash for change detection during live
+updates. Configured signals trigger collection automatically. Data-change notifications are processed only for
+full and shallow changes; selection and configuration notifications trigger collection directly. Collectors
+without signals are still called during full update cycles.</p>
+<section id="gom-api-extensions-collectors-customdatacollector-signal">
+<h5>gom.api.extensions.collectors.CustomDataCollector.Signal<a class="headerlink" href="#gom-api-extensions-collectors-customdatacollector-signal" title="Link to this heading"></a></h5>
+<p>Identifier for SW signals that the custom data collector can be connected to</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DATA_CHANGED</span></code>: Emitted when any project related data changes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SELECTION_CHANGED</span></code>: Emitted when the selection in the Project explorer changes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CONFIG_CHANGED</span></code>: Emitted when the software preferences are applied</p></li>
+</ul>
+</section>
+<section id="gom-api-extensions-collectors-customdatacollector-init">
+<h5>gom.api.extensions.collectors.CustomDataCollector.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-collectors-customdatacollector-init" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.collectors.CustomDataCollector.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">signals:</span> <span class="pre">List[str],</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">only_update_when_idle:</span> <span class="pre">bool):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – Globally unique custom data collector id string (REQUIRED)</p></li>
+<li><p><strong>description</strong> (<em>str</em>) – Human readable name, will appear in menus etc. (REQUIRED)</p></li>
+<li><p><strong>signals</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of system signals that trigger data collection (see <code class="docutils literal notranslate"><span class="pre">CustomDataCollector.Signal</span></code>) (OPTIONAL, default: []). Even if not specified, the collector will be called during full update cycles.</p></li>
+<li><p><strong>only_update_when_idle</strong> (<em>bool</em>) – Delay collection until no command is active (OPTIONAL, default: False).</p></li>
+<li><p><strong>properties</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Additional properties (OPTIONAL, default: {}).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Constructor</p>
+</section>
+<section id="gom-api-extensions-collectors-customdatacollector-dispatch-collect-data-for-elements">
+<h5>gom.api.extensions.collectors.CustomDataCollector._dispatch_collect_data_for_elements<a class="headerlink" href="#gom-api-extensions-collectors-customdatacollector-dispatch-collect-data-for-elements" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.collectors.CustomDataCollector._dispatch_collect_data_for_elements(self:</span> <span class="pre">Any,</span> <span class="pre">elements:</span> <span class="pre">List[Any]):</span> <span class="pre">None</span></span></dt>
+<dd></dd></dl>
+
+<p>Called by the framework for both live updates and report captures.</p>
+<p>Report captures always call collect_data_for_elements() directly. Live updates invoke calculate_hash() for
+early-out before collection. Returns a dict with ‘updated’ (bool), ‘data’ and ‘hash’ for live updates, or
+‘error’ on failure.</p>
+</section>
+<section id="gom-api-extensions-collectors-customdatacollector-dispatch-determine-elements">
+<h5>gom.api.extensions.collectors.CustomDataCollector._dispatch_determine_elements<a class="headerlink" href="#gom-api-extensions-collectors-customdatacollector-dispatch-determine-elements" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.collectors.CustomDataCollector._dispatch_determine_elements(self:</span> <span class="pre">Any):</span> <span class="pre">Any</span></span></dt>
+<dd></dd></dl>
+
+<p>Called by the framework to discover the collector’s explicit element dependencies.</p>
+<p>Returns the ordered list of script element references directly, or a dict with an
+‘error’ key if determination fails.</p>
+</section>
+<section id="gom-api-extensions-collectors-customdatacollector-calculate-hash">
+<h5>gom.api.extensions.collectors.CustomDataCollector.calculate_hash<a class="headerlink" href="#gom-api-extensions-collectors-customdatacollector-calculate-hash" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.collectors.CustomDataCollector.calculate_hash(self:</span> <span class="pre">Any,</span> <span class="pre">elements:</span> <span class="pre">List[Any]):</span> <span class="pre">Any</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An opaque hash representing the current state of the data (default: None).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Calculate a hash representing the current state of the data.</p>
+<p>Implement this method to provide a hash that can be used to determine if the data has changed since the last
+collection for the supplied elements. Only use this, if the hash can be calculated much quicker than
+collecting the data itself. Ignored for report captures, which always collect.</p>
+</section>
+<section id="gom-api-extensions-collectors-customdatacollector-collect-data-for-elements">
+<h5>gom.api.extensions.collectors.CustomDataCollector.collect_data_for_elements<a class="headerlink" href="#gom-api-extensions-collectors-customdatacollector-collect-data-for-elements" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.collectors.CustomDataCollector.collect_data_for_elements(self:</span> <span class="pre">Any,</span> <span class="pre">elements:</span> <span class="pre">List[Any],</span> <span class="pre">context:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">Any</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elements</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – Ordered elements returned by determine_elements().</p></li>
+<li><p><strong>context</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Collection context (e.g. whether this is a report capture).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The collected data using basic Python types (dicts, lists, str, int, float, bool).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Collect data for the supplied ordered element set and return it.</p>
+</section>
+<section id="gom-api-extensions-collectors-customdatacollector-determine-elements">
+<h5>gom.api.extensions.collectors.CustomDataCollector.determine_elements<a class="headerlink" href="#gom-api-extensions-collectors-customdatacollector-determine-elements" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.collectors.CustomDataCollector.determine_elements(self:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<dd></dd></dl>
+
+<p>Return the ordered elements used by this collector based on the current state of the project.</p>
+<p>The default implementation declares no explicit dependencies. Override this method for
+collectors whose data depends on specific project elements.</p>
+</section>
 </section>
 </section>
 <section id="gom-api-extensions-diagrams">
@@ -5934,6 +6212,116 @@ as a starting point for your own custom views.</p>
 <p>Constructor</p>
 </section>
 </section>
+<section id="gom-api-extensions-views-customdataview">
+<h4>gom.api.extensions.views.CustomDataView<a class="headerlink" href="#gom-api-extensions-views-customdataview" title="Link to this heading"></a></h4>
+<p>Composite data view containing multiple collector-backed data views</p>
+<p><code class="docutils literal notranslate"><span class="pre">CustomDataView</span></code> is a JavaScript-backed view that combines data from one or
+more <code class="docutils literal notranslate"><span class="pre">CustomDataCollector</span></code> contributions. It owns the HTML page and the
+JavaScript bundle, while <code class="docutils literal notranslate"><span class="pre">collectors</span></code> defines the collector ids whose data is
+provided to that bundle.</p>
+<p><strong>Data flow</strong></p>
+<p>Each entry in <code class="docutils literal notranslate"><span class="pre">collectors</span></code> is the id of a <code class="docutils literal notranslate"><span class="pre">CustomDataCollector</span></code>. Each
+collector is collected and cached once. The collector id is sent as <code class="docutils literal notranslate"><span class="pre">id</span></code> in
+the JavaScript event payload.</p>
+<p>The optional <code class="docutils literal notranslate"><span class="pre">preprocess_data(data)</span></code> callable is shared by all
+entries. If it is not provided, the cached collector data is forwarded
+unchanged. Returning a value from the callable replaces the data sent to the
+JavaScript bundle.</p>
+<p><strong>Example</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.collectors</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.extensions.views</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">gom</span><span class="w"> </span><span class="kn">import</span> <span class="n">apicontribution</span>
+
+<span class="nd">@apicontribution</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MeasurementCollector</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">collectors</span><span class="o">.</span><span class="n">CustomDataCollector</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s1">'com.example.measurements'</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s1">'Measurement data'</span><span class="p">,</span>
+            <span class="n">signals</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">Signal</span><span class="o">.</span><span class="n">DATA_CHANGED</span><span class="p">],</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">collect_data_for_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">'values'</span><span class="p">:</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">],</span>
+            <span class="s1">'timestamps'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="p">}</span>
+
+<span class="nd">@apicontribution</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Dashboard</span><span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">views</span><span class="o">.</span><span class="n">CustomDataView</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s1">'com.example.dashboard'</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s1">'Measurement dashboard'</span><span class="p">,</span>
+            <span class="n">bundle</span><span class="o">=</span><span class="s1">'dashboard.js'</span><span class="p">,</span>
+            <span class="n">collectors</span><span class="o">=</span><span class="p">[</span><span class="s1">'com.example.measurements'</span><span class="p">],</span>
+            <span class="n">preprocess_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">preprocess_data</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">preprocess_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">data</span>
+
+<span class="n">gom</span><span class="o">.</span><span class="n">run_api</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>JavaScript event format</strong></p>
+<p>Whenever a collector produces new data, the bundle receives a
+<code class="docutils literal notranslate"><span class="pre">gom::event::data::updated</span></code> event. Its payload contains the configured data
+collector id and the processed data:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'gom::event::data::updated'</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">detail</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nx">renderCollectorData</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>The JavaScript bundle should use the collector id to select the rendering
+logic. A single collector can render multiple UI components from its data.</p>
+<p><strong>Report SVG export</strong></p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">export_version=1</span></code> to opt in to report export. The data-view bundle must
+then provide <code class="docutils literal notranslate"><span class="pre">window.customDataView.exportSvg(request)</span></code>. The function receives
+a request with <code class="docutils literal notranslate"><span class="pre">data</span></code>, <code class="docutils literal notranslate"><span class="pre">widthPx</span></code>, <code class="docutils literal notranslate"><span class="pre">heightPx</span></code>, <code class="docutils literal notranslate"><span class="pre">dpi</span></code>, <code class="docutils literal notranslate"><span class="pre">font</span></code>, <code class="docutils literal notranslate"><span class="pre">scale</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">configuration</span></code>, and returns a promise resolving to one self-contained SVG:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nx">svg</span><span class="o">:</span><span class="w"> </span><span class="s1">'&lt;svg ...&gt;...&lt;/svg&gt;'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">widthMm</span><span class="o">:</span><span class="w"> </span><span class="mf">210</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">heightMm</span><span class="o">:</span><span class="w"> </span><span class="mf">148</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The export function must use only the frozen <code class="docutils literal notranslate"><span class="pre">data</span></code> in the request. External
+resources, screenshots, bridge calls, and live collector access are not
+supported.</p>
+<section id="gom-api-extensions-views-customdataview-init">
+<h5>gom.api.extensions.views.CustomDataView.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-views-customdataview-init" title="Link to this heading"></a></h5>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.CustomDataView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">bundle:</span> <span class="pre">str,</span> <span class="pre">collectors:</span> <span class="pre">List[str],</span> <span class="pre">stylesheet:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">signals:</span> <span class="pre">List[str],</span> <span class="pre">preprocess_data:</span> <span class="pre">Any,</span> <span class="pre">export_version:</span> <span class="pre">int,</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
+<dd><dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – Globally unique custom view id string. (REQUIRED)</p></li>
+<li><p><strong>description</strong> (<em>str</em>) – Human readable name. (REQUIRED)</p></li>
+<li><p><strong>bundle</strong> (<em>str</em>) – JavaScript bundle that renders all data views. (REQUIRED)</p></li>
+<li><p><strong>collectors</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of custom data collector ids used by the view. (REQUIRED)</p></li>
+<li><p><strong>stylesheet</strong> (<em>str</em>) – Path to the optional CSS stylesheet. (OPTIONAL, default: “”)</p></li>
+<li><p><strong>functions</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – Functions exposed to the JavaScript bundle. (OPTIONAL, default: [])</p></li>
+<li><p><strong>signals</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Signals that trigger collector updates. (OPTIONAL, default: [])</p></li>
+<li><p><strong>preprocess_data</strong> (<em>Any</em>) – Optional callable with signature <code class="docutils literal notranslate"><span class="pre">(data)</span></code>. (OPTIONAL, default: None)</p></li>
+<li><p><strong>export_version</strong> (<em>int</em>) – Report SVG export protocol version. Use <code class="docutils literal notranslate"><span class="pre">1</span></code> to opt in. (OPTIONAL, default: None)</p></li>
+<li><p><strong>properties</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Additional contribution properties. (OPTIONAL, default: {})</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Constructor</p>
+</section>
+</section>
 <section id="gom-api-extensions-views-customeditor">
 <h4>gom.api.extensions.views.CustomEditor<a class="headerlink" href="#gom-api-extensions-views-customeditor" title="Link to this heading"></a></h4>
 <p>Custom editor view for editing App Content</p>
@@ -6274,7 +6662,7 @@ subscribe. When a signal fires, it is forwarded to the JavaScript renderer as a
 <li><p><strong>functions</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – List of functions that can be called by the JavaScript renderer (OPTIONAL, default: []).</p></li>
 <li><p><strong>properties</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Additional properties (OPTIONAL, default: {}).</p></li>
 <li><p><strong>callables</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Dict of callables that can be called by the JavaScript renderer (OPTIONAL, default: {}).</p></li>
-<li><p><strong>signals</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of system signals the view wants to receive (e.g. ‘signal::data’) (OPTIONAL, default: []).</p></li>
+<li><p><strong>signals</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of system signals the view wants to receive (see <code class="docutils literal notranslate"><span class="pre">CustomView.Signal</span></code>) (OPTIONAL, default: []).</p></li>
 </ul>
 </dd>
 </dl>
@@ -8227,6 +8615,154 @@ for various image variants.</p>
 
 </section>
 </section>
+<section id="gom-api-scripted-checks-util">
+<h2>gom.api.scripted_checks_util<a class="headerlink" href="#gom-api-scripted-checks-util" title="Link to this heading"></a></h2>
+<p>Tool functions for scripted checks</p>
+<section id="gom-api-scripted-checks-util-is-curve-checkable">
+<h3>gom.api.scripted_checks_util.is_curve_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-curve-checkable" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_curve_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
+<dd><p>Checks if the referenced element is suitable for inspection with a curve check</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>‘true’ if the element is checkable like a curve</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function checks if the given element can be inspected like a curve in the context of scripted
+elements. Please see the scripted element documentation for details about the underlying scheme.</p>
+</section>
+<section id="gom-api-scripted-checks-util-is-scalar-checkable">
+<h3>gom.api.scripted_checks_util.is_scalar_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-scalar-checkable" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_scalar_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
+<dd><p>Checks if the referenced element is suitable for inspection with a scalar check</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>‘true’ if the element is checkable like a scalar value</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function checks if the given element can be inspected like a scalar value in the context of scripted
+elements. Please see the scripted element documentation for details about the underlying scheme.</p>
+</section>
+<section id="gom-api-scripted-checks-util-is-surface-checkable">
+<h3>gom.api.scripted_checks_util.is_surface_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-surface-checkable" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_surface_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
+<dd><p>Checks if the referenced element is suitable for inspection with a surface check</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">API version<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>‘true’ if the element is checkable like a surface</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function checks if the given element can be inspected like a surface in the context of scripted
+elements. Please see the scripted element documentation for details about the underlying scheme.</p>
+</section>
+</section>
+<section id="gom-api-scriptedelements">
+<h2>gom.api.scriptedelements<a class="headerlink" href="#gom-api-scriptedelements" title="Link to this heading"></a></h2>
+<p>API for handling scripted elements</p>
+<p>This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, …)
+It is used mostly internally by the scripted element framework.</p>
+<section id="gom-api-scriptedelements-get-dimension-definition">
+<h3>gom.api.scriptedelements.get_dimension_definition<a class="headerlink" href="#gom-api-scriptedelements-get-dimension-definition" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_dimension_definition(typename:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
+<dd><p>Return information about the given dimension</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Name of the dimension</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>A physical dimension (or just “dimension”) refers to the fundamental nature of what is measured - like length,
+time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
+from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
+millimeter, inch for length; or degree, radian for angle.</p>
+</section>
+<section id="gom-api-scriptedelements-get-dimensions">
+<h3>gom.api.scriptedelements.get_dimensions<a class="headerlink" href="#gom-api-scriptedelements-get-dimensions" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_dimensions():</span> <span class="pre">[str]</span></span></dt>
+<dd><p>Return available dimensions</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of known dimensions</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="gom-api-scriptedelements-get-inspection-definition">
+<h3>gom.api.scriptedelements.get_inspection_definition<a class="headerlink" href="#gom-api-scriptedelements-get-inspection-definition" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_inspection_definition(typename:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
+<dd><p>Return information about the given scripted element type</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type_name</strong> – Type name of the inspection to query</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary with relevant type information or an empty dictionary if the type is unknown</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This function queries in internal ‘scalar registry’ database for information about the
+inspection with the given type.</p>
+</section>
+</section>
 <section id="gom-api-selection">
 <h2>gom.api.selection<a class="headerlink" href="#gom-api-selection" title="Link to this heading"></a></h2>
 <p>API for handling explorer selection</p>
@@ -10143,7 +10679,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f41f70c70e0>
+  <jinja2.runtime.BlockReference object at 0x7fdd179e37e0>
 
 
 </footer>
