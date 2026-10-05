@@ -405,6 +405,118 @@ else:
     print ('Unregistration failed: folder was not registered')
 ```
 
+### gom.api.collectors.get
+
+```{py:function} gom.api.collectors.get(id: str): dict
+
+Return the cached data and diagnostic status of a custom data collector. See gom.api.collectors.list() for a
+:API version: 1
+:param id: Custom data collector identifier.
+:type id: str
+:return: Dictionary with `found`, diagnostic fields, and `data`. `data` is empty until the first successful
+:rtype: dict
+```
+
+description of the returned dictionary.
+
+collection.
+
+### gom.api.collectors.list
+
+```{py:function} gom.api.collectors.list(): list[dict]
+
+Return all registered custom data collectors and their diagnostic status.
+:return: A list of collector status dictionaries, sorted by identifier.
+:rtype: list[dict]
+```
+
+**Returned dictionary**
+
+Each item in the returned list describes one registered collector:
+
+- `id` — Unique collector identifier.
+- `description` — Human-readable collector description.
+- `signals` — Signals listened to by the collector. See gom.api.extensions.collectors.CustomDataCollector.Signal
+for supported signals.
+- `only_update_when_idle` — `true` if collection waits until no command is active; otherwise `false`.
+- `has_data` — `true` after at least one successful collection has produced
+cached data; otherwise `false`.
+- `collecting` — `true` while a collection is currently running.
+- `last_error` — Most recent collection error, or an empty value if no error
+has been reported.
+- `collected_at` — Timestamp of the most recent successful collection.
+
+A collector that has not completed a successful collection yet has no
+collection timestamp or cached data. Use `get()` to retrieve the cached data
+for an individual collector.
+
+**Ordering and empty results**
+
+The result contains one dictionary per currently registered collector. If no
+collectors are registered, an empty list is returned.
+
+**Example**
+
+```python
+[
+    {
+        "id": "my.points.collector",
+        "description": "Collects point positions from the project",
+        "signals": ["signal::data"],
+        "has_data": True,
+        "collecting": False,
+        "last_error": "",
+        "collected_at": "2026-08-17T12:00:00Z",
+    },
+]
+```
+
+### gom.api.collectors.query_element_tokens
+
+```{py:function} gom.api.collectors.query_element_tokens(elements: Any, attributes: Any, stage: int): Any
+
+Return token values for multiple project elements at one project stage.
+:param elements: Resolved script element references, such as `list(gom.ElementSelection(...))`.
+:type elements: Any
+:param attributes: Scalar token paths to retrieve for every element.
+:type attributes: Any
+:param stage: Zero-based index of the active project stage.
+:type stage: int
+:return: One result dictionary for every supplied element reference.
+:rtype: Any
+```
+
+Pass resolved script element references as `elements`, for example by calling
+`list(gom.ElementSelection(...))`. The function reads each requested token path directly in C++ and avoids one
+Python-to-application request per token and element.
+
+`attributes` contains scalar TokenInterface paths. A path consists of a top-level token and optional dot-separated
+value attributes, for example `result` or `result.out_of_tolerance`. Script type attributes are also supported,
+for example `type.type` and `type.translation`. Data packages (`element.data.*`), indexed tokens, arbitrary Python
+expressions, and callable attributes are not supported.
+
+`stage` is the zero-based index in the active project-stage list. An invalid stage index is a call error. Invalid
+element references and unavailable token paths do not fail the complete call. The returned list preserves the input
+element order; each row contains:
+
+- `element` — The corresponding script element reference.
+- `values` — A dictionary of successfully resolved token paths and values.
+- `errors` — A dictionary mapping unavailable token paths to a machine-readable error code.
+
+### gom.api.collectors.request_update
+
+```{py:function} gom.api.collectors.request_update(id: str): dict
+
+Request an asynchronous background update of a custom data collector.
+:param id: Custom data collector identifier.
+:type id: str
+:return: Dictionary containing `found`, `requested`, `scheduled`, `collecting`, and `reason`.
+:rtype: dict
+```
+
+The function returns after scheduling the request. It does not wait for collection or return new data.
+Call `get()` after the update has completed to read the cache.
+
 ## gom.api.contributions
 
 API for accessing the registered contributions (semantic extensions)
@@ -2553,6 +2665,108 @@ def compute (self, context, values):
         "volume_element":      volume
     }
 ```
+
+### gom.api.extensions.collectors
+
+
+Custom Data Collectors
+
+#### gom.api.extensions.collectors.CustomDataCollector
+
+
+Base class for custom data collectors.
+
+Subclass this and implement collect_data_for_elements(). Optionally override determine_elements() to declare
+explicit project element dependencies, and calculate_hash() to provide a hash for change detection during live
+updates. Configured signals trigger collection automatically. Data-change notifications are processed only for
+full and shallow changes; selection and configuration notifications trigger collection directly. Collectors
+without signals are still called during full update cycles.
+
+##### gom.api.extensions.collectors.CustomDataCollector.Signal
+
+
+Identifier for SW signals that the custom data collector can be connected to
+
+- `DATA_CHANGED`: Emitted when any project related data changes
+- `SELECTION_CHANGED`: Emitted when the selection in the Project explorer changes
+- `CONFIG_CHANGED`: Emitted when the software preferences are applied
+
+##### gom.api.extensions.collectors.CustomDataCollector.__init__
+
+```{py:function} gom.api.extensions.collectors.CustomDataCollector.__init__(self: Any, id: str, description: str, signals: List[str], properties: Dict[str, Any], only_update_when_idle: bool): None
+
+:param id: Globally unique custom data collector id string (REQUIRED)
+:type id: str
+:param description: Human readable name, will appear in menus etc. (REQUIRED)
+:type description: str
+:param signals: List of system signals that trigger data collection (see `CustomDataCollector.Signal`) (OPTIONAL, default: []). Even if not specified, the collector will be called during full update cycles.
+:type signals: List[str]
+:param only_update_when_idle: Delay collection until no command is active (OPTIONAL, default: False).
+:type only_update_when_idle: bool
+:param properties: Additional properties (OPTIONAL, default: {}).
+:type properties: Dict[str, Any]
+```
+
+Constructor
+
+##### gom.api.extensions.collectors.CustomDataCollector._dispatch_collect_data_for_elements
+
+```{py:function} gom.api.extensions.collectors.CustomDataCollector._dispatch_collect_data_for_elements(self: Any, elements: List[Any]): None
+```
+
+Called by the framework for both live updates and report captures.
+
+Report captures always call collect_data_for_elements() directly. Live updates invoke calculate_hash() for
+early-out before collection. Returns a dict with 'updated' (bool), 'data' and 'hash' for live updates, or
+'error' on failure.
+
+##### gom.api.extensions.collectors.CustomDataCollector._dispatch_determine_elements
+
+```{py:function} gom.api.extensions.collectors.CustomDataCollector._dispatch_determine_elements(self: Any): Any
+```
+
+Called by the framework to discover the collector's explicit element dependencies.
+
+Returns the ordered list of script element references directly, or a dict with an
+'error' key if determination fails.
+
+##### gom.api.extensions.collectors.CustomDataCollector.calculate_hash
+
+```{py:function} gom.api.extensions.collectors.CustomDataCollector.calculate_hash(self: Any, elements: List[Any]): Any
+
+:return: An opaque hash representing the current state of the data (default: None).
+:rtype: Any
+```
+
+Calculate a hash representing the current state of the data.
+
+Implement this method to provide a hash that can be used to determine if the data has changed since the last
+collection for the supplied elements. Only use this, if the hash can be calculated much quicker than
+collecting the data itself. Ignored for report captures, which always collect.
+
+##### gom.api.extensions.collectors.CustomDataCollector.collect_data_for_elements
+
+```{py:function} gom.api.extensions.collectors.CustomDataCollector.collect_data_for_elements(self: Any, elements: List[Any], context: Dict[str, Any]): Any
+
+:param elements: Ordered elements returned by determine_elements().
+:type elements: List[Any]
+:param context: Collection context (e.g. whether this is a report capture).
+:type context: Dict[str, Any]
+:return: The collected data using basic Python types (dicts, lists, str, int, float, bool).
+:rtype: Any
+```
+
+Collect data for the supplied ordered element set and return it.
+
+##### gom.api.extensions.collectors.CustomDataCollector.determine_elements
+
+```{py:function} gom.api.extensions.collectors.CustomDataCollector.determine_elements(self: Any): None
+```
+
+Return the ordered elements used by this collector based on the current state of the project.
+
+The default implementation declares no explicit dependencies. Override this method for
+collectors whose data depends on specific project elements.
 
 ### gom.api.extensions.diagrams
 
@@ -4883,6 +5097,133 @@ Event types passed to the `event ()` function
 
 Constructor
 
+#### gom.api.extensions.views.CustomDataView
+
+Composite data view containing multiple collector-backed data views
+
+`CustomDataView` is a JavaScript-backed view that combines data from one or
+more `CustomDataCollector` contributions. It owns the HTML page and the
+JavaScript bundle, while `collectors` defines the collector ids whose data is
+provided to that bundle.
+
+**Data flow**
+
+Each entry in `collectors` is the id of a `CustomDataCollector`. Each
+collector is collected and cached once. The collector id is sent as `id` in
+the JavaScript event payload.
+
+The optional `preprocess_data(data)` callable is shared by all
+entries. If it is not provided, the cached collector data is forwarded
+unchanged. Returning a value from the callable replaces the data sent to the
+JavaScript bundle.
+
+**Example**
+
+```python
+import gom
+import gom.api.extensions.collectors
+import gom.api.extensions.views
+
+from gom import apicontribution
+
+@apicontribution
+class MeasurementCollector(gom.api.extensions.collectors.CustomDataCollector):
+
+    def __init__(self):
+        super().__init__(
+            id='com.example.measurements',
+            description='Measurement data',
+            signals=[self.Signal.DATA_CHANGED],
+        )
+
+    def collect_data_for_elements(self, elements, context):
+        return {
+            'values': [10.0, 12.5, 11.0],
+            'timestamps': [1, 2, 3],
+        }
+
+@apicontribution
+class Dashboard(gom.api.extensions.views.CustomDataView):
+
+    def __init__(self):
+        super().__init__(
+            id='com.example.dashboard',
+            description='Measurement dashboard',
+            bundle='dashboard.js',
+            collectors=['com.example.measurements'],
+            preprocess_data=self.preprocess_data,
+        )
+
+    def preprocess_data(self, data):
+        return data
+
+gom.run_api()
+```
+
+**JavaScript event format**
+
+Whenever a collector produces new data, the bundle receives a
+`gom::event::data::updated` event. Its payload contains the configured data
+collector id and the processed data:
+
+```javascript
+window.addEventListener('gom::event::data::updated', (event) => {
+    const { id, data } = event.detail;
+
+    renderCollectorData(id, data);
+});
+```
+
+The JavaScript bundle should use the collector id to select the rendering
+logic. A single collector can render multiple UI components from its data.
+
+**Report SVG export**
+
+Set `export_version=1` to opt in to report export. The data-view bundle must
+then provide `window.customDataView.exportSvg(request)`. The function receives
+a request with `data`, `widthPx`, `heightPx`, `dpi`, `font`, `scale`, and
+`configuration`, and returns a promise resolving to one self-contained SVG:
+
+```javascript
+{
+    svg: '<svg ...>...</svg>',
+    widthMm: 210,
+    heightMm: 148
+}
+```
+
+The export function must use only the frozen `data` in the request. External
+resources, screenshots, bridge calls, and live collector access are not
+supported.
+
+##### gom.api.extensions.views.CustomDataView.__init__
+
+```{py:function} gom.api.extensions.views.CustomDataView.__init__(self: Any, id: str, description: str, bundle: str, collectors: List[str], stylesheet: str, functions: List[Any], signals: List[str], preprocess_data: Any, export_version: int, properties: Dict[str, Any]): None
+
+:param id: Globally unique custom view id string. (REQUIRED)
+:type id: str
+:param description: Human readable name. (REQUIRED)
+:type description: str
+:param bundle: JavaScript bundle that renders all data views. (REQUIRED)
+:type bundle: str
+:param collectors: List of custom data collector ids used by the view. (REQUIRED)
+:type collectors: List[str]
+:param stylesheet: Path to the optional CSS stylesheet. (OPTIONAL, default: "")
+:type stylesheet: str
+:param functions: Functions exposed to the JavaScript bundle. (OPTIONAL, default: [])
+:type functions: List[Any]
+:param signals: Signals that trigger collector updates. (OPTIONAL, default: [])
+:type signals: List[str]
+:param preprocess_data: Optional callable with signature `(data)`. (OPTIONAL, default: None)
+:type preprocess_data: Any
+:param export_version: Report SVG export protocol version. Use `1` to opt in. (OPTIONAL, default: None)
+:type export_version: int
+:param properties: Additional contribution properties. (OPTIONAL, default: {})
+:type properties: Dict[str, Any]
+```
+
+Constructor
+
 #### gom.api.extensions.views.CustomEditor
 
 Custom editor view for editing App Content
@@ -5212,7 +5553,7 @@ Identifier for SW signals that the view can be connected to
 :type properties: Dict[str, Any]
 :param callables: Dict of callables that can be called by the JavaScript renderer (OPTIONAL, default: {}).
 :type callables: Dict[str, Any]
-:param signals: List of system signals the view wants to receive (e.g. 'signal::data') (OPTIONAL, default: []).
+:param signals: List of system signals the view wants to receive (see `CustomView.Signal`) (OPTIONAL, default: []).
 :type signals: List[str]
 ```
 
