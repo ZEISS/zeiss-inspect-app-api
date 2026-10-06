@@ -128,9 +128,69 @@ line 41..53:
 line 55:
 : `gom.run_api()` is executed when the script is started as a service.
 
+### Create custom inspections from Python script
+
+Create a custom inspection from a Python script by using the
+`gom.script.customelements.create_inspection()` function. The `contribution`
+value must match the inspection class ID defined in its constructor. The
+`values` dictionary is forwarded unchanged to the inspection's `compute()`
+method.
+
+```{code-block} python
+:caption: Custom inspection creation from Python script &ndash; Custom scalar inspection
+:linenos:
+
+checked_element = gom.app.project.actual_elements['Cylinder 1']
+
+gom.script.customelements.create_inspection (
+    """
+    Create a custom scalar inspection
+    """
+    # Inspection ID as defined in the contribution class constructor
+    contribution='examples.custom_scalar_inspection',
+
+    # Optional: Set the inspection name explicitly, otherwise it is set automatically
+    name='Cylinder 1.CusSca',
+
+    # Values are forwarded to compute()
+    values={
+        'checked_element': checked_element,
+        'nominal': 4.82
+    },
+
+    # Optional: Set asymmetric lower and upper tolerance limits
+    tolerance={'lower': -0.1, 'upper': 0.1}
+)
+```
+
+The `values` entries depend on the inspection type and must match the
+parameters expected by its `compute()` method. The result returned by
+`compute()` must use the schema required by the corresponding inspection
+class:
+
+* A scalar inspection returns `nominal`, `actual`, and `target_element`.
+* A curve inspection returns `actual_values`, either a common `nominal_value`
+    or matching `nominal_values`, and `target_element`.
+* A surface inspection returns `deviation_values`, `nominal`, and
+    `target_element`.
+
+Curve and surface inspections can compute values for the current stage by
+using `context.stage`. See the [Custom Scalar Inspection](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomScalarInspection),
+[Custom Curve Inspection](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomCurveInspection),
+and [Custom Surface Inspection](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomSurfaceInspection)
+examples for complete implementations and tests.
+
+```{caution}
+The custom inspection's service must be running when an inspection is created
+from Python code.
+```
+
 ### Applying tolerances
 
-To apply tolerances to a custom inspection, forward the tolerance value from the dialog result in `apply_dialog()`.
+To apply tolerances when creating an inspection from its dialog, add a
+[Tolerances widget](../user_defined_dialogs/dialog_widgets.md#tolerances-widget)
+with the reserved name `tolerance`, then forward its value from the dialog
+result in `apply_dialog()`.
 
 ```{code-block} python
 :caption: Forwarding tolerance values in apply_dialog()
@@ -144,6 +204,13 @@ def apply_dialog(self, dlg, result):
 ```
 
 The framework consumes `name` and `tolerance` automatically. The `values` dictionary is still forwarded unchanged to `compute()`.
+
+When creating an inspection from Python code, pass the tolerance directly to
+`gom.script.customelements.create_inspection()`, as shown in the previous
+example. The tolerance can be a symmetric value or a dictionary containing
+lower and upper limits, depending on the selected tolerance mode. See the
+[Tolerances widget](../user_defined_dialogs/dialog_widgets.md#tolerances-widget)
+documentation for the supported modes and result formats.
 
 ### Service definition and troubleshooting
 
