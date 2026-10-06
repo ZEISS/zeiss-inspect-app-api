@@ -116,7 +116,7 @@ line 10..16:
 : The constructor calls the super class constructor while defining the inspection ID, description, dimension, and abbreviation. See the API reference for full signature details.
 
 ```{note}
-The `dimension` argument selects a physical quantity and its fixed base unit from ZEISS INSPECT's built-in dimension definition. For example, `dimension='length'` means that computed values must be returned in millimeters. The default unit shown for that dimension can be configured in the ZEISS INSPECT preferences, but not through the scripting API; ZEISS INSPECT converts base-unit values to that configured display unit when needed. Use [`gom.api.customelements.get_dimension_definition()`](../../python_api/python_api.md#gom-api-customelements-get-dimension-definition) to inspect a dimension definition.
+The `dimension` argument selects a physical quantity and its fixed base unit from ZEISS INSPECT's built-in dimension definition. For example, `dimension='length'` means that computed values must be returned in millimeters. The default unit shown for that dimension can be configured in the ZEISS INSPECT preferences, but not through the scripting API; ZEISS INSPECT converts base-unit values to that configured display unit when needed. Use [`gom.api.customelements.get_dimension_definition()`](../../python_api/python_api.md#gom-api-customelements-get_dimension_definition) to inspect a dimension definition.
 ```
 
 line 18..28:
@@ -138,7 +138,7 @@ an element is selected. The custom inspection's service must be running for
 the inspection to be available in the menu.
 
 By default, a custom inspection is visible in the I-Inspect menu. Override
-[`is_visible_for_iinspect()`](../../python_api/python_api.md#gomapiextensions-customelement-is-visible-for-iinspect)
+[`is_visible_for_iinspect()`](../../python_api/python_api.md#gomapiextensionscustomelementis_visible_for_iinspect)
 to control whether the inspection is offered for the selected element. The
 method receives exactly one selected element and can use its type or
 properties to determine whether the inspection is applicable.
@@ -193,7 +193,7 @@ Use `is_curve_checkable()` or `is_surface_checkable()` for curve or surface
 inspections, respectively. Return `False` when an element is unsupported or
 does not provide the properties required by the inspection. The `filter`
 attribute controls which elements can be selected in the dialog;
-[`is_visible_for_iinspect()`](../../python_api/python_api.md#gomapiextensions-customelement-is-visible-for-iinspect)
+[`is_visible_for_iinspect()`](../../python_api/python_api.md#gomapiextensionscustomelementis_visible_for_iinspect)
 controls whether the inspection is offered in the I-Inspect menu.
 
 ### Create custom inspections from Python script
