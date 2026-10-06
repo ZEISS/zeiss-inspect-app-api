@@ -251,7 +251,7 @@
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">dimension</span></code> argument selects a physical quantity and its fixed base unit from ZEISS INSPECT’s built-in dimension definition. For example, <code class="docutils literal notranslate"><span class="pre">dimension='length'</span></code> means that computed values must be returned in millimeters. The default unit shown for that dimension can be configured in the ZEISS INSPECT preferences, but not through the scripting API; ZEISS INSPECT converts base-unit values to that configured display unit when needed. Use <a class="reference internal" href="../../python_api/python_api.html#gom-api-customelements-get-dimension-definition"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">gom.api.customelements.get_dimension_definition()</span></code></span></a> to inspect a dimension definition.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">dimension</span></code> argument selects a physical quantity from ZEISS INSPECT’s built-in dimension definitions and determines the unit expected by the scripting API. For example, <code class="docutils literal notranslate"><span class="pre">dimension='length'</span></code> means that computed values must be provided in millimeters. The unit used to display that dimension can be configured in the ZEISS INSPECT preferences, but this does not change the API unit; ZEISS INSPECT converts values to the configured display unit when needed. Use <a class="reference internal" href="../../python_api/python_api.html#gom-api-customelements-get-dimension-definition"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">gom.api.customelements.get_dimension_definition()</span></code></span></a> to inspect a dimension definition.</p>
 </div>
 <dl class="simple myst">
 <dt>line 18…28:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">dialog()</span></code> method applies an element filter (see <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#selection-element-widget">Selection element widget</a>) and copies the dialog handle to the member <code class="docutils literal notranslate"><span class="pre">dlg</span></code> for usage in <code class="docutils literal notranslate"><span class="pre">event()</span></code>.</p>
@@ -482,7 +482,7 @@ documentation for the supported modes and result formats.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f8f11a096d0>
+  <jinja2.runtime.BlockReference object at 0x7fd68ed0d6d0>
 
 
 </footer>

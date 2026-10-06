@@ -116,7 +116,7 @@ line 10..16:
 : The constructor calls the super class constructor while defining the inspection ID, description, dimension, and abbreviation. See the API reference for full signature details.
 
 ```{note}
-The `dimension` argument selects a physical quantity and its fixed base unit from ZEISS INSPECT's built-in dimension definition. For example, `dimension='length'` means that computed values must be returned in millimeters. The default unit shown for that dimension can be configured in the ZEISS INSPECT preferences, but not through the scripting API; ZEISS INSPECT converts base-unit values to that configured display unit when needed. Use [`gom.api.customelements.get_dimension_definition()`](../../python_api/python_api.md#gomapicustomelementsget_dimension_definition) to inspect a dimension definition.
+The `dimension` argument selects a physical quantity from ZEISS INSPECT's built-in dimension definitions and determines the unit expected by the scripting API. For example, `dimension='length'` means that computed values must be provided in millimeters. The unit used to display that dimension can be configured in the ZEISS INSPECT preferences, but this does not change the API unit; ZEISS INSPECT converts values to the configured display unit when needed. Use [`gom.api.customelements.get_dimension_definition()`](../../python_api/python_api.md#gomapicustomelementsget_dimension_definition) to inspect a dimension definition.
 ```
 
 line 18..28:
