@@ -113,7 +113,11 @@ line 7..8:
 : The class `MinimalScalarInspection` is inherited from [gom.api.extensions.inspections.Scalar](../../python_api/python_api.md#gomapiextensionsinspectionsscalar). The decorator `@apicontribution` allows to register the class `MinimalScalarInspection` in the ZEISS INSPECT framework.
 
 line 10..16:
-: The constructor calls the super class constructor while defining unique contribution ID, human-readable description, dimension and abbreviation. See the API reference for full signature details.
+: The constructor calls the super class constructor while defining the inspection ID, description, dimension, and abbreviation. See the API reference for full signature details.
+
+```{note}
+The `dimension` argument selects a physical quantity and its fixed base unit from ZEISS INSPECT's built-in dimension definition. For example, `dimension='length'` means that computed values must be returned in millimeters. The default unit shown for that dimension can be configured in the ZEISS INSPECT preferences, but not through the scripting API; ZEISS INSPECT converts base-unit values to that configured display unit when needed. Use [`gom.api.customelements.get_dimension_definition()`](../../python_api/python_api.md#gom-api-customelements-get-dimension-definition) to inspect a dimension definition.
+```
 
 line 18..28:
 : The `dialog()` method applies an element filter (see <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#selection-element-widget">Selection element widget</a>) and copies the dialog handle to the member `dlg` for usage in `event()`.
