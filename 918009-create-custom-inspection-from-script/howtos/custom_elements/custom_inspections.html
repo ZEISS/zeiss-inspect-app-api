@@ -69,7 +69,11 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Custom inspections</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dialog-definition">Dialog definition</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#custom-inspection-python-script">Custom inspection Python script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-custom-inspections-interactively">Create custom inspections interactively</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#element-specific-filtering-methods">Element-specific filtering methods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#create-custom-inspections-from-python-script">Create custom inspections from Python script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#optional-inspection-result-data">Optional inspection result data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stage-dependent-computation">Stage-dependent computation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#applying-tolerances">Applying tolerances</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#service-definition-and-troubleshooting">Service definition and troubleshooting</a></li>
 </ul>
@@ -166,7 +170,7 @@
 </div>
 <p>The dialog can optionally provide</p>
 <ul class="simple">
-<li><p>A <a href="../user_defined_dialogs/dialog_widgets.html#unit-widget">Unit widget</a> to set the deviation value’s dimension</p></li>
+<li><p>A <a href="../user_defined_dialogs/dialog_widgets.html#unit-widget">Unit widget</a> to select the unit used to enter or display deviation values</p></li>
 <li><p>A <a href="../user_defined_dialogs/dialog_widgets.html#tolerances-widget">Tolerances widget</a> for evaluating the deviation value(s)</p></li>
 </ul>
 <div class="admonition caution">
@@ -230,11 +234,10 @@
 <span class="linenos">48</span>        <span class="k">return</span> <span class="p">{</span>
 <span class="linenos">49</span>            <span class="s2">"nominal"</span><span class="p">:</span> <span class="n">NOMINAL_RESULT</span><span class="p">,</span>
 <span class="linenos">50</span>            <span class="s2">"actual"</span><span class="p">:</span>  <span class="n">ACTUAL_RESULT</span><span class="p">,</span>
-<span class="linenos">51</span>            <span class="s2">"target_element"</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">'slct_element'</span><span class="p">],</span>
-<span class="linenos">52</span>            <span class="s2">"unit"</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">'unit'</span><span class="p">]</span>
-<span class="linenos">53</span>        <span class="p">}</span>
-<span class="linenos">54</span>
-<span class="linenos">55</span><span class="n">gom</span><span class="o">.</span><span class="n">run_api</span> <span class="p">()</span>
+<span class="linenos">51</span>            <span class="s2">"target_element"</span><span class="p">:</span> <span class="n">values</span><span class="p">[</span><span class="s1">'slct_element'</span><span class="p">]</span>
+<span class="linenos">52</span>        <span class="p">}</span>
+<span class="linenos">53</span>
+<span class="linenos">54</span><span class="n">gom</span><span class="o">.</span><span class="n">run_api</span> <span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -243,8 +246,14 @@
 </dd>
 <dt>line 7…8:</dt><dd><p>The class <code class="docutils literal notranslate"><span class="pre">MinimalScalarInspection</span></code> is inherited from <a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-inspections-scalar"><span class="std std-ref">gom.api.extensions.inspections.Scalar</span></a>. The decorator <code class="docutils literal notranslate"><span class="pre">&#64;apicontribution</span></code> allows to register the class <code class="docutils literal notranslate"><span class="pre">MinimalScalarInspection</span></code> in the ZEISS INSPECT framework.</p>
 </dd>
-<dt>line 10…16:</dt><dd><p>The constructor calls the super class constructor while defining unique contribution ID, human-readable description, dimension and abbreviation. See the API reference for full signature details.</p>
+<dt>line 10…16:</dt><dd><p>The constructor calls the super class constructor while defining the inspection ID, description, dimension, and abbreviation. See the API reference for full signature details.</p>
 </dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">dimension</span></code> argument selects a physical quantity and its fixed base unit from ZEISS INSPECT’s built-in dimension definition. For example, <code class="docutils literal notranslate"><span class="pre">dimension='length'</span></code> means that computed values must be returned in millimeters. The default unit shown for that dimension can be configured in the ZEISS INSPECT preferences, but not through the scripting API; ZEISS INSPECT converts base-unit values to that configured display unit when needed. Use <a class="reference internal" href="../../python_api/python_api.html#gom-api-customelements-get-dimension-definition"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">gom.api.customelements.get_dimension_definition()</span></code></span></a> to inspect a dimension definition.</p>
+</div>
+<dl class="simple myst">
 <dt>line 18…28:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">dialog()</span></code> method applies an element filter (see <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#selection-element-widget">Selection element widget</a>) and copies the dialog handle to the member <code class="docutils literal notranslate"><span class="pre">dlg</span></code> for usage in <code class="docutils literal notranslate"><span class="pre">event()</span></code>.</p>
 </dd>
 <dt>line 30…39:</dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">event()</span></code> method sets the custom inspection element name.</p>
@@ -255,6 +264,64 @@
 </dd>
 </dl>
 </section>
+<section id="create-custom-inspections-interactively">
+<h3>Create custom inspections interactively<a class="headerlink" href="#create-custom-inspections-interactively" title="Link to this heading"></a></h3>
+<p>Custom inspections can be created interactively from the I-Inspect menu when
+an element is selected. The custom inspection’s service must be running for
+the inspection to be available in the menu.</p>
+<p>By default, a custom inspection is visible in the I-Inspect menu. Override
+<a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-customelement-is-visible-for-iinspect"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">is_visible_for_iinspect()</span></code></span></a>
+to control whether the inspection is offered for the selected element. The
+method receives exactly one selected element and can use its type or
+properties to determine whether the inspection is applicable.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Restricting an inspection’s visibility in the I-Inspect menu</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">is_visible_for_iinspect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+<span class="linenos">2</span>    <span class="k">return</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">custom_checks_util</span><span class="o">.</span><span class="n">is_scalar_checkable</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Return <code class="docutils literal notranslate"><span class="pre">False</span></code> when the inspection is intended to be created only by script:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Hiding an inspection from the I-Inspect menu</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">is_visible_for_iinspect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+<span class="linenos">2</span>    <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">is_visible_for_iinspect()</span></code> raises an exception, the inspection is visible
+by default as a fail-safe behavior. The method should therefore return
+<code class="docutils literal notranslate"><span class="pre">False</span></code> explicitly when an inspection must not be offered through I-Inspect.</p>
+</section>
+<section id="element-specific-filtering-methods">
+<h3>Element-specific filtering methods<a class="headerlink" href="#element-specific-filtering-methods" title="Link to this heading"></a></h3>
+<p>Use an element-specific filter to restrict the elements that can be selected
+in the inspection dialog. The filter is assigned to the selection widget’s
+<code class="docutils literal notranslate"><span class="pre">filter</span></code> attribute. Use the corresponding helper from
+<code class="docutils literal notranslate"><span class="pre">gom.api.custom_checks_util</span></code> for scalar, curve, or surface inspections.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Filtering elements in a custom inspection dialog</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">def</span><span class="w"> </span><span class="nf">element_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+<span class="linenos"> 2</span>    <span class="k">try</span><span class="p">:</span>
+<span class="linenos"> 3</span>        <span class="k">return</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">custom_checks_util</span><span class="o">.</span><span class="n">is_scalar_checkable</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+<span class="linenos"> 4</span>    <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+<span class="linenos"> 5</span>        <span class="k">return</span> <span class="kc">False</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="k">def</span><span class="w"> </span><span class="nf">dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<span class="linenos"> 8</span>    <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'/Custom_ScalarInspection.gdlg'</span><span class="p">)</span>
+<span class="linenos"> 9</span>    <span class="n">dlg</span><span class="o">.</span><span class="n">checked_element</span><span class="o">.</span><span class="n">filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">element_filter</span>
+<span class="linenos">10</span>    <span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+<span class="linenos">11</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">is_curve_checkable()</span></code> or <code class="docutils literal notranslate"><span class="pre">is_surface_checkable()</span></code> for curve or surface
+inspections, respectively. Return <code class="docutils literal notranslate"><span class="pre">False</span></code> when an element is unsupported or
+does not provide the properties required by the inspection. The <code class="docutils literal notranslate"><span class="pre">filter</span></code>
+attribute controls which elements can be selected in the dialog;
+<a class="reference internal" href="../../python_api/python_api.html#gom-api-extensions-customelement-is-visible-for-iinspect"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">is_visible_for_iinspect()</span></code></span></a>
+controls whether the inspection is offered in the I-Inspect menu.</p>
+</section>
 <section id="create-custom-inspections-from-python-script">
 <h3>Create custom inspections from Python script<a class="headerlink" href="#create-custom-inspections-from-python-script" title="Link to this heading"></a></h3>
 <p>Create a custom inspection from a Python script by using the
@@ -262,8 +329,8 @@
 value must match the inspection class ID defined in its constructor. The
 <code class="docutils literal notranslate"><span class="pre">values</span></code> dictionary is forwarded unchanged to the inspection’s <code class="docutils literal notranslate"><span class="pre">compute()</span></code>
 method.</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Custom inspection creation from Python script – Custom scalar inspection</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Custom inspection creation from Python script – Custom scalar inspection</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">checked_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">'Cylinder 1'</span><span class="p">]</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">customelements</span><span class="o">.</span><span class="n">create_inspection</span> <span class="p">(</span>
@@ -299,6 +366,44 @@ or matching <code class="docutils literal notranslate"><span class="pre">nominal
 <li><p>A surface inspection returns <code class="docutils literal notranslate"><span class="pre">deviation_values</span></code>, <code class="docutils literal notranslate"><span class="pre">nominal</span></code>, and
 <code class="docutils literal notranslate"><span class="pre">target_element</span></code>.</p></li>
 </ul>
+</section>
+<section id="optional-inspection-result-data">
+<h3>Optional inspection result data<a class="headerlink" href="#optional-inspection-result-data" title="Link to this heading"></a></h3>
+<p>Additional inspection data can be persisted by returning a <code class="docutils literal notranslate"><span class="pre">data</span></code> dictionary
+from <code class="docutils literal notranslate"><span class="pre">compute()</span></code>. The data is stored with the inspection element, and each key
+becomes a token that can be accessed through the element later.</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Persisting optional custom inspection data</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<span class="linenos"> 2</span>    <span class="n">element</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="s1">'checked_element'</span><span class="p">]</span>
+<span class="linenos"> 3</span>    <span class="n">actual</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">diameter</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span>    <span class="k">return</span> <span class="p">{</span>
+<span class="linenos"> 6</span>        <span class="s1">'nominal'</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="s1">'nominal'</span><span class="p">]),</span>
+<span class="linenos"> 7</span>        <span class="s1">'actual'</span><span class="p">:</span> <span class="n">actual</span><span class="p">,</span>
+<span class="linenos"> 8</span>        <span class="s1">'target_element'</span><span class="p">:</span> <span class="n">element</span><span class="p">,</span>
+<span class="linenos"> 9</span>        <span class="s1">'data'</span><span class="p">:</span> <span class="p">{</span>
+<span class="linenos">10</span>            <span class="s1">'checked_element_name'</span><span class="p">:</span> <span class="n">element</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+<span class="linenos">11</span>            <span class="s1">'calculation_source'</span><span class="p">:</span> <span class="s1">'diameter'</span>
+<span class="linenos">12</span>        <span class="p">}</span>
+<span class="linenos">13</span>    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Read the persisted values as tokens on the inspection element:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Reading optional custom inspection data</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">inspection</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">inspection</span><span class="p">[</span><span class="s1">'Cylinder 1.CusSca'</span><span class="p">]</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="n">inspection</span><span class="o">.</span><span class="n">checked_element_name</span><span class="p">)</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="n">inspection</span><span class="o">.</span><span class="n">calculation_source</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Choose unique, token-friendly keys. A custom data key must not collide with an
+existing attribute or token of the inspection element type.</p>
+</section>
+<section id="stage-dependent-computation">
+<h3>Stage-dependent computation<a class="headerlink" href="#stage-dependent-computation" title="Link to this heading"></a></h3>
 <p>Curve and surface inspections can compute values for the current stage by
 using <code class="docutils literal notranslate"><span class="pre">context.stage</span></code>. See the <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomScalarInspection">Custom Scalar Inspection</a>,
 <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomCurveInspection">Custom Curve Inspection</a>,
@@ -316,8 +421,8 @@ from Python code.</p>
 <a class="reference internal" href="../user_defined_dialogs/dialog_widgets.html#tolerances-widget"><span class="std std-ref">Tolerances widget</span></a>
 with the reserved name <code class="docutils literal notranslate"><span class="pre">tolerance</span></code>, then forward its value from the dialog
 result in <code class="docutils literal notranslate"><span class="pre">apply_dialog()</span></code>.</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Forwarding tolerance values in apply_dialog()</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Forwarding tolerance values in apply_dialog()</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">apply_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
 <span class="linenos">2</span>    <span class="n">params</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
 <span class="linenos">3</span>    <span class="n">params</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span>
@@ -377,7 +482,7 @@ documentation for the supported modes and result formats.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f12c4cad8b0>
+  <jinja2.runtime.BlockReference object at 0x7f8f11a096d0>
 
 
 </footer>
