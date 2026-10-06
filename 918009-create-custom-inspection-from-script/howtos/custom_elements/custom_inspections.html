@@ -69,6 +69,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Custom inspections</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dialog-definition">Dialog definition</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#custom-inspection-python-script">Custom inspection Python script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-custom-inspections-from-python-script">Create custom inspections from Python script</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#applying-tolerances">Applying tolerances</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#service-definition-and-troubleshooting">Service definition and troubleshooting</a></li>
 </ul>
@@ -254,11 +255,69 @@
 </dd>
 </dl>
 </section>
+<section id="create-custom-inspections-from-python-script">
+<h3>Create custom inspections from Python script<a class="headerlink" href="#create-custom-inspections-from-python-script" title="Link to this heading"></a></h3>
+<p>Create a custom inspection from a Python script by using the
+<code class="docutils literal notranslate"><span class="pre">gom.script.customelements.create_inspection()</span></code> function. The <code class="docutils literal notranslate"><span class="pre">contribution</span></code>
+value must match the inspection class ID defined in its constructor. The
+<code class="docutils literal notranslate"><span class="pre">values</span></code> dictionary is forwarded unchanged to the inspection’s <code class="docutils literal notranslate"><span class="pre">compute()</span></code>
+method.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Custom inspection creation from Python script – Custom scalar inspection</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">checked_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">'Cylinder 1'</span><span class="p">]</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">customelements</span><span class="o">.</span><span class="n">create_inspection</span> <span class="p">(</span>
+<span class="linenos"> 4</span><span class="w">    </span><span class="sd">"""</span>
+<span class="linenos"> 5</span><span class="sd">    Create a custom scalar inspection</span>
+<span class="linenos"> 6</span><span class="sd">    """</span>
+<span class="linenos"> 7</span>    <span class="c1"># Inspection ID as defined in the contribution class constructor</span>
+<span class="linenos"> 8</span>    <span class="n">contribution</span><span class="o">=</span><span class="s1">'examples.custom_scalar_inspection'</span><span class="p">,</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>    <span class="c1"># Optional: Set the inspection name explicitly, otherwise it is set automatically</span>
+<span class="linenos">11</span>    <span class="n">name</span><span class="o">=</span><span class="s1">'Cylinder 1.CusSca'</span><span class="p">,</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span>    <span class="c1"># Values are forwarded to compute()</span>
+<span class="linenos">14</span>    <span class="n">values</span><span class="o">=</span><span class="p">{</span>
+<span class="linenos">15</span>        <span class="s1">'checked_element'</span><span class="p">:</span> <span class="n">checked_element</span><span class="p">,</span>
+<span class="linenos">16</span>        <span class="s1">'nominal'</span><span class="p">:</span> <span class="mf">4.82</span>
+<span class="linenos">17</span>    <span class="p">},</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span>    <span class="c1"># Optional: Set asymmetric lower and upper tolerance limits</span>
+<span class="linenos">20</span>    <span class="n">tolerance</span><span class="o">=</span><span class="p">{</span><span class="s1">'lower'</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">'upper'</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">}</span>
+<span class="linenos">21</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">values</span></code> entries depend on the inspection type and must match the
+parameters expected by its <code class="docutils literal notranslate"><span class="pre">compute()</span></code> method. The result returned by
+<code class="docutils literal notranslate"><span class="pre">compute()</span></code> must use the schema required by the corresponding inspection
+class:</p>
+<ul class="simple">
+<li><p>A scalar inspection returns <code class="docutils literal notranslate"><span class="pre">nominal</span></code>, <code class="docutils literal notranslate"><span class="pre">actual</span></code>, and <code class="docutils literal notranslate"><span class="pre">target_element</span></code>.</p></li>
+<li><p>A curve inspection returns <code class="docutils literal notranslate"><span class="pre">actual_values</span></code>, either a common <code class="docutils literal notranslate"><span class="pre">nominal_value</span></code>
+or matching <code class="docutils literal notranslate"><span class="pre">nominal_values</span></code>, and <code class="docutils literal notranslate"><span class="pre">target_element</span></code>.</p></li>
+<li><p>A surface inspection returns <code class="docutils literal notranslate"><span class="pre">deviation_values</span></code>, <code class="docutils literal notranslate"><span class="pre">nominal</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">target_element</span></code>.</p></li>
+</ul>
+<p>Curve and surface inspections can compute values for the current stage by
+using <code class="docutils literal notranslate"><span class="pre">context.stage</span></code>. See the <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomScalarInspection">Custom Scalar Inspection</a>,
+<a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomCurveInspection">Custom Curve Inspection</a>,
+and <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomSurfaceInspection">Custom Surface Inspection</a>
+examples for complete implementations and tests.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The custom inspection’s service must be running when an inspection is created
+from Python code.</p>
+</div>
+</section>
 <section id="applying-tolerances">
 <h3>Applying tolerances<a class="headerlink" href="#applying-tolerances" title="Link to this heading"></a></h3>
-<p>To apply tolerances to a custom inspection, forward the tolerance value from the dialog result in <code class="docutils literal notranslate"><span class="pre">apply_dialog()</span></code>.</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Forwarding tolerance values in apply_dialog()</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<p>To apply tolerances when creating an inspection from its dialog, add a
+<a class="reference internal" href="../user_defined_dialogs/dialog_widgets.html#tolerances-widget"><span class="std std-ref">Tolerances widget</span></a>
+with the reserved name <code class="docutils literal notranslate"><span class="pre">tolerance</span></code>, then forward its value from the dialog
+result in <code class="docutils literal notranslate"><span class="pre">apply_dialog()</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Forwarding tolerance values in apply_dialog()</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">apply_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
 <span class="linenos">2</span>    <span class="n">params</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
 <span class="linenos">3</span>    <span class="n">params</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span>
@@ -268,6 +327,12 @@
 </div>
 </div>
 <p>The framework consumes <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> automatically. The <code class="docutils literal notranslate"><span class="pre">values</span></code> dictionary is still forwarded unchanged to <code class="docutils literal notranslate"><span class="pre">compute()</span></code>.</p>
+<p>When creating an inspection from Python code, pass the tolerance directly to
+<code class="docutils literal notranslate"><span class="pre">gom.script.customelements.create_inspection()</span></code>, as shown in the previous
+example. The tolerance can be a symmetric value or a dictionary containing
+lower and upper limits, depending on the selected tolerance mode. See the
+<a class="reference internal" href="../user_defined_dialogs/dialog_widgets.html#tolerances-widget"><span class="std std-ref">Tolerances widget</span></a>
+documentation for the supported modes and result formats.</p>
 </section>
 <section id="service-definition-and-troubleshooting">
 <h3>Service definition and troubleshooting<a class="headerlink" href="#service-definition-and-troubleshooting" title="Link to this heading"></a></h3>
@@ -312,7 +377,7 @@
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fb93d1a1130>
+  <jinja2.runtime.BlockReference object at 0x7f12c4cad8b0>
 
 
 </footer>
