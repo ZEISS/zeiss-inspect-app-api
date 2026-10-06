@@ -208,6 +208,47 @@ class:
 * A surface inspection returns `deviation_values`, `nominal`, and
     `target_element`.
 
+### Optional inspection result data
+
+Additional inspection data can be persisted by returning a `data` dictionary
+from `compute()`. The data is stored with the inspection element, and each key
+becomes a token that can be accessed through the element later.
+
+```{code-block} python
+:caption: Persisting optional custom inspection data
+:linenos:
+
+def compute(self, context, values):
+    element = values['checked_element']
+    actual = float(element.diameter)
+
+    return {
+        'nominal': float(values['nominal']),
+        'actual': actual,
+        'target_element': element,
+        'data': {
+            'checked_element_name': element.name,
+            'calculation_source': 'diameter'
+        }
+    }
+```
+
+Read the persisted values as tokens on the inspection element:
+
+```{code-block} python
+:caption: Reading optional custom inspection data
+:linenos:
+
+inspection = gom.app.project.inspection['Cylinder 1.CusSca']
+print(inspection.checked_element_name)
+print(inspection.calculation_source)
+```
+
+Choose unique, token-friendly keys. A custom data key must not collide with an
+existing attribute or token of the inspection element type.
+
+### Stage-dependent computation
+
 Curve and surface inspections can compute values for the current stage by
 using `context.stage`. See the [Custom Scalar Inspection](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomScalarInspection),
 [Custom Curve Inspection](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomCurveInspection),
