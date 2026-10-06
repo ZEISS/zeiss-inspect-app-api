@@ -128,6 +128,40 @@ line 41..53:
 line 55:
 : `gom.run_api()` is executed when the script is started as a service.
 
+### Create custom inspections interactively
+
+Custom inspections can be created interactively from the I-Inspect menu when
+an element is selected. The custom inspection's service must be running for
+the inspection to be available in the menu.
+
+By default, a custom inspection is visible in the I-Inspect menu. Override
+[`is_visible_for_iinspect()`](../../python_api/python_api.md#gomapiextensions-customelement-is-visible-for-iinspect)
+to control whether the inspection is offered for the selected element. The
+method receives exactly one selected element and can use its type or
+properties to determine whether the inspection is applicable.
+
+```{code-block} python
+:caption: Restricting an inspection's visibility in the I-Inspect menu
+:linenos:
+
+def is_visible_for_iinspect(self, context, element):
+    return gom.api.custom_checks_util.is_scalar_checkable(element)
+```
+
+Return `False` when the inspection is intended to be created only by script:
+
+```{code-block} python
+:caption: Hiding an inspection from the I-Inspect menu
+:linenos:
+
+def is_visible_for_iinspect(self, context, element):
+    return False
+```
+
+If `is_visible_for_iinspect()` raises an exception, the inspection is visible
+by default as a fail-safe behavior. The method should therefore return
+`False` explicitly when an inspection must not be offered through I-Inspect.
+
 ### Create custom inspections from Python script
 
 Create a custom inspection from a Python script by using the
