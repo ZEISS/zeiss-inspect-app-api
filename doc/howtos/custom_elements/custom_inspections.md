@@ -30,7 +30,7 @@ The element name widget object must be set to `name` in the Dialog Editor.
 
 The dialog can optionally provide
 
-* A <a href="../user_defined_dialogs/dialog_widgets.html#unit-widget">Unit widget</a> to set the deviation value's dimension
+* A <a href="../user_defined_dialogs/dialog_widgets.html#unit-widget">Unit widget</a> to select the unit used to enter or display deviation values
 
 * A <a href="../user_defined_dialogs/dialog_widgets.html#tolerances-widget">Tolerances widget</a> for evaluating the deviation value(s)
 
@@ -100,8 +100,7 @@ class MinimalScalarInspection (gom.api.extensions.inspections.Scalar):
         return {
             "nominal": NOMINAL_RESULT,
             "actual":  ACTUAL_RESULT,
-            "target_element": values['slct_element'],
-            "unit": values['unit']
+            "target_element": values['slct_element']
         }
 
 gom.run_api ()
