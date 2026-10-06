@@ -162,6 +162,37 @@ If `is_visible_for_iinspect()` raises an exception, the inspection is visible
 by default as a fail-safe behavior. The method should therefore return
 `False` explicitly when an inspection must not be offered through I-Inspect.
 
+### Element-specific filtering methods
+
+Use an element-specific filter to restrict the elements that can be selected
+in the inspection dialog. The filter is assigned to the selection widget's
+`filter` attribute. Use the corresponding helper from
+`gom.api.custom_checks_util` for scalar, curve, or surface inspections.
+
+```{code-block} python
+:caption: Filtering elements in a custom inspection dialog
+:linenos:
+
+def element_filter(self, element):
+    try:
+        return gom.api.custom_checks_util.is_scalar_checkable(element)
+    except (AttributeError, TypeError):
+        return False
+
+def dialog(self, context, args):
+    dlg = gom.api.dialog.create(context, '/Custom_ScalarInspection.gdlg')
+    dlg.checked_element.filter = self.element_filter
+    self.initialize_dialog(context, dlg, args)
+    return self.apply_dialog(dlg, gom.api.dialog.show(context, dlg))
+```
+
+Use `is_curve_checkable()` or `is_surface_checkable()` for curve or surface
+inspections, respectively. Return `False` when an element is unsupported or
+does not provide the properties required by the inspection. The `filter`
+attribute controls which elements can be selected in the dialog;
+[`is_visible_for_iinspect()`](../../python_api/python_api.md#gomapiextensions-customelement-is-visible-for-iinspect)
+controls whether the inspection is offered in the I-Inspect menu.
+
 ### Create custom inspections from Python script
 
 Create a custom inspection from a Python script by using the
