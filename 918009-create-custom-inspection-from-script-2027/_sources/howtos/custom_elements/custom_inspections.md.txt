@@ -30,7 +30,7 @@ The element name widget object must be set to `name` in the Dialog Editor.
 
 The dialog can optionally provide
 
-* A <a href="../user_defined_dialogs/dialog_widgets.html#unit-widget">Unit widget</a> to set the deviation value's dimension
+* A <a href="../user_defined_dialogs/dialog_widgets.html#unit-widget">Unit widget</a> to select the unit used to enter or display deviation values
 
 * A <a href="../user_defined_dialogs/dialog_widgets.html#tolerances-widget">Tolerances widget</a> for evaluating the deviation value(s)
 
@@ -100,8 +100,7 @@ class MinimalScalarInspection (gom.api.extensions.inspections.Scalar):
         return {
             "nominal": NOMINAL_RESULT,
             "actual":  ACTUAL_RESULT,
-            "target_element": values['slct_element'],
-            "unit": values['unit']
+            "target_element": values['slct_element']
         }
 
 gom.run_api ()
@@ -114,7 +113,11 @@ line 7..8:
 : The class `MinimalScalarInspection` is inherited from [gom.api.extensions.inspections.Scalar](../../python_api/python_api.md#gomapiextensionsinspectionsscalar). The decorator `@apicontribution` allows to register the class `MinimalScalarInspection` in the ZEISS INSPECT framework.
 
 line 10..16:
-: The constructor calls the super class constructor while defining unique contribution ID, human-readable description, dimension and abbreviation. See the API reference for full signature details.
+: The constructor calls the super class constructor while defining the inspection ID, description, dimension, and abbreviation. See the API reference for full signature details.
+
+```{note}
+The `dimension` argument selects a physical quantity from ZEISS INSPECT's built-in dimension definitions and determines the unit expected by the scripting API. For example, `dimension='length'` means that computed values must be provided in millimeters. The unit used to display that dimension can be configured in the ZEISS INSPECT preferences, but this does not change the API unit; ZEISS INSPECT converts values to the configured display unit when needed. Use [`gom.api.customelements.get_dimension_definition()`](../../python_api/python_api.md#gomapicustomelementsget_dimension_definition) to inspect a dimension definition.
+```
 
 line 18..28:
 : The `dialog()` method applies an element filter (see <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#selection-element-widget">Selection element widget</a>) and copies the dialog handle to the member `dlg` for usage in `event()`.
@@ -128,9 +131,145 @@ line 41..53:
 line 55:
 : `gom.run_api()` is executed when the script is started as a service.
 
+```{caution}
+The custom inspection's service must be running when an inspection is created,
+whether creation is initiated interactively or from Python code.
+```
+
+### Create custom inspections interactively
+
+Custom inspections can be created interactively from the I-Inspect menu when
+an element is selected. The custom inspection's service must be running for
+the inspection to be available in the menu.
+
+### Element-specific filtering methods
+
+Use an element-specific filter to restrict the elements that can be selected
+in the inspection dialog. The filter is assigned to the selection widget's
+`filter` attribute. Use the corresponding helper from
+`gom.api.custom_checks_util` for scalar, curve, or surface inspections.
+
+```{code-block} python
+:caption: Filtering elements in a custom inspection dialog
+:linenos:
+
+def element_filter(self, element):
+    try:
+        return gom.api.custom_checks_util.is_scalar_checkable(element)
+    except (AttributeError, TypeError):
+        return False
+
+def dialog(self, context, args):
+    dlg = gom.api.dialog.create(context, '/Custom_ScalarInspection.gdlg')
+    dlg.checked_element.filter = self.element_filter
+    self.initialize_dialog(context, dlg, args)
+    return self.apply_dialog(dlg, gom.api.dialog.show(context, dlg))
+```
+
+Use `is_curve_checkable()` or `is_surface_checkable()` for curve or surface
+inspections, respectively. Return `False` when an element is unsupported or
+does not provide the properties required by the inspection. The `filter`
+attribute controls which elements can be selected in the dialog.
+
+### Create custom inspections from Python script
+
+Create a custom inspection from a Python script by using the
+`gom.script.customelements.create_inspection()` function. The `contribution`
+value must match the inspection class ID defined in its constructor. The
+`values` dictionary is forwarded unchanged to the inspection's `compute()`
+method.
+
+```{code-block} python
+:caption: Custom inspection creation from Python script &ndash; Custom scalar inspection
+:linenos:
+
+checked_element = gom.app.project.actual_elements['Cylinder 1']
+
+gom.script.customelements.create_inspection (
+    """
+    Create a custom scalar inspection
+    """
+    # Inspection ID as defined in the contribution class constructor
+    contribution='examples.custom_scalar_inspection',
+
+    # Optional: Set the inspection name explicitly, otherwise it is set automatically
+    name='Cylinder 1.CusSca',
+
+    # Values are forwarded to compute()
+    values={
+        'checked_element': checked_element,
+        'nominal': 4.82
+    },
+
+    # Optional: Set asymmetric lower and upper tolerance limits
+    tolerance={'lower': -0.1, 'upper': 0.1}
+)
+```
+
+The `values` entries depend on the inspection type and must match the
+parameters expected by its `compute()` method. The result returned by
+`compute()` must use the schema required by the corresponding inspection
+class:
+
+* A scalar inspection returns `nominal`, `actual`, and `target_element`.
+* A curve inspection returns `actual_values`, either a common `nominal_value`
+    or matching `nominal_values`, and `target_element`.
+* A surface inspection returns `deviation_values`, `nominal`, and
+    `target_element`.
+
+### Optional inspection result data
+
+Additional inspection data can be persisted by returning a `data` dictionary
+from `compute()`. The data is stored with the inspection element, and each key
+becomes a token that can be accessed through the element later.
+
+```{code-block} python
+:caption: Persisting optional custom inspection data
+:linenos:
+
+def compute(self, context, values):
+    element = values['checked_element']
+    actual = float(element.diameter)
+
+    return {
+        'nominal': float(values['nominal']),
+        'actual': actual,
+        'target_element': element,
+        'data': {
+            'checked_element_name': element.name,
+            'calculation_source': 'diameter'
+        }
+    }
+```
+
+Read the persisted values as tokens on the inspection element:
+
+```{code-block} python
+:caption: Reading optional custom inspection data
+:linenos:
+
+inspection = gom.app.project.inspection['Cylinder 1.CusSca']
+print(inspection.checked_element_name)
+print(inspection.calculation_source)
+```
+
+Choose unique, token-friendly keys. A custom data key must not collide with an
+existing attribute or token of the inspection element type.
+
+### Stage-dependent computation
+
+Curve and surface inspections can compute values for the current stage by
+using `context.stage`. See the [Custom Scalar Inspection](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomScalarInspection),
+[Custom Curve Inspection](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomCurveInspection),
+and [Custom Surface Inspection](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomSurfaceInspection)
+examples for complete implementations and tests.
+
 ### Applying tolerances
 
-To apply tolerances to a custom inspection, forward the tolerance value from the dialog result in `apply_dialog()`.
+To apply tolerances when creating an inspection from its dialog, add a
+[Tolerances widget](../user_defined_dialogs/dialog_widgets.md#tolerances-widget)
+with the reserved name `tolerance`, then forward its value from the dialog
+result in `apply_dialog()`.
 
 ```{code-block} python
 :caption: Forwarding tolerance values in apply_dialog()
@@ -144,6 +283,13 @@ def apply_dialog(self, dlg, result):
 ```
 
 The framework consumes `name` and `tolerance` automatically. The `values` dictionary is still forwarded unchanged to `compute()`.
+
+When creating an inspection from Python code, pass the tolerance directly to
+`gom.script.customelements.create_inspection()`, as shown in the previous
+example. The tolerance can be a symmetric value or a dictionary containing
+lower and upper limits, depending on the selected tolerance mode. See the
+[Tolerances widget](../user_defined_dialogs/dialog_widgets.md#tolerances-widget)
+documentation for the supported modes and result formats.
 
 ### Service definition and troubleshooting
 
