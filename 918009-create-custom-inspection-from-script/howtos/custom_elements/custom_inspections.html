@@ -263,6 +263,11 @@
 <dt>line 55:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> is executed when the script is started as a service.</p>
 </dd>
 </dl>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The custom inspection’s service must be running when an inspection is created,
+whether creation is initiated interactively or from Python code.</p>
+</div>
 </section>
 <section id="create-custom-inspections-interactively">
 <h3>Create custom inspections interactively<a class="headerlink" href="#create-custom-inspections-interactively" title="Link to this heading"></a></h3>
@@ -409,11 +414,6 @@ using <code class="docutils literal notranslate"><span class="pre">context.stage
 <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomCurveInspection">Custom Curve Inspection</a>,
 and <a class="reference external" href="https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomSurfaceInspection">Custom Surface Inspection</a>
 examples for complete implementations and tests.</p>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>The custom inspection’s service must be running when an inspection is created
-from Python code.</p>
-</div>
 </section>
 <section id="applying-tolerances">
 <h3>Applying tolerances<a class="headerlink" href="#applying-tolerances" title="Link to this heading"></a></h3>
@@ -482,7 +482,7 @@ documentation for the supported modes and result formats.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fd68ed0d6d0>
+  <jinja2.runtime.BlockReference object at 0x7f84883e96d0>
 
 
 </footer>

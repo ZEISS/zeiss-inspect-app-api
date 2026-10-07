@@ -131,6 +131,11 @@ line 41..53:
 line 55:
 : `gom.run_api()` is executed when the script is started as a service.
 
+```{caution}
+The custom inspection's service must be running when an inspection is created,
+whether creation is initiated interactively or from Python code.
+```
+
 ### Create custom inspections interactively
 
 Custom inspections can be created interactively from the I-Inspect menu when
@@ -288,11 +293,6 @@ using `context.stage`. See the [Custom Scalar Inspection](https://github.com/ZEI
 [Custom Curve Inspection](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomCurveInspection),
 and [Custom Surface Inspection](https://github.com/ZEISS/zeiss-inspect-app-examples/tree/main/AppExamples/custom_elements/CustomSurfaceInspection)
 examples for complete implementations and tests.
-
-```{caution}
-The custom inspection's service must be running when an inspection is created
-from Python code.
-```
 
 ### Applying tolerances
 
