@@ -142,34 +142,6 @@ Custom inspections can be created interactively from the I-Inspect menu when
 an element is selected. The custom inspection's service must be running for
 the inspection to be available in the menu.
 
-By default, a custom inspection is visible in the I-Inspect menu. Override
-[`is_visible_for_iinspect()`](../../python_api/python_api.md#gomapiextensionscustomelementis_visible_for_iinspect)
-to control whether the inspection is offered for the selected element. The
-method receives exactly one selected element and can use its type or
-properties to determine whether the inspection is applicable.
-
-```{code-block} python
-:caption: Restricting an inspection's visibility in the I-Inspect menu
-:linenos:
-
-def is_visible_for_iinspect(self, context, element):
-    return gom.api.custom_checks_util.is_scalar_checkable(element)
-```
-
-Return `False` when the inspection is intended to be created only by script:
-
-```{code-block} python
-:caption: Hiding an inspection from the I-Inspect menu
-:linenos:
-
-def is_visible_for_iinspect(self, context, element):
-    return False
-```
-
-If `is_visible_for_iinspect()` raises an exception, the inspection is visible
-by default as a fail-safe behavior. The method should therefore return
-`False` explicitly when an inspection must not be offered through I-Inspect.
-
 ### Element-specific filtering methods
 
 Use an element-specific filter to restrict the elements that can be selected
@@ -197,9 +169,7 @@ def dialog(self, context, args):
 Use `is_curve_checkable()` or `is_surface_checkable()` for curve or surface
 inspections, respectively. Return `False` when an element is unsupported or
 does not provide the properties required by the inspection. The `filter`
-attribute controls which elements can be selected in the dialog;
-[`is_visible_for_iinspect()`](../../python_api/python_api.md#gomapiextensionscustomelementis_visible_for_iinspect)
-controls whether the inspection is offered in the I-Inspect menu.
+attribute controls which elements can be selected in the dialog.
 
 ### Create custom inspections from Python script
 
