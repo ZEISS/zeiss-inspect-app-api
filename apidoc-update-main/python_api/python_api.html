@@ -764,18 +764,6 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-script-resources-unload">gom.api.script_resources.unload</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#gom-api-scripted-checks-util">gom.api.scripted_checks_util</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-curve-checkable">gom.api.scripted_checks_util.is_curve_checkable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-scalar-checkable">gom.api.scripted_checks_util.is_scalar_checkable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-surface-checkable">gom.api.scripted_checks_util.is_surface_checkable</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#gom-api-scriptedelements">gom.api.scriptedelements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimension-definition">gom.api.scriptedelements.get_dimension_definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimensions">gom.api.scriptedelements.get_dimensions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-inspection-definition">gom.api.scriptedelements.get_inspection_definition</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-selection">gom.api.selection</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-selection-get-selected-elements">gom.api.selection.get_selected_elements</a></li>
 </ul>
@@ -6324,10 +6312,11 @@ supported.</p>
 </section>
 <section id="gom-api-extensions-views-customeditor">
 <h4>gom.api.extensions.views.CustomEditor<a class="headerlink" href="#gom-api-extensions-views-customeditor" title="Link to this heading"></a></h4>
-<p>Custom editor view for editing App Content</p>
+<p>Custom editor view for editing App Content and native Project Content</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">CustomEditor</span></code> provides a full-featured editor for App Content files (workflows, tables,
 tokens, or custom content categories). Unlike <code class="docutils literal notranslate"><span class="pre">CustomCanvas</span></code>, the editor uses an NPM bundle
-(required) for its UI and integrates automatic file loading and saving.</p>
+(required) for its UI and integrates automatic file loading and saving. Native Project Content uses the same
+prepare/extract callbacks, with persistence handled by its content provider.</p>
 <pre  class="mermaid">
         sequenceDiagram
     participant App as ZEISS INSPECT
@@ -6354,6 +6343,10 @@ JSON structure expected by the JavaScript editor bundle.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">extract_data(content,</span> <span class="pre">json)</span></code> — Inverse of <code class="docutils literal notranslate"><span class="pre">prepare_data()</span></code>. Convert the editor’s
 output back to a list of <code class="docutils literal notranslate"><span class="pre">(filename,</span> <span class="pre">data,</span> <span class="pre">DataType)</span></code> tuples for saving.</p></li>
 </ol>
+<p>For native Project Content, the host skips <code class="docutils literal notranslate"><span class="pre">get_data_types()</span></code> and supplies a single
+<code class="docutils literal notranslate"><span class="pre">(content_name,</span> <span class="pre">properties)</span></code> tuple to <code class="docutils literal notranslate"><span class="pre">prepare_data()</span></code>. Return the same identifier with
+modified properties and <code class="docutils literal notranslate"><span class="pre">DataTypes.JSON</span></code> from <code class="docutils literal notranslate"><span class="pre">extract_data()</span></code>. No file is created;
+<code class="docutils literal notranslate"><span class="pre">JSON</span></code> describes the property transport, while the provider handles native persistence.</p>
 <p><strong>Example</strong></p>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text">Custom JSON file editor</span><a class="headerlink" href="#id11" title="Link to this code"></a></div>
@@ -6444,11 +6437,11 @@ request/response patterns between the editor bundle and the Python service.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>content</strong> (<em>str</em>) – Name of App Content</p></li>
-<li><p><strong>json</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – List of data created by the editor (one entry per file).</p></li>
+<li><p><strong>json</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – List of data created by the editor.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>List of tuples. Each tuples holds the filename, the processed data to save and the DataTypes of the file to save.</p>
+<dd class="field-even"><p>List of (identifier, data, DataTypes) tuples. Return actual filenames for app content, or exactly one tuple with the original content name, updated properties and DataTypes.JSON for project content.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -6457,7 +6450,8 @@ request/response patterns between the editor bundle and the Python service.</p>
 </dd></dl>
 
 <p>Inverse of self.prepare_data()</p>
-<p>This function processes the data generated by the editor and returns it in a format that can be saved to the files.</p>
+<p>Convert editor data into items to save. The host saves app items as files and project items through their
+content provider. Project properties use DataTypes.JSON for transport, not for project file persistence.</p>
 </section>
 <section id="gom-api-extensions-views-customeditor-get-data-types">
 <h5>gom.api.extensions.views.CustomEditor.get_data_types<a class="headerlink" href="#gom-api-extensions-views-customeditor-get-data-types" title="Link to this heading"></a></h5>
@@ -6491,7 +6485,7 @@ request/response patterns between the editor bundle and the Python service.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>content</strong> (<em>str</em>) – Name of App Content</p></li>
-<li><p><strong>data</strong> (<em>List</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – List of tuples. Each tuple holds the filename and the data in the format specified by get_data_types ().</p></li>
+<li><p><strong>data</strong> (<em>List</em><em>[</em><em>tuple</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>]</em>) – List of (identifier, data) tuples. For app content, identifiers are actual filenames and data uses the format specified by get_data_types (). For project content, a single tuple contains the content name and its provider properties. Preserve the identifier when extracting modified data.</p></li>
 <li><p><strong>readonly</strong> (<em>bool</em>) – Whether the editor is opened in read-only mode</p></li>
 </ul>
 </dd>
@@ -6504,7 +6498,7 @@ request/response patterns between the editor bundle and the Python service.</p>
 </dl>
 </dd></dl>
 
-<p>Prepare JSON style data from app contents.</p>
+<p>Prepare editor data from app files or native project content properties.</p>
 </section>
 </section>
 <section id="gom-api-extensions-views-customutilityview">
@@ -8615,154 +8609,6 @@ for various image variants.</p>
 
 </section>
 </section>
-<section id="gom-api-scripted-checks-util">
-<h2>gom.api.scripted_checks_util<a class="headerlink" href="#gom-api-scripted-checks-util" title="Link to this heading"></a></h2>
-<p>Tool functions for scripted checks</p>
-<section id="gom-api-scripted-checks-util-is-curve-checkable">
-<h3>gom.api.scripted_checks_util.is_curve_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-curve-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_curve_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a curve check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a curve</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a curve in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-<section id="gom-api-scripted-checks-util-is-scalar-checkable">
-<h3>gom.api.scripted_checks_util.is_scalar_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-scalar-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_scalar_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a scalar check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a scalar value</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a scalar value in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-<section id="gom-api-scripted-checks-util-is-surface-checkable">
-<h3>gom.api.scripted_checks_util.is_surface_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-surface-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_surface_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a surface check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a surface</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a surface in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-</section>
-<section id="gom-api-scriptedelements">
-<h2>gom.api.scriptedelements<a class="headerlink" href="#gom-api-scriptedelements" title="Link to this heading"></a></h2>
-<p>API for handling scripted elements</p>
-<p>This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, …)
-It is used mostly internally by the scripted element framework.</p>
-<section id="gom-api-scriptedelements-get-dimension-definition">
-<h3>gom.api.scriptedelements.get_dimension_definition<a class="headerlink" href="#gom-api-scriptedelements-get-dimension-definition" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_dimension_definition(typename:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Return information about the given dimension</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> – Name of the dimension</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>A physical dimension (or just “dimension”) refers to the fundamental nature of what is measured - like length,
-time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
-from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
-millimeter, inch for length; or degree, radian for angle.</p>
-</section>
-<section id="gom-api-scriptedelements-get-dimensions">
-<h3>gom.api.scriptedelements.get_dimensions<a class="headerlink" href="#gom-api-scriptedelements-get-dimensions" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_dimensions():</span> <span class="pre">[str]</span></span></dt>
-<dd><p>Return available dimensions</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List of known dimensions</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="gom-api-scriptedelements-get-inspection-definition">
-<h3>gom.api.scriptedelements.get_inspection_definition<a class="headerlink" href="#gom-api-scriptedelements-get-inspection-definition" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_inspection_definition(typename:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Return information about the given scripted element type</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>type_name</strong> – Type name of the inspection to query</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary with relevant type information or an empty dictionary if the type is unknown</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function queries in internal ‘scalar registry’ database for information about the
-inspection with the given type.</p>
-</section>
-</section>
 <section id="gom-api-selection">
 <h2>gom.api.selection<a class="headerlink" href="#gom-api-selection" title="Link to this heading"></a></h2>
 <p>API for handling explorer selection</p>
@@ -10679,7 +10525,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f332b41fa10>
+  <jinja2.runtime.BlockReference object at 0x7f87f9ddf700>
 
 
 </footer>
