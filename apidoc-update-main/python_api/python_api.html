@@ -764,18 +764,6 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-script-resources-unload">gom.api.script_resources.unload</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#gom-api-scripted-checks-util">gom.api.scripted_checks_util</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-curve-checkable">gom.api.scripted_checks_util.is_curve_checkable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-scalar-checkable">gom.api.scripted_checks_util.is_scalar_checkable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-surface-checkable">gom.api.scripted_checks_util.is_surface_checkable</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#gom-api-scriptedelements">gom.api.scriptedelements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimension-definition">gom.api.scriptedelements.get_dimension_definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimensions">gom.api.scriptedelements.get_dimensions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-inspection-definition">gom.api.scriptedelements.get_inspection_definition</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-selection">gom.api.selection</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-selection-get-selected-elements">gom.api.selection.get_selected_elements</a></li>
 </ul>
@@ -6285,7 +6273,14 @@ logic. A single collector can render multiple UI components from its data.</p>
 <p>Set <code class="docutils literal notranslate"><span class="pre">export_version=1</span></code> to opt in to report export. The data-view bundle must
 then provide <code class="docutils literal notranslate"><span class="pre">window.customDataView.exportSvg(request)</span></code>. The function receives
 a request with <code class="docutils literal notranslate"><span class="pre">data</span></code>, <code class="docutils literal notranslate"><span class="pre">widthPx</span></code>, <code class="docutils literal notranslate"><span class="pre">heightPx</span></code>, <code class="docutils literal notranslate"><span class="pre">dpi</span></code>, <code class="docutils literal notranslate"><span class="pre">font</span></code>, <code class="docutils literal notranslate"><span class="pre">scale</span></code>, and
-<code class="docutils literal notranslate"><span class="pre">configuration</span></code>, and returns a promise resolving to one self-contained SVG:</p>
+<code class="docutils literal notranslate"><span class="pre">configuration</span></code>, and returns a promise resolving to one self-contained SVG.
+During report capture, the host derives <code class="docutils literal notranslate"><span class="pre">widthPx</span></code> and <code class="docutils literal notranslate"><span class="pre">heightPx</span></code> from the
+placeholder’s drawable size and <code class="docutils literal notranslate"><span class="pre">dpi</span></code>; the returned <code class="docutils literal notranslate"><span class="pre">widthMm</span></code> and <code class="docutils literal notranslate"><span class="pre">heightMm</span></code>
+define the SVG’s intrinsic physical dimensions.
+The contribution’s <code class="docutils literal notranslate"><span class="pre">aspect_ratio_mode</span></code> property controls how the report
+placeholder sizes that SVG: <code class="docutils literal notranslate"><span class="pre">stretch</span></code> fills the placeholder, <code class="docutils literal notranslate"><span class="pre">fit</span></code> preserves
+the SVG ratio while maximizing it within the placeholder, and <code class="docutils literal notranslate"><span class="pre">fixed</span></code> uses
+the exported millimetre dimensions.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nx">svg</span><span class="o">:</span><span class="w"> </span><span class="s1">'&lt;svg ...&gt;...&lt;/svg&gt;'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">widthMm</span><span class="o">:</span><span class="w"> </span><span class="mf">210</span><span class="p">,</span>
@@ -6296,11 +6291,15 @@ a request with <code class="docutils literal notranslate"><span class="pre">data
 <p>The export function must use only the frozen <code class="docutils literal notranslate"><span class="pre">data</span></code> in the request. External
 resources, screenshots, bridge calls, and live collector access are not
 supported.</p>
+<p>Placeholder creation adds a <code class="docutils literal notranslate"><span class="pre">report_layout</span></code> map to <code class="docutils literal notranslate"><span class="pre">configuration</span></code>. It
+contains <code class="docutils literal notranslate"><span class="pre">anchor_point</span></code> and <code class="docutils literal notranslate"><span class="pre">clip_content</span></code> for native report placement, plus
+<code class="docutils literal notranslate"><span class="pre">font_size</span></code> in points (<code class="docutils literal notranslate"><span class="pre">0</span></code> means use the SVG’s exported font size). The
+exporter can use <code class="docutils literal notranslate"><span class="pre">font_size</span></code> when producing its SVG.</p>
 <section id="gom-api-extensions-views-customdataview-init">
 <h5>gom.api.extensions.views.CustomDataView.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-views-customdataview-init" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.views.CustomDataView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">bundle:</span> <span class="pre">str,</span> <span class="pre">collectors:</span> <span class="pre">List[str],</span> <span class="pre">stylesheet:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">signals:</span> <span class="pre">List[str],</span> <span class="pre">preprocess_data:</span> <span class="pre">Any,</span> <span class="pre">export_version:</span> <span class="pre">int,</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.CustomDataView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">bundle:</span> <span class="pre">str,</span> <span class="pre">collectors:</span> <span class="pre">List[str],</span> <span class="pre">stylesheet:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">signals:</span> <span class="pre">List[str],</span> <span class="pre">preprocess_data:</span> <span class="pre">Any,</span> <span class="pre">export_version:</span> <span class="pre">int,</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">aspect_ratio_mode:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -6314,6 +6313,7 @@ supported.</p>
 <li><p><strong>preprocess_data</strong> (<em>Any</em>) – Optional callable with signature <code class="docutils literal notranslate"><span class="pre">(data)</span></code>. (OPTIONAL, default: None)</p></li>
 <li><p><strong>export_version</strong> (<em>int</em>) – Report SVG export protocol version. Use <code class="docutils literal notranslate"><span class="pre">1</span></code> to opt in. (OPTIONAL, default: None)</p></li>
 <li><p><strong>properties</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Additional contribution properties. (OPTIONAL, default: {})</p></li>
+<li><p><strong>aspect_ratio_mode</strong> (<em>str</em>) – SVG layout policy: <code class="docutils literal notranslate"><span class="pre">stretch</span></code>, <code class="docutils literal notranslate"><span class="pre">fit</span></code>, or <code class="docutils literal notranslate"><span class="pre">fixed</span></code>. (OPTIONAL, default: <code class="docutils literal notranslate"><span class="pre">stretch</span></code>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -8621,154 +8621,6 @@ for various image variants.</p>
 
 </section>
 </section>
-<section id="gom-api-scripted-checks-util">
-<h2>gom.api.scripted_checks_util<a class="headerlink" href="#gom-api-scripted-checks-util" title="Link to this heading"></a></h2>
-<p>Tool functions for scripted checks</p>
-<section id="gom-api-scripted-checks-util-is-curve-checkable">
-<h3>gom.api.scripted_checks_util.is_curve_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-curve-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_curve_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a curve check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a curve</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a curve in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-<section id="gom-api-scripted-checks-util-is-scalar-checkable">
-<h3>gom.api.scripted_checks_util.is_scalar_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-scalar-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_scalar_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a scalar check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a scalar value</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a scalar value in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-<section id="gom-api-scripted-checks-util-is-surface-checkable">
-<h3>gom.api.scripted_checks_util.is_surface_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-surface-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_surface_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a surface check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a surface</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a surface in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-</section>
-<section id="gom-api-scriptedelements">
-<h2>gom.api.scriptedelements<a class="headerlink" href="#gom-api-scriptedelements" title="Link to this heading"></a></h2>
-<p>API for handling scripted elements</p>
-<p>This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, …)
-It is used mostly internally by the scripted element framework.</p>
-<section id="gom-api-scriptedelements-get-dimension-definition">
-<h3>gom.api.scriptedelements.get_dimension_definition<a class="headerlink" href="#gom-api-scriptedelements-get-dimension-definition" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_dimension_definition(typename:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Return information about the given dimension</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> – Name of the dimension</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>A physical dimension (or just “dimension”) refers to the fundamental nature of what is measured - like length,
-time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
-from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
-millimeter, inch for length; or degree, radian for angle.</p>
-</section>
-<section id="gom-api-scriptedelements-get-dimensions">
-<h3>gom.api.scriptedelements.get_dimensions<a class="headerlink" href="#gom-api-scriptedelements-get-dimensions" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_dimensions():</span> <span class="pre">[str]</span></span></dt>
-<dd><p>Return available dimensions</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List of known dimensions</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="gom-api-scriptedelements-get-inspection-definition">
-<h3>gom.api.scriptedelements.get_inspection_definition<a class="headerlink" href="#gom-api-scriptedelements-get-inspection-definition" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_inspection_definition(typename:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Return information about the given scripted element type</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>type_name</strong> – Type name of the inspection to query</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary with relevant type information or an empty dictionary if the type is unknown</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function queries in internal ‘scalar registry’ database for information about the
-inspection with the given type.</p>
-</section>
-</section>
 <section id="gom-api-selection">
 <h2>gom.api.selection<a class="headerlink" href="#gom-api-selection" title="Link to this heading"></a></h2>
 <p>API for handling explorer selection</p>
@@ -10685,7 +10537,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fe05f79faf0>
+  <jinja2.runtime.BlockReference object at 0x7f37bc8578c0>
 
 
 </footer>
