@@ -4806,7 +4806,7 @@ flowchart LR
 - `CustomEditor`  — editor widget in the AppExplorer when selecting an AppContent
   item; backed by an NPM bundle with automatic loading and saving of App Content files.
 - `CustomUtilityView` — view in the main application window; backed by an NPM
-  bundle without built-in content management. This concept is under development and might be 
+  bundle without built-in content management. This concept is under development and might be
   subject to heavy changes in the future.
 
 All three inherit from the abstract `CustomView` base class, which should not be
@@ -5182,7 +5182,14 @@ logic. A single collector can render multiple UI components from its data.
 Set `export_version=1` to opt in to report export. The data-view bundle must
 then provide `window.customDataView.exportSvg(request)`. The function receives
 a request with `data`, `widthPx`, `heightPx`, `dpi`, `font`, `scale`, and
-`configuration`, and returns a promise resolving to one self-contained SVG:
+`configuration`, and returns a promise resolving to one self-contained SVG.
+During report capture, the host derives `widthPx` and `heightPx` from the
+placeholder's drawable size and `dpi`; the returned `widthMm` and `heightMm`
+define the SVG's intrinsic physical dimensions.
+The contribution's `aspect_ratio_mode` property controls how the report
+placeholder sizes that SVG: `stretch` fills the placeholder, `fit` preserves
+the SVG ratio while maximizing it within the placeholder, and `fixed` uses
+the exported millimetre dimensions.
 
 ```javascript
 {
@@ -5196,9 +5203,14 @@ The export function must use only the frozen `data` in the request. External
 resources, screenshots, bridge calls, and live collector access are not
 supported.
 
+Placeholder creation adds a `report_layout` map to `configuration`. It
+contains `anchor_point` and `clip_content` for native report placement, plus
+`font_size` in points (`0` means use the SVG's exported font size). The
+exporter can use `font_size` when producing its SVG.
+
 ##### gom.api.extensions.views.CustomDataView.__init__
 
-```{py:function} gom.api.extensions.views.CustomDataView.__init__(self: Any, id: str, description: str, bundle: str, collectors: List[str], stylesheet: str, functions: List[Any], signals: List[str], preprocess_data: Any, export_version: int, properties: Dict[str, Any]): None
+```{py:function} gom.api.extensions.views.CustomDataView.__init__(self: Any, id: str, description: str, bundle: str, collectors: List[str], stylesheet: str, functions: List[Any], signals: List[str], preprocess_data: Any, export_version: int, properties: Dict[str, Any], aspect_ratio_mode: str): None
 
 :param id: Globally unique custom view id string. (REQUIRED)
 :type id: str
@@ -5220,6 +5232,8 @@ supported.
 :type export_version: int
 :param properties: Additional contribution properties. (OPTIONAL, default: {})
 :type properties: Dict[str, Any]
+:param aspect_ratio_mode: SVG layout policy: `stretch`, `fit`, or `fixed`. (OPTIONAL, default: `stretch`)
+:type aspect_ratio_mode: str
 ```
 
 Constructor
