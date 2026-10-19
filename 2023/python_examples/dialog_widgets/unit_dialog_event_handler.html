@@ -138,12 +138,12 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DIALOG</span><span class="o">=</span><span class="n">example</span><span class="o">.</span><span class="n">setup_dialog</span><span class="p">()</span>
 <span class="c1"># Generating some events to test the event_handler</span>
 <span class="n">unit_widget</span> <span class="o">=</span> <span class="n">DIALOG</span><span class="o">.</span><span class="n">unit</span>
-<span class="n">unit_widget</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;FORCE&quot;</span>
+<span class="n">unit_widget</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">"FORCE"</span>
 
 <span class="c1"># Test if the event_handler correctly links widget values</span>
 <span class="n">DIALOG</span><span class="o">.</span><span class="n">handler</span><span class="p">(</span><span class="n">unit_widget</span><span class="p">)</span>
-<span class="k">assert</span> <span class="p">(</span><span class="n">DIALOG</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;FORCE&quot;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="p">(</span><span class="n">DIALOG</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="s2">&quot;FORCE&quot;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">DIALOG</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="s2">"FORCE"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="p">(</span><span class="n">DIALOG</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="s2">"FORCE"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This usage of the <code class="docutils literal notranslate"><span class="pre">DIALOG.handler</span></code> function mimics the user-interaction of changing the value of the <code class="docutils literal notranslate"><span class="pre">unit</span></code> widget manually to <code class="docutils literal notranslate"><span class="pre">&quot;FORCE&quot;</span></code>.</p>
@@ -178,7 +178,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f522cf82b30>
+  <jinja2.runtime.BlockReference object at 0x7fb33dccc910>
 
 
 </footer>

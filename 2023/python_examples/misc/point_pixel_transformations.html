@@ -142,7 +142,7 @@
 		<span class="k">break</span>
 
 <span class="n">reference_point</span> <span class="o">=</span> <span class="n">measurement</span><span class="o">.</span><span class="n">reference_point_coordinate</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">First reference point in </span><span class="si">{</span><span class="n">MEASUREMENT_SERIES</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">MEASUREMENT</span><span class="si">}</span><span class="s1">: ID = </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">, P = </span><span class="si">{</span><span class="n">reference_point</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="se">\t</span><span class="s1">First reference point in </span><span class="si">{</span><span class="n">MEASUREMENT_SERIES</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">MEASUREMENT</span><span class="si">}</span><span class="s1">: ID = </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">, P = </span><span class="si">{</span><span class="n">reference_point</span><span class="si">}</span><span class="s1">)'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Reference points’ IDs and coordinates</p>
@@ -150,15 +150,15 @@
 </section>
 <section id="get-the-left-and-right-camera-image">
 <h3>2. Get the left and right camera image<a class="headerlink" href="#get-the-left-and-right-camera-image" title="Link to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">left</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get_image_acquisition</span><span class="p">(</span><span class="n">measurement</span><span class="p">,</span> <span class="s1">&#39;left camera&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">stage_index</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">right</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get_image_acquisition</span><span class="p">(</span><span class="n">measurement</span><span class="p">,</span> <span class="s1">&#39;right camera&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">stage_index</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">left</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get_image_acquisition</span><span class="p">(</span><span class="n">measurement</span><span class="p">,</span> <span class="s1">'left camera'</span><span class="p">,</span> <span class="p">[</span><span class="n">stage_index</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">right</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get_image_acquisition</span><span class="p">(</span><span class="n">measurement</span><span class="p">,</span> <span class="s1">'right camera'</span><span class="p">,</span> <span class="p">[</span><span class="n">stage_index</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
 <section id="compute-2d-pixel-coordinates-from-3d-point">
 <h3>3. Compute 2D pixel coordinates from 3D point<a class="headerlink" href="#compute-2d-pixel-coordinates-from-3d-point" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image_coordinates</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">imaging</span><span class="o">.</span><span class="n">compute_pixels_from_point</span> <span class="p">([(</span><span class="n">reference_point</span><span class="p">,</span> <span class="n">left</span><span class="p">),</span> <span class="p">(</span><span class="n">reference_point</span><span class="p">,</span> <span class="n">right</span><span class="p">)])</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Image coordinates of reference point (left, right): </span><span class="si">{</span><span class="n">image_coordinates</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="se">\t</span><span class="s1">Image coordinates of reference point (left, right): </span><span class="si">{</span><span class="n">image_coordinates</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Output:</p>
@@ -170,10 +170,10 @@
 <section id="compute-3d-point-coordinate-from-2d-pixels">
 <h3>4. Compute 3D point coordinate from 2D pixels<a class="headerlink" href="#compute-3d-point-coordinate-from-2d-pixels" title="Link to this heading"></a></h3>
 <p>The resulting 2D pixels from the previous step are used as the input parameters to the transformation.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Left image: </span><span class="si">{</span><span class="n">image_coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, Right image: </span><span class="si">{</span><span class="n">image_coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="se">\t</span><span class="s1">Left image: </span><span class="si">{</span><span class="n">image_coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, Right image: </span><span class="si">{</span><span class="n">image_coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 <span class="n">use_calibration</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">point_and_residuum</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">imaging</span><span class="o">.</span><span class="n">compute_point_from_pixels</span> <span class="p">([[(</span><span class="n">image_coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">left</span><span class="p">),</span> <span class="p">(</span><span class="n">image_coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">right</span><span class="p">)]],</span> <span class="n">use_calibration</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Computation result: P = </span><span class="si">{</span><span class="n">point_and_residuum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, Residuum: </span><span class="si">{</span><span class="n">point_and_residuum</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="se">\t</span><span class="s1">Computation result: P = </span><span class="si">{</span><span class="n">point_and_residuum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, Residuum: </span><span class="si">{</span><span class="n">point_and_residuum</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Output:</p>
@@ -221,7 +221,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f522cdf1e10>
+  <jinja2.runtime.BlockReference object at 0x7fb33d7714e0>
 
 
 </footer>

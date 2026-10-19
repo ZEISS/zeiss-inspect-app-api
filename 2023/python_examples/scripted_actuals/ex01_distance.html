@@ -154,10 +154,10 @@
 <span class="linenos">10</span>        <span class="c1"># Access element properties with error handling</span>
 <span class="linenos">11</span>        <span class="k">try</span><span class="p">:</span>
 <span class="linenos">12</span>            <span class="n">context</span><span class="o">.</span><span class="n">result</span><span class="p">[</span><span class="n">stage</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-<span class="linenos">13</span>                <span class="s1">&#39;point1&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;p1_x&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;p1_y&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;p1_z&#39;</span><span class="p">]),</span>
-<span class="linenos">14</span>                <span class="s1">&#39;point2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;p2_x&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;p2_y&#39;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;p2_z&#39;</span><span class="p">])</span>
+<span class="linenos">13</span>                <span class="s1">'point1'</span><span class="p">:</span> <span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">'p1_x'</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">'p1_y'</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">'p1_z'</span><span class="p">]),</span>
+<span class="linenos">14</span>                <span class="s1">'point2'</span><span class="p">:</span> <span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">'p2_x'</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">'p2_y'</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">'p2_z'</span><span class="p">])</span>
 <span class="linenos">15</span>            <span class="p">}</span>
-<span class="linenos">16</span>            <span class="n">context</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">stage</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ude_mykey&quot;</span><span class="p">:</span> <span class="s2">&quot;Example 1&quot;</span><span class="p">}</span>
+<span class="linenos">16</span>            <span class="n">context</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">stage</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"ude_mykey"</span><span class="p">:</span> <span class="s2">"Example 1"</span><span class="p">}</span>
 <span class="linenos">17</span>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
 <span class="linenos">18</span>            <span class="n">context</span><span class="o">.</span><span class="n">error</span><span class="p">[</span><span class="n">stage</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 <span class="linenos">19</span>        <span class="k">else</span><span class="p">:</span>
@@ -197,7 +197,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f522bcd5a90>
+  <jinja2.runtime.BlockReference object at 0x7fb33ce07700>
 
 
 </footer>

@@ -140,7 +140,7 @@
 <dt>Index 2</dt><dd><p>Coordinate [x, y, z]</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reference_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">measurement_series</span><span class="p">[</span><span class="n">MEASUREMENT_SERIES</span><span class="p">]</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;points&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">coordinate</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reference_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">measurement_series</span><span class="p">[</span><span class="n">MEASUREMENT_SERIES</span><span class="p">]</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s1">'points'</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">coordinate</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">reference_points[0]</span></code> (i.e. stage index 0) gives a 2-dimensional numpy-array of the reference points’ coordinates:</p>
@@ -159,13 +159,13 @@
 </div>
 <p>This can be used as input parameter to a script for creating a point cloud element:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">create_point_cloud</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_element_by_script</span> <span class="p">(</span>
-    <span class="n">check_type</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> 
-    <span class="n">element_type</span><span class="o">=</span><span class="s1">&#39;point_cloud&#39;</span><span class="p">,</span> 
-    <span class="n">name</span><span class="o">=</span><span class="n">element_names</span><span class="p">[</span><span class="s1">&#39;reference_points&#39;</span><span class="p">],</span> 
+    <span class="n">check_type</span><span class="o">=</span><span class="s1">'none'</span><span class="p">,</span> 
+    <span class="n">element_type</span><span class="o">=</span><span class="s1">'point_cloud'</span><span class="p">,</span> 
+    <span class="n">name</span><span class="o">=</span><span class="n">element_names</span><span class="p">[</span><span class="s1">'reference_points'</span><span class="p">],</span> 
     <span class="n">parameters</span><span class="o">=</span> <span class="p">{</span>
-      <span class="s1">&#39;points&#39;</span><span class="p">:</span> <span class="n">reference_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+      <span class="s1">'points'</span><span class="p">:</span> <span class="n">reference_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     <span class="p">},</span> 
-    <span class="n">script_uuid</span><span class="o">=</span><span class="s1">&#39;ff73513a-e857-43da-b4d2-382f80f25c28&#39;</span>
+    <span class="n">script_uuid</span><span class="o">=</span><span class="s1">'ff73513a-e857-43da-b4d2-382f80f25c28'</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -234,14 +234,14 @@
 <p>C = [-260.18363995  -54.31011231  -29.50854346]</p>
 <p>The arrays of vertex points and triangles can be used as input parameters to a script for creating a surface element:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">create_surface</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">create_element_by_script</span> <span class="p">(</span>
-    <span class="n">check_type</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> 
-    <span class="n">element_type</span><span class="o">=</span><span class="s1">&#39;surface&#39;</span><span class="p">,</span> 
-    <span class="n">name</span><span class="o">=</span><span class="n">element_names</span><span class="p">[</span><span class="s1">&#39;shifted_part_surface&#39;</span><span class="p">],</span>
+    <span class="n">check_type</span><span class="o">=</span><span class="s1">'none'</span><span class="p">,</span> 
+    <span class="n">element_type</span><span class="o">=</span><span class="s1">'surface'</span><span class="p">,</span> 
+    <span class="n">name</span><span class="o">=</span><span class="n">element_names</span><span class="p">[</span><span class="s1">'shifted_part_surface'</span><span class="p">],</span>
     <span class="n">parameters</span><span class="o">=</span> <span class="p">{</span>
-      <span class="s1">&#39;vertices&#39;</span><span class="p">:</span> <span class="n">shifted_part_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
-      <span class="s1">&#39;triangles&#39;</span><span class="p">:</span> <span class="n">part_triangles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+      <span class="s1">'vertices'</span><span class="p">:</span> <span class="n">shifted_part_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+      <span class="s1">'triangles'</span><span class="p">:</span> <span class="n">part_triangles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     <span class="p">},</span> 
-    <span class="n">script_uuid</span><span class="o">=</span><span class="s1">&#39;af863fa6-27d6-44d9-bba3-636eb09119fa&#39;</span>
+    <span class="n">script_uuid</span><span class="o">=</span><span class="s1">'af863fa6-27d6-44d9-bba3-636eb09119fa'</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -261,8 +261,8 @@
 		<span class="c1"># Access element properties with error handling</span>
 		<span class="k">try</span><span class="p">:</span>
 			<span class="n">context</span><span class="o">.</span><span class="n">result</span><span class="p">[</span><span class="n">stage</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-				<span class="s1">&#39;vertices&#39;</span><span class="p">:</span>  <span class="n">params</span><span class="p">[</span><span class="s1">&#39;vertices&#39;</span><span class="p">],</span>
-				<span class="s1">&#39;triangles&#39;</span><span class="p">:</span>  <span class="n">params</span><span class="p">[</span><span class="s1">&#39;triangles&#39;</span><span class="p">]</span>
+				<span class="s1">'vertices'</span><span class="p">:</span>  <span class="n">params</span><span class="p">[</span><span class="s1">'vertices'</span><span class="p">],</span>
+				<span class="s1">'triangles'</span><span class="p">:</span>  <span class="n">params</span><span class="p">[</span><span class="s1">'triangles'</span><span class="p">]</span>
 			<span class="p">}</span>
 		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
 			<span class="n">context</span><span class="o">.</span><span class="n">error</span><span class="p">[</span><span class="n">stage</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
@@ -307,7 +307,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f522d22ab30>
+  <jinja2.runtime.BlockReference object at 0x7fb33dcc9080>
 
 
 </footer>

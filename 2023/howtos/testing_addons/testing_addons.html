@@ -176,8 +176,8 @@ For more details, see also: <a class="reference internal" href="../../python_exa
 <li><p>Write test functions: Write test functions named with prefix <code class="docutils literal notranslate"><span class="pre">test_</span></code> that define expected behavior. For simple checks for expected values, use the <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement like shown below. For more complex test data (like arrays or Element properties), see <a class="reference internal" href="#working-with-test-data">Working with test data</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_check_results</span> <span class="p">():</span>
   <span class="c1"># Setup test project</span>
-  <span class="n">open_project</span><span class="p">(</span><span class="s1">&#39;zeiss_part_test_project&#39;</span><span class="p">)</span>
-  <span class="n">test_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">inspection</span><span class="p">[</span><span class="s1">&#39;Surface comparison 1&#39;</span><span class="p">]</span>
+  <span class="n">open_project</span><span class="p">(</span><span class="s1">'zeiss_part_test_project'</span><span class="p">)</span>
+  <span class="n">test_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">inspection</span><span class="p">[</span><span class="s1">'Surface comparison 1'</span><span class="p">]</span>
   
   <span class="c1"># Test definition</span>
   <span class="n">expected_single_value</span> <span class="o">=</span> <span class="mf">2.0495047569274902</span>
@@ -210,11 +210,11 @@ To use this feature, navigate to the “Testing” workspace of VSCode and selec
 <section id="from-scripts">
 <h3>From scripts<a class="headerlink" href="#from-scripts" title="Link to this heading"></a></h3>
 <p>You can use the <code class="docutils literal notranslate"><span class="pre">execute_addon_tests</span></code> command to run tests of an add-on. It takes the add-on UUID as mandatory argument. If solely given, all tests of the add-on are executed. You can also provide a list of test paths with the argument <code class="docutils literal notranslate"><span class="pre">test_paths</span></code> in form of relative paths inside the add-on. The suffix <code class="docutils literal notranslate"><span class="pre">#test_&lt;...&gt;</span></code> indicates, which test function to run.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests_draft</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">&#39;5f396cc9-7865-44a1-8a85-ed7c1689dd68&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests_draft</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">'5f396cc9-7865-44a1-8a85-ed7c1689dd68'</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests_draft</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">&#39;5f396cc9-7865-44a1-8a85-ed7c1689dd68&#39;</span><span class="p">,</span> 
-	<span class="n">test_paths</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;/PythonApiExamples/tests/test_dialog_widgets_explorer_selection#test_explorer_selection&#39;</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">execute_addon_tests_draft</span><span class="p">(</span><span class="n">addon_uuid</span><span class="o">=</span><span class="s1">'5f396cc9-7865-44a1-8a85-ed7c1689dd68'</span><span class="p">,</span> 
+	<span class="n">test_paths</span><span class="o">=</span><span class="p">[</span><span class="s1">'/PythonApiExamples/tests/test_dialog_widgets_explorer_selection#test_explorer_selection'</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>This will give you <code class="docutils literal notranslate"><span class="pre">results</span></code> as a list of tuples (test name, success, error message), which you can use for further evaluation.</p>
@@ -232,21 +232,21 @@ To use this feature, navigate to the “Testing” workspace of VSCode and selec
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_volume_section</span><span class="p">():</span>
 	<span class="c1"># Setup test project</span>
-	<span class="n">open_project</span><span class="p">(</span><span class="s1">&#39;volume_test_project&#39;</span><span class="p">)</span>
-	<span class="n">test_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">&#39;Plane X +40.00 mm&#39;</span><span class="p">]</span>
+	<span class="n">open_project</span><span class="p">(</span><span class="s1">'volume_test_project'</span><span class="p">)</span>
+	<span class="n">test_element</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">'Plane X +40.00 mm'</span><span class="p">]</span>
 	<span class="c1">#</span>
 	<span class="c1"># TEST</span>
 	<span class="c1">#</span>
-	<span class="n">element_test</span> <span class="o">=</span> <span class="n">ElementTest</span><span class="p">(</span><span class="s1">&#39;test_data/data_interfaces_volume_section_tokens.dat&#39;</span><span class="p">)</span>
-	<span class="n">element_test</span><span class="o">.</span><span class="n">testElementValues</span><span class="p">(</span><span class="n">test_element</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;image_width&#39;</span><span class="p">,</span> <span class="s1">&#39;image_height&#39;</span><span class="p">,</span> <span class="s1">&#39;image_type&#39;</span><span class="p">])</span>
+	<span class="n">element_test</span> <span class="o">=</span> <span class="n">ElementTest</span><span class="p">(</span><span class="s1">'test_data/data_interfaces_volume_section_tokens.dat'</span><span class="p">)</span>
+	<span class="n">element_test</span><span class="o">.</span><span class="n">testElementValues</span><span class="p">(</span><span class="n">test_element</span><span class="p">,</span> <span class="p">[</span><span class="s1">'image_width'</span><span class="p">,</span> <span class="s1">'image_height'</span><span class="p">,</span> <span class="s1">'image_type'</span><span class="p">])</span>
 	<span class="n">element_test</span><span class="o">.</span><span class="n">callTest</span><span class="p">()</span>
 
 	<span class="n">raw_array</span> <span class="o">=</span> <span class="n">example</span><span class="o">.</span><span class="n">get_image_data_raw</span><span class="p">(</span><span class="n">test_element</span><span class="p">)</span>
-	<span class="n">raw_array_test</span> <span class="o">=</span> <span class="n">ArrayDataTest</span><span class="p">(</span><span class="s1">&#39;test_data/data_interfaces_volume_section_raw.dat&#39;</span><span class="p">)</span>
+	<span class="n">raw_array_test</span> <span class="o">=</span> <span class="n">ArrayDataTest</span><span class="p">(</span><span class="s1">'test_data/data_interfaces_volume_section_raw.dat'</span><span class="p">)</span>
 	<span class="n">raw_array_test</span><span class="o">.</span><span class="n">testArrayValues</span><span class="p">(</span><span class="n">raw_array</span><span class="p">)</span>
 
 	<span class="n">rgb_array</span> <span class="o">=</span> <span class="n">example</span><span class="o">.</span><span class="n">get_image_data_rgb</span><span class="p">(</span><span class="n">test_element</span><span class="p">)</span>
-	<span class="n">rgb_array_test</span> <span class="o">=</span> <span class="n">ArrayDataTest</span><span class="p">(</span><span class="s1">&#39;test_data/data_interfaces_volume_section_rgb.dat&#39;</span><span class="p">)</span>
+	<span class="n">rgb_array_test</span> <span class="o">=</span> <span class="n">ArrayDataTest</span><span class="p">(</span><span class="s1">'test_data/data_interfaces_volume_section_rgb.dat'</span><span class="p">)</span>
 	<span class="n">rgb_array_test</span><span class="o">.</span><span class="n">testArrayValues</span><span class="p">(</span><span class="n">rgb_array</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -264,25 +264,25 @@ If a relative path is given, like here, a resource inside the add-on is created 
 <p>With the provided example, the test results are shown as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Test</span> <span class="n">case</span> <span class="n">folder</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="o">/</span><span class="n">gom_edited_addons</span><span class="o">/</span><span class="n">d569d88b</span><span class="o">-</span><span class="n">a493</span><span class="o">-</span><span class="mi">4298</span><span class="o">-</span><span class="n">ad4a</span><span class="o">-</span><span class="mi">0875</span><span class="n">f5173ce1</span>\<span class="n">scripts</span>\<span class="n">tests</span>
 <span class="o">--</span> <span class="n">Project</span> <span class="n">keywords</span> <span class="o">--</span>
-<span class="n">user_project</span><span class="o">=</span><span class="s1">&#39;Test Project&#39;</span>
-<span class="n">user_inspector</span><span class="o">=</span><span class="s1">&#39;Clouseau&#39;</span>
+<span class="n">user_project</span><span class="o">=</span><span class="s1">'Test Project'</span>
+<span class="n">user_inspector</span><span class="o">=</span><span class="s1">'Clouseau'</span>
 <span class="n">F</span>
 <span class="n">F</span><span class="o">.</span>
-<span class="p">{</span><span class="s1">&#39;user_project&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Project Name&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;Test Project&#39;</span><span class="p">},</span> <span class="s1">&#39;user_inspector&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Inspector&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;Clouseau&#39;</span><span class="p">}}</span>
+<span class="p">{</span><span class="s1">'user_project'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'description'</span><span class="p">:</span> <span class="s1">'Project Name'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Test Project'</span><span class="p">},</span> <span class="s1">'user_inspector'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'description'</span><span class="p">:</span> <span class="s1">'Inspector'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'Clouseau'</span><span class="p">}}</span>
 <span class="o">.</span>
 <span class="o">======================================================================</span>
 <span class="n">FAIL</span><span class="p">:</span> <span class="n">unittest</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">FunctionTestCase</span> <span class="p">(</span><span class="n">test_blackbox</span><span class="p">)</span>
 <span class="o">----------------------------------------------------------------------</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s2">&quot;C:\Users\&lt;USERID&gt;\AppData\Roaming\gom</span><span class="se">\202</span><span class="s2">3\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts</span><span class="se">\t</span><span class="s2">ests</span><span class="se">\t</span><span class="s2">est_blackbox.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">28</span><span class="p">,</span> <span class="ow">in</span> <span class="n">test_blackbox</span>
-    <span class="k">assert</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;user_project&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Test Projet&#39;</span> <span class="c1"># intended to fail</span>
+  <span class="n">File</span> <span class="s2">"C:\Users\&lt;USERID&gt;\AppData\Roaming\gom</span><span class="se">\202</span><span class="s2">3\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts</span><span class="se">\t</span><span class="s2">ests</span><span class="se">\t</span><span class="s2">est_blackbox.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">28</span><span class="p">,</span> <span class="ow">in</span> <span class="n">test_blackbox</span>
+    <span class="k">assert</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'user_project'</span><span class="p">)</span> <span class="o">==</span> <span class="s1">'Test Projet'</span> <span class="c1"># intended to fail</span>
 <span class="ne">AssertionError</span>
 
 <span class="o">======================================================================</span>
 <span class="n">FAIL</span><span class="p">:</span> <span class="n">unittest</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">FunctionTestCase</span> <span class="p">(</span><span class="n">test_fail</span><span class="p">)</span>
 <span class="o">----------------------------------------------------------------------</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s2">&quot;C:\Users\&lt;USERID&gt;\AppData\Roaming\gom</span><span class="se">\202</span><span class="s2">3\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts</span><span class="se">\t</span><span class="s2">ests</span><span class="se">\t</span><span class="s2">est_fail.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">14</span><span class="p">,</span> <span class="ow">in</span> <span class="n">test_fail</span>
+  <span class="n">File</span> <span class="s2">"C:\Users\&lt;USERID&gt;\AppData\Roaming\gom</span><span class="se">\202</span><span class="s2">3\gom_edited_addons\d569d88b-a493-4298-ad4a-0875f5173ce1\scripts</span><span class="se">\t</span><span class="s2">ests</span><span class="se">\t</span><span class="s2">est_fail.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">14</span><span class="p">,</span> <span class="ow">in</span> <span class="n">test_fail</span>
     <span class="k">assert</span> <span class="kc">False</span>
 <span class="ne">AssertionError</span>
 
@@ -336,7 +336,7 @@ If a relative path is given, like here, a resource inside the add-on is created 
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f522cdf19b0>
+  <jinja2.runtime.BlockReference object at 0x7fb33d1a8670>
 
 
 </footer>

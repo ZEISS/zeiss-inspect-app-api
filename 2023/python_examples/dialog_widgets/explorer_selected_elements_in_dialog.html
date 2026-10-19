@@ -129,7 +129,7 @@
 <section id="highlights">
 <h2>Highlights<a class="headerlink" href="#highlights" title="Link to this heading"></a></h2>
 <p>You can get all elements of a certain category by using a <code class="docutils literal notranslate"><span class="pre">gom.ElementSelection</span></code>. Then you can iterate over this list to check which ones are currently selected.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">actual_elements</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">({</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;elements&#39;</span><span class="p">,</span> <span class="s1">&#39;part&#39;</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">&#39;Training Object&#39;</span><span class="p">],</span> <span class="s1">&#39;explorer_category&#39;</span><span class="p">,</span> <span class="s1">&#39;actual&#39;</span><span class="p">]})</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">actual_elements</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">ElementSelection</span> <span class="p">({</span><span class="s1">'category'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'key'</span><span class="p">,</span> <span class="s1">'elements'</span><span class="p">,</span> <span class="s1">'part'</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s1">'Training Object'</span><span class="p">],</span> <span class="s1">'explorer_category'</span><span class="p">,</span> <span class="s1">'actual'</span><span class="p">]})</span>
 <span class="n">selected_actuals</span> <span class="o">=</span> <span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">actual_elements</span> <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">is_selected</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -139,7 +139,7 @@
 <p><img alt="Script object explorer image" src="../../_images/explorer_selected_elements_script_explorer.png" /></p>
 </div>
 <p>In the example, an exemplary selection of elements is also triggered by the script:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">example_selection</span> <span class="o">=</span> <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">&#39;Plane 1&#39;</span><span class="p">],</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">&#39;Plane X +0.00 mm&#39;</span><span class="p">]]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">example_selection</span> <span class="o">=</span> <span class="p">[</span><span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">'Plane 1'</span><span class="p">],</span> <span class="n">gom</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">actual_elements</span><span class="p">[</span><span class="s1">'Plane X +0.00 mm'</span><span class="p">]]</span>
 <span class="n">gom</span><span class="o">.</span><span class="n">script</span><span class="o">.</span><span class="n">explorer</span><span class="o">.</span><span class="n">apply_selection</span> <span class="p">(</span><span class="n">selection</span><span class="o">=</span><span class="n">example_selection</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -176,7 +176,7 @@
   <div class="footer">
     <a href="https://www.gom.com/en/imprint" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f522bcd55c0>
+  <jinja2.runtime.BlockReference object at 0x7fb33cd0fe00>
 
 
 </footer>
