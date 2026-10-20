@@ -6210,6 +6210,28 @@ API for accessing python script interpreter properties
 This API can access properties and states of the python script interpreters. It is used
 mainly for internal debugging and introspection scenarios.
 
+### gom.api.interpreter.__enter_enable_menu_commands_scope__
+
+```{py:function} gom.api.interpreter.__enter_enable_menu_commands_scope__(): None
+
+Mark the start of an enable menu commands block
+```
+
+```{warning}
+Do not use these internal functions directly ! Use the `with` statement format as described in the
+documentation below instead for an exception safe syntax.
+```
+
+**Example:**
+
+```
+import gom.api.tools
+
+with gom.api.tools.EnableMenuCommandsScope():
+    # While this scope is active, menu commands are enabled, i.e., while the dialog is active
+    gom.script.sys.execute_user_defined_dialog(file='example.gdlg')
+```
+
 ### gom.api.interpreter.__enter_multi_element_creation_scope__
 
 ```{py:function} gom.api.interpreter.__enter_multi_element_creation_scope__(): None
@@ -6240,6 +6262,15 @@ with gom.api.tools.MultiElementCreationScope ():
 
 gom.script.sys.continue_with_some_other_stuff (...)
 ```
+
+### gom.api.interpreter.__exit_enable_menu_commands_scope__
+
+```{py:function} gom.api.interpreter.__exit_enable_menu_commands_scope__(): None
+
+Mark the end of an enable menu commands block
+```
+
+See `gom.api.interpreter.__enter_enable_menu_commands_scope__` for details.
 
 ### gom.api.interpreter.__exit_multi_element_creation_scope__
 
@@ -8602,6 +8633,24 @@ API providing a general set of scripting tools
 
 This API contains a collection of tools that are useful for scripting purposes.
 
+### gom.api.tools.EnableMenuCommandsScope
+
+Context manager for enabling menu commands during script execution
+
+This class can be used in a `with` statement to temporarily allow interactive menu commands
+to be executed while the script is running.
+Use this only if full access to menu commands is required and does not interfere with your script execution.
+
+**Example:**
+
+```
+import gom.api.tools
+
+with gom.api.tools.EnableMenuCommandsScope():
+    # While the scope is active, menu commands are enabled again, i.e., here while the dialog is active
+    gom.script.sys.execute_user_defined_dialog(file='example.gdlg')
+```
+
 ### gom.api.tools.MultiElementCreationScope
 
 Context manager for creating multiple elements in a single step
@@ -8614,7 +8663,7 @@ have been created, as soon as this scope is left.
 
 ```{caution}
 Disabling the full application synchronization can lead to various side effects, so use this with caution !
-Also, the UI update will be locked during the time the scope is active. So the user will not see any changes 
+Also, the UI update will be locked during the time the scope is active. So the user will not see any changes
 in the UI until the scope is left again.
 ```
 
