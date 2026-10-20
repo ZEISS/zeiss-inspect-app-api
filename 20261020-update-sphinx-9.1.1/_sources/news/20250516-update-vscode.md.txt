@@ -1,9 +1,9 @@
-# Update: Using Visual Studio Code as App Editor
+---
+news:
+   date: "2025-05-16 14:00"
+---
 
-```{eval-rst}
-.. feed-entry::
-   :date: 2025-05-16 14:00
-```
+# Update: Using Visual Studio Code as App Editor
 
 The interface between ZEISS INSPECT and Visual Studio Code for App development and debugging has been re-implemented for enhanced reliability and additional features.
 

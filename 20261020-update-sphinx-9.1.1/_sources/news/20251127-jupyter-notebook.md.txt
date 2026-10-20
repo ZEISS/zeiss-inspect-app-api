@@ -1,9 +1,9 @@
-# Using Jupyter Notebook with ZEISS INSPECT
+---
+news:
+   date: "2025-11-27 16:00"
+---
 
-```{eval-rst}
-.. feed-entry::
-   :date: 2025-11-27 16:00
-```
+# Using Jupyter Notebook with ZEISS INSPECT
 
 [Jupyter Notebook](http://jupyter.org) is popular in data science, machine learning, and education due to its interactive environment that combines code execution, text, and visualizations.
 It facilitates exploratory data analysis and real-time feedback, enhancing collaboration and reproducibility. Its supports multiple programming languages, including Python.

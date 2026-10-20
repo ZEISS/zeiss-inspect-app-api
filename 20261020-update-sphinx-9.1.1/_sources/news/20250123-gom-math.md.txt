@@ -1,9 +1,9 @@
-# Using the 'gom_vec3d' and 'gom_math' modules
+---
+news:
+   date: "2025-01-23 11:00"
+---
 
-```{eval-rst}
-.. feed-entry::
-   :date: 2025-01-23 11:00
-```
+# Using the 'gom_vec3d' and 'gom_math' modules
 
 Did you know? Coordinates are often represented as `gom.Vec3d` objects in ZEISS INSPECT Apps. The `gom_math` module provides some functions for computations on `gom.Vec3d` objects.
 
