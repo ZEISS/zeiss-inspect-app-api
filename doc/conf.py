@@ -6,6 +6,11 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent / '_ext'))
+
 project = 'App Development Documentation'
 copyright = '2026, Carl Zeiss GOM Metrology GmbH'
 author = 'Carl Zeiss GOM Metrology GmbH'
@@ -19,13 +24,13 @@ extensions = [
   'sphinx_favicon',
   'sphinx.ext.githubpages',
   'sphinx_sitemap',
-  'sphinxcontrib.newsfeed',
+  'newsfeed',
   'sphinxcontrib.mermaid'
 ]
 source_suffix = ['.rst', '.md']
 
 templates_path = ['_templates']
-exclude_patterns = ['README.md']
+exclude_patterns = ['README.md', 'news/README.md']
 
 myst_enable_extensions = [
   'colon_fence',
