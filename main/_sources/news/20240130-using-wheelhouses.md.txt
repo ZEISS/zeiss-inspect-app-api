@@ -1,9 +1,9 @@
-# Using Python wheelhouses
+---
+news:
+   date: "2024-01-30 11:00"
+---
 
-```{eval-rst}
-.. feed-entry::
-   :date: 2024-01-30 11:00
-```
+# Using Python wheelhouses
 
 In most cases, Python packages &mdash; also known as Python wheels &mdash; are installed as described in <a href="../howtos/using_app_editor/using_app_editor.html#installing-python-packages">Using the App Editor - Installing Python Packages</a>.
 

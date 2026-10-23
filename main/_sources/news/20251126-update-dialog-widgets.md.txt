@@ -1,9 +1,9 @@
-# User-defined dialogs and dialog widgets
+---
+news:
+   date: "2025-11-26 11:30"
+---
 
-```{eval-rst}
-.. feed-entry::
-   :date: 2025-11-26 11:30
-```
+# User-defined dialogs and dialog widgets
 
 The document **User-defined Dialogs** has been restructured into separate sections for easier access:
 * [User-defined Dialogs](../howtos/user_defined_dialogs/user_defined_dialogs),
