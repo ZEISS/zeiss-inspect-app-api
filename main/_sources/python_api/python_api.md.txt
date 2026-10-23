@@ -5206,11 +5206,25 @@ supported.
 Placeholder creation adds a `report_layout` map to `configuration`. It
 contains `anchor_point` and `clip_content` for native report placement, plus
 `font_size` in points (`0` means use the SVG's exported font size). The
-exporter can use `font_size` when producing its SVG.
+exporter can use `font_size` when producing its SVG. When the contribution
+opts into snapshot state, the host places the captured app state in
+`configuration.view_state`. Other configuration keys are passed through
+unchanged and are defined by the individual data view, not by the host.
+
+**Snapshot restore state**
+
+Set `state_version=1` to opt in to saving app-defined view state with a
+snapshot. The JavaScript bundle must provide `window.customDataView.saveState()`
+and `window.customDataView.restoreState(state)`. Both callbacks may return a
+promise. `saveState()` must resolve to a JSON object; the host stores that
+object in the snapshot restore information and passes it to `restoreState`
+when the snapshot is restored and the matching view is open and ready. The
+object is owned by the app and should include its own schema version if its
+structure may change. Views without this opt-in remain unaffected.
 
 ##### gom.api.extensions.views.CustomDataView.__init__
 
-```{py:function} gom.api.extensions.views.CustomDataView.__init__(self: Any, id: str, description: str, bundle: str, collectors: List[str], stylesheet: str, functions: List[Any], signals: List[str], preprocess_data: Any, export_version: int, properties: Dict[str, Any], aspect_ratio_mode: str): None
+```{py:function} gom.api.extensions.views.CustomDataView.__init__(self: Any, id: str, description: str, bundle: str, collectors: List[str], stylesheet: str, functions: List[Any], signals: List[str], preprocess_data: Any, export_version: int, state_version: int, properties: Dict[str, Any], aspect_ratio_mode: str): None
 
 :param id: Globally unique custom view id string. (REQUIRED)
 :type id: str
@@ -5230,6 +5244,8 @@ exporter can use `font_size` when producing its SVG.
 :type preprocess_data: Any
 :param export_version: Report SVG export protocol version. Use `1` to opt in. (OPTIONAL, default: None)
 :type export_version: int
+:param state_version: Snapshot restore state protocol version. Use `1` to opt in. (OPTIONAL, default: None)
+:type state_version: int
 :param properties: Additional contribution properties. (OPTIONAL, default: {})
 :type properties: Dict[str, Any]
 :param aspect_ratio_mode: SVG layout policy: `stretch`, `fit`, or `fixed`. (OPTIONAL, default: `stretch`)

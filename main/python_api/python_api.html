@@ -6300,12 +6300,24 @@ supported.</p>
 <p>Placeholder creation adds a <code class="docutils literal notranslate"><span class="pre">report_layout</span></code> map to <code class="docutils literal notranslate"><span class="pre">configuration</span></code>. It
 contains <code class="docutils literal notranslate"><span class="pre">anchor_point</span></code> and <code class="docutils literal notranslate"><span class="pre">clip_content</span></code> for native report placement, plus
 <code class="docutils literal notranslate"><span class="pre">font_size</span></code> in points (<code class="docutils literal notranslate"><span class="pre">0</span></code> means use the SVG’s exported font size). The
-exporter can use <code class="docutils literal notranslate"><span class="pre">font_size</span></code> when producing its SVG.</p>
+exporter can use <code class="docutils literal notranslate"><span class="pre">font_size</span></code> when producing its SVG. When the contribution
+opts into snapshot state, the host places the captured app state in
+<code class="docutils literal notranslate"><span class="pre">configuration.view_state</span></code>. Other configuration keys are passed through
+unchanged and are defined by the individual data view, not by the host.</p>
+<p><strong>Snapshot restore state</strong></p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">state_version=1</span></code> to opt in to saving app-defined view state with a
+snapshot. The JavaScript bundle must provide <code class="docutils literal notranslate"><span class="pre">window.customDataView.saveState()</span></code>
+and <code class="docutils literal notranslate"><span class="pre">window.customDataView.restoreState(state)</span></code>. Both callbacks may return a
+promise. <code class="docutils literal notranslate"><span class="pre">saveState()</span></code> must resolve to a JSON object; the host stores that
+object in the snapshot restore information and passes it to <code class="docutils literal notranslate"><span class="pre">restoreState</span></code>
+when the snapshot is restored and the matching view is open and ready. The
+object is owned by the app and should include its own schema version if its
+structure may change. Views without this opt-in remain unaffected.</p>
 <section id="gom-api-extensions-views-customdataview-init">
 <h5>gom.api.extensions.views.CustomDataView.<strong>init</strong><a class="headerlink" href="#gom-api-extensions-views-customdataview-init" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.views.CustomDataView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">bundle:</span> <span class="pre">str,</span> <span class="pre">collectors:</span> <span class="pre">List[str],</span> <span class="pre">stylesheet:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">signals:</span> <span class="pre">List[str],</span> <span class="pre">preprocess_data:</span> <span class="pre">Any,</span> <span class="pre">export_version:</span> <span class="pre">int,</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">aspect_ratio_mode:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.views.CustomDataView.__init__(self:</span> <span class="pre">Any,</span> <span class="pre">id:</span> <span class="pre">str,</span> <span class="pre">description:</span> <span class="pre">str,</span> <span class="pre">bundle:</span> <span class="pre">str,</span> <span class="pre">collectors:</span> <span class="pre">List[str],</span> <span class="pre">stylesheet:</span> <span class="pre">str,</span> <span class="pre">functions:</span> <span class="pre">List[Any],</span> <span class="pre">signals:</span> <span class="pre">List[str],</span> <span class="pre">preprocess_data:</span> <span class="pre">Any,</span> <span class="pre">export_version:</span> <span class="pre">int,</span> <span class="pre">state_version:</span> <span class="pre">int,</span> <span class="pre">properties:</span> <span class="pre">Dict[str,</span> <span class="pre">Any],</span> <span class="pre">aspect_ratio_mode:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -6318,6 +6330,7 @@ exporter can use <code class="docutils literal notranslate"><span class="pre">fo
 <li><p><strong>signals</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Signals that trigger collector updates. (OPTIONAL, default: [])</p></li>
 <li><p><strong>preprocess_data</strong> (<em>Any</em>) – Optional callable with signature <code class="docutils literal notranslate"><span class="pre">(data)</span></code>. (OPTIONAL, default: None)</p></li>
 <li><p><strong>export_version</strong> (<em>int</em>) – Report SVG export protocol version. Use <code class="docutils literal notranslate"><span class="pre">1</span></code> to opt in. (OPTIONAL, default: None)</p></li>
+<li><p><strong>state_version</strong> (<em>int</em>) – Snapshot restore state protocol version. Use <code class="docutils literal notranslate"><span class="pre">1</span></code> to opt in. (OPTIONAL, default: None)</p></li>
 <li><p><strong>properties</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Additional contribution properties. (OPTIONAL, default: {})</p></li>
 <li><p><strong>aspect_ratio_mode</strong> (<em>str</em>) – SVG layout policy: <code class="docutils literal notranslate"><span class="pre">stretch</span></code>, <code class="docutils literal notranslate"><span class="pre">fit</span></code>, or <code class="docutils literal notranslate"><span class="pre">fixed</span></code>. (OPTIONAL, default: <code class="docutils literal notranslate"><span class="pre">stretch</span></code>)</p></li>
 </ul>
@@ -10590,7 +10603,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fa3f1e9e5f0>
+  <jinja2.runtime.BlockReference object at 0x7f181bd8a9e0>
 
 
 </footer>
