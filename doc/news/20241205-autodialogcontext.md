@@ -1,9 +1,9 @@
-# Testing Apps with dialogs
+---
+news:
+   date: "2024-12-05 12:00"
+---
 
-```{eval-rst}
-.. feed-entry::
-   :date: 2024-12-05 12:00
-```
+# Testing Apps with dialogs
 
 Did you know that you can test Apps with <a href="../howtos/user_defined_dialogs/user_defined_dialogs.html">User-defined Dialogs</a> non-interactively?
 

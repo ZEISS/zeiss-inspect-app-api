@@ -1,9 +1,9 @@
-# Update of Internationalization Tools App
+---
+news:
+   date: "2024-03-14 15:30"
+---
 
-```{eval-rst}
-.. feed-entry::
-   :date: 2024-03-14 15:30
-```
+# Update of Internationalization Tools App
 
 Did you know that you can easily provide your App's user interface in multiple languages? See <a href="../howtos/localization/localization.html">Localization of Apps</a> for details.
 
