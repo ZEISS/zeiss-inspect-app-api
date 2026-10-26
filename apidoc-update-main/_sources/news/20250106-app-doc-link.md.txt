@@ -1,9 +1,9 @@
-# Link from App to external documentation
+---
+news:
+   date: "2025-01-06 11:00"
+---
 
-```{eval-rst}
-.. feed-entry::
-   :date: 2025-01-06 11:00
-```
+# Link from App to external documentation
 
 ![App with help button, confirmation dialog and documentation web page](assets/documentation-button+dialog+webpage.png)
 

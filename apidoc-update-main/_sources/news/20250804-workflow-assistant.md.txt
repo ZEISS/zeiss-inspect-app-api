@@ -1,9 +1,9 @@
-# Workflow Assistant
+---
+news:
+   date: "2025-08-04 16:00"
+---
 
-```{eval-rst}
-.. feed-entry::
-   :date: 2025-08-04 16:00
-```
+# Workflow Assistant
 
 ![Workflow Assistant](../howtos/workflow_assistant/assets/inspection-basic_inspections-diameter_inspections.png)
 
