@@ -5106,6 +5106,14 @@ more `CustomDataCollector` contributions. It owns the HTML page and the
 JavaScript bundle, while `collectors` defines the collector ids whose data is
 provided to that bundle.
 
+**Resource paths**
+
+The `bundle` and optional `stylesheet` paths are relative to the app's
+`scripts/` directory. Their local app-relative paths are therefore
+`scripts/<bundle>` and `scripts/<stylesheet>`. A single leading slash is
+accepted as a legacy script-provider-root prefix; it is not a filesystem
+path.
+
 **Data flow**
 
 Each entry in `collectors` is the id of a `CustomDataCollector`. Each
@@ -5230,11 +5238,11 @@ structure may change. Views without this opt-in remain unaffected.
 :type id: str
 :param description: Human readable name. (REQUIRED)
 :type description: str
-:param bundle: JavaScript bundle that renders all data views. (REQUIRED)
+:param bundle: JavaScript bundle relative to the app's `scripts/` directory. (REQUIRED)
 :type bundle: str
 :param collectors: List of custom data collector ids used by the view. (REQUIRED)
 :type collectors: List[str]
-:param stylesheet: Path to the optional CSS stylesheet. (OPTIONAL, default: "")
+:param stylesheet: Optional CSS path relative to the app's `scripts/` directory. (OPTIONAL, default: "")
 :type stylesheet: str
 :param functions: Functions exposed to the JavaScript bundle. (OPTIONAL, default: [])
 :type functions: List[Any]
@@ -7093,6 +7101,101 @@ Unload resource from shared memory
 :rtype: bool
 ```
 
+
+## gom.api.scripted_checks_util
+
+Tool functions for scripted checks
+
+
+### gom.api.scripted_checks_util.is_curve_checkable
+
+```{py:function} gom.api.scripted_checks_util.is_curve_checkable(element: gom.Object): bool
+
+Checks if the referenced element is suitable for inspection with a curve check
+:API version: 1
+:param element: Element reference to check
+:type element: gom.Object
+:return: 'true' if the element is checkable like a curve
+:rtype: bool
+```
+
+This function checks if the given element can be inspected like a curve in the context of scripted
+elements. Please see the scripted element documentation for details about the underlying scheme.
+
+### gom.api.scripted_checks_util.is_scalar_checkable
+
+```{py:function} gom.api.scripted_checks_util.is_scalar_checkable(element: gom.Object): bool
+
+Checks if the referenced element is suitable for inspection with a scalar check
+:API version: 1
+:param element: Element reference to check
+:type element: gom.Object
+:return: 'true' if the element is checkable like a scalar value
+:rtype: bool
+```
+
+This function checks if the given element can be inspected like a scalar value in the context of scripted
+elements. Please see the scripted element documentation for details about the underlying scheme.
+
+### gom.api.scripted_checks_util.is_surface_checkable
+
+```{py:function} gom.api.scripted_checks_util.is_surface_checkable(element: gom.Object): bool
+
+Checks if the referenced element is suitable for inspection with a surface check
+:API version: 1
+:param element: Element reference to check
+:type element: gom.Object
+:return: 'true' if the element is checkable like a surface
+:rtype: bool
+```
+
+This function checks if the given element can be inspected like a surface in the context of scripted
+elements. Please see the scripted element documentation for details about the underlying scheme.
+
+## gom.api.scriptedelements
+
+API for handling scripted elements
+
+This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, ...)
+It is used mostly internally by the scripted element framework.
+
+### gom.api.scriptedelements.get_dimension_definition
+
+```{py:function} gom.api.scriptedelements.get_dimension_definition(typename: str): Any
+
+Return information about the given dimension
+:param name: Name of the dimension
+:return: Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension
+:rtype: Any
+```
+
+A physical dimension (or just "dimension") refers to the fundamental nature of what is measured - like length,
+time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
+from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
+millimeter, inch for length; or degree, radian for angle.
+
+### gom.api.scriptedelements.get_dimensions
+
+```{py:function} gom.api.scriptedelements.get_dimensions(): [str]
+
+Return available dimensions
+:return: List of known dimensions
+:rtype: [str]
+```
+
+
+### gom.api.scriptedelements.get_inspection_definition
+
+```{py:function} gom.api.scriptedelements.get_inspection_definition(typename: str): Any
+
+Return information about the given scripted element type
+:param type_name: Type name of the inspection to query
+:return: Dictionary with relevant type information or an empty dictionary if the type is unknown
+:rtype: Any
+```
+
+This function queries in internal 'scalar registry' database for information about the
+inspection with the given type.
 
 ## gom.api.selection
 
