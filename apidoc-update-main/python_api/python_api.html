@@ -6225,6 +6225,12 @@ as a starting point for your own custom views.</p>
 more <code class="docutils literal notranslate"><span class="pre">CustomDataCollector</span></code> contributions. It owns the HTML page and the
 JavaScript bundle, while <code class="docutils literal notranslate"><span class="pre">collectors</span></code> defines the collector ids whose data is
 provided to that bundle.</p>
+<p><strong>Resource paths</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">bundle</span></code> and optional <code class="docutils literal notranslate"><span class="pre">stylesheet</span></code> paths are relative to the app’s
+<code class="docutils literal notranslate"><span class="pre">scripts/</span></code> directory. Their local app-relative paths are therefore
+<code class="docutils literal notranslate"><span class="pre">scripts/&lt;bundle&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">scripts/&lt;stylesheet&gt;</span></code>. A single leading slash is
+accepted as a legacy script-provider-root prefix; it is not a filesystem
+path.</p>
 <p><strong>Data flow</strong></p>
 <p>Each entry in <code class="docutils literal notranslate"><span class="pre">collectors</span></code> is the id of a <code class="docutils literal notranslate"><span class="pre">CustomDataCollector</span></code>. Each
 collector is collected and cached once. The collector id is sent as <code class="docutils literal notranslate"><span class="pre">id</span></code> in
@@ -6335,9 +6341,9 @@ structure may change. Views without this opt-in remain unaffected.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<em>str</em>) – Globally unique custom view id string. (REQUIRED)</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – Human readable name. (REQUIRED)</p></li>
-<li><p><strong>bundle</strong> (<em>str</em>) – JavaScript bundle that renders all data views. (REQUIRED)</p></li>
+<li><p><strong>bundle</strong> (<em>str</em>) – JavaScript bundle relative to the app’s <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> directory. (REQUIRED)</p></li>
 <li><p><strong>collectors</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of custom data collector ids used by the view. (REQUIRED)</p></li>
-<li><p><strong>stylesheet</strong> (<em>str</em>) – Path to the optional CSS stylesheet. (OPTIONAL, default: “”)</p></li>
+<li><p><strong>stylesheet</strong> (<em>str</em>) – Optional CSS path relative to the app’s <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> directory. (OPTIONAL, default: “”)</p></li>
 <li><p><strong>functions</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – Functions exposed to the JavaScript bundle. (OPTIONAL, default: [])</p></li>
 <li><p><strong>signals</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – Signals that trigger collector updates. (OPTIONAL, default: [])</p></li>
 <li><p><strong>preprocess_data</strong> (<em>Any</em>) – Optional callable with signature <code class="docutils literal notranslate"><span class="pre">(data)</span></code>. (OPTIONAL, default: None)</p></li>
@@ -10763,7 +10769,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fb265616190>
+  <jinja2.runtime.BlockReference object at 0x7f3d15b46190>
 
 
 </footer>

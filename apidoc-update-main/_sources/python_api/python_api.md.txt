@@ -5106,6 +5106,14 @@ more `CustomDataCollector` contributions. It owns the HTML page and the
 JavaScript bundle, while `collectors` defines the collector ids whose data is
 provided to that bundle.
 
+**Resource paths**
+
+The `bundle` and optional `stylesheet` paths are relative to the app's
+`scripts/` directory. Their local app-relative paths are therefore
+`scripts/<bundle>` and `scripts/<stylesheet>`. A single leading slash is
+accepted as a legacy script-provider-root prefix; it is not a filesystem
+path.
+
 **Data flow**
 
 Each entry in `collectors` is the id of a `CustomDataCollector`. Each
@@ -5230,11 +5238,11 @@ structure may change. Views without this opt-in remain unaffected.
 :type id: str
 :param description: Human readable name. (REQUIRED)
 :type description: str
-:param bundle: JavaScript bundle that renders all data views. (REQUIRED)
+:param bundle: JavaScript bundle relative to the app's `scripts/` directory. (REQUIRED)
 :type bundle: str
 :param collectors: List of custom data collector ids used by the view. (REQUIRED)
 :type collectors: List[str]
-:param stylesheet: Path to the optional CSS stylesheet. (OPTIONAL, default: "")
+:param stylesheet: Optional CSS path relative to the app's `scripts/` directory. (OPTIONAL, default: "")
 :type stylesheet: str
 :param functions: Functions exposed to the JavaScript bundle. (OPTIONAL, default: [])
 :type functions: List[Any]
