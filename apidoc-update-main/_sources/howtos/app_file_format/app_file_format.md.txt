@@ -20,6 +20,7 @@ While an App file will be created and modified with the App Editor in most cases
 | `key.enc`         | App protection and licensing information in case the App is protected                                        |
 | `license/`        | Terms-of-use related to this App. Can contain a set of text files like `license.txt` , `license_numpy.txt` , ... which will be displayed and must be acknowledged upon App installation                                                                                              |
 | `metainfo.json`   | App metainfo data (title, description, version, ...); see [`metainfo.json` documentation](#metainfojson-documentation)                             |
+| `.inspectignore`  | (Optional) File containing folders/files to be ignored by ZEISS INSPECT; see [`.inspectignore` documentation](#inspectignore-documentation) |
 
 ### Content types
 
@@ -182,6 +183,30 @@ Example: <a href="https://github.com/ZEISS/zeiss-inspect-app-examples/blob/main/
 - **labels**: `[String]`
 - **references**: `[String]` &ndash; Reference links used for <a href="../../python_examples/examples_overview.html">ZEISS INSPECT App Examples Overview</a>
 - **tags**: `[String]` &ndash; Tags used for <a href="../../python_examples/examples_overview.html">ZEISS INSPECT App Examples Overview</a>
+
+## `.inspectignore` documentation
+
+An App can include a text file named `.inspectignore` in its root folder to hide selected content. Ignored entries are omitted from content listings and are treated as if they do not exist by ZEISS INSPECT.
+
+Write one rule per line. Blank lines and lines beginning with `#` are ignored:
+
+```text
+# Hide generated folders and transitive files
+.git/
+artifact.temp
+*/__pycache__/
+```
+
+Ordinary paths are relative to the App's root folder. A rule ignores the matching path and its contents; leading and trailing `/` characters are optional. The special form `*/<path>` matches that folder path at any depth, including its contents. For example, `*/generated/` matches both `generated/` and `scripts/generated/`.
+
+Only this `*/` wildcard folder form is supported. Other glob patterns or negation rules such as `!path` are not supported; `.inspectignore` is not a full `.gitignore` implementation.
+
+The `.inspectignore` file is supposed to hide transitive files or folders used during App development (e.g. `__pycache__` or `.venv`), which can contain a large number of files and may impact App loading performance.
+It can also be useful to hide `.git` directories when developing an App in an external folder.
+
+```{note}
+When an edited App containing a `.inspectignore` file is finalized, all ignored files are permanently deleted and therefore **NOT** be included in the finalized App.
+```
 
 ## Python script `<name>.metainfo` documentation
 

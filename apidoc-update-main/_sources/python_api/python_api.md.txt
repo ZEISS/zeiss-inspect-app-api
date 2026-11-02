@@ -2963,7 +2963,7 @@ For internal use only.
 
 ##### gom.api.extensions.diagrams.CustomDiagram.event
 
-```{py:function} gom.api.extensions.diagrams.CustomDiagram.event(self: Any, element_name: str, element_uuid: str, event_data: Any): None
+```{py:function} gom.api.extensions.diagrams.CustomDiagram.event(self: Any, element_name: str, element_uuid: str, event_data: Any): Any
 
 :param element_name: Human-readable element name (e.g., ``'Point 1'``).
 :type element_name: str
@@ -2972,7 +2972,7 @@ For internal use only.
 :param event_data: Dictionary with mouse event details including coordinates and button state.
 :type event_data: Any
 :return: ``None`` to ignore the event, or a dictionary produced by ``finish_event(cmd_script, params)`` to trigger a follow-up script command.
-:rtype: None
+:rtype: Any
 ```
 
 Handle user interaction with the diagram (clicks, but not hover).
@@ -2990,12 +2990,12 @@ def event(self, element_name, element_uuid, event_data):
 
 ##### gom.api.extensions.diagrams.CustomDiagram.finish_event
 
-```{py:function} gom.api.extensions.diagrams.CustomDiagram.finish_event(self: Any, cmd_script: str, params: Any): None
+```{py:function} gom.api.extensions.diagrams.CustomDiagram.finish_event(self: Any, cmd_script: str, params: Dict[str, Any]): None
 
 :param cmd_script: Identifier of the script command to execute as a follow-up to the diagram interaction event.
 :type cmd_script: str
-:param params: Optional parameters to pass to the script command. Can be any JSON-serializable value.
-:type params: Any
+:param params: Optional parameters to pass to the script command. Can be a map of any JSON-serializable value.
+:type params: Dict[str, Any]
 :return: Dictionary ``{'cmd_script': cmd_script, 'data_script': params}``.
 :rtype: None
 ```
@@ -3007,6 +3007,17 @@ Example:
 ```python
 def event(self, element_name, element_uuid, event_data):
     return self.finish_event('my_click_handler', {'uuid': element_uuid})
+```
+
+Use `gom.read_parameters()` to access the parameters in the called script:
+
+```python
+# Access the parameters passed to the script command
+event_parameters = {}
+gom.read_parameters(event_parameters)
+
+# Retrieve the element UUID from the event parameters
+element_uuid = event_parameters.get('uuid')
 ```
 
 ##### gom.api.extensions.diagrams.CustomDiagram.partitions
@@ -3125,7 +3136,7 @@ Constructor
 
 ##### gom.api.extensions.diagrams.CustomDiagramView.event
 
-```{py:function} gom.api.extensions.diagrams.CustomDiagramView.event(self: Any, element_name: str, element_uuid: str, event_data: Any): None
+```{py:function} gom.api.extensions.diagrams.CustomDiagramView.event(self: Any, element_name: str, element_uuid: str, event_data: Any): Any
 
 :param element_name: Human-readable element name.
 :type element_name: str
@@ -3134,7 +3145,7 @@ Constructor
 :param event_data: Dictionary with mouse event details.
 :type event_data: Any
 :return: ``None`` or a follow-up command dictionary.
-:rtype: None
+:rtype: Any
 ```
 
 Handle user interaction with the diagram (clicks, but not hover).
@@ -3143,11 +3154,12 @@ See ``CustomDiagram.event()`` for a detailed description of the parameters.
 
 ##### gom.api.extensions.diagrams.CustomDiagramView.finish_event
 
-```{py:function} gom.api.extensions.diagrams.CustomDiagramView.finish_event(self: Any, cmd_script: str, params: Any): None
+```{py:function} gom.api.extensions.diagrams.CustomDiagramView.finish_event(self: Any, cmd_script: str, params: Dict[str, Any]): None
 
 :param cmd_script: Identification of the script command to be executed as a follow-up to this event
 :type cmd_script: str
-:param data_script: Optional Parameters to be passed to said script
+:param params: Optional Parameters to be passed to said script
+:type params: Dict[str, Any]
 :return: Dictionary with {"cmd_script": cmd_script, "data_script": params}
 :rtype: None
 ```
@@ -7101,101 +7113,6 @@ Unload resource from shared memory
 :rtype: bool
 ```
 
-
-## gom.api.scripted_checks_util
-
-Tool functions for scripted checks
-
-
-### gom.api.scripted_checks_util.is_curve_checkable
-
-```{py:function} gom.api.scripted_checks_util.is_curve_checkable(element: gom.Object): bool
-
-Checks if the referenced element is suitable for inspection with a curve check
-:API version: 1
-:param element: Element reference to check
-:type element: gom.Object
-:return: 'true' if the element is checkable like a curve
-:rtype: bool
-```
-
-This function checks if the given element can be inspected like a curve in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.
-
-### gom.api.scripted_checks_util.is_scalar_checkable
-
-```{py:function} gom.api.scripted_checks_util.is_scalar_checkable(element: gom.Object): bool
-
-Checks if the referenced element is suitable for inspection with a scalar check
-:API version: 1
-:param element: Element reference to check
-:type element: gom.Object
-:return: 'true' if the element is checkable like a scalar value
-:rtype: bool
-```
-
-This function checks if the given element can be inspected like a scalar value in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.
-
-### gom.api.scripted_checks_util.is_surface_checkable
-
-```{py:function} gom.api.scripted_checks_util.is_surface_checkable(element: gom.Object): bool
-
-Checks if the referenced element is suitable for inspection with a surface check
-:API version: 1
-:param element: Element reference to check
-:type element: gom.Object
-:return: 'true' if the element is checkable like a surface
-:rtype: bool
-```
-
-This function checks if the given element can be inspected like a surface in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.
-
-## gom.api.scriptedelements
-
-API for handling scripted elements
-
-This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, ...)
-It is used mostly internally by the scripted element framework.
-
-### gom.api.scriptedelements.get_dimension_definition
-
-```{py:function} gom.api.scriptedelements.get_dimension_definition(typename: str): Any
-
-Return information about the given dimension
-:param name: Name of the dimension
-:return: Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension
-:rtype: Any
-```
-
-A physical dimension (or just "dimension") refers to the fundamental nature of what is measured - like length,
-time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
-from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
-millimeter, inch for length; or degree, radian for angle.
-
-### gom.api.scriptedelements.get_dimensions
-
-```{py:function} gom.api.scriptedelements.get_dimensions(): [str]
-
-Return available dimensions
-:return: List of known dimensions
-:rtype: [str]
-```
-
-
-### gom.api.scriptedelements.get_inspection_definition
-
-```{py:function} gom.api.scriptedelements.get_inspection_definition(typename: str): Any
-
-Return information about the given scripted element type
-:param type_name: Type name of the inspection to query
-:return: Dictionary with relevant type information or an empty dictionary if the type is unknown
-:rtype: Any
-```
-
-This function queries in internal 'scalar registry' database for information about the
-inspection with the given type.
 
 ## gom.api.selection
 
