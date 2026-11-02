@@ -74,6 +74,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#additional-information">Additional information</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#inspectignore-documentation"><code class="docutils literal notranslate"><span class="pre">.inspectignore</span></code> documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#python-script-name-metainfo-documentation">Python script <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;.metainfo</span></code> documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#json-elements">JSON elements</a></li>
@@ -195,6 +196,9 @@
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code></p></td>
 <td><p>App metainfo data (title, description, version, …); see <a class="reference internal" href="#metainfo-json-documentation"><code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> documentation</a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">.inspectignore</span></code></p></td>
+<td><p>(Optional) File containing folders/files to be ignored by ZEISS INSPECT; see <a class="reference internal" href="#inspectignore-documentation"><code class="docutils literal notranslate"><span class="pre">.inspectignore</span></code> documentation</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -486,6 +490,25 @@
 </ul>
 </section>
 </section>
+<section id="inspectignore-documentation">
+<h2><code class="docutils literal notranslate"><span class="pre">.inspectignore</span></code> documentation<a class="headerlink" href="#inspectignore-documentation" title="Link to this heading"></a></h2>
+<p>An App can include a text file named <code class="docutils literal notranslate"><span class="pre">.inspectignore</span></code> in its root folder to hide selected content. Ignored entries are omitted from content listings and are treated as if they do not exist by ZEISS INSPECT.</p>
+<p>Write one rule per line. Blank lines and lines beginning with <code class="docutils literal notranslate"><span class="pre">#</span></code> are ignored:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Hide generated folders and transitive files
+.git/
+artifact.temp
+*/__pycache__/
+</pre></div>
+</div>
+<p>Ordinary paths are relative to the App’s root folder. A rule ignores the matching path and its contents; leading and trailing <code class="docutils literal notranslate"><span class="pre">/</span></code> characters are optional. The special form <code class="docutils literal notranslate"><span class="pre">*/&lt;path&gt;</span></code> matches that folder path at any depth, including its contents. For example, <code class="docutils literal notranslate"><span class="pre">*/generated/</span></code> matches both <code class="docutils literal notranslate"><span class="pre">generated/</span></code> and <code class="docutils literal notranslate"><span class="pre">scripts/generated/</span></code>.</p>
+<p>Only this <code class="docutils literal notranslate"><span class="pre">*/</span></code> wildcard folder form is supported. Other glob patterns or negation rules such as <code class="docutils literal notranslate"><span class="pre">!path</span></code> are not supported; <code class="docutils literal notranslate"><span class="pre">.inspectignore</span></code> is not a full <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> implementation.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.inspectignore</span></code> file is supposed to hide transitive files or folders used during App development (e.g. <code class="docutils literal notranslate"><span class="pre">__pycache__</span></code> or <code class="docutils literal notranslate"><span class="pre">.venv</span></code>), which can contain a large number of files and may impact App loading performance.
+It can also be useful to hide <code class="docutils literal notranslate"><span class="pre">.git</span></code> directories when developing an App in an external folder.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When an edited App containing a <code class="docutils literal notranslate"><span class="pre">.inspectignore</span></code> file is finalized, all ignored files are permanently deleted and therefore <strong>NOT</strong> be included in the finalized App.</p>
+</div>
+</section>
 <section id="python-script-name-metainfo-documentation">
 <h2>Python script <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;.metainfo</span></code> documentation<a class="headerlink" href="#python-script-name-metainfo-documentation" title="Link to this heading"></a></h2>
 <p>Most elements of the script <code class="docutils literal notranslate"><span class="pre">.metainfo</span></code> file are available via the ‘Edit Properties…’ dialog in the App editor.</p>
@@ -605,7 +628,7 @@ the menu hierarchy is created from the script’s path within the App’s <code 
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7fdade042b70>
+  <jinja2.runtime.BlockReference object at 0x7f3a9c1b77a0>
 
 
 </footer>
