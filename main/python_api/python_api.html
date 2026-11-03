@@ -769,18 +769,6 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-script-resources-unload">gom.api.script_resources.unload</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#gom-api-scripted-checks-util">gom.api.scripted_checks_util</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-curve-checkable">gom.api.scripted_checks_util.is_curve_checkable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-scalar-checkable">gom.api.scripted_checks_util.is_scalar_checkable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scripted-checks-util-is-surface-checkable">gom.api.scripted_checks_util.is_surface_checkable</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#gom-api-scriptedelements">gom.api.scriptedelements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimension-definition">gom.api.scriptedelements.get_dimension_definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-dimensions">gom.api.scriptedelements.get_dimensions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gom-api-scriptedelements-get-inspection-definition">gom.api.scriptedelements.get_inspection_definition</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-selection">gom.api.selection</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-selection-get-selected-elements">gom.api.selection.get_selected_elements</a></li>
 </ul>
@@ -4143,7 +4131,7 @@ additional helpers for SVG output, interactive overlays, and automatic output sa
 <h5>gom.api.extensions.diagrams.CustomDiagram.event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-event" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagram.event(self:</span> <span class="pre">Any,</span> <span class="pre">element_name:</span> <span class="pre">str,</span> <span class="pre">element_uuid:</span> <span class="pre">str,</span> <span class="pre">event_data:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagram.event(self:</span> <span class="pre">Any,</span> <span class="pre">element_name:</span> <span class="pre">str,</span> <span class="pre">element_uuid:</span> <span class="pre">str,</span> <span class="pre">event_data:</span> <span class="pre">Any):</span> <span class="pre">Any</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -4156,7 +4144,7 @@ additional helpers for SVG output, interactive overlays, and automatic output sa
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code> to ignore the event, or a dictionary produced by <code class="docutils literal notranslate"><span class="pre">finish_event(cmd_script,</span> <span class="pre">params)</span></code> to trigger a follow-up script command.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<dd class="field-odd"><p>Any</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4175,12 +4163,12 @@ about the mouse event. Use <code class="docutils literal notranslate"><span clas
 <h5>gom.api.extensions.diagrams.CustomDiagram.finish_event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagram-finish-event" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagram.finish_event(self:</span> <span class="pre">Any,</span> <span class="pre">cmd_script:</span> <span class="pre">str,</span> <span class="pre">params:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagram.finish_event(self:</span> <span class="pre">Any,</span> <span class="pre">cmd_script:</span> <span class="pre">str,</span> <span class="pre">params:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cmd_script</strong> (<em>str</em>) – Identifier of the script command to execute as a follow-up to the diagram interaction event.</p></li>
-<li><p><strong>params</strong> (<em>Any</em>) – Optional parameters to pass to the script command. Can be any JSON-serializable value.</p></li>
+<li><p><strong>params</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Optional parameters to pass to the script command. Can be a map of any JSON-serializable value.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -4196,6 +4184,15 @@ about the mouse event. Use <code class="docutils literal notranslate"><span clas
 <p>Example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element_name</span><span class="p">,</span> <span class="n">element_uuid</span><span class="p">,</span> <span class="n">event_data</span><span class="p">):</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish_event</span><span class="p">(</span><span class="s1">'my_click_handler'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'uuid'</span><span class="p">:</span> <span class="n">element_uuid</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">gom.read_parameters()</span></code> to access the parameters in the called script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Access the parameters passed to the script command</span>
+<span class="n">event_parameters</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">gom</span><span class="o">.</span><span class="n">read_parameters</span><span class="p">(</span><span class="n">event_parameters</span><span class="p">)</span>
+
+<span class="c1"># Retrieve the element UUID from the event parameters</span>
+<span class="n">element_uuid</span> <span class="o">=</span> <span class="n">event_parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'uuid'</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -4334,7 +4331,7 @@ Prefer <code class="docutils literal notranslate"><span class="pre">CustomDiagra
 <h5>gom.api.extensions.diagrams.CustomDiagramView.event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-event" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.event(self:</span> <span class="pre">Any,</span> <span class="pre">element_name:</span> <span class="pre">str,</span> <span class="pre">element_uuid:</span> <span class="pre">str,</span> <span class="pre">event_data:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.event(self:</span> <span class="pre">Any,</span> <span class="pre">element_name:</span> <span class="pre">str,</span> <span class="pre">element_uuid:</span> <span class="pre">str,</span> <span class="pre">event_data:</span> <span class="pre">Any):</span> <span class="pre">Any</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -4347,7 +4344,7 @@ Prefer <code class="docutils literal notranslate"><span class="pre">CustomDiagra
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">None</span></code> or a follow-up command dictionary.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<dd class="field-odd"><p>Any</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4359,12 +4356,12 @@ Prefer <code class="docutils literal notranslate"><span class="pre">CustomDiagra
 <h5>gom.api.extensions.diagrams.CustomDiagramView.finish_event<a class="headerlink" href="#gom-api-extensions-diagrams-customdiagramview-finish-event" title="Link to this heading"></a></h5>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.finish_event(self:</span> <span class="pre">Any,</span> <span class="pre">cmd_script:</span> <span class="pre">str,</span> <span class="pre">params:</span> <span class="pre">Any):</span> <span class="pre">None</span></span></dt>
+<span class="sig-name descname"><span class="pre">gom.api.extensions.diagrams.CustomDiagramView.finish_event(self:</span> <span class="pre">Any,</span> <span class="pre">cmd_script:</span> <span class="pre">str,</span> <span class="pre">params:</span> <span class="pre">Dict[str,</span> <span class="pre">Any]):</span> <span class="pre">None</span></span></dt>
 <dd><dl class="myst field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cmd_script</strong> (<em>str</em>) – Identification of the script command to be executed as a follow-up to this event</p></li>
-<li><p><strong>data_script</strong> – Optional Parameters to be passed to said script</p></li>
+<li><p><strong>params</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Optional Parameters to be passed to said script</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -8690,154 +8687,6 @@ for various image variants.</p>
 
 </section>
 </section>
-<section id="gom-api-scripted-checks-util">
-<h2>gom.api.scripted_checks_util<a class="headerlink" href="#gom-api-scripted-checks-util" title="Link to this heading"></a></h2>
-<p>Tool functions for scripted checks</p>
-<section id="gom-api-scripted-checks-util-is-curve-checkable">
-<h3>gom.api.scripted_checks_util.is_curve_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-curve-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_curve_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a curve check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a curve</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a curve in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-<section id="gom-api-scripted-checks-util-is-scalar-checkable">
-<h3>gom.api.scripted_checks_util.is_scalar_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-scalar-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_scalar_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a scalar check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a scalar value</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a scalar value in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-<section id="gom-api-scripted-checks-util-is-surface-checkable">
-<h3>gom.api.scripted_checks_util.is_surface_checkable<a class="headerlink" href="#gom-api-scripted-checks-util-is-surface-checkable" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scripted_checks_util.is_surface_checkable(element:</span> <span class="pre">gom.Object):</span> <span class="pre">bool</span></span></dt>
-<dd><p>Checks if the referenced element is suitable for inspection with a surface check</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">API version<span class="colon">:</span></dt>
-<dd class="field-odd"><p>1</p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>element</strong> (<em>gom.Object</em>) – Element reference to check</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>‘true’ if the element is checkable like a surface</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function checks if the given element can be inspected like a surface in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.</p>
-</section>
-</section>
-<section id="gom-api-scriptedelements">
-<h2>gom.api.scriptedelements<a class="headerlink" href="#gom-api-scriptedelements" title="Link to this heading"></a></h2>
-<p>API for handling scripted elements</p>
-<p>This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, …)
-It is used mostly internally by the scripted element framework.</p>
-<section id="gom-api-scriptedelements-get-dimension-definition">
-<h3>gom.api.scriptedelements.get_dimension_definition<a class="headerlink" href="#gom-api-scriptedelements-get-dimension-definition" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_dimension_definition(typename:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Return information about the given dimension</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> – Name of the dimension</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>A physical dimension (or just “dimension”) refers to the fundamental nature of what is measured - like length,
-time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
-from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
-millimeter, inch for length; or degree, radian for angle.</p>
-</section>
-<section id="gom-api-scriptedelements-get-dimensions">
-<h3>gom.api.scriptedelements.get_dimensions<a class="headerlink" href="#gom-api-scriptedelements-get-dimensions" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_dimensions():</span> <span class="pre">[str]</span></span></dt>
-<dd><p>Return available dimensions</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List of known dimensions</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="gom-api-scriptedelements-get-inspection-definition">
-<h3>gom.api.scriptedelements.get_inspection_definition<a class="headerlink" href="#gom-api-scriptedelements-get-inspection-definition" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">gom.api.scriptedelements.get_inspection_definition(typename:</span> <span class="pre">str):</span> <span class="pre">Any</span></span></dt>
-<dd><p>Return information about the given scripted element type</p>
-<dl class="myst field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>type_name</strong> – Type name of the inspection to query</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary with relevant type information or an empty dictionary if the type is unknown</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Any</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>This function queries in internal ‘scalar registry’ database for information about the
-inspection with the given type.</p>
-</section>
-</section>
 <section id="gom-api-selection">
 <h2>gom.api.selection<a class="headerlink" href="#gom-api-selection" title="Link to this heading"></a></h2>
 <p>API for handling explorer selection</p>
@@ -10769,7 +10618,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7f3a942b0b40>
+  <jinja2.runtime.BlockReference object at 0x7f2466f2bcb0>
 
 
 </footer>
