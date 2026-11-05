@@ -1531,7 +1531,6 @@ for supported signals.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">only_update_when_idle</span></code> — <code class="docutils literal notranslate"><span class="pre">true</span></code> if collection waits until no command is active; otherwise <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">has_data</span></code> — <code class="docutils literal notranslate"><span class="pre">true</span></code> after at least one successful collection has produced
 cached data; otherwise <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">collecting</span></code> — <code class="docutils literal notranslate"><span class="pre">true</span></code> while a collection is currently running.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">last_error</span></code> — Most recent collection error, or an empty value if no error
 has been reported.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">collected_at</span></code> — Timestamp of the most recent successful collection.</p></li>
@@ -1549,7 +1548,6 @@ collectors are registered, an empty list is returned.</p>
         <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Collects point positions from the project"</span><span class="p">,</span>
         <span class="s2">"signals"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"signal::data"</span><span class="p">],</span>
         <span class="s2">"has_data"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">"collecting"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
         <span class="s2">"last_error"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
         <span class="s2">"collected_at"</span><span class="p">:</span> <span class="s2">"2026-08-17T12:00:00Z"</span><span class="p">,</span>
     <span class="p">},</span>
@@ -1607,7 +1605,7 @@ element order; each row contains:</p>
 <dd class="field-odd"><p><strong>id</strong> (<em>str</em>) – Custom data collector identifier.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary containing <code class="docutils literal notranslate"><span class="pre">found</span></code>, <code class="docutils literal notranslate"><span class="pre">requested</span></code>, <code class="docutils literal notranslate"><span class="pre">scheduled</span></code>, <code class="docutils literal notranslate"><span class="pre">collecting</span></code>, and <code class="docutils literal notranslate"><span class="pre">reason</span></code>.</p>
+<dd class="field-even"><p>Dictionary containing <code class="docutils literal notranslate"><span class="pre">found</span></code>, <code class="docutils literal notranslate"><span class="pre">requested</span></code>, <code class="docutils literal notranslate"><span class="pre">scheduled</span></code>, and <code class="docutils literal notranslate"><span class="pre">reason</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
@@ -6302,6 +6300,77 @@ collector id and the processed data:</p>
 </div>
 <p>The JavaScript bundle should use the collector id to select the rendering
 logic. A single collector can render multiple UI components from its data.</p>
+<p><strong>Host actions</strong></p>
+<p>A custom data-view bundle can request host actions with these helpers; they
+construct the reserved <code class="docutils literal notranslate"><span class="pre">gom.emitEvent(name,</span> <span class="pre">payload)</span></code> calls and payloads:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gom.selectElements(elements,</span> <span class="pre">mode='replace')</span></code> selects one record or a list of records by mode.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gom.clearSelection()</span></code> clears the current selection.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gom.executeScript(name,</span> <span class="pre">parameters={},</span> <span class="pre">appUuid=None)</span></code> runs a registered user script.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gom.elementFrontView(element,</span> <span class="pre">useAnimation=False)</span></code> adjusts the 3D view to an element.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gom.showInExplorer(elements)</span></code> selects one or more elements and reveals them in the Explorer.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gom.frameElement(elements)</span></code> frames one or more elements in the 3D view.</p></li>
+</ul>
+<p>Each helper returns a promise that resolves with the successful host action
+result and rejects with an <code class="docutils literal notranslate"><span class="pre">Error</span></code> named <code class="docutils literal notranslate"><span class="pre">DataViewActionError</span></code> if the
+action fails. The error has <code class="docutils literal notranslate"><span class="pre">action</span></code>, <code class="docutils literal notranslate"><span class="pre">requestId</span></code>, and <code class="docutils literal notranslate"><span class="pre">result</span></code> fields;
+<code class="docutils literal notranslate"><span class="pre">result</span></code> contains the host response, including its <code class="docutils literal notranslate"><span class="pre">error</span></code> message.
+Each helper automatically generates and includes a unique <code class="docutils literal notranslate"><span class="pre">requestId</span></code> in
+its event payload. Host-action dispatch requires this ID, but the helper
+manages it internally, so callers do not supply it. The payload examples
+below omit this generated field.
+Applications should use these helpers rather than emit the reserved action
+events directly.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">gom</span><span class="p">.</span><span class="nx">selectElements</span><span class="p">([</span><span class="nx">row</span><span class="p">,</span><span class="w"> </span><span class="nx">anotherRow</span><span class="p">]).</span><span class="nx">then</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">result</span><span class="p">.</span><span class="nx">action</span><span class="si">}</span><span class="sb"> succeeded`</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">error</span><span class="p">.</span><span class="nx">action</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>Every payload contains only JSON-safe values (null, booleans, finite
+numbers, strings, arrays, and objects).</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data::selection</span></code>: <code class="docutils literal notranslate"><span class="pre">{&quot;elementIds&quot;:</span> <span class="pre">[{&quot;id&quot;:</span> <span class="pre">&quot;element-id&quot;,</span> <span class="pre">&quot;category&quot;:</span> <span class="pre">0,</span> <span class="pre">&quot;stage&quot;:</span> <span class="pre">0}],</span> <span class="pre">&quot;mode&quot;:</span> <span class="pre">&quot;replace&quot;}</span></code>.
+<code class="docutils literal notranslate"><span class="pre">elementIds</span></code> must be an array of element references. Each reference
+requires a non-empty string <code class="docutils literal notranslate"><span class="pre">id</span></code> and may include integer <code class="docutils literal notranslate"><span class="pre">category</span></code>
+and <code class="docutils literal notranslate"><span class="pre">stage</span></code> values. Bare ID strings are accepted for compatibility.
+<code class="docutils literal notranslate"><span class="pre">mode</span></code> is required and must be <code class="docutils literal notranslate"><span class="pre">replace</span></code>, <code class="docutils literal notranslate"><span class="pre">toggle</span></code>, or <code class="docutils literal notranslate"><span class="pre">clear</span></code>.
+<code class="docutils literal notranslate"><span class="pre">replace</span></code> replaces the current selection, <code class="docutils literal notranslate"><span class="pre">toggle</span></code> toggles only the
+requested elements while preserving unrelated selection, and <code class="docutils literal notranslate"><span class="pre">clear</span></code>
+clears the current selection. An empty ID array with <code class="docutils literal notranslate"><span class="pre">replace</span></code> also
+clears the selection.
+In Python, use <code class="docutils literal notranslate"><span class="pre">element.to_json()</span></code> to get its JSON-compatible
+<code class="docutils literal notranslate"><span class="pre">id</span></code> field, then merge it into the collector record. Returning the
+element object itself (for example,
+<code class="docutils literal notranslate"><span class="pre">{&quot;element&quot;:</span> <span class="pre">element}</span></code>) does not expose a JavaScript reference with
+an <code class="docutils literal notranslate"><span class="pre">id</span></code>; the data-view transport does not expand the GOM object into
+that JSON shape.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data::execute_script</span></code>: <code class="docutils literal notranslate"><span class="pre">{&quot;name&quot;:</span> <span class="pre">&quot;userscript.&lt;registered-command&gt;&quot;,</span> <span class="pre">&quot;parameters&quot;:</span> <span class="pre">{},</span> <span class="pre">&quot;app_uuid&quot;:</span> <span class="pre">&quot;&lt;uuid&gt;&quot;}</span></code>.
+<code class="docutils literal notranslate"><span class="pre">name</span></code> must be the exact registered <code class="docutils literal notranslate"><span class="pre">userscript.*</span></code> command name.
+<code class="docutils literal notranslate"><span class="pre">parameters</span></code> is optional and defaults to an empty object. <code class="docutils literal notranslate"><span class="pre">app_uuid</span></code>
+is optional and defaults to the App that owns this view contribution; an
+explicit UUID selects another App only when that exact script belongs to
+it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data::frame_element</span></code>: <code class="docutils literal notranslate"><span class="pre">{&quot;selection&quot;:</span> <span class="pre">[{&quot;id&quot;:</span> <span class="pre">&quot;element-id&quot;}]}</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data::front_view</span></code>: <code class="docutils literal notranslate"><span class="pre">{&quot;element&quot;:</span> <span class="pre">{&quot;id&quot;:</span> <span class="pre">&quot;element-id&quot;},</span> <span class="pre">&quot;use_animation&quot;:</span> <span class="pre">false}</span></code>.
+<code class="docutils literal notranslate"><span class="pre">use_animation</span></code> is optional and defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data::show_in_explorer</span></code>: <code class="docutils literal notranslate"><span class="pre">{&quot;selection&quot;:</span> <span class="pre">[{&quot;id&quot;:</span> <span class="pre">&quot;element-id&quot;}]}</span></code>.</p></li>
+</ul>
+<p>The selection, frame, and Explorer helpers accept either one element
+reference or a list of references. Their action payloads always contain a
+<code class="docutils literal notranslate"><span class="pre">selection</span></code> array. The selection action may use an empty array to clear
+the current selection.</p>
+<p>For example, a collector can preserve the id alongside its displayed data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">to_json</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="n">element</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The Python <code class="docutils literal notranslate"><span class="pre">event()</span></code> method receives every emitted event before the host
+dispatches a reserved action. Do not repeat a reserved host action from
+Python. The <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;_response</span></code> event is only the Python <code class="docutils literal notranslate"><span class="pre">event()</span></code> return
+value; it is separate from the host action result returned by the helper
+promise or its rejection. Python <code class="docutils literal notranslate"><span class="pre">event()</span></code> and <code class="docutils literal notranslate"><span class="pre">gom.bridge</span></code> remain
+available for app-specific interactions.</p>
 <p><strong>Report SVG export</strong></p>
 <p>Set <code class="docutils literal notranslate"><span class="pre">export_version=1</span></code> to opt in to report export. The data-view bundle must
 then provide <code class="docutils literal notranslate"><span class="pre">window.customDataView.exportSvg(request)</span></code>. The function receives
@@ -10778,7 +10847,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7d1af13fc750>
+  <jinja2.runtime.BlockReference object at 0x7713cb271e80>
 
 
 </footer>
