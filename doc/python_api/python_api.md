@@ -441,7 +441,6 @@ for supported signals.
 - `only_update_when_idle` — `true` if collection waits until no command is active; otherwise `false`.
 - `has_data` — `true` after at least one successful collection has produced
 cached data; otherwise `false`.
-- `collecting` — `true` while a collection is currently running.
 - `last_error` — Most recent collection error, or an empty value if no error
 has been reported.
 - `collected_at` — Timestamp of the most recent successful collection.
@@ -464,7 +463,6 @@ collectors are registered, an empty list is returned.
         "description": "Collects point positions from the project",
         "signals": ["signal::data"],
         "has_data": True,
-        "collecting": False,
         "last_error": "",
         "collected_at": "2026-08-17T12:00:00Z",
     },
@@ -510,7 +508,7 @@ element order; each row contains:
 Request an asynchronous background update of a custom data collector.
 :param id: Custom data collector identifier.
 :type id: str
-:return: Dictionary containing `found`, `requested`, `scheduled`, `collecting`, and `reason`.
+:return: Dictionary containing `found`, `requested`, `scheduled`, and `reason`.
 :rtype: dict
 ```
 
@@ -5196,6 +5194,84 @@ window.addEventListener('gom::event::data::updated', (event) => {
 
 The JavaScript bundle should use the collector id to select the rendering
 logic. A single collector can render multiple UI components from its data.
+
+**Host actions**
+
+A custom data-view bundle can request host actions with these helpers; they
+construct the reserved ``gom.emitEvent(name, payload)`` calls and payloads:
+
+- ``gom.selectElements(elements, mode='replace')`` selects one record or a list of records by mode.
+- ``gom.clearSelection()`` clears the current selection.
+- ``gom.executeScript(name, parameters={}, appUuid=None)`` runs a registered user script.
+- ``gom.elementFrontView(element, useAnimation=False)`` adjusts the 3D view to an element.
+- ``gom.showInExplorer(elements)`` selects one or more elements and reveals them in the Explorer.
+- ``gom.frameElement(elements)`` frames one or more elements in the 3D view.
+
+Each helper returns a promise that resolves with the successful host action
+result and rejects with an ``Error`` named ``DataViewActionError`` if the
+action fails. The error has ``action``, ``requestId``, and ``result`` fields;
+``result`` contains the host response, including its ``error`` message.
+Each helper automatically generates and includes a unique ``requestId`` in
+its event payload. Host-action dispatch requires this ID, but the helper
+manages it internally, so callers do not supply it. The payload examples
+below omit this generated field.
+Applications should use these helpers rather than emit the reserved action
+events directly.
+
+```javascript
+gom.selectElements([row, anotherRow]).then((result) => {
+    console.log(`${result.action} succeeded`);
+}).catch((error) => {
+    console.error(`${error.action}: ${error.message}`);
+});
+```
+
+Every payload contains only JSON-safe values (null, booleans, finite
+numbers, strings, arrays, and objects).
+
+- ``data::selection``: ``{"elementIds": [{"id": "element-id", "category": 0, "stage": 0}], "mode": "replace"}``.
+    ``elementIds`` must be an array of element references. Each reference
+    requires a non-empty string ``id`` and may include integer ``category``
+    and ``stage`` values. Bare ID strings are accepted for compatibility.
+    ``mode`` is required and must be ``replace``, ``toggle``, or ``clear``.
+    ``replace`` replaces the current selection, ``toggle`` toggles only the
+    requested elements while preserving unrelated selection, and ``clear``
+    clears the current selection. An empty ID array with ``replace`` also
+    clears the selection.
+    In Python, use ``element.to_json()`` to get its JSON-compatible
+    ``id`` field, then merge it into the collector record. Returning the
+    element object itself (for example,
+    ``{"element": element}``) does not expose a JavaScript reference with
+    an ``id``; the data-view transport does not expand the GOM object into
+    that JSON shape.
+- ``data::execute_script``: ``{"name": "userscript.<registered-command>", "parameters": {}, "app_uuid": "<uuid>"}``.
+    ``name`` must be the exact registered ``userscript.*`` command name.
+    ``parameters`` is optional and defaults to an empty object. ``app_uuid``
+    is optional and defaults to the App that owns this view contribution; an
+    explicit UUID selects another App only when that exact script belongs to
+    it.
+- ``data::frame_element``: ``{"selection": [{"id": "element-id"}]}``.
+- ``data::front_view``: ``{"element": {"id": "element-id"}, "use_animation": false}``.
+    ``use_animation`` is optional and defaults to ``false``.
+- ``data::show_in_explorer``: ``{"selection": [{"id": "element-id"}]}``.
+
+The selection, frame, and Explorer helpers accept either one element
+reference or a list of references. Their action payloads always contain a
+``selection`` array. The selection action may use an empty array to clear
+the current selection.
+
+For example, a collector can preserve the id alongside its displayed data:
+
+```python
+return [dict(element.to_json(), name=element.name) for element in elements]
+```
+
+The Python ``event()`` method receives every emitted event before the host
+dispatches a reserved action. Do not repeat a reserved host action from
+Python. The ``<name>_response`` event is only the Python ``event()`` return
+value; it is separate from the host action result returned by the helper
+promise or its rejection. Python ``event()`` and ``gom.bridge`` remain
+available for app-specific interactions.
 
 **Report SVG export**
 
