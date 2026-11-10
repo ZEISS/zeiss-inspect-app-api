@@ -15,6 +15,7 @@ myst:
    :title: ZEISS INSPECT 2026 App Development Documentation News
    :link: https://zeiss.github.io/zeiss-inspect-app-api/2026/
 
+   20261110-release-2027
    20251127-jupyter-notebook
    20251126-update-dialog-widgets
    20251125-release-2026
