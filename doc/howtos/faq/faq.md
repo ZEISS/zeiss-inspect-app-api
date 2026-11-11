@@ -119,7 +119,11 @@ An error message such as `SyntaxError: (unicode error) 'unicodeescape' codec can
 
 ## How can I update the Apps after changes made outside of ZEISS INSPECT?
 
-After creating, modifying or deleting an App outside of ZEISS INSPECT, you can use `gom.script.sys.update_addon_database()` to update the internal App database. 
+![App Explorer - Refresh](assets/app_explorer_refresh.png)
+
+After creating, modifying or deleting an App outside of ZEISS INSPECT, click the "Refresh" button in the App Explorer to update the internal App database.
+
+Prior to ZEISS INSPECT 2027, run the command `gom.script.sys.update_addon_database()`.
 
 ## How can I stop script execution?
 
