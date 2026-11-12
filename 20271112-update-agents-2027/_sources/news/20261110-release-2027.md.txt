@@ -1,0 +1,10 @@
+# ZEISS INSPECT 2027 Released
+
+```{eval-rst}
+.. feed-entry::
+   :date: 2026-11-10 14:00
+```
+
+We are happy to announce that [ZEISS INSPECT 2027](https://www.zeiss.com/metrology/en/software/zeiss-inspect.html) has been released.
+Watch out for App development related enhancements and new features! Check the [Python API documentation](../python_api/python_api.md)
+for changes and additions.
