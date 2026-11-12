@@ -33,7 +33,7 @@ When users ask about ZEISS INSPECT App development, agents can assist with:
 - **Main Documentation (2022)**: https://zeiss.github.io/gom-software-python-api/2022/
 - **App Examples**: https://zeiss.github.io/zeiss-inspect-app-api/2027/python_examples/examples_overview.html
 - **Example Apps Repository**: https://github.com/ZEISS/zeiss-inspect-app-examples
-- **ZEISS Quality Tech Guide**: https://techguide.zeiss.com/en/zeiss-inspect-2026/
+- **ZEISS Quality Tech Guide**: https://techguide.zeiss.com/en/zeiss-inspect-2027/
 - **Apps News**: Check documentation for latest updates
 
 ## Documentation Structure
@@ -64,18 +64,29 @@ The documentation is organized by difficulty level:
 ### 2. Python API Specification
 
 Complete reference documentation for:
-- **gom.api.imaging** - Image point/pixel operations and photogrammetry
-- **gom.api.project** - Project data access and management
 - **gom.api.addons** - Add-on/App management and inspection
+- **gom.api.contributions** - API for accessing the registered contributions (semantic extensions)
+- **gom.api.custom_checks_util** - Utility functions for custom checks (custom inspections)
+- **gom.api.customelements** - API for handling custom elements
+- **gom.api.dialog** - API for handling dialogs
+- **gom.api.expressions** - General-purpose expression language metadata API
+- **gom.api.extensions** - Base classes for for custom elements and custom diagrams
+- **gom.api.imaging** - Image point/pixel operations and photogrammetry
+- **gom.api.infoitem** - API for creating, configuring, and displaying info items
+- **gom.api.interpreter** - API for accessing Python script interpreter properties
+- **gom.api.introspection** - Introspection API for accessing the available API modules, functions and classes (for debugging and testing)
+- **gom.api.license** - API for checking license availability
 - **gom.api.progress** - API for accessing the progress bar in the main window
+- **gom.api.project** - Project data access and management
 - **gom.api.script_resources** - API for the ResourceDataLoader
-- **gom.api.scripted_checks_util** - Utility functions for scripted checks
+- **gom.api.selection** - API for handling explorer selection
 - **gom.api.services** - API for accessing the script based API extensions (services)
 - **gom.api.testing** - API with testing and verification functions
 - **gom.api.settings** - Persistent configuration storage
-- **gom.api.interpreter** - API for accessing python script interpreter properties
-- **gom.api.introspection** - API for accessing the available API modules, functions and classes (for debugging and testing)
-- **Scripted Elements API** - Building custom geometric elements
+- **gom.api.smart_principle** - API for script based functionality of Smart Principle
+- **gom.api.table** - API for table template editing and rendering
+- **gom.api.testing** - API with testing and verification functions
+- **gom.api.tools** - API providing a general set of scripting tools
 - **gom.Resource API** - Accessing App resources
 
 **Full API Documentation**:
@@ -86,7 +97,9 @@ Complete reference documentation for:
 
 ### 3. Python API Examples
 
-Comprehensive examples organized by category (see separate examples repository), tagg
+Comprehensive examples organized by category (see separate examples repository).
+- 'main' branch for current ZEISS INSPECT versions
+-'zi2023_2026 for ZEISS INSPECT 2023..2026
 
 ## Core API Modules Reference
 
@@ -106,6 +119,33 @@ Comprehensive examples organized by category (see separate examples repository),
 - Converting between 3D model space and 2D image space
 - Stereo photogrammetry calculations
 - Finding corresponding points across camera views
+
+### gom.api.extensions
+**Purpose**: Provides base classes for custom elements and custom diagrams.
+
+**Terminology**:
+- **Custom element** = Python-defined element integrated into ZEISS INSPECT
+- **Actual** = Computed element, often based on measurement data or algorithms
+- **Nominal** = Reference or target geometry
+- **Inspection** = Check comparing actual and nominal data
+- **Stage** = Computation context; an element can be calculated separately for multiple stages
+- **Contribution** = Registered extension exposed to the application, such as a custom element
+- **Context** = Execution information passed to methods, including the current stage and custom data
+- **Sequence** = Group of elements edited as one unit
+- **Diagram** = Visualization of element data
+
+**Common Use Cases**:
+- Creating custom actual or nominal geometry, such as points, curves, and surfaces
+- Implementing custom inspections that compare actual and nominal data
+- Grouping related element creation into an editable sequence
+- Visualizing element data in custom diagrams
+- Creating custom elements with interactive configuration and live previews
+- Calculating element results across measurement stages
+
+**Important Notes**:
+- Custom elements are implemented as services
+- Custom element services must be started explicitly
+- ⚠️ `gom.script.*` and `gom.interactive.*` commands cannot be used in services
 
 ### gom.api.project
 **Purpose**: Accessing project structures and data
@@ -174,6 +214,39 @@ Comprehensive examples organized by category (see separate examples repository),
 - File path storage
 - Application thresholds and parameters
 
+### gom.api.table
+**Purpose**: Editing table templates and generating render-ready table data.
+
+**Key Functions**:
+- `get_render_data_from_xml(xml_data, mode)` - Generate table data from an XML template and the active project
+- `create_content_editor_data_adapter(properties_json, mode)` - Create an editor for a table template
+- `get_content_editor_data_adapter(data_id)` - Retrieve an existing editor by its data ID
+- `ContentEditor.get_render_data()` - Get the editor's current cached table data
+- `ContentEditor.get_properties()` - Get properties containing the updated XML template
+- `ContentEditor.edit_cell()` and `edit_header()` - Change cell expressions and header text
+- `ContentEditor.insert_row()`, `delete_row()`, `insert_column()`, and `delete_column()` - Modify the table structure
+- `ContentEditor.merge_cells()` and `split_cell()` - Modify cell layout
+- `ContentEditor.set_alignment()`, `set_font_style()`, and `set_background_color()` - Format data cells
+- `ContentEditor.refresh_render_data()` - Refresh cached data from the current project
+- `ContentEditor.revert()` - Discard in-memory edits and restore the initial template
+
+**Table Modes**:
+- `inspection` - Inspection table
+- `measurements` - Measurements table
+- `alignments` - Alignments table
+
+**Common Use Cases**:
+- Rendering table templates for display in a user interface
+- Building interactive editors for table content, layout, and formatting
+- Applying expression-based background colors to data cells
+- Saving modified table templates through the host application
+
+**Important Notes**:
+- Editor changes are in memory; save the properties returned by `get_properties()` to persist them
+- Row and column indices are zero-based; row indices refer to the current render data
+- Only extra rows can be deleted; merged rows must belong to the same element group
+- Expression metadata and element tokens are provided by `gom.api.expressions`
+
 ## Guidance for User Queries
 
 ### When Users Ask About:
@@ -216,12 +289,12 @@ Comprehensive examples organized by category (see separate examples repository),
 → Intermediate: "Using Python Wheelhouses" how-to guide
 
 **"How do I create [custom/parametric] geometric elements?"**\
-→ Point to Scripted Elements API\
-→ Refer to scripted_actuals examples (e.g. ScriptedActualCurve)\
+→ Point to Custom Elements API\
+→ Refer to custom_elements examples (e.g. CustomCurve)\
 → Explain actual vs. nominal elements
 
-**"How do I create custom inspection checks?"**\
-→ Point to scripted_checks examples\
+**"How do I create custom inspections / checks?"**\
+→ Point to custom_elements examples\
 → Explain scalar vs. curve vs. surface checks\
 → Note custom coordinate system support
 
@@ -231,7 +304,7 @@ Comprehensive examples organized by category (see separate examples repository),
 → Point to relevant how-to guides
 
 **"What versions are supported?"**\
-→ Current documentation: ZEISS INSPECT 2026, 2025 and 2023\
+→ Current documentation: ZEISS INSPECT 2026, 2026, 2025 and 2023\
 → Check documentation for specific version requirements\
 → Examples typically require ZEISS INSPECT 2023 or later
 
@@ -248,14 +321,16 @@ Comprehensive examples organized by category (see separate examples repository),
 - Required for accessing measurement images
 - Specify: measurement, camera type, stage index
 
-### Scripted Elements
+### Custom Elements
+- Successors of Scripted Elements
 - Three types:
-1. **Scripted Actuals** - Custom geometric elements (surfaces, points, etc.)
-2. **Scripted Checks** - Custom inspection checks (scalar, curve, surface)
-3. **Scripted Diagrams** - Custom data visualizations
-- Scripted element type must be set in script's `.metainfo` file
+1. **Custom Nominal/Actual Elements** - Custom geometric elements (surfaces, points, etc.)
+2. **Custom Inspections** - Custom inspections (checks) (scalar, curve, surface)
+3. **Custom Diagrams** - Custom data visualizations
+- Implemented using `gom.api.extensions`
+- Implemented as services
 - Run in separate Python process
-- gom.script.* and gom.interactive.* commands cannot be used in a scripted element
+- gom.script.* and gom.interactive.* commands cannot be used in any service
 
 ### Coordinate Systems
 - Project coordinate system (3D)
