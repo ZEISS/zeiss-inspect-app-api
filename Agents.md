@@ -50,6 +50,7 @@ The documentation is organized by difficulty level:
 #### Intermediate Level
 - **Using Shared Environments** - Managing Python environments across Apps
 - **Using Python Wheelhouses** - Incorporating external Python packages
+- **Adding and Using Specific Python Versions** - Selecting or providing Python interpreters for Apps
 - **Adding Workspaces to Apps** - Customizing the ZEISS INSPECT interface
 - **Workflow Assistant** - Creating guided workflows for users
 - **Using Services** - Implementing background services in Apps
@@ -417,6 +418,14 @@ for addon in gom.api.addons.get_installed_addons():
 - **API Versions**: Functions note minimum API version required
 - **Software Requirements**: Most examples require ZEISS INSPECT 2023+
 - Users should check specific example requirements
+
+### Python Interpreter
+
+- **Default Python Interpreter**: ZEISS INSPECT 2027 uses Python 3.14; prior versions used Python 3.9
+- **Python Interpreter Configuration**: In ZEISS INSPECT 2027, configure available Python interpreters in "Preferences - Apps / Python installation"
+- **Python Version Selection**: In 2027, Apps can specify a different interpreter version using `python-version` in `metainfo.json`.
+- Protected Apps require a ZEISS-approved interpreter
+- Python interpreters can be packaged and installed as Apps 
 
 ## Important Notes for Agents
 
