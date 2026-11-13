@@ -3365,8 +3365,9 @@ the same index.</p>
 </div>
 <p>The format of the <code class="docutils literal notranslate"><span class="pre">Curve</span></code> object is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">"points"</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>
-    <span class="s2">"radii"</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="s2">"points"</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>  <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">stylus</span> <span class="n">center</span> <span class="n">coordinates</span>
+    <span class="s2">"radii"</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>                         <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">stylus</span> <span class="n">radii</span> <span class="p">(</span><span class="n">non</span> <span class="n">zero</span> <span class="n">value</span> <span class="k">for</span> <span class="n">each</span> <span class="n">point</span><span class="p">)</span>
+    <span class="s2">"normals"</span><span class="p">:</span> <span class="p">[(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="o">//</span> <span class="n">List</span> <span class="n">of</span> <span class="n">normals</span> <span class="p">(</span><span class="n">non</span> <span class="n">zero</span> <span class="n">vector</span> <span class="k">for</span> <span class="n">each</span> <span class="n">point</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -9356,7 +9357,14 @@ via the applications preferences dialog.</p>
 <p>The configuration entries must be defined in the app’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file. This configuration
 defined the available keys, the entry types and the entry properties. If the entry type can be
 represented by some widget, the setting entry will also be present in the application’s ‘preferences’
-dialog and can be adapted interactively there.</p>
+dialog and can be adapted interactively there. Setting names are stable API keys and are not translated.</p>
+<p>A setting’s <code class="docutils literal notranslate"><span class="pre">description</span></code> may be a legacy string or a translatable object with <code class="docutils literal notranslate"><span class="pre">text</span></code>, <code class="docutils literal notranslate"><span class="pre">id</span></code> and
+<code class="docutils literal notranslate"><span class="pre">translatable</span></code> fields. The settings editor creates new descriptions as objects. Use the existing app
+translation workflow to assign IDs and provide translations. A legacy string, a non-translatable object,
+an empty ID or a missing translation displays the source text. Existing string descriptions remain strings
+when edited. ZEISS INSPECT versions older than 2028 do not support object-format setting descriptions.</p>
+<p>Declare explicit parent groups before their children: otherwise an implicitly created parent keeps its
+path component as its displayed name even if an explicit group entry follows.</p>
 <p><strong>Example</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Settings API example"</span><span class="p">,</span>
@@ -9374,7 +9382,7 @@ dialog and can be adapted interactively there.</p>
    <span class="p">},</span>
    <span class="p">{</span>
      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"dialog.size.width"</span><span class="p">,</span>
-     <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Dialog width"</span><span class="p">,</span>
+     <span class="s2">"description"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"text"</span><span class="p">:</span> <span class="s2">"Dialog width"</span><span class="p">,</span> <span class="s2">"id"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"translatable"</span><span class="p">:</span> <span class="n">true</span><span class="p">},</span>
      <span class="s2">"value"</span><span class="p">:</span> <span class="mi">640</span><span class="p">,</span>
      <span class="s2">"digits"</span><span class="p">:</span> <span class="mi">0</span>
    <span class="p">},</span>
@@ -9507,8 +9515,9 @@ are integer, double, string and bool.</p>
 </dl>
 </dd></dl>
 
-<p>This function returns the description of the settings entry identified by the given key.
-The description is defined in the app’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file.</p>
+<p>This function returns the displayed description of the settings entry identified by the given key.
+The description is defined in the app’s <code class="docutils literal notranslate"><span class="pre">metainfo.json</span></code> file and translated into the application language
+when a translation is available; otherwise the source text is returned.</p>
 <p><strong>Example</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">desc</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get_description</span> <span class="p">(</span><span class="s1">'dialog.width'</span><span class="p">)</span>
 </pre></div>
@@ -10847,7 +10856,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7713cb271e80>
+  <jinja2.runtime.BlockReference object at 0x7955dfed3150>
 
 
 </footer>
