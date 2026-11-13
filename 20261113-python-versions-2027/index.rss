@@ -4,8 +4,18 @@
     <title>ZEISS INSPECT 2027 App Development Documentation News</title>
     <link>https://zeiss.github.io/zeiss-inspect-app-api/2027/</link>
     <description></description>
-    <lastBuildDate>Fri, 13 Nov 2026 08:20:20 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 13 Nov 2026 08:58:37 GMT</lastBuildDate>
     <generator>sphinxcontrib-newsfeed</generator>
+    <item>
+      <title>Python Interpreter Update</title>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/2027/news/20261113-python-versions.html</link>
+      <description>&lt;div class="compound"&gt;
+&lt;p&gt;ZEISS INSPECT uses Python 3.14 by default, but other Python interpreters can be used as described in &lt;a class="reference internal" href="../howtos/python_versions/python_versions.html"&gt;&lt;span class="std std-doc"&gt;Adding and using specific Python versions&lt;/span&gt;&lt;/a&gt;. This allows to install older versions for backwards compatibility or newer versions to keep up-to-date.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/2027/news/20261113-python-versions.html</guid>
+      <pubDate>Fri, 13 Nov 2026 10:00:00 GMT</pubDate>
+    </item>
     <item>
       <title>ZEISS INSPECT 2027 Released</title>
       <link>https://zeiss.github.io/zeiss-inspect-app-api/2027/news/20261110-release-2027.html</link>
