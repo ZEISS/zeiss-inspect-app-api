@@ -42,6 +42,7 @@ Check out the ZEISS INSPECT Apps news page!
 .. toctree::
    :hidden:
 
+   news/20261113-python-versions
    news/20261110-release-2027
    news/20251127-jupyter-notebook
    news/20251126-update-dialog-widgets
