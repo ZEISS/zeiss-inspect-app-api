@@ -2107,8 +2107,9 @@ The format of the `Curve` object is:
 
 ```
 {
-    "points": [(x: float, y: float, z: float), ...]
-    "radii": [r: float, ...]
+    "points": [(x: float, y: float, z: float), ...]  // List of stylus center coordinates
+    "radii": [r: float, ...]                         // List of stylus radii (non zero value for each point)
+    "normals": [(x: float, y: float, z: float), ...] // List of normals (non zero vector for each point)
 }
 ```
 
@@ -7638,7 +7639,16 @@ via the applications preferences dialog.
 The configuration entries must be defined in the app's `metainfo.json` file. This configuration
 defined the available keys, the entry types and the entry properties. If the entry type can be
 represented by some widget, the setting entry will also be present in the application's 'preferences'
-dialog and can be adapted interactively there.
+dialog and can be adapted interactively there. Setting names are stable API keys and are not translated.
+
+A setting's `description` may be a legacy string or a translatable object with `text`, `id` and
+`translatable` fields. The settings editor creates new descriptions as objects. Use the existing app
+translation workflow to assign IDs and provide translations. A legacy string, a non-translatable object,
+an empty ID or a missing translation displays the source text. Existing string descriptions remain strings
+when edited. ZEISS INSPECT versions older than 2028 do not support object-format setting descriptions.
+
+Declare explicit parent groups before their children: otherwise an implicitly created parent keeps its
+path component as its displayed name even if an explicit group entry follows.
 
 **Example**
 
@@ -7659,7 +7669,7 @@ dialog and can be adapted interactively there.
    },
    {
      "name": "dialog.size.width",
-     "description": "Dialog width",
+     "description": {"text": "Dialog width", "id": "", "translatable": true},
      "value": 640,
      "digits": 0
    },
@@ -7781,8 +7791,9 @@ Read the description of an application settings entry
 :rtype: str
 ```
 
-This function returns the description of the settings entry identified by the given key.
-The description is defined in the app's `metainfo.json` file.
+This function returns the displayed description of the settings entry identified by the given key.
+The description is defined in the app's `metainfo.json` file and translated into the application language
+when a translation is available; otherwise the source text is returned.
 
 **Example**
 
