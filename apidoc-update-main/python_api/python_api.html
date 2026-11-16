@@ -682,6 +682,10 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-infoitem-get-categories">gom.api.infoitem.get_categories</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#gom-api-inspection-details">gom.api.inspection_details</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-inspection-details-refresh">gom.api.inspection_details.refresh</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-interpreter">gom.api.interpreter</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-interpreter-enter-enable-menu-commands-scope">gom.api.interpreter.<strong>enter_enable_menu_commands_scope</strong></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-interpreter-enter-multi-element-creation-scope">gom.api.interpreter.<strong>enter_multi_element_creation_scope</strong></a></li>
@@ -7524,6 +7528,29 @@ and the list of available alignments can be obtained using <a href="#gom-api-inf
 </div>
 </section>
 </section>
+<section id="gom-api-inspection-details">
+<h2>gom.api.inspection_details<a class="headerlink" href="#gom-api-inspection-details" title="Link to this heading"></a></h2>
+<p>API for the Inspection Details view</p>
+<section id="gom-api-inspection-details-refresh">
+<h3>gom.api.inspection_details.refresh<a class="headerlink" href="#gom-api-inspection-details-refresh" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.inspection_details.refresh():</span> <span class="pre">None</span></span></dt>
+<dd><p>Request an update of the Inspection Details view</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The request is queued on the application thread. If the view is hidden, it will update when shown.
+If the view does not exist or there is no open project, the request has no effect.</p>
+</section>
+</section>
 <section id="gom-api-interpreter">
 <h2>gom.api.interpreter<a class="headerlink" href="#gom-api-interpreter" title="Link to this heading"></a></h2>
 <p>API for accessing python script interpreter properties</p>
@@ -10856,7 +10883,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7955dfed3150>
+  <jinja2.runtime.BlockReference object at 0x7e8191d0d7f0>
 
 
 </footer>

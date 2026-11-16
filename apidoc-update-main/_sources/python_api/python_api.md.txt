@@ -6316,6 +6316,23 @@ import gom.api.infoitem
 print(gom.api.infoitem.get_categories())
 ```
 
+## gom.api.inspection_details
+
+API for the Inspection Details view
+
+
+### gom.api.inspection_details.refresh
+
+```{py:function} gom.api.inspection_details.refresh(): None
+
+Request an update of the Inspection Details view
+:return: None
+:rtype: None
+```
+
+The request is queued on the application thread. If the view is hidden, it will update when shown.
+If the view does not exist or there is no open project, the request has no effect.
+
 ## gom.api.interpreter
 
 API for accessing python script interpreter properties
