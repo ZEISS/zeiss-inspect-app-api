@@ -11,6 +11,10 @@ Welcome to the ZEISS INSPECT Python API introduction. This is your starting poin
 
 See [Introduction to Python Scripting](https://techguide.zeiss.com/en/zeiss-inspect-2027/article/introduction_to_python_scripting.html) if you are new to Python or the ZEISS INSPECT Python interface.
 
+```{note}
+ZEISS INSPECT 2027 uses Python 3.14 by default. Other Python interpreters can be used as described in [Adding and using specific Python versions](../python_versions/python_versions.md).
+```
+
 ## Creating projects
 
 You can create a new, empty project as follows:

@@ -4,6 +4,10 @@
 
 ## Available Python interpreter versions
 
+```{note}
+ZEISS INSPECT 2027 uses Python 3.14 by default.
+```
+
 See ZEISS INSPECT's preferences (Edit ► Preferences... &ndash; Apps / Python installation) for available Python interpreters.
 
 You can add Python interpreters by adding the path to an existing Python installation on your computer or by installation from an App.
