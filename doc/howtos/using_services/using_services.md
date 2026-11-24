@@ -57,6 +57,10 @@ Functions decorated as `@apifunction` will be exported as the service API.
 
 A service is a regular Python script file. Each function which shall be exported as a service API must be decorated with the `@apifunction` decorator. The service must be started by calling `gom.run_api()` after all content has been declared.
 
+```{warning}
+Service functions must be stateless between calls. Do not retain call-specific data in module-level globals or service instance attributes (`self`). A later call may be handled by a different service runner or after the service has restarted, so it must not depend on state retained by an earlier call.
+```
+
 ### Example 
 
 ![Service Python script](assets/service_script.png)
