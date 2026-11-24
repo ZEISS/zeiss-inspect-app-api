@@ -250,6 +250,10 @@
 <dt>line 23:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">gom.run_api()</span></code> is executed when the script is started as a service.</p>
 </dd>
 </dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Custom element service calls must not rely on state retained between calls. Do not store call-specific data in module-level globals or service instance attributes (<code class="docutils literal notranslate"><span class="pre">self</span></code>): a later call may be handled by a different service runner or after the service has restarted.</p>
+</div>
 </section>
 </section>
 <section id="service-definition">
@@ -507,45 +511,39 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
 <section id="using-the-dialog-control-widget-and-event-handler">
 <h3>Using the dialog control widget and event handler<a class="headerlink" href="#using-the-dialog-control-widget-and-event-handler" title="Link to this heading"></a></h3>
 <p>When implementing custom elements, the <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#control-widget">Control widget</a> allows to show messages and to disable the ‘ok’ button in case any condition for creating an element is not met, e.g. not all parameters have been specified yet or the computation has failed for some reason.</p>
+<p>Keep the dialog local to <code class="docutils literal notranslate"><span class="pre">dialog()</span></code> and assign a nested handler to <code class="docutils literal notranslate"><span class="pre">dlg.handler</span></code>. The handler can access the current dialog without storing it on the service instance.</p>
 <div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Offset point example with dialog control widget and event handler</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="code-block-caption"><span class="caption-text">Offset point example with a call-local dialog handler</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nd">@apicontribution</span>
 <span class="linenos"> 2</span><span class="k">class</span><span class="w"> </span><span class="nc">MyOffsetPoint</span> <span class="p">(</span><span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">extensions</span><span class="o">.</span><span class="n">nominals</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
 <span class="linenos"> 3</span><span class="w">    </span><span class="sd">"""</span>
-<span class="linenos"> 4</span><span class="sd">    Provides a dialog handler for changing the control widget.</span>
-<span class="linenos"> 5</span><span class="sd">    Allows to show a computation error via the control widget's status and in ZEISS INSPECT's element properties. </span>
-<span class="linenos"> 6</span><span class="sd">    """</span>
-<span class="linenos"> 7</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos"> 8</span>        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'examples.custom_nominal_point'</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">'Custom Nominal Point'</span><span class="p">)</span>
-<span class="linenos"> 9</span>
-<span class="linenos">10</span>    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-<span class="linenos">11</span>        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'/dialogs/Custom_Point.gdlg'</span><span class="p">)</span>
-<span class="linenos">12</span>        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
-<span class="linenos">13</span>        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="p">))</span>
-<span class="linenos">14</span>        <span class="k">return</span> <span class="n">res</span>
-<span class="linenos">15</span>
-<span class="linenos">16</span>    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-<span class="linenos">17</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">values</span><span class="p">[</span><span class="s1">'base'</span><span class="p">]</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
-<span class="linenos">18</span>        <span class="k">return</span> <span class="n">generate_point_element</span><span class="p">(</span>
-<span class="linenos">19</span>            <span class="n">offset_x</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'offset_x'</span><span class="p">],</span> 
-<span class="linenos">20</span>            <span class="n">offset_y</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'offset_y'</span><span class="p">],</span> 
-<span class="linenos">21</span>            <span class="n">offset_z</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'offset_z'</span><span class="p">],</span>
-<span class="linenos">22</span>            <span class="n">base</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'base'</span><span class="p">]</span>
-<span class="linenos">23</span>        <span class="p">)</span>
-<span class="linenos">24</span>
-<span class="linenos">25</span>    <span class="k">def</span><span class="w"> </span><span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event_type</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-<span class="linenos">26</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">event_type</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
-<span class="linenos">27</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">parameters</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
-<span class="linenos">28</span>       
-<span class="linenos">29</span>        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">'dialog::initialized'</span><span class="p">:</span>
-<span class="linenos">30</span>            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="linenos">31</span>            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">"Select base with 'center_coordinate'!"</span>
-<span class="linenos">32</span>
-<span class="linenos">33</span>        <span class="k">if</span> <span class="n">event_type</span> <span class="o">==</span> <span class="s1">'dialog::changed'</span><span class="p">:</span>
-<span class="linenos">34</span>            <span class="k">if</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">'values'</span><span class="p">][</span><span class="s1">'base'</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> \
-<span class="linenos">35</span>                <span class="nb">hasattr</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s1">'values'</span><span class="p">][</span><span class="s1">'base'</span><span class="p">],</span> <span class="s1">'center_coordinate'</span><span class="p">):</span>
-<span class="linenos">36</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="linenos">37</span>                <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">''</span>
+<span class="linenos"> 4</span><span class="sd">    Provides a call-local dialog handler for validating the base element.</span>
+<span class="linenos"> 5</span><span class="sd">    """</span>
+<span class="linenos"> 6</span>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="linenos"> 7</span>        <span class="nb">super</span> <span class="p">()</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">'examples.custom_nominal_point'</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">'Custom Nominal Point'</span><span class="p">)</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>    <span class="k">def</span><span class="w"> </span><span class="nf">dialog</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<span class="linenos">10</span>        <span class="n">dlg</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'/dialogs/Custom_Point.gdlg'</span><span class="p">)</span>
+<span class="linenos">11</span>        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_dialog</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span>        <span class="k">def</span><span class="w"> </span><span class="nf">update_control</span><span class="p">(</span><span class="n">_widget</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="linenos">14</span>            <span class="n">base</span> <span class="o">=</span> <span class="n">dlg</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">value</span>
+<span class="linenos">15</span>            <span class="n">valid</span> <span class="o">=</span> <span class="n">base</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="s1">'center_coordinate'</span><span class="p">)</span>
+<span class="linenos">16</span>            <span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">ok</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">valid</span>
+<span class="linenos">17</span>            <span class="n">dlg</span><span class="o">.</span><span class="n">control</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">''</span> <span class="k">if</span> <span class="n">valid</span> <span class="k">else</span> <span class="s2">"Select base with 'center_coordinate'!"</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span>        <span class="n">dlg</span><span class="o">.</span><span class="n">handler</span> <span class="o">=</span> <span class="n">update_control</span>
+<span class="linenos">20</span>        <span class="n">update_control</span><span class="p">()</span>
+<span class="linenos">21</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_dialog</span><span class="p">(</span><span class="n">dlg</span><span class="p">,</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">dlg</span><span class="p">))</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span>    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<span class="linenos">24</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_log_message</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">values</span><span class="p">[</span><span class="s1">'base'</span><span class="p">]</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
+<span class="linenos">25</span>        <span class="k">return</span> <span class="n">generate_point_element</span><span class="p">(</span>
+<span class="linenos">26</span>            <span class="n">offset_x</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'offset_x'</span><span class="p">],</span> 
+<span class="linenos">27</span>            <span class="n">offset_y</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'offset_y'</span><span class="p">],</span> 
+<span class="linenos">28</span>            <span class="n">offset_z</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'offset_z'</span><span class="p">],</span>
+<span class="linenos">29</span>            <span class="n">base</span><span class="o">=</span><span class="n">values</span><span class="p">[</span><span class="s1">'base'</span><span class="p">]</span>
+<span class="linenos">30</span>        <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -824,7 +822,7 @@ Use unique, token-friendly names (for example <code class="docutils literal notr
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x78fc03bac730>
+  <jinja2.runtime.BlockReference object at 0x744faf68ac10>
 
 
 </footer>
