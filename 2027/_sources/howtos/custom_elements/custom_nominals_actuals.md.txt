@@ -98,6 +98,10 @@ line 14..21:
 line 23:
 : `gom.run_api()` is executed when the script is started as a service.
 
+```{warning}
+Custom element service calls must not rely on state retained between calls. Do not store call-specific data in module-level globals or service instance attributes (`self`): a later call may be handled by a different service runner or after the service has restarted.
+```
+
 ## Service definition
 
 Add the service definition to the App's `metainfo.json` file.
@@ -364,24 +368,33 @@ line 18..21:
 
 When implementing custom elements, the <a href="../../howtos/user_defined_dialogs/dialog_widgets.html#control-widget">Control widget</a> allows to show messages and to disable the 'ok' button in case any condition for creating an element is not met, e.g. not all parameters have been specified yet or the computation has failed for some reason.
 
+Keep the dialog local to `dialog()` and assign a nested handler to `dlg.handler`. The handler can access the current dialog without storing it on the service instance.
+
 ```{code-block} python
-:caption: Offset point example with dialog control widget and event handler
+:caption: Offset point example with a call-local dialog handler
 :linenos:
 
 @apicontribution
 class MyOffsetPoint (gom.api.extensions.nominals.Point):
     """
-    Provides a dialog handler for changing the control widget.
-    Allows to show a computation error via the control widget's status and in ZEISS INSPECT's element properties. 
+    Provides a call-local dialog handler for validating the base element.
     """
     def __init__ (self):
         super ().__init__ (id='examples.custom_nominal_point', description='Custom Nominal Point')
 
     def dialog (self, context, args):
-        self.dlg = gom.api.dialog.create (context, '/dialogs/Custom_Point.gdlg')
-        self.initialize_dialog(context, self.dlg, args)
-        res = self.apply_dialog(args, gom.api.dialog.show(context, self.dlg))
-        return res
+        dlg = gom.api.dialog.create (context, '/dialogs/Custom_Point.gdlg')
+        self.initialize_dialog(context, dlg, args)
+
+        def update_control(_widget=None):
+            base = dlg.base.value
+            valid = base is not None and hasattr(base, 'center_coordinate')
+            dlg.control.ok.enabled = valid
+            dlg.control.status = '' if valid else "Select base with 'center_coordinate'!"
+
+        dlg.handler = update_control
+        update_control()
+        return self.apply_dialog(dlg, gom.api.dialog.show(context, dlg))
 
     def compute (self, context, values):
         self.add_log_message(context, 'info', f"{values['base']=}")
@@ -391,20 +404,6 @@ class MyOffsetPoint (gom.api.extensions.nominals.Point):
             offset_z=values['offset_z'],
             base=values['base']
         )
-
-    def event(self, context, event_type, parameters):
-        self.add_log_message(context, 'info', f"{event_type=}")
-        self.add_log_message(context, 'info', f"{parameters=}")
-       
-        if event_type == 'dialog::initialized':
-            self.dlg.control.ok.enabled = False
-            self.dlg.control.status = "Select base with 'center_coordinate'!"
-
-        if event_type == 'dialog::changed':
-            if parameters['values']['base'] is not None and \
-                hasattr(parameters['values']['base'], 'center_coordinate'):
-                self.dlg.control.ok.enabled = True
-                self.dlg.control.status = ''
 ```
 
 ## Troubleshooting
