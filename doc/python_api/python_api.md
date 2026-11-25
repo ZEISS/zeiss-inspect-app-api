@@ -756,8 +756,285 @@ Collect Element render data for a set of diagram views
 
 API for handling dialogs
 
-This API is used to create and execute script based dialogs. The dialogs are defined in a
-JSON based description format and can be executed server side in the native UI style.
+This module provides dialogs in the application's native UI style. Use a notification to present a message
+or ask the user to choose an action. Use a script-based dialog when a custom layout and input fields are needed.
+
+**Notifications**
+
+A notification has a type (`error`, `warning`, `information`, or `question`), a title, a message, and one to
+three buttons. Choose the type that describes the situation: an existing problem, a possible future problem, a
+factual notice, or a question about an action. Create it with `create_notification()`, optionally configure it,
+and call its `show()` method. Showing a notification blocks the script until the dialog is dismissed.
+
+```python
+import gom.api.dialog
+
+notification = gom.api.dialog.create_notification(
+    'information', ['ok'], title='Measurement complete',
+    message='The measurement has finished.')
+notification.show()
+```
+
+Button IDs are `ok`, `cancel`, `retry`, `close`, `save`, and `discard`. Supply them in display order; their
+standard labels are localized. `show()` returns the selected ID in lowercase, or `rejected` if the dialog is
+closed without selecting a configured button. Custom button text changes the label, not the returned ID. By
+default, `cancel` is focused when present; otherwise the only button is focused, or no default is selected for
+multiple buttons. Use `set_default_button()` to select a different configured button.
+
+```python
+import gom.api.dialog
+
+notification = gom.api.dialog.create_notification(
+    'question', ['cancel', 'discard', 'save'],
+    title='Close project?', message='Save changes before closing?')
+notification.set_button_text('save', 'Save changes')
+choice = notification.show()
+if choice == 'save':
+    print('Save selected')
+elif choice == 'discard':
+    print('Discard selected')
+else:
+    print('Closing cancelled')
+```
+
+Use `get_notification_types()` and `get_available_button_types()` to discover the supported IDs. See
+`Notification` for configuration methods and examples of each notification type.
+
+**Script-based dialogs**
+
+Script-based dialogs use a JSON-based dialog definition. In the scripted contribution framework,
+`execute(context, url)` creates and shows a dialog in one step. Alternatively, `create(context, url)` returns
+a handle that can be configured before `show(context, dialog)` executes it. `execute()` and `show()` return the
+dialog's input values when it is accepted. `create()` can also resolve a definition relative to the calling script
+when no contribution context is supplied; `show()` and `execute()` require a contribution context.
+
+### gom.api.dialog.Notification
+
+Configurable modal notification dialog
+
+Use this dialog to report an existing problem, warn about a condition that may cause a future problem, present a
+factual notice, or ask the user to take a deliberate action. Create it with `gom.api.dialog.create_notification`,
+configure it with one to three buttons, and call `show()` to display it and receive the selected button ID.
+
+**Notification types**
+
+**Error (`error`)** — Describe an existing problem and, when possible, its cause and a possible solution.
+
+![Error notification dialog](images/notification_dialog_api_error.png)
+
+**Warning (`warning`)** — Describe a condition that may cause a future problem.
+
+![Warning notification dialog](images/notification_dialog_api_warning.png)
+
+**Information (`information`)** — Present a statement of fact.
+
+![Information notification dialog](images/notification_dialog_api_information.png)
+
+**Question (`question`)** — Ask the user a question and explain the action and its consequences so they can decide
+deliberately.
+
+![Question notification dialog](images/notification_dialog_api_question.png)
+
+#### gom.api.dialog.Notification.get_button_ids
+
+```{py:function} gom.api.dialog.Notification.get_button_ids(): list[str]
+
+Return the current button IDs
+:return: Button IDs in display order.
+:rtype: list[str]
+```
+
+IDs are returned in display order, in canonical lowercase form, and are independent of visible label overrides.
+
+**Example:**
+```
+import gom.api.dialog
+
+notification = gom.api.dialog.create_notification('information', ['cancel', 'discard', 'save'])
+button_ids = notification.get_button_ids()
+print(button_ids)
+# ['cancel', 'discard', 'save']
+```
+
+#### gom.api.dialog.Notification.get_configuration
+
+```{py:function} gom.api.dialog.Notification.get_configuration(): dict
+
+Return the current dialog configuration
+:return: A snapshot of the current configuration.
+:rtype: dict
+```
+
+The dictionary contains `type`, `title`, `message`, `buttons`, `button_texts`, `default_button`, and `help_id`.
+
+**Example:**
+```
+import gom.api.dialog
+
+notification = gom.api.dialog.create_notification(
+    'warning', ['cancel', 'save'], title='Unsaved changes', message='Save before closing?')
+configuration = notification.get_configuration()
+print(configuration)
+# {'button_texts': {}, 'buttons': ['cancel', 'save'], 'default_button': 'cancel',
+#  'help_id': '', 'message': 'Save before closing?', 'title': 'Unsaved changes',
+#  'type': 'warning'}
+```
+
+#### gom.api.dialog.Notification.set_button_text
+
+```{py:function} gom.api.dialog.Notification.set_button_text(button: str, text: str): None
+
+Change a button's visible label
+:param button: Canonical button ID, such as `cancel` or `retry`.
+:type button: str
+:param text: Visible label; does not change the result ID returned by `show()`.
+:type text: str
+:throws: RuntimeError if the button is not configured or the label is not allowed.
+```
+
+The button ID is case-insensitive and must belong to the current button list. Passing an empty string restores its
+localized default label. The selected button is identified by its button ID. `Confirm` is reserved for security
+warnings and is unavailable through this API.
+
+**Example:**
+```
+import gom.api.dialog
+
+notification = gom.api.dialog.create_notification('information', ['save'])
+notification.set_button_text('save', 'Save a copy')
+```
+
+#### gom.api.dialog.Notification.set_buttons
+
+```{py:function} gom.api.dialog.Notification.set_buttons(buttons: list[str]): None
+
+Replace the notification's buttons and their display order
+:param buttons: One to three supported button IDs. Their order determines the display order.
+:type buttons: list[str]
+:throws: RuntimeError if a button ID is unsupported, duplicated, or the list is empty or too long.
+```
+
+Button IDs are used in list order. Replacing the list clears custom labels and selects a conservative default:
+`cancel` when present, the only button for a single-button notification, or no default for other combinations.
+
+**Example:**
+```
+import gom.api.dialog
+
+notification = gom.api.dialog.create_notification('information', ['ok'])
+notification.set_buttons(['cancel', 'discard', 'save'])
+```
+
+#### gom.api.dialog.Notification.set_default_button
+
+```{py:function} gom.api.dialog.Notification.set_default_button(button: str): None
+
+Set the initially focused button
+:param button: Button ID to focus initially.
+:type button: str
+:throws: RuntimeError if the button is not configured.
+```
+
+The button must belong to the current button list.
+
+**Example:**
+```
+import gom.api.dialog
+
+notification = gom.api.dialog.create_notification('information', ['cancel', 'save'])
+notification.set_default_button('cancel')
+```
+
+#### gom.api.dialog.Notification.set_help_id
+
+```{py:function} gom.api.dialog.Notification.set_help_id(help_id: str): None
+
+Set the help topic associated with the dialog
+:param help_id: Application help identifier, or an empty string to remove it.
+:type help_id: str
+```
+
+**Example:**
+```
+import gom.api.dialog
+
+notification = gom.api.dialog.create_notification('information', ['ok'])
+notification.set_help_id('project/save')
+```
+
+#### gom.api.dialog.Notification.set_message
+
+```{py:function} gom.api.dialog.Notification.set_message(message: str): None
+
+Set the dialog message
+:param message: New message text.
+:type message: str
+```
+
+**Example:**
+```
+import gom.api.dialog
+
+notification = gom.api.dialog.create_notification('information', ['ok'])
+notification.set_message('Save your changes before closing?')
+```
+
+#### gom.api.dialog.Notification.set_title
+
+```{py:function} gom.api.dialog.Notification.set_title(title: str): None
+
+Set the dialog title
+:param title: New dialog title.
+:type title: str
+```
+
+**Example:**
+```
+import gom.api.dialog
+
+notification = gom.api.dialog.create_notification('information', ['ok'])
+notification.set_title('Unsaved changes')
+```
+
+#### gom.api.dialog.Notification.set_type
+
+```{py:function} gom.api.dialog.Notification.set_type(type: str): None
+
+Change the notification type
+:param type: One of `error`, `warning`, `information`, or `question`.
+:type type: str
+:throws: RuntimeError if `type` is not supported.
+```
+
+Type identifiers are case-insensitive. Changing the type preserves the selected buttons and custom labels.
+
+**Example:**
+```
+import gom.api.dialog
+
+notification = gom.api.dialog.create_notification('information', ['ok'])
+notification.set_type('warning')
+```
+
+#### gom.api.dialog.Notification.show
+
+```{py:function} gom.api.dialog.Notification.show(): str
+
+Show the dialog and return the user's choice
+:return: Selected button ID or `rejected`.
+:rtype: str
+```
+
+Showing is synchronous and modal. The result is a canonical lowercase button ID, or `rejected` if the dialog is
+closed without selecting one of its configured buttons.
+
+**Example:**
+```
+import gom.api.dialog
+
+notification = gom.api.dialog.create_notification('information', ['ok'], message='Measurement complete')
+result = notification.show()
+```
 
 ### gom.api.dialog.create
 
@@ -781,6 +1058,42 @@ When called with a scripted contribution's context (e.g. from a custom element's
 definition is resolved relative to that contribution's add-on content. When called without a context (`context`
 omitted), the dialog definition is resolved directly relative to the calling script instead.
 
+### gom.api.dialog.create_notification
+
+```{py:function} gom.api.dialog.create_notification(type: str, buttons: list[str], title: str='', message: str='', help_id: str=''): gom.api.dialog.Notification
+
+Create a configurable notification dialog
+:param type: Notification type: `error`, `warning`, `information`, or `question` (case-insensitive).
+:type type: str
+:param buttons: One to three ordered button IDs; their order determines the display order.
+:type buttons: list[str]
+:param title: Dialog title.
+:type title: str=''
+:param message: Message shown in the dialog.
+:type message: str=''
+:param help_id: Optional help identifier opened by the dialog's help action.
+:type help_id: str=''
+:return: A dialog object that can be configured and shown.
+:rtype: gom.api.dialog.Notification
+:throws: RuntimeError if the type or any button ID is unknown, or the button list is invalid.
+```
+
+Creates a modal notification using the application's native notification style. The list order is the button
+display order. The dialog is not shown until `show()` is called. Use `get_available_button_types()` to inspect valid
+button IDs.
+
+**Example:**
+```
+import gom
+import gom.api.dialog
+
+dialog = gom.api.dialog.create_notification(
+    'warning', ['cancel', 'discard', 'save'],
+    title='Close project?', message='Save changes before closing?')
+dialog.set_default_button('cancel')
+result = dialog.show()  # 'cancel', 'discard', 'save', or 'rejected'
+```
+
 ### gom.api.dialog.execute
 
 ```{py:function} gom.api.dialog.execute(context: Any, url: str): Any
@@ -803,6 +1116,42 @@ This function is part of the scripted contribution framework. It can be used in 
 contributions script context is mandatory for the function to work.
 
 \attention This function is not enabled outside of the custom elements scripted contribution framework.
+
+### gom.api.dialog.get_available_button_types
+
+```{py:function} gom.api.dialog.get_available_button_types(): list[str]
+
+List the supported notification button types
+:return: Supported button IDs in canonical lowercase form.
+:rtype: list[str]
+```
+
+The returned IDs use localized standard-button labels and can be used without custom text.
+
+**Example:**
+```
+import gom.api.dialog
+
+button_ids = gom.api.dialog.get_available_button_types()
+```
+
+### gom.api.dialog.get_notification_types
+
+```{py:function} gom.api.dialog.get_notification_types(): list[str]
+
+List the supported notification types
+:return: Supported notification type identifiers: `error`, `warning`, `information`, and `question`.
+:rtype: list[str]
+```
+
+The returned identifiers are canonical lowercase strings and can be passed to `create_notification`.
+
+**Example:**
+```
+import gom.api.dialog
+
+notification_types = gom.api.dialog.get_notification_types()
+```
 
 ### gom.api.dialog.show
 
