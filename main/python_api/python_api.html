@@ -518,8 +518,24 @@ window.runMermaid = runMermaid;</script>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gom-api-dialog">gom.api.dialog</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-dialog-notification">gom.api.dialog.Notification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-dialog-notification-get-button-ids">gom.api.dialog.Notification.get_button_ids</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-dialog-notification-get-configuration">gom.api.dialog.Notification.get_configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-dialog-notification-set-button-text">gom.api.dialog.Notification.set_button_text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-dialog-notification-set-buttons">gom.api.dialog.Notification.set_buttons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-dialog-notification-set-default-button">gom.api.dialog.Notification.set_default_button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-dialog-notification-set-help-id">gom.api.dialog.Notification.set_help_id</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-dialog-notification-set-message">gom.api.dialog.Notification.set_message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-dialog-notification-set-title">gom.api.dialog.Notification.set_title</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-dialog-notification-set-type">gom.api.dialog.Notification.set_type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gom-api-dialog-notification-show">gom.api.dialog.Notification.show</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-dialog-create">gom.api.dialog.create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-dialog-create-notification">gom.api.dialog.create_notification</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-dialog-execute">gom.api.dialog.execute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-dialog-get-available-button-types">gom.api.dialog.get_available_button_types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gom-api-dialog-get-notification-types">gom.api.dialog.get_notification_types</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gom-api-dialog-show">gom.api.dialog.show</a></li>
 </ul>
 </li>
@@ -1990,8 +2006,318 @@ an element.</p>
 <section id="gom-api-dialog">
 <h2>gom.api.dialog<a class="headerlink" href="#gom-api-dialog" title="Link to this heading"></a></h2>
 <p>API for handling dialogs</p>
-<p>This API is used to create and execute script based dialogs. The dialogs are defined in a
-JSON based description format and can be executed server side in the native UI style.</p>
+<p>This module provides dialogs in the application’s native UI style. Use a notification to present a message
+or ask the user to choose an action. Use a script-based dialog when a custom layout and input fields are needed.</p>
+<p><strong>Notifications</strong></p>
+<p>A notification has a type (<code class="docutils literal notranslate"><span class="pre">error</span></code>, <code class="docutils literal notranslate"><span class="pre">warning</span></code>, <code class="docutils literal notranslate"><span class="pre">information</span></code>, or <code class="docutils literal notranslate"><span class="pre">question</span></code>), a title, a message, and one to
+three buttons. Choose the type that describes the situation: an existing problem, a possible future problem, a
+factual notice, or a question about an action. Create it with <code class="docutils literal notranslate"><span class="pre">create_notification()</span></code>, optionally configure it,
+and call its <code class="docutils literal notranslate"><span class="pre">show()</span></code> method. Showing a notification blocks the script until the dialog is dismissed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span>
+    <span class="s1">'information'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ok'</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Measurement complete'</span><span class="p">,</span>
+    <span class="n">message</span><span class="o">=</span><span class="s1">'The measurement has finished.'</span><span class="p">)</span>
+<span class="n">notification</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Button IDs are <code class="docutils literal notranslate"><span class="pre">ok</span></code>, <code class="docutils literal notranslate"><span class="pre">cancel</span></code>, <code class="docutils literal notranslate"><span class="pre">retry</span></code>, <code class="docutils literal notranslate"><span class="pre">close</span></code>, <code class="docutils literal notranslate"><span class="pre">save</span></code>, and <code class="docutils literal notranslate"><span class="pre">discard</span></code>. Supply them in display order; their
+standard labels are localized. <code class="docutils literal notranslate"><span class="pre">show()</span></code> returns the selected ID in lowercase, or <code class="docutils literal notranslate"><span class="pre">rejected</span></code> if the dialog is
+closed without selecting a configured button. Custom button text changes the label, not the returned ID. By
+default, <code class="docutils literal notranslate"><span class="pre">cancel</span></code> is focused when present; otherwise the only button is focused, or no default is selected for
+multiple buttons. Use <code class="docutils literal notranslate"><span class="pre">set_default_button()</span></code> to select a different configured button.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span>
+    <span class="s1">'question'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'cancel'</span><span class="p">,</span> <span class="s1">'discard'</span><span class="p">,</span> <span class="s1">'save'</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">'Close project?'</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">'Save changes before closing?'</span><span class="p">)</span>
+<span class="n">notification</span><span class="o">.</span><span class="n">set_button_text</span><span class="p">(</span><span class="s1">'save'</span><span class="p">,</span> <span class="s1">'Save changes'</span><span class="p">)</span>
+<span class="n">choice</span> <span class="o">=</span> <span class="n">notification</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">'save'</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Save selected'</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">'discard'</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Discard selected'</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Closing cancelled'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">get_notification_types()</span></code> and <code class="docutils literal notranslate"><span class="pre">get_available_button_types()</span></code> to discover the supported IDs. See
+<code class="docutils literal notranslate"><span class="pre">Notification</span></code> for configuration methods and examples of each notification type.</p>
+<p><strong>Script-based dialogs</strong></p>
+<p>Script-based dialogs use a JSON-based dialog definition. In the scripted contribution framework,
+<code class="docutils literal notranslate"><span class="pre">execute(context,</span> <span class="pre">url)</span></code> creates and shows a dialog in one step. Alternatively, <code class="docutils literal notranslate"><span class="pre">create(context,</span> <span class="pre">url)</span></code> returns
+a handle that can be configured before <code class="docutils literal notranslate"><span class="pre">show(context,</span> <span class="pre">dialog)</span></code> executes it. <code class="docutils literal notranslate"><span class="pre">execute()</span></code> and <code class="docutils literal notranslate"><span class="pre">show()</span></code> return the
+dialog’s input values when it is accepted. <code class="docutils literal notranslate"><span class="pre">create()</span></code> can also resolve a definition relative to the calling script
+when no contribution context is supplied; <code class="docutils literal notranslate"><span class="pre">show()</span></code> and <code class="docutils literal notranslate"><span class="pre">execute()</span></code> require a contribution context.</p>
+<section id="gom-api-dialog-notification">
+<h3>gom.api.dialog.Notification<a class="headerlink" href="#gom-api-dialog-notification" title="Link to this heading"></a></h3>
+<p>Configurable modal notification dialog</p>
+<p>Use this dialog to report an existing problem, warn about a condition that may cause a future problem, present a
+factual notice, or ask the user to take a deliberate action. Create it with <code class="docutils literal notranslate"><span class="pre">gom.api.dialog.create_notification</span></code>,
+configure it with one to three buttons, and call <code class="docutils literal notranslate"><span class="pre">show()</span></code> to display it and receive the selected button ID.</p>
+<p><strong>Notification types</strong></p>
+<p><strong>Error (<code class="docutils literal notranslate"><span class="pre">error</span></code>)</strong> — Describe an existing problem and, when possible, its cause and a possible solution.</p>
+<p><img alt="Error notification dialog" src="../_images/notification_dialog_api_error.png" /></p>
+<p><strong>Warning (<code class="docutils literal notranslate"><span class="pre">warning</span></code>)</strong> — Describe a condition that may cause a future problem.</p>
+<p><img alt="Warning notification dialog" src="../_images/notification_dialog_api_warning.png" /></p>
+<p><strong>Information (<code class="docutils literal notranslate"><span class="pre">information</span></code>)</strong> — Present a statement of fact.</p>
+<p><img alt="Information notification dialog" src="../_images/notification_dialog_api_information.png" /></p>
+<p><strong>Question (<code class="docutils literal notranslate"><span class="pre">question</span></code>)</strong> — Ask the user a question and explain the action and its consequences so they can decide
+deliberately.</p>
+<p><img alt="Question notification dialog" src="../_images/notification_dialog_api_question.png" /></p>
+<section id="gom-api-dialog-notification-get-button-ids">
+<h4>gom.api.dialog.Notification.get_button_ids<a class="headerlink" href="#gom-api-dialog-notification-get-button-ids" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.Notification.get_button_ids():</span> <span class="pre">list[str]</span></span></dt>
+<dd><p>Return the current button IDs</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Button IDs in display order.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>IDs are returned in display order, in canonical lowercase form, and are independent of visible label overrides.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span><span class="s1">'information'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'cancel'</span><span class="p">,</span> <span class="s1">'discard'</span><span class="p">,</span> <span class="s1">'save'</span><span class="p">])</span>
+<span class="n">button_ids</span> <span class="o">=</span> <span class="n">notification</span><span class="o">.</span><span class="n">get_button_ids</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">button_ids</span><span class="p">)</span>
+<span class="c1"># ['cancel', 'discard', 'save']</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-dialog-notification-get-configuration">
+<h4>gom.api.dialog.Notification.get_configuration<a class="headerlink" href="#gom-api-dialog-notification-get-configuration" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.Notification.get_configuration():</span> <span class="pre">dict</span></span></dt>
+<dd><p>Return the current dialog configuration</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A snapshot of the current configuration.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The dictionary contains <code class="docutils literal notranslate"><span class="pre">type</span></code>, <code class="docutils literal notranslate"><span class="pre">title</span></code>, <code class="docutils literal notranslate"><span class="pre">message</span></code>, <code class="docutils literal notranslate"><span class="pre">buttons</span></code>, <code class="docutils literal notranslate"><span class="pre">button_texts</span></code>, <code class="docutils literal notranslate"><span class="pre">default_button</span></code>, and <code class="docutils literal notranslate"><span class="pre">help_id</span></code>.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span>
+    <span class="s1">'warning'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'cancel'</span><span class="p">,</span> <span class="s1">'save'</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Unsaved changes'</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">'Save before closing?'</span><span class="p">)</span>
+<span class="n">configuration</span> <span class="o">=</span> <span class="n">notification</span><span class="o">.</span><span class="n">get_configuration</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">configuration</span><span class="p">)</span>
+<span class="c1"># {'button_texts': {}, 'buttons': ['cancel', 'save'], 'default_button': 'cancel',</span>
+<span class="c1">#  'help_id': '', 'message': 'Save before closing?', 'title': 'Unsaved changes',</span>
+<span class="c1">#  'type': 'warning'}</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-dialog-notification-set-button-text">
+<h4>gom.api.dialog.Notification.set_button_text<a class="headerlink" href="#gom-api-dialog-notification-set-button-text" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.Notification.set_button_text(button:</span> <span class="pre">str,</span> <span class="pre">text:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Change a button’s visible label</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>button</strong> (<em>str</em>) – Canonical button ID, such as <code class="docutils literal notranslate"><span class="pre">cancel</span></code> or <code class="docutils literal notranslate"><span class="pre">retry</span></code>.</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – Visible label; does not change the result ID returned by <code class="docutils literal notranslate"><span class="pre">show()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p>RuntimeError if the button is not configured or the label is not allowed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The button ID is case-insensitive and must belong to the current button list. Passing an empty string restores its
+localized default label. The selected button is identified by its button ID. <code class="docutils literal notranslate"><span class="pre">Confirm</span></code> is reserved for security
+warnings and is unavailable through this API.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span><span class="s1">'information'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'save'</span><span class="p">])</span>
+<span class="n">notification</span><span class="o">.</span><span class="n">set_button_text</span><span class="p">(</span><span class="s1">'save'</span><span class="p">,</span> <span class="s1">'Save a copy'</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-dialog-notification-set-buttons">
+<h4>gom.api.dialog.Notification.set_buttons<a class="headerlink" href="#gom-api-dialog-notification-set-buttons" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.Notification.set_buttons(buttons:</span> <span class="pre">list[str]):</span> <span class="pre">None</span></span></dt>
+<dd><p>Replace the notification’s buttons and their display order</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>buttons</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – One to three supported button IDs. Their order determines the display order.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p>RuntimeError if a button ID is unsupported, duplicated, or the list is empty or too long.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Button IDs are used in list order. Replacing the list clears custom labels and selects a conservative default:
+<code class="docutils literal notranslate"><span class="pre">cancel</span></code> when present, the only button for a single-button notification, or no default for other combinations.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span><span class="s1">'information'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ok'</span><span class="p">])</span>
+<span class="n">notification</span><span class="o">.</span><span class="n">set_buttons</span><span class="p">([</span><span class="s1">'cancel'</span><span class="p">,</span> <span class="s1">'discard'</span><span class="p">,</span> <span class="s1">'save'</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-dialog-notification-set-default-button">
+<h4>gom.api.dialog.Notification.set_default_button<a class="headerlink" href="#gom-api-dialog-notification-set-default-button" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.Notification.set_default_button(button:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the initially focused button</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>button</strong> (<em>str</em>) – Button ID to focus initially.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p>RuntimeError if the button is not configured.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The button must belong to the current button list.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span><span class="s1">'information'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'cancel'</span><span class="p">,</span> <span class="s1">'save'</span><span class="p">])</span>
+<span class="n">notification</span><span class="o">.</span><span class="n">set_default_button</span><span class="p">(</span><span class="s1">'cancel'</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-dialog-notification-set-help-id">
+<h4>gom.api.dialog.Notification.set_help_id<a class="headerlink" href="#gom-api-dialog-notification-set-help-id" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.Notification.set_help_id(help_id:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the help topic associated with the dialog</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>help_id</strong> (<em>str</em>) – Application help identifier, or an empty string to remove it.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span><span class="s1">'information'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ok'</span><span class="p">])</span>
+<span class="n">notification</span><span class="o">.</span><span class="n">set_help_id</span><span class="p">(</span><span class="s1">'project/save'</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-dialog-notification-set-message">
+<h4>gom.api.dialog.Notification.set_message<a class="headerlink" href="#gom-api-dialog-notification-set-message" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.Notification.set_message(message:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the dialog message</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>str</em>) – New message text.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span><span class="s1">'information'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ok'</span><span class="p">])</span>
+<span class="n">notification</span><span class="o">.</span><span class="n">set_message</span><span class="p">(</span><span class="s1">'Save your changes before closing?'</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-dialog-notification-set-title">
+<h4>gom.api.dialog.Notification.set_title<a class="headerlink" href="#gom-api-dialog-notification-set-title" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.Notification.set_title(title:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Set the dialog title</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>title</strong> (<em>str</em>) – New dialog title.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span><span class="s1">'information'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ok'</span><span class="p">])</span>
+<span class="n">notification</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Unsaved changes'</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-dialog-notification-set-type">
+<h4>gom.api.dialog.Notification.set_type<a class="headerlink" href="#gom-api-dialog-notification-set-type" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.Notification.set_type(type:</span> <span class="pre">str):</span> <span class="pre">None</span></span></dt>
+<dd><p>Change the notification type</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type</strong> (<em>str</em>) – One of <code class="docutils literal notranslate"><span class="pre">error</span></code>, <code class="docutils literal notranslate"><span class="pre">warning</span></code>, <code class="docutils literal notranslate"><span class="pre">information</span></code>, or <code class="docutils literal notranslate"><span class="pre">question</span></code>.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p>RuntimeError if <code class="docutils literal notranslate"><span class="pre">type</span></code> is not supported.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Type identifiers are case-insensitive. Changing the type preserves the selected buttons and custom labels.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span><span class="s1">'information'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ok'</span><span class="p">])</span>
+<span class="n">notification</span><span class="o">.</span><span class="n">set_type</span><span class="p">(</span><span class="s1">'warning'</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-dialog-notification-show">
+<h4>gom.api.dialog.Notification.show<a class="headerlink" href="#gom-api-dialog-notification-show" title="Link to this heading"></a></h4>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.Notification.show():</span> <span class="pre">str</span></span></dt>
+<dd><p>Show the dialog and return the user’s choice</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Selected button ID or <code class="docutils literal notranslate"><span class="pre">rejected</span></code>.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Showing is synchronous and modal. The result is a canonical lowercase button ID, or <code class="docutils literal notranslate"><span class="pre">rejected</span></code> if the dialog is
+closed without selecting one of its configured buttons.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span><span class="s1">'information'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ok'</span><span class="p">],</span> <span class="n">message</span><span class="o">=</span><span class="s1">'Measurement complete'</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">notification</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="gom-api-dialog-create">
 <h3>gom.api.dialog.create<a class="headerlink" href="#gom-api-dialog-create" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -2022,6 +2348,49 @@ showing it.</p>
 definition is resolved relative to that contribution’s add-on content. When called without a context (<code class="docutils literal notranslate"><span class="pre">context</span></code>
 omitted), the dialog definition is resolved directly relative to the calling script instead.</p>
 </section>
+<section id="gom-api-dialog-create-notification">
+<h3>gom.api.dialog.create_notification<a class="headerlink" href="#gom-api-dialog-create-notification" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.create_notification(type:</span> <span class="pre">str,</span> <span class="pre">buttons:</span> <span class="pre">list[str],</span> <span class="pre">title:</span> <span class="pre">str='',</span> <span class="pre">message:</span> <span class="pre">str='',</span> <span class="pre">help_id:</span> <span class="pre">str=''):</span> <span class="pre">gom.api.dialog.Notification</span></span></dt>
+<dd><p>Create a configurable notification dialog</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<em>str</em>) – Notification type: <code class="docutils literal notranslate"><span class="pre">error</span></code>, <code class="docutils literal notranslate"><span class="pre">warning</span></code>, <code class="docutils literal notranslate"><span class="pre">information</span></code>, or <code class="docutils literal notranslate"><span class="pre">question</span></code> (case-insensitive).</p></li>
+<li><p><strong>buttons</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – One to three ordered button IDs; their order determines the display order.</p></li>
+<li><p><strong>title</strong> (<em>str=''</em>) – Dialog title.</p></li>
+<li><p><strong>message</strong> (<em>str=''</em>) – Message shown in the dialog.</p></li>
+<li><p><strong>help_id</strong> (<em>str=''</em>) – Optional help identifier opened by the dialog’s help action.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dialog object that can be configured and shown.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>gom.api.dialog.Notification</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p>RuntimeError if the type or any button ID is unknown, or the button list is invalid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Creates a modal notification using the application’s native notification style. The list order is the button
+display order. The dialog is not shown until <code class="docutils literal notranslate"><span class="pre">show()</span></code> is called. Use <code class="docutils literal notranslate"><span class="pre">get_available_button_types()</span></code> to inspect valid
+button IDs.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">dialog</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">create_notification</span><span class="p">(</span>
+    <span class="s1">'warning'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'cancel'</span><span class="p">,</span> <span class="s1">'discard'</span><span class="p">,</span> <span class="s1">'save'</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">'Close project?'</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">'Save changes before closing?'</span><span class="p">)</span>
+<span class="n">dialog</span><span class="o">.</span><span class="n">set_default_button</span><span class="p">(</span><span class="s1">'cancel'</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">dialog</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># 'cancel', 'discard', 'save', or 'rejected'</span>
+</pre></div>
+</div>
+</section>
 <section id="gom-api-dialog-execute">
 <h3>gom.api.dialog.execute<a class="headerlink" href="#gom-api-dialog-execute" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -2051,6 +2420,54 @@ confirmed or cancelled.</p>
 ‘dialog’ functions to pop up user input dialogs, e.g. for creation commands. Passing of the
 contributions script context is mandatory for the function to work.</p>
 <p>\attention This function is not enabled outside of the custom elements scripted contribution framework.</p>
+</section>
+<section id="gom-api-dialog-get-available-button-types">
+<h3>gom.api.dialog.get_available_button_types<a class="headerlink" href="#gom-api-dialog-get-available-button-types" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.get_available_button_types():</span> <span class="pre">list[str]</span></span></dt>
+<dd><p>List the supported notification button types</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Supported button IDs in canonical lowercase form.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The returned IDs use localized standard-button labels and can be used without custom text.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">button_ids</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">get_available_button_types</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="gom-api-dialog-get-notification-types">
+<h3>gom.api.dialog.get_notification_types<a class="headerlink" href="#gom-api-dialog-get-notification-types" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gom.api.dialog.get_notification_types():</span> <span class="pre">list[str]</span></span></dt>
+<dd><p>List the supported notification types</p>
+<dl class="myst field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Supported notification type identifiers: <code class="docutils literal notranslate"><span class="pre">error</span></code>, <code class="docutils literal notranslate"><span class="pre">warning</span></code>, <code class="docutils literal notranslate"><span class="pre">information</span></code>, and <code class="docutils literal notranslate"><span class="pre">question</span></code>.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The returned identifiers are canonical lowercase strings and can be passed to <code class="docutils literal notranslate"><span class="pre">create_notification</span></code>.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gom.api.dialog</span>
+
+<span class="n">notification_types</span> <span class="o">=</span> <span class="n">gom</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">dialog</span><span class="o">.</span><span class="n">get_notification_types</span><span class="p">()</span>
+</pre></div>
+</div>
 </section>
 <section id="gom-api-dialog-show">
 <h3>gom.api.dialog.show<a class="headerlink" href="#gom-api-dialog-show" title="Link to this heading"></a></h3>
@@ -10883,7 +11300,7 @@ in the UI until the scope is left again.</p>
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x78ef72ec17f0>
+  <jinja2.runtime.BlockReference object at 0x784540184a60>
 
 
 </footer>
