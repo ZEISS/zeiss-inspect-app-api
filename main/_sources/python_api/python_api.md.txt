@@ -5449,7 +5449,7 @@ Event types passed to the `event ()` function
 :type renderer: str
 :param functions: List of functions that can be called by the JavaScript renderer. (OPTIONAL, default: []).
 :type functions: List[Any]
-:param properties: Additional properties. (OPTIONAL, default: {}) - `custom_preload`: Small JS file injected before the renderer starts (helpers / polyfills). - `stylesheet`: Path to the CSS stylesheet for the renderer.
+:param properties: Additional properties. (OPTIONAL, default: {}) - `stylesheet`: Path to the CSS stylesheet for the renderer.
 :type properties: Dict[str, Any]
 :param bundle: Packages NPM bundle this custom view related on. (OPTIONAL, default: None).
 :type bundle: str
@@ -5824,7 +5824,7 @@ Data types returned by `get_data_types ()` that determine the load mechanism for
 :type functions: List[Any]
 :param signals: List of signals that can be emitted by the JavaScript renderer. (OPTIONAL, default: [])
 :type signals: List[str]
-:param properties: Additional properties. (OPTIONAL, default: {}) - `custom_preload`: Small JS file injected before the renderer starts (helpers / polyfills). - `save_timeout_ms`: Editor save debounce timeout in milliseconds. (default: 1000ms)
+:param properties: Additional properties. (OPTIONAL, default: {}) - `save_timeout_ms`: Editor save debounce timeout in milliseconds. (default: 1000ms)
 :type properties: Dict[str, Any]
 ```
 
@@ -5949,7 +5949,7 @@ other view types.
 :type functions: List[Any]
 :param signals: List of signals that can be emitted by the JavaScript renderer. (OPTIONAL, default: [])
 :type signals: List[str]
-:param properties: Additional properties. (OPTIONAL, default: {}) - `custom_preload`: Small JS file injected before the renderer starts (helpers / polyfills).
+:param properties: Additional properties. (OPTIONAL, default: {})
 :type properties: Dict[str, Any]
 ```
 
@@ -6084,6 +6084,11 @@ Deprecated alias for `CustomCanvas`. Use `CustomCanvas` instead.
 
 
 Deprecated alias for `CustomEditor`. Use `CustomEditor` instead.
+
+#### gom.api.extensions.views.ScriptedUtilityView
+
+
+Deprecated alias for `CustomUtilityView`. Use `CustomUtilityView` instead.
 
 #### gom.api.extensions.views.ScriptedView
 
@@ -7556,101 +7561,6 @@ Unload resource from shared memory
 :rtype: bool
 ```
 
-
-## gom.api.scripted_checks_util
-
-Tool functions for scripted checks
-
-
-### gom.api.scripted_checks_util.is_curve_checkable
-
-```{py:function} gom.api.scripted_checks_util.is_curve_checkable(element: gom.Object): bool
-
-Checks if the referenced element is suitable for inspection with a curve check
-:API version: 1
-:param element: Element reference to check
-:type element: gom.Object
-:return: 'true' if the element is checkable like a curve
-:rtype: bool
-```
-
-This function checks if the given element can be inspected like a curve in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.
-
-### gom.api.scripted_checks_util.is_scalar_checkable
-
-```{py:function} gom.api.scripted_checks_util.is_scalar_checkable(element: gom.Object): bool
-
-Checks if the referenced element is suitable for inspection with a scalar check
-:API version: 1
-:param element: Element reference to check
-:type element: gom.Object
-:return: 'true' if the element is checkable like a scalar value
-:rtype: bool
-```
-
-This function checks if the given element can be inspected like a scalar value in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.
-
-### gom.api.scripted_checks_util.is_surface_checkable
-
-```{py:function} gom.api.scripted_checks_util.is_surface_checkable(element: gom.Object): bool
-
-Checks if the referenced element is suitable for inspection with a surface check
-:API version: 1
-:param element: Element reference to check
-:type element: gom.Object
-:return: 'true' if the element is checkable like a surface
-:rtype: bool
-```
-
-This function checks if the given element can be inspected like a surface in the context of scripted
-elements. Please see the scripted element documentation for details about the underlying scheme.
-
-## gom.api.scriptedelements
-
-API for handling scripted elements
-
-This API defines various functions for handling scripted elements (actuals, inspections, nominal, diagrams, ...)
-It is used mostly internally by the scripted element framework.
-
-### gom.api.scriptedelements.get_dimension_definition
-
-```{py:function} gom.api.scriptedelements.get_dimension_definition(typename: str): Any
-
-Return information about the given dimension
-:param name: Name of the dimension
-:return: Dictionary with relevant dimension information or an empty dictionary if the name does not refer to a dimension
-:rtype: Any
-```
-
-A physical dimension (or just "dimension") refers to the fundamental nature of what is measured - like length,
-time, mass, temperature, angle, etc. These represent the qualitative aspect of measurement. This is different
-from a unit: Unit refers to the specific standard of measurement used to quantify that dimension - like meter,
-millimeter, inch for length; or degree, radian for angle.
-
-### gom.api.scriptedelements.get_dimensions
-
-```{py:function} gom.api.scriptedelements.get_dimensions(): [str]
-
-Return available dimensions
-:return: List of known dimensions
-:rtype: [str]
-```
-
-
-### gom.api.scriptedelements.get_inspection_definition
-
-```{py:function} gom.api.scriptedelements.get_inspection_definition(typename: str): Any
-
-Return information about the given scripted element type
-:param type_name: Type name of the inspection to query
-:return: Dictionary with relevant type information or an empty dictionary if the type is unknown
-:rtype: Any
-```
-
-This function queries in internal 'scalar registry' database for information about the
-inspection with the given type.
 
 ## gom.api.selection
 
