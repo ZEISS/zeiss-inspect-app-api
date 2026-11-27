@@ -4,8 +4,26 @@
     <title>ZEISS INSPECT 2027 App Development Documentation News</title>
     <link>https://zeiss.github.io/zeiss-inspect-app-api/2027/</link>
     <description></description>
-    <lastBuildDate>Fri, 27 Nov 2026 08:16:06 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Nov 2026 09:07:37 GMT</lastBuildDate>
     <generator>sphinxcontrib-newsfeed</generator>
+    <item>
+      <title>Custom Elements in ZEISS INSPECT 2027</title>
+      <link>https://zeiss.github.io/zeiss-inspect-app-api/2027/news/20261127-custom-elements.html</link>
+      <description>&lt;div class="compound"&gt;
+&lt;p&gt;In ZEISS INSPECT 2027, &lt;a class="reference internal" href="../howtos/custom_elements/custom_elements_toc.html"&gt;&lt;span class="std std-doc"&gt;custom elements&lt;/span&gt;&lt;/a&gt; are the standard replacement for scripted elements. They allow Apps to extend the software with application-specific geometry and inspections that integrate into familiar project workflows. Existing scripted elements remain supported for backward compatibility.&lt;/p&gt;
+&lt;p&gt;The updated documentation introduces the current API and expands the guidance for three areas:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference internal" href="../howtos/custom_elements/custom_nominals_actuals.html"&gt;&lt;span class="std std-doc"&gt;Custom nominal/actual elements&lt;/span&gt;&lt;/a&gt; define geometry such as points, curves, and surfaces using Python. They can depend on other project elements and are recalculated when those dependencies change.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference internal" href="../howtos/custom_elements/custom_inspections.html"&gt;&lt;span class="std std-doc"&gt;Custom inspections&lt;/span&gt;&lt;/a&gt; evaluate scalar properties, curves, or surfaces using application-specific calculations. They can be created interactively through I-Inspect or directly from Python scripts, with tolerances for evaluating the results.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference internal" href="../howtos/custom_elements/custom_sequences.html"&gt;&lt;span class="std std-doc"&gt;Custom sequences&lt;/span&gt;&lt;/a&gt; combine regular element creation commands into one coordinated, editable unit. The new guide explains how to keep the sequence configuration synchronized when users edit its child elements.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The expanded collection of &lt;a href="../python_examples/examples_overview.html#custom-elements-how-to-create-custom-elements"&gt;custom element example Apps&lt;/a&gt; provides practical starting points for development. Examples cover nominal and actual geometry, inspections, and sequences.&lt;/p&gt;
+&lt;p&gt;Start with the linked how-to guides for the concepts and implementation workflow. For class definitions and detailed requirements, see the &lt;a href="../python_api/python_api.html#gom-api-extensions"&gt;Extensions API reference&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+      <guid>https://zeiss.github.io/zeiss-inspect-app-api/2027/news/20261127-custom-elements.html</guid>
+      <pubDate>Fri, 27 Nov 2026 09:55:00 GMT</pubDate>
+    </item>
     <item>
       <title>Python Interpreter Update</title>
       <link>https://zeiss.github.io/zeiss-inspect-app-api/2027/news/20261113-python-versions.html</link>

@@ -22,7 +22,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Python Interpreter Update" href="20261113-python-versions.html" />
+    <link rel="next" title="Custom Elements in ZEISS INSPECT 2027" href="20261127-custom-elements.html" />
     <link rel="prev" title="ZEISS INSPECT 2027 App Development Documentation" href="../index.html" /> 
     <link rel="alternate" type="application/rss+xml" title="ZEISS INSPECT App Python API News Feed" href="../index.rss" />
 </head>
@@ -130,6 +130,19 @@
 <p><a href="../index.rss">​<i class="fa fa-rss-square"></i> Subscribe to RSS News Feed</a></p>
 <div class="toctree-wrapper compound">
 </div>
+<section id="custom-elements-in-zeiss-inspect-2027">
+<h2><a class="feed-ref reference internal" href="20261127-custom-elements.html#custom-elements-in-zeiss-inspect-2027">Custom Elements in ZEISS INSPECT 2027</a><a class="headerlink" href="#custom-elements-in-zeiss-inspect-2027" title="Link to this heading"></a></h2>
+<p class="feed-meta">Published on <em class="feed-date">2026-11-27 09:55:00</em></p>
+<p>In ZEISS INSPECT 2027, <a class="reference internal" href="../howtos/custom_elements/custom_elements_toc.html"><span class="std std-doc">custom elements</span></a> are the standard replacement for scripted elements. They allow Apps to extend the software with application-specific geometry and inspections that integrate into familiar project workflows. Existing scripted elements remain supported for backward compatibility.</p>
+<p>The updated documentation introduces the current API and expands the guidance for three areas:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../howtos/custom_elements/custom_nominals_actuals.html"><span class="std std-doc">Custom nominal/actual elements</span></a> define geometry such as points, curves, and surfaces using Python. They can depend on other project elements and are recalculated when those dependencies change.</p></li>
+<li><p><a class="reference internal" href="../howtos/custom_elements/custom_inspections.html"><span class="std std-doc">Custom inspections</span></a> evaluate scalar properties, curves, or surfaces using application-specific calculations. They can be created interactively through I-Inspect or directly from Python scripts, with tolerances for evaluating the results.</p></li>
+<li><p><a class="reference internal" href="../howtos/custom_elements/custom_sequences.html"><span class="std std-doc">Custom sequences</span></a> combine regular element creation commands into one coordinated, editable unit. The new guide explains how to keep the sequence configuration synchronized when users edit its child elements.</p></li>
+</ul>
+<p>The expanded collection of <a href="../python_examples/examples_overview.html#custom-elements-how-to-create-custom-elements">custom element example Apps</a> provides practical starting points for development. Examples cover nominal and actual geometry, inspections, and sequences.</p>
+<p>Start with the linked how-to guides for the concepts and implementation workflow. For class definitions and detailed requirements, see the <a href="../python_api/python_api.html#gom-api-extensions">Extensions API reference</a>.</p>
+</section>
 <section id="python-interpreter-update">
 <h2><a class="feed-ref reference internal" href="20261113-python-versions.html#python-interpreter-update">Python Interpreter Update</a><a class="headerlink" href="#python-interpreter-update" title="Link to this heading"></a></h2>
 <p class="feed-meta">Published on <em class="feed-date">2026-11-13 10:00:00</em></p>
@@ -317,7 +330,7 @@ More details can be found in <a href="https://zeiss.github.io/zeiss-inspect-app-
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="ZEISS INSPECT 2027 App Development Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="20261113-python-versions.html" class="btn btn-neutral float-right" title="Python Interpreter Update" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="20261127-custom-elements.html" class="btn btn-neutral float-right" title="Custom Elements in ZEISS INSPECT 2027" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -334,7 +347,7 @@ More details can be found in <a href="https://zeiss.github.io/zeiss-inspect-app-
   <div class="footer">
     <a href="https://imprint.gom.com" target="_blank" rel="noopener noreferrer">Imprint</a>
   </div>
-  <jinja2.runtime.BlockReference object at 0x7847fa89edd0>
+  <jinja2.runtime.BlockReference object at 0x7981785eb150>
 
 
 </footer>
